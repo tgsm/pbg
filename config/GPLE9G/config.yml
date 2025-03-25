@@ -1,0 +1,9 @@
+# See config.example.yml for documentation.
+object_base: orig/GPLE9G
+object: sys/main.dol
+hash: 5501fbd775091bb1724569d76d8dd50814daf44a
+symbols: config/GPLE9G/symbols.txt
+splits: config/GPLE9G/splits.txt
+# Change this to match the linker verison.
+# See config.example.yml for a list.
+mw_comment_version: 11
