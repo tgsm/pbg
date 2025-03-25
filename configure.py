@@ -214,6 +214,7 @@ cflags_engine = [
     "-inline deferred",
     "-opt nopeephole",
     "-opt noschedule",
+    "-fp_contract off",
 ]
 
 # Debug flags
@@ -556,7 +557,7 @@ config.libs = [
             Object(NonMatching, "engine/DKW_Spline.cpp"),
             Object(NonMatching, "engine/DKW_TexDictionary.cpp"),
             Object(NonMatching, "engine/DKW_Texture.cpp"),
-            Object(NonMatching, "engine/DKW_V2d.cpp"),
+            Object(Matching, "engine/DKW_V2d.cpp"),
             Object(NonMatching, "engine/DKW_V3d.cpp"),
             Object(NonMatching, "engine/DKW_Warp.cpp"),
             Object(NonMatching, "engine/DKW_World.cpp"),
