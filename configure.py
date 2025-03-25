@@ -198,9 +198,13 @@ cflags_base = [
     "-str reuse",
     "-multibyte",  # For Wii compilers, replace with `-enc SJIS`
     "-i include",
+    "-i src",
     f"-i build/{config.version}/include",
     f"-DBUILD_VERSION={version_num}",
     f"-DVERSION_{config.version}",
+
+    "-i include/PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Include",
+    "-i include/PowerPC_EABI_Support/msl/MSL_C++/MSL_Common/Include",
 ]
 
 cflags_piglet = [

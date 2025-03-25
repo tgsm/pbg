@@ -1,0 +1,13 @@
+#pragma once
+
+namespace std {
+
+template <typename T>
+struct allocator {
+    // FIXME: This needs to be different for other types, if we end up needing them
+    allocator() {}
+
+    // TODO
+};
+
+}

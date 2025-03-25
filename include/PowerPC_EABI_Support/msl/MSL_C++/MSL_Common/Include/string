@@ -1,0 +1,31 @@
+#pragma once
+
+#include <cstring>
+#include <memory>
+
+namespace std {
+
+template <typename CharT>
+struct char_traits {
+    // TODO
+};
+
+template <typename CharT, typename Traits = char_traits<CharT>, typename Allocator = allocator<CharT> >
+struct basic_string {
+    explicit basic_string(const Allocator& = Allocator());
+    basic_string(const basic_string&);
+    ~basic_string();
+
+    basic_string& assign(const basic_string& other, unsigned long pos, unsigned long n = -1);
+    basic_string& assign(const CharT* c_str, unsigned long count);
+
+    void operator=(const CharT* c_str) {
+        assign(c_str, strlen(c_str));
+    }
+
+    // TODO
+};
+
+typedef basic_string<char> string;
+
+}
