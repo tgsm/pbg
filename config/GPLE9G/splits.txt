@@ -13,13 +13,13 @@ Sections:
 	.sdata2     type:rodata align:16
 	.sbss2      type:bss align:32
 
-main.cpp:
+Piglet/main.cpp:
 	.text       start:0x80008BE0 end:0x80008D34
 	.ctors      start:0x8023EE64 end:0x8023EE68
 	.bss        start:0x8025F6A0 end:0x8025F6B8
 	.sbss       start:0x80296680 end:0x80296688
 
-CGame.cpp:
+Piglet/CGame.cpp:
 	.text       start:0x80008D34 end:0x80011A8C
 	.ctors      start:0x8023EE68 end:0x8023EE6C
 	.data       start:0x80243060 end:0x8024309C
@@ -28,7 +28,7 @@ CGame.cpp:
 	.sbss       start:0x80296688 end:0x80296694
 	.sdata2     start:0x80297780 end:0x802977C8
 
-CGamePartCredits.cpp:
+Piglet/CGamePartCredits.cpp:
 	.text       start:0x80011A8C end:0x800140A8
 	.ctors      start:0x8023EE6C end:0x8023EE70
 	.rodata     start:0x8023F080 end:0x8023F180
@@ -38,7 +38,7 @@ CGamePartCredits.cpp:
 	.sbss       start:0x802966A0 end:0x802966A8
 	.sdata2     start:0x802977C8 end:0x802977F0
 
-CGamePartFrontend.cpp:
+Piglet/CGamePartFrontend.cpp:
 	.text       start:0x800140A8 end:0x80014190
 	.ctors      start:0x8023EE70 end:0x8023EE74
 	.data       start:0x80243908 end:0x80243948
@@ -46,7 +46,7 @@ CGamePartFrontend.cpp:
 	.sdata      start:0x80293D00 end:0x80293D10
 	.sbss       start:0x802966A8 end:0x802966B0
 
-CGamePartIngame.cpp:
+Piglet/CGamePartIngame.cpp:
 	.text       start:0x80014190 end:0x8001861C
 	.ctors      start:0x8023EE74 end:0x8023EE78
 	.data       start:0x80243948 end:0x80243BD8
@@ -55,7 +55,7 @@ CGamePartIngame.cpp:
 	.sbss       start:0x802966B0 end:0x802966B8
 	.sdata2     start:0x802977F0 end:0x80297840
 
-CGamePartIntroduction.cpp:
+Piglet/CGamePartIntroduction.cpp:
 	.text       start:0x8001861C end:0x8001870C
 	.ctors      start:0x8023EE78 end:0x8023EE7C
 	.data       start:0x80243BD8 end:0x80243C18
@@ -63,7 +63,7 @@ CGamePartIntroduction.cpp:
 	.sdata      start:0x80293DC0 end:0x80293DD0
 	.sbss       start:0x802966B8 end:0x802966C0
 
-CGamePart.cpp:
+Piglet/CGamePart.cpp:
 	.text       start:0x8001870C end:0x800187B0
 	.ctors      start:0x8023EE7C end:0x8023EE80
 	.data       start:0x80243C18 end:0x80243C38
@@ -71,7 +71,7 @@ CGamePart.cpp:
 	.sdata      start:0x80293DD0 end:0x80293DD8
 	.sbss       start:0x802966C0 end:0x802966C8
 
-CResourceFactory.cpp:
+Piglet/CResourceFactory.cpp:
 	.text       start:0x800187B0 end:0x8001B8FC
 	.ctors      start:0x8023EE80 end:0x8023EE84
 	.data       start:0x80243C38 end:0x80243EF8
@@ -80,7 +80,7 @@ CResourceFactory.cpp:
 	.sbss       start:0x802966C8 end:0x802966D0
 	.sdata2     start:0x80297840 end:0x80297858
 
-CEntityManager.cpp:
+Piglet/CEntityManager.cpp:
 	.text       start:0x8001B8FC end:0x8001DDBC
 	.ctors      start:0x8023EE84 end:0x8023EE88
 	.data       start:0x80243EF8 end:0x80244208
@@ -89,7 +89,7 @@ CEntityManager.cpp:
 	.sbss       start:0x802966D0 end:0x802966D8
 	.sdata2     start:0x80297858 end:0x80297860
 
-CEntityMesh.cpp:
+Piglet/CEntityMesh.cpp:
 	.text       start:0x8001DDBC end:0x800235FC
 	.ctors      start:0x8023EE88 end:0x8023EE8C
 	.data       start:0x80244208 end:0x80244528
@@ -98,7 +98,7 @@ CEntityMesh.cpp:
 	.sbss       start:0x802966D8 end:0x802966E0
 	.sdata2     start:0x80297860 end:0x80297898
 
-CEntityWarp.cpp:
+Piglet/CEntityWarp.cpp:
 	.text       start:0x800235FC end:0x80023C94
 	.ctors      start:0x8023EE8C end:0x8023EE90
 	.data       start:0x80244528 end:0x802445A8
@@ -106,7 +106,7 @@ CEntityWarp.cpp:
 	.sdata      start:0x80293EC0 end:0x80293EF0
 	.sbss       start:0x802966E0 end:0x802966E8
 
-CEntityWorld.cpp:
+Piglet/CEntityWorld.cpp:
 	.text       start:0x80023C94 end:0x80025008
 	.ctors      start:0x8023EE90 end:0x8023EE94
 	.data       start:0x802445A8 end:0x80244798
@@ -115,7 +115,7 @@ CEntityWorld.cpp:
 	.sbss       start:0x802966E8 end:0x802966F8
 	.sdata2     start:0x80297898 end:0x802978B8
 
-CEntityZone.cpp:
+Piglet/CEntityZone.cpp:
 	.text       start:0x80025008 end:0x80026AC8
 	.ctors      start:0x8023EE94 end:0x8023EE98
 	.data       start:0x80244798 end:0x80244938
@@ -124,7 +124,7 @@ CEntityZone.cpp:
 	.sbss       start:0x802966F8 end:0x80296700
 	.sdata2     start:0x802978B8 end:0x80297900
 
-CEntity.cpp:
+Piglet/CEntity.cpp:
 	.text       start:0x80026AC8 end:0x80027628
 	.ctors      start:0x8023EE98 end:0x8023EE9C
 	.data       start:0x80244938 end:0x802449F8
@@ -133,7 +133,7 @@ CEntity.cpp:
 	.sbss       start:0x80296700 end:0x80296708
 	.sdata2     start:0x80297900 end:0x80297908
 
-CEntityBhvTagData.cpp:
+Piglet/CEntityBhvTagData.cpp:
 	.text       start:0x80027628 end:0x80027770
 	.ctors      start:0x8023EE9C end:0x8023EEA0
 	.data       start:0x802449F8 end:0x80244A20
@@ -141,7 +141,7 @@ CEntityBhvTagData.cpp:
 	.sdata      start:0x80293FE8 end:0x80293FF0
 	.sbss       start:0x80296708 end:0x80296710
 
-CCAKey.cpp:
+Piglet/CCAKey.cpp:
 	.text       start:0x80027770 end:0x80027AF4
 	.ctors      start:0x8023EEA0 end:0x8023EEA4
 	.data       start:0x80244A20 end:0x80244A30
@@ -150,14 +150,14 @@ CCAKey.cpp:
 	.sbss       start:0x80296710 end:0x80296718
 	.sdata2     start:0x80297908 end:0x80297910
 
-CCASystem.cpp:
+Piglet/CCASystem.cpp:
 	.text       start:0x80027AF4 end:0x80027D7C
 	.ctors      start:0x8023EEA4 end:0x8023EEA8
 	.bss        start:0x8025F930 end:0x8025F948
 	.sbss       start:0x80296718 end:0x80296720
 	.sdata2     start:0x80297910 end:0x80297918
 
-CCAZone.cpp:
+Piglet/CCAZone.cpp:
 	.text       start:0x80027D7C end:0x8002859C
 	.ctors      start:0x8023EEA8 end:0x8023EEAC
 	.data       start:0x80244A30 end:0x80244AA0
@@ -166,7 +166,7 @@ CCAZone.cpp:
 	.sbss       start:0x80296720 end:0x80296728
 	.sdata2     start:0x80297918 end:0x80297928
 
-CCACamera.cpp:
+Piglet/CCACamera.cpp:
 	.text       start:0x8002859C end:0x800297E4
 	.ctors      start:0x8023EEAC end:0x8023EEB0
 	.bss        start:0x8025F960 end:0x8025F978
@@ -174,7 +174,7 @@ CCACamera.cpp:
 	.sbss       start:0x80296728 end:0x80296730
 	.sdata2     start:0x80297928 end:0x80297958
 
-CEntityBhvTagMessage.cpp:
+Piglet/CEntityBhvTagMessage.cpp:
 	.text       start:0x800297E4 end:0x80029B38
 	.ctors      start:0x8023EEB0 end:0x8023EEB4
 	.data       start:0x80244AA0 end:0x80244AF8
@@ -182,7 +182,7 @@ CEntityBhvTagMessage.cpp:
 	.sdata      start:0x80294048 end:0x80294078
 	.sbss       start:0x80296730 end:0x80296738
 
-CEntityBhvTagPosition.cpp:
+Piglet/CEntityBhvTagPosition.cpp:
 	.text       start:0x80029B38 end:0x80029DA0
 	.ctors      start:0x8023EEB4 end:0x8023EEB8
 	.data       start:0x80244AF8 end:0x80244B48
@@ -191,7 +191,7 @@ CEntityBhvTagPosition.cpp:
 	.sbss       start:0x80296738 end:0x80296740
 	.sdata2     start:0x80297958 end:0x80297960
 
-CEntityBhvTagResponse.cpp:
+Piglet/CEntityBhvTagResponse.cpp:
 	.text       start:0x80029DA0 end:0x8002A250
 	.ctors      start:0x8023EEB8 end:0x8023EEBC
 	.data       start:0x80244B48 end:0x80244BE0
@@ -199,7 +199,7 @@ CEntityBhvTagResponse.cpp:
 	.sdata      start:0x80294098 end:0x802940B0
 	.sbss       start:0x80296740 end:0x80296748
 
-CEntityBhvTagSendMessage.cpp:
+Piglet/CEntityBhvTagSendMessage.cpp:
 	.text       start:0x8002A250 end:0x8002A56C
 	.ctors      start:0x8023EEBC end:0x8023EEC0
 	.data       start:0x80244BE0 end:0x80244C40
@@ -207,7 +207,7 @@ CEntityBhvTagSendMessage.cpp:
 	.sdata      start:0x802940B0 end:0x802940D8
 	.sbss       start:0x80296748 end:0x80296750
 
-CEntityBhvTagBehavior.cpp:
+Piglet/CEntityBhvTagBehavior.cpp:
 	.text       start:0x8002A56C end:0x8002A9D0
 	.ctors      start:0x8023EEC0 end:0x8023EEC4
 	.data       start:0x80244C40 end:0x80244CF8
@@ -215,7 +215,7 @@ CEntityBhvTagBehavior.cpp:
 	.sdata      start:0x802940D8 end:0x80294100
 	.sbss       start:0x80296750 end:0x80296758
 
-CGameRoomManager.cpp:
+Piglet/CGameRoomManager.cpp:
 	.text       start:0x8002A9D0 end:0x8003E56C
 	.ctors      start:0x8023EEC4 end:0x8023EEC8
 	.data       start:0x80244CF8 end:0x80245168
@@ -224,7 +224,7 @@ CGameRoomManager.cpp:
 	.sbss       start:0x80296758 end:0x80296760
 	.sdata2     start:0x80297960 end:0x80297B20
 
-CEntityBhvTagVisibility.cpp:
+Piglet/CEntityBhvTagVisibility.cpp:
 	.text       start:0x8003E56C end:0x8003E724
 	.ctors      start:0x8023EEC8 end:0x8023EECC
 	.data       start:0x80245168 end:0x802451B8
@@ -232,7 +232,7 @@ CEntityBhvTagVisibility.cpp:
 	.sdata      start:0x802942B8 end:0x802942D0
 	.sbss       start:0x80296760 end:0x80296768
 
-CEntityBhvTagCollision.cpp:
+Piglet/CEntityBhvTagCollision.cpp:
 	.text       start:0x8003E724 end:0x8003E8EC
 	.ctors      start:0x8023EECC end:0x8023EED0
 	.data       start:0x802451B8 end:0x80245208
@@ -240,7 +240,7 @@ CEntityBhvTagCollision.cpp:
 	.sdata      start:0x802942D0 end:0x802942E8
 	.sbss       start:0x80296768 end:0x80296770
 
-CEntityBhvTagActivation.cpp:
+Piglet/CEntityBhvTagActivation.cpp:
 	.text       start:0x8003E8EC end:0x8003EB34
 	.ctors      start:0x8023EED0 end:0x8023EED4
 	.data       start:0x80245208 end:0x80245258
@@ -249,7 +249,7 @@ CEntityBhvTagActivation.cpp:
 	.sbss       start:0x80296770 end:0x80296778
 	.sdata2     start:0x80297B20 end:0x80297B30
 
-CMenuControl.cpp:
+Piglet/CMenuControl.cpp:
 	.text       start:0x8003EB34 end:0x8003F428
 	.ctors      start:0x8023EED4 end:0x8023EED8
 	.data       start:0x80245258 end:0x802452A0
@@ -258,7 +258,7 @@ CMenuControl.cpp:
 	.sbss       start:0x80296778 end:0x80296780
 	.sdata2     start:0x80297B30 end:0x80297B48
 
-CControlValue.cpp:
+Piglet/CControlValue.cpp:
 	.text       start:0x8003F428 end:0x8003F874
 	.ctors      start:0x8023EED8 end:0x8023EEDC
 	.data       start:0x802452A0 end:0x802452C8
@@ -266,7 +266,7 @@ CControlValue.cpp:
 	.sdata      start:0x80294328 end:0x80294340
 	.sbss       start:0x80296780 end:0x80296788
 
-CEntityPiglet.cpp:
+Piglet/CEntityPiglet.cpp:
 	.text       start:0x8003F874 end:0x800443B0
 	.ctors      start:0x8023EEDC end:0x8023EEE0
 	.data       start:0x802452C8 end:0x802459D8
@@ -275,7 +275,7 @@ CEntityPiglet.cpp:
 	.sbss       start:0x80296788 end:0x80296790
 	.sdata2     start:0x80297B48 end:0x80297BC0
 
-CDebugMenu.cpp:
+Piglet/CDebugMenu.cpp:
 	.text       start:0x800443B0 end:0x800452CC
 	.ctors      start:0x8023EEE0 end:0x8023EEE4
 	.data       start:0x802459D8 end:0x80245A60
@@ -284,7 +284,7 @@ CDebugMenu.cpp:
 	.sbss       start:0x80296790 end:0x80296798
 	.sdata2     start:0x80297BC0 end:0x80297BD8
 
-CEntityObject.cpp:
+Piglet/CEntityObject.cpp:
 	.text       start:0x800452CC end:0x80046398
 	.ctors      start:0x8023EEE4 end:0x8023EEE8
 	.data       start:0x80245A60 end:0x80245B30
@@ -293,7 +293,7 @@ CEntityObject.cpp:
 	.sbss       start:0x80296798 end:0x802967A0
 	.sdata2     start:0x80297BD8 end:0x80297BE8
 
-CEntityBhvTagOrientation.cpp:
+Piglet/CEntityBhvTagOrientation.cpp:
 	.text       start:0x80046398 end:0x800465FC
 	.ctors      start:0x8023EEE8 end:0x8023EEEC
 	.data       start:0x80245B30 end:0x80245B80
@@ -302,7 +302,7 @@ CEntityBhvTagOrientation.cpp:
 	.sbss       start:0x802967A0 end:0x802967A8
 	.sdata2     start:0x80297BE8 end:0x80297BF0
 
-CEntityNPC.cpp:
+Piglet/CEntityNPC.cpp:
 	.text       start:0x800465FC end:0x80053670
 	.ctors      start:0x8023EEEC end:0x8023EEF0
 	.data       start:0x80245B80 end:0x80246070
@@ -311,7 +311,7 @@ CEntityNPC.cpp:
 	.sbss       start:0x802967A8 end:0x802967B0
 	.sdata2     start:0x80297BF0 end:0x80297CC8
 
-CEntityLight.cpp:
+Piglet/CEntityLight.cpp:
 	.text       start:0x80053670 end:0x80055248
 	.ctors      start:0x8023EEF0 end:0x8023EEF4
 	.data       start:0x80246070 end:0x80246210
@@ -320,7 +320,7 @@ CEntityLight.cpp:
 	.sbss       start:0x802967B0 end:0x802967B8
 	.sdata2     start:0x80297CC8 end:0x80297CD8
 
-CGamePartDMRoomLauncher.cpp:
+Piglet/CGamePartDMRoomLauncher.cpp:
 	.text       start:0x80055248 end:0x80055894
 	.ctors      start:0x8023EEF4 end:0x8023EEF8
 	.data       start:0x80246210 end:0x80246290
@@ -329,7 +329,7 @@ CGamePartDMRoomLauncher.cpp:
 	.sbss       start:0x802967B8 end:0x802967C0
 	.sdata2     start:0x80297CD8 end:0x80297CE0
 
-CEntityNPCBasicEffalump.cpp:
+Piglet/CEntityNPCBasicEffalump.cpp:
 	.text       start:0x80055894 end:0x800561DC
 	.ctors      start:0x8023EEF8 end:0x8023EEFC
 	.data       start:0x80246290 end:0x80246478
@@ -338,7 +338,7 @@ CEntityNPCBasicEffalump.cpp:
 	.sbss       start:0x802967C0 end:0x802967C8
 	.sdata2     start:0x80297CE0 end:0x80297CE8
 
-CEntityNPCArrow.cpp:
+Piglet/CEntityNPCArrow.cpp:
 	.text       start:0x800561DC end:0x800571DC
 	.ctors      start:0x8023EEFC end:0x8023EF00
 	.data       start:0x80246478 end:0x80246580
@@ -347,7 +347,7 @@ CEntityNPCArrow.cpp:
 	.sbss       start:0x802967C8 end:0x802967D0
 	.sdata2     start:0x80297CE8 end:0x80297CF8
 
-CEntitySeqKey.cpp:
+Piglet/CEntitySeqKey.cpp:
 	.text       start:0x800571DC end:0x8005D150
 	.ctors      start:0x8023EF00 end:0x8023EF04
 	.data       start:0x80246580 end:0x80246698
@@ -356,7 +356,7 @@ CEntitySeqKey.cpp:
 	.sbss       start:0x802967D0 end:0x802967D8
 	.sdata2     start:0x80297CF8 end:0x80297DD8
 
-CPSplines.cpp:
+Piglet/CPSplines.cpp:
 	.text       start:0x8005D150 end:0x8005EC14
 	.ctors      start:0x8023EF04 end:0x8023EF08
 	.data       start:0x80246698 end:0x802466C0
@@ -365,7 +365,7 @@ CPSplines.cpp:
 	.sbss       start:0x802967D8 end:0x802967E0
 	.sdata2     start:0x80297DD8 end:0x80297E28
 
-CRTCAnimForEntity.cpp:
+Piglet/CRTCAnimForEntity.cpp:
 	.text       start:0x8005EC14 end:0x80060004
 	.ctors      start:0x8023EF08 end:0x8023EF0C
 	.data       start:0x802466C0 end:0x80246748
@@ -374,7 +374,7 @@ CRTCAnimForEntity.cpp:
 	.sbss       start:0x802967E0 end:0x802967E8
 	.sdata2     start:0x80297E28 end:0x80297E38
 
-CRTCEntityAnimated.cpp:
+Piglet/CRTCEntityAnimated.cpp:
 	.text       start:0x80060004 end:0x80060EA0
 	.ctors      start:0x8023EF0C end:0x8023EF10
 	.data       start:0x80246748 end:0x80246760
@@ -383,7 +383,7 @@ CRTCEntityAnimated.cpp:
 	.sbss       start:0x802967E8 end:0x802967F8
 	.sdata2     start:0x80297E38 end:0x80297E40
 
-CRTCEvent.cpp:
+Piglet/CRTCEvent.cpp:
 	.text       start:0x80060EA0 end:0x80061154
 	.ctors      start:0x8023EF10 end:0x8023EF14
 	.data       start:0x80246760 end:0x802467B8
@@ -392,13 +392,13 @@ CRTCEvent.cpp:
 	.sbss       start:0x802967F8 end:0x80296800
 	.sdata2     start:0x80297E40 end:0x80297E50
 
-CRTCFade.cpp:
+Piglet/CRTCFade.cpp:
 	.text       start:0x80061154 end:0x80061208
 	.ctors      start:0x8023EF14 end:0x8023EF18
 	.bss        start:0x8025FBD0 end:0x8025FBE8
 	.sbss       start:0x80296800 end:0x80296808
 
-CRTCFadeEvent.cpp:
+Piglet/CRTCFadeEvent.cpp:
 	.text       start:0x80061208 end:0x80061564
 	.ctors      start:0x8023EF18 end:0x8023EF1C
 	.data       start:0x802467B8 end:0x80246828
@@ -407,7 +407,7 @@ CRTCFadeEvent.cpp:
 	.sbss       start:0x80296808 end:0x80296810
 	.sdata2     start:0x80297E50 end:0x80297E60
 
-CRTCFXEvent.cpp:
+Piglet/CRTCFXEvent.cpp:
 	.text       start:0x80061564 end:0x8006183C
 	.ctors      start:0x8023EF1C end:0x8023EF20
 	.data       start:0x80246828 end:0x802468A0
@@ -416,7 +416,7 @@ CRTCFXEvent.cpp:
 	.sbss       start:0x80296810 end:0x80296818
 	.sdata2     start:0x80297E60 end:0x80297E68
 
-CRTCPlayerEntity.cpp:
+Piglet/CRTCPlayerEntity.cpp:
 	.text       start:0x8006183C end:0x80064698
 	.ctors      start:0x8023EF20 end:0x8023EF24
 	.data       start:0x802468A0 end:0x80246A60
@@ -425,7 +425,7 @@ CRTCPlayerEntity.cpp:
 	.sbss       start:0x80296818 end:0x80296820
 	.sdata2     start:0x80297E68 end:0x80297E98
 
-CRTCSequencer.cpp:
+Piglet/CRTCSequencer.cpp:
 	.text       start:0x80064698 end:0x800653C0
 	.ctors      start:0x8023EF24 end:0x8023EF28
 	.data       start:0x80246A60 end:0x80246A80
@@ -434,7 +434,7 @@ CRTCSequencer.cpp:
 	.sbss       start:0x80296820 end:0x80296830
 	.sdata2     start:0x80297E98 end:0x80297EA0
 
-CRTCAddColorEvent.cpp:
+Piglet/CRTCAddColorEvent.cpp:
 	.text       start:0x800653C0 end:0x8006567C
 	.ctors      start:0x8023EF28 end:0x8023EF2C
 	.data       start:0x80246A80 end:0x80246AE8
@@ -442,7 +442,7 @@ CRTCAddColorEvent.cpp:
 	.sdata      start:0x802949E8 end:0x80294A48
 	.sbss       start:0x80296830 end:0x80296838
 
-CMailBox.cpp:
+Piglet/CMailBox.cpp:
 	.text       start:0x8006567C end:0x80067A34
 	.ctors      start:0x8023EF2C end:0x8023EF30
 	.data       start:0x80246AE8 end:0x80246C58
@@ -450,7 +450,7 @@ CMailBox.cpp:
 	.sdata      start:0x80294A48 end:0x80294A58
 	.sbss       start:0x80296838 end:0x80296840
 
-CEntityNPCBeeEffalump.cpp:
+Piglet/CEntityNPCBeeEffalump.cpp:
 	.text       start:0x80067A34 end:0x800683F8
 	.ctors      start:0x8023EF30 end:0x8023EF34
 	.data       start:0x80246C58 end:0x80246E48
@@ -459,7 +459,7 @@ CEntityNPCBeeEffalump.cpp:
 	.sbss       start:0x80296840 end:0x80296848
 	.sdata2     start:0x80297EA0 end:0x80297EC8
 
-CEntityNPCHnSWoozle.cpp:
+Piglet/CEntityNPCHnSWoozle.cpp:
 	.text       start:0x800683F8 end:0x8006916C
 	.ctors      start:0x8023EF34 end:0x8023EF38
 	.data       start:0x80246E48 end:0x80247048
@@ -468,7 +468,7 @@ CEntityNPCHnSWoozle.cpp:
 	.sbss       start:0x80296848 end:0x80296850
 	.sdata2     start:0x80297EC8 end:0x80297EE0
 
-CEntityNPCJackpotEffalump.cpp:
+Piglet/CEntityNPCJackpotEffalump.cpp:
 	.text       start:0x8006916C end:0x80069A94
 	.ctors      start:0x8023EF38 end:0x8023EF3C
 	.data       start:0x80247048 end:0x80247240
@@ -477,7 +477,7 @@ CEntityNPCJackpotEffalump.cpp:
 	.sbss       start:0x80296850 end:0x80296858
 	.sdata2     start:0x80297EE0 end:0x80297EE8
 
-CEntityNPCMirrorWoozle.cpp:
+Piglet/CEntityNPCMirrorWoozle.cpp:
 	.text       start:0x80069A94 end:0x8006A880
 	.ctors      start:0x8023EF3C end:0x8023EF40
 	.data       start:0x80247240 end:0x80247438
@@ -486,7 +486,7 @@ CEntityNPCMirrorWoozle.cpp:
 	.sbss       start:0x80296858 end:0x80296860
 	.sdata2     start:0x80297EE8 end:0x80297F20
 
-CEntityNPCRoadSweeperEffalump.cpp:
+Piglet/CEntityNPCRoadSweeperEffalump.cpp:
 	.text       start:0x8006A880 end:0x8006B6E8
 	.ctors      start:0x8023EF40 end:0x8023EF44
 	.data       start:0x80247438 end:0x80247690
@@ -495,7 +495,7 @@ CEntityNPCRoadSweeperEffalump.cpp:
 	.sbss       start:0x80296860 end:0x80296868
 	.sdata2     start:0x80297F20 end:0x80297F30
 
-CEntityNPCTennisWoozle.cpp:
+Piglet/CEntityNPCTennisWoozle.cpp:
 	.text       start:0x8006B6E8 end:0x8006C130
 	.ctors      start:0x8023EF44 end:0x8023EF48
 	.data       start:0x80247690 end:0x80247890
@@ -504,7 +504,7 @@ CEntityNPCTennisWoozle.cpp:
 	.sbss       start:0x80296868 end:0x80296870
 	.sdata2     start:0x80297F30 end:0x80297F48
 
-CEntityNPCTree.cpp:
+Piglet/CEntityNPCTree.cpp:
 	.text       start:0x8006C130 end:0x8006C968
 	.ctors      start:0x8023EF48 end:0x8023EF4C
 	.data       start:0x80247890 end:0x80247A58
@@ -513,7 +513,7 @@ CEntityNPCTree.cpp:
 	.sbss       start:0x80296870 end:0x80296878
 	.sdata2     start:0x80297F48 end:0x80297F50
 
-CEntityNPCTubaEffalump.cpp:
+Piglet/CEntityNPCTubaEffalump.cpp:
 	.text       start:0x8006C968 end:0x8006D5A4
 	.ctors      start:0x8023EF4C end:0x8023EF50
 	.data       start:0x80247A58 end:0x80247C58
@@ -522,7 +522,7 @@ CEntityNPCTubaEffalump.cpp:
 	.sbss       start:0x80296878 end:0x80296880
 	.sdata2     start:0x80297F50 end:0x80297F68
 
-CEntityNPCBasicWoozle.cpp:
+Piglet/CEntityNPCBasicWoozle.cpp:
 	.text       start:0x8006D5A4 end:0x8006DD48
 	.ctors      start:0x8023EF50 end:0x8023EF54
 	.data       start:0x80247C58 end:0x80247E28
@@ -531,7 +531,7 @@ CEntityNPCBasicWoozle.cpp:
 	.sbss       start:0x80296880 end:0x80296888
 	.sdata2     start:0x80297F68 end:0x80297F70
 
-CRTCFOVEvent.cpp:
+Piglet/CRTCFOVEvent.cpp:
 	.text       start:0x8006DD48 end:0x8006DF04
 	.ctors      start:0x8023EF54 end:0x8023EF58
 	.data       start:0x80247E28 end:0x80247E88
@@ -540,7 +540,7 @@ CRTCFOVEvent.cpp:
 	.sbss       start:0x80296888 end:0x80296890
 	.sdata2     start:0x80297F70 end:0x80297F78
 
-CRTCCamera.cpp:
+Piglet/CRTCCamera.cpp:
 	.text       start:0x8006DF04 end:0x8006E260
 	.ctors      start:0x8023EF58 end:0x8023EF5C
 	.data       start:0x80247E88 end:0x80247EC0
@@ -549,7 +549,7 @@ CRTCCamera.cpp:
 	.sbss       start:0x80296890 end:0x80296898
 	.sdata2     start:0x80297F78 end:0x80297F90
 
-CPathFinder.cpp:
+Piglet/CPathFinder.cpp:
 	.text       start:0x8006E260 end:0x8007649C
 	.ctors      start:0x8023EF5C end:0x8023EF60
 	.data       start:0x80247EC0 end:0x80247F40
@@ -558,7 +558,7 @@ CPathFinder.cpp:
 	.sbss       start:0x80296898 end:0x802968A0
 	.sdata2     start:0x80297F90 end:0x80297FD8
 
-CEntityTimer.cpp:
+Piglet/CEntityTimer.cpp:
 	.text       start:0x8007649C end:0x80076B90
 	.ctors      start:0x8023EF60 end:0x8023EF64
 	.data       start:0x80247F40 end:0x80247FD8
@@ -567,7 +567,7 @@ CEntityTimer.cpp:
 	.sbss       start:0x802968A0 end:0x802968A8
 	.sdata2     start:0x80297FD8 end:0x80297FE0
 
-CEntitySearchableZone.cpp:
+Piglet/CEntitySearchableZone.cpp:
 	.text       start:0x80076B90 end:0x80078C94
 	.ctors      start:0x8023EF64 end:0x8023EF68
 	.data       start:0x80247FD8 end:0x80248270
@@ -576,7 +576,7 @@ CEntitySearchableZone.cpp:
 	.sbss       start:0x802968A8 end:0x802968B0
 	.sdata2     start:0x80297FE0 end:0x80298038
 
-CEntityPushingBox.cpp:
+Piglet/CEntityPushingBox.cpp:
 	.text       start:0x80078C94 end:0x8007B838
 	.ctors      start:0x8023EF68 end:0x8023EF6C
 	.rodata     start:0x8023F180 end:0x8023F1A0
@@ -586,7 +586,7 @@ CEntityPushingBox.cpp:
 	.sbss       start:0x802968B0 end:0x802968B8
 	.sdata2     start:0x80298038 end:0x80298070
 
-CEntityCookie.cpp:
+Piglet/CEntityCookie.cpp:
 	.text       start:0x8007B838 end:0x8007E294
 	.ctors      start:0x8023EF6C end:0x8023EF70
 	.data       start:0x80248438 end:0x80248598
@@ -595,7 +595,7 @@ CEntityCookie.cpp:
 	.sbss       start:0x802968B8 end:0x802968C0
 	.sdata2     start:0x80298070 end:0x80298118
 
-CEntityWinnie.cpp:
+Piglet/CEntityWinnie.cpp:
 	.text       start:0x8007E294 end:0x8007EB2C
 	.ctors      start:0x8023EF70 end:0x8023EF74
 	.data       start:0x80248598 end:0x802487B8
@@ -604,7 +604,7 @@ CEntityWinnie.cpp:
 	.sbss       start:0x802968C0 end:0x802968C8
 	.sdata2     start:0x80298118 end:0x80298128
 
-CEntityTigger.cpp:
+Piglet/CEntityTigger.cpp:
 	.text       start:0x8007EB2C end:0x8007F828
 	.ctors      start:0x8023EF74 end:0x8023EF78
 	.data       start:0x802487B8 end:0x80248A30
@@ -613,7 +613,7 @@ CEntityTigger.cpp:
 	.sbss       start:0x802968C8 end:0x802968D0
 	.sdata2     start:0x80298128 end:0x80298148
 
-CEntityHero.cpp:
+Piglet/CEntityHero.cpp:
 	.text       start:0x8007F828 end:0x80082128
 	.ctors      start:0x8023EF78 end:0x8023EF7C
 	.data       start:0x80248A30 end:0x80248E28
@@ -622,7 +622,7 @@ CEntityHero.cpp:
 	.sbss       start:0x802968D0 end:0x802968E8
 	.sdata2     start:0x80298148 end:0x802981A0
 
-CEntityBhvTagTeleport.cpp:
+Piglet/CEntityBhvTagTeleport.cpp:
 	.text       start:0x80082128 end:0x800827FC
 	.ctors      start:0x8023EF7C end:0x8023EF80
 	.data       start:0x80248E28 end:0x80248E98
@@ -631,7 +631,7 @@ CEntityBhvTagTeleport.cpp:
 	.sbss       start:0x802968E8 end:0x802968F0
 	.sdata2     start:0x802981A0 end:0x802981B8
 
-CEntityBhvTagAnim.cpp:
+Piglet/CEntityBhvTagAnim.cpp:
 	.text       start:0x800827FC end:0x800829D0
 	.ctors      start:0x8023EF80 end:0x8023EF84
 	.data       start:0x80248E98 end:0x80248EE0
@@ -639,7 +639,7 @@ CEntityBhvTagAnim.cpp:
 	.sdata      start:0x80294FD8 end:0x80294FE8
 	.sbss       start:0x802968F0 end:0x802968F8
 
-CMission.cpp:
+Piglet/CMission.cpp:
 	.text       start:0x800829D0 end:0x80083DA0
 	.ctors      start:0x8023EF84 end:0x8023EF88
 	.data       start:0x80248EE0 end:0x80249010
@@ -648,7 +648,7 @@ CMission.cpp:
 	.sbss       start:0x802968F8 end:0x80296908
 	.sdata2     start:0x802981B8 end:0x802981C0
 
-CEntityFX.cpp:
+Piglet/CEntityFX.cpp:
 	.text       start:0x80083DA0 end:0x80084970
 	.ctors      start:0x8023EF88 end:0x8023EF8C
 	.data       start:0x80249010 end:0x80249110
@@ -657,7 +657,7 @@ CEntityFX.cpp:
 	.sbss       start:0x80296908 end:0x80296910
 	.sdata2     start:0x802981C0 end:0x802981D0
 
-CEntityScaryFaceBox.cpp:
+Piglet/CEntityScaryFaceBox.cpp:
 	.text       start:0x80084970 end:0x800858BC
 	.ctors      start:0x8023EF8C end:0x8023EF90
 	.rodata     start:0x8023F1A0 end:0x8023F1B0
@@ -667,7 +667,7 @@ CEntityScaryFaceBox.cpp:
 	.sbss       start:0x80296910 end:0x80296920
 	.sdata2     start:0x802981D0 end:0x80298230
 
-CEntityEscapingObject.cpp:
+Piglet/CEntityEscapingObject.cpp:
 	.text       start:0x800858BC end:0x80086C70
 	.ctors      start:0x8023EF90 end:0x8023EF94
 	.data       start:0x802492C0 end:0x802493D0
@@ -676,7 +676,7 @@ CEntityEscapingObject.cpp:
 	.sbss       start:0x80296920 end:0x80296928
 	.sdata2     start:0x80298230 end:0x80298280
 
-CEntityBhvTagCameraSystem.cpp:
+Piglet/CEntityBhvTagCameraSystem.cpp:
 	.text       start:0x80086C70 end:0x8008707C
 	.ctors      start:0x8023EF94 end:0x8023EF98
 	.data       start:0x802493D0 end:0x80249430
@@ -684,7 +684,7 @@ CEntityBhvTagCameraSystem.cpp:
 	.sdata      start:0x80295130 end:0x80295158
 	.sbss       start:0x80296928 end:0x80296930
 
-CLoading.cpp:
+Piglet/CLoading.cpp:
 	.text       start:0x8008707C end:0x8008AF90
 	.ctors      start:0x8023EF98 end:0x8023EF9C
 	.rodata     start:0x8023F1B0 end:0x8023F1D0
@@ -694,7 +694,7 @@ CLoading.cpp:
 	.sbss       start:0x80296930 end:0x80296938
 	.sdata2     start:0x80298280 end:0x80298310
 
-CEntityPhial.cpp:
+Piglet/CEntityPhial.cpp:
 	.text       start:0x8008AF90 end:0x8008BAD0
 	.ctors      start:0x8023EF9C end:0x8023EFA0
 	.data       start:0x80249788 end:0x80249940
@@ -703,7 +703,7 @@ CEntityPhial.cpp:
 	.sbss       start:0x80296938 end:0x80296940
 	.sdata2     start:0x80298310 end:0x80298330
 
-CEventAnimationHandlers.cpp:
+Piglet/CEventAnimationHandlers.cpp:
 	.text       start:0x8008BAD0 end:0x8008C6E0
 	.ctors      start:0x8023EFA0 end:0x8023EFA4
 	.data       start:0x80249940 end:0x80249A90
@@ -712,7 +712,7 @@ CEventAnimationHandlers.cpp:
 	.sbss       start:0x80296940 end:0x80296948
 	.sdata2     start:0x80298330 end:0x80298360
 
-CEntityPathFinder.cpp:
+Piglet/CEntityPathFinder.cpp:
 	.text       start:0x8008C6E0 end:0x80090718
 	.ctors      start:0x8023EFA4 end:0x8023EFA8
 	.data       start:0x80249A90 end:0x80249C68
@@ -721,7 +721,7 @@ CEntityPathFinder.cpp:
 	.sbss       start:0x80296948 end:0x80296950
 	.sdata2     start:0x80298360 end:0x802983E0
 
-CGuiManager.cpp:
+Piglet/CGuiManager.cpp:
 	.text       start:0x80090718 end:0x80093F6C
 	.ctors      start:0x8023EFA8 end:0x8023EFAC
 	.data       start:0x80249C68 end:0x80249E08
@@ -730,7 +730,7 @@ CGuiManager.cpp:
 	.sbss       start:0x80296950 end:0x80296958
 	.sdata2     start:0x802983E0 end:0x802983E8
 
-CEventGuiHandlers.cpp:
+Piglet/CEventGuiHandlers.cpp:
 	.text       start:0x80093F6C end:0x800AA128
 	.ctors      start:0x8023EFAC end:0x8023EFB0
 	.data       start:0x80249E08 end:0x8024B4C8
@@ -739,7 +739,7 @@ CEventGuiHandlers.cpp:
 	.sbss       start:0x80296958 end:0x80296968
 	.sdata2     start:0x802983E8 end:0x80298438
 
-CEntityBhvTagGuiCtrl.cpp:
+Piglet/CEntityBhvTagGuiCtrl.cpp:
 	.text       start:0x800AA128 end:0x800AA5A4
 	.ctors      start:0x8023EFB0 end:0x8023EFB4
 	.data       start:0x8024B4C8 end:0x8024B558
@@ -747,7 +747,7 @@ CEntityBhvTagGuiCtrl.cpp:
 	.sdata      start:0x80295550 end:0x80295570
 	.sbss       start:0x80296968 end:0x80296970
 
-CEntityBhvTagSettings.cpp:
+Piglet/CEntityBhvTagSettings.cpp:
 	.text       start:0x800AA5A4 end:0x800AAD18
 	.ctors      start:0x8023EFB4 end:0x8023EFB8
 	.data       start:0x8024B558 end:0x8024B5E0
@@ -756,7 +756,7 @@ CEntityBhvTagSettings.cpp:
 	.sbss       start:0x80296970 end:0x80296978
 	.sdata2     start:0x80298438 end:0x80298448
 
-CEntityNPCDoor.cpp:
+Piglet/CEntityNPCDoor.cpp:
 	.text       start:0x800AAD18 end:0x800AB86C
 	.ctors      start:0x8023EFB8 end:0x8023EFBC
 	.data       start:0x8024B5E0 end:0x8024B7F0
@@ -765,7 +765,7 @@ CEntityNPCDoor.cpp:
 	.sbss       start:0x80296978 end:0x80296980
 	.sdata2     start:0x80298448 end:0x80298450
 
-CGameBackup.cpp:
+Piglet/CGameBackup.cpp:
 	.text       start:0x800AB86C end:0x800ADDC4
 	.ctors      start:0x8023EFBC end:0x8023EFC0
 	.data       start:0x8024B7F0 end:0x8024B8B0
@@ -774,21 +774,21 @@ CGameBackup.cpp:
 	.sbss       start:0x80296980 end:0x80296988
 	.sdata2     start:0x80298450 end:0x80298470
 
-CMiniMapIcon.cpp:
+Piglet/CMiniMapIcon.cpp:
 	.text       start:0x800ADDC4 end:0x800AE928
 	.ctors      start:0x8023EFC0 end:0x8023EFC4
 	.bss        start:0x8025FFD8 end:0x8025FFF0
 	.sbss       start:0x80296988 end:0x80296990
 	.sdata2     start:0x80298470 end:0x80298480
 
-CMiniMapSpline.cpp:
+Piglet/CMiniMapSpline.cpp:
 	.text       start:0x800AE928 end:0x800AEF2C
 	.ctors      start:0x8023EFC4 end:0x8023EFC8
 	.bss        start:0x8025FFF0 end:0x80260008
 	.sdata      start:0x80295648 end:0x80295658
 	.sbss       start:0x80296990 end:0x80296998
 
-CMiniMap.cpp:
+Piglet/CMiniMap.cpp:
 	.text       start:0x800AEF2C end:0x800B2778
 	.ctors      start:0x8023EFC8 end:0x8023EFCC
 	.rodata     start:0x8023F1D0 end:0x8023F1E0
@@ -799,7 +799,7 @@ CMiniMap.cpp:
 	.sdata2     start:0x80298480 end:0x80298518
 	.sbss2      start:0x80299DC0 end:0x80299DC8
 
-CEntityBhvTagBoxPosition.cpp:
+Piglet/CEntityBhvTagBoxPosition.cpp:
 	.text       start:0x800B2778 end:0x800B29C0
 	.ctors      start:0x8023EFCC end:0x8023EFD0
 	.data       start:0x8024B968 end:0x8024B9B8
@@ -807,7 +807,7 @@ CEntityBhvTagBoxPosition.cpp:
 	.sdata      start:0x80295738 end:0x80295750
 	.sbss       start:0x802969A8 end:0x802969B0
 
-CEntity3DSound.cpp:
+Piglet/CEntity3DSound.cpp:
 	.text       start:0x800B29C0 end:0x800B4084
 	.ctors      start:0x8023EFD0 end:0x8023EFD4
 	.data       start:0x8024B9B8 end:0x8024BB18
@@ -816,7 +816,7 @@ CEntity3DSound.cpp:
 	.sbss       start:0x802969B0 end:0x802969B8
 	.sdata2     start:0x80298518 end:0x80298530
 
-CEntityBhvTagFinishMission.cpp:
+Piglet/CEntityBhvTagFinishMission.cpp:
 	.text       start:0x800B4084 end:0x800B42B4
 	.ctors      start:0x8023EFD4 end:0x8023EFD8
 	.data       start:0x8024BB18 end:0x8024BB68
@@ -825,7 +825,7 @@ CEntityBhvTagFinishMission.cpp:
 	.sbss       start:0x802969B8 end:0x802969C0
 	.sdata2     start:0x80298530 end:0x80298540
 
-CEntityBhvTagNarrator.cpp:
+Piglet/CEntityBhvTagNarrator.cpp:
 	.text       start:0x800B42B4 end:0x800B447C
 	.ctors      start:0x8023EFD8 end:0x8023EFDC
 	.data       start:0x8024BB68 end:0x8024BBB8
@@ -833,7 +833,7 @@ CEntityBhvTagNarrator.cpp:
 	.sdata      start:0x802957E8 end:0x802957F8
 	.sbss       start:0x802969C0 end:0x802969C8
 
-CFxManager.cpp:
+Piglet/CFxManager.cpp:
 	.text       start:0x800B447C end:0x800B4C68
 	.ctors      start:0x8023EFDC end:0x8023EFE0
 	.bss        start:0x80260098 end:0x802600B0
@@ -841,7 +841,7 @@ CFxManager.cpp:
 	.sbss       start:0x802969C8 end:0x802969D0
 	.sdata2     start:0x80298540 end:0x80298548
 
-CShadowZone.cpp:
+Piglet/CShadowZone.cpp:
 	.text       start:0x800B4C68 end:0x800B61C0
 	.ctors      start:0x8023EFE0 end:0x8023EFE4
 	.data       start:0x8024BBB8 end:0x8024BBF8
@@ -850,7 +850,7 @@ CShadowZone.cpp:
 	.sbss       start:0x802969D0 end:0x802969D8
 	.sdata2     start:0x80298548 end:0x80298590
 
-CEntityNPCGralosaurus.cpp:
+Piglet/CEntityNPCGralosaurus.cpp:
 	.text       start:0x800B61C0 end:0x800B7590
 	.ctors      start:0x8023EFE4 end:0x8023EFE8
 	.data       start:0x8024BBF8 end:0x8024BE48
@@ -859,7 +859,7 @@ CEntityNPCGralosaurus.cpp:
 	.sbss       start:0x802969D8 end:0x802969E0
 	.sdata2     start:0x80298590 end:0x802985A8
 
-CGamePartScrapBook.cpp:
+Piglet/CGamePartScrapBook.cpp:
 	.text       start:0x800B7590 end:0x800B81E4
 	.ctors      start:0x8023EFE8 end:0x8023EFEC
 	.rodata     start:0x8023F1E0 end:0x8023F3E0
@@ -869,7 +869,7 @@ CGamePartScrapBook.cpp:
 	.sbss       start:0x802969E0 end:0x802969E8
 	.sdata2     start:0x802985A8 end:0x802985F0
 
-CGamePartMovieClips.cpp:
+Piglet/CGamePartMovieClips.cpp:
 	.text       start:0x800B81E4 end:0x800B8E7C
 	.ctors      start:0x8023EFEC end:0x8023EFF0
 	.rodata     start:0x8023F3E0 end:0x8023F5E0
@@ -879,7 +879,7 @@ CGamePartMovieClips.cpp:
 	.sbss       start:0x802969E8 end:0x802969F0
 	.sdata2     start:0x802985F0 end:0x80298638
 
-CIcon.cpp:
+Piglet/CIcon.cpp:
 	.text       start:0x800B8E7C end:0x800B954C
 	.ctors      start:0x8023EFF0 end:0x8023EFF4
 	.data       start:0x8024BF88 end:0x8024BF98
@@ -888,7 +888,7 @@ CIcon.cpp:
 	.sbss       start:0x802969F0 end:0x80296A20
 	.sdata2     start:0x80298638 end:0x80298650
 
-CGuiScrapBookEventHandler.cpp:
+Piglet/CGuiScrapBookEventHandler.cpp:
 	.text       start:0x800B954C end:0x800B9C68
 	.ctors      start:0x8023EFF4 end:0x8023EFF8
 	.data       start:0x8024BF98 end:0x8024C0D8
@@ -897,7 +897,7 @@ CGuiScrapBookEventHandler.cpp:
 	.sbss       start:0x80296A20 end:0x80296A28
 	.sdata2     start:0x80298650 end:0x80298658
 
-CGuiMovieClipsEventHandler.cpp:
+Piglet/CGuiMovieClipsEventHandler.cpp:
 	.text       start:0x800B9C68 end:0x800BA384
 	.ctors      start:0x8023EFF8 end:0x8023EFFC
 	.data       start:0x8024C0D8 end:0x8024C218
@@ -906,7 +906,7 @@ CGuiMovieClipsEventHandler.cpp:
 	.sbss       start:0x80296A28 end:0x80296A30
 	.sdata2     start:0x80298658 end:0x80298660
 
-CLoadingAdventure.cpp:
+Piglet/CLoadingAdventure.cpp:
 	.text       start:0x800BA384 end:0x800BB0CC
 	.ctors      start:0x8023EFFC end:0x8023F000
 	.data       start:0x8024C218 end:0x8024C3D0
@@ -915,7 +915,7 @@ CLoadingAdventure.cpp:
 	.sbss       start:0x80296A30 end:0x80296A38
 	.sdata2     start:0x80298660 end:0x802986B0
 
-CLoadingCatchThemAll.cpp:
+Piglet/CLoadingCatchThemAll.cpp:
 	.text       start:0x800BB0CC end:0x800BC5A0
 	.ctors      start:0x8023F000 end:0x8023F004
 	.data       start:0x8024C3D0 end:0x8024C580
@@ -924,7 +924,7 @@ CLoadingCatchThemAll.cpp:
 	.sbss       start:0x80296A38 end:0x80296A40
 	.sdata2     start:0x802986B0 end:0x80298720
 
-CloadingTigger.cpp:
+Piglet/CloadingTigger.cpp:
 	.text       start:0x800BC5A0 end:0x800BD09C
 	.ctors      start:0x8023F004 end:0x8023F008
 	.data       start:0x8024C580 end:0x8024C678
@@ -933,7 +933,7 @@ CloadingTigger.cpp:
 	.sbss       start:0x80296A40 end:0x80296A48
 	.sdata2     start:0x80298720 end:0x80298770
 
-CloadingWinnie.cpp:
+Piglet/CloadingWinnie.cpp:
 	.text       start:0x800BD09C end:0x800BDB98
 	.ctors      start:0x8023F008 end:0x8023F00C
 	.data       start:0x8024C678 end:0x8024C770
@@ -942,7 +942,7 @@ CloadingWinnie.cpp:
 	.sbss       start:0x80296A48 end:0x80296A50
 	.sdata2     start:0x80298770 end:0x802987C0
 
-CGamePartStartScreen.cpp:
+Piglet/CGamePartStartScreen.cpp:
 	.text       start:0x800BDB98 end:0x800BE2A8
 	.ctors      start:0x8023F00C end:0x8023F010
 	.data       start:0x8024C770 end:0x8024C7E8
@@ -951,7 +951,7 @@ CGamePartStartScreen.cpp:
 	.sbss       start:0x80296A50 end:0x80296A58
 	.sdata2     start:0x802987C0 end:0x802987C8
 
-CRTCVibrationEvent.cpp:
+Piglet/CRTCVibrationEvent.cpp:
 	.text       start:0x800BE2A8 end:0x800BE498
 	.ctors      start:0x8023F010 end:0x8023F014
 	.data       start:0x8024C7E8 end:0x8024C850
@@ -959,7 +959,7 @@ CRTCVibrationEvent.cpp:
 	.sdata      start:0x802959A0 end:0x802959C0
 	.sbss       start:0x80296A58 end:0x80296A60
 
-CRTCMessageEvent.cpp:
+Piglet/CRTCMessageEvent.cpp:
 	.text       start:0x800BE498 end:0x800BE864
 	.ctors      start:0x8023F014 end:0x8023F018
 	.data       start:0x8024C850 end:0x8024C8C0
@@ -967,7 +967,7 @@ CRTCMessageEvent.cpp:
 	.sdata      start:0x802959C0 end:0x802959F8
 	.sbss       start:0x80296A60 end:0x80296A68
 
-CFullScreenEffect.cpp:
+Piglet/CFullScreenEffect.cpp:
 	.text       start:0x800BE864 end:0x800C1410
 	.ctors      start:0x8023F018 end:0x8023F01C
 	.data       start:0x8024C8C0 end:0x8024C938
@@ -976,7 +976,7 @@ CFullScreenEffect.cpp:
 	.sbss       start:0x80296A68 end:0x80296A70
 	.sdata2     start:0x802987C8 end:0x80298810
 
-CRTCGrimaceEvent.cpp:
+Piglet/CRTCGrimaceEvent.cpp:
 	.text       start:0x800C1410 end:0x800C18F4
 	.ctors      start:0x8023F01C end:0x8023F020
 	.data       start:0x8024C938 end:0x8024C9C0
@@ -985,7 +985,7 @@ CRTCGrimaceEvent.cpp:
 	.sbss       start:0x80296A70 end:0x80296A78
 	.sdata2     start:0x80298810 end:0x80298828
 
-CEntityBhvTagReceiveShadow.cpp:
+Piglet/CEntityBhvTagReceiveShadow.cpp:
 	.text       start:0x800C18F4 end:0x800C1A74
 	.ctors      start:0x8023F020 end:0x8023F024
 	.data       start:0x8024C9C0 end:0x8024CA10
@@ -993,7 +993,7 @@ CEntityBhvTagReceiveShadow.cpp:
 	.sdata      start:0x80295AF0 end:0x80295B08
 	.sbss       start:0x80296A78 end:0x80296A80
 
-CGCNFont.cpp:
+Piglet/CGCNFont.cpp:
 	.text       start:0x800C1A74 end:0x800C2280
 	.ctors      start:0x8023F024 end:0x8023F028
 	.data       start:0x8024CA10 end:0x8024CA78
@@ -1002,21 +1002,21 @@ CGCNFont.cpp:
 	.sbss       start:0x80296A80 end:0x80296AA8
 	.sdata2     start:0x80298828 end:0x80298840
 
-Allocator.cpp:
+engine/Allocator.cpp:
 	.text       start:0x800C2280 end:0x800C3150
 	.sdata      start:0x80295B10 end:0x80295B18
 	.sbss       start:0x80296AA8 end:0x80296AE0
 
-GCN_MW_Memory.cpp:
+engine/GCN_MW_Memory.cpp:
 	.text       start:0x800C3150 end:0x800C3380
 
-DkFileSysDlfs.c:
+engine/DkFileSysDlfs.c:
 	.text       start:0x800C3380 end:0x800C4128
 	.data       start:0x8024CA78 end:0x8024CAC0
 	.sdata      start:0x80295B18 end:0x80295B20
 	.sbss       start:0x80296AE0 end:0x80296AF0
 
-DkFileSys.cpp:
+engine/DkFileSys.cpp:
 	.text       start:0x800C4128 end:0x800C57E8
 	.text       start:0x800C57E8 end:0x800C58A8
 	.ctors      start:0x8023F028 end:0x8023F02C
@@ -1025,41 +1025,41 @@ DkFileSys.cpp:
 	.sdata      start:0x80295B20 end:0x80295B38
 	.sbss       start:0x80296AF0 end:0x80296B30
 
-DkFileSysFat.cpp:
+engine/DkFileSysFat.cpp:
 	.text       start:0x800C58A8 end:0x800C624C
 	.text       start:0x800C624C end:0x800C624C
 	.data       start:0x8024CAE0 end:0x8024CAF0
 	.sdata      start:0x80295B38 end:0x80295B48
 
-DkFileSysUnCompress.cpp:
+engine/DkFileSysUnCompress.cpp:
 	.text       start:0x800C624C end:0x800C6788
 
-babinary.c:
+rwsdk/src/plcore/babinary.c:
 	.text       start:0x800C6788 end:0x800C7468
 	.data       start:0x8024CAF0 end:0x8024CB60
 
-babinmtx.c:
+rwsdk/src/plcore/babinmtx.c:
 	.text       start:0x800C7468 end:0x800C78EC
 
-bacolor.c:
+rwsdk/src/plcore/bacolor.c:
 	.text       start:0x800C78EC end:0x800C7914
 	.sbss       start:0x80296B30 end:0x80296B38
 
-baerr.c:
+rwsdk/src/plcore/baerr.c:
 	.text       start:0x800C7914 end:0x800C7A70
 	.sbss       start:0x80296B38 end:0x80296B40
 
-bafsys.c:
+rwsdk/src/plcore/bafsys.c:
 	.text       start:0x800C7A70 end:0x800C7B98
 	.sdata      start:0x80295B48 end:0x80295B50
 
-baimmedi.c:
+rwsdk/src/plcore/baimmedi.c:
 	.text       start:0x800C7B98 end:0x800C7CC0
 
-balist.c:
+rwsdk/src/plcore/balist.c:
 	.text       start:0x800C7CC0 end:0x800C80E8
 
-bamatrix.c:
+rwsdk/src/plcore/bamatrix.c:
 	.text       start:0x800C80E8 end:0x800C9D60
 	.rodata     start:0x8023F5E0 end:0x8023F5F0
 	.data       start:0x8024CB60 end:0x8024CB80
@@ -1068,60 +1068,60 @@ bamatrix.c:
 	.sbss       start:0x80296B40 end:0x80296B48
 	.sdata2     start:0x80298840 end:0x80298850
 
-bamemory.c:
+rwsdk/src/plcore/bamemory.c:
 	.text       start:0x800C9D60 end:0x800CAA50
 	.bss        start:0x802602D8 end:0x80260300
 	.sdata      start:0x80295B58 end:0x80295B60
 	.sbss       start:0x80296B48 end:0x80296B58
 
-baresour.c:
+rwsdk/src/plcore/baresour.c:
 	.text       start:0x800CAA50 end:0x800CB310
 	.sbss       start:0x80296B58 end:0x80296B60
 
-bastream.c:
+rwsdk/src/plcore/bastream.c:
 	.text       start:0x800CB310 end:0x800CBDE8
 	.bss        start:0x80260300 end:0x80260328
 	.sdata      start:0x80295B60 end:0x80295B78
 	.sbss       start:0x80296B60 end:0x80296B68
 
-batkbin.c:
+rwsdk/src/plcore/batkbin.c:
 	.text       start:0x800CBDE8 end:0x800CC398
 
-batkreg.c:
+rwsdk/src/plcore/batkreg.c:
 	.text       start:0x800CC398 end:0x800CCA20
 	.bss        start:0x80260328 end:0x80260350
 	.sdata      start:0x80295B78 end:0x80295B80
 	.sbss       start:0x80296B68 end:0x80296B78
 
-bavector.c:
+rwsdk/src/plcore/bavector.c:
 	.text       start:0x800CCA20 end:0x800CD58C
 	.sbss       start:0x80296B78 end:0x80296B80
 	.sdata2     start:0x80298850 end:0x80298880
 
-resmem.c:
+rwsdk/src/plcore/resmem.c:
 	.text       start:0x800CD58C end:0x800CD810
 
-rwstring.c:
+rwsdk/src/plcore/rwstring.c:
 	.text       start:0x800CD810 end:0x800CDAC0
 
-osintf.c:
+rwsdk/os/gcn/osintf.c:
 	.text       start:0x800CDAC0 end:0x800CDB18
 
-babbox.c:
+rwsdk/src/babbox.c:
 	.text       start:0x800CDB18 end:0x800CDC8C
 
-babincam.c:
+rwsdk/src/babincam.c:
 	.text       start:0x800CDC8C end:0x800CE058
 
-babinfrm.c:
+rwsdk/src/babinfrm.c:
 	.text       start:0x800CE058 end:0x800CEB70
 	.sdata2     start:0x80298880 end:0x80298888
 
-babintex.c:
+rwsdk/src/babintex.c:
 	.text       start:0x800CEB70 end:0x800CFDA8
 	.sdata2     start:0x80298888 end:0x80298890
 
-bacamera.c:
+rwsdk/src/bacamera.c:
 	.text       start:0x800CFDA8 end:0x800D1700
 	.data       start:0x8024CB80 end:0x8024CBC0
 	.bss        start:0x80260350 end:0x80260378
@@ -1129,13 +1129,13 @@ bacamera.c:
 	.sbss       start:0x80296B80 end:0x80296B88
 	.sdata2     start:0x80298890 end:0x802988B8
 
-badevice.c:
+rwsdk/src/badevice.c:
 	.text       start:0x800D1700 end:0x800D2360
 	.data       start:0x8024CBC0 end:0x8024CCF8
 	.bss        start:0x80260378 end:0x802604D0
 	.sbss       start:0x80296B88 end:0x80296B90
 
-baframe.c:
+rwsdk/src/baframe.c:
 	.text       start:0x800D2360 end:0x800D3404
 	.data       start:0x8024CCF8 end:0x8024CD10
 	.bss        start:0x802604D0 end:0x802604F8
@@ -1143,7 +1143,7 @@ baframe.c:
 	.sbss       start:0x80296B90 end:0x80296B98
 	.sdata2     start:0x802988B8 end:0x802988C0
 
-baimage.c:
+rwsdk/src/baimage.c:
 	.text       start:0x800D3404 end:0x800D5894
 	.data       start:0x8024CD10 end:0x8024CD28
 	.bss        start:0x802604F8 end:0x80260540
@@ -1151,24 +1151,24 @@ baimage.c:
 	.sbss       start:0x80296B98 end:0x80296BA0
 	.sdata2     start:0x802988C0 end:0x802988D8
 
-baimras.c:
+rwsdk/src/baimras.c:
 	.text       start:0x800D5894 end:0x800D5B78
 
-baraster.c:
+rwsdk/src/baraster.c:
 	.text       start:0x800D5B78 end:0x800D618C
 	.data       start:0x8024CD28 end:0x8024CD40
 	.bss        start:0x80260540 end:0x80260568
 	.sdata      start:0x80295BA0 end:0x80295BA8
 	.sbss       start:0x80296BA0 end:0x80296BA8
 
-baresamp.c:
+rwsdk/src/baresamp.c:
 	.text       start:0x800D618C end:0x800D6AFC
 	.sdata2     start:0x802988D8 end:0x80298908
 
-basync.c:
+rwsdk/src/basync.c:
 	.text       start:0x800D6AFC end:0x800D726C
 
-batextur.c:
+rwsdk/src/batextur.c:
 	.text       start:0x800D726C end:0x800D939C
 	.rodata     start:0x8023F5F0 end:0x8023F608
 	.data       start:0x8024CD40 end:0x8024CD70
@@ -1177,26 +1177,26 @@ batextur.c:
 	.sbss       start:0x80296BA8 end:0x80296BB8
 	.sdata2     start:0x80298908 end:0x80298910
 
-batypehf.c:
+rwsdk/src/batypehf.c:
 	.text       start:0x800D939C end:0x800D9438
 
-palquant.c:
+rwsdk/driver/common/palquant.c:
 	.text       start:0x800D9438 end:0x800DBB1C
 	.bss        start:0x802605B0 end:0x802609B0
 	.sdata2     start:0x80298910 end:0x80298928
 
-dl2drend.c:
+rwsdk/driver/gcn/dl2drend.c:
 	.text       start:0x800DBB1C end:0x800DD1B0
 	.data       start:0x8024CD70 end:0x8024CDC0
 	.bss        start:0x802609B0 end:0x802609D0
 	.sdata2     start:0x80298928 end:0x80298940
 
-dlconvrt.c:
+rwsdk/driver/gcn/dlconvrt.c:
 	.text       start:0x800DD1B0 end:0x800DED14
 	.data       start:0x8024CDC0 end:0x8024D040
 	.sdata2     start:0x80298940 end:0x80298948
 
-dldevice.c:
+rwsdk/driver/gcn/dldevice.c:
 	.text       start:0x800DED14 end:0x800E058C
 	.rodata     start:0x8023F608 end:0x8023F6E0
 	.data       start:0x8024D040 end:0x8024D150
@@ -1205,114 +1205,114 @@ dldevice.c:
 	.sbss       start:0x80296BB8 end:0x80296C30
 	.sdata2     start:0x80298948 end:0x80298968
 
-dlraster.c:
+rwsdk/driver/gcn/dlraster.c:
 	.text       start:0x800E058C end:0x800E2080
 	.data       start:0x8024D150 end:0x8024D540
 	.sbss       start:0x80296C30 end:0x80296C38
 
-dlrendst.c:
+rwsdk/driver/gcn/dlrendst.c:
 	.text       start:0x800E2080 end:0x800E2BC4
 	.data       start:0x8024D540 end:0x8024D628
 	.bss        start:0x80260A68 end:0x80260AB8
 	.sbss       start:0x80296C38 end:0x80296C40
 	.sdata2     start:0x80298968 end:0x80298978
 
-dlsprite.c:
+rwsdk/driver/gcn/dlsprite.c:
 	.text       start:0x800E2BC4 end:0x800E4168
 	.data       start:0x8024D628 end:0x8024D768
 	.sbss       start:0x80296C40 end:0x80296C48
 	.sdata2     start:0x80298978 end:0x802989B0
 
-dltexdic.c:
+rwsdk/driver/gcn/dltexdic.c:
 	.text       start:0x800E4168 end:0x800E4760
 	.sdata2     start:0x802989B0 end:0x802989B8
 
-dltextur.c:
+rwsdk/driver/gcn/dltextur.c:
 	.text       start:0x800E4760 end:0x800E4CD0
 	.data       start:0x8024D768 end:0x8024D7D8
 	.sbss       start:0x80296C48 end:0x80296C50
 	.sdata2     start:0x802989B8 end:0x802989C8
 
-dltoken.c:
+rwsdk/driver/gcn/dltoken.c:
 	.text       start:0x800E4CD0 end:0x800E4D5C
 	.sdata      start:0x80295BD8 end:0x80295BE0
 	.sbss       start:0x80296C50 end:0x80296C58
 
-gekkomul.c:
+rwsdk/driver/gcn/gekkomul.c:
 	.text       start:0x800E4D5C end:0x800E4E14
 
-baim3d.c:
+rwsdk/src/pipe/p2/baim3d.c:
 	.text       start:0x800E4E14 end:0x800E58DC
 	.sbss       start:0x80296C58 end:0x80296C68
 
-bapipe.c:
+rwsdk/src/pipe/p2/bapipe.c:
 	.text       start:0x800E58DC end:0x800E595C
 	.sbss       start:0x80296C68 end:0x80296C70
 
-p2altmdl.c:
+rwsdk/src/pipe/p2/p2altmdl.c:
 	.text       start:0x800E595C end:0x800E5A08
 	.bss        start:0x80260AB8 end:0x80260AD0
 
-p2core.c:
+rwsdk/src/pipe/p2/p2core.c:
 	.text       start:0x800E5A08 end:0x800E60BC
 	.bss        start:0x80260AD0 end:0x80260AF8
 	.sdata      start:0x80295BE0 end:0x80295BF0
 	.sbss       start:0x80296C70 end:0x80296C78
 
-p2define.c:
+rwsdk/src/pipe/p2/p2define.c:
 	.text       start:0x800E60BC end:0x800E7974
 	.sdata      start:0x80295BF0 end:0x80295BF8
 
-p2dep.c:
+rwsdk/src/pipe/p2/p2dep.c:
 	.text       start:0x800E7974 end:0x800E8B0C
 
-p2heap.c:
+rwsdk/src/pipe/p2/p2heap.c:
 	.text       start:0x800E8B0C end:0x800E9450
 	.data       start:0x8024D7D8 end:0x8024D800
 
-p2renderstate.c:
+rwsdk/src/pipe/p2/p2renderstate.c:
 	.text       start:0x800E9450 end:0x800E95A4
 	.sdata2     start:0x802989C8 end:0x802989D0
 
-p2resort.c:
+rwsdk/src/pipe/p2/p2resort.c:
 	.text       start:0x800E95A4 end:0x800E9A68
 
-im3dpipe.c:
+rwsdk/src/pipe/p2/gcn/im3dpipe.c:
 	.text       start:0x800E9A68 end:0x800E9CB8
 
-nodeDolphinSubmitNoLight.c:
+rwsdk/src/pipe/p2/gcn/nodeDolphinSubmitNoLight.c:
 	.text       start:0x800E9CB8 end:0x800EA7F8
 	.data       start:0x8024D800 end:0x8024D8C0
 	.sbss       start:0x80296C78 end:0x80296C80
 
-dmphanim.c:
+rwsdk/plugin/dmorph/dmphanim.c:
 	.text       start:0x800EA7F8 end:0x800EAE18
 
-dmphgeom.c:
+rwsdk/plugin/dmorph/dmphgeom.c:
 	.text       start:0x800EAE18 end:0x800EB84C
 	.sbss       start:0x80296C80 end:0x80296C88
 
-dmphintp.c:
+rwsdk/plugin/dmorph/dmphintp.c:
 	.text       start:0x800EB84C end:0x800EC42C
 	.sbss       start:0x80296C88 end:0x80296C90
 	.sdata2     start:0x802989D0 end:0x802989E0
 
-rpdmorph.c:
+rwsdk/plugin/dmorph/rpdmorph.c:
 	.text       start:0x800EC42C end:0x800EC4C0
 	.sdata      start:0x80295BF8 end:0x80295C00
 
-stdkey.c:
+rwsdk/plugin/hanim/stdkey.c:
 	.text       start:0x800EC4C0 end:0x800ED460
 	.sdata2     start:0x802989E0 end:0x80298A48
 
-rphanim.c:
+rwsdk/plugin/hanim/rphanim.c:
 	.text       start:0x800ED460 end:0x800EF03C
 	.bss        start:0x80260AF8 end:0x80260B20
 	.sdata      start:0x80295C00 end:0x80295C08
 	.sbss       start:0x80296C90 end:0x80296C98
 	.sdata2     start:0x80298A48 end:0x80298A58
 
-rpmatfx.c:
+rwsdk/plugin/matfx/rpmatfx.c:
 	.text       start:0x800EF03C end:0x800F10D8
 	.rodata     start:0x8023F6E0 end:0x8023F720
 	.data       start:0x8024D8C0 end:0x8024D8D0
@@ -1321,203 +1321,203 @@ rpmatfx.c:
 	.sbss       start:0x80296C98 end:0x80296CA8
 	.sdata2     start:0x80298A58 end:0x80298A70
 
-effectPipesGcn.c:
+rwsdk/plugin/matfx/gcn/effectPipesGcn.c:
 	.text       start:0x800F10D8 end:0x800F224C
 	.sbss       start:0x80296CA8 end:0x80296CC0
 	.sdata2     start:0x80298A70 end:0x80298A88
 
-multiTexGcnData.c:
+rwsdk/plugin/matfx/gcn/multiTexGcnData.c:
 	.text       start:0x800F224C end:0x800F2E1C
 
-multiTexGcnPipe.c:
+rwsdk/plugin/matfx/gcn/multiTexGcnPipe.c:
 	.text       start:0x800F2E1C end:0x800F4230
 	.data       start:0x8024D8D0 end:0x8024D930
 	.sbss       start:0x80296CC0 end:0x80296CC8
 	.sdata2     start:0x80298A88 end:0x80298AA0
 
-multiTexGcn.c:
+rwsdk/plugin/matfx/gcn/multiTexGcn.c:
 	.text       start:0x800F4230 end:0x800F4298
 
-multiTex.c:
+rwsdk/plugin/matfx/multiTex.c:
 	.text       start:0x800F4298 end:0x800F4E3C
 	.bss        start:0x80260B48 end:0x80260BD8
 	.sdata      start:0x80295C10 end:0x80295C18
 
-multiTexEffect.c:
+rwsdk/plugin/matfx/multiTexEffect.c:
 	.text       start:0x800F4E3C end:0x800F5968
 	.bss        start:0x80260BD8 end:0x80260C90
 	.sbss       start:0x80296CC8 end:0x80296CD0
 
-rpmipkl.c:
+rwsdk/plugin/mipkl/rpmipkl.c:
 	.text       start:0x800F5968 end:0x800F5B7C
 	.sdata      start:0x80295C18 end:0x80295C20
 	.sbss       start:0x80296CD0 end:0x80296CE0
 
-patchmesh.c:
+rwsdk/plugin/patch/patchmesh.c:
 	.text       start:0x800F5B7C end:0x800F5EF0
 
-patchatomic.c:
+rwsdk/plugin/patch/patchatomic.c:
 	.text       start:0x800F5EF0 end:0x800F6128
 
-patchgeometry.c:
+rwsdk/plugin/patch/patchgeometry.c:
 	.text       start:0x800F6128 end:0x800F6330
 
-patchnoskin.c:
+rwsdk/plugin/patch/patchnoskin.c:
 	.text       start:0x800F6330 end:0x800F6338
 
-patchstream.c:
+rwsdk/plugin/patch/patchstream.c:
 	.text       start:0x800F6338 end:0x800F66D8
 
-patchlod.c:
+rwsdk/plugin/patch/patchlod.c:
 	.text       start:0x800F66D8 end:0x800F6838
 	.sdata2     start:0x80298AA0 end:0x80298AB0
 
-rppatch.c:
+rwsdk/plugin/patch/rppatch.c:
 	.text       start:0x800F6838 end:0x800F6AE0
 	.bss        start:0x80260C90 end:0x80260CD8
 	.sdata      start:0x80295C20 end:0x80295C30
 	.sdata2     start:0x80298AB0 end:0x80298AB8
 
-patchexpander.c:
+rwsdk/plugin/patch/patchexpander.c:
 	.text       start:0x800F6AE0 end:0x800F8CA4
 	.sdata2     start:0x80298AB8 end:0x80298AC8
 
-patchplatform.c:
+rwsdk/plugin/patch/gcn/patchplatform.c:
 	.text       start:0x800F8CA4 end:0x800F8CBC
 
-patchgeom.c:
+rwsdk/plugin/patch/patchgeom.c:
 	.text       start:0x800F8CBC end:0x800F9FE4
 	.sdata2     start:0x80298AC8 end:0x80298AD8
 
-patchgcn.c:
+rwsdk/plugin/patch/gcn/patchgcn.c:
 	.text       start:0x800F9FE4 end:0x800FA2E4
 	.data       start:0x8024D930 end:0x8024D960
 
-eclass.c:
+rwsdk/plugin/prtstd/eclass.c:
 	.text       start:0x800FA2E4 end:0x800FA9C0
 
-emitter.c:
+rwsdk/plugin/prtstd/emitter.c:
 	.text       start:0x800FA9C0 end:0x800FBD7C
 	.sdata2     start:0x80298AD8 end:0x80298AE0
 
-pclass.c:
+rwsdk/plugin/prtstd/pclass.c:
 	.text       start:0x800FBD7C end:0x800FC418
 
-prop.c:
+rwsdk/plugin/prtstd/prop.c:
 	.text       start:0x800FC418 end:0x800FCBEC
 
-pptank.c:
+rwsdk/plugin/prtstd/pptank.c:
 	.text       start:0x800FCBEC end:0x800FD3D8
 	.sdata2     start:0x80298AE0 end:0x80298AF0
 
-standard.c:
+rwsdk/plugin/prtstd/standard.c:
 	.text       start:0x800FD3D8 end:0x801003B0
 	.sdata2     start:0x80298AF0 end:0x80298B10
 
-rpprtstd.c:
+rwsdk/plugin/prtstd/rpprtstd.c:
 	.text       start:0x801003B0 end:0x80100AD0
 	.bss        start:0x80260CD8 end:0x80260DB0
 	.sdata2     start:0x80298B10 end:0x80298B18
 
-rpptank.c:
+rwsdk/plugin/ptank/rpptank.c:
 	.text       start:0x80100AD0 end:0x80101C6C
 	.rodata     start:0x8023F720 end:0x8023F720
 	.sbss       start:0x80296CE0 end:0x80296CE8
 	.sdata2     start:0x80298B18 end:0x80298B30
 	.sbss2      start:0x80299DC8 end:0x80299DD0
 
-ptankgcn.c:
+rwsdk/plugin/ptank/gcn/ptankgcn.c:
 	.text       start:0x80101C6C end:0x80101D78
 	.sbss       start:0x80296CE8 end:0x80296CF0
 
-ptankgcncallbacks.c:
+rwsdk/plugin/ptank/gcn/ptankgcncallbacks.c:
 	.text       start:0x80101D78 end:0x80102388
 	.data       start:0x8024D960 end:0x8024D970
 	.sdata2     start:0x80298B30 end:0x80298B40
 
-ptankgcnrender.c:
+rwsdk/plugin/ptank/gcn/ptankgcnrender.c:
 	.text       start:0x80102388 end:0x80102944
 	.sdata2     start:0x80298B40 end:0x80298B68
 
-ptankgcntransforms.c:
+rwsdk/plugin/ptank/gcn/ptankgcntransforms.c:
 	.rodata     start:0x8023F768 end:0x8023F788
 	.sdata      start:0x80295C30 end:0x80295C38
 	.sdata2     start:0x80298B68 end:0x80298B68
 
-ptankgcn_nc_ppm.c:
+rwsdk/plugin/ptank/gcn/ptankgcn_nc_ppm.c:
 	.text       start:0x80102944 end:0x80102D08
 
-ptankgcn_cc_ppm.c:
+rwsdk/plugin/ptank/gcn/ptankgcn_cc_ppm.c:
 	.text       start:0x80102D08 end:0x801030CC
 
-ptankgcn_nc_cs_nr.c:
+rwsdk/plugin/ptank/gcn/ptankgcn_nc_cs_nr.c:
 	.text       start:0x801030CC end:0x80103494
 
-ptankgcn_cc_cs_nr.c:
+rwsdk/plugin/ptank/gcn/ptankgcn_cc_cs_nr.c:
 	.text       start:0x80103494 end:0x8010389C
 
-ptankgcn_nc_pps_nr.c:
+rwsdk/plugin/ptank/gcn/ptankgcn_nc_pps_nr.c:
 	.text       start:0x8010389C end:0x80103C74
 
-ptankgcn_cc_pps_nr.c:
+rwsdk/plugin/ptank/gcn/ptankgcn_cc_pps_nr.c:
 	.text       start:0x80103C74 end:0x8010406C
 
-ptankgcn_nc_cs_ppr.c:
+rwsdk/plugin/ptank/gcn/ptankgcn_nc_cs_ppr.c:
 	.text       start:0x8010406C end:0x801044D8
 
-ptankgcn_cc_cs_ppr.c:
+rwsdk/plugin/ptank/gcn/ptankgcn_cc_cs_ppr.c:
 	.text       start:0x801044D8 end:0x8010493C
 
-ptankgcn_nc_pps_ppr.c:
+rwsdk/plugin/ptank/gcn/ptankgcn_nc_pps_ppr.c:
 	.text       start:0x8010493C end:0x80104D80
 
-ptankgcn_cc_pps_ppr.c:
+rwsdk/plugin/ptank/gcn/ptankgcn_cc_pps_ppr.c:
 	.text       start:0x80104D80 end:0x801051DC
 
-rprandom.c:
+rwsdk/plugin/random/rprandom.c:
 	.text       start:0x801051DC end:0x80105534
 	.sbss       start:0x80296CF0 end:0x80296CF8
 
-bsplit.c:
+rwsdk/plugin/skin2/bsplit.c:
 	.text       start:0x80105534 end:0x80105804
 
-rpskin.c:
+rwsdk/plugin/skin2/rpskin.c:
 	.text       start:0x80105804 end:0x8010693C
 	.bss        start:0x80260DB0 end:0x80260DD8
 	.sdata      start:0x80295C38 end:0x80295C40
 
-skingcn.c:
+rwsdk/plugin/skin2/gcn/skingcn.c:
 	.text       start:0x8010693C end:0x80107F9C
 	.rodata     start:0x8023F788 end:0x8023F7A0
 	.data       start:0x8024D970 end:0x8024D9B0
 	.sbss       start:0x80296CF8 end:0x80296D00
 	.sdata2     start:0x80298B78 end:0x80298B98
 
-skinstream.c:
+rwsdk/plugin/skin2/gcn/skinstream.c:
 	.text       start:0x80107F9C end:0x8010858C
 
-skinmatrixblend.c:
+rwsdk/plugin/skin2/gcn/skinmatrixblend.c:
 	.text       start:0x8010858C end:0x80108788
 
-skingcnasm.c:
+rwsdk/plugin/skin2/gcn/skingcnasm.c:
 	.text       start:0x80108788 end:0x80108FB8
 
-skingcng.c:
+rwsdk/plugin/skin2/gcn/skingcng.c:
 	.text       start:0x80108FB8 end:0x80109070
 
-rpspline.c:
+rwsdk/plugin/spline/rpspline.c:
 	.text       start:0x80109070 end:0x8010CCA4
 	.data       start:0x8024D9B0 end:0x8024D9D0
 	.bss        start:0x80260DD8 end:0x80260E08
 	.sbss       start:0x80296D00 end:0x80296D38
 	.sdata2     start:0x80298B98 end:0x80298BE0
 
-babinwor.c:
+rwsdk/world/babinwor.c:
 	.text       start:0x8010CCA4 end:0x8010E160
 	.sbss       start:0x80296D38 end:0x80296D50
 	.sdata2     start:0x80298BE0 end:0x80298BE8
 
-baclump.c:
+rwsdk/world/baclump.c:
 	.text       start:0x8010E160 end:0x80111C14
 	.data       start:0x8024D9D0 end:0x8024DA00
 	.bss        start:0x80260E08 end:0x80260E50
@@ -1525,13 +1525,13 @@ baclump.c:
 	.sbss       start:0x80296D50 end:0x80296D68
 	.sdata2     start:0x80298BE8 end:0x80298BF0
 
-bageomet.c:
+rwsdk/world/bageomet.c:
 	.text       start:0x80111C14 end:0x80113B94
 	.data       start:0x8024DA00 end:0x8024DA18
 	.sbss       start:0x80296D68 end:0x80296D70
 	.sdata2     start:0x80298BF0 end:0x80298C00
 
-balight.c:
+rwsdk/world/balight.c:
 	.text       start:0x80113B94 end:0x801145EC
 	.data       start:0x8024DA18 end:0x8024DA30
 	.bss        start:0x80260E50 end:0x80260E78
@@ -1539,7 +1539,7 @@ balight.c:
 	.sbss       start:0x80296D70 end:0x80296D78
 	.sdata2     start:0x80298C00 end:0x80298C50
 
-bamateri.c:
+rwsdk/world/bamateri.c:
 	.text       start:0x801145EC end:0x80114F14
 	.data       start:0x8024DA30 end:0x8024DA58
 	.bss        start:0x80260E78 end:0x80260EA0
@@ -1547,577 +1547,577 @@ bamateri.c:
 	.sbss       start:0x80296D78 end:0x80296D80
 	.sdata2     start:0x80298C50 end:0x80298C58
 
-bamatlst.c:
+rwsdk/world/bamatlst.c:
 	.text       start:0x80114F14 end:0x80115938
 
-bamesh.c:
+rwsdk/world/bamesh.c:
 	.text       start:0x80115938 end:0x801163B0
 	.sdata      start:0x80295C60 end:0x80295C68
 	.sbss       start:0x80296D80 end:0x80296D88
 
-bameshop.c:
+rwsdk/world/bameshop.c:
 	.text       start:0x801163B0 end:0x80118B98
 	.data       start:0x8024DA58 end:0x8024DA70
 	.sdata2     start:0x80298C58 end:0x80298C60
 
-basector.c:
+rwsdk/world/basector.c:
 	.text       start:0x80118B98 end:0x80118CA8
 	.data       start:0x8024DA70 end:0x8024DA88
 	.sbss       start:0x80296D88 end:0x80296D90
 
-baworld.c:
+rwsdk/world/baworld.c:
 	.text       start:0x80118CA8 end:0x8011A2CC
 	.data       start:0x8024DA88 end:0x8024DAA0
 	.bss        start:0x80260EA0 end:0x80260EC8
 	.sbss       start:0x80296D90 end:0x80296D98
 	.sdata2     start:0x80298C60 end:0x80298C68
 
-baworobj.c:
+rwsdk/world/baworobj.c:
 	.text       start:0x8011A2CC end:0x8011C190
 	.bss        start:0x80260EC8 end:0x80260F10
 	.sdata      start:0x80295C68 end:0x80295C78
 	.sbss       start:0x80296D98 end:0x80296DB0
 
-bapipew.c:
+rwsdk/world/pipe/p2/bapipew.c:
 	.text       start:0x8011C190 end:0x8011C290
 
-gcpipe.c:
+rwsdk/world/pipe/p2/gcn/gcpipe.c:
 	.text       start:0x8011C290 end:0x8011CC00
 	.sdata2     start:0x80298C68 end:0x80298C80
 
-vtxfmt.c:
+rwsdk/world/pipe/p2/gcn/vtxfmt.c:
 	.text       start:0x8011CC00 end:0x80120DE8
 	.data       start:0x8024DAA0 end:0x8024DAD0
 	.bss        start:0x80260F10 end:0x80260F28
 	.sbss       start:0x80296DB0 end:0x80296DC0
 	.sdata2     start:0x80298C80 end:0x80298C98
 
-wrldpipe.c:
+rwsdk/world/pipe/p2/gcn/wrldpipe.c:
 	.text       start:0x80120DE8 end:0x80121008
 
-nodeGameCubeAtomicAllInOne.c:
+rwsdk/world/pipe/p2/gcn/nodeGameCubeAtomicAllInOne.c:
 	.text       start:0x80121008 end:0x80121960
 	.data       start:0x8024DAD0 end:0x8024DB30
 	.sdata2     start:0x80298C98 end:0x80298CA0
 
-nodeGameCubeWorldSectorAllInOne.c:
+rwsdk/world/pipe/p2/gcn/nodeGameCubeWorldSectorAllInOne.c:
 	.text       start:0x80121960 end:0x80121ED4
 	.data       start:0x8024DB30 end:0x8024DB98
 	.sdata2     start:0x80298CA0 end:0x80298CA8
 
-displaylist.c:
+rwsdk/world/pipe/p2/gcn/displaylist.c:
 	.text       start:0x80121ED4 end:0x8012230C
 
-gclights.c:
+rwsdk/world/pipe/p2/gcn/gclights.c:
 	.text       start:0x8012230C end:0x80122790
 	.data       start:0x8024DB98 end:0x8024DBB8
 	.bss        start:0x80260F28 end:0x80261128
 	.sdata2     start:0x80298CA8 end:0x80298CC0
 
-gcmorph.c:
+rwsdk/world/pipe/p2/gcn/gcmorph.c:
 	.text       start:0x80122790 end:0x80122A14
 	.sdata      start:0x80295C78 end:0x80295C88
 	.sdata2     start:0x80298CC0 end:0x80298CD8
 
-native.c:
+rwsdk/world/pipe/p2/gcn/native.c:
 	.text       start:0x80122A14 end:0x801232F8
 	.sdata      start:0x80295C88 end:0x80295C90
 
-brush.c:
+rwsdk/tool/2d/brush.c:
 	.text       start:0x801232F8 end:0x80123CD8
 	.bss        start:0x80261128 end:0x80261150
 	.sdata      start:0x80295C90 end:0x80295C98
 	.sdata2     start:0x80298CD8 end:0x80298CE8
 
-fill.c:
+rwsdk/tool/2d/fill.c:
 	.text       start:0x80123CD8 end:0x80124E10
 	.sdata2     start:0x80298CE8 end:0x80298CF0
 
-font.c:
+rwsdk/tool/2d/font.c:
 	.text       start:0x80124E10 end:0x80126E28
 	.data       start:0x8024DBB8 end:0x8024DC38
 	.bss        start:0x80261150 end:0x80261198
 	.sdata      start:0x80295C98 end:0x80295CF8
 	.sdata2     start:0x80298CF0 end:0x80298D08
 
-gstate.c:
+rwsdk/tool/2d/gstate.c:
 	.text       start:0x80126E28 end:0x80127EA4
 	.bss        start:0x80261198 end:0x80261B50
 	.sdata2     start:0x80298D08 end:0x80298D20
 
-path.c:
+rwsdk/tool/2d/path.c:
 	.text       start:0x80127EA4 end:0x8012A320
 	.bss        start:0x80261B50 end:0x80261B78
 	.sdata      start:0x80295CF8 end:0x80295D00
 	.sdata2     start:0x80298D20 end:0x80298D30
 
-stroke.c:
+rwsdk/tool/2d/stroke.c:
 	.text       start:0x8012A320 end:0x8012ACC8
 	.sdata2     start:0x80298D30 end:0x80298D38
 
-2dstr.c:
+rwsdk/tool/2d/2dstr.c:
 	.text       start:0x8012ACC8 end:0x8012B05C
 	.sdata2     start:0x80298D38 end:0x80298D40
 
-object.c:
+rwsdk/tool/2d/object.c:
 	.text       start:0x8012B05C end:0x8012B710
 	.bss        start:0x80261B78 end:0x80261BA0
 	.sdata      start:0x80295D00 end:0x80295D08
 	.sdata2     start:0x80298D40 end:0x80298D50
 
-pickreg.c:
+rwsdk/tool/2d/pickreg.c:
 	.text       start:0x8012B710 end:0x8012B848
 	.sdata2     start:0x80298D50 end:0x80298D58
 
-scene.c:
+rwsdk/tool/2d/scene.c:
 	.text       start:0x8012B848 end:0x8012C3BC
 
-shape.c:
+rwsdk/tool/2d/shape.c:
 	.text       start:0x8012C3BC end:0x8012D14C
 	.sdata2     start:0x80298D58 end:0x80298D68
 
-tri.c:
+rwsdk/tool/2d/tri.c:
 	.text       start:0x8012D14C end:0x8012DCAC
 	.bss        start:0x80261BA0 end:0x80261BE8
 	.sdata      start:0x80295D08 end:0x80295D18
 	.sdata2     start:0x80298D68 end:0x80298D78
 
-anim.c:
+rwsdk/tool/2d/anim/anim.c:
 	.text       start:0x8012DCAC end:0x8012E5B4
 	.sdata2     start:0x80298D78 end:0x80298D80
 
-keyframe.c:
+rwsdk/tool/2d/anim/keyframe.c:
 	.text       start:0x8012E5B4 end:0x8012F3BC
 	.sdata2     start:0x80298D80 end:0x80298D88
 
-props.c:
+rwsdk/tool/2d/anim/props.c:
 	.text       start:0x8012F3BC end:0x8012F4F4
 
-bucket.c:
+rwsdk/tool/2d/anim/bucket.c:
 	.text       start:0x8012F4F4 end:0x8012F5DC
 
-strlabel.c:
+rwsdk/tool/2d/anim/strlabel.c:
 	.text       start:0x8012F5DC end:0x8012FB78
 	.bss        start:0x80261BE8 end:0x80261C28
 
-button.c:
+rwsdk/tool/2d/anim/button.c:
 	.text       start:0x8012FB78 end:0x801301FC
 
-message.c:
+rwsdk/tool/2d/anim/message.c:
 	.text       start:0x801301FC end:0x80130C78
 	.data       start:0x8024DC38 end:0x8024DD08
 	.sdata2     start:0x80298D88 end:0x80298D98
 
-maestro.c:
+rwsdk/tool/2d/anim/maestro.c:
 	.text       start:0x80130C78 end:0x80131B5C
 	.sdata2     start:0x80298D98 end:0x80298DA8
 
-handler.c:
+rwsdk/tool/2d/anim/handler.c:
 	.text       start:0x80131B5C end:0x8013236C
 	.data       start:0x8024DD08 end:0x8024DD40
 	.sdata2     start:0x80298DA8 end:0x80298DB8
 
-cel.c:
+rwsdk/tool/2d/anim/cel.c:
 	.text       start:0x8013236C end:0x8013289C
 
-gstate_1.c:
+rwsdk/tool/2d/anim/gstate.c:
 	.text       start:0x8013289C end:0x80132AC0
 	.bss        start:0x80261C28 end:0x80261C58
 	.sbss       start:0x80296DC0 end:0x80296DC8
 
-rt2danim.c:
+rwsdk/tool/2d/anim/rt2danim.c:
 	.sbss       start:0x80296DC8 end:0x80296DD0
 
-bezquad.c:
+rwsdk/tool/bezpat/bezquad.c:
 	.text       start:0x80132AC0 end:0x80134E9C
 	.sdata2     start:0x80298DB8 end:0x80298DC0
 
-rtbezpat.c:
+rwsdk/tool/bezpat/rtbezpat.c:
 	.text       start:0x80134E9C end:0x8013550C
 	.sdata2     start:0x80298DC0 end:0x80298DD0
 
-rtbmp.c:
+rwsdk/tool/bmp/rtbmp.c:
 	.text       start:0x8013550C end:0x80136CE0
 	.data       start:0x8024DD40 end:0x8024DDC8
 
-chrprint.c:
+rwsdk/tool/charset/chrprint.c:
 	.text       start:0x80136CE0 end:0x80137404
 	.data       start:0x8024DDC8 end:0x8024DDE0
 	.sdata      start:0x80295D18 end:0x80295D20
 	.sdata2     start:0x80298DD0 end:0x80298DE0
 
-rtcharse.c:
+rwsdk/tool/charset/rtcharse.c:
 	.text       start:0x80137404 end:0x80137A98
 	.rodata     start:0x8023F7A0 end:0x8023FCF8
 
-rtintsec.c:
+rwsdk/tool/intsec/rtintsec.c:
 	.text       start:0x80137A98 end:0x801391B8
 	.sdata2     start:0x80298DE0 end:0x80298DE8
 
-rtpick.c:
+rwsdk/tool/pick/rtpick.c:
 	.text       start:0x801391B8 end:0x801395A8
 	.sdata2     start:0x80298DE8 end:0x80298DF8
 
-adler32.c:
+rwsdk/tool/png/zlib/adler32.c:
 	.text       start:0x801395A8 end:0x80139744
 
-deflate.c:
+rwsdk/tool/png/zlib/deflate.c:
 	.text       start:0x80139744 end:0x8013B6D4
 	.rodata     start:0x8023FCF8 end:0x8023FD70
 	.sdata      start:0x80295D20 end:0x80295D30
 
-trees.c:
+rwsdk/tool/png/zlib/trees.c:
 	.text       start:0x8013B6D4 end:0x8013DA78
 	.rodata     start:0x8023FD70 end:0x802407A0
 	.data       start:0x8024DDE0 end:0x8024DE20
 
-zutil.c:
+rwsdk/tool/png/zlib/zutil.c:
 	.text       start:0x8013DA78 end:0x8013DAD4
 	.data       start:0x8024DE20 end:0x8024DEC8
 	.sdata      start:0x80295D30 end:0x80295D38
 
-inflate.c:
+rwsdk/tool/png/zlib/inflate.c:
 	.text       start:0x8013DAD4 end:0x8013E430
 	.data       start:0x8024DEC8 end:0x8024DF70
 	.sdata      start:0x80295D38 end:0x80295D40
 
-infblock.c:
+rwsdk/tool/png/zlib/infblock.c:
 	.text       start:0x8013E430 end:0x8013F554
 	.rodata     start:0x802407A0 end:0x802407F0
 	.data       start:0x8024DF70 end:0x8024E010
 
-inftrees.c:
+rwsdk/tool/png/zlib/inftrees.c:
 	.text       start:0x8013F554 end:0x8013FDA4
 	.rodata     start:0x802407F0 end:0x80240A08
 	.data       start:0x8024E010 end:0x8024F200
 	.sdata      start:0x80295D40 end:0x80295D48
 
-infcodes.c:
+rwsdk/tool/png/zlib/infcodes.c:
 	.text       start:0x8013FDA4 end:0x80140798
 	.data       start:0x8024F200 end:0x8024F260
 
-infutil.c:
+rwsdk/tool/png/zlib/infutil.c:
 	.text       start:0x80140798 end:0x80140920
 	.data       start:0x8024F260 end:0x8024F2A8
 
-inffast.c:
+rwsdk/tool/png/zlib/inffast.c:
 	.text       start:0x80140920 end:0x80140ECC
 	.data       start:0x8024F2A8 end:0x8024F2E0
 
-crc32.c:
+rwsdk/tool/png/zlib/crc32.c:
 	.text       start:0x80140ECC end:0x80141008
 	.rodata     start:0x80240A08 end:0x80240E08
 
-png.c:
+rwsdk/tool/png/libpng/png.c:
 	.text       start:0x80141008 end:0x80141800
 	.rodata     start:0x80240E08 end:0x80240EC8
 	.sdata2     start:0x80298DF8 end:0x80298EA0
 
-pngerror.c:
+rwsdk/tool/png/libpng/pngerror.c:
 	.text       start:0x80141800 end:0x80141BC8
 	.rodata     start:0x80240EC8 end:0x80240ED8
 
-pngget.c:
+rwsdk/tool/png/libpng/pngget.c:
 	.text       start:0x80141BC8 end:0x80141DD4
 	.data       start:0x8024F2E0 end:0x8024F318
 
-pngmem.c:
+rwsdk/tool/png/libpng/pngmem.c:
 	.text       start:0x80141DD4 end:0x80142178
 	.data       start:0x8024F318 end:0x8024F378
 
-pngread.c:
+rwsdk/tool/png/libpng/pngread.c:
 	.text       start:0x80142178 end:0x80143938
 	.data       start:0x8024F378 end:0x8024F6C0
 	.sdata      start:0x80295D48 end:0x80295D50
 
-pngrio.c:
+rwsdk/tool/png/libpng/pngrio.c:
 	.text       start:0x80143938 end:0x801439E0
 	.data       start:0x8024F6C0 end:0x8024F758
 
-pngrtran.c:
+rwsdk/tool/png/libpng/pngrtran.c:
 	.text       start:0x801439E0 end:0x8014B1E8
 	.data       start:0x8024F758 end:0x8024F968
 	.sdata2     start:0x80298EA0 end:0x80298EF0
 
-pngrutil.c:
+rwsdk/tool/png/libpng/pngrutil.c:
 	.text       start:0x8014B1E8 end:0x8014F590
 	.data       start:0x8024F968 end:0x80250580
 	.sdata2     start:0x80298EF0 end:0x80298F08
 
-pngset.c:
+rwsdk/tool/png/libpng/pngset.c:
 	.text       start:0x8014F590 end:0x80150798
 	.data       start:0x80250580 end:0x80250730
 	.sdata2     start:0x80298F08 end:0x80298F58
 
-pngtrans.c:
+rwsdk/tool/png/libpng/pngtrans.c:
 	.text       start:0x80150798 end:0x801518F4
 	.data       start:0x80250730 end:0x80250A30
 
-pngwio.c:
+rwsdk/tool/png/libpng/pngwio.c:
 	.text       start:0x801518F4 end:0x801519C8
 	.data       start:0x80250A30 end:0x80250AC0
 
-pngwrite.c:
+rwsdk/tool/png/libpng/pngwrite.c:
 	.text       start:0x801519C8 end:0x80152C80
 	.data       start:0x80250AC0 end:0x80250BF0
 	.sdata2     start:0x80298F58 end:0x80298F80
 
-pngwtran.c:
+rwsdk/tool/png/libpng/pngwtran.c:
 	.text       start:0x80152C80 end:0x801540B0
 
-pngwutil.c:
+rwsdk/tool/png/libpng/pngwutil.c:
 	.text       start:0x801540B0 end:0x80158704
 	.data       start:0x80250BF0 end:0x80251250
 	.sdata      start:0x80295D50 end:0x80295D58
 	.sdata2     start:0x80298F80 end:0x80298FB0
 
-rtpng.c:
+rwsdk/tool/png/rtpng.c:
 	.text       start:0x80158704 end:0x801593A0
 	.data       start:0x80251250 end:0x80251270
 	.sdata      start:0x80295D58 end:0x80295D60
 
-rtquat.c:
+rwsdk/tool/quat/rtquat.c:
 	.text       start:0x801593A0 end:0x80159800
 	.data       start:0x80251270 end:0x80251290
 	.sdata2     start:0x80298FB0 end:0x80298FB8
 
-ctbuild.c:
+rwsdk/plugin/collis/ctbuild.c:
 	.text       start:0x80159800 end:0x8015AFE4
 	.sdata2     start:0x80298FB8 end:0x80298FE8
 
-ctworld.c:
+rwsdk/plugin/collis/ctworld.c:
 	.text       start:0x8015AFE4 end:0x8015D130
 	.sdata2     start:0x80298FE8 end:0x80298FF8
 
-ctbsp.c:
+rwsdk/plugin/collis/ctbsp.c:
 	.text       start:0x8015D130 end:0x8015DFB0
 
-rpcollis.c:
+rwsdk/plugin/collis/rpcollis.c:
 	.text       start:0x8015DFB0 end:0x8015E5CC
 	.sbss       start:0x80296DD0 end:0x80296DE8
 
-vi.c:
+dolphin/vi/src/vi.c:
 	.text       start:0x8015E5CC end:0x801600EC
 	.data       start:0x80251290 end:0x80251660
 	.bss        start:0x80261C58 end:0x80261DA0
 	.sdata      start:0x80295D60 end:0x80295D70
 	.sbss       start:0x80296DE8 end:0x80296E40
 
-am.c:
+dolphin/am/src/am.c:
 	.text       start:0x801600EC end:0x80160158
 	.bss        start:0x80261DA0 end:0x80261DE0
 	.sbss       start:0x80296E40 end:0x80296E50
 
-ar.c:
+dolphin/ar/src/ar.c:
 	.text       start:0x80160158 end:0x80161DB0
 	.data       start:0x80251660 end:0x802516A8
 	.sdata      start:0x80295D70 end:0x80295D78
 	.sbss       start:0x80296E50 end:0x80296E70
 
-arq.c:
+dolphin/ar/src/arq.c:
 	.text       start:0x80161DB0 end:0x80162184
 	.data       start:0x802516A8 end:0x802516F0
 	.sdata      start:0x80295D78 end:0x80295D80
 	.sbss       start:0x80296E70 end:0x80296E98
 
-AX.c:
+dolphin/ax/src/AX.c:
 	.text       start:0x80162184 end:0x801621F4
 	.data       start:0x802516F0 end:0x80251738
 	.sdata      start:0x80295D80 end:0x80295D88
 
-AXAlloc.c:
+dolphin/ax/src/AXAlloc.c:
 	.text       start:0x801621F4 end:0x801626BC
 	.bss        start:0x80261DE0 end:0x80261EE0
 	.sbss       start:0x80296E98 end:0x80296EA0
 
-AXAux.c:
+dolphin/ax/src/AXAux.c:
 	.text       start:0x801626BC end:0x80162B50
 	.bss        start:0x80261EE0 end:0x80264BE0
 	.sbss       start:0x80296EA0 end:0x80296ED8
 
-AXCL.c:
+dolphin/ax/src/AXCL.c:
 	.text       start:0x80162B50 end:0x80163280
 	.bss        start:0x80264BE0 end:0x802651E0
 	.sbss       start:0x80296ED8 end:0x80296EF0
 
-AXOut.c:
+dolphin/ax/src/AXOut.c:
 	.text       start:0x80163280 end:0x80163940
 	.bss        start:0x802651E0 end:0x80269A00
 	.sbss       start:0x80296EF0 end:0x80296F10
 
-AXSPB.c:
+dolphin/ax/src/AXSPB.c:
 	.text       start:0x80163940 end:0x80163E08
 	.bss        start:0x80269A00 end:0x80269A40
 	.sbss       start:0x80296F10 end:0x80296F38
 
-AXVPB.c:
+dolphin/ax/src/AXVPB.c:
 	.text       start:0x80163E08 end:0x80164FC0
 	.data       start:0x80251738 end:0x80251820
 	.bss        start:0x80269A40 end:0x8027AE40
 	.sbss       start:0x80296F38 end:0x80296F48
 	.sdata2     start:0x80298FF8 end:0x80299000
 
-AXComp.c:
+dolphin/ax/src/AXComp.c:
 	.data       start:0x80251820 end:0x80253260
 
-DSPCode.c:
+dolphin/ax/src/DSPCode.c:
 	.data       start:0x80253260 end:0x80255180
 	.sdata      start:0x80295D88 end:0x80295D90
 
-AXProf.c:
+dolphin/ax/src/AXProf.c:
 	.text       start:0x80164FC0 end:0x80165008
 	.sbss       start:0x80296F48 end:0x80296F58
 
-reverb_hi.c:
+dolphin/axfx/src/reverb_hi.c:
 	.text       start:0x80165008 end:0x801660CC
 	.data       start:0x80255180 end:0x802551A0
 	.sdata2     start:0x80299000 end:0x80299048
 
-reverb_std.c:
+dolphin/axfx/src/reverb_std.c:
 	.text       start:0x801660CC end:0x80166CC8
 	.data       start:0x802551A0 end:0x802551B0
 	.sdata2     start:0x80299048 end:0x80299088
 
-axfx.c:
+dolphin/axfx/src/axfx.c:
 	.text       start:0x80166CC8 end:0x80166D18
 	.sdata      start:0x80295D90 end:0x80295D98
 
-reverb_hi_4ch.c:
+dolphin/axfx/src/reverb_hi_4ch.c:
 	.text       start:0x80166D18 end:0x80167C50
 	.data       start:0x802551B0 end:0x802551D8
 	.sdata2     start:0x80299088 end:0x802990C8
 
-PPCArch.c:
+dolphin/base/src/PPCArch.c:
 	.text       start:0x80167C50 end:0x80167D40
 
-CARDBios.c:
+dolphin/card/src/CARDBios.c:
 	.text       start:0x80167D40 end:0x80169024
 	.data       start:0x802551D8 end:0x80255240
 	.bss        start:0x8027AE40 end:0x8027B080
 	.sdata      start:0x80295D98 end:0x80295DA0
 	.sbss       start:0x80296F58 end:0x80296F60
 
-CARDUnlock.c:
+dolphin/card/src/CARDUnlock.c:
 	.text       start:0x80169024 end:0x8016A284
 	.data       start:0x80255240 end:0x802553A0
 	.sdata      start:0x80295DA0 end:0x80295DA8
 
-CARDNet.c:
+dolphin/card/src/CARDNet.c:
 	.sdata      start:0x80295DA8 end:0x80295DB0
 
-CARDRdwr.c:
+dolphin/card/src/CARDRdwr.c:
 	.text       start:0x8016A284 end:0x8016A504
 
-CARDBlock.c:
+dolphin/card/src/CARDBlock.c:
 	.text       start:0x8016A504 end:0x8016A908
 
-CARDDir.c:
+dolphin/card/src/CARDDir.c:
 	.text       start:0x8016A908 end:0x8016AB6C
 
-CARDCheck.c:
+dolphin/card/src/CARDCheck.c:
 	.text       start:0x8016AB6C end:0x8016BAD4
 
-CARDMount.c:
+dolphin/card/src/CARDMount.c:
 	.text       start:0x8016BAD4 end:0x8016C594
 	.data       start:0x802553A0 end:0x802553E0
 
-CARDFormat.c:
+dolphin/card/src/CARDFormat.c:
 	.text       start:0x8016C594 end:0x8016CD84
 
-CARDOpen.c:
+dolphin/card/src/CARDOpen.c:
 	.text       start:0x8016CD84 end:0x8016D070
 
-CARDCreate.c:
+dolphin/card/src/CARDCreate.c:
 	.text       start:0x8016D070 end:0x8016D408
 
-CARDRead.c:
+dolphin/card/src/CARDRead.c:
 	.text       start:0x8016D408 end:0x8016D880
 
-CARDWrite.c:
+dolphin/card/src/CARDWrite.c:
 	.text       start:0x8016D880 end:0x8016DBB4
 
-CARDDelete.c:
+dolphin/card/src/CARDDelete.c:
 	.text       start:0x8016DBB4 end:0x8016DDCC
 
-CARDStat.c:
+dolphin/card/src/CARDStat.c:
 	.text       start:0x8016DDCC end:0x8016E2AC
 
-db.c:
+dolphin/db/src/db.c:
 	.text       start:0x8016E2AC end:0x8016E398
 	.data       start:0x802553E0 end:0x802553F8
 	.sbss       start:0x80296F60 end:0x80296F68
 
-dsp.c:
+dolphin/dsp/src/dsp.c:
 	.text       start:0x8016E398 end:0x8016E680
 	.data       start:0x802553F8 end:0x80255478
 	.sdata      start:0x80295DB0 end:0x80295DB8
 	.sbss       start:0x80296F68 end:0x80296F70
 
-dsp_debug.c:
+dolphin/dsp/src/dsp_debug.c:
 	.text       start:0x8016E680 end:0x8016E6D0
 
-dsp_task.c:
+dolphin/dsp/src/dsp_task.c:
 	.text       start:0x8016E6D0 end:0x8016EF54
 	.data       start:0x80255478 end:0x802555B8
 	.sbss       start:0x80296F70 end:0x80296F88
 
-dvdlow.c:
+dolphin/dvd/src/dvdlow.c:
 	.text       start:0x8016EF54 end:0x8016FD94
 	.bss        start:0x8027B080 end:0x8027B160
 	.sdata      start:0x80295DB8 end:0x80295DC0
 	.sbss       start:0x80296F88 end:0x80296FD0
 
-dvdfs.c:
+dolphin/dvd/src/dvdfs.c:
 	.text       start:0x8016FD94 end:0x80170668
 	.data       start:0x802555B8 end:0x80255720
 	.sdata      start:0x80295DC0 end:0x80295DC8
 	.sbss       start:0x80296FD0 end:0x80296FF0
 
-dvd.c:
+dolphin/dvd/src/dvd.c:
 	.text       start:0x80170668 end:0x80172C98
 	.data       start:0x80255720 end:0x802558A0
 	.bss        start:0x8027B160 end:0x8027B1F8
 	.sdata      start:0x80295DC8 end:0x80295DE0
 	.sbss       start:0x80296FF0 end:0x80297038
 
-dvdqueue.c:
+dolphin/dvd/src/dvdqueue.c:
 	.text       start:0x80172C98 end:0x80172E90
 	.bss        start:0x8027B1F8 end:0x8027B218
 
-dvderror.c:
+dolphin/dvd/src/dvderror.c:
 	.text       start:0x80172E90 end:0x80173028
 	.data       start:0x802558A0 end:0x802558E8
 
-dvdidutils.c:
+dolphin/dvd/src/dvdidutils.c:
 	.text       start:0x80173028 end:0x80173120
 
-dvdFatal.c:
+dolphin/dvd/src/dvdFatal.c:
 	.text       start:0x80173120 end:0x80173150
 	.sbss       start:0x80297038 end:0x80297040
 
-fstload.c:
+dolphin/dvd/src/emu_level2/fstload.c:
 	.text       start:0x80173150 end:0x80173390
 	.data       start:0x802558E8 end:0x80255958
 	.bss        start:0x8027B218 end:0x8027B288
 	.sdata      start:0x80295DE0 end:0x80295DF0
 	.sbss       start:0x80297040 end:0x80297050
 
-EXIBios.c:
+dolphin/exi/src/EXIBios.c:
 	.text       start:0x80173390 end:0x80174C6C
 	.data       start:0x80255958 end:0x80255A28
 	.bss        start:0x8027B288 end:0x8027B348
 	.sdata      start:0x80295DF0 end:0x80295DF8
 
-EXIUart.c:
+dolphin/exi/src/EXIUart.c:
 	.text       start:0x80174C6C end:0x80174EDC
 	.sbss       start:0x80297050 end:0x80297060
 
-fileCache.c:
+dolphin/fileCache/src/fileCache.c:
 	.text       start:0x80174EDC end:0x80174FA8
 	.bss        start:0x8027B348 end:0x8027B358
 	.sbss       start:0x80297060 end:0x80297068
 
-GXInit.c:
+dolphin/gx/src/GXInit.c:
 	.text       start:0x80174FA8 end:0x80176178
 	.data       start:0x80255A28 end:0x80255B58
 	.bss        start:0x8027B358 end:0x8027B8D0
@@ -2125,424 +2125,424 @@ GXInit.c:
 	.sbss       start:0x80297068 end:0x80297078
 	.sdata2     start:0x802990C8 end:0x802990F0
 
-GXFifo.c:
+dolphin/gx/src/GXFifo.c:
 	.text       start:0x80176178 end:0x80176A70
 	.sbss       start:0x80297078 end:0x80297098
 
-GXAttr.c:
+dolphin/gx/src/GXAttr.c:
 	.text       start:0x80176A70 end:0x80177BE0
 	.data       start:0x80255B58 end:0x80255CB8
 	.sdata      start:0x80295E00 end:0x80295E10
 
-GXMisc.c:
+dolphin/gx/src/GXMisc.c:
 	.text       start:0x80177BE0 end:0x80178110
 	.sbss       start:0x80297098 end:0x802970B0
 
-GXGeometry.c:
+dolphin/gx/src/GXGeometry.c:
 	.text       start:0x80178110 end:0x801784C0
 
-GXFrameBuf.c:
+dolphin/gx/src/GXFrameBuf.c:
 	.text       start:0x801784C0 end:0x801790BC
 	.data       start:0x80255CB8 end:0x80255DA8
 	.sdata2     start:0x802990F0 end:0x80299100
 
-GXLight.c:
+dolphin/gx/src/GXLight.c:
 	.text       start:0x801790BC end:0x801796D8
 	.data       start:0x80255DA8 end:0x80255DC8
 	.sdata2     start:0x80299100 end:0x80299130
 
-GXTexture.c:
+dolphin/gx/src/GXTexture.c:
 	.text       start:0x801796D8 end:0x8017A720
 	.data       start:0x80255DC8 end:0x80255EF8
 	.sdata      start:0x80295E10 end:0x80295E50
 	.sdata2     start:0x80299130 end:0x80299168
 
-GXBump.c:
+dolphin/gx/src/GXBump.c:
 	.text       start:0x8017A720 end:0x8017AD0C
 	.sdata2     start:0x80299168 end:0x80299170
 
-GXTev.c:
+dolphin/gx/src/GXTev.c:
 	.text       start:0x8017AD0C end:0x8017B47C
 	.data       start:0x80255EF8 end:0x80255F70
 
-GXPixel.c:
+dolphin/gx/src/GXPixel.c:
 	.text       start:0x8017B47C end:0x8017BA50
 	.data       start:0x80255F70 end:0x80255F90
 	.sdata2     start:0x80299170 end:0x802991A0
 
-GXStubs.c:
+dolphin/gx/src/GXStubs.c:
 	.text       start:0x8017BA50 end:0x8017BA54
 
-GXDisplayList.c:
+dolphin/gx/src/GXDisplayList.c:
 	.text       start:0x8017BA54 end:0x8017BC60
 	.bss        start:0x8027B8D0 end:0x8027BE00
 	.sbss       start:0x802970B0 end:0x802970B8
 
-GXTransform.c:
+dolphin/gx/src/GXTransform.c:
 	.text       start:0x8017BC60 end:0x8017C264
 	.sdata2     start:0x802991A0 end:0x802991B8
 
-GXPerf.c:
+dolphin/gx/src/GXPerf.c:
 	.text       start:0x8017C264 end:0x8017CABC
 	.data       start:0x80255F90 end:0x80256080
 
-mtx.c:
+dolphin/mtx/src/mtx.c:
 	.text       start:0x8017CABC end:0x8017CBB4
 	.sdata      start:0x80295E50 end:0x80295E58
 	.sdata2     start:0x802991B8 end:0x802991C0
 
-mtx44.c:
+dolphin/mtx/src/mtx44.c:
 	.text       start:0x8017CBB4 end:0x8017CC4C
 	.sdata2     start:0x802991C0 end:0x802991D0
 
-OS.c:
+dolphin/os/src/OS.c:
 	.text       start:0x8017CC4C end:0x8017D594
 	.data       start:0x80256080 end:0x80256288
 	.bss        start:0x8027BE00 end:0x8027BE50
 	.sdata      start:0x80295E58 end:0x80295E60
 	.sbss       start:0x802970B8 end:0x802970E8
 
-OSAlarm.c:
+dolphin/os/src/OSAlarm.c:
 	.text       start:0x8017D594 end:0x8017DC44
 	.sbss       start:0x802970E8 end:0x802970F0
 
-OSArena.c:
+dolphin/os/src/OSArena.c:
 	.text       start:0x8017DC44 end:0x8017DC64
 	.sdata      start:0x80295E60 end:0x80295E68
 	.sbss       start:0x802970F0 end:0x802970F8
 
-OSAudioSystem.c:
+dolphin/os/src/OSAudioSystem.c:
 	.text       start:0x8017DC64 end:0x8017DEF8
 	.data       start:0x80256288 end:0x80256308
 
-OSCache.c:
+dolphin/os/src/OSCache.c:
 	.text       start:0x8017DEF8 end:0x8017E548
 	.data       start:0x80256308 end:0x80256538
 
-OSContext.c:
+dolphin/os/src/OSContext.c:
 	.text       start:0x8017E548 end:0x8017EDB8
 	.data       start:0x80256538 end:0x80256710
 
-OSError.c:
+dolphin/os/src/OSError.c:
 	.text       start:0x8017EDB8 end:0x8017F464
 	.data       start:0x80256710 end:0x80256A30
 	.bss        start:0x8027BE50 end:0x8027BEA0
 	.sdata      start:0x80295E68 end:0x80295E70
 
-OSFont.c:
+dolphin/os/src/OSFont.c:
 	.text       start:0x8017F464 end:0x801801C4
 	.data       start:0x80256A30 end:0x80257540
 	.sdata      start:0x80295E70 end:0x80295E78
 	.sbss       start:0x802970F8 end:0x80297108
 	.sdata2     start:0x802991D0 end:0x802991D8
 
-OSInterrupt.c:
+dolphin/os/src/OSInterrupt.c:
 	.text       start:0x801801C4 end:0x80180A30
 	.data       start:0x80257540 end:0x80257570
 	.sbss       start:0x80297108 end:0x80297120
 
-OSLink.c:
+dolphin/os/src/OSLink.c:
 	.text       start:0x80180A30 end:0x80180A48
 
-OSMessage.c:
+dolphin/os/src/OSMessage.c:
 	.text       start:0x80180A48 end:0x80180C4C
 
-OSMemory.c:
+dolphin/os/src/OSMemory.c:
 	.text       start:0x80180C4C end:0x80180F2C
 	.data       start:0x80257570 end:0x80257580
 
-OSMutex.c:
+dolphin/os/src/OSMutex.c:
 	.text       start:0x80180F2C end:0x80180F9C
 
-OSReboot.c:
+dolphin/os/src/OSReboot.c:
 	.text       start:0x80180F9C end:0x80181180
 	.bss        start:0x8027BEA0 end:0x8027BEC0
 	.sbss       start:0x80297120 end:0x80297130
 
-OSReset.c:
+dolphin/os/src/OSReset.c:
 	.text       start:0x80181180 end:0x80181564
 	.sbss       start:0x80297130 end:0x80297138
 
-OSResetSW.c:
+dolphin/os/src/OSResetSW.c:
 	.text       start:0x80181564 end:0x801818F0
 	.sbss       start:0x80297138 end:0x80297158
 
-OSRtc.c:
+dolphin/os/src/OSRtc.c:
 	.text       start:0x801818F0 end:0x8018232C
 	.bss        start:0x8027BEC0 end:0x8027BF18
 
-OSSemaphore.c:
+dolphin/os/src/OSSemaphore.c:
 	.text       start:0x8018232C end:0x80182454
 
-OSSync.c:
+dolphin/os/src/OSSync.c:
 	.text       start:0x80182454 end:0x801824D8
 
-OSThread.c:
+dolphin/os/src/OSThread.c:
 	.text       start:0x801824D8 end:0x801836A8
 	.bss        start:0x8027BF18 end:0x8027C910
 	.sdata      start:0x80295E78 end:0x80295E80
 	.sbss       start:0x80297158 end:0x80297168
 
-OSTime.c:
+dolphin/os/src/OSTime.c:
 	.text       start:0x801836A8 end:0x80183ACC
 	.data       start:0x80257580 end:0x802575E0
 
-__start.c:
+dolphin/os/src/init/__start.c:
 	.init       start:0x80003100 end:0x80003140
 
-__ppc_eabi_init.cpp:
+dolphin/os/src/init/__ppc_eabi_init.cpp:
 	.init       start:0x80003354 end:0x800033A8
 	.text       start:0x80183ACC end:0x80183B60
 
-Padclamp.c:
+dolphin/pad/src/Padclamp.c:
 	.text       start:0x80183B60 end:0x80183DA4
 	.rodata     start:0x80240ED8 end:0x80240EE8
 
-Pad.c:
+dolphin/pad/src/Pad.c:
 	.text       start:0x80183DA4 end:0x80185874
 	.data       start:0x802575E0 end:0x80257638
 	.bss        start:0x8027C910 end:0x8027C960
 	.sdata      start:0x80295E80 end:0x80295EA0
 	.sbss       start:0x80297168 end:0x80297190
 
-SIBios.c:
+dolphin/si/src/SIBios.c:
 	.text       start:0x80185874 end:0x801870D4
 	.data       start:0x80257638 end:0x80257750
 	.bss        start:0x8027C960 end:0x8027CB60
 	.sdata      start:0x80295EA0 end:0x80295EA8
 	.sbss       start:0x80297190 end:0x802971A0
 
-SISamplingRate.c:
+dolphin/si/src/SISamplingRate.c:
 	.text       start:0x801870D4 end:0x801871DC
 	.data       start:0x80257750 end:0x802577E8
 	.sbss       start:0x802971A0 end:0x802971A8
 
-List.c:
+dolphin/support/src/List.c:
 	.text       start:0x801871DC end:0x80187244
 
-texPalette.c:
+dolphin/texPalette/src/texPalette.c:
 	.text       start:0x80187244 end:0x801872B0
 
-ai.c:
+dolphin/ai/src/ai.c:
 	.text       start:0x801872B0 end:0x80187BB0
 	.data       start:0x802577E8 end:0x80257830
 	.sdata      start:0x80295EA8 end:0x80295EB0
 	.sbss       start:0x802971A8 end:0x802971E8
 
-abort_exit.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/abort_exit.c:
 	.text       start:0x80187BB0 end:0x80187D04
 	.bss        start:0x8027CB60 end:0x8027CC60
 	.sbss       start:0x802971E8 end:0x802971F8
 
-alloc.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/alloc.c:
 	.text       start:0x80187D04 end:0x8018915C
 	.rodata     start:0x80240EE8 end:0x80240F00
 	.bss        start:0x8027CC60 end:0x8027CC98
 	.sbss       start:0x802971F8 end:0x80297200
 
-errno.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/errno.c:
 	.sbss       start:0x80297200 end:0x80297208
 
-ansi_files.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/ansi_files.c:
 	.text       start:0x8018915C end:0x8018945C
 	.data       start:0x80257830 end:0x80257970
 	.bss        start:0x8027CC98 end:0x8027CF98
 
-ansi_fp.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Src/ansi_fp.c:
 	.text       start:0x8018945C end:0x8018B0C8
 	.rodata     start:0x80240F00 end:0x80240FE0
 	.data       start:0x80257970 end:0x80257AD8
 	.sdata2     start:0x802991D8 end:0x80299208
 
-buffer_io.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/buffer_io.c:
 	.text       start:0x8018B0C8 end:0x8018B3D4
 
-char_io.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/char_io.c:
 	.text       start:0x8018B3D4 end:0x8018B954
 
-ctype.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/ctype.c:
 	.text       start:0x8018B954 end:0x8018B978
 	.data       start:0x80257AD8 end:0x80257DD8
 
-PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Src/locale.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/locale.c:
 	.rodata     start:0x80240FE0 end:0x80240FE8
 	.data       start:0x80257DD8 end:0x80257E10
 
-direct_io.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/direct_io.c:
 	.text       start:0x8018B978 end:0x8018C014
 
-file_io.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/file_io.c:
 	.text       start:0x8018C014 end:0x8018C51C
 
-FILE_POS.C:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/FILE_POS.C:
 	.text       start:0x8018C51C end:0x8018C7E8
 
-mbstring.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/mbstring.c:
 	.text       start:0x8018C7E8 end:0x8018CB58
 	.sdata2     start:0x80299208 end:0x80299210
 
-mem.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/mem.c:
 	.text       start:0x8018CB58 end:0x8018CCC8
 
-mem_funcs.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/mem_funcs.c:
 	.text       start:0x8018CCC8 end:0x8018CFA8
 
-misc_io.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/misc_io.c:
 	.text       start:0x8018CFA8 end:0x8018CFD0
 
-printf.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/printf.c:
 	.text       start:0x8018CFD0 end:0x8018F0BC
 	.rodata     start:0x80240FE8 end:0x80241010
 	.data       start:0x80257E10 end:0x80258040
 	.sdata      start:0x80295EB0 end:0x80295EB8
 	.sdata2     start:0x80299210 end:0x80299218
 
-qsort.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/qsort.c:
 	.text       start:0x8018F0BC end:0x8018F22C
 
-rand.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/rand.c:
 	.text       start:0x8018F22C end:0x8018F254
 	.sdata      start:0x80295EB8 end:0x80295EC0
 
-scanf.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/scanf.c:
 	.text       start:0x8018F254 end:0x8019029C
 	.rodata     start:0x80241010 end:0x80241038
 	.data       start:0x80258040 end:0x80258110
 
-signal.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/signal.c:
 	.text       start:0x8019029C end:0x8019034C
 	.bss        start:0x8027CF98 end:0x8027CFB0
 
-string.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/string.c:
 	.text       start:0x8019034C end:0x80190818
 	.rodata     start:0x80241038 end:0x802413C8
 	.sdata      start:0x80295EC0 end:0x80295EC8
 
-float.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/float.c:
 	.sdata      start:0x80295EC8 end:0x80295EF8
 
-strtold.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/strtold.c:
 	.text       start:0x80190818 end:0x8019196C
 	.rodata     start:0x802413C8 end:0x80241400
 	.sdata2     start:0x80299218 end:0x80299230
 
-strtoul.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/strtoul.c:
 	.text       start:0x8019196C end:0x801921B0
 	.data       start:0x80258110 end:0x80258198
 
-uart_console_io.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Src/uart_console_io.c:
 	.text       start:0x801921B0 end:0x8019227C
 	.sbss       start:0x80297208 end:0x80297210
 
-wmem.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/wmem.c:
 	.text       start:0x8019227C end:0x801922A0
 
-wchar_io.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/wchar_io.c:
 	.text       start:0x801922A0 end:0x80192328
 
-e_atan2.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/e_atan2.c:
 	.text       start:0x80192328 end:0x801925B8
 	.sdata2     start:0x80299230 end:0x80299288
 
-e_exp.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/e_exp.c:
 	.text       start:0x801925B8 end:0x801927D4
 	.rodata     start:0x80241400 end:0x80241430
 	.sdata2     start:0x80299288 end:0x80299300
 
-e_fmod.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/e_fmod.c:
 	.text       start:0x801927D4 end:0x80192B10
 	.rodata     start:0x80241430 end:0x80241440
 
-e_log.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/e_log.c:
 	.text       start:0x80192B10 end:0x80192D8C
 	.sbss       start:0x80297210 end:0x80297218
 	.sdata2     start:0x80299300 end:0x80299380
 
-e_pow.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/e_pow.c:
 	.text       start:0x80192D8C end:0x80193618
 	.rodata     start:0x80241440 end:0x80241470
 	.sdata2     start:0x80299380 end:0x80299490
 
-e_rem_pio2.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/e_rem_pio2.c:
 	.text       start:0x80193618 end:0x801939B8
 	.rodata     start:0x80241470 end:0x802415F8
 	.sdata2     start:0x80299490 end:0x802994E8
 
-k_cos.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/k_cos.c:
 	.text       start:0x801939B8 end:0x80193AAC
 	.sdata2     start:0x802994E8 end:0x80299530
 
-k_rem_pio2.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/k_rem_pio2.c:
 	.text       start:0x80193AAC end:0x80194900
 	.rodata     start:0x802415F8 end:0x80241648
 	.sdata2     start:0x80299530 end:0x80299570
 
-k_sin.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/k_sin.c:
 	.text       start:0x80194900 end:0x801949A0
 	.sdata2     start:0x80299570 end:0x802995A8
 
-k_tan.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/k_tan.c:
 	.text       start:0x801949A0 end:0x80194BB4
 	.rodata     start:0x80241648 end:0x802416B0
 	.sdata2     start:0x802995A8 end:0x802995E0
 
-s_atan.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/s_atan.c:
 	.text       start:0x80194BB4 end:0x80194DB4
 	.rodata     start:0x802416B0 end:0x80241748
 	.sdata2     start:0x802995E0 end:0x80299608
 
-s_copysign.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/s_copysign.c:
 	.text       start:0x80194DB4 end:0x80194DDC
 
-s_cos.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/s_cos.c:
 	.text       start:0x80194DDC end:0x80194EB0
 	.sdata2     start:0x80299608 end:0x80299610
 
-s_floor.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/s_floor.c:
 	.text       start:0x80194EB0 end:0x80194FF8
 	.sdata2     start:0x80299610 end:0x80299620
 
-s_frexp.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/s_frexp.c:
 	.text       start:0x80194FF8 end:0x80195084
 	.sdata2     start:0x80299620 end:0x80299628
 
-s_ldexp.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/s_ldexp.c:
 	.text       start:0x80195084 end:0x80195248
 	.sdata2     start:0x80299628 end:0x80299650
 
-s_modf.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/s_modf.c:
 	.text       start:0x80195248 end:0x80195344
 
-s_nextafter.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/s_nextafter.c:
 	.text       start:0x80195344 end:0x801954C8
 
-s_sin.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/s_sin.c:
 	.text       start:0x801954C8 end:0x801955A0
 	.sdata2     start:0x80299650 end:0x80299658
 
-s_tan.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/s_tan.c:
 	.text       start:0x801955A0 end:0x80195618
 	.sdata2     start:0x80299658 end:0x80299660
 
-w_atan2.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/w_atan2.c:
 	.text       start:0x80195618 end:0x80195638
 
-w_exp.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/w_exp.c:
 	.text       start:0x80195638 end:0x80195658
 
-w_fmod.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/w_fmod.c:
 	.text       start:0x80195658 end:0x80195678
 
-w_log.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/w_log.c:
 	.text       start:0x80195678 end:0x80195698
 
-w_pow.c:
+PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Math/w_pow.c:
 	.text       start:0x80195698 end:0x801956B8
 
-math_ppc.c:
+PowerPC_EABI_Support/msl/MSL_C/PPC_EABI/SRC/math_ppc.c:
 	.text       start:0x801956B8 end:0x80195700
 
-ios.cpp:
+PowerPC_EABI_Support/msl/MSL_C++/MSL_Common/Src/ios.cpp:
 	extab       start:0x80005620 end:0x800056DC
 	extabindex  start:0x800076C0 end:0x80007738
 	.text       start:0x80195700 end:0x80195D10
@@ -2550,7 +2550,7 @@ ios.cpp:
 	.data       start:0x80258198 end:0x802581E0
 	.sdata      start:0x80295EF8 end:0x80295F18
 
-iostream.cpp:
+PowerPC_EABI_Support/msl/MSL_C++/MSL_Common/Src/iostream.cpp:
 	extab       start:0x800056DC end:0x800062B8
 	extabindex  start:0x80007738 end:0x80007BF4
 	.text       start:0x80195D10 end:0x8019CE7C
@@ -2561,7 +2561,7 @@ iostream.cpp:
 	.sdata      start:0x80295F18 end:0x80296030
 	.sbss       start:0x80297218 end:0x80297240
 
-locale.cpp:
+PowerPC_EABI_Support/msl/MSL_C++/MSL_Common/Src/locale.cpp:
 	extab       start:0x800062B8 end:0x8000644C
 	extabindex  start:0x80007BF4 end:0x80007C60
 	.text       start:0x8019CE7C end:0x8019D780
@@ -2573,128 +2573,128 @@ locale.cpp:
 	.sbss       start:0x80297240 end:0x80297270
 	.sdata2     start:0x80299660 end:0x80299668
 
-mainloop.c:
+TRK_MINNOW_DOLPHIN/Portable/mainloop.c:
 	.text       start:0x8019D780 end:0x8019D878
 
-nubevent.c:
+TRK_MINNOW_DOLPHIN/Portable/nubevent.c:
 	.text       start:0x8019D878 end:0x8019DAA0
 	.bss        start:0x8027D498 end:0x8027D4C0
 
-nubinit.c:
+TRK_MINNOW_DOLPHIN/Portable/nubinit.c:
 	.text       start:0x8019DAA0 end:0x8019DC20
 	.rodata     start:0x80241E10 end:0x80241E30
 	.bss        start:0x8027D4C0 end:0x8027D4C8
 
-msg.c:
+TRK_MINNOW_DOLPHIN/Portable/msg.c:
 	.text       start:0x8019DC20 end:0x8019DDFC
 
-msgbuf.c:
+TRK_MINNOW_DOLPHIN/Portable/msgbuf.c:
 	.text       start:0x8019DDFC end:0x8019E828
 	.rodata     start:0x80241E30 end:0x80241E50
 	.bss        start:0x8027D4C8 end:0x8027EE78
 
-serpoll.c:
+TRK_MINNOW_DOLPHIN/Portable/serpoll.c:
 	.text       start:0x8019E828 end:0x8019EBF4
 	.bss        start:0x8027EE78 end:0x8027EE90
 
-usr_put.c:
+TRK_MINNOW_DOLPHIN/Portable/usr_put.c:
 	.text       start:0x8019EBF4 end:0x8019EC80
 
-dispatch.c:
+TRK_MINNOW_DOLPHIN/Portable/dispatch.c:
 	.text       start:0x8019EC80 end:0x8019ED1C
 	.data       start:0x80258590 end:0x80258618
 	.bss        start:0x8027EE90 end:0x8027EE98
 
-msghndlr.c:
+TRK_MINNOW_DOLPHIN/Portable/msghndlr.c:
 	.text       start:0x8019ED1C end:0x801A157C
 	.data       start:0x80258618 end:0x80258650
 	.bss        start:0x8027EE98 end:0x8027EEA0
 
-support.c:
+TRK_MINNOW_DOLPHIN/Portable/support.c:
 	.text       start:0x801A157C end:0x801A1E3C
 
-mutex_TRK.c:
+TRK_MINNOW_DOLPHIN/Portable/mutex_TRK.c:
 	.text       start:0x801A1E3C end:0x801A1E54
 
-notify.c:
+TRK_MINNOW_DOLPHIN/Portable/notify.c:
 	.text       start:0x801A1E54 end:0x801A1F2C
 
-flush_cache.c:
+TRK_MINNOW_DOLPHIN/ppc/Generic/flush_cache.c:
 	.text       start:0x801A1F2C end:0x801A1F64
 
-mem_TRK.c:
+TRK_MINNOW_DOLPHIN/Portable/mem_TRK.c:
 	.init       start:0x800033A8 end:0x800033FC
 	.text       start:0x801A1F64 end:0x801A2020
 
-targimpl.c:
+TRK_MINNOW_DOLPHIN/ppc/Generic/targimpl.c:
 	.text       start:0x801A2020 end:0x801A38B0
 	.rodata     start:0x80241E50 end:0x80241ED8
 	.data       start:0x80258650 end:0x80258680
 	.bss        start:0x8027EEA0 end:0x8027F420
 
-targsupp.s: comment:0
+TRK_MINNOW_DOLPHIN/ppc/Export/targsupp.s: comment:0
 	.text       start:0x801A38B0 end:0x801A38D0
 
-__exception.s:
+TRK_MINNOW_DOLPHIN/ppc/Generic/__exception.s:
 	.init       start:0x800033FC end:0x80005330
 
-dolphin_trk.c:
+TRK_MINNOW_DOLPHIN/Os/dolphin/dolphin_trk.c:
 	.init       start:0x80005330 end:0x80005434
 	.text       start:0x801A38D0 end:0x801A3A10
 	.data       start:0x80258680 end:0x802586C0
 	.bss        start:0x8027F420 end:0x8027F428
 
-mpc_7xx_603e.c:
+TRK_MINNOW_DOLPHIN/ppc/Generic/mpc_7xx_603e.c:
 	.text       start:0x801A3A10 end:0x801A3D88
 
-main_TRK.c:
+TRK_MINNOW_DOLPHIN/Portable/main_TRK.c:
 	.text       start:0x801A3D88 end:0x801A3DCC
 	.bss        start:0x8027F428 end:0x8027F430
 
-dolphin_trk_glue.c:
+TRK_MINNOW_DOLPHIN/Os/dolphin/dolphin_trk_glue.c:
 	.text       start:0x801A3DCC end:0x801A4278
 	.rodata     start:0x80241ED8 end:0x80241F20
 	.data       start:0x802586C0 end:0x802586E0
 	.bss        start:0x8027F430 end:0x80281658
 
-targcont.c:
+TRK_MINNOW_DOLPHIN/Os/dolphin/targcont.c:
 	.text       start:0x801A4278 end:0x801A42AC
 
-target_options.c:
+TRK_MINNOW_DOLPHIN/Os/dolphin/target_options.c:
 	.text       start:0x801A42AC end:0x801A42C8
 	.bss        start:0x80281658 end:0x80281660
 
-mslsupp.c:
+TRK_MINNOW_DOLPHIN/MetroTRK/Export/mslsupp.c:
 	.text       start:0x801A42C8 end:0x801A4878
 
-__va_arg.c:
+PowerPC_EABI_Support/Runtime/Src/__va_arg.c:
 	.text       start:0x801A4878 end:0x801A4940
 
-global_destructor_chain.c:
+PowerPC_EABI_Support/Runtime/Src/global_destructor_chain.c:
 	.text       start:0x801A4940 end:0x801A49A0
 	.dtors      start:0x8023F068 end:0x8023F06C
 	.sbss       start:0x80297270 end:0x80297278
 
-NMWException.cp:
+PowerPC_EABI_Support/Runtime/Src/NMWException.cp:
 	extab       start:0x8000644C end:0x800064AC
 	extabindex  start:0x80007C60 end:0x80007CC0
 	.text       start:0x801A49A0 end:0x801A4F8C
 	.sdata      start:0x80296060 end:0x80296068
 
-runtime.c:
+PowerPC_EABI_Support/Runtime/Src/runtime.c:
 	.text       start:0x801A4F8C end:0x801A57CC
 	.rodata     start:0x80241F20 end:0x80241F38
 
-__init_cpp_exceptions.cpp:
+PowerPC_EABI_Support/Runtime/Src/__init_cpp_exceptions.cpp:
 	.text       start:0x801A57CC end:0x801A5848
 	.ctors      start:0x8023EE60 end:0x8023EE64
 	.dtors      start:0x8023F060 end:0x8023F068
 	.sdata      start:0x80296068 end:0x80296070
 
-Gecko_setjmp.c:
+PowerPC_EABI_Support/Runtime/Src/Gecko_setjmp.c:
 	.text       start:0x801A5848 end:0x801A5A5C
 
-Gecko_ExceptionPPC.cp:
+PowerPC_EABI_Support/Runtime/Src/Gecko_ExceptionPPC.cp:
 	extab       start:0x800064AC end:0x80006520
 	extabindex  start:0x80007CC0 end:0x80007D14
 	.text       start:0x801A5A5C end:0x801A6E94
@@ -2703,461 +2703,461 @@ Gecko_ExceptionPPC.cp:
 	.bss        start:0x80281660 end:0x80281670
 	.sdata      start:0x80296070 end:0x80296080
 
-DebuggerDriver.c:
+OdemuExi2/DebuggerDriver.c:
 	.text       start:0x801A6E94 end:0x801A7914
 	.sdata      start:0x80296080 end:0x80296088
 	.sbss       start:0x80297278 end:0x80297290
 
-AmcExi2Stubs.c:
+dolphin/amcstubs/src/AmcExi2Stubs.c:
 	.text       start:0x801A7914 end:0x801A7944
 
-odemustubs.c:
+dolphin/odemustubs/src/odemustubs.c:
 	.text       start:0x801A7944 end:0x801A794C
 
-DkDisplay.cpp:
+engine/DkDisplay.cpp:
 	.text       start:0x801A794C end:0x801A8814
 	.data       start:0x802587C8 end:0x80258808
 	.sbss       start:0x80297290 end:0x80297298
 
-CEngine.cpp:
+engine/CEngine.cpp:
 	.text       start:0x801A8814 end:0x801AB52C
 	.data       start:0x80258808 end:0x802589C0
 	.sdata      start:0x80296088 end:0x80296090
 	.sbss       start:0x80297298 end:0x802972B8
 	.sdata2     start:0x80299668 end:0x80299678
 
-IEngine.cpp:
+engine/IEngine.cpp:
 	.text       start:0x801AB52C end:0x801AB53C
 	.data       start:0x802589C0 end:0x80258B38
 
-CDkWrapEngine.cpp:
+engine/CDkWrapEngine.cpp:
 	.text       start:0x801AB53C end:0x801AB728
 	.data       start:0x80258B38 end:0x80258B98
 	.sdata      start:0x80296090 end:0x80296098
 
-CObjectDictionary.cpp:
+engine/CObjectDictionary.cpp:
 	.text       start:0x801AB728 end:0x801AEAA0
 	.data       start:0x80258B98 end:0x80258D18
 	.sdata      start:0x80296098 end:0x802960A0
 
-IAnimDictionary.cpp:
+engine/IAnimDictionary.cpp:
 	.text       start:0x801AEAA0 end:0x801AEAB0
 	.data       start:0x80258D18 end:0x80258E80
 
-IObjectDictionary.cpp:
+engine/IObjectDictionary.cpp:
 	.text       start:0x801AEAB0 end:0x801AEAC0
 	.data       start:0x80258E80 end:0x80258FC0
 
-ITextureDictionary.cpp:
+engine/ITextureDictionary.cpp:
 	.text       start:0x801AEAC0 end:0x801AEAD0
 	.data       start:0x80258FC0 end:0x80259098
 
-CAnimDictionary.cpp:
+engine/CAnimDictionary.cpp:
 	.text       start:0x801AEAD0 end:0x801B4BAC
 	.data       start:0x80259098 end:0x802592A8
 	.sdata      start:0x802960A0 end:0x802960C0
 	.sdata2     start:0x80299678 end:0x80299680
 
-IAtomic.cpp:
+engine/IAtomic.cpp:
 	.text       start:0x801B4BAC end:0x801B4BE8
 	.data       start:0x802592A8 end:0x80259300
 
-IClump.cpp:
+engine/IClump.cpp:
 	.text       start:0x801B4BE8 end:0x801B4C24
 	.data       start:0x80259300 end:0x802593A0
 
-IFramable.cpp:
+engine/IFramable.cpp:
 	.text       start:0x801B4C24 end:0x801B4C34
 	.data       start:0x802593A0 end:0x802593B0
 
-IFramableGeometry.cpp:
+engine/IFramableGeometry.cpp:
 	.text       start:0x801B4C34 end:0x801B4C70
 	.data       start:0x802593B0 end:0x802593C0
 
-IGeometry.cpp:
+engine/IGeometry.cpp:
 	.text       start:0x801B4C70 end:0x801B4C80
 	.data       start:0x802593C0 end:0x802593F0
 
-CClump.cpp:
+engine/CClump.cpp:
 	.text       start:0x801B4C80 end:0x801B70AC
 	.data       start:0x802593F0 end:0x80259530
 	.sdata      start:0x802960C0 end:0x802960F0
 	.sdata2     start:0x80299680 end:0x80299688
 
-IRaster.cpp:
+engine/IRaster.cpp:
 	.text       start:0x801B70AC end:0x801B70BC
 	.data       start:0x80259530 end:0x80259580
 
-ITexture.cpp:
+engine/ITexture.cpp:
 	.text       start:0x801B70BC end:0x801B70CC
 	.data       start:0x80259580 end:0x802595D0
 
-IScene.cpp:
+engine/IScene.cpp:
 	.text       start:0x801B70CC end:0x801B70DC
 	.data       start:0x802595D0 end:0x80259818
 
-CScene.cpp:
+engine/CScene.cpp:
 	.text       start:0x801B70DC end:0x801BD77C
 	.data       start:0x80259818 end:0x80259B88
 	.sdata      start:0x802960F0 end:0x80296100
 	.sdata2     start:0x80299688 end:0x80299698
 
-ICamera.cpp:
+engine/ICamera.cpp:
 	.text       start:0x801BD77C end:0x801BD7B8
 	.data       start:0x80259B88 end:0x80259C08
 
-CCamera.cpp:
+engine/CCamera.cpp:
 	.text       start:0x801BD7B8 end:0x801BE354
 	.data       start:0x80259C08 end:0x80259C88
 	.sdata2     start:0x80299698 end:0x802996A0
 
-ILight.cpp:
+engine/ILight.cpp:
 	.text       start:0x801BE354 end:0x801BE390
 	.data       start:0x80259C88 end:0x80259CD0
 
-CLight.cpp:
+engine/CLight.cpp:
 	.text       start:0x801BE390 end:0x801BFBA0
 	.data       start:0x80259CD0 end:0x80259D48
 	.sdata      start:0x80296100 end:0x80296108
 	.sdata2     start:0x802996A0 end:0x802996E8
 
-IRWStream.cpp:
+engine/IRWStream.cpp:
 	.text       start:0x801BFBA0 end:0x801BFBB0
 	.data       start:0x80259D48 end:0x80259D80
 
-CRWStream.cpp:
+engine/CRWStream.cpp:
 	.text       start:0x801BFBB0 end:0x801C0494
 	.data       start:0x80259D80 end:0x80259DB8
 
-IAnimation.cpp:
+engine/IAnimation.cpp:
 	.text       start:0x801C0494 end:0x801C053C
 	.data       start:0x80259DB8 end:0x80259DF8
 	.sdata2     start:0x802996E8 end:0x802996F8
 
-IDMorphAnimation.cpp:
+engine/IDMorphAnimation.cpp:
 	.text       start:0x801C053C end:0x801C0578
 	.data       start:0x80259DF8 end:0x80259E18
 
-IHierarchy.cpp:
+engine/IHierarchy.cpp:
 	.text       start:0x801C0578 end:0x801C0588
 	.data       start:0x80259E18 end:0x80259EA0
 
-CAnimation.cpp:
+engine/CAnimation.cpp:
 	.text       start:0x801C0588 end:0x801C0998
 	.data       start:0x80259EA0 end:0x80259EE0
 	.sdata      start:0x80296108 end:0x80296110
 	.sdata2     start:0x802996F8 end:0x80299700
 
-CDMorphAnimation.cpp:
+engine/CDMorphAnimation.cpp:
 	.text       start:0x801C0998 end:0x801C0C48
 	.data       start:0x80259EE0 end:0x80259F00
 	.sdata      start:0x80296110 end:0x80296118
 	.sdata2     start:0x80299700 end:0x80299708
 
-CTimer.cpp:
+engine/CTimer.cpp:
 	.text       start:0x801C0C48 end:0x801C0F10
 	.data       start:0x80259F00 end:0x80259F30
 	.sdata2     start:0x80299708 end:0x80299710
 
-ICharset.cpp:
+engine/ICharset.cpp:
 	.text       start:0x801C0F10 end:0x801C0F20
 	.data       start:0x80259F30 end:0x80259F68
 
-ITimer.cpp:
+engine/ITimer.cpp:
 	.text       start:0x801C0F20 end:0x801C0F30
 	.data       start:0x80259F68 end:0x80259F90
 
-CCharset.cpp:
+engine/CCharset.cpp:
 	.text       start:0x801C0F30 end:0x801C1644
 	.data       start:0x80259F90 end:0x80259FC8
 	.sdata2     start:0x80299710 end:0x80299718
 
-CHierarchy.cpp:
+engine/CHierarchy.cpp:
 	.text       start:0x801C1644 end:0x801C3F98
 	.data       start:0x80259FC8 end:0x8025A0C8
 	.sdata2     start:0x80299718 end:0x80299720
 
-IImage.cpp:
+engine/IImage.cpp:
 	.text       start:0x801C3F98 end:0x801C3FA8
 	.data       start:0x8025A0C8 end:0x8025A110
 
-CImage.cpp:
+engine/CImage.cpp:
 	.text       start:0x801C3FA8 end:0x801C42D0
 	.data       start:0x8025A110 end:0x8025A158
 
-CTexture.cpp:
+engine/CTexture.cpp:
 	.text       start:0x801C42D0 end:0x801C45DC
 	.data       start:0x8025A158 end:0x8025A1A8
 
-CTextureDictionary.cpp:
+engine/CTextureDictionary.cpp:
 	.text       start:0x801C45DC end:0x801C8A44
 	.data       start:0x8025A1A8 end:0x8025A2E0
 	.sdata      start:0x80296118 end:0x80296128
 
-CRaster.cpp:
+engine/CRaster.cpp:
 	.text       start:0x801C8A44 end:0x801C8DF0
 	.data       start:0x8025A2E0 end:0x8025A330
 
-CShadowMap.cpp:
+engine/CShadowMap.cpp:
 	.text       start:0x801C8DF0 end:0x801CAE34
 	.data       start:0x8025A330 end:0x8025A3F8
 	.sdata2     start:0x80299720 end:0x80299740
 
-IShadowMap.cpp:
+engine/IShadowMap.cpp:
 	.text       start:0x801CAE34 end:0x801CAE44
 	.data       start:0x8025A3F8 end:0x8025A490
 
-IShadowMapPipeline.cpp:
+engine/IShadowMapPipeline.cpp:
 	.text       start:0x801CAE44 end:0x801CAE80
 	.data       start:0x8025A490 end:0x8025A4A8
 
-CShadowMapPipelineGCN.cpp:
+engine/CShadowMapPipelineGCN.cpp:
 	.text       start:0x801CAE80 end:0x801CC128
 	.rodata     start:0x80241FD0 end:0x802421B0
 	.data       start:0x8025A4A8 end:0x8025A4F0
 	.sbss       start:0x802972B8 end:0x802972C8
 	.sdata2     start:0x80299740 end:0x80299758
 
-CAtomic.cpp:
+engine/CAtomic.cpp:
 	.text       start:0x801CC128 end:0x801CC638
 	.data       start:0x8025A4F0 end:0x8025A548
 
-CGeometry.cpp:
+engine/CGeometry.cpp:
 	.text       start:0x801CC638 end:0x801CC7C8
 	.data       start:0x8025A548 end:0x8025A578
 
-IMaterialAnimationPipeline.cpp:
+engine/IMaterialAnimationPipeline.cpp:
 	.text       start:0x801CC7C8 end:0x801CC804
 	.data       start:0x8025A578 end:0x8025A588
 
-CMaterialAnimationPipelineGCN.cpp:
+engine/CMaterialAnimationPipelineGCN.cpp:
 	.text       start:0x801CC804 end:0x801CD1C4
 	.rodata     start:0x802421B0 end:0x80242298
 	.data       start:0x8025A588 end:0x8025A5B0
 	.sbss       start:0x802972C8 end:0x802972D0
 
-IMirror.cpp:
+engine/IMirror.cpp:
 	.text       start:0x801CD1C4 end:0x801CD1D4
 	.data       start:0x8025A5B0 end:0x8025A5F0
 
-CMirror.cpp:
+engine/CMirror.cpp:
 	.text       start:0x801CD1D4 end:0x801CE170
 	.data       start:0x8025A5F0 end:0x8025A670
 	.sdata2     start:0x80299758 end:0x80299770
 
-IMaterialAnimation.cpp:
+engine/IMaterialAnimation.cpp:
 	.text       start:0x801CE170 end:0x801CE1AC
 	.data       start:0x8025A670 end:0x8025A6A8
 
-CMaterialAnimation.cpp:
+engine/CMaterialAnimation.cpp:
 	.text       start:0x801CE1AC end:0x801CE518
 	.data       start:0x8025A6A8 end:0x8025A6E0
 	.sdata      start:0x80296128 end:0x80296130
 	.sdata2     start:0x80299770 end:0x80299778
 
-IWarp.cpp:
+engine/IWarp.cpp:
 	.text       start:0x801CE518 end:0x801CE528
 	.data       start:0x8025A6E0 end:0x8025A738
 
-CWarp.cpp:
+engine/CWarp.cpp:
 	.text       start:0x801CE528 end:0x801D06C8
 	.rodata     start:0x80242298 end:0x802422C0
 	.data       start:0x8025A738 end:0x8025A830
 	.sdata      start:0x80296130 end:0x80296140
 	.sdata2     start:0x80299778 end:0x80299780
 
-ISpline.cpp:
+engine/ISpline.cpp:
 	.text       start:0x801D06C8 end:0x801D06D8
 	.data       start:0x8025A830 end:0x8025A850
 
-IMaterialAnimationInterpolator.cpp:
+engine/IMaterialAnimationInterpolator.cpp:
 	.text       start:0x801D06D8 end:0x801D06E8
 	.data       start:0x8025A850 end:0x8025A878
 
-CMaterialAnimationInterpolator.cpp:
+engine/CMaterialAnimationInterpolator.cpp:
 	.text       start:0x801D06E8 end:0x801D0F6C
 	.data       start:0x8025A878 end:0x8025A8A0
 	.sdata2     start:0x80299780 end:0x802997D0
 
-IController.cpp:
+engine/IController.cpp:
 	.text       start:0x801D0F6C end:0x801D0F7C
 	.data       start:0x8025A8A0 end:0x8025A9B8
 
-IGenericAnimation.cpp:
+engine/IGenericAnimation.cpp:
 	.text       start:0x801D0F7C end:0x801D0F8C
 	.data       start:0x8025A9B8 end:0x8025A9D0
 
-CController.cpp:
+engine/CController.cpp:
 	.text       start:0x801D0F8C end:0x801D34A0
 	.data       start:0x8025A9D0 end:0x8025AAE8
 	.sdata2     start:0x802997D0 end:0x802997D8
 
-ISubController.cpp:
+engine/ISubController.cpp:
 	.text       start:0x801D34A0 end:0x801D34B0
 	.data       start:0x8025AAE8 end:0x8025AB78
 
-CControllerHAnim.cpp:
+engine/CControllerHAnim.cpp:
 	.text       start:0x801D34B0 end:0x801D5548
 	.data       start:0x8025AB78 end:0x8025AC68
 	.sdata2     start:0x802997D8 end:0x802997F0
 
-CControllerDMorph.cpp:
+engine/CControllerDMorph.cpp:
 	.text       start:0x801D5548 end:0x801D66B0
 	.data       start:0x8025AC68 end:0x8025ACF8
 	.sdata2     start:0x802997F0 end:0x80299800
 
-CControllerMaterial.cpp:
+engine/CControllerMaterial.cpp:
 	.text       start:0x801D66B0 end:0x801D78D8
 	.data       start:0x8025ACF8 end:0x8025AD88
 	.sdata2     start:0x80299800 end:0x80299810
 
-CControllerAnimEntry.cpp:
+engine/CControllerAnimEntry.cpp:
 	.text       start:0x801D78D8 end:0x801D7E98
 	.sdata2     start:0x80299810 end:0x80299828
 
-CSpline.cpp:
+engine/CSpline.cpp:
 	.text       start:0x801D7E98 end:0x801D8208
 	.data       start:0x8025AD88 end:0x8025ADA8
 
-IAnimationStar.cpp:
+engine/IAnimationStar.cpp:
 	.text       start:0x801D8208 end:0x801D8218
 	.data       start:0x8025ADA8 end:0x8025ADF8
 
-CAnimationStar.cpp:
+engine/CAnimationStar.cpp:
 	.text       start:0x801D8218 end:0x801DA904
 	.rodata     start:0x802422C0 end:0x80242380
 	.data       start:0x8025ADF8 end:0x8025AF80
 	.sdata      start:0x80296140 end:0x80296170
 	.sdata2     start:0x80299828 end:0x80299838
 
-CAnimationStarEntry.cpp:
+engine/CAnimationStarEntry.cpp:
 	.text       start:0x801DA904 end:0x801DC688
 	.data       start:0x8025AF80 end:0x8025B150
 	.sdata      start:0x80296170 end:0x802961B0
 	.sdata2     start:0x80299838 end:0x80299848
 
-IAnimationStarController.cpp:
+engine/IAnimationStarController.cpp:
 	.text       start:0x801DC688 end:0x801DC698
 	.data       start:0x8025B150 end:0x8025B208
 
-CAnimationStarController.cpp:
+engine/CAnimationStarController.cpp:
 	.text       start:0x801DC698 end:0x801DE5A8
 	.data       start:0x8025B208 end:0x8025B2C0
 	.sdata      start:0x802961B0 end:0x802961B8
 	.sdata2     start:0x80299848 end:0x80299858
 
-IImmediate.cpp:
+engine/IImmediate.cpp:
 	.text       start:0x801DE5A8 end:0x801DE5B8
 	.data       start:0x8025B2C0 end:0x8025B320
 
-CImmediate.cpp:
+engine/CImmediate.cpp:
 	.text       start:0x801DE5B8 end:0x801DF094
 	.data       start:0x8025B320 end:0x8025B3A0
 
-IAnimationStarEntry.cpp:
+engine/IAnimationStarEntry.cpp:
 	.text       start:0x801DF094 end:0x801DF0A4
 
-IIm3DBatch.cpp:
+engine/IIm3DBatch.cpp:
 	.text       start:0x801DF0A4 end:0x801DF0E0
 	.data       start:0x8025B3A0 end:0x8025B3E0
 
-IImBatch.cpp:
+engine/IImBatch.cpp:
 	.text       start:0x801DF0E0 end:0x801DF0F0
 	.data       start:0x8025B3E0 end:0x8025B3F8
 
-IIm2DBatch.cpp:
+engine/IIm2DBatch.cpp:
 	.text       start:0x801DF0F0 end:0x801DF12C
 	.data       start:0x8025B3F8 end:0x8025B430
 
-CIm3DBatch.cpp:
+engine/CIm3DBatch.cpp:
 	.text       start:0x801DF12C end:0x801DF9C0
 	.data       start:0x8025B430 end:0x8025B470
 
-CIm2DBatch.cpp:
+engine/CIm2DBatch.cpp:
 	.text       start:0x801DF9C0 end:0x801E01F8
 	.data       start:0x8025B470 end:0x8025B4A8
 
-CParticleEmitter.cpp:
+engine/CParticleEmitter.cpp:
 	.text       start:0x801E01F8 end:0x801E33B8
 	.data       start:0x8025B4A8 end:0x8025B7A8
 	.sdata      start:0x802961B8 end:0x80296210
 	.sdata2     start:0x80299858 end:0x80299878
 
-IParticleEmitter.cpp:
+engine/IParticleEmitter.cpp:
 	.text       start:0x801E33B8 end:0x801E33F4
 	.data       start:0x8025B7A8 end:0x8025B8C0
 
-ITextureCallback.cpp:
+engine/ITextureCallback.cpp:
 	.text       start:0x801E33F4 end:0x801E3404
 	.data       start:0x8025B8C0 end:0x8025B8D0
 
-IEventAnimation.cpp:
+engine/IEventAnimation.cpp:
 	.text       start:0x801E3404 end:0x801E3440
 	.data       start:0x8025B8D0 end:0x8025B8F0
 
-CControllerEvent.cpp:
+engine/CControllerEvent.cpp:
 	.text       start:0x801E3440 end:0x801E47B8
 	.data       start:0x8025B8F0 end:0x8025B980
 	.sdata2     start:0x80299878 end:0x80299890
 
-CEventAnimation.cpp:
+engine/CEventAnimation.cpp:
 	.text       start:0x801E47B8 end:0x801E4DE4
 	.data       start:0x8025B980 end:0x8025B9A0
 	.sdata      start:0x80296210 end:0x80296218
 	.sdata2     start:0x80299890 end:0x80299898
 
-IEventAnimationCallback.cpp:
+engine/IEventAnimationCallback.cpp:
 	.text       start:0x801E4DE4 end:0x801E4DF4
 	.data       start:0x8025B9A0 end:0x8025B9C0
 
-CParticleEmitterDefinition.cpp:
+engine/CParticleEmitterDefinition.cpp:
 	.text       start:0x801E4DF4 end:0x801E6664
 	.data       start:0x8025B9C0 end:0x8025BBB8
 	.sdata      start:0x80296218 end:0x80296270
 	.sdata2     start:0x80299898 end:0x802998A8
 
-IParticleEmitterDefinition.cpp:
+engine/IParticleEmitterDefinition.cpp:
 	.text       start:0x801E6664 end:0x801E6674
 	.data       start:0x8025BBB8 end:0x8025BBC8
 
-CTimerGCN.cpp:
+engine/CTimerGCN.cpp:
 	.text       start:0x801E6674 end:0x801E6724
 	.data       start:0x8025BBC8 end:0x8025BBF8
 	.sdata2     start:0x802998A8 end:0x802998B0
 
-IShadowMapValidationCallback.cpp:
+engine/IShadowMapValidationCallback.cpp:
 	.text       start:0x801E6724 end:0x801E6734
 	.data       start:0x8025BBF8 end:0x8025BC08
 
-IPipeline.cpp:
+engine/IPipeline.cpp:
 	.text       start:0x801E6734 end:0x801E6738
 
-IDisplacementPipeline.cpp:
+engine/IDisplacementPipeline.cpp:
 	.text       start:0x801E6738 end:0x801E6774
 	.data       start:0x8025BC08 end:0x8025BC28
 
-CDisplacementPipelineGCN.cpp:
+engine/CDisplacementPipelineGCN.cpp:
 	.text       start:0x801E6774 end:0x801E6854
 	.data       start:0x8025BC28 end:0x8025BC48
 
-CShadowMapDenyCallback.cpp:
+engine/CShadowMapDenyCallback.cpp:
 	.text       start:0x801E6854 end:0x801E68F0
 	.data       start:0x8025BC48 end:0x8025BC58
 
-rtanim.c:
+rwsdk/tool/anim/rtanim.c:
 	.text       start:0x801E68F0 end:0x801E7C3C
 	.bss        start:0x80281670 end:0x80281920
 	.sdata      start:0x80296270 end:0x80296278
 	.sbss       start:0x802972D0 end:0x802972D8
 	.sdata2     start:0x802998B0 end:0x802998B8
 
-DkBackUp.cpp:
+engine/DkBackUp.cpp:
 	extab       start:0x80006520 end:0x80006540
 	extabindex  start:0x80007D14 end:0x80007D2C
 	.text       start:0x801E7C3C end:0x801E7CC0
 	.sbss       start:0x802972D8 end:0x802972E0
 
-CGCNBAKEngine.cpp:
+engine/CGCNBAKEngine.cpp:
 	extab       start:0x80006540 end:0x8000671C
 	extabindex  start:0x80007D2C end:0x80007DEC
 	.text       start:0x801E7CC0 end:0x801E95EC
@@ -3166,20 +3166,20 @@ CGCNBAKEngine.cpp:
 	.sdata      start:0x80296278 end:0x80296290
 	.sbss       start:0x802972E0 end:0x802972E8
 
-GCNIcon.c:
+engine/GCNIcon.c:
 	extab       start:0x8000671C end:0x80006734
 	extabindex  start:0x80007DEC end:0x80007E10
 	.text       start:0x801E95EC end:0x801E9824
 	.data       start:0x8025BD28 end:0x8025BD60
 	.sdata      start:0x80296290 end:0x80296298
 
-DkGUI.cpp:
+engine/DkGUI.cpp:
 	extab       start:0x80006734 end:0x80006754
 	extabindex  start:0x80007E10 end:0x80007E28
 	.text       start:0x801E9824 end:0x801E98BC
 	.sbss       start:0x802972E8 end:0x802972F0
 
-CGUIAnim.cpp:
+engine/CGUIAnim.cpp:
 	extab       start:0x80006754 end:0x8000692C
 	extabindex  start:0x80007E28 end:0x80007F78
 	.text       start:0x801E98BC end:0x801EC304
@@ -3189,7 +3189,7 @@ CGUIAnim.cpp:
 	.sdata2     start:0x802998B8 end:0x802998E0
 	.sbss2      start:0x80299DD0 end:0x80299DD8
 
-CGUIEngine.cpp:
+engine/CGUIEngine.cpp:
 	extab       start:0x8000692C end:0x80006C80
 	extabindex  start:0x80007F78 end:0x80008188
 	.text       start:0x801EC304 end:0x801EED50
@@ -3199,7 +3199,7 @@ CGUIEngine.cpp:
 	.sdata2     start:0x802998E0 end:0x802998F8
 	.sbss2      start:0x80299DD8 end:0x80299DE0
 
-CGUIMenu.cpp:
+engine/CGUIMenu.cpp:
 	extab       start:0x80006C80 end:0x80006D3C
 	extabindex  start:0x80008188 end:0x800081F4
 	.text       start:0x801EED50 end:0x801EF738
@@ -3207,59 +3207,59 @@ CGUIMenu.cpp:
 	.sdata      start:0x80296318 end:0x80296330
 	.sdata2     start:0x802998F8 end:0x80299900
 
-DkPhysics.cpp:
+engine/DkPhysics.cpp:
 	.text       start:0x801EF738 end:0x801EF7A4
 	.ctors      start:0x8023F034 end:0x8023F038
 	.data       start:0x8025C070 end:0x8025C098
 	.bss        start:0x8028BD20 end:0x8028BDD0
 	.sdata      start:0x80296330 end:0x80296338
 
-DkPh_Sweeper.cpp:
+engine/DkPh_Sweeper.cpp:
 	.text       start:0x801EF7A4 end:0x801F0C94
 	.data       start:0x8025C098 end:0x8025C148
 	.sdata      start:0x80296338 end:0x80296350
 	.sdata2     start:0x80299900 end:0x80299910
 
-DkPh_Collider.cpp:
+engine/DkPh_Collider.cpp:
 	.text       start:0x801F0C94 end:0x801F32D4
 	.data       start:0x8025C148 end:0x8025C1A8
 	.sdata      start:0x80296350 end:0x80296358
 	.sdata2     start:0x80299910 end:0x80299938
 
-DkPh_Dynamics.cpp:
+engine/DkPh_Dynamics.cpp:
 	.text       start:0x801F32D4 end:0x801F37C4
 	.data       start:0x8025C1A8 end:0x8025C1C8
 	.sdata      start:0x80296358 end:0x80296360
 	.sdata2     start:0x80299938 end:0x80299940
 
-DkPh_Primitives.cpp:
+engine/DkPh_Primitives.cpp:
 	.text       start:0x801F37C4 end:0x801F54AC
 	.data       start:0x8025C1C8 end:0x8025C470
 	.sdata      start:0x80296360 end:0x802963A0
 	.sdata2     start:0x80299940 end:0x80299960
 
-IInputEngine.cpp:
+engine/IInputEngine.cpp:
 	.text       start:0x801F54AC end:0x801F7878
 	.ctors      start:0x8023F038 end:0x8023F03C
 	.data       start:0x8025C470 end:0x8025C500
 	.bss        start:0x8028BDD0 end:0x8028BE10
 	.sdata      start:0x802963A0 end:0x802963B0
 
-CCombo.cpp:
+engine/CCombo.cpp:
 	.text       start:0x801F7878 end:0x801F7B9C
 	.data       start:0x8025C500 end:0x8025C538
 	.sdata      start:0x802963B0 end:0x802963C0
 
-CInput.cpp:
+engine/CInput.cpp:
 	.text       start:0x801F7B9C end:0x801F7D2C
 	.data       start:0x8025C538 end:0x8025C570
 	.sdata      start:0x802963C0 end:0x802963D0
 
-CState.cpp:
+engine/CState.cpp:
 	.text       start:0x801F7D2C end:0x801F82A4
 	.sdata2     start:0x80299960 end:0x80299968
 
-CGCNPad.cpp:
+engine/CGCNPad.cpp:
 	.text       start:0x801F82A4 end:0x801F9B4C
 	.data       start:0x8025C570 end:0x8025C640
 	.bss        start:0x8028BE10 end:0x8028BE90
@@ -3267,33 +3267,33 @@ CGCNPad.cpp:
 	.sbss       start:0x80297308 end:0x80297320
 	.sdata2     start:0x80299968 end:0x802999A0
 
-CInputHalfAxe.cpp:
+engine/CInputHalfAxe.cpp:
 	.text       start:0x801F9B4C end:0x801F9D34
 	.data       start:0x8025C640 end:0x8025C680
 	.sdata      start:0x802963E8 end:0x802963F8
 	.sdata2     start:0x802999A0 end:0x802999A8
 
-CChunkIterator.cpp:
+engine/CChunkIterator.cpp:
 	.text       start:0x801F9D34 end:0x801FB3DC
 	.text       start:0x801FB3DC end:0x801FB4B4
 	.bss        start:0x8028BE90 end:0x8028BEB0
 	.sdata      start:0x802963F8 end:0x80296408
 	.sdata2     start:0x802999A8 end:0x802999B8
 
-CXmdFile.cpp:
+engine/CXmdFile.cpp:
 	.text       start:0x801FB4B4 end:0x801FB93C
 	.sdata      start:0x80296408 end:0x80296410
 
-DKW_2dTools.cpp:
+engine/DKW_2dTools.cpp:
 	.text       start:0x801FB93C end:0x801FBA78
 
-DKW_Animation.cpp:
+engine/DKW_Animation.cpp:
 	.text       start:0x801FBA78 end:0x8020051C
 	.sdata      start:0x80296410 end:0x80296428
 	.sbss       start:0x80297320 end:0x80297328
 	.sdata2     start:0x802999B8 end:0x80299A68
 
-DKW_Atomic.cpp:
+engine/DKW_Atomic.cpp:
 	.text       start:0x8020051C end:0x80202230
 	.ctors      start:0x8023F03C end:0x8023F040
 	.data       start:0x8025C680 end:0x8025C6F8
@@ -3302,31 +3302,31 @@ DKW_Atomic.cpp:
 	.sbss       start:0x80297328 end:0x80297348
 	.sdata2     start:0x80299A68 end:0x80299A78
 
-DKW_Camera.cpp:
+engine/DKW_Camera.cpp:
 	.text       start:0x80202230 end:0x802034F0
 	.data       start:0x8025C6F8 end:0x8025C708
 	.sdata      start:0x80296430 end:0x80296438
 	.sbss       start:0x80297348 end:0x80297360
 	.sdata2     start:0x80299A78 end:0x80299AA0
 
-DKW_Charset.cpp:
+engine/DKW_Charset.cpp:
 	.text       start:0x802034F0 end:0x80203E14
 	.data       start:0x8025C708 end:0x8025C778
 	.bss        start:0x8028BEF0 end:0x8028BFF0
 	.sdata      start:0x80296438 end:0x80296448
 
-DKW_Clump.cpp:
+engine/DKW_Clump.cpp:
 	.text       start:0x80203E14 end:0x80204EE0
 	.data       start:0x8025C778 end:0x8025C788
 	.sdata      start:0x80296448 end:0x80296450
 	.sbss       start:0x80297360 end:0x80297368
 	.sdata2     start:0x80299AA0 end:0x80299AB0
 
-DKW_ClumpAnim.cpp:
+engine/DKW_ClumpAnim.cpp:
 	.text       start:0x80204EE0 end:0x80204F3C
 	.sbss       start:0x80297368 end:0x80297370
 
-DKW_Engine.cpp:
+engine/DKW_Engine.cpp:
 	.text       start:0x80204F3C end:0x80205C74
 	.ctors      start:0x8023F040 end:0x8023F044
 	.data       start:0x8025C788 end:0x8025C7D8
@@ -3335,205 +3335,205 @@ DKW_Engine.cpp:
 	.sbss       start:0x80297370 end:0x802973A8
 	.sdata2     start:0x80299AB0 end:0x80299AC8
 
-DKW_Frame.cpp:
+engine/DKW_Frame.cpp:
 	.text       start:0x80205C74 end:0x802061E0
 	.data       start:0x8025C7D8 end:0x8025C7E8
 	.sdata      start:0x80296470 end:0x80296478
 	.sbss       start:0x802973A8 end:0x802973B0
 
-DKW_Geometry.cpp:
+engine/DKW_Geometry.cpp:
 	.text       start:0x802061E0 end:0x80206A9C
 	.data       start:0x8025C7E8 end:0x8025C7F8
 	.sdata      start:0x80296478 end:0x80296480
 	.sbss       start:0x802973B0 end:0x802973B8
 
-DKW_Hierarchy.cpp:
+engine/DKW_Hierarchy.cpp:
 	.text       start:0x80206A9C end:0x80206C9C
 
-DKW_Im2D.cpp:
+engine/DKW_Im2D.cpp:
 	.text       start:0x80206C9C end:0x80206DE4
 	.sdata2     start:0x80299AC8 end:0x80299AD0
 
-DKW_ImageTGA.cpp:
+engine/DKW_ImageTGA.cpp:
 	.text       start:0x80206DE4 end:0x80208830
 	.bss        start:0x8028C018 end:0x8028C030
 
-DKW_InstanceEngine.cpp:
+engine/DKW_InstanceEngine.cpp:
 	.text       start:0x80208830 end:0x80208E60
 	.data       start:0x8025C7F8 end:0x8025C830
 	.sbss       start:0x802973B8 end:0x802973C0
 
-DKW_Light.cpp:
+engine/DKW_Light.cpp:
 	.text       start:0x80208E60 end:0x80209448
 	.data       start:0x8025C830 end:0x8025C840
 	.sdata      start:0x80296480 end:0x80296488
 	.sbss       start:0x802973C0 end:0x802973E0
 
-DKW_Material.cpp:
+engine/DKW_Material.cpp:
 	.text       start:0x80209448 end:0x802098BC
 	.data       start:0x8025C840 end:0x8025C850
 	.sdata      start:0x80296488 end:0x80296490
 	.sbss       start:0x802973E0 end:0x802973E8
 	.sdata2     start:0x80299AD0 end:0x80299AD8
 
-DKW_MatFX.cpp:
+engine/DKW_MatFX.cpp:
 	.text       start:0x802098BC end:0x80209918
 	.sbss       start:0x802973E8 end:0x802973F0
 
-DKW_Matrix.cpp:
+engine/DKW_Matrix.cpp:
 	.text       start:0x80209918 end:0x80209F9C
 	.ctors      start:0x8023F044 end:0x8023F048
 	.bss        start:0x8028C030 end:0x8028C0F0
 	.sdata2     start:0x80299AD8 end:0x80299AE8
 
-DKW_Primitive.cpp:
+engine/DKW_Primitive.cpp:
 	.text       start:0x80209F9C end:0x8020CC68
 	.sdata      start:0x80296490 end:0x80296498
 	.sdata2     start:0x80299AE8 end:0x80299B08
 
-DKW_Quat.cpp:
+engine/DKW_Quat.cpp:
 	.text       start:0x8020CC68 end:0x8020CDDC
 	.ctors      start:0x8023F048 end:0x8023F04C
 	.bss        start:0x8028C0F0 end:0x8028C100
 	.sdata2     start:0x80299B08 end:0x80299B10
 
-DKW_RenderProperty.cpp:
+engine/DKW_RenderProperty.cpp:
 	.text       start:0x8020CDDC end:0x8020D604
 
-DKW_RGBA.cpp:
+engine/DKW_RGBA.cpp:
 	.text       start:0x8020D604 end:0x8020D91C
 	.ctors      start:0x8023F04C end:0x8023F050
 	.bss        start:0x8028C100 end:0x8028C148
 	.sbss       start:0x802973F0 end:0x80297408
 	.sdata2     start:0x80299B10 end:0x80299B18
 
-DKW_RGBAReal.cpp:
+engine/DKW_RGBAReal.cpp:
 	.text       start:0x8020D91C end:0x8020DBCC
 	.ctors      start:0x8023F050 end:0x8023F054
 	.bss        start:0x8028C148 end:0x8028C210
 	.sdata2     start:0x80299B18 end:0x80299B28
 
-DKW_Spline.cpp:
+engine/DKW_Spline.cpp:
 	.text       start:0x8020DBCC end:0x8020DEE0
 	.data       start:0x8025C850 end:0x8025C860
 	.sbss       start:0x80297408 end:0x80297410
 	.sdata2     start:0x80299B28 end:0x80299B30
 
-DKW_TexDictionary.cpp:
+engine/DKW_TexDictionary.cpp:
 	.text       start:0x8020DEE0 end:0x8020DFD0
 
-DKW_Texture.cpp:
+engine/DKW_Texture.cpp:
 	.text       start:0x8020DFD0 end:0x8020E27C
 
-DKW_V2d.cpp:
+engine/DKW_V2d.cpp:
 	.text       start:0x8020E27C end:0x8020E37C
 	.ctors      start:0x8023F054 end:0x8023F058
 	.sdata      start:0x80296498 end:0x802964A0
 	.sbss       start:0x80297410 end:0x80297430
 	.sdata2     start:0x80299B30 end:0x80299B38
 
-DKW_V3d.cpp:
+engine/DKW_V3d.cpp:
 	.text       start:0x8020E37C end:0x8020EAB8
 	.ctors      start:0x8023F058 end:0x8023F05C
 	.bss        start:0x8028C210 end:0x8028C250
 	.sdata      start:0x802964A0 end:0x802964A8
 	.sdata2     start:0x80299B38 end:0x80299B40
 
-DKW_Warp.cpp:
+engine/DKW_Warp.cpp:
 	.text       start:0x8020EAB8 end:0x8020EBD4
 	.sdata      start:0x802964A8 end:0x802964B0
 
-DKW_World.cpp:
+engine/DKW_World.cpp:
 	.text       start:0x8020EBD4 end:0x8020F5A4
 	.data       start:0x8025C860 end:0x8025C870
 	.sdata      start:0x802964B0 end:0x802964B8
 	.sbss       start:0x80297430 end:0x80297438
 	.sdata2     start:0x80299B40 end:0x80299B48
 
-DKW_WorldSector.cpp:
+engine/DKW_WorldSector.cpp:
 	.text       start:0x8020F5A4 end:0x8020F98C
 	.data       start:0x8025C870 end:0x8025C880
 	.sdata      start:0x802964B8 end:0x802964C0
 	.sbss       start:0x80297438 end:0x80297440
 
-DkWrap.cpp:
+engine/DkWrap.cpp:
 	.text       start:0x8020F98C end:0x8020FE9C
 	.sdata2     start:0x80299B48 end:0x80299B60
 
-DKW_GCNEngine.cpp:
+engine/DKW_GCNEngine.cpp:
 	.text       start:0x8020FE9C end:0x8021031C
 	.data       start:0x8025C880 end:0x8025C8E0
 	.bss        start:0x8028C250 end:0x8028C260
 	.sbss       start:0x80297440 end:0x80297458
 	.sdata2     start:0x80299B60 end:0x80299B68
 
-dlmem.c:
+rwsdk/driver/gcn/dlmem.c:
 	.text       start:0x8021031C end:0x80210550
 	.data       start:0x8025C8E0 end:0x8025C900
 
-DkSound.cpp:
+engine/DkSound.cpp:
 	extab       start:0x80006D3C end:0x80006D5C
 	extabindex  start:0x800081F4 end:0x8000820C
 	.text       start:0x80210550 end:0x80210600
 	.sbss       start:0x80297458 end:0x80297460
 
-ISoundEngine.cpp:
+engine/ISoundEngine.cpp:
 	extab       start:0x80006D5C end:0x80006D64
 	extabindex  start:0x8000820C end:0x80008218
 	.text       start:0x80210600 end:0x80210660
 	.data       start:0x8025C900 end:0x8025CA18
 	.sdata      start:0x802964C0 end:0x802964C8
 
-ISample.cpp:
+engine/ISample.cpp:
 	extab       start:0x80006D64 end:0x80006D6C
 	extabindex  start:0x80008218 end:0x80008224
 	.text       start:0x80210660 end:0x802106C8
 	.data       start:0x8025CA18 end:0x8025CA58
 	.sdata      start:0x802964C8 end:0x802964D0
 
-ISoundEmitter.cpp:
+engine/ISoundEmitter.cpp:
 	extab       start:0x80006D6C end:0x80006D74
 	extabindex  start:0x80008224 end:0x80008230
 	.text       start:0x802106C8 end:0x80210728
 	.data       start:0x8025CA58 end:0x8025CAC0
 	.sdata      start:0x802964D0 end:0x802964D8
 
-ISoundListener.cpp:
+engine/ISoundListener.cpp:
 	extab       start:0x80006D74 end:0x80006D7C
 	extabindex  start:0x80008230 end:0x8000823C
 	.text       start:0x80210728 end:0x80210788
 	.data       start:0x8025CAC0 end:0x8025CB18
 	.sdata      start:0x802964D8 end:0x802964E0
 
-ISoundStreamed.cpp:
+engine/ISoundStreamed.cpp:
 	extab       start:0x80006D7C end:0x80006D8C
 	extabindex  start:0x8000823C end:0x80008254
 	.text       start:0x80210788 end:0x80210858
 	.data       start:0x8025CB18 end:0x8025CBF0
 	.sdata      start:0x802964E0 end:0x802964F0
 
-ISampleDictionary.cpp:
+engine/ISampleDictionary.cpp:
 	extab       start:0x80006D8C end:0x80006D94
 	extabindex  start:0x80008254 end:0x80008260
 	.text       start:0x80210858 end:0x802108B8
 	.data       start:0x8025CBF0 end:0x8025CC48
 	.sdata      start:0x802964F0 end:0x802964F8
 
-CSampleBank.cpp:
+engine/CSampleBank.cpp:
 	extab       start:0x80006D94 end:0x80006DF4
 	extabindex  start:0x80008260 end:0x800082C0
 	.text       start:0x802108B8 end:0x80210C8C
 	.data       start:0x8025CC48 end:0x8025CCC0
 	.sdata      start:0x802964F8 end:0x80296510
 
-CSampleDictionary.cpp:
+engine/CSampleDictionary.cpp:
 	extab       start:0x80006DF4 end:0x80006F48
 	extabindex  start:0x800082C0 end:0x80008374
 	.text       start:0x80210C8C end:0x802118A0
 	.data       start:0x8025CCC0 end:0x8025CD58
 	.sdata      start:0x80296510 end:0x80296520
 
-CSound2D.cpp:
+engine/CSound2D.cpp:
 	extab       start:0x80006F48 end:0x80007030
 	extabindex  start:0x80008374 end:0x80008494
 	.text       start:0x802118A0 end:0x80212A00
@@ -3541,7 +3541,7 @@ CSound2D.cpp:
 	.sdata      start:0x80296520 end:0x80296538
 	.sdata2     start:0x80299B68 end:0x80299B80
 
-CSound3D.cpp:
+engine/CSound3D.cpp:
 	extab       start:0x80007030 end:0x80007130
 	extabindex  start:0x80008494 end:0x800085D8
 	.text       start:0x80212A00 end:0x80213C30
@@ -3549,7 +3549,7 @@ CSound3D.cpp:
 	.sdata      start:0x80296538 end:0x80296550
 	.sdata2     start:0x80299B80 end:0x80299B90
 
-CSoundEmitter.cpp:
+engine/CSoundEmitter.cpp:
 	extab       start:0x80007130 end:0x800071EC
 	extabindex  start:0x800085D8 end:0x8000868C
 	.text       start:0x80213C30 end:0x802144B4
@@ -3557,7 +3557,7 @@ CSoundEmitter.cpp:
 	.sdata      start:0x80296550 end:0x80296560
 	.sdata2     start:0x80299B90 end:0x80299B98
 
-CSoundEngine.cpp:
+engine/CSoundEngine.cpp:
 	extab       start:0x800071EC end:0x80007494
 	extabindex  start:0x8000868C end:0x8000895C
 	.text       start:0x802144B4 end:0x802169C0
@@ -3565,7 +3565,7 @@ CSoundEngine.cpp:
 	.sdata      start:0x80296560 end:0x80296578
 	.sdata2     start:0x80299B98 end:0x80299BA0
 
-CSoundListener.cpp:
+engine/CSoundListener.cpp:
 	extab       start:0x80007494 end:0x800074C8
 	extabindex  start:0x8000895C end:0x8000898C
 	.text       start:0x802169C0 end:0x80216BF4
@@ -3573,7 +3573,7 @@ CSoundListener.cpp:
 	.sdata      start:0x80296578 end:0x80296588
 	.sdata2     start:0x80299BA0 end:0x80299BA8
 
-CSoundStreamed.cpp:
+engine/CSoundStreamed.cpp:
 	extab       start:0x800074C8 end:0x800075A0
 	extabindex  start:0x8000898C end:0x80008A94
 	.text       start:0x80216BF4 end:0x80217BF0
@@ -3581,80 +3581,80 @@ CSoundStreamed.cpp:
 	.sdata      start:0x80296588 end:0x802965A0
 	.sdata2     start:0x80299BA8 end:0x80299BB8
 
-CSample.cpp:
+engine/CSample.cpp:
 	extab       start:0x800075A0 end:0x80007620
 	extabindex  start:0x80008A94 end:0x80008AE8
 	.text       start:0x80217BF0 end:0x802180E4
 	.data       start:0x8025D250 end:0x8025D2C8
 	.sdata      start:0x802965A0 end:0x802965B8
 
-CSound3DRWA.cpp:
+engine/CSound3DRWA.cpp:
 	extab       start:0x80007620 end:0x80007630
 	extabindex  start:0x80008AE8 end:0x80008B00
 	.text       start:0x802180E4 end:0x80218208
 	.sdata2     start:0x80299BB8 end:0x80299BC8
 
-CSound2DRWA.cpp:
+engine/CSound2DRWA.cpp:
 	extab       start:0x80007630 end:0x80007640
 	extabindex  start:0x80008B00 end:0x80008B18
 	.text       start:0x80218208 end:0x80218294
 
-CSoundStreamedRWA.cpp:
+engine/CSoundStreamedRWA.cpp:
 	extab       start:0x80007640 end:0x80007650
 	extabindex  start:0x80008B18 end:0x80008B30
 	.text       start:0x80218294 end:0x802183EC
 	.bss        start:0x8028C260 end:0x8028C460
 	.sdata      start:0x802965B8 end:0x802965C0
 
-CSoundEngineRWA.cpp:
+engine/CSoundEngineRWA.cpp:
 	extab       start:0x80007650 end:0x80007688
 	extabindex  start:0x80008B30 end:0x80008B84
 	.text       start:0x802183EC end:0x8021893C
 	.sbss       start:0x80297460 end:0x80297468
 	.sdata2     start:0x80299BC8 end:0x80299BD0
 
-CSampleRWA.cpp:
+engine/CSampleRWA.cpp:
 	extab       start:0x80007688 end:0x80007698
 	extabindex  start:0x80008B84 end:0x80008B9C
 	.text       start:0x8021893C end:0x80218B70
 
-CSoundListenerRWA.cpp:
+engine/CSoundListenerRWA.cpp:
 	extab       start:0x80007698 end:0x800076A8
 	extabindex  start:0x80008B9C end:0x80008BB4
 	.text       start:0x80218B70 end:0x80218E8C
 	.sdata2     start:0x80299BD0 end:0x80299BD8
 
-CSoundEmitterRWA.cpp:
+engine/CSoundEmitterRWA.cpp:
 	extab       start:0x800076A8 end:0x800076B0
 	extabindex  start:0x80008BB4 end:0x80008BC0
 	.text       start:0x80218E8C end:0x80218F60
 
-CVideoEngine.cpp:
+engine/CVideoEngine.cpp:
 	.text       start:0x80218F60 end:0x8021905C
 	.data       start:0x8025D2C8 end:0x8025D350
 	.sdata      start:0x802965C0 end:0x802965D0
 	.sdata2     start:0x80299BD8 end:0x80299BE0
 
-CVideoEngineGCN.cpp:
+engine/CVideoEngineGCN.cpp:
 	.text       start:0x8021905C end:0x80219A68
 	.data       start:0x8025D350 end:0x8025D400
 	.sdata      start:0x802965D0 end:0x802965E8
 	.sdata2     start:0x80299BE0 end:0x80299C00
 
-DkVideo.cpp:
+engine/DkVideo.cpp:
 	.text       start:0x80219A68 end:0x80219AFC
 	.sbss       start:0x80297468 end:0x80297470
 
-THPAudioDecode.c:
+thp/THPAudioDecode.c:
 	.text       start:0x80219AFC end:0x80219ECC
 	.bss        start:0x8028C460 end:0x8028D7E0
 	.sbss       start:0x80297470 end:0x80297478
 
-THPDraw.c:
+thp/THPDraw.c:
 	.text       start:0x80219ECC end:0x8021A694
 	.sdata2     start:0x80299C00 end:0x80299C28
 
-THPPlayer.c:
+thp/THPPlayer.c:
 	.text       start:0x8021A694 end:0x8021BF08
 	.data       start:0x8025D400 end:0x8025D500
 	.bss        start:0x8028D7E0 end:0x8028DF60
@@ -3662,43 +3662,43 @@ THPPlayer.c:
 	.sbss       start:0x80297478 end:0x80297498
 	.sdata2     start:0x80299C28 end:0x80299C38
 
-THPRead.c:
+thp/THPRead.c:
 	.text       start:0x8021BF08 end:0x8021C3A0
 	.data       start:0x8025D500 end:0x8025D568
 	.bss        start:0x8028DF60 end:0x8028F350
 	.sbss       start:0x80297498 end:0x802974A0
 
-THPVideoDecode.c:
+thp/THPVideoDecode.c:
 	.text       start:0x8021C3A0 end:0x8021CA3C
 	.bss        start:0x8028F350 end:0x802906C0
 	.sbss       start:0x802974A0 end:0x802974A8
 
-rwaobjdefalias.c:
+rwa/rwaobjdefalias.c:
 	.text       start:0x8021CA3C end:0x8021CA88
 
-rwaintf.c:
+rwa/rwaintf.c:
 	.text       start:0x8021CA88 end:0x8021D270
 	.rodata     start:0x80242380 end:0x80242390
 	.bss        start:0x802906C0 end:0x802906E8
 	.sbss       start:0x802974A8 end:0x802974B8
 
-rwaobjdef.c:
+rwa/rwaobjdef.c:
 	.text       start:0x8021D270 end:0x8021E1E8
 	.bss        start:0x802906E8 end:0x802907B0
 	.sbss       start:0x802974B8 end:0x802974C8
 
-rwaobj.c:
+rwa/rwaobj.c:
 	.text       start:0x8021E1E8 end:0x8021EC18
 	.data       start:0x8025D568 end:0x8025D578
 	.bss        start:0x802907B0 end:0x80290800
 	.sbss       start:0x802974C8 end:0x802974E0
 
-rwaobjinterface.c:
+rwa/rwaobjinterface.c:
 	.text       start:0x8021EC18 end:0x8021F540
 	.bss        start:0x80290800 end:0x80290828
 	.sbss       start:0x802974E0 end:0x802974F0
 
-rwaparam.c:
+rwa/rwaparam.c:
 	.text       start:0x8021F540 end:0x8021FEFC
 	.rodata     start:0x80242390 end:0x80242480
 	.data       start:0x8025D578 end:0x8025D7A0
@@ -3706,32 +3706,32 @@ rwaparam.c:
 	.sdata      start:0x802965F0 end:0x80296620
 	.sbss       start:0x802974F0 end:0x80297528
 
-rwasymboltable.c:
+rwa/rwasymboltable.c:
 	.text       start:0x8021FEFC end:0x802200C4
 
-rwamemory.c:
+rwa/rwamemory.c:
 	.text       start:0x802200C4 end:0x8022029C
 
-rwafile.c:
+rwa/rwafile.c:
 	.text       start:0x8022029C end:0x80220D90
 	.bss        start:0x80290B68 end:0x80290EE8
 	.sdata      start:0x80296620 end:0x80296628
 	.sbss       start:0x80297528 end:0x80297530
 
-rwabase.c:
+rwa/rwabase.c:
 	.text       start:0x80220D90 end:0x80221364
 	.data       start:0x8025D7A0 end:0x8025D830
 	.sdata      start:0x80296628 end:0x80296638
 	.sbss       start:0x80297530 end:0x80297550
 
-rwawavedict.c:
+rwa/rwawavedict.c:
 	.text       start:0x80221364 end:0x80221828
 	.rodata     start:0x80242480 end:0x80242490
 	.bss        start:0x80290EE8 end:0x80290F30
 	.sdata      start:0x80296638 end:0x80296640
 	.sbss       start:0x80297550 end:0x80297568
 
-rwawaveconv.c:
+rwa/rwawaveconv.c:
 	.text       start:0x80221828 end:0x802253F4
 	.rodata     start:0x80242490 end:0x80242838
 	.data       start:0x8025D830 end:0x8025DB08
@@ -3740,126 +3740,126 @@ rwawaveconv.c:
 	.sdata2     start:0x80299C38 end:0x80299C88
 	.sbss2      start:0x80299DE0 end:0x80299DE4
 
-rwawavedef.c:
+rwa/rwawavedef.c:
 	.text       start:0x802253F4 end:0x80226138
 	.rodata     start:0x80242838 end:0x802428D8
 	.data       start:0x8025DB08 end:0x8025DB28
 	.bss        start:0x802910B0 end:0x802910D8
 	.sbss       start:0x80297570 end:0x80297578
 
-rwawave.c:
+rwa/rwawave.c:
 	.text       start:0x80226138 end:0x802267A4
 	.bss        start:0x802910D8 end:0x80291100
 	.sbss       start:0x80297578 end:0x80297580
 
-rwauuid.c:
+rwa/rwauuid.c:
 	.text       start:0x802267A4 end:0x80226B44
 	.bss        start:0x80291100 end:0x80291128
 	.sbss       start:0x80297580 end:0x80297588
 
-rwavoicemanager.c:
+rwa/rwavoicemanager.c:
 	.text       start:0x80226B44 end:0x802272E0
 	.data       start:0x8025DB28 end:0x8025DB38
 	.sdata      start:0x80296640 end:0x80296648
 	.sbss       start:0x80297588 end:0x802975B8
 	.sdata2     start:0x80299C88 end:0x80299CA8
 
-rwathread.c:
+rwa/rwathread.c:
 	.sdata      start:0x80296648 end:0x80296650
 
-rwafreelist.c:
+rwa/rwafreelist.c:
 	.text       start:0x802272E0 end:0x80227938
 	.bss        start:0x80291128 end:0x80291150
 	.sbss       start:0x802975B8 end:0x802975C8
 
-rwallist.c:
+rwa/rwallist.c:
 	.text       start:0x80227938 end:0x80227B50
 	.bss        start:0x80291150 end:0x80291178
 	.sbss       start:0x802975C8 end:0x802975D0
 
-rwamath.c:
+rwa/rwamath.c:
 	.text       start:0x80227B50 end:0x80227D24
 	.data       start:0x8025DB38 end:0x8025DD38
 	.sdata2     start:0x80299CA8 end:0x80299CB0
 
-rwaheap.c:
+rwa/rwaheap.c:
 	.text       start:0x80227D24 end:0x8022830C
 	.bss        start:0x80291178 end:0x802911A0
 	.sbss       start:0x802975D0 end:0x802975E0
 
-rwastreamcreate.c:
+rwa/rwastreamcreate.c:
 	.text       start:0x8022830C end:0x802286DC
 
-rwstream.c:
+rwa/rwstream.c:
 	.text       start:0x802286DC end:0x80228994
 	.sdata      start:0x80296650 end:0x80296658
 
-rwaallocbitmap.c:
+rwa/rwaallocbitmap.c:
 	.text       start:0x80228994 end:0x80228E84
 	.bss        start:0x802911A0 end:0x802911E8
 
-rwavirtualvoice.c:
+rwa/rwavirtualvoice.c:
 	.text       start:0x80228E84 end:0x80228F28
 	.rodata     start:0x802428D8 end:0x80242928
 	.data       start:0x8025DD38 end:0x8025DF58
 	.bss        start:0x802911E8 end:0x80291210
 
-rwavoice3d.c:
+rwa/rwavoice3d.c:
 	.text       start:0x80228F28 end:0x80228FA4
 	.rodata     start:0x80242928 end:0x802429B8
 	.data       start:0x8025DF58 end:0x8025E128
 	.bss        start:0x80291210 end:0x80291238
 
-rwavoice.c:
+rwa/rwavoice.c:
 	.text       start:0x80228FA4 end:0x80229020
 	.rodata     start:0x802429B8 end:0x80242AB8
 	.data       start:0x8025E128 end:0x8025E258
 	.bss        start:0x80291238 end:0x80291260
 
-rwaoutput.c:
+rwa/rwaoutput.c:
 	.text       start:0x80229020 end:0x8022909C
 	.rodata     start:0x80242AB8 end:0x80242B78
 	.data       start:0x8025E258 end:0x8025E338
 	.bss        start:0x80291260 end:0x80291288
 
-rwalistener.c:
+rwa/rwalistener.c:
 	.text       start:0x8022909C end:0x80229118
 	.rodata     start:0x80242B78 end:0x80242C98
 	.data       start:0x8025E338 end:0x8025E490
 	.bss        start:0x80291288 end:0x802912B0
 
-rwastreamint.c:
+rwa/rwastreamint.c:
 	.text       start:0x80229118 end:0x802291BC
 	.rodata     start:0x80242C98 end:0x80242D68
 	.data       start:0x8025E490 end:0x8025E580
 	.bss        start:0x802912B0 end:0x802912D8
 
-rwastreamnodeint.c:
+rwa/rwastreamnodeint.c:
 	.text       start:0x802291BC end:0x80229260
 	.rodata     start:0x80242D68 end:0x80242DC8
 	.data       start:0x8025E580 end:0x8025E5E8
 	.bss        start:0x802912D8 end:0x80291300
 
-rwastreamnodetypes.c:
+rwa/rwastreamnodetypes.c:
 	.text       start:0x80229260 end:0x80229884
 	.data       start:0x8025E5E8 end:0x8025E5F8
 
-rwastreamrendererint.c:
+rwa/rwastreamrendererint.c:
 	.text       start:0x80229884 end:0x80229928
 	.rodata     start:0x80242DC8 end:0x80242E18
 	.data       start:0x8025E5F8 end:0x8025E6B0
 	.bss        start:0x80291300 end:0x80291328
 
-rwastreamsourceint.c:
+rwa/rwastreamsourceint.c:
 	.text       start:0x80229928 end:0x802299CC
 	.rodata     start:0x80242E18 end:0x80242E78
 	.data       start:0x8025E6B0 end:0x8025E778
 	.bss        start:0x80291328 end:0x80291350
 
-rwastreamcodecint.c:
+rwa/rwastreamcodecint.c:
 	.rodata     start:0x80242E78 end:0x80242E88
 
-rwavirtualvoiceobj.c:
+rwa/rwavirtualvoiceobj.c:
 	.text       start:0x802299CC end:0x8022A648
 	.rodata     start:0x80242E88 end:0x80242E98
 	.data       start:0x8025E778 end:0x8025EA00
@@ -3867,7 +3867,7 @@ rwavirtualvoiceobj.c:
 	.sbss       start:0x802975E0 end:0x802975F0
 	.sdata2     start:0x80299CB0 end:0x80299CD0
 
-rwalistenerobj.c:
+rwa/rwalistenerobj.c:
 	.text       start:0x8022A648 end:0x8022B298
 	.rodata     start:0x80242E98 end:0x80242EB8
 	.data       start:0x8025EA00 end:0x8025EB98
@@ -3875,7 +3875,7 @@ rwalistenerobj.c:
 	.sbss       start:0x802975F0 end:0x80297600
 	.sdata2     start:0x80299CD0 end:0x80299CE8
 
-rwastreamsource.c:
+rwa/rwastreamsource.c:
 	.text       start:0x8022B298 end:0x8022BFB8
 	.rodata     start:0x80242EB8 end:0x80242EC8
 	.data       start:0x8025EB98 end:0x8025ECA0
@@ -3884,29 +3884,29 @@ rwastreamsource.c:
 	.sbss       start:0x80297600 end:0x80297608
 	.sdata2     start:0x80299CE8 end:0x80299CF0
 
-rwastreamfanout.c:
+rwa/rwastreamfanout.c:
 	.text       start:0x8022BFB8 end:0x8022C8BC
 	.rodata     start:0x80242EC8 end:0x80242ED8
 	.data       start:0x8025ECA0 end:0x8025ED18
 	.bss        start:0x802914A0 end:0x80291510
 	.sbss       start:0x80297608 end:0x80297610
 
-rwastreamsourcecommon.c:
+rwa/rwastreamsourcecommon.c:
 	.text       start:0x8022C8BC end:0x8022ECA0
 	.sdata      start:0x80296660 end:0x80296670
 
-rwastreamfilequeue.c:
+rwa/rwastreamfilequeue.c:
 	.text       start:0x8022ECA0 end:0x8022EF20
 
-rwastreamcontainer.c:
+rwa/rwastreamcontainer.c:
 	.text       start:0x8022EF20 end:0x802312F8
 	.sdata2     start:0x80299CF0 end:0x80299D00
 
-rwastreamcontainercmd.c:
+rwa/rwastreamcontainercmd.c:
 	.text       start:0x802312F8 end:0x8023156C
 	.sdata2     start:0x80299D00 end:0x80299D08
 
-rwastream.c:
+rwa/rwastream.c:
 	.text       start:0x8023156C end:0x80232694
 	.rodata     start:0x80242ED8 end:0x80242EE8
 	.data       start:0x8025ED18 end:0x8025EE38
@@ -3914,25 +3914,25 @@ rwastream.c:
 	.sbss       start:0x80297610 end:0x80297628
 	.sdata2     start:0x80299D08 end:0x80299D10
 
-rwanullwave.c:
+rwa/rwanullwave.c:
 	.text       start:0x80232694 end:0x80232840
 	.rodata     start:0x80242EE8 end:0x80242EF8
 	.bss        start:0x802918B8 end:0x80291908
 
-osbase.c:
+rwa/osbase.c:
 	.text       start:0x80232840 end:0x80232848
 
-osmultithread.c:
+rwa/osmultithread.c:
 	.text       start:0x80232848 end:0x80232A34
 
-ostimer.c:
+rwa/ostimer.c:
 	.text       start:0x80232A34 end:0x80232A68
 	.sbss       start:0x80297628 end:0x80297630
 
-rwaax.c:
+rwa/rwaax.c:
 	.text       start:0x80232A68 end:0x80232B2C
 
-rwaaxoutput.c:
+rwa/rwaaxoutput.c:
 	.text       start:0x80232B2C end:0x80233628
 	.rodata     start:0x80242EF8 end:0x80242F08
 	.data       start:0x8025EE38 end:0x8025EF40
@@ -3940,18 +3940,18 @@ rwaaxoutput.c:
 	.sbss       start:0x80297630 end:0x80297640
 	.sdata2     start:0x80299D10 end:0x80299D40
 
-rwaaxoutputchannel.c:
+rwa/rwaaxoutputchannel.c:
 	.text       start:0x80233628 end:0x80233D0C
 	.data       start:0x8025EF40 end:0x8025EF68
 	.bss        start:0x80291F18 end:0x80293820
 
-rwaaxoutputint.c:
+rwa/rwaaxoutputint.c:
 	.text       start:0x80233D0C end:0x80233DB0
 	.rodata     start:0x80242F08 end:0x80242F18
 	.data       start:0x8025EF68 end:0x8025F048
 	.bss        start:0x80293820 end:0x80293848
 
-rwaaxvoice.c:
+rwa/rwaaxvoice.c:
 	.text       start:0x80233DB0 end:0x8023512C
 	.rodata     start:0x80242F18 end:0x80242F38
 	.data       start:0x8025F048 end:0x8025F2E8
@@ -3959,25 +3959,25 @@ rwaaxvoice.c:
 	.sbss       start:0x80297640 end:0x80297650
 	.sdata2     start:0x80299D40 end:0x80299D68
 
-rwaaxvoiceint.c:
+rwa/rwaaxvoiceint.c:
 	.text       start:0x8023512C end:0x802351D0
 	.rodata     start:0x80242F38 end:0x80242F98
 	.data       start:0x8025F2E8 end:0x8025F518
 	.bss        start:0x802938B8 end:0x802938E0
 
-rwaaxwave.c:
+rwa/rwaaxwave.c:
 	.text       start:0x802351D0 end:0x802356C4
 	.rodata     start:0x80242F98 end:0x80242FA8
 	.data       start:0x8025F518 end:0x8025F528
 	.bss        start:0x802938E0 end:0x80293950
 	.sbss       start:0x80297650 end:0x80297658
 
-rwaarammanager.c:
+rwa/rwaarammanager.c:
 	.text       start:0x802356C4 end:0x8023584C
 	.data       start:0x8025F528 end:0x8025F538
 	.bss        start:0x80293950 end:0x80293968
 
-rwaaxrenderer.c:
+rwa/rwaaxrenderer.c:
 	.text       start:0x8023584C end:0x80236704
 	.rodata     start:0x80242FA8 end:0x80242FB8
 	.data       start:0x8025F538 end:0x8025F660
@@ -3985,11 +3985,11 @@ rwaaxrenderer.c:
 	.sbss       start:0x80297658 end:0x80297660
 	.sdata2     start:0x80299D68 end:0x80299D78
 
-rwaaxrenderersub.c:
+rwa/rwaaxrenderersub.c:
 	.text       start:0x80236704 end:0x802373C0
 	.sdata2     start:0x80299D78 end:0x80299D88
 
-THPDec.c:
+thp/THPDec.c:
 	.text       start:0x802373C0 end:0x8023E928
 	.rodata     start:0x80242FB8 end:0x80243048
 	.data       start:0x8025F660 end:0x8025F69C
@@ -3998,5 +3998,5 @@ THPDec.c:
 	.sbss       start:0x80297660 end:0x80297778
 	.sdata2     start:0x80299D88 end:0x80299DA4
 
-__mem.c:
+PowerPC_EABI_Support/Runtime/Src/__mem.c:
 	.init       start:0x80005434 end:0x8000556C
