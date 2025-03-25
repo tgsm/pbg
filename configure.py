@@ -209,6 +209,11 @@ cflags_piglet = [
 
 cflags_engine = [
     *cflags_base,
+    "-i src/engine",
+    "-DGAMECUBE",
+    "-inline deferred",
+    "-opt nopeephole",
+    "-opt noschedule",
 ]
 
 # Debug flags
