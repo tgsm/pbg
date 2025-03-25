@@ -205,6 +205,12 @@ cflags_base = [
 
 cflags_piglet = [
     *cflags_base,
+    "-RTTI on",
+    "-i src/Piglet",
+    "-DGAMECUBE",
+    "-inline deferred",
+    "-opt nopeephole",
+    "-opt noschedule",
 ]
 
 cflags_engine = [
