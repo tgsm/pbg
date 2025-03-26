@@ -215,6 +215,7 @@ cflags_piglet = [
     "-inline deferred",
     "-opt nopeephole",
     "-opt noschedule",
+    "-pool off",
 ]
 
 cflags_engine = [
@@ -224,6 +225,7 @@ cflags_engine = [
     "-inline deferred",
     "-opt nopeephole",
     "-opt noschedule",
+    "-pool off",
     "-fp_contract off",
 ]
 
@@ -562,7 +564,7 @@ config.libs = [
             Object(NonMatching, "engine/DKW_Primitive.cpp"),
             Object(NonMatching, "engine/DKW_Quat.cpp"),
             Object(NonMatching, "engine/DKW_RenderProperty.cpp"),
-            Object(NonMatching, "engine/DKW_RGBA.cpp"),
+            Object(Matching, "engine/DKW_RGBA.cpp"),
             Object(NonMatching, "engine/DKW_RGBAReal.cpp"),
             Object(NonMatching, "engine/DKW_Spline.cpp"),
             Object(NonMatching, "engine/DKW_TexDictionary.cpp"),
