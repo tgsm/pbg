@@ -11,10 +11,9 @@ CEntityBhvTagSendMessage::~CEntityBhvTagSendMessage() {
     
 }
 
-// FIXME: stack offsets, otherwise matching
 void CEntityBhvTagSendMessage::Parse(DkXmd::CChunkIterator iter) {
     DkXmd::CChunkIterator dest;
-    char buf[128+16];
+    char buf[128];
     
     if (iter.GetFirstChildChunk(dest) != TRUE) {
         return;
