@@ -1,0 +1,37 @@
+#include "CEntityBhvTagSendMessage.h"
+#include <cstring>
+
+CEntityBhvTagSendMessage::CEntityBhvTagSendMessage() {
+    m_unkC = "";
+    m_unk10 = "";
+    m_unk14 = 0;
+}
+
+CEntityBhvTagSendMessage::~CEntityBhvTagSendMessage() {
+    
+}
+
+// FIXME: stack offsets, otherwise matching
+void CEntityBhvTagSendMessage::Parse(DkXmd::CChunkIterator iter) {
+    DkXmd::CChunkIterator dest;
+    char buf[128+16];
+    
+    if (iter.GetFirstChildChunk(dest) != TRUE) {
+        return;
+    }
+
+    while (TRUE) {
+        strcpy(buf, dest.GetName());
+        if (strcmp(buf, "Receiver") == 0) {
+            m_unkC = dest.GetStringValue();
+        } else if (strcmp(buf, "Type") == 0) {
+            m_unk10 = dest.GetStringValue();
+        } else if (strcmp(buf, "Param") == 0) {
+            m_unk14 = dest.GetS32Value();
+        }
+
+        if (dest.GetNextSiblingChunk(dest) != TRUE) {
+            break;
+        }
+    }
+}
