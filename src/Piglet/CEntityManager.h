@@ -5,11 +5,13 @@
 #include "types.h"
 
 class CEntityManager {
-public:
+private:
     CGame* m_game;
 
 public:
     // FIXME: Make an enum for entity types
+
+    CGame* GetGame() { return m_game; }
 
     u32 GetTypeFromString(std::string type_str);
     u32 CreateEntity(std::string str1, std::string type, std::string str3); // unknown return type

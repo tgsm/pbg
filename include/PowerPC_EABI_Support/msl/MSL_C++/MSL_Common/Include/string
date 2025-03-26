@@ -16,7 +16,7 @@ struct char_traits {
 template <typename CharT, typename Traits = char_traits<CharT>, typename Allocator = allocator<CharT> >
 struct basic_string {
     explicit basic_string(const Allocator& = Allocator());
-    basic_string(const char*, const Allocator& = Allocator());
+    basic_string(const CharT*, const Allocator& = Allocator());
     basic_string(const basic_string&);
     ~basic_string();
 
