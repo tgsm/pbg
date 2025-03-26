@@ -565,7 +565,7 @@ config.libs = [
             Object(NonMatching, "engine/DKW_Quat.cpp"),
             Object(NonMatching, "engine/DKW_RenderProperty.cpp"),
             Object(Matching, "engine/DKW_RGBA.cpp"),
-            Object(NonMatching, "engine/DKW_RGBAReal.cpp"),
+            Object(Matching, "engine/DKW_RGBAReal.cpp"),
             Object(NonMatching, "engine/DKW_Spline.cpp"),
             Object(NonMatching, "engine/DKW_TexDictionary.cpp"),
             Object(NonMatching, "engine/DKW_Texture.cpp"),
