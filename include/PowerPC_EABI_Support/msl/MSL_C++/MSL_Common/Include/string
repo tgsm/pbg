@@ -7,21 +7,35 @@ namespace std {
 
 template <typename CharT>
 struct char_traits {
+    static unsigned long length(const CharT* s) {
+        return strlen(s);
+    }
     // TODO
 };
 
 template <typename CharT, typename Traits = char_traits<CharT>, typename Allocator = allocator<CharT> >
 struct basic_string {
     explicit basic_string(const Allocator& = Allocator());
+    basic_string(const char*, const Allocator& = Allocator());
     basic_string(const basic_string&);
     ~basic_string();
 
     basic_string& assign(const basic_string& other, unsigned long pos, unsigned long n = -1);
-    basic_string& assign(const CharT* c_str, unsigned long count);
-
-    void operator=(const CharT* c_str) {
-        assign(c_str, strlen(c_str));
+    basic_string& assign(const CharT* s, unsigned long count);
+    void operator=(const CharT* s) {
+        assign(s, strlen(s));
     }
+
+    int compare(unsigned long pos1, unsigned long count1, const CharT* s, unsigned long count2) const;
+    bool operator==(const char* s) {
+        return compare(0, size(), s, Traits::length(s)) == 0;
+    }
+
+    unsigned long size() const {
+        return *m_size;
+    }
+
+    unsigned long* m_size; // FIXME: not correct
 
     // TODO
 };
