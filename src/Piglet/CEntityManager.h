@@ -1,9 +1,13 @@
 #pragma once
 
 #include <string>
+#include "CGame.h"
 #include "types.h"
 
 class CEntityManager {
+public:
+    CGame* m_game;
+
 public:
     // FIXME: Make an enum for entity types
 

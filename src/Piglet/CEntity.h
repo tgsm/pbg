@@ -1,13 +1,13 @@
 #pragma once
 
 #include <string>
+#include "CEntityManager.h"
 #include "types.h"
 
-class CEntityManager;
 class CEntityBhvTagBehavior;
 
 class CEntity {
-private:
+public:
     std::string m_unk0;
     u32 m_flags;
     u32 m_unk8;
