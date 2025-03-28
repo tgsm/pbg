@@ -1,4 +1,7 @@
-#pragma once
+#ifndef ENGINE_CCHUNKITERATOR_H
+#define ENGINE_CCHUNKITERATOR_H
+
+#include "types.h"
 
 namespace DkXmd {
 
@@ -19,3 +22,5 @@ public:
 };
 
 }
+
+#endif
