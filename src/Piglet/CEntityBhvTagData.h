@@ -5,7 +5,7 @@
 class CEntity;
 
 class CEntityBhvTagData {
-private:
+public:
     CEntityBhvTagData* m_unk0;
     CEntityBhvTagData* m_unk4;
 
