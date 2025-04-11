@@ -541,7 +541,7 @@ config.libs = [
             Object(NonMatching, "engine/CState.cpp"),
             Object(NonMatching, "engine/CGCNPad.cpp"),
             Object(NonMatching, "engine/CInputHalfAxe.cpp"),
-            Object(NonMatching, "engine/CChunkIterator.cpp"),
+            Object(NonMatching, "engine/CChunkIterator.cpp", extra_cflags=["-sym on"]),
             Object(NonMatching, "engine/CXmdFile.cpp"),
             Object(NonMatching, "engine/DKW_2dTools.cpp"),
             Object(NonMatching, "engine/DKW_Animation.cpp"),
