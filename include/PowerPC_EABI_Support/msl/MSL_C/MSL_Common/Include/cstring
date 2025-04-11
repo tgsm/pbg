@@ -8,6 +8,9 @@ int strlen(const char* s);
 char* strcpy(char* dst, const char* src);
 int strcmp(const char* s1, const char* s2);
 
+int memcmp(const char s1[], const char s2[], unsigned long n);
+void* memcpy(void* dest, const void* src, unsigned long n);
+
 #ifdef __cplusplus
 }
 #endif
