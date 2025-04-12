@@ -76,7 +76,7 @@ public:
     s32 GetType() const;
     char* GetName() const;
     u32 GetDataSize() const;
-    u8* GetStringValue() const;
+    char* GetStringValue() const;
     s32 GetS32Value() const;
     f32 GetFloatValue() const;
     BOOL GetFirstChildChunk(CChunkIterator& dest) const;
