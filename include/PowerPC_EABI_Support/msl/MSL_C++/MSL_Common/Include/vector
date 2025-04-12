@@ -1,0 +1,39 @@
+#pragma once
+
+#include <memory>
+#include <null.h>
+
+namespace std {
+
+template <typename T, typename Allocator = allocator<T> >
+class __vector_pod {
+public:
+    __vector_pod() : m_capacity(0), m_size(0), m_data(NULL) {
+    }
+
+    unsigned long size() { return m_size; }
+    T* data() { return m_data; }
+    void reserve(unsigned long capacity);
+
+    T& operator[](unsigned long n) { return *(data() + n); }
+
+public:
+    unsigned long m_capacity;
+    unsigned long m_size;
+    T* m_data;
+};
+
+template <typename T, typename Allocator = allocator<T>, bool IsPOD>
+class __vector_imp : public __vector_pod<T, Allocator> {
+};
+
+template <typename T, typename Allocator = allocator<T> >
+class vector : public __vector_imp<T, Allocator, false> {
+public:
+    unsigned long size() { return __vector_imp::size(); }
+    void reserve(unsigned long n) { __vector_imp::reserve(n); }
+
+    T& operator[](unsigned long n) { return __vector_imp::operator[](n); }
+};
+
+}
