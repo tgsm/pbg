@@ -1313,7 +1313,7 @@ config.libs = [
             Object(NonMatching, "thp/THPRead.c"),
             Object(NonMatching, "thp/THPVideoDecode.c"),
             Object(NonMatching, "thp/THPDec.c"),
-            # Object(NonMatching, "thp/THPAudio.c"),
+            Object(NonMatching, "thp/THPAudio.c"),
         ]
     }
 ]
