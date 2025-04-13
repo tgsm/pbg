@@ -15,27 +15,35 @@ struct char_traits {
 
 template <typename CharT, typename Traits = char_traits<CharT>, typename Allocator = allocator<CharT> >
 struct basic_string {
+    typedef unsigned long size_type;
+
     explicit basic_string(const Allocator& = Allocator());
     basic_string(const CharT*, const Allocator& = Allocator());
     basic_string(const basic_string&);
     ~basic_string();
 
-    basic_string& assign(const basic_string& other, unsigned long pos, unsigned long n = -1);
-    basic_string& assign(const CharT* s, unsigned long count);
+    basic_string& assign(const basic_string& other, size_type pos, size_type n = -1);
+    basic_string& assign(const CharT* s, size_type count);
     void operator=(const CharT* s) {
         assign(s, strlen(s));
     }
 
-    int compare(unsigned long pos1, unsigned long count1, const CharT* s, unsigned long count2) const;
+    int compare(size_type pos1, size_type count1, const CharT* s, size_type count2) const;
+    int compare(const basic_string& other) const {
+        return compare(0, size(), *(const CharT**)(other.m_size+3), other.size());
+    }
     bool operator==(const char* s) {
         return compare(0, size(), s, Traits::length(s)) == 0;
     }
+    bool operator==(const basic_string& other) {
+        return size() == other.size() && compare(other) == 0;
+    }
 
-    unsigned long size() const {
+    size_type size() const {
         return *m_size;
     }
 
-    unsigned long* m_size; // FIXME: not correct
+    size_type* m_size; // FIXME: not correct
 
     // TODO
 };

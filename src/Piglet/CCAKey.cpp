@@ -17,7 +17,7 @@ CCAKey::CCAKey(DkXmd::CChunkIterator* iter, char* name) {
 
     m_name = NULL;
 
-    iter->GetFirstChildChunk(dest);
+    int iVar2 = iter->GetFirstChildChunk(dest);
 
     unk1 = FALSE;
     unk2 = FALSE;
@@ -26,7 +26,6 @@ CCAKey::CCAKey(DkXmd::CChunkIterator* iter, char* name) {
     unk5 = FALSE;
     unk6 = FALSE;
 
-    int iVar2;
     do {
         if (strcmp("ID", dest.GetName()) == 0) {
             const u8* value = (const u8*)dest.GetStringValue();

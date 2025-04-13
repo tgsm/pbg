@@ -216,6 +216,7 @@ cflags_piglet = [
     "-opt nopeephole",
     "-opt noschedule",
     "-pool off",
+    "-fp_contract off",
 ]
 
 cflags_engine = [
