@@ -30,13 +30,19 @@ struct basic_string {
 
     int compare(size_type pos1, size_type count1, const CharT* s, size_type count2) const;
     int compare(const basic_string& other) const {
-        return compare(0, size(), *(const CharT**)(other.m_size+3), other.size());
+        return compare(0, size(), other.begin(), other.size());
     }
     bool operator==(const char* s) {
         return compare(0, size(), s, Traits::length(s)) == 0;
     }
+    // FIXME: I think the result of this is being downcast to a u8, when it shouldn't be.
     bool operator==(const basic_string& other) {
         return size() == other.size() && compare(other) == 0;
+    }
+
+    CharT* begin() const {
+        // FIXME: This should return an iterator.
+        return *(CharT**)(m_size+3);
     }
 
     size_type size() const {

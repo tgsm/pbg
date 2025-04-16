@@ -5,7 +5,7 @@
 #include "engine/CChunkIterator.h"
 
 class CEntityBhvTagMessage : public CEntityBhvTagData {
-private:
+public:
     std::string m_unkC;
     std::string m_unk10;
     u32 m_unk14; // unknown type

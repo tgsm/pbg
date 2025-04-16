@@ -1,10 +1,17 @@
 #pragma once
 
 #include <string>
+#include "engine/CChunkIterator.h"
 #include "CEntityManager.h"
+#include "CEntityBhvTagBehavior.h"
 #include "types.h"
 
-class CEntityBhvTagBehavior;
+// FIXME: This is part of the engine, but where do we put it?
+struct SDkMessage {
+    char unk0[32];
+    char unk20[16];
+    u32 unk30;
+}; // size: 0x34
 
 class CEntity {
 public:
@@ -30,11 +37,14 @@ public:
     virtual void Reset();
     virtual void Update(f32 dt_maybe);
     virtual void Render(f32 dt_maybe);
-    virtual void Parse(); // FIXME: Types
-    virtual void ParseBehavior(); // FIXME: Types
+    virtual void Parse(DkXmd::CChunkIterator iter);
+    virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual void UpdateBehavior(f32 dt_maybe);
     virtual u32 GetSaveSize();
     virtual void Save(void*);
     virtual void Restore(void*);
-    virtual void ManageMessage(); // FIXME: Types
+    virtual void ManageMessage(SDkMessage& message);
+
+    void ParseXYZ(DkXmd::CChunkIterator iter, f32* x, f32* y, f32* z);
+    void ProcessMessages();
 };
