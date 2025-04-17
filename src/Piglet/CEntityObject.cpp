@@ -94,7 +94,7 @@ void CEntityObject::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehav
             CEntityBhvTagPosition* position = new CEntityBhvTagPosition;
             position->Parse(dest);
             behavior->AddData(position);
-        } else if (strcmp(buf, "Position") == 0) {
+        } else if (strcmp(buf, "Orientation") == 0) {
             CEntityBhvTagOrientation* orientation = new CEntityBhvTagOrientation;
             orientation->Parse(dest);
             behavior->AddData(orientation);
