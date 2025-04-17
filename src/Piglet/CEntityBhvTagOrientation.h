@@ -17,10 +17,7 @@ public:
         return 3;
     }
 
-    // FIXME: Need CEntityObject(?) vtable
-    virtual void Set(CEntity* entity) {
-
-    }
+    virtual void Set(CEntity* entity);
 
     void Parse(DkXmd::CChunkIterator iter);
 };

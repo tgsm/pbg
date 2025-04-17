@@ -1,4 +1,5 @@
 #include "CEntityBhvTagOrientation.h"
+#include "CEntityObject.h"
 #include <cstring>
 
 CEntityBhvTagOrientation::CEntityBhvTagOrientation() {
@@ -31,4 +32,9 @@ void CEntityBhvTagOrientation::Parse(DkXmd::CChunkIterator iter) {
             break;
         }
     }
+}
+
+void CEntityBhvTagOrientation::Set(CEntity* entity) {
+    ((CEntityObject*)entity)->SetOrientation(m_orientation);
+    ((CEntityObject*)entity)->UpdateVolumes();
 }
