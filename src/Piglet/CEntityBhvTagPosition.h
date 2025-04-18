@@ -1,4 +1,4 @@
-#pragma once
+#pragma once on
 
 #include "CEntityBhvTagData.h"
 #include "engine/CChunkIterator.h"

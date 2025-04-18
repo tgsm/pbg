@@ -1,5 +1,4 @@
-#ifndef ENGINE_CCHUNKITERATOR_H
-#define ENGINE_CCHUNKITERATOR_H
+#pragma once on
 
 #include "types.h"
 
@@ -92,5 +91,3 @@ public:
 };
 
 }
-
-#endif

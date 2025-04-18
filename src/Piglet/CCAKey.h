@@ -1,4 +1,4 @@
-#pragma once
+#pragma once on
 
 #include "engine/CChunkIterator.h"
 #include "engine/DKW_V3d.h"

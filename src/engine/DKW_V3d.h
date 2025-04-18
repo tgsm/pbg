@@ -1,5 +1,4 @@
-#ifndef ENGINE_DKW_V3D_H
-#define ENGINE_DKW_V3D_H
+#pragma once on
 
 #include "types.h"
 
@@ -12,5 +11,3 @@ public:
 public:
     f32 m_x, m_y, m_z;
 };
-
-#endif
