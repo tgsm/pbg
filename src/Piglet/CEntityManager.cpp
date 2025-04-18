@@ -1,4 +1,5 @@
 #include "CEntityManager.h"
+#include <iostream>
 
 f32 InterpolValue(f32 f1, f32 f2, f32 f3, f32 f4) {
     if (f3 >= f4) {

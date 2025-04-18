@@ -5,6 +5,7 @@
 #include "CEntityBhvTagMessage.h"
 #include "CEntityBhvTagVisibility.h"
 #include <cstring>
+#include <iostream>
 
 CEntityBhvTagBehavior::CEntityBhvTagBehavior() {
     m_id = 0;

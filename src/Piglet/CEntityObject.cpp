@@ -2,6 +2,7 @@
 #include "CEntityBhvTagPosition.h"
 #include "CEntityBhvTagOrientation.h"
 #include <cstring>
+#include <iostream>
 
 CEntityObject::CEntityObject(CEntityManager* entity_manager, std::string name) : CEntity(entity_manager, name) {
     m_unk24 = 0;

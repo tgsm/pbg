@@ -2,6 +2,7 @@
 #include "CEntityBhvTagResponse.h"
 #include "CEntityBhvTagSendMessage.h"
 #include <cstring>
+#include <iostream>
 
 CEntityBhvTagResponse::CEntityBhvTagResponse() {
 

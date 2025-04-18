@@ -1,4 +1,5 @@
 #include <cstring>
+#include <iostream>
 #include "CCAKey.h"
 #include "engine/DKW_V3d.h"
 

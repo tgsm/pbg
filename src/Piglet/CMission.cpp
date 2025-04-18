@@ -1,5 +1,6 @@
 #include "CMission.h"
 #include <cstring>
+#include <iostream>
 
 u32 CMission::m_MaxNbCookies = 0;
 

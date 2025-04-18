@@ -1,5 +1,6 @@
 #include "CEntityBhvTagPosition.h"
 #include <cstring>
+#include <iostream>
 
 CEntityBhvTagPosition::CEntityBhvTagPosition() {
     m_position = CDKW_V3d(0.0f, 0.0f, 0.0f);

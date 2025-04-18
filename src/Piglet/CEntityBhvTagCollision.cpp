@@ -1,5 +1,6 @@
 #include "CEntityBhvTagCollision.h"
 #include <cstring>
+#include <iostream>
 
 CEntityBhvTagCollision::CEntityBhvTagCollision() {
     m_on = TRUE;

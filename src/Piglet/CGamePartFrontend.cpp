@@ -1,4 +1,5 @@
 #include "CGamePartFrontend.h"
+#include <iostream>
 
 CGamePartFrontend::CGamePartFrontend(CGame* game) {
 

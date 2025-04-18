@@ -1,0 +1,20 @@
+#pragma once
+
+namespace std {
+
+class __nInit {
+public:
+    __nInit();
+    ~__nInit();
+};
+
+class __wInit {
+public:
+    __wInit();
+    ~__wInit();
+};
+
+static __nInit __msl_ios_base_ninit;
+static __wInit __msl_ios_base_winit;
+
+}

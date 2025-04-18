@@ -1,6 +1,7 @@
 #include "CEntityBhvTagOrientation.h"
 #include "CEntityObject.h"
 #include <cstring>
+#include <iostream>
 
 CEntityBhvTagOrientation::CEntityBhvTagOrientation() {
     m_orientation = CDKW_V3d(0.0f, 0.0f, 0.0f);

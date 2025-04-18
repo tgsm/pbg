@@ -1,4 +1,5 @@
 #include "CEntityBhvTagData.h"
+#include <iostream>
 
 CEntityBhvTagData::CEntityBhvTagData() {
     m_unk0 = NULL;

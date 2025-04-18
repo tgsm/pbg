@@ -1,4 +1,5 @@
 #include "CEntityBhvTagAnim.h"
+#include <iostream>
 
 CEntityBhvTagAnim::CEntityBhvTagAnim() {
 

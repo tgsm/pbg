@@ -1,5 +1,6 @@
 #include "CEntityBhvTagActivation.h"
 #include <cstring>
+#include <iostream>
 
 CEntityBhvTagActivation::CEntityBhvTagActivation() {
     m_on = TRUE;

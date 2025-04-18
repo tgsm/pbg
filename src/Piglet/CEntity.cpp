@@ -1,6 +1,7 @@
 #include "CEntity.h"
 #include "CEntityBhvTagMessage.h"
 #include <cstring>
+#include <iostream>
 
 CEntity::CEntity(CEntityManager* entity_manager, std::string name) {
     m_unk0.assign(name, 0);

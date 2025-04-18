@@ -1,5 +1,6 @@
 #include "CEntityBhvTagVisibility.h"
 #include <cstring>
+#include <iostream>
 
 CEntityBhvTagVisibility::CEntityBhvTagVisibility() {
     m_on = TRUE;

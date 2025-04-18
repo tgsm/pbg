@@ -1,4 +1,5 @@
 #include "CGamePartIntroduction.h"
+#include <iostream>
 
 CGamePartIntroduction::CGamePartIntroduction() {
     m_unk0 = 8;

@@ -1,5 +1,6 @@
 #include "CEntityBhvTagSendMessage.h"
 #include <cstring>
+#include <iostream>
 
 CEntityBhvTagSendMessage::CEntityBhvTagSendMessage() {
     m_unkC = "";
