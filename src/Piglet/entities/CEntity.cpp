@@ -1,5 +1,5 @@
-#include "CEntity.h"
-#include "CEntityBhvTagMessage.h"
+#include "entities/CEntity.h"
+#include "entities/CEntityBhvTagMessage.h"
 #include <cstring>
 #include <iostream>
 

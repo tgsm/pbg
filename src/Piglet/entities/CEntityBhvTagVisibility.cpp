@@ -1,4 +1,4 @@
-#include "CEntityBhvTagVisibility.h"
+#include "entities/CEntityBhvTagVisibility.h"
 #include <cstring>
 #include <iostream>
 

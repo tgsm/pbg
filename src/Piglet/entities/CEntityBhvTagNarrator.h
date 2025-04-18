@@ -1,8 +1,8 @@
 #pragma once on
 
 #include <string>
-#include "CEntityBhvTagData.h"
-#include "CEntity.h"
+#include "entities/CEntityBhvTagData.h"
+#include "entities/CEntity.h"
 #include "engine/CChunkIterator.h"
 
 class CEntityBhvTagNarrator : public CEntityBhvTagData {

@@ -1,5 +1,5 @@
 #include <string>
-#include "CEntityBhvTagData.h"
+#include "entities/CEntityBhvTagData.h"
 #include "engine/CChunkIterator.h"
 
 class CEntityBhvTagAnim : public CEntityBhvTagData {

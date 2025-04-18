@@ -2,7 +2,7 @@
 
 #include "engine/CChunkIterator.h"
 #include "engine/DKW_V3d.h"
-#include "CEntity.h"
+#include "entities/CEntity.h"
 
 // TODO
 class CDKW_Matrix {};

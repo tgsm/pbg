@@ -80,7 +80,7 @@ Piglet/CResourceFactory.cpp:
 	.sbss       start:0x802966C8 end:0x802966D0
 	.sdata2     start:0x80297840 end:0x80297858
 
-Piglet/CEntityManager.cpp:
+Piglet/entities/CEntityManager.cpp:
 	.text       start:0x8001B8FC end:0x8001DDBC
 	.ctors      start:0x8023EE84 end:0x8023EE88
 	.data       start:0x80243EF8 end:0x80244208
@@ -89,7 +89,7 @@ Piglet/CEntityManager.cpp:
 	.sbss       start:0x802966D0 end:0x802966D8
 	.sdata2     start:0x80297858 end:0x80297860
 
-Piglet/CEntityMesh.cpp:
+Piglet/entities/CEntityMesh.cpp:
 	.text       start:0x8001DDBC end:0x800235FC
 	.ctors      start:0x8023EE88 end:0x8023EE8C
 	.data       start:0x80244208 end:0x80244528
@@ -98,7 +98,7 @@ Piglet/CEntityMesh.cpp:
 	.sbss       start:0x802966D8 end:0x802966E0
 	.sdata2     start:0x80297860 end:0x80297898
 
-Piglet/CEntityWarp.cpp:
+Piglet/entities/CEntityWarp.cpp:
 	.text       start:0x800235FC end:0x80023C94
 	.ctors      start:0x8023EE8C end:0x8023EE90
 	.data       start:0x80244528 end:0x802445A8
@@ -106,7 +106,7 @@ Piglet/CEntityWarp.cpp:
 	.sdata      start:0x80293EC0 end:0x80293EF0
 	.sbss       start:0x802966E0 end:0x802966E8
 
-Piglet/CEntityWorld.cpp:
+Piglet/entities/CEntityWorld.cpp:
 	.text       start:0x80023C94 end:0x80025008
 	.ctors      start:0x8023EE90 end:0x8023EE94
 	.data       start:0x802445A8 end:0x80244798
@@ -115,7 +115,7 @@ Piglet/CEntityWorld.cpp:
 	.sbss       start:0x802966E8 end:0x802966F8
 	.sdata2     start:0x80297898 end:0x802978B8
 
-Piglet/CEntityZone.cpp:
+Piglet/entities/CEntityZone.cpp:
 	.text       start:0x80025008 end:0x80026AC8
 	.ctors      start:0x8023EE94 end:0x8023EE98
 	.data       start:0x80244798 end:0x80244938
@@ -124,7 +124,7 @@ Piglet/CEntityZone.cpp:
 	.sbss       start:0x802966F8 end:0x80296700
 	.sdata2     start:0x802978B8 end:0x80297900
 
-Piglet/CEntity.cpp:
+Piglet/entities/CEntity.cpp:
 	.text       start:0x80026AC8 end:0x80027628
 	.ctors      start:0x8023EE98 end:0x8023EE9C
 	.data       start:0x80244938 end:0x802449F8
@@ -133,7 +133,7 @@ Piglet/CEntity.cpp:
 	.sbss       start:0x80296700 end:0x80296708
 	.sdata2     start:0x80297900 end:0x80297908
 
-Piglet/CEntityBhvTagData.cpp:
+Piglet/entities/CEntityBhvTagData.cpp:
 	.text       start:0x80027628 end:0x80027770
 	.ctors      start:0x8023EE9C end:0x8023EEA0
 	.data       start:0x802449F8 end:0x80244A20
@@ -174,7 +174,7 @@ Piglet/CCACamera.cpp:
 	.sbss       start:0x80296728 end:0x80296730
 	.sdata2     start:0x80297928 end:0x80297958
 
-Piglet/CEntityBhvTagMessage.cpp:
+Piglet/entities/CEntityBhvTagMessage.cpp:
 	.text       start:0x800297E4 end:0x80029B38
 	.ctors      start:0x8023EEB0 end:0x8023EEB4
 	.data       start:0x80244AA0 end:0x80244AF8
@@ -182,7 +182,7 @@ Piglet/CEntityBhvTagMessage.cpp:
 	.sdata      start:0x80294048 end:0x80294078
 	.sbss       start:0x80296730 end:0x80296738
 
-Piglet/CEntityBhvTagPosition.cpp:
+Piglet/entities/CEntityBhvTagPosition.cpp:
 	.text       start:0x80029B38 end:0x80029DA0
 	.ctors      start:0x8023EEB4 end:0x8023EEB8
 	.data       start:0x80244AF8 end:0x80244B48
@@ -191,7 +191,7 @@ Piglet/CEntityBhvTagPosition.cpp:
 	.sbss       start:0x80296738 end:0x80296740
 	.sdata2     start:0x80297958 end:0x80297960
 
-Piglet/CEntityBhvTagResponse.cpp:
+Piglet/entities/CEntityBhvTagResponse.cpp:
 	.text       start:0x80029DA0 end:0x8002A250
 	.ctors      start:0x8023EEB8 end:0x8023EEBC
 	.data       start:0x80244B48 end:0x80244BE0
@@ -199,7 +199,7 @@ Piglet/CEntityBhvTagResponse.cpp:
 	.sdata      start:0x80294098 end:0x802940B0
 	.sbss       start:0x80296740 end:0x80296748
 
-Piglet/CEntityBhvTagSendMessage.cpp:
+Piglet/entities/CEntityBhvTagSendMessage.cpp:
 	.text       start:0x8002A250 end:0x8002A56C
 	.ctors      start:0x8023EEBC end:0x8023EEC0
 	.data       start:0x80244BE0 end:0x80244C40
@@ -207,7 +207,7 @@ Piglet/CEntityBhvTagSendMessage.cpp:
 	.sdata      start:0x802940B0 end:0x802940D8
 	.sbss       start:0x80296748 end:0x80296750
 
-Piglet/CEntityBhvTagBehavior.cpp:
+Piglet/entities/CEntityBhvTagBehavior.cpp:
 	.text       start:0x8002A56C end:0x8002A9D0
 	.ctors      start:0x8023EEC0 end:0x8023EEC4
 	.data       start:0x80244C40 end:0x80244CF8
@@ -224,7 +224,7 @@ Piglet/CGameRoomManager.cpp:
 	.sbss       start:0x80296758 end:0x80296760
 	.sdata2     start:0x80297960 end:0x80297B20
 
-Piglet/CEntityBhvTagVisibility.cpp:
+Piglet/entities/CEntityBhvTagVisibility.cpp:
 	.text       start:0x8003E56C end:0x8003E724
 	.ctors      start:0x8023EEC8 end:0x8023EECC
 	.data       start:0x80245168 end:0x802451B8
@@ -232,7 +232,7 @@ Piglet/CEntityBhvTagVisibility.cpp:
 	.sdata      start:0x802942B8 end:0x802942D0
 	.sbss       start:0x80296760 end:0x80296768
 
-Piglet/CEntityBhvTagCollision.cpp:
+Piglet/entities/CEntityBhvTagCollision.cpp:
 	.text       start:0x8003E724 end:0x8003E8EC
 	.ctors      start:0x8023EECC end:0x8023EED0
 	.data       start:0x802451B8 end:0x80245208
@@ -240,7 +240,7 @@ Piglet/CEntityBhvTagCollision.cpp:
 	.sdata      start:0x802942D0 end:0x802942E8
 	.sbss       start:0x80296768 end:0x80296770
 
-Piglet/CEntityBhvTagActivation.cpp:
+Piglet/entities/CEntityBhvTagActivation.cpp:
 	.text       start:0x8003E8EC end:0x8003EB34
 	.ctors      start:0x8023EED0 end:0x8023EED4
 	.data       start:0x80245208 end:0x80245258
@@ -266,7 +266,7 @@ Piglet/CControlValue.cpp:
 	.sdata      start:0x80294328 end:0x80294340
 	.sbss       start:0x80296780 end:0x80296788
 
-Piglet/CEntityPiglet.cpp:
+Piglet/entities/CEntityPiglet.cpp:
 	.text       start:0x8003F874 end:0x800443B0
 	.ctors      start:0x8023EEDC end:0x8023EEE0
 	.data       start:0x802452C8 end:0x802459D8
@@ -284,7 +284,7 @@ Piglet/CDebugMenu.cpp:
 	.sbss       start:0x80296790 end:0x80296798
 	.sdata2     start:0x80297BC0 end:0x80297BD8
 
-Piglet/CEntityObject.cpp:
+Piglet/entities/CEntityObject.cpp:
 	.text       start:0x800452CC end:0x80046398
 	.ctors      start:0x8023EEE4 end:0x8023EEE8
 	.data       start:0x80245A60 end:0x80245B30
@@ -293,7 +293,7 @@ Piglet/CEntityObject.cpp:
 	.sbss       start:0x80296798 end:0x802967A0
 	.sdata2     start:0x80297BD8 end:0x80297BE8
 
-Piglet/CEntityBhvTagOrientation.cpp:
+Piglet/entities/CEntityBhvTagOrientation.cpp:
 	.text       start:0x80046398 end:0x800465FC
 	.ctors      start:0x8023EEE8 end:0x8023EEEC
 	.data       start:0x80245B30 end:0x80245B80
@@ -302,7 +302,7 @@ Piglet/CEntityBhvTagOrientation.cpp:
 	.sbss       start:0x802967A0 end:0x802967A8
 	.sdata2     start:0x80297BE8 end:0x80297BF0
 
-Piglet/CEntityNPC.cpp:
+Piglet/entities/CEntityNPC.cpp:
 	.text       start:0x800465FC end:0x80053670
 	.ctors      start:0x8023EEEC end:0x8023EEF0
 	.data       start:0x80245B80 end:0x80246070
@@ -311,7 +311,7 @@ Piglet/CEntityNPC.cpp:
 	.sbss       start:0x802967A8 end:0x802967B0
 	.sdata2     start:0x80297BF0 end:0x80297CC8
 
-Piglet/CEntityLight.cpp:
+Piglet/entities/CEntityLight.cpp:
 	.text       start:0x80053670 end:0x80055248
 	.ctors      start:0x8023EEF0 end:0x8023EEF4
 	.data       start:0x80246070 end:0x80246210
@@ -329,7 +329,7 @@ Piglet/CGamePartDMRoomLauncher.cpp:
 	.sbss       start:0x802967B8 end:0x802967C0
 	.sdata2     start:0x80297CD8 end:0x80297CE0
 
-Piglet/CEntityNPCBasicEffalump.cpp:
+Piglet/entities/CEntityNPCBasicEffalump.cpp:
 	.text       start:0x80055894 end:0x800561DC
 	.ctors      start:0x8023EEF8 end:0x8023EEFC
 	.data       start:0x80246290 end:0x80246478
@@ -338,7 +338,7 @@ Piglet/CEntityNPCBasicEffalump.cpp:
 	.sbss       start:0x802967C0 end:0x802967C8
 	.sdata2     start:0x80297CE0 end:0x80297CE8
 
-Piglet/CEntityNPCArrow.cpp:
+Piglet/entities/CEntityNPCArrow.cpp:
 	.text       start:0x800561DC end:0x800571DC
 	.ctors      start:0x8023EEFC end:0x8023EF00
 	.data       start:0x80246478 end:0x80246580
@@ -347,7 +347,7 @@ Piglet/CEntityNPCArrow.cpp:
 	.sbss       start:0x802967C8 end:0x802967D0
 	.sdata2     start:0x80297CE8 end:0x80297CF8
 
-Piglet/CEntitySeqKey.cpp:
+Piglet/entities/CEntitySeqKey.cpp:
 	.text       start:0x800571DC end:0x8005D150
 	.ctors      start:0x8023EF00 end:0x8023EF04
 	.data       start:0x80246580 end:0x80246698
@@ -450,7 +450,7 @@ Piglet/CMailBox.cpp:
 	.sdata      start:0x80294A48 end:0x80294A58
 	.sbss       start:0x80296838 end:0x80296840
 
-Piglet/CEntityNPCBeeEffalump.cpp:
+Piglet/entities/CEntityNPCBeeEffalump.cpp:
 	.text       start:0x80067A34 end:0x800683F8
 	.ctors      start:0x8023EF30 end:0x8023EF34
 	.data       start:0x80246C58 end:0x80246E48
@@ -459,7 +459,7 @@ Piglet/CEntityNPCBeeEffalump.cpp:
 	.sbss       start:0x80296840 end:0x80296848
 	.sdata2     start:0x80297EA0 end:0x80297EC8
 
-Piglet/CEntityNPCHnSWoozle.cpp:
+Piglet/entities/CEntityNPCHnSWoozle.cpp:
 	.text       start:0x800683F8 end:0x8006916C
 	.ctors      start:0x8023EF34 end:0x8023EF38
 	.data       start:0x80246E48 end:0x80247048
@@ -468,7 +468,7 @@ Piglet/CEntityNPCHnSWoozle.cpp:
 	.sbss       start:0x80296848 end:0x80296850
 	.sdata2     start:0x80297EC8 end:0x80297EE0
 
-Piglet/CEntityNPCJackpotEffalump.cpp:
+Piglet/entities/CEntityNPCJackpotEffalump.cpp:
 	.text       start:0x8006916C end:0x80069A94
 	.ctors      start:0x8023EF38 end:0x8023EF3C
 	.data       start:0x80247048 end:0x80247240
@@ -477,7 +477,7 @@ Piglet/CEntityNPCJackpotEffalump.cpp:
 	.sbss       start:0x80296850 end:0x80296858
 	.sdata2     start:0x80297EE0 end:0x80297EE8
 
-Piglet/CEntityNPCMirrorWoozle.cpp:
+Piglet/entities/CEntityNPCMirrorWoozle.cpp:
 	.text       start:0x80069A94 end:0x8006A880
 	.ctors      start:0x8023EF3C end:0x8023EF40
 	.data       start:0x80247240 end:0x80247438
@@ -486,7 +486,7 @@ Piglet/CEntityNPCMirrorWoozle.cpp:
 	.sbss       start:0x80296858 end:0x80296860
 	.sdata2     start:0x80297EE8 end:0x80297F20
 
-Piglet/CEntityNPCRoadSweeperEffalump.cpp:
+Piglet/entities/CEntityNPCRoadSweeperEffalump.cpp:
 	.text       start:0x8006A880 end:0x8006B6E8
 	.ctors      start:0x8023EF40 end:0x8023EF44
 	.data       start:0x80247438 end:0x80247690
@@ -495,7 +495,7 @@ Piglet/CEntityNPCRoadSweeperEffalump.cpp:
 	.sbss       start:0x80296860 end:0x80296868
 	.sdata2     start:0x80297F20 end:0x80297F30
 
-Piglet/CEntityNPCTennisWoozle.cpp:
+Piglet/entities/CEntityNPCTennisWoozle.cpp:
 	.text       start:0x8006B6E8 end:0x8006C130
 	.ctors      start:0x8023EF44 end:0x8023EF48
 	.data       start:0x80247690 end:0x80247890
@@ -504,7 +504,7 @@ Piglet/CEntityNPCTennisWoozle.cpp:
 	.sbss       start:0x80296868 end:0x80296870
 	.sdata2     start:0x80297F30 end:0x80297F48
 
-Piglet/CEntityNPCTree.cpp:
+Piglet/entities/CEntityNPCTree.cpp:
 	.text       start:0x8006C130 end:0x8006C968
 	.ctors      start:0x8023EF48 end:0x8023EF4C
 	.data       start:0x80247890 end:0x80247A58
@@ -513,7 +513,7 @@ Piglet/CEntityNPCTree.cpp:
 	.sbss       start:0x80296870 end:0x80296878
 	.sdata2     start:0x80297F48 end:0x80297F50
 
-Piglet/CEntityNPCTubaEffalump.cpp:
+Piglet/entities/CEntityNPCTubaEffalump.cpp:
 	.text       start:0x8006C968 end:0x8006D5A4
 	.ctors      start:0x8023EF4C end:0x8023EF50
 	.data       start:0x80247A58 end:0x80247C58
@@ -522,7 +522,7 @@ Piglet/CEntityNPCTubaEffalump.cpp:
 	.sbss       start:0x80296878 end:0x80296880
 	.sdata2     start:0x80297F50 end:0x80297F68
 
-Piglet/CEntityNPCBasicWoozle.cpp:
+Piglet/entities/CEntityNPCBasicWoozle.cpp:
 	.text       start:0x8006D5A4 end:0x8006DD48
 	.ctors      start:0x8023EF50 end:0x8023EF54
 	.data       start:0x80247C58 end:0x80247E28
@@ -558,7 +558,7 @@ Piglet/CPathFinder.cpp:
 	.sbss       start:0x80296898 end:0x802968A0
 	.sdata2     start:0x80297F90 end:0x80297FD8
 
-Piglet/CEntityTimer.cpp:
+Piglet/entities/CEntityTimer.cpp:
 	.text       start:0x8007649C end:0x80076B90
 	.ctors      start:0x8023EF60 end:0x8023EF64
 	.data       start:0x80247F40 end:0x80247FD8
@@ -567,7 +567,7 @@ Piglet/CEntityTimer.cpp:
 	.sbss       start:0x802968A0 end:0x802968A8
 	.sdata2     start:0x80297FD8 end:0x80297FE0
 
-Piglet/CEntitySearchableZone.cpp:
+Piglet/entities/CEntitySearchableZone.cpp:
 	.text       start:0x80076B90 end:0x80078C94
 	.ctors      start:0x8023EF64 end:0x8023EF68
 	.data       start:0x80247FD8 end:0x80248270
@@ -576,7 +576,7 @@ Piglet/CEntitySearchableZone.cpp:
 	.sbss       start:0x802968A8 end:0x802968B0
 	.sdata2     start:0x80297FE0 end:0x80298038
 
-Piglet/CEntityPushingBox.cpp:
+Piglet/entities/CEntityPushingBox.cpp:
 	.text       start:0x80078C94 end:0x8007B838
 	.ctors      start:0x8023EF68 end:0x8023EF6C
 	.rodata     start:0x8023F180 end:0x8023F1A0
@@ -586,7 +586,7 @@ Piglet/CEntityPushingBox.cpp:
 	.sbss       start:0x802968B0 end:0x802968B8
 	.sdata2     start:0x80298038 end:0x80298070
 
-Piglet/CEntityCookie.cpp:
+Piglet/entities/CEntityCookie.cpp:
 	.text       start:0x8007B838 end:0x8007E294
 	.ctors      start:0x8023EF6C end:0x8023EF70
 	.data       start:0x80248438 end:0x80248598
@@ -595,7 +595,7 @@ Piglet/CEntityCookie.cpp:
 	.sbss       start:0x802968B8 end:0x802968C0
 	.sdata2     start:0x80298070 end:0x80298118
 
-Piglet/CEntityWinnie.cpp:
+Piglet/entities/CEntityWinnie.cpp:
 	.text       start:0x8007E294 end:0x8007EB2C
 	.ctors      start:0x8023EF70 end:0x8023EF74
 	.data       start:0x80248598 end:0x802487B8
@@ -604,7 +604,7 @@ Piglet/CEntityWinnie.cpp:
 	.sbss       start:0x802968C0 end:0x802968C8
 	.sdata2     start:0x80298118 end:0x80298128
 
-Piglet/CEntityTigger.cpp:
+Piglet/entities/CEntityTigger.cpp:
 	.text       start:0x8007EB2C end:0x8007F828
 	.ctors      start:0x8023EF74 end:0x8023EF78
 	.data       start:0x802487B8 end:0x80248A30
@@ -613,7 +613,7 @@ Piglet/CEntityTigger.cpp:
 	.sbss       start:0x802968C8 end:0x802968D0
 	.sdata2     start:0x80298128 end:0x80298148
 
-Piglet/CEntityHero.cpp:
+Piglet/entities/CEntityHero.cpp:
 	.text       start:0x8007F828 end:0x80082128
 	.ctors      start:0x8023EF78 end:0x8023EF7C
 	.data       start:0x80248A30 end:0x80248E28
@@ -622,7 +622,7 @@ Piglet/CEntityHero.cpp:
 	.sbss       start:0x802968D0 end:0x802968E8
 	.sdata2     start:0x80298148 end:0x802981A0
 
-Piglet/CEntityBhvTagTeleport.cpp:
+Piglet/entities/CEntityBhvTagTeleport.cpp:
 	.text       start:0x80082128 end:0x800827FC
 	.ctors      start:0x8023EF7C end:0x8023EF80
 	.data       start:0x80248E28 end:0x80248E98
@@ -631,7 +631,7 @@ Piglet/CEntityBhvTagTeleport.cpp:
 	.sbss       start:0x802968E8 end:0x802968F0
 	.sdata2     start:0x802981A0 end:0x802981B8
 
-Piglet/CEntityBhvTagAnim.cpp:
+Piglet/entities/CEntityBhvTagAnim.cpp:
 	.text       start:0x800827FC end:0x800829D0
 	.ctors      start:0x8023EF80 end:0x8023EF84
 	.data       start:0x80248E98 end:0x80248EE0
@@ -648,7 +648,7 @@ Piglet/CMission.cpp:
 	.sbss       start:0x802968F8 end:0x80296908
 	.sdata2     start:0x802981B8 end:0x802981C0
 
-Piglet/CEntityFX.cpp:
+Piglet/entities/CEntityFX.cpp:
 	.text       start:0x80083DA0 end:0x80084970
 	.ctors      start:0x8023EF88 end:0x8023EF8C
 	.data       start:0x80249010 end:0x80249110
@@ -657,7 +657,7 @@ Piglet/CEntityFX.cpp:
 	.sbss       start:0x80296908 end:0x80296910
 	.sdata2     start:0x802981C0 end:0x802981D0
 
-Piglet/CEntityScaryFaceBox.cpp:
+Piglet/entities/CEntityScaryFaceBox.cpp:
 	.text       start:0x80084970 end:0x800858BC
 	.ctors      start:0x8023EF8C end:0x8023EF90
 	.rodata     start:0x8023F1A0 end:0x8023F1B0
@@ -667,7 +667,7 @@ Piglet/CEntityScaryFaceBox.cpp:
 	.sbss       start:0x80296910 end:0x80296920
 	.sdata2     start:0x802981D0 end:0x80298230
 
-Piglet/CEntityEscapingObject.cpp:
+Piglet/entities/CEntityEscapingObject.cpp:
 	.text       start:0x800858BC end:0x80086C70
 	.ctors      start:0x8023EF90 end:0x8023EF94
 	.data       start:0x802492C0 end:0x802493D0
@@ -676,7 +676,7 @@ Piglet/CEntityEscapingObject.cpp:
 	.sbss       start:0x80296920 end:0x80296928
 	.sdata2     start:0x80298230 end:0x80298280
 
-Piglet/CEntityBhvTagCameraSystem.cpp:
+Piglet/entities/CEntityBhvTagCameraSystem.cpp:
 	.text       start:0x80086C70 end:0x8008707C
 	.ctors      start:0x8023EF94 end:0x8023EF98
 	.data       start:0x802493D0 end:0x80249430
@@ -694,7 +694,7 @@ Piglet/CLoading.cpp:
 	.sbss       start:0x80296930 end:0x80296938
 	.sdata2     start:0x80298280 end:0x80298310
 
-Piglet/CEntityPhial.cpp:
+Piglet/entities/CEntityPhial.cpp:
 	.text       start:0x8008AF90 end:0x8008BAD0
 	.ctors      start:0x8023EF9C end:0x8023EFA0
 	.data       start:0x80249788 end:0x80249940
@@ -712,7 +712,7 @@ Piglet/CEventAnimationHandlers.cpp:
 	.sbss       start:0x80296940 end:0x80296948
 	.sdata2     start:0x80298330 end:0x80298360
 
-Piglet/CEntityPathFinder.cpp:
+Piglet/entities/CEntityPathFinder.cpp:
 	.text       start:0x8008C6E0 end:0x80090718
 	.ctors      start:0x8023EFA4 end:0x8023EFA8
 	.data       start:0x80249A90 end:0x80249C68
@@ -739,7 +739,7 @@ Piglet/CEventGuiHandlers.cpp:
 	.sbss       start:0x80296958 end:0x80296968
 	.sdata2     start:0x802983E8 end:0x80298438
 
-Piglet/CEntityBhvTagGuiCtrl.cpp:
+Piglet/entities/CEntityBhvTagGuiCtrl.cpp:
 	.text       start:0x800AA128 end:0x800AA5A4
 	.ctors      start:0x8023EFB0 end:0x8023EFB4
 	.data       start:0x8024B4C8 end:0x8024B558
@@ -747,7 +747,7 @@ Piglet/CEntityBhvTagGuiCtrl.cpp:
 	.sdata      start:0x80295550 end:0x80295570
 	.sbss       start:0x80296968 end:0x80296970
 
-Piglet/CEntityBhvTagSettings.cpp:
+Piglet/entities/CEntityBhvTagSettings.cpp:
 	.text       start:0x800AA5A4 end:0x800AAD18
 	.ctors      start:0x8023EFB4 end:0x8023EFB8
 	.data       start:0x8024B558 end:0x8024B5E0
@@ -756,7 +756,7 @@ Piglet/CEntityBhvTagSettings.cpp:
 	.sbss       start:0x80296970 end:0x80296978
 	.sdata2     start:0x80298438 end:0x80298448
 
-Piglet/CEntityNPCDoor.cpp:
+Piglet/entities/CEntityNPCDoor.cpp:
 	.text       start:0x800AAD18 end:0x800AB86C
 	.ctors      start:0x8023EFB8 end:0x8023EFBC
 	.data       start:0x8024B5E0 end:0x8024B7F0
@@ -799,7 +799,7 @@ Piglet/CMiniMap.cpp:
 	.sdata2     start:0x80298480 end:0x80298518
 	.sbss2      start:0x80299DC0 end:0x80299DC8
 
-Piglet/CEntityBhvTagBoxPosition.cpp:
+Piglet/entities/CEntityBhvTagBoxPosition.cpp:
 	.text       start:0x800B2778 end:0x800B29C0
 	.ctors      start:0x8023EFCC end:0x8023EFD0
 	.data       start:0x8024B968 end:0x8024B9B8
@@ -807,7 +807,7 @@ Piglet/CEntityBhvTagBoxPosition.cpp:
 	.sdata      start:0x80295738 end:0x80295750
 	.sbss       start:0x802969A8 end:0x802969B0
 
-Piglet/CEntity3DSound.cpp:
+Piglet/entities/CEntity3DSound.cpp:
 	.text       start:0x800B29C0 end:0x800B4084
 	.ctors      start:0x8023EFD0 end:0x8023EFD4
 	.data       start:0x8024B9B8 end:0x8024BB18
@@ -816,7 +816,7 @@ Piglet/CEntity3DSound.cpp:
 	.sbss       start:0x802969B0 end:0x802969B8
 	.sdata2     start:0x80298518 end:0x80298530
 
-Piglet/CEntityBhvTagFinishMission.cpp:
+Piglet/entities/CEntityBhvTagFinishMission.cpp:
 	.text       start:0x800B4084 end:0x800B42B4
 	.ctors      start:0x8023EFD4 end:0x8023EFD8
 	.data       start:0x8024BB18 end:0x8024BB68
@@ -825,7 +825,7 @@ Piglet/CEntityBhvTagFinishMission.cpp:
 	.sbss       start:0x802969B8 end:0x802969C0
 	.sdata2     start:0x80298530 end:0x80298540
 
-Piglet/CEntityBhvTagNarrator.cpp:
+Piglet/entities/CEntityBhvTagNarrator.cpp:
 	.text       start:0x800B42B4 end:0x800B447C
 	.ctors      start:0x8023EFD8 end:0x8023EFDC
 	.data       start:0x8024BB68 end:0x8024BBB8
@@ -850,7 +850,7 @@ Piglet/CShadowZone.cpp:
 	.sbss       start:0x802969D0 end:0x802969D8
 	.sdata2     start:0x80298548 end:0x80298590
 
-Piglet/CEntityNPCGralosaurus.cpp:
+Piglet/entities/CEntityNPCGralosaurus.cpp:
 	.text       start:0x800B61C0 end:0x800B7590
 	.ctors      start:0x8023EFE4 end:0x8023EFE8
 	.data       start:0x8024BBF8 end:0x8024BE48
@@ -985,7 +985,7 @@ Piglet/CRTCGrimaceEvent.cpp:
 	.sbss       start:0x80296A70 end:0x80296A78
 	.sdata2     start:0x80298810 end:0x80298828
 
-Piglet/CEntityBhvTagReceiveShadow.cpp:
+Piglet/entities/CEntityBhvTagReceiveShadow.cpp:
 	.text       start:0x800C18F4 end:0x800C1A74
 	.ctors      start:0x8023F020 end:0x8023F024
 	.data       start:0x8024C9C0 end:0x8024CA10

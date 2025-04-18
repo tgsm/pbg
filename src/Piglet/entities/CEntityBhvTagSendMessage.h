@@ -1,7 +1,7 @@
 #pragma once on
 
-#include "CEntityBhvTagData.h"
-#include "CEntity.h"
+#include "entities/CEntityBhvTagData.h"
+#include "entities/CEntity.h"
 #include "CMailBox.h"
 #include "engine/CChunkIterator.h"
 

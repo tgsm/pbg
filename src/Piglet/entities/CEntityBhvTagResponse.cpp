@@ -1,6 +1,6 @@
-#include "CEntityBhvTagNarrator.h"
-#include "CEntityBhvTagResponse.h"
-#include "CEntityBhvTagSendMessage.h"
+#include "entities/CEntityBhvTagNarrator.h"
+#include "entities/CEntityBhvTagResponse.h"
+#include "entities/CEntityBhvTagSendMessage.h"
 #include <cstring>
 #include <iostream>
 

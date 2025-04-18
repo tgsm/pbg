@@ -1,7 +1,7 @@
 #pragma once on
 
 #include "engine/CChunkIterator.h"
-#include "CEntityBhvTagData.h"
+#include "entities/CEntityBhvTagData.h"
 
 class CEntityBhvTagBehavior : public CEntityBhvTagData {
 private:

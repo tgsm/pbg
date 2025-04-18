@@ -1,4 +1,4 @@
-#include "CEntityBhvTagData.h"
+#include "entities/CEntityBhvTagData.h"
 #include <iostream>
 
 CEntityBhvTagData::CEntityBhvTagData() {

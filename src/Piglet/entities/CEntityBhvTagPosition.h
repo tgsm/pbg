@@ -1,6 +1,6 @@
 #pragma once on
 
-#include "CEntityBhvTagData.h"
+#include "entities/CEntityBhvTagData.h"
 #include "engine/CChunkIterator.h"
 #include "engine/DKW_V3d.h"
 

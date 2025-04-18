@@ -1,4 +1,4 @@
-#include "CEntityBhvTagAnim.h"
+#include "entities/CEntityBhvTagAnim.h"
 #include <iostream>
 
 CEntityBhvTagAnim::CEntityBhvTagAnim() {

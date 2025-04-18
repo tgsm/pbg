@@ -2,8 +2,8 @@
 
 #include <string>
 #include "engine/CChunkIterator.h"
-#include "CEntityManager.h"
-#include "CEntityBhvTagBehavior.h"
+#include "entities/CEntityManager.h"
+#include "entities/CEntityBhvTagBehavior.h"
 #include "types.h"
 
 // FIXME: This is part of the engine, but where do we put it?

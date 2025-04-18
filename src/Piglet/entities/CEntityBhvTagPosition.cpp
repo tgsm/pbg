@@ -1,4 +1,4 @@
-#include "CEntityBhvTagPosition.h"
+#include "entities/CEntityBhvTagPosition.h"
 #include <cstring>
 #include <iostream>
 

@@ -1,5 +1,5 @@
-#include "CEntityBhvTagNarrator.h"
-#include "CEntity.h"
+#include "entities/CEntityBhvTagNarrator.h"
+#include "entities/CEntity.h"
 #include <iostream>
 
 CEntityBhvTagNarrator::CEntityBhvTagNarrator() {

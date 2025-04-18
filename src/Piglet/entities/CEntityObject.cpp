@@ -1,6 +1,6 @@
-#include "CEntityObject.h"
-#include "CEntityBhvTagPosition.h"
-#include "CEntityBhvTagOrientation.h"
+#include "entities/CEntityObject.h"
+#include "entities/CEntityBhvTagPosition.h"
+#include "entities/CEntityBhvTagOrientation.h"
 #include <cstring>
 #include <iostream>
 

@@ -1,4 +1,4 @@
-#include "CEntityBhvTagCollision.h"
+#include "entities/CEntityBhvTagCollision.h"
 #include <cstring>
 #include <iostream>
 

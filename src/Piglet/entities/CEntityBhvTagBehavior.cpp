@@ -1,9 +1,9 @@
-#include "CEntityBhvTagActivation.h"
-#include "CEntityBhvTagAnim.h"
-#include "CEntityBhvTagBehavior.h"
-#include "CEntityBhvTagCollision.h"
-#include "CEntityBhvTagMessage.h"
-#include "CEntityBhvTagVisibility.h"
+#include "entities/CEntityBhvTagActivation.h"
+#include "entities/CEntityBhvTagAnim.h"
+#include "entities/CEntityBhvTagBehavior.h"
+#include "entities/CEntityBhvTagCollision.h"
+#include "entities/CEntityBhvTagMessage.h"
+#include "entities/CEntityBhvTagVisibility.h"
 #include <cstring>
 #include <iostream>
 

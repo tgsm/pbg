@@ -1,40 +1,33 @@
-#include "CEntityBhvTagMessage.h"
-#include "CEntityBhvTagResponse.h"
+#include "entities/CEntityBhvTagSendMessage.h"
 #include <cstring>
 #include <iostream>
 
-CEntityBhvTagMessage::CEntityBhvTagMessage() {
+CEntityBhvTagSendMessage::CEntityBhvTagSendMessage() {
     m_unkC = "";
     m_unk10 = "";
     m_unk14 = 0;
 }
 
-CEntityBhvTagMessage::~CEntityBhvTagMessage() {
-
+CEntityBhvTagSendMessage::~CEntityBhvTagSendMessage() {
+    
 }
 
-// Equivalent: regalloc
-void CEntityBhvTagMessage::Parse(DkXmd::CChunkIterator iter) {
-    char buf[128];
+void CEntityBhvTagSendMessage::Parse(DkXmd::CChunkIterator iter) {
     DkXmd::CChunkIterator dest;
-
+    char buf[128];
+    
     if (iter.GetFirstChildChunk(dest) != TRUE) {
         return;
     }
 
     while (TRUE) {
         strcpy(buf, dest.GetName());
-
-        if (strcmp(buf, "Emitter") == 0) {
+        if (strcmp(buf, "Receiver") == 0) {
             m_unkC = dest.GetStringValue();
         } else if (strcmp(buf, "Type") == 0) {
             m_unk10 = dest.GetStringValue();
         } else if (strcmp(buf, "Param") == 0) {
             m_unk14 = dest.GetS32Value();
-        } else if (strcmp(buf, "Response") == 0) {
-            CEntityBhvTagResponse* response = new CEntityBhvTagResponse;
-            response->Parse(dest);
-            AddData(response);
         }
 
         if (dest.GetNextSiblingChunk(dest) != TRUE) {

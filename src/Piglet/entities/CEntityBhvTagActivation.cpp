@@ -1,4 +1,4 @@
-#include "CEntityBhvTagActivation.h"
+#include "entities/CEntityBhvTagActivation.h"
 #include <cstring>
 #include <iostream>
 
