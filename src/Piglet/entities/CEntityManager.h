@@ -6,6 +6,8 @@
 #include "CGame.h"
 #include "types.h"
 
+class CEntity;
+
 class CEntityManager {
 private:
     CGame* m_game;
@@ -32,10 +34,10 @@ public:
     u32 CreateEntity(std::string str1, u32 type, std::string str3); // unknown return type
 
     BOOL FindChunkModel(std::string str, DkXmd::CChunkIterator& iter);
-    u32 GetEntity(std::string name); // unknown return type
+    CEntity* GetEntity(std::string name);
     u32 GetEntityLight01();
-    u32 GetEntity(u32 n);
+    CEntity* GetEntity(u32 n);
     u32 GetEntityCount();
 
-    u32 GetHero(); // unknown return type
+    CEntity* GetHero();
 };

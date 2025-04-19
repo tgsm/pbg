@@ -3,7 +3,7 @@
 #include "types.h"
 
 class CGamePart {
-protected:
+public:
     u32 m_unk0;
     u32 m_unk4;
 

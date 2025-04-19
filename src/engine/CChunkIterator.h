@@ -80,6 +80,7 @@ public:
     f32 GetFloatValue() const;
     BOOL GetFirstChildChunk(CChunkIterator& dest) const;
     BOOL GetNextSiblingChunk(CChunkIterator& dest) const;
+    BOOL GetChunk(const char* name, CChunkIterator& dest) const;
 
     // void* GetData() const {
     //     if (!m_unk0->m_inverted) {

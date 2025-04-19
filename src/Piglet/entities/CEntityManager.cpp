@@ -180,16 +180,16 @@ u32 CEntityManager::GetEntityLight01() {
     return m_entity_light_01;
 }
 
-u32 CEntityManager::GetEntity(u32 n) {
-    return m_entities[n];
+CEntity* CEntityManager::GetEntity(u32 n) {
+    return reinterpret_cast<CEntity*>(m_entities[n]);
 }
 
 u32 CEntityManager::GetEntityCount() {
     return m_entities.size();
 }
 
-u32 CEntityManager::GetHero() {
-    u32 entity = GetEntity("Piglet");
+CEntity* CEntityManager::GetHero() {
+    CEntity* entity = GetEntity("Piglet");
     if (entity == 0) {
         entity = GetEntity("Tigger");
         if (entity == 0) {

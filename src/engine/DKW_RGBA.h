@@ -12,6 +12,6 @@ public:
     CDKW_RGBA operator*(const f32& scalar) const;
     void operator=(const CDKW_RGBA& other);
 
-private:
+public:
     u8 m_r, m_g, m_b, m_a;
 };
