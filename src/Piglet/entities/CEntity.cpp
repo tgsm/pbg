@@ -29,6 +29,10 @@ void CEntity::Reset() {
 
 }
 
+void CEntity::Update(f32 dt_maybe) {
+    ProcessMessages();
+}
+
 void CEntity::Render(f32 dt_maybe) {
 
 }
