@@ -2,6 +2,7 @@
 
 #include "entities/CEntityBhvTagData.h"
 #include "entities/CEntity.h"
+#include "entities/CEntityMesh.h"
 #include "engine/CChunkIterator.h"
 
 extern "C" {
@@ -19,9 +20,8 @@ public:
     virtual void Set(CEntity* entity) {
         if (m_on == TRUE) {
             entity->AddFlag(1 << 0);
-            if (GetType() > 23 && GetType() < 36) {
-                // FIXME: Need CEntityMesh(?) vtable
-                rand();
+            if (entity->GetType() > 23 && entity->GetType() < 36) {
+                ((CEntityMesh*)entity)->UpdateAnimations(rand() / 32767.0f);
             }
         } else {
             entity->DelFlag(1 << 0);

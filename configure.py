@@ -329,7 +329,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CGameRoomManager.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagVisibility.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagCollision.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityBhvTagActivation.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityBhvTagActivation.cpp"),
             Object(NonMatching, "Piglet/CMenuControl.cpp"),
             Object(NonMatching, "Piglet/CControlValue.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityPiglet.cpp"),
