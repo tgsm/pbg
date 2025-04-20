@@ -3,6 +3,9 @@
 #include "entities/CEntityObject.h"
 
 class CEntityMesh : public CEntityObject {
+private:
+    u8 m_unk40[0xF4 - 0x40];
+
 public:
     CEntityMesh(CEntityManager* entity_manager, std::string name);
     virtual ~CEntityMesh();
@@ -31,4 +34,4 @@ public:
     virtual void UpdateCollisions(f32, s32);
     virtual void UpdateAnimations(f32);
     virtual void OrientToDirection(CDKW_V3d&, f32, f32);
-};
+}; // size: 0xF4
