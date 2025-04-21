@@ -365,7 +365,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CRTCFOVEvent.cpp"),
             Object(NonMatching, "Piglet/CRTCCamera.cpp"),
             Object(NonMatching, "Piglet/CPathFinder.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityTimer.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityTimer.cpp"),
             Object(NonMatching, "Piglet/entities/CEntitySearchableZone.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityPushingBox.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityCookie.cpp"),
