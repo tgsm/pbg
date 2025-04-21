@@ -1,4 +1,5 @@
 #include "entities/CEntityBhvTagPosition.h"
+#include "entities/CEntityObject.h"
 #include <cstring>
 #include <iostream>
 
@@ -33,4 +34,9 @@ void CEntityBhvTagPosition::Parse(DkXmd::CChunkIterator iter) {
             break;
         }
     }
+}
+
+void CEntityBhvTagPosition::Set(CEntity* entity) {
+    ((CEntityObject*)entity)->SetPosition(m_position);
+    ((CEntityObject*)entity)->UpdateVolumes();
 }

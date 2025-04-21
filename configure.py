@@ -322,7 +322,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CCAZone.cpp"),
             Object(NonMatching, "Piglet/CCACamera.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagMessage.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityBhvTagPosition.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityBhvTagPosition.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityBhvTagResponse.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagSendMessage.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagBehavior.cpp"),

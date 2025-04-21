@@ -32,7 +32,7 @@ public:
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual u32 GetSaveSize();
     virtual CDKW_V3d GetPosition();
-    virtual void SetPosition(CDKW_V3d& position);
+    virtual void SetPosition(CDKW_V3d& position) {}
     virtual CDKW_V3d GetOrientation();
     virtual void SetOrientation(CDKW_V3d& orientation);
     virtual f32 GetYOrientation();
