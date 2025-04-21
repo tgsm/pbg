@@ -302,7 +302,7 @@ config.libs = [
         "cflags": cflags_piglet,
         "progress_category": "game",
         "objects": [
-            Object(NonMatching, "Piglet/main.cpp"),
+            Object(Equivalent, "Piglet/main.cpp"),
             Object(NonMatching, "Piglet/CGame.cpp"),
             Object(NonMatching, "Piglet/CGamePartCredits.cpp"),
             Object(Equivalent, "Piglet/CGamePartFrontend.cpp"),

@@ -29,9 +29,14 @@ public:
     u8 m_unk503C;
     u8 m_unk503D[0x5048 - 0x503D];
     f32 m_unk5048;
-    u8 m_unk504C[0x5098 - 0x504C];
+    u8 m_unk504C[0x5094 - 0x504C];
 
 public:
+    CGame(void*, u32);
+    virtual ~CGame();
+
+    virtual BOOL NextFrame();
+
     CMailBox* GetMailbox() { return m_mailbox; }
 
     void PlayNarratorLine(std::string line_id);
