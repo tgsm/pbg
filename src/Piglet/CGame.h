@@ -43,7 +43,6 @@ public:
     void ResetOpcodeBuffer();
     void PushOpcodeValue(int opcode);
     CDKW_RGBA ComputeGameFadeColor();
-    // FIXME: fade_type should be an ERommFadeType
     void FadeInit(f32 a1, ERommFadeType fade_type, u8 red, u8 green, u8 blue, f32 a6);
     void FadeIn(f32 a1);
     void SetCurrentRoomReturnType(ERoomReturnType return_type, int a2);
