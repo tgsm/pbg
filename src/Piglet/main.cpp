@@ -13,7 +13,7 @@ void MemoryConfig(int* unk) {
     OSSetQualificationSize(0x1000);
 }
 
-void DkMemoryGCNPreSetup() {
+extern "C" void DkMemoryGCNPreSetup() {
     OSSetConfigurator(MemoryConfig, TRUE);
 }
 
