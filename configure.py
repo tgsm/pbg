@@ -230,6 +230,15 @@ cflags_engine = [
     "-fp_contract off",
 ]
 
+cflags_engine_input = [
+    *cflags_base,
+    "-i src/engine",
+    "-DGAMECUBE",
+    "-RTTI on",
+    "-opt nopeephole",
+    "-opt noschedule",
+]
+
 # Debug flags
 if args.debug:
     # Or -sym dwarf-2 for Wii compilers
@@ -268,6 +277,17 @@ def RenderWareLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
         "mw_version": "GC/1.3.2",
         "cflags": cflags_base,
         "progress_category": "sdk",
+        "objects": objects,
+    }
+
+
+# Helper function for DkEngine libraries
+def DkEngineLib(lib_name: str, cflags: List[str], objects: List[Object]) -> Dict[str, Any]:
+    return {
+        "lib": lib_name,
+        "mw_version": "GC/1.3.2",
+        "cflags": cflags,
+        "progress_category": "game",
         "objects": objects,
     }
 
@@ -406,6 +426,17 @@ config.libs = [
             Object(NonMatching, "Piglet/CGCNFont.cpp"),
         ]
     },
+    DkEngineLib(
+        "DKI", cflags_engine_input,
+        [
+            Object(NonMatching, "engine/input/IInputEngine.cpp"),
+            Object(NonMatching, "engine/input/CCombo.cpp"),
+            Object(NonMatching, "engine/input/CInput.cpp"),
+            Object(NonMatching, "engine/input/CState.cpp"),
+            Object(NonMatching, "engine/input/CGCNPad.cpp"),
+            Object(NonMatching, "engine/input/CInputHalfAxe.cpp"),
+        ]
+    ),
     {
         # FIXME: Should we name this "DK" instead? Or some variant?
         "lib": "engine",
@@ -525,12 +556,6 @@ config.libs = [
             Object(NonMatching, "engine/DkPh_Collider.cpp"),
             Object(NonMatching, "engine/DkPh_Dynamics.cpp"),
             Object(NonMatching, "engine/DkPh_Primitives.cpp"),
-            Object(NonMatching, "engine/IInputEngine.cpp"),
-            Object(NonMatching, "engine/CCombo.cpp"),
-            Object(NonMatching, "engine/CInput.cpp"),
-            Object(NonMatching, "engine/CState.cpp"),
-            Object(NonMatching, "engine/CGCNPad.cpp"),
-            Object(NonMatching, "engine/CInputHalfAxe.cpp"),
             Object(NonMatching, "engine/CChunkIterator.cpp", extra_cflags=["-sym on"]),
             Object(NonMatching, "engine/CXmdFile.cpp"),
             Object(NonMatching, "engine/DKW_2dTools.cpp"),

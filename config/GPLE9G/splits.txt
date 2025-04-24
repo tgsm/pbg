@@ -3238,28 +3238,28 @@ engine/DkPh_Primitives.cpp:
 	.sdata      start:0x80296360 end:0x802963A0
 	.sdata2     start:0x80299940 end:0x80299960
 
-engine/IInputEngine.cpp:
+engine/input/IInputEngine.cpp:
 	.text       start:0x801F54AC end:0x801F7878
 	.ctors      start:0x8023F038 end:0x8023F03C
 	.data       start:0x8025C470 end:0x8025C500
 	.bss        start:0x8028BDD0 end:0x8028BE10
 	.sdata      start:0x802963A0 end:0x802963B0
 
-engine/CCombo.cpp:
+engine/input/CCombo.cpp:
 	.text       start:0x801F7878 end:0x801F7B9C
 	.data       start:0x8025C500 end:0x8025C538
 	.sdata      start:0x802963B0 end:0x802963C0
 
-engine/CInput.cpp:
+engine/input/CInput.cpp:
 	.text       start:0x801F7B9C end:0x801F7D2C
 	.data       start:0x8025C538 end:0x8025C570
 	.sdata      start:0x802963C0 end:0x802963D0
 
-engine/CState.cpp:
+engine/input/CState.cpp:
 	.text       start:0x801F7D2C end:0x801F82A4
 	.sdata2     start:0x80299960 end:0x80299968
 
-engine/CGCNPad.cpp:
+engine/input/CGCNPad.cpp:
 	.text       start:0x801F82A4 end:0x801F9B4C
 	.data       start:0x8025C570 end:0x8025C640
 	.bss        start:0x8028BE10 end:0x8028BE90
@@ -3267,7 +3267,7 @@ engine/CGCNPad.cpp:
 	.sbss       start:0x80297308 end:0x80297320
 	.sdata2     start:0x80299968 end:0x802999A0
 
-engine/CInputHalfAxe.cpp:
+engine/input/CInputHalfAxe.cpp:
 	.text       start:0x801F9B4C end:0x801F9D34
 	.data       start:0x8025C640 end:0x8025C680
 	.sdata      start:0x802963E8 end:0x802963F8
