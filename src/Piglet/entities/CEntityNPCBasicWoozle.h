@@ -3,6 +3,9 @@
 #include "entities/CEntityNPC.h"
 
 class CEntityNPCBasicWoozle : public CEntityNPC {
+private:
+    u8 m_unk2D4[4];
+
 public:
     CEntityNPCBasicWoozle(CEntityManager* entity_manager, std::string name);
     virtual ~CEntityNPCBasicWoozle();
@@ -26,3 +29,4 @@ public:
     virtual void UnIdle();
     virtual void UpdateDeathBehaviour(f32);
 };
+REQUIRE_SIZE(CEntityNPCBasicWoozle, 0x2D8);

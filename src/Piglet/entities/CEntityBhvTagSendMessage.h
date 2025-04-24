@@ -25,3 +25,4 @@ public:
     
     void Parse(DkXmd::CChunkIterator iter);
 };
+REQUIRE_SIZE(CEntityBhvTagSendMessage, 0x18);

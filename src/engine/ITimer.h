@@ -17,5 +17,6 @@ public:
     virtual void Pause() = 0;
     virtual void Resume() = 0;
 };
+REQUIRE_SIZE(ITimer, 0x4);
 
 }

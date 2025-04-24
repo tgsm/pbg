@@ -20,3 +20,4 @@ public:
     virtual void Save(void*);
     virtual void ManageMessage(SDkMessage& message);
 };
+REQUIRE_SIZE(CEntityTimer, 0x2C);

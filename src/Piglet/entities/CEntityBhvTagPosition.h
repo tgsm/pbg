@@ -20,3 +20,4 @@ public:
 
     void Parse(DkXmd::CChunkIterator iter);
 };
+REQUIRE_SIZE(CEntityBhvTagPosition, 0x18);

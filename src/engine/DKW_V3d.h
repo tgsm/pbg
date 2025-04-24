@@ -11,3 +11,4 @@ public:
 public:
     f32 m_x, m_y, m_z;
 };
+REQUIRE_SIZE(CDKW_V3d, 0xC);

@@ -18,3 +18,4 @@ public:
 
     char* GetName();
 };
+REQUIRE_SIZE(CCAKey, 0x30);

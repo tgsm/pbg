@@ -45,3 +45,4 @@ public:
     virtual void ParseCollisionsBVolume(DkXmd::CChunkIterator iter); // FIXME: params
     virtual void ParseCollisionsBVolumeOBox(DkXmd::CChunkIterator iter); // FIXME: params
 };
+REQUIRE_SIZE(CEntityObject, 0x40);

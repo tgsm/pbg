@@ -18,5 +18,6 @@ public:
 
     u32 Parse(void* unk);
 };
+REQUIRE_SIZE(CXmdFile, 0x18);
 
 }

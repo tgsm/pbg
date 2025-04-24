@@ -19,3 +19,4 @@ public:
     void AddBehavior(CEntityBhvTagData* unk);
     void AddData(CEntityBhvTagData* unk);
 };
+REQUIRE_SIZE(CEntityBhvTagData, 0xC);

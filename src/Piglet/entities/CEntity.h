@@ -11,7 +11,8 @@ struct SDkMessage {
     char unk0[32];
     char unk20[16];
     u32 unk30;
-}; // size: 0x34
+};
+REQUIRE_SIZE(SDkMessage, 0x34);
 
 class CEntity {
 public:
@@ -48,3 +49,4 @@ public:
     void ParseXYZ(DkXmd::CChunkIterator iter, f32* x, f32* y, f32* z);
     void ProcessMessages();
 };
+REQUIRE_SIZE(CEntity, 0x24);

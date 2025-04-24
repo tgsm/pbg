@@ -15,3 +15,4 @@ public:
 
     virtual u32 NextFrame() = 0;
 };
+REQUIRE_SIZE(CGamePart, 0xC);

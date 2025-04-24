@@ -20,3 +20,4 @@ public:
     void Parse(DkXmd::CChunkIterator iter);
     CEntityBhvTagBehavior* GetBehavior(u32 id);
 };
+REQUIRE_SIZE(CEntityBhvTagBehavior, 0x10);

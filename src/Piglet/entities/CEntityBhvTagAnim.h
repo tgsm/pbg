@@ -3,6 +3,9 @@
 #include "engine/CChunkIterator.h"
 
 class CEntityBhvTagAnim : public CEntityBhvTagData {
+private:
+    std::string m_unkC;
+
 public:
     CEntityBhvTagAnim();
     virtual ~CEntityBhvTagAnim();
@@ -13,7 +16,5 @@ public:
     }
 
     void Parse(DkXmd::CChunkIterator);
-
-private:
-    std::string m_unkC;
 };
+REQUIRE_SIZE(CEntityBhvTagAnim, 0x10);

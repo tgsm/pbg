@@ -33,6 +33,7 @@ public:
     s8 GetS8(s8* src);
     s32 GetS32(s8* src);
 };
+REQUIRE_SIZE(CSlotContainer, 0x8);
 
 class CGameBackup {
 private:
@@ -49,3 +50,4 @@ public:
     void ApplyToGameData();
     CSlotContainer* GetCurrentContainer();
 };
+REQUIRE_SIZE(CGameBackup, 0xC);

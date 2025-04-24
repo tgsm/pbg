@@ -88,4 +88,4 @@ public:
     BOOL IsRoomOpened(u32 room_no);
     BOOL IsSecondPassCompleted();
 };
-// size: 0x4D4
+REQUIRE_SIZE(CMission, 0x4D4);

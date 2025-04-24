@@ -82,3 +82,4 @@ public:
         return 10;
     }
 };
+REQUIRE_SIZE(CEntityBhvTagTeleport, 0x30);

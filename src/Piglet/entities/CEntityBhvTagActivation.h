@@ -34,3 +34,4 @@ public:
 
     void Parse(DkXmd::CChunkIterator iter);
 };
+REQUIRE_SIZE(CEntityBhvTagActivation, 0x10);

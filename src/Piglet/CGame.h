@@ -6,7 +6,6 @@
 #include "CMailBox.h"
 
 // Very TODO, there's a lot of stuff in this class
-// Size: 0x5098
 class CGame {
 public:
     enum ERommFadeType {
@@ -48,3 +47,4 @@ public:
     void SetCurrentRoomReturnType(ERoomReturnType return_type, int a2);
     CGamePart* GetGamePartPointer();
 };
+REQUIRE_SIZE(CGame, 0x5098);

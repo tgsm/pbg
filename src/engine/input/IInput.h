@@ -43,5 +43,6 @@ public:
     virtual u32 GetState() = 0;
     virtual BOOL IsConnected() = 0;
 };
+REQUIRE_SIZE(IInput, 0x8);
 
 }

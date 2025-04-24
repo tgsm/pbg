@@ -8,6 +8,9 @@ enum ENPCGenericBehaviour {
 };
 
 class CEntityNPC : public CEntityMesh {
+private:
+    u8 m_unkF4[0x2D4 - 0xF4];
+
 public:
     CEntityNPC(CEntityManager* entity_manager, std::string name);
     virtual ~CEntityNPC();
@@ -37,3 +40,4 @@ public:
 
     void SetGenericBehaviour(ENPCGenericBehaviour behaviour);
 };
+REQUIRE_SIZE(CEntityNPC, 0x2D4);

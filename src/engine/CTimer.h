@@ -34,5 +34,6 @@ public:
 
     void SetEngine(CEngine* engine);
 };
+REQUIRE_SIZE(CTimer, 0x38);
 
 }

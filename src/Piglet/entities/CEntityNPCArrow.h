@@ -29,3 +29,4 @@ public:
         return 42;
     }
 };
+REQUIRE_SIZE(CEntityNPCArrow, 0x118);

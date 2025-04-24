@@ -23,6 +23,7 @@ public:
     virtual BOOL IsConnected() {
         return m_device->IsConnected();
     }
-}; // size: 0x10
+};
+REQUIRE_SIZE(CInput, 0x10);
 
 }

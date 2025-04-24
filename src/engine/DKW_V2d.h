@@ -23,3 +23,4 @@ public:
 private:
     f32 m_x, m_y;
 };
+REQUIRE_SIZE(CDKW_V2d, 0x8);

@@ -14,4 +14,5 @@ public:
     void UpdateTimer(f32 dt);
     void StopTimer();
     void DisplayTimer();
-}; // size: 0x178
+};
+REQUIRE_SIZE(CGameRoomManager, 0x178);

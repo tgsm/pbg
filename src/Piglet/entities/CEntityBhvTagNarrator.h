@@ -25,3 +25,4 @@ public:
         return 17;
     }
 };
+REQUIRE_SIZE(CEntityBhvTagNarrator, 0x10);

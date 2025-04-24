@@ -41,3 +41,4 @@ public:
 
     CEntity* GetHero();
 };
+REQUIRE_SIZE(CEntityManager, 0x28);

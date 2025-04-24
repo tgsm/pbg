@@ -13,3 +13,4 @@ public:
 public:
 
 };
+REQUIRE_SIZE(CGamePartIngame, 0x38);

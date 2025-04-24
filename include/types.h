@@ -1,6 +1,8 @@
 #ifndef PIGLET_TYPES_H
 #define PIGLET_TYPES_H
 
+#include "require_size.h"
+
 // Note: only include this header inside PBG-related headers/source code files.
 // Don't include this in any RenderWare, system, etc. files
 

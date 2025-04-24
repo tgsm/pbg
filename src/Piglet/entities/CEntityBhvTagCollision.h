@@ -26,3 +26,4 @@ public:
         return 8;
     }
 };
+REQUIRE_SIZE(CEntityBhvTagCollision, 0x10);
