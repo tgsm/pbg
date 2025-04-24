@@ -4,7 +4,8 @@
 
 namespace DkXmd {
 
-struct CChunk {
+class CChunk {
+public:
     u32 unk0_0 : 1;
     u32 type : 5;
     u32 unk0_6 : 2;
@@ -12,6 +13,7 @@ struct CChunk {
     void* unk4;
     void* unk8;
 
+public:
     u32 GetType() {
         return type;
     }
@@ -19,7 +21,8 @@ struct CChunk {
     void** GetData();
 };
 
-struct CChunkInvert {
+class CChunkInvert {
+public:
     union {
         u32 yeah;
         struct {
@@ -50,10 +53,11 @@ struct CChunkInvert {
     //     return byteswapped().flags.type;
     // }
 
+public:
     void** GetData();
 };
 
-struct CCIUnkSubstruct {
+struct CCI_UnkSubstruct {
     BOOL m_inverted;
     char** unk4;
 };
@@ -61,7 +65,7 @@ struct CCIUnkSubstruct {
 // TODO
 class CChunkIterator {
 private:
-    CCIUnkSubstruct* m_unk0;
+    CCI_UnkSubstruct* m_unk0;
     union {
         CChunk* m_non_inverted;
         CChunkInvert* m_inverted;
