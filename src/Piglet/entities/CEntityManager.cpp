@@ -10,11 +10,11 @@ f32 InterpolValue(f32 f1, f32 f2, f32 f3, f32 f4) {
         return f1;
     }
 
-    f32 shit = f2;
-    shit -= f1;
-    shit /= f4;
-    shit *= f3;
-    return f1 + shit;
+    f32 unk = f2;
+    unk -= f1;
+    unk /= f4;
+    unk *= f3;
+    return f1 + unk;
 }
 
 CEntityManager::CEntityManager(CGame* game) {
