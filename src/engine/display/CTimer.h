@@ -1,6 +1,6 @@
 #pragma once on
 
-#include "ITimer.h"
+#include "display/ITimer.h"
 
 namespace DKDSP {
 

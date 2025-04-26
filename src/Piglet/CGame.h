@@ -1,7 +1,7 @@
 #pragma once on
 
 #include <string>
-#include "engine/DKW_RGBA.h"
+#include "engine/wrap/DKW_RGBA.h"
 #include "CGamePart.h"
 #include "CMailBox.h"
 

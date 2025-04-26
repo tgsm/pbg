@@ -1,7 +1,7 @@
 #pragma once on
 
 #include <cstring>
-#include "engine/CChunkIterator.h"
+#include "engine/xmd/CChunkIterator.h"
 
 namespace DKI {
 

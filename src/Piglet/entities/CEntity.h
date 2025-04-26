@@ -1,7 +1,7 @@
 #pragma once on
 
 #include <string>
-#include "engine/CChunkIterator.h"
+#include "engine/xmd/CChunkIterator.h"
 #include "entities/CEntityManager.h"
 #include "entities/CEntityBhvTagBehavior.h"
 #include "types.h"

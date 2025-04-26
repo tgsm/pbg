@@ -1,7 +1,7 @@
 #pragma once on
 
-#include "engine/CChunkIterator.h"
-#include "engine/DKW_V3d.h"
+#include "engine/xmd/CChunkIterator.h"
+#include "engine/wrap/DKW_V3d.h"
 #include "entities/CEntityMesh.h"
 
 class CEntityNPCArrow : public CEntityMesh {

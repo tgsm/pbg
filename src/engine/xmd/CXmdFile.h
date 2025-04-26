@@ -1,7 +1,7 @@
 #pragma once on
 
 #include "types.h"
-#include "CChunkIterator.h"
+#include "xmd/CChunkIterator.h"
 
 namespace DkXmd {
 

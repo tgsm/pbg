@@ -1,6 +1,6 @@
 #include <string>
 #include "entities/CEntityBhvTagData.h"
-#include "engine/CChunkIterator.h"
+#include "engine/xmd/CChunkIterator.h"
 
 class CEntityBhvTagAnim : public CEntityBhvTagData {
 private:

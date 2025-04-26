@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include "engine/CChunkIterator.h"
+#include "engine/xmd/CChunkIterator.h"
 #include "CGame.h"
 #include "types.h"
 

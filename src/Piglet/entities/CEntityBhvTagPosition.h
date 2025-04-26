@@ -1,8 +1,8 @@
 #pragma once on
 
 #include "entities/CEntityBhvTagData.h"
-#include "engine/CChunkIterator.h"
-#include "engine/DKW_V3d.h"
+#include "engine/xmd/CChunkIterator.h"
+#include "engine/wrap/DKW_V3d.h"
 
 class CEntityBhvTagPosition : public CEntityBhvTagData {
 private:

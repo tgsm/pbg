@@ -1,7 +1,7 @@
 #include <cstring>
 #include <iostream>
 #include "CCAKey.h"
-#include "engine/DKW_V3d.h"
+#include "engine/wrap/DKW_V3d.h"
 
 extern CDKW_V3d ReadVector(DkXmd::CChunkIterator*);
 

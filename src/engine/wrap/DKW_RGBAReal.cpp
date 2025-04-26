@@ -1,4 +1,4 @@
-#include "DKW_RGBAReal.h"
+#include "wrap/DKW_RGBAReal.h"
 
 CDKW_RGBAReal DKW_RGBAREAL_WHITE = CDKW_RGBAReal(1.0f, 1.0f, 1.0f, 1.0f);
 CDKW_RGBAReal DKW_RGBAREAL_RED = CDKW_RGBAReal(1.0f, 0.0f, 0.0f, 1.0f);

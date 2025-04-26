@@ -1010,13 +1010,13 @@ engine/Allocator.cpp:
 engine/GCN_MW_Memory.cpp:
 	.text       start:0x800C3150 end:0x800C3380
 
-engine/DkFileSysDlfs.c:
+engine/filesys/DkFileSysDlfs.c:
 	.text       start:0x800C3380 end:0x800C4128
 	.data       start:0x8024CA78 end:0x8024CAC0
 	.sdata      start:0x80295B18 end:0x80295B20
 	.sbss       start:0x80296AE0 end:0x80296AF0
 
-engine/DkFileSys.cpp:
+engine/filesys/DkFileSys.cpp:
 	.text       start:0x800C4128 end:0x800C57E8
 	.text       start:0x800C57E8 end:0x800C58A8
 	.ctors      start:0x8023F028 end:0x8023F02C
@@ -1025,13 +1025,13 @@ engine/DkFileSys.cpp:
 	.sdata      start:0x80295B20 end:0x80295B38
 	.sbss       start:0x80296AF0 end:0x80296B30
 
-engine/DkFileSysFat.cpp:
+engine/filesys/DkFileSysFat.cpp:
 	.text       start:0x800C58A8 end:0x800C624C
 	.text       start:0x800C624C end:0x800C624C
 	.data       start:0x8024CAE0 end:0x8024CAF0
 	.sdata      start:0x80295B38 end:0x80295B48
 
-engine/DkFileSysUnCompress.cpp:
+engine/filesys/DkFileSysUnCompress.cpp:
 	.text       start:0x800C624C end:0x800C6788
 
 rwsdk/src/plcore/babinary.c:
@@ -2714,433 +2714,433 @@ dolphin/amcstubs/src/AmcExi2Stubs.c:
 dolphin/odemustubs/src/odemustubs.c:
 	.text       start:0x801A7944 end:0x801A794C
 
-engine/DkDisplay.cpp:
+engine/display/DkDisplay.cpp:
 	.text       start:0x801A794C end:0x801A8814
 	.data       start:0x802587C8 end:0x80258808
 	.sbss       start:0x80297290 end:0x80297298
 
-engine/CEngine.cpp:
+engine/display/CEngine.cpp:
 	.text       start:0x801A8814 end:0x801AB52C
 	.data       start:0x80258808 end:0x802589C0
 	.sdata      start:0x80296088 end:0x80296090
 	.sbss       start:0x80297298 end:0x802972B8
 	.sdata2     start:0x80299668 end:0x80299678
 
-engine/IEngine.cpp:
+engine/display/IEngine.cpp:
 	.text       start:0x801AB52C end:0x801AB53C
 	.data       start:0x802589C0 end:0x80258B38
 
-engine/CDkWrapEngine.cpp:
+engine/display/CDkWrapEngine.cpp:
 	.text       start:0x801AB53C end:0x801AB728
 	.data       start:0x80258B38 end:0x80258B98
 	.sdata      start:0x80296090 end:0x80296098
 
-engine/CObjectDictionary.cpp:
+engine/display/CObjectDictionary.cpp:
 	.text       start:0x801AB728 end:0x801AEAA0
 	.data       start:0x80258B98 end:0x80258D18
 	.sdata      start:0x80296098 end:0x802960A0
 
-engine/IAnimDictionary.cpp:
+engine/display/IAnimDictionary.cpp:
 	.text       start:0x801AEAA0 end:0x801AEAB0
 	.data       start:0x80258D18 end:0x80258E80
 
-engine/IObjectDictionary.cpp:
+engine/display/IObjectDictionary.cpp:
 	.text       start:0x801AEAB0 end:0x801AEAC0
 	.data       start:0x80258E80 end:0x80258FC0
 
-engine/ITextureDictionary.cpp:
+engine/display/ITextureDictionary.cpp:
 	.text       start:0x801AEAC0 end:0x801AEAD0
 	.data       start:0x80258FC0 end:0x80259098
 
-engine/CAnimDictionary.cpp:
+engine/display/CAnimDictionary.cpp:
 	.text       start:0x801AEAD0 end:0x801B4BAC
 	.data       start:0x80259098 end:0x802592A8
 	.sdata      start:0x802960A0 end:0x802960C0
 	.sdata2     start:0x80299678 end:0x80299680
 
-engine/IAtomic.cpp:
+engine/display/IAtomic.cpp:
 	.text       start:0x801B4BAC end:0x801B4BE8
 	.data       start:0x802592A8 end:0x80259300
 
-engine/IClump.cpp:
+engine/display/IClump.cpp:
 	.text       start:0x801B4BE8 end:0x801B4C24
 	.data       start:0x80259300 end:0x802593A0
 
-engine/IFramable.cpp:
+engine/display/IFramable.cpp:
 	.text       start:0x801B4C24 end:0x801B4C34
 	.data       start:0x802593A0 end:0x802593B0
 
-engine/IFramableGeometry.cpp:
+engine/display/IFramableGeometry.cpp:
 	.text       start:0x801B4C34 end:0x801B4C70
 	.data       start:0x802593B0 end:0x802593C0
 
-engine/IGeometry.cpp:
+engine/display/IGeometry.cpp:
 	.text       start:0x801B4C70 end:0x801B4C80
 	.data       start:0x802593C0 end:0x802593F0
 
-engine/CClump.cpp:
+engine/display/CClump.cpp:
 	.text       start:0x801B4C80 end:0x801B70AC
 	.data       start:0x802593F0 end:0x80259530
 	.sdata      start:0x802960C0 end:0x802960F0
 	.sdata2     start:0x80299680 end:0x80299688
 
-engine/IRaster.cpp:
+engine/display/IRaster.cpp:
 	.text       start:0x801B70AC end:0x801B70BC
 	.data       start:0x80259530 end:0x80259580
 
-engine/ITexture.cpp:
+engine/display/ITexture.cpp:
 	.text       start:0x801B70BC end:0x801B70CC
 	.data       start:0x80259580 end:0x802595D0
 
-engine/IScene.cpp:
+engine/display/IScene.cpp:
 	.text       start:0x801B70CC end:0x801B70DC
 	.data       start:0x802595D0 end:0x80259818
 
-engine/CScene.cpp:
+engine/display/CScene.cpp:
 	.text       start:0x801B70DC end:0x801BD77C
 	.data       start:0x80259818 end:0x80259B88
 	.sdata      start:0x802960F0 end:0x80296100
 	.sdata2     start:0x80299688 end:0x80299698
 
-engine/ICamera.cpp:
+engine/display/ICamera.cpp:
 	.text       start:0x801BD77C end:0x801BD7B8
 	.data       start:0x80259B88 end:0x80259C08
 
-engine/CCamera.cpp:
+engine/display/CCamera.cpp:
 	.text       start:0x801BD7B8 end:0x801BE354
 	.data       start:0x80259C08 end:0x80259C88
 	.sdata2     start:0x80299698 end:0x802996A0
 
-engine/ILight.cpp:
+engine/display/ILight.cpp:
 	.text       start:0x801BE354 end:0x801BE390
 	.data       start:0x80259C88 end:0x80259CD0
 
-engine/CLight.cpp:
+engine/display/CLight.cpp:
 	.text       start:0x801BE390 end:0x801BFBA0
 	.data       start:0x80259CD0 end:0x80259D48
 	.sdata      start:0x80296100 end:0x80296108
 	.sdata2     start:0x802996A0 end:0x802996E8
 
-engine/IRWStream.cpp:
+engine/display/IRWStream.cpp:
 	.text       start:0x801BFBA0 end:0x801BFBB0
 	.data       start:0x80259D48 end:0x80259D80
 
-engine/CRWStream.cpp:
+engine/display/CRWStream.cpp:
 	.text       start:0x801BFBB0 end:0x801C0494
 	.data       start:0x80259D80 end:0x80259DB8
 
-engine/IAnimation.cpp:
+engine/display/IAnimation.cpp:
 	.text       start:0x801C0494 end:0x801C053C
 	.data       start:0x80259DB8 end:0x80259DF8
 	.sdata2     start:0x802996E8 end:0x802996F8
 
-engine/IDMorphAnimation.cpp:
+engine/display/IDMorphAnimation.cpp:
 	.text       start:0x801C053C end:0x801C0578
 	.data       start:0x80259DF8 end:0x80259E18
 
-engine/IHierarchy.cpp:
+engine/display/IHierarchy.cpp:
 	.text       start:0x801C0578 end:0x801C0588
 	.data       start:0x80259E18 end:0x80259EA0
 
-engine/CAnimation.cpp:
+engine/display/CAnimation.cpp:
 	.text       start:0x801C0588 end:0x801C0998
 	.data       start:0x80259EA0 end:0x80259EE0
 	.sdata      start:0x80296108 end:0x80296110
 	.sdata2     start:0x802996F8 end:0x80299700
 
-engine/CDMorphAnimation.cpp:
+engine/display/CDMorphAnimation.cpp:
 	.text       start:0x801C0998 end:0x801C0C48
 	.data       start:0x80259EE0 end:0x80259F00
 	.sdata      start:0x80296110 end:0x80296118
 	.sdata2     start:0x80299700 end:0x80299708
 
-engine/CTimer.cpp:
+engine/display/CTimer.cpp:
 	.text       start:0x801C0C48 end:0x801C0F10
 	.data       start:0x80259F00 end:0x80259F30
 	.sdata2     start:0x80299708 end:0x80299710
 
-engine/ICharset.cpp:
+engine/display/ICharset.cpp:
 	.text       start:0x801C0F10 end:0x801C0F20
 	.data       start:0x80259F30 end:0x80259F68
 
-engine/ITimer.cpp:
+engine/display/ITimer.cpp:
 	.text       start:0x801C0F20 end:0x801C0F30
 	.data       start:0x80259F68 end:0x80259F90
 
-engine/CCharset.cpp:
+engine/display/CCharset.cpp:
 	.text       start:0x801C0F30 end:0x801C1644
 	.data       start:0x80259F90 end:0x80259FC8
 	.sdata2     start:0x80299710 end:0x80299718
 
-engine/CHierarchy.cpp:
+engine/display/CHierarchy.cpp:
 	.text       start:0x801C1644 end:0x801C3F98
 	.data       start:0x80259FC8 end:0x8025A0C8
 	.sdata2     start:0x80299718 end:0x80299720
 
-engine/IImage.cpp:
+engine/display/IImage.cpp:
 	.text       start:0x801C3F98 end:0x801C3FA8
 	.data       start:0x8025A0C8 end:0x8025A110
 
-engine/CImage.cpp:
+engine/display/CImage.cpp:
 	.text       start:0x801C3FA8 end:0x801C42D0
 	.data       start:0x8025A110 end:0x8025A158
 
-engine/CTexture.cpp:
+engine/display/CTexture.cpp:
 	.text       start:0x801C42D0 end:0x801C45DC
 	.data       start:0x8025A158 end:0x8025A1A8
 
-engine/CTextureDictionary.cpp:
+engine/display/CTextureDictionary.cpp:
 	.text       start:0x801C45DC end:0x801C8A44
 	.data       start:0x8025A1A8 end:0x8025A2E0
 	.sdata      start:0x80296118 end:0x80296128
 
-engine/CRaster.cpp:
+engine/display/CRaster.cpp:
 	.text       start:0x801C8A44 end:0x801C8DF0
 	.data       start:0x8025A2E0 end:0x8025A330
 
-engine/CShadowMap.cpp:
+engine/display/CShadowMap.cpp:
 	.text       start:0x801C8DF0 end:0x801CAE34
 	.data       start:0x8025A330 end:0x8025A3F8
 	.sdata2     start:0x80299720 end:0x80299740
 
-engine/IShadowMap.cpp:
+engine/display/IShadowMap.cpp:
 	.text       start:0x801CAE34 end:0x801CAE44
 	.data       start:0x8025A3F8 end:0x8025A490
 
-engine/IShadowMapPipeline.cpp:
+engine/display/IShadowMapPipeline.cpp:
 	.text       start:0x801CAE44 end:0x801CAE80
 	.data       start:0x8025A490 end:0x8025A4A8
 
-engine/CShadowMapPipelineGCN.cpp:
+engine/display/CShadowMapPipelineGCN.cpp:
 	.text       start:0x801CAE80 end:0x801CC128
 	.rodata     start:0x80241FD0 end:0x802421B0
 	.data       start:0x8025A4A8 end:0x8025A4F0
 	.sbss       start:0x802972B8 end:0x802972C8
 	.sdata2     start:0x80299740 end:0x80299758
 
-engine/CAtomic.cpp:
+engine/display/CAtomic.cpp:
 	.text       start:0x801CC128 end:0x801CC638
 	.data       start:0x8025A4F0 end:0x8025A548
 
-engine/CGeometry.cpp:
+engine/display/CGeometry.cpp:
 	.text       start:0x801CC638 end:0x801CC7C8
 	.data       start:0x8025A548 end:0x8025A578
 
-engine/IMaterialAnimationPipeline.cpp:
+engine/display/IMaterialAnimationPipeline.cpp:
 	.text       start:0x801CC7C8 end:0x801CC804
 	.data       start:0x8025A578 end:0x8025A588
 
-engine/CMaterialAnimationPipelineGCN.cpp:
+engine/display/CMaterialAnimationPipelineGCN.cpp:
 	.text       start:0x801CC804 end:0x801CD1C4
 	.rodata     start:0x802421B0 end:0x80242298
 	.data       start:0x8025A588 end:0x8025A5B0
 	.sbss       start:0x802972C8 end:0x802972D0
 
-engine/IMirror.cpp:
+engine/display/IMirror.cpp:
 	.text       start:0x801CD1C4 end:0x801CD1D4
 	.data       start:0x8025A5B0 end:0x8025A5F0
 
-engine/CMirror.cpp:
+engine/display/CMirror.cpp:
 	.text       start:0x801CD1D4 end:0x801CE170
 	.data       start:0x8025A5F0 end:0x8025A670
 	.sdata2     start:0x80299758 end:0x80299770
 
-engine/IMaterialAnimation.cpp:
+engine/display/IMaterialAnimation.cpp:
 	.text       start:0x801CE170 end:0x801CE1AC
 	.data       start:0x8025A670 end:0x8025A6A8
 
-engine/CMaterialAnimation.cpp:
+engine/display/CMaterialAnimation.cpp:
 	.text       start:0x801CE1AC end:0x801CE518
 	.data       start:0x8025A6A8 end:0x8025A6E0
 	.sdata      start:0x80296128 end:0x80296130
 	.sdata2     start:0x80299770 end:0x80299778
 
-engine/IWarp.cpp:
+engine/display/IWarp.cpp:
 	.text       start:0x801CE518 end:0x801CE528
 	.data       start:0x8025A6E0 end:0x8025A738
 
-engine/CWarp.cpp:
+engine/display/CWarp.cpp:
 	.text       start:0x801CE528 end:0x801D06C8
 	.rodata     start:0x80242298 end:0x802422C0
 	.data       start:0x8025A738 end:0x8025A830
 	.sdata      start:0x80296130 end:0x80296140
 	.sdata2     start:0x80299778 end:0x80299780
 
-engine/ISpline.cpp:
+engine/display/ISpline.cpp:
 	.text       start:0x801D06C8 end:0x801D06D8
 	.data       start:0x8025A830 end:0x8025A850
 
-engine/IMaterialAnimationInterpolator.cpp:
+engine/display/IMaterialAnimationInterpolator.cpp:
 	.text       start:0x801D06D8 end:0x801D06E8
 	.data       start:0x8025A850 end:0x8025A878
 
-engine/CMaterialAnimationInterpolator.cpp:
+engine/display/CMaterialAnimationInterpolator.cpp:
 	.text       start:0x801D06E8 end:0x801D0F6C
 	.data       start:0x8025A878 end:0x8025A8A0
 	.sdata2     start:0x80299780 end:0x802997D0
 
-engine/IController.cpp:
+engine/display/IController.cpp:
 	.text       start:0x801D0F6C end:0x801D0F7C
 	.data       start:0x8025A8A0 end:0x8025A9B8
 
-engine/IGenericAnimation.cpp:
+engine/display/IGenericAnimation.cpp:
 	.text       start:0x801D0F7C end:0x801D0F8C
 	.data       start:0x8025A9B8 end:0x8025A9D0
 
-engine/CController.cpp:
+engine/display/CController.cpp:
 	.text       start:0x801D0F8C end:0x801D34A0
 	.data       start:0x8025A9D0 end:0x8025AAE8
 	.sdata2     start:0x802997D0 end:0x802997D8
 
-engine/ISubController.cpp:
+engine/display/ISubController.cpp:
 	.text       start:0x801D34A0 end:0x801D34B0
 	.data       start:0x8025AAE8 end:0x8025AB78
 
-engine/CControllerHAnim.cpp:
+engine/display/CControllerHAnim.cpp:
 	.text       start:0x801D34B0 end:0x801D5548
 	.data       start:0x8025AB78 end:0x8025AC68
 	.sdata2     start:0x802997D8 end:0x802997F0
 
-engine/CControllerDMorph.cpp:
+engine/display/CControllerDMorph.cpp:
 	.text       start:0x801D5548 end:0x801D66B0
 	.data       start:0x8025AC68 end:0x8025ACF8
 	.sdata2     start:0x802997F0 end:0x80299800
 
-engine/CControllerMaterial.cpp:
+engine/display/CControllerMaterial.cpp:
 	.text       start:0x801D66B0 end:0x801D78D8
 	.data       start:0x8025ACF8 end:0x8025AD88
 	.sdata2     start:0x80299800 end:0x80299810
 
-engine/CControllerAnimEntry.cpp:
+engine/display/CControllerAnimEntry.cpp:
 	.text       start:0x801D78D8 end:0x801D7E98
 	.sdata2     start:0x80299810 end:0x80299828
 
-engine/CSpline.cpp:
+engine/display/CSpline.cpp:
 	.text       start:0x801D7E98 end:0x801D8208
 	.data       start:0x8025AD88 end:0x8025ADA8
 
-engine/IAnimationStar.cpp:
+engine/display/IAnimationStar.cpp:
 	.text       start:0x801D8208 end:0x801D8218
 	.data       start:0x8025ADA8 end:0x8025ADF8
 
-engine/CAnimationStar.cpp:
+engine/display/CAnimationStar.cpp:
 	.text       start:0x801D8218 end:0x801DA904
 	.rodata     start:0x802422C0 end:0x80242380
 	.data       start:0x8025ADF8 end:0x8025AF80
 	.sdata      start:0x80296140 end:0x80296170
 	.sdata2     start:0x80299828 end:0x80299838
 
-engine/CAnimationStarEntry.cpp:
+engine/display/CAnimationStarEntry.cpp:
 	.text       start:0x801DA904 end:0x801DC688
 	.data       start:0x8025AF80 end:0x8025B150
 	.sdata      start:0x80296170 end:0x802961B0
 	.sdata2     start:0x80299838 end:0x80299848
 
-engine/IAnimationStarController.cpp:
+engine/display/IAnimationStarController.cpp:
 	.text       start:0x801DC688 end:0x801DC698
 	.data       start:0x8025B150 end:0x8025B208
 
-engine/CAnimationStarController.cpp:
+engine/display/CAnimationStarController.cpp:
 	.text       start:0x801DC698 end:0x801DE5A8
 	.data       start:0x8025B208 end:0x8025B2C0
 	.sdata      start:0x802961B0 end:0x802961B8
 	.sdata2     start:0x80299848 end:0x80299858
 
-engine/IImmediate.cpp:
+engine/display/IImmediate.cpp:
 	.text       start:0x801DE5A8 end:0x801DE5B8
 	.data       start:0x8025B2C0 end:0x8025B320
 
-engine/CImmediate.cpp:
+engine/display/CImmediate.cpp:
 	.text       start:0x801DE5B8 end:0x801DF094
 	.data       start:0x8025B320 end:0x8025B3A0
 
-engine/IAnimationStarEntry.cpp:
+engine/display/IAnimationStarEntry.cpp:
 	.text       start:0x801DF094 end:0x801DF0A4
 
-engine/IIm3DBatch.cpp:
+engine/display/IIm3DBatch.cpp:
 	.text       start:0x801DF0A4 end:0x801DF0E0
 	.data       start:0x8025B3A0 end:0x8025B3E0
 
-engine/IImBatch.cpp:
+engine/display/IImBatch.cpp:
 	.text       start:0x801DF0E0 end:0x801DF0F0
 	.data       start:0x8025B3E0 end:0x8025B3F8
 
-engine/IIm2DBatch.cpp:
+engine/display/IIm2DBatch.cpp:
 	.text       start:0x801DF0F0 end:0x801DF12C
 	.data       start:0x8025B3F8 end:0x8025B430
 
-engine/CIm3DBatch.cpp:
+engine/display/CIm3DBatch.cpp:
 	.text       start:0x801DF12C end:0x801DF9C0
 	.data       start:0x8025B430 end:0x8025B470
 
-engine/CIm2DBatch.cpp:
+engine/display/CIm2DBatch.cpp:
 	.text       start:0x801DF9C0 end:0x801E01F8
 	.data       start:0x8025B470 end:0x8025B4A8
 
-engine/CParticleEmitter.cpp:
+engine/display/CParticleEmitter.cpp:
 	.text       start:0x801E01F8 end:0x801E33B8
 	.data       start:0x8025B4A8 end:0x8025B7A8
 	.sdata      start:0x802961B8 end:0x80296210
 	.sdata2     start:0x80299858 end:0x80299878
 
-engine/IParticleEmitter.cpp:
+engine/display/IParticleEmitter.cpp:
 	.text       start:0x801E33B8 end:0x801E33F4
 	.data       start:0x8025B7A8 end:0x8025B8C0
 
-engine/ITextureCallback.cpp:
+engine/display/ITextureCallback.cpp:
 	.text       start:0x801E33F4 end:0x801E3404
 	.data       start:0x8025B8C0 end:0x8025B8D0
 
-engine/IEventAnimation.cpp:
+engine/display/IEventAnimation.cpp:
 	.text       start:0x801E3404 end:0x801E3440
 	.data       start:0x8025B8D0 end:0x8025B8F0
 
-engine/CControllerEvent.cpp:
+engine/display/CControllerEvent.cpp:
 	.text       start:0x801E3440 end:0x801E47B8
 	.data       start:0x8025B8F0 end:0x8025B980
 	.sdata2     start:0x80299878 end:0x80299890
 
-engine/CEventAnimation.cpp:
+engine/display/CEventAnimation.cpp:
 	.text       start:0x801E47B8 end:0x801E4DE4
 	.data       start:0x8025B980 end:0x8025B9A0
 	.sdata      start:0x80296210 end:0x80296218
 	.sdata2     start:0x80299890 end:0x80299898
 
-engine/IEventAnimationCallback.cpp:
+engine/display/IEventAnimationCallback.cpp:
 	.text       start:0x801E4DE4 end:0x801E4DF4
 	.data       start:0x8025B9A0 end:0x8025B9C0
 
-engine/CParticleEmitterDefinition.cpp:
+engine/display/CParticleEmitterDefinition.cpp:
 	.text       start:0x801E4DF4 end:0x801E6664
 	.data       start:0x8025B9C0 end:0x8025BBB8
 	.sdata      start:0x80296218 end:0x80296270
 	.sdata2     start:0x80299898 end:0x802998A8
 
-engine/IParticleEmitterDefinition.cpp:
+engine/display/IParticleEmitterDefinition.cpp:
 	.text       start:0x801E6664 end:0x801E6674
 	.data       start:0x8025BBB8 end:0x8025BBC8
 
-engine/CTimerGCN.cpp:
+engine/display/CTimerGCN.cpp:
 	.text       start:0x801E6674 end:0x801E6724
 	.data       start:0x8025BBC8 end:0x8025BBF8
 	.sdata2     start:0x802998A8 end:0x802998B0
 
-engine/IShadowMapValidationCallback.cpp:
+engine/display/IShadowMapValidationCallback.cpp:
 	.text       start:0x801E6724 end:0x801E6734
 	.data       start:0x8025BBF8 end:0x8025BC08
 
-engine/IPipeline.cpp:
+engine/display/IPipeline.cpp:
 	.text       start:0x801E6734 end:0x801E6738
 
-engine/IDisplacementPipeline.cpp:
+engine/display/IDisplacementPipeline.cpp:
 	.text       start:0x801E6738 end:0x801E6774
 	.data       start:0x8025BC08 end:0x8025BC28
 
-engine/CDisplacementPipelineGCN.cpp:
+engine/display/CDisplacementPipelineGCN.cpp:
 	.text       start:0x801E6774 end:0x801E6854
 	.data       start:0x8025BC28 end:0x8025BC48
 
-engine/CShadowMapDenyCallback.cpp:
+engine/display/CShadowMapDenyCallback.cpp:
 	.text       start:0x801E6854 end:0x801E68F0
 	.data       start:0x8025BC48 end:0x8025BC58
 
@@ -3151,13 +3151,13 @@ rwsdk/tool/anim/rtanim.c:
 	.sbss       start:0x802972D0 end:0x802972D8
 	.sdata2     start:0x802998B0 end:0x802998B8
 
-engine/DkBackUp.cpp:
+engine/backup/DkBackUp.cpp:
 	extab       start:0x80006520 end:0x80006540
 	extabindex  start:0x80007D14 end:0x80007D2C
 	.text       start:0x801E7C3C end:0x801E7CC0
 	.sbss       start:0x802972D8 end:0x802972E0
 
-engine/CGCNBAKEngine.cpp:
+engine/backup/CGCNBAKEngine.cpp:
 	extab       start:0x80006540 end:0x8000671C
 	extabindex  start:0x80007D2C end:0x80007DEC
 	.text       start:0x801E7CC0 end:0x801E95EC
@@ -3173,13 +3173,13 @@ engine/GCNIcon.c:
 	.data       start:0x8025BD28 end:0x8025BD60
 	.sdata      start:0x80296290 end:0x80296298
 
-engine/DkGUI.cpp:
+engine/gui/DkGUI.cpp:
 	extab       start:0x80006734 end:0x80006754
 	extabindex  start:0x80007E10 end:0x80007E28
 	.text       start:0x801E9824 end:0x801E98BC
 	.sbss       start:0x802972E8 end:0x802972F0
 
-engine/CGUIAnim.cpp:
+engine/gui/CGUIAnim.cpp:
 	extab       start:0x80006754 end:0x8000692C
 	extabindex  start:0x80007E28 end:0x80007F78
 	.text       start:0x801E98BC end:0x801EC304
@@ -3189,7 +3189,7 @@ engine/CGUIAnim.cpp:
 	.sdata2     start:0x802998B8 end:0x802998E0
 	.sbss2      start:0x80299DD0 end:0x80299DD8
 
-engine/CGUIEngine.cpp:
+engine/gui/CGUIEngine.cpp:
 	extab       start:0x8000692C end:0x80006C80
 	extabindex  start:0x80007F78 end:0x80008188
 	.text       start:0x801EC304 end:0x801EED50
@@ -3199,7 +3199,7 @@ engine/CGUIEngine.cpp:
 	.sdata2     start:0x802998E0 end:0x802998F8
 	.sbss2      start:0x80299DD8 end:0x80299DE0
 
-engine/CGUIMenu.cpp:
+engine/gui/CGUIMenu.cpp:
 	extab       start:0x80006C80 end:0x80006D3C
 	extabindex  start:0x80008188 end:0x800081F4
 	.text       start:0x801EED50 end:0x801EF738
@@ -3207,32 +3207,32 @@ engine/CGUIMenu.cpp:
 	.sdata      start:0x80296318 end:0x80296330
 	.sdata2     start:0x802998F8 end:0x80299900
 
-engine/DkPhysics.cpp:
+engine/physics/DkPhysics.cpp:
 	.text       start:0x801EF738 end:0x801EF7A4
 	.ctors      start:0x8023F034 end:0x8023F038
 	.data       start:0x8025C070 end:0x8025C098
 	.bss        start:0x8028BD20 end:0x8028BDD0
 	.sdata      start:0x80296330 end:0x80296338
 
-engine/DkPh_Sweeper.cpp:
+engine/physics/DkPh_Sweeper.cpp:
 	.text       start:0x801EF7A4 end:0x801F0C94
 	.data       start:0x8025C098 end:0x8025C148
 	.sdata      start:0x80296338 end:0x80296350
 	.sdata2     start:0x80299900 end:0x80299910
 
-engine/DkPh_Collider.cpp:
+engine/physics/DkPh_Collider.cpp:
 	.text       start:0x801F0C94 end:0x801F32D4
 	.data       start:0x8025C148 end:0x8025C1A8
 	.sdata      start:0x80296350 end:0x80296358
 	.sdata2     start:0x80299910 end:0x80299938
 
-engine/DkPh_Dynamics.cpp:
+engine/physics/DkPh_Dynamics.cpp:
 	.text       start:0x801F32D4 end:0x801F37C4
 	.data       start:0x8025C1A8 end:0x8025C1C8
 	.sdata      start:0x80296358 end:0x80296360
 	.sdata2     start:0x80299938 end:0x80299940
 
-engine/DkPh_Primitives.cpp:
+engine/physics/DkPh_Primitives.cpp:
 	.text       start:0x801F37C4 end:0x801F54AC
 	.data       start:0x8025C1C8 end:0x8025C470
 	.sdata      start:0x80296360 end:0x802963A0
@@ -3273,27 +3273,27 @@ engine/input/CInputHalfAxe.cpp:
 	.sdata      start:0x802963E8 end:0x802963F8
 	.sdata2     start:0x802999A0 end:0x802999A8
 
-engine/CChunkIterator.cpp:
+engine/xmd/CChunkIterator.cpp:
 	.text       start:0x801F9D34 end:0x801FB3DC
 	.text       start:0x801FB3DC end:0x801FB4B4
 	.bss        start:0x8028BE90 end:0x8028BEB0
 	.sdata      start:0x802963F8 end:0x80296408
 	.sdata2     start:0x802999A8 end:0x802999B8
 
-engine/CXmdFile.cpp:
+engine/xmd/CXmdFile.cpp:
 	.text       start:0x801FB4B4 end:0x801FB93C
 	.sdata      start:0x80296408 end:0x80296410
 
-engine/DKW_2dTools.cpp:
+engine/wrap/DKW_2dTools.cpp:
 	.text       start:0x801FB93C end:0x801FBA78
 
-engine/DKW_Animation.cpp:
+engine/wrap/DKW_Animation.cpp:
 	.text       start:0x801FBA78 end:0x8020051C
 	.sdata      start:0x80296410 end:0x80296428
 	.sbss       start:0x80297320 end:0x80297328
 	.sdata2     start:0x802999B8 end:0x80299A68
 
-engine/DKW_Atomic.cpp:
+engine/wrap/DKW_Atomic.cpp:
 	.text       start:0x8020051C end:0x80202230
 	.ctors      start:0x8023F03C end:0x8023F040
 	.data       start:0x8025C680 end:0x8025C6F8
@@ -3302,31 +3302,31 @@ engine/DKW_Atomic.cpp:
 	.sbss       start:0x80297328 end:0x80297348
 	.sdata2     start:0x80299A68 end:0x80299A78
 
-engine/DKW_Camera.cpp:
+engine/wrap/DKW_Camera.cpp:
 	.text       start:0x80202230 end:0x802034F0
 	.data       start:0x8025C6F8 end:0x8025C708
 	.sdata      start:0x80296430 end:0x80296438
 	.sbss       start:0x80297348 end:0x80297360
 	.sdata2     start:0x80299A78 end:0x80299AA0
 
-engine/DKW_Charset.cpp:
+engine/wrap/DKW_Charset.cpp:
 	.text       start:0x802034F0 end:0x80203E14
 	.data       start:0x8025C708 end:0x8025C778
 	.bss        start:0x8028BEF0 end:0x8028BFF0
 	.sdata      start:0x80296438 end:0x80296448
 
-engine/DKW_Clump.cpp:
+engine/wrap/DKW_Clump.cpp:
 	.text       start:0x80203E14 end:0x80204EE0
 	.data       start:0x8025C778 end:0x8025C788
 	.sdata      start:0x80296448 end:0x80296450
 	.sbss       start:0x80297360 end:0x80297368
 	.sdata2     start:0x80299AA0 end:0x80299AB0
 
-engine/DKW_ClumpAnim.cpp:
+engine/wrap/DKW_ClumpAnim.cpp:
 	.text       start:0x80204EE0 end:0x80204F3C
 	.sbss       start:0x80297368 end:0x80297370
 
-engine/DKW_Engine.cpp:
+engine/wrap/DKW_Engine.cpp:
 	.text       start:0x80204F3C end:0x80205C74
 	.ctors      start:0x8023F040 end:0x8023F044
 	.data       start:0x8025C788 end:0x8025C7D8
@@ -3335,132 +3335,132 @@ engine/DKW_Engine.cpp:
 	.sbss       start:0x80297370 end:0x802973A8
 	.sdata2     start:0x80299AB0 end:0x80299AC8
 
-engine/DKW_Frame.cpp:
+engine/wrap/DKW_Frame.cpp:
 	.text       start:0x80205C74 end:0x802061E0
 	.data       start:0x8025C7D8 end:0x8025C7E8
 	.sdata      start:0x80296470 end:0x80296478
 	.sbss       start:0x802973A8 end:0x802973B0
 
-engine/DKW_Geometry.cpp:
+engine/wrap/DKW_Geometry.cpp:
 	.text       start:0x802061E0 end:0x80206A9C
 	.data       start:0x8025C7E8 end:0x8025C7F8
 	.sdata      start:0x80296478 end:0x80296480
 	.sbss       start:0x802973B0 end:0x802973B8
 
-engine/DKW_Hierarchy.cpp:
+engine/wrap/DKW_Hierarchy.cpp:
 	.text       start:0x80206A9C end:0x80206C9C
 
-engine/DKW_Im2D.cpp:
+engine/wrap/DKW_Im2D.cpp:
 	.text       start:0x80206C9C end:0x80206DE4
 	.sdata2     start:0x80299AC8 end:0x80299AD0
 
-engine/DKW_ImageTGA.cpp:
+engine/wrap/DKW_ImageTGA.cpp:
 	.text       start:0x80206DE4 end:0x80208830
 	.bss        start:0x8028C018 end:0x8028C030
 
-engine/DKW_InstanceEngine.cpp:
+engine/wrap/DKW_InstanceEngine.cpp:
 	.text       start:0x80208830 end:0x80208E60
 	.data       start:0x8025C7F8 end:0x8025C830
 	.sbss       start:0x802973B8 end:0x802973C0
 
-engine/DKW_Light.cpp:
+engine/wrap/DKW_Light.cpp:
 	.text       start:0x80208E60 end:0x80209448
 	.data       start:0x8025C830 end:0x8025C840
 	.sdata      start:0x80296480 end:0x80296488
 	.sbss       start:0x802973C0 end:0x802973E0
 
-engine/DKW_Material.cpp:
+engine/wrap/DKW_Material.cpp:
 	.text       start:0x80209448 end:0x802098BC
 	.data       start:0x8025C840 end:0x8025C850
 	.sdata      start:0x80296488 end:0x80296490
 	.sbss       start:0x802973E0 end:0x802973E8
 	.sdata2     start:0x80299AD0 end:0x80299AD8
 
-engine/DKW_MatFX.cpp:
+engine/wrap/DKW_MatFX.cpp:
 	.text       start:0x802098BC end:0x80209918
 	.sbss       start:0x802973E8 end:0x802973F0
 
-engine/DKW_Matrix.cpp:
+engine/wrap/DKW_Matrix.cpp:
 	.text       start:0x80209918 end:0x80209F9C
 	.ctors      start:0x8023F044 end:0x8023F048
 	.bss        start:0x8028C030 end:0x8028C0F0
 	.sdata2     start:0x80299AD8 end:0x80299AE8
 
-engine/DKW_Primitive.cpp:
+engine/wrap/DKW_Primitive.cpp:
 	.text       start:0x80209F9C end:0x8020CC68
 	.sdata      start:0x80296490 end:0x80296498
 	.sdata2     start:0x80299AE8 end:0x80299B08
 
-engine/DKW_Quat.cpp:
+engine/wrap/DKW_Quat.cpp:
 	.text       start:0x8020CC68 end:0x8020CDDC
 	.ctors      start:0x8023F048 end:0x8023F04C
 	.bss        start:0x8028C0F0 end:0x8028C100
 	.sdata2     start:0x80299B08 end:0x80299B10
 
-engine/DKW_RenderProperty.cpp:
+engine/wrap/DKW_RenderProperty.cpp:
 	.text       start:0x8020CDDC end:0x8020D604
 
-engine/DKW_RGBA.cpp:
+engine/wrap/DKW_RGBA.cpp:
 	.text       start:0x8020D604 end:0x8020D91C
 	.ctors      start:0x8023F04C end:0x8023F050
 	.bss        start:0x8028C100 end:0x8028C148
 	.sbss       start:0x802973F0 end:0x80297408
 	.sdata2     start:0x80299B10 end:0x80299B18
 
-engine/DKW_RGBAReal.cpp:
+engine/wrap/DKW_RGBAReal.cpp:
 	.text       start:0x8020D91C end:0x8020DBCC
 	.ctors      start:0x8023F050 end:0x8023F054
 	.bss        start:0x8028C148 end:0x8028C210
 	.sdata2     start:0x80299B18 end:0x80299B28
 
-engine/DKW_Spline.cpp:
+engine/wrap/DKW_Spline.cpp:
 	.text       start:0x8020DBCC end:0x8020DEE0
 	.data       start:0x8025C850 end:0x8025C860
 	.sbss       start:0x80297408 end:0x80297410
 	.sdata2     start:0x80299B28 end:0x80299B30
 
-engine/DKW_TexDictionary.cpp:
+engine/wrap/DKW_TexDictionary.cpp:
 	.text       start:0x8020DEE0 end:0x8020DFD0
 
-engine/DKW_Texture.cpp:
+engine/wrap/DKW_Texture.cpp:
 	.text       start:0x8020DFD0 end:0x8020E27C
 
-engine/DKW_V2d.cpp:
+engine/wrap/DKW_V2d.cpp:
 	.text       start:0x8020E27C end:0x8020E37C
 	.ctors      start:0x8023F054 end:0x8023F058
 	.sdata      start:0x80296498 end:0x802964A0
 	.sbss       start:0x80297410 end:0x80297430
 	.sdata2     start:0x80299B30 end:0x80299B38
 
-engine/DKW_V3d.cpp:
+engine/wrap/DKW_V3d.cpp:
 	.text       start:0x8020E37C end:0x8020EAB8
 	.ctors      start:0x8023F058 end:0x8023F05C
 	.bss        start:0x8028C210 end:0x8028C250
 	.sdata      start:0x802964A0 end:0x802964A8
 	.sdata2     start:0x80299B38 end:0x80299B40
 
-engine/DKW_Warp.cpp:
+engine/wrap/DKW_Warp.cpp:
 	.text       start:0x8020EAB8 end:0x8020EBD4
 	.sdata      start:0x802964A8 end:0x802964B0
 
-engine/DKW_World.cpp:
+engine/wrap/DKW_World.cpp:
 	.text       start:0x8020EBD4 end:0x8020F5A4
 	.data       start:0x8025C860 end:0x8025C870
 	.sdata      start:0x802964B0 end:0x802964B8
 	.sbss       start:0x80297430 end:0x80297438
 	.sdata2     start:0x80299B40 end:0x80299B48
 
-engine/DKW_WorldSector.cpp:
+engine/wrap/DKW_WorldSector.cpp:
 	.text       start:0x8020F5A4 end:0x8020F98C
 	.data       start:0x8025C870 end:0x8025C880
 	.sdata      start:0x802964B8 end:0x802964C0
 	.sbss       start:0x80297438 end:0x80297440
 
-engine/DkWrap.cpp:
+engine/wrap/DkWrap.cpp:
 	.text       start:0x8020F98C end:0x8020FE9C
 	.sdata2     start:0x80299B48 end:0x80299B60
 
-engine/DKW_GCNEngine.cpp:
+engine/wrap/DKW_GCNEngine.cpp:
 	.text       start:0x8020FE9C end:0x8021031C
 	.data       start:0x8025C880 end:0x8025C8E0
 	.bss        start:0x8028C250 end:0x8028C260
@@ -3471,69 +3471,69 @@ rwsdk/driver/gcn/dlmem.c:
 	.text       start:0x8021031C end:0x80210550
 	.data       start:0x8025C8E0 end:0x8025C900
 
-engine/DkSound.cpp:
+engine/sound/DkSound.cpp:
 	extab       start:0x80006D3C end:0x80006D5C
 	extabindex  start:0x800081F4 end:0x8000820C
 	.text       start:0x80210550 end:0x80210600
 	.sbss       start:0x80297458 end:0x80297460
 
-engine/ISoundEngine.cpp:
+engine/sound/ISoundEngine.cpp:
 	extab       start:0x80006D5C end:0x80006D64
 	extabindex  start:0x8000820C end:0x80008218
 	.text       start:0x80210600 end:0x80210660
 	.data       start:0x8025C900 end:0x8025CA18
 	.sdata      start:0x802964C0 end:0x802964C8
 
-engine/ISample.cpp:
+engine/sound/ISample.cpp:
 	extab       start:0x80006D64 end:0x80006D6C
 	extabindex  start:0x80008218 end:0x80008224
 	.text       start:0x80210660 end:0x802106C8
 	.data       start:0x8025CA18 end:0x8025CA58
 	.sdata      start:0x802964C8 end:0x802964D0
 
-engine/ISoundEmitter.cpp:
+engine/sound/ISoundEmitter.cpp:
 	extab       start:0x80006D6C end:0x80006D74
 	extabindex  start:0x80008224 end:0x80008230
 	.text       start:0x802106C8 end:0x80210728
 	.data       start:0x8025CA58 end:0x8025CAC0
 	.sdata      start:0x802964D0 end:0x802964D8
 
-engine/ISoundListener.cpp:
+engine/sound/ISoundListener.cpp:
 	extab       start:0x80006D74 end:0x80006D7C
 	extabindex  start:0x80008230 end:0x8000823C
 	.text       start:0x80210728 end:0x80210788
 	.data       start:0x8025CAC0 end:0x8025CB18
 	.sdata      start:0x802964D8 end:0x802964E0
 
-engine/ISoundStreamed.cpp:
+engine/sound/ISoundStreamed.cpp:
 	extab       start:0x80006D7C end:0x80006D8C
 	extabindex  start:0x8000823C end:0x80008254
 	.text       start:0x80210788 end:0x80210858
 	.data       start:0x8025CB18 end:0x8025CBF0
 	.sdata      start:0x802964E0 end:0x802964F0
 
-engine/ISampleDictionary.cpp:
+engine/sound/ISampleDictionary.cpp:
 	extab       start:0x80006D8C end:0x80006D94
 	extabindex  start:0x80008254 end:0x80008260
 	.text       start:0x80210858 end:0x802108B8
 	.data       start:0x8025CBF0 end:0x8025CC48
 	.sdata      start:0x802964F0 end:0x802964F8
 
-engine/CSampleBank.cpp:
+engine/sound/CSampleBank.cpp:
 	extab       start:0x80006D94 end:0x80006DF4
 	extabindex  start:0x80008260 end:0x800082C0
 	.text       start:0x802108B8 end:0x80210C8C
 	.data       start:0x8025CC48 end:0x8025CCC0
 	.sdata      start:0x802964F8 end:0x80296510
 
-engine/CSampleDictionary.cpp:
+engine/sound/CSampleDictionary.cpp:
 	extab       start:0x80006DF4 end:0x80006F48
 	extabindex  start:0x800082C0 end:0x80008374
 	.text       start:0x80210C8C end:0x802118A0
 	.data       start:0x8025CCC0 end:0x8025CD58
 	.sdata      start:0x80296510 end:0x80296520
 
-engine/CSound2D.cpp:
+engine/sound/CSound2D.cpp:
 	extab       start:0x80006F48 end:0x80007030
 	extabindex  start:0x80008374 end:0x80008494
 	.text       start:0x802118A0 end:0x80212A00
@@ -3541,7 +3541,7 @@ engine/CSound2D.cpp:
 	.sdata      start:0x80296520 end:0x80296538
 	.sdata2     start:0x80299B68 end:0x80299B80
 
-engine/CSound3D.cpp:
+engine/sound/CSound3D.cpp:
 	extab       start:0x80007030 end:0x80007130
 	extabindex  start:0x80008494 end:0x800085D8
 	.text       start:0x80212A00 end:0x80213C30
@@ -3549,7 +3549,7 @@ engine/CSound3D.cpp:
 	.sdata      start:0x80296538 end:0x80296550
 	.sdata2     start:0x80299B80 end:0x80299B90
 
-engine/CSoundEmitter.cpp:
+engine/sound/CSoundEmitter.cpp:
 	extab       start:0x80007130 end:0x800071EC
 	extabindex  start:0x800085D8 end:0x8000868C
 	.text       start:0x80213C30 end:0x802144B4
@@ -3557,7 +3557,7 @@ engine/CSoundEmitter.cpp:
 	.sdata      start:0x80296550 end:0x80296560
 	.sdata2     start:0x80299B90 end:0x80299B98
 
-engine/CSoundEngine.cpp:
+engine/sound/CSoundEngine.cpp:
 	extab       start:0x800071EC end:0x80007494
 	extabindex  start:0x8000868C end:0x8000895C
 	.text       start:0x802144B4 end:0x802169C0
@@ -3565,7 +3565,7 @@ engine/CSoundEngine.cpp:
 	.sdata      start:0x80296560 end:0x80296578
 	.sdata2     start:0x80299B98 end:0x80299BA0
 
-engine/CSoundListener.cpp:
+engine/sound/CSoundListener.cpp:
 	extab       start:0x80007494 end:0x800074C8
 	extabindex  start:0x8000895C end:0x8000898C
 	.text       start:0x802169C0 end:0x80216BF4
@@ -3573,7 +3573,7 @@ engine/CSoundListener.cpp:
 	.sdata      start:0x80296578 end:0x80296588
 	.sdata2     start:0x80299BA0 end:0x80299BA8
 
-engine/CSoundStreamed.cpp:
+engine/sound/CSoundStreamed.cpp:
 	extab       start:0x800074C8 end:0x800075A0
 	extabindex  start:0x8000898C end:0x80008A94
 	.text       start:0x80216BF4 end:0x80217BF0
@@ -3581,67 +3581,67 @@ engine/CSoundStreamed.cpp:
 	.sdata      start:0x80296588 end:0x802965A0
 	.sdata2     start:0x80299BA8 end:0x80299BB8
 
-engine/CSample.cpp:
+engine/sound/CSample.cpp:
 	extab       start:0x800075A0 end:0x80007620
 	extabindex  start:0x80008A94 end:0x80008AE8
 	.text       start:0x80217BF0 end:0x802180E4
 	.data       start:0x8025D250 end:0x8025D2C8
 	.sdata      start:0x802965A0 end:0x802965B8
 
-engine/CSound3DRWA.cpp:
+engine/sound/CSound3DRWA.cpp:
 	extab       start:0x80007620 end:0x80007630
 	extabindex  start:0x80008AE8 end:0x80008B00
 	.text       start:0x802180E4 end:0x80218208
 	.sdata2     start:0x80299BB8 end:0x80299BC8
 
-engine/CSound2DRWA.cpp:
+engine/sound/CSound2DRWA.cpp:
 	extab       start:0x80007630 end:0x80007640
 	extabindex  start:0x80008B00 end:0x80008B18
 	.text       start:0x80218208 end:0x80218294
 
-engine/CSoundStreamedRWA.cpp:
+engine/sound/CSoundStreamedRWA.cpp:
 	extab       start:0x80007640 end:0x80007650
 	extabindex  start:0x80008B18 end:0x80008B30
 	.text       start:0x80218294 end:0x802183EC
 	.bss        start:0x8028C260 end:0x8028C460
 	.sdata      start:0x802965B8 end:0x802965C0
 
-engine/CSoundEngineRWA.cpp:
+engine/sound/CSoundEngineRWA.cpp:
 	extab       start:0x80007650 end:0x80007688
 	extabindex  start:0x80008B30 end:0x80008B84
 	.text       start:0x802183EC end:0x8021893C
 	.sbss       start:0x80297460 end:0x80297468
 	.sdata2     start:0x80299BC8 end:0x80299BD0
 
-engine/CSampleRWA.cpp:
+engine/sound/CSampleRWA.cpp:
 	extab       start:0x80007688 end:0x80007698
 	extabindex  start:0x80008B84 end:0x80008B9C
 	.text       start:0x8021893C end:0x80218B70
 
-engine/CSoundListenerRWA.cpp:
+engine/sound/CSoundListenerRWA.cpp:
 	extab       start:0x80007698 end:0x800076A8
 	extabindex  start:0x80008B9C end:0x80008BB4
 	.text       start:0x80218B70 end:0x80218E8C
 	.sdata2     start:0x80299BD0 end:0x80299BD8
 
-engine/CSoundEmitterRWA.cpp:
+engine/sound/CSoundEmitterRWA.cpp:
 	extab       start:0x800076A8 end:0x800076B0
 	extabindex  start:0x80008BB4 end:0x80008BC0
 	.text       start:0x80218E8C end:0x80218F60
 
-engine/CVideoEngine.cpp:
+engine/video/CVideoEngine.cpp:
 	.text       start:0x80218F60 end:0x8021905C
 	.data       start:0x8025D2C8 end:0x8025D350
 	.sdata      start:0x802965C0 end:0x802965D0
 	.sdata2     start:0x80299BD8 end:0x80299BE0
 
-engine/CVideoEngineGCN.cpp:
+engine/video/CVideoEngineGCN.cpp:
 	.text       start:0x8021905C end:0x80219A68
 	.data       start:0x8025D350 end:0x8025D400
 	.sdata      start:0x802965D0 end:0x802965E8
 	.sdata2     start:0x80299BE0 end:0x80299C00
 
-engine/DkVideo.cpp:
+engine/video/DkVideo.cpp:
 	.text       start:0x80219A68 end:0x80219AFC
 	.sbss       start:0x80297468 end:0x80297470
 

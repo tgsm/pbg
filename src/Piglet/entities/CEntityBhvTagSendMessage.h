@@ -3,7 +3,7 @@
 #include "entities/CEntityBhvTagData.h"
 #include "entities/CEntity.h"
 #include "CMailBox.h"
-#include "engine/CChunkIterator.h"
+#include "engine/xmd/CChunkIterator.h"
 
 class CEntityBhvTagSendMessage : public CEntityBhvTagData {
 private:

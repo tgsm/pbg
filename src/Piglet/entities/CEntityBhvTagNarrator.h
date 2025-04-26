@@ -3,7 +3,7 @@
 #include <string>
 #include "entities/CEntityBhvTagData.h"
 #include "entities/CEntity.h"
-#include "engine/CChunkIterator.h"
+#include "engine/xmd/CChunkIterator.h"
 
 class CEntityBhvTagNarrator : public CEntityBhvTagData {
 private:

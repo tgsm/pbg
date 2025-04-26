@@ -3,7 +3,7 @@
 #include "entities/CEntityBhvTagData.h"
 #include "entities/CEntity.h"
 #include "entities/CEntityMesh.h"
-#include "engine/CChunkIterator.h"
+#include "engine/xmd/CChunkIterator.h"
 
 extern "C" {
 extern int rand(void);

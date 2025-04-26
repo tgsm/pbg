@@ -1,4 +1,4 @@
-#include "DKW_RGBA.h"
+#include "wrap/DKW_RGBA.h"
 
 CDKW_RGBA DKW_RGBA_WHITE = CDKW_RGBA(0xFF, 0xFF, 0xFF, 0xFF);
 CDKW_RGBA DKW_RGBA_RED = CDKW_RGBA(0xFF, 0x00, 0x00, 0xFF);
