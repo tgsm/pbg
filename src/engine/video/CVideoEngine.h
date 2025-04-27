@@ -1,0 +1,24 @@
+#pragma once on
+
+#include "video/IVideoEngine.h"
+
+namespace DKVIDEO {
+
+class CVideoEngine : public IVideoEngine {
+public:
+    CVideoEngine();
+    virtual ~CVideoEngine();
+
+    virtual void Initialize(void*) {}
+    virtual void Play(char*) = 0;
+    virtual void Stop() = 0;
+    virtual void SetCallBack(VideoEngineCallback callback);
+    virtual f32 GetVolume() { return m_volume; }
+    virtual void SetVolume(f32 volume) { m_volume = volume; }
+
+private:
+    VideoEngineCallback m_callback;
+    f32 m_volume;
+};
+
+}

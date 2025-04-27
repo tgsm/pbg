@@ -614,7 +614,7 @@ config.libs = [
             Object(NonMatching, "engine/sound/CSampleRWA.cpp"),
             Object(NonMatching, "engine/sound/CSoundListenerRWA.cpp"),
             Object(NonMatching, "engine/sound/CSoundEmitterRWA.cpp"),
-            Object(NonMatching, "engine/video/CVideoEngine.cpp"),
+            Object(Matching, "engine/video/CVideoEngine.cpp", extra_cflags=["-RTTI on"]),
             Object(NonMatching, "engine/video/CVideoEngineGCN.cpp"),
             Object(NonMatching, "engine/video/DkVideo.cpp"),
         ]
