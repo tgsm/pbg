@@ -112,6 +112,7 @@ void CEntityNPCTree::UpdateGrimaceBehaviour(f32) {
                 m_unkF4 &= ~((1 << 2) | (1 << 1) | (1 << 0));
                 m_unkF4 |= (1 << 3);
             }
+            break;
     }
 }
 
