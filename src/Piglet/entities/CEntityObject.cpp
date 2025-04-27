@@ -49,7 +49,7 @@ void CEntityObject::Init() {
 }
 
 void CEntityObject::Render(f32 dt_maybe) {
-    if (!IsFlagged(1 << 8) && IsFlagged(1 << 1)) {
+    if (!IsFlagged(1 << 8) && !IsFlagged(1 << 1)) {
         // FIXME: Fakematch
         asm { cmpwi r3, 0 }
     }
@@ -61,20 +61,14 @@ void CEntityObject::Parse(DkXmd::CChunkIterator iter) {
 
     CEntity::Parse(iter);
 
-    if (iter.GetFirstChildChunk(dest) != TRUE) {
-        return;
-    }
+    if (iter.GetFirstChildChunk(dest) == TRUE) {
+        do {
+            strcpy(buf, dest.GetName());
 
-    while (TRUE) {
-        strcpy(buf, dest.GetName());
-
-        if (strcmp(buf, "Collisions") == 0) {
-            ParseCollisions(dest);
-        }
-
-        if (dest.GetNextSiblingChunk(dest) != TRUE) {
-            break;
-        }
+            if (strcmp(buf, "Collisions") == 0) {
+                ParseCollisions(dest);
+            }
+        } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }
 }
 
@@ -84,25 +78,19 @@ void CEntityObject::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehav
 
     CEntity::ParseBehavior(iter, behavior);
 
-    if (iter.GetFirstChildChunk(dest) != TRUE) {
-        return;
-    }
+    if (iter.GetFirstChildChunk(dest) == TRUE) {
+        do {
+            strcpy(buf, dest.GetName());
 
-    while (TRUE) {
-        strcpy(buf, dest.GetName());
-
-        if (strcmp(buf, "Position") == 0) {
-            CEntityBhvTagPosition* position = new CEntityBhvTagPosition;
-            position->Parse(dest);
-            behavior->AddData(position);
-        } else if (strcmp(buf, "Orientation") == 0) {
-            CEntityBhvTagOrientation* orientation = new CEntityBhvTagOrientation;
-            orientation->Parse(dest);
-            behavior->AddData(orientation);
-        }
-
-        if (dest.GetNextSiblingChunk(dest) != TRUE) {
-            break;
-        }
+            if (strcmp(buf, "Position") == 0) {
+                CEntityBhvTagPosition* position = new CEntityBhvTagPosition;
+                position->Parse(dest);
+                behavior->AddData(position);
+            } else if (strcmp(buf, "Orientation") == 0) {
+                CEntityBhvTagOrientation* orientation = new CEntityBhvTagOrientation;
+                orientation->Parse(dest);
+                behavior->AddData(orientation);
+            }
+        } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }
 }

@@ -45,18 +45,15 @@ u32 CEntityManager::GetTypeFromModel(std::string model_name) {
     DkXmd::CChunkIterator dest;
 
     // FIXME: This gets downcasted to 8bit.
-    BOOL found = FindChunkModel(model_name, model_chunk) == 1;
-    if (found) {
-        BOOL iVar2 = model_chunk.GetFirstChildChunk(dest);
-        if (iVar2 == TRUE) {
+    if (FindChunkModel(model_name, model_chunk) == TRUE) {
+        if (model_chunk.GetFirstChildChunk(dest) == TRUE) {
             do {
                 temp = dest.GetName();
                 if (temp == "ModelType") {
                     temp = dest.GetStringValue();
                     return GetTypeFromString(temp);
                 }
-                iVar2 = dest.GetNextSiblingChunk(dest);
-            } while (iVar2 == TRUE);
+            } while (dest.GetNextSiblingChunk(dest) == TRUE);
         }
     }
 
@@ -142,18 +139,15 @@ u32 CEntityManager::CreateEntity(std::string str1, std::string type, std::string
 
 // Equivalent: regalloc. Also see FIXME.
 BOOL CEntityManager::FindChunkModel(std::string str, DkXmd::CChunkIterator& iter) {
-    BOOL iVar2;
     DkXmd::CChunkIterator dest2;
     DkXmd::CChunkIterator dest;
     std::string temp;
 
-    iVar2 = m_unk18->GetFirstChildChunk(dest);
-    if (iVar2 == TRUE) {
+    if (m_unk18->GetFirstChildChunk(dest) == TRUE) {
         do {
             temp = dest.GetName();
             if (temp == "EntityModel") {
-                iVar2 = dest.GetFirstChildChunk(dest2);
-                if (iVar2 == TRUE) {
+                if (dest.GetFirstChildChunk(dest2) == TRUE) {
                     do {
                         temp = dest2.GetName();
                         if (temp == "ModelName") {
@@ -161,19 +155,16 @@ BOOL CEntityManager::FindChunkModel(std::string str, DkXmd::CChunkIterator& iter
                             // FIXME: This check gets downcased to 8bit. May be something inside std::basic_string.
                             if (temp == str) {
                                 iter = dest;
-                                return 1;
+                                return TRUE;
                             }
                         }
-
-                        iVar2 = dest2.GetNextSiblingChunk(dest2);
-                    } while (iVar2 == 1);
+                    } while (dest2.GetNextSiblingChunk(dest2) == TRUE);
                 }
             }
-            iVar2 = dest.GetNextSiblingChunk(dest);
-        } while (iVar2 == 1);
+        } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }
 
-    return 0;
+    return FALSE;
 }
 
 u32 CEntityManager::GetEntityLight01() {

@@ -16,22 +16,16 @@ void CEntityBhvTagSendMessage::Parse(DkXmd::CChunkIterator iter) {
     DkXmd::CChunkIterator dest;
     char buf[128];
     
-    if (iter.GetFirstChildChunk(dest) != TRUE) {
-        return;
-    }
-
-    while (TRUE) {
-        strcpy(buf, dest.GetName());
-        if (strcmp(buf, "Receiver") == 0) {
-            m_unkC = dest.GetStringValue();
-        } else if (strcmp(buf, "Type") == 0) {
-            m_unk10 = dest.GetStringValue();
-        } else if (strcmp(buf, "Param") == 0) {
-            m_unk14 = dest.GetS32Value();
-        }
-
-        if (dest.GetNextSiblingChunk(dest) != TRUE) {
-            break;
-        }
+    if (iter.GetFirstChildChunk(dest) == TRUE) {
+        do {
+            strcpy(buf, dest.GetName());
+            if (strcmp(buf, "Receiver") == 0) {
+                m_unkC = dest.GetStringValue();
+            } else if (strcmp(buf, "Type") == 0) {
+                m_unk10 = dest.GetStringValue();
+            } else if (strcmp(buf, "Param") == 0) {
+                m_unk14 = dest.GetS32Value();
+            }
+        } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }
 }

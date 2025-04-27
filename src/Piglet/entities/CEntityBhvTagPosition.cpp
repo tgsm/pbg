@@ -8,31 +8,25 @@ CEntityBhvTagPosition::CEntityBhvTagPosition() {
 }
 
 CEntityBhvTagPosition::~CEntityBhvTagPosition() {
-    
+
 }
 
 void CEntityBhvTagPosition::Parse(DkXmd::CChunkIterator iter) {
     char buf[128];
     DkXmd::CChunkIterator dest;
 
-    if (iter.GetFirstChildChunk(dest) != TRUE) {
-        return;
-    }
+    if (iter.GetFirstChildChunk(dest) == TRUE) {
+        do {
+            strcpy(buf, dest.GetName());
 
-    while (TRUE) {
-        strcpy(buf, dest.GetName());
-
-        if (strcmp(buf, "X") == 0) {
-            m_position.m_x = dest.GetFloatValue();
-        } else if (strcmp(buf, "Y") == 0) {
-            m_position.m_y = dest.GetFloatValue();
-        } else if (strcmp(buf, "Z") == 0) {
-            m_position.m_z = dest.GetFloatValue();
-        }
-
-        if (dest.GetNextSiblingChunk(dest) != TRUE) {
-            break;
-        }
+            if (strcmp(buf, "X") == 0) {
+                m_position.m_x = dest.GetFloatValue();
+            } else if (strcmp(buf, "Y") == 0) {
+                m_position.m_y = dest.GetFloatValue();
+            } else if (strcmp(buf, "Z") == 0) {
+                m_position.m_z = dest.GetFloatValue();
+            }
+        } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }
 }
 

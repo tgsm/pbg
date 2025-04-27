@@ -41,31 +41,25 @@ void CEntity::Parse(DkXmd::CChunkIterator iter) {
     char buf[128];
     DkXmd::CChunkIterator dest;
 
-    if (iter.GetFirstChildChunk(dest) != TRUE) {
-        return;
-    }
+    if (iter.GetFirstChildChunk(dest) == TRUE) {
+        do {
+            strcpy(buf, dest.GetName());
 
-    while (TRUE) {
-        strcpy(buf, dest.GetName());
-
-        if (strcmp(buf, "StartBehavior") == 0) {
-            m_unk10 = dest.GetS32Value();
-            m_unk8 = m_unk10;
-            m_unkC = m_unk10;
-            m_unk14 = m_unk10;
-        } else if (strcmp(buf, "Behavior") == 0) {
-            CEntityBhvTagBehavior* behavior = new CEntityBhvTagBehavior;
-            ParseBehavior(dest, behavior);
-            if (m_unk18 == NULL) {
-                m_unk18 = behavior;
-            } else {
-                m_unk18->AddBehavior(behavior);
+            if (strcmp(buf, "StartBehavior") == 0) {
+                m_unk10 = dest.GetS32Value();
+                m_unk8 = m_unk10;
+                m_unkC = m_unk10;
+                m_unk14 = m_unk10;
+            } else if (strcmp(buf, "Behavior") == 0) {
+                CEntityBhvTagBehavior* behavior = new CEntityBhvTagBehavior;
+                ParseBehavior(dest, behavior);
+                if (m_unk18 == NULL) {
+                    m_unk18 = behavior;
+                } else {
+                    m_unk18->AddBehavior(behavior);
+                }
             }
-        }
-
-        if (dest.GetNextSiblingChunk(dest) != TRUE) {
-            break;
-        }
+        } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }
 }
 
@@ -81,24 +75,18 @@ void CEntity::ParseXYZ(DkXmd::CChunkIterator iter, f32* x, f32* y, f32* z) {
     *y = 0.0f;
     *z = 0.0f;
 
-    if (iter.GetFirstChildChunk(dest) == FALSE) {
-        return;
-    }
+    if (iter.GetFirstChildChunk(dest)) {
+        do {
+            strcpy(buf, dest.GetName());
 
-    while (TRUE) {
-        strcpy(buf, dest.GetName());
-
-        if (strcmp(buf, "X") == 0) {
-            *x = dest.GetFloatValue();
-        } else if (strcmp(buf, "Y") == 0) {
-            *y = dest.GetFloatValue();
-        } else if (strcmp(buf, "Z") == 0) {
-            *z = dest.GetFloatValue();
-        }
-
-        if (dest.GetNextSiblingChunk(dest) == FALSE) {
-            break;
-        }
+            if (strcmp(buf, "X") == 0) {
+                *x = dest.GetFloatValue();
+            } else if (strcmp(buf, "Y") == 0) {
+                *y = dest.GetFloatValue();
+            } else if (strcmp(buf, "Z") == 0) {
+                *z = dest.GetFloatValue();
+            }
+        } while (dest.GetNextSiblingChunk(dest));
     }
 }
 

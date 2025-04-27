@@ -18,27 +18,21 @@ void CEntityBhvTagMessage::Parse(DkXmd::CChunkIterator iter) {
     char buf[128];
     DkXmd::CChunkIterator dest;
 
-    if (iter.GetFirstChildChunk(dest) != TRUE) {
-        return;
-    }
+    if (iter.GetFirstChildChunk(dest) == TRUE) {
+        do {
+            strcpy(buf, dest.GetName());
 
-    while (TRUE) {
-        strcpy(buf, dest.GetName());
-
-        if (strcmp(buf, "Emitter") == 0) {
-            m_unkC = dest.GetStringValue();
-        } else if (strcmp(buf, "Type") == 0) {
-            m_unk10 = dest.GetStringValue();
-        } else if (strcmp(buf, "Param") == 0) {
-            m_unk14 = dest.GetS32Value();
-        } else if (strcmp(buf, "Response") == 0) {
-            CEntityBhvTagResponse* response = new CEntityBhvTagResponse;
-            response->Parse(dest);
-            AddData(response);
-        }
-
-        if (dest.GetNextSiblingChunk(dest) != TRUE) {
-            break;
-        }
+            if (strcmp(buf, "Emitter") == 0) {
+                m_unkC = dest.GetStringValue();
+            } else if (strcmp(buf, "Type") == 0) {
+                m_unk10 = dest.GetStringValue();
+            } else if (strcmp(buf, "Param") == 0) {
+                m_unk14 = dest.GetS32Value();
+            } else if (strcmp(buf, "Response") == 0) {
+                CEntityBhvTagResponse* response = new CEntityBhvTagResponse;
+                response->Parse(dest);
+                AddData(response);
+            }
+        } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }
 }
