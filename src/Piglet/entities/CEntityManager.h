@@ -30,10 +30,11 @@ public:
 
     u32 GetTypeFromModel(std::string);
     u32 GetTypeFromString(std::string type_str);
-    u32 CreateEntity(std::string str1, std::string type, std::string str3); // unknown return type
-    u32 CreateEntity(std::string str1, u32 type, std::string str3); // unknown return type
+    BOOL CreateEntity(std::string name, std::string type, std::string model);
+    BOOL CreateEntity(std::string name, u32 type, std::string model);
 
     BOOL FindChunkModel(std::string str, DkXmd::CChunkIterator& iter);
+    BOOL Parse(DkXmd::CChunkIterator iter);
     CEntity* GetEntity(std::string name);
     u32 GetEntityLight01();
     CEntity* GetEntity(u32 n);

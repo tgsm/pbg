@@ -1,4 +1,6 @@
 #include "entities/CEntityManager.h"
+#include "entities/CEntity.h"
+#include <cstring>
 #include <iostream>
 
 f32 InterpolValue(f32 f1, f32 f2, f32 f3, f32 f4) {
@@ -132,9 +134,9 @@ u32 CEntityManager::GetTypeFromString(std::string type_str) {
     }
 }
 
-u32 CEntityManager::CreateEntity(std::string str1, std::string type, std::string str3) {
+BOOL CEntityManager::CreateEntity(std::string name, std::string type, std::string model) {
     u32 type_id = GetTypeFromString(type);
-    return CreateEntity(str1, type_id, str3);
+    return CreateEntity(name, type_id, model);
 }
 
 // Equivalent: regalloc. Also see FIXME.
@@ -165,6 +167,45 @@ BOOL CEntityManager::FindChunkModel(std::string str, DkXmd::CChunkIterator& iter
     }
 
     return FALSE;
+}
+
+BOOL CEntityManager::Parse(DkXmd::CChunkIterator iter) {
+    BOOL ret = FALSE;
+    DkXmd::CChunkIterator dest;
+
+    char buf[128];
+    char type[128];
+    char name[128];
+    char model[128];
+    strcpy(buf, "");
+    strcpy(type, "");
+    strcpy(name, "");
+    strcpy(model, "");
+
+    if (iter.GetFirstChildChunk(dest) == TRUE) {
+        do {
+            strcpy(buf, dest.GetName());
+
+            if (strcmp(buf, "Type") == 0) {
+                strcpy(type, dest.GetStringValue());
+            } else if (strcmp(buf, "Name") == 0) {
+                strcpy(name, dest.GetStringValue());
+            } else if (strcmp(buf, "Model") == 0) {
+                strcpy(model, dest.GetStringValue());
+            }
+        } while (dest.GetNextSiblingChunk(dest) == TRUE);
+
+        ret = CreateEntity(name, type, model);
+
+        CEntity* entity = GetEntity(name);
+        if (entity != NULL) {
+            entity->Parse(iter);
+            entity->SetBehavior(entity->m_unk10);
+            entity->Init();
+        }
+    }
+
+    return ret;
 }
 
 u32 CEntityManager::GetEntityLight01() {
