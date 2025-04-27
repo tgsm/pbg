@@ -50,10 +50,6 @@ void CEntityNPCTree::UpdateSpecialBehaviour(f32) {
     }
 }
 
-static inline BOOL funny_check() {
-
-}
-
 void CEntityNPCTree::UpdateFightBehaviour(f32) {
     switch (m_unk1A8) {
         case 101:
