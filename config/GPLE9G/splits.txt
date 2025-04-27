@@ -111,7 +111,7 @@ Piglet/entities/CEntityWorld.cpp:
 	.ctors      start:0x8023EE90 end:0x8023EE94
 	.data       start:0x802445A8 end:0x80244798
 	.bss        start:0x8025F8A8 end:0x8025F8D0
-	.sdata      start:0x80293EF0 end:0x80293EF4
+	.sdata      start:0x80293EF0 end:0x80293F60
 	.sbss       start:0x802966E8 end:0x802966F8
 	.sdata2     start:0x80297898 end:0x802978B8
 
