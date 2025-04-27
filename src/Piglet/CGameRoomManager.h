@@ -1,6 +1,7 @@
 #pragma once on
 
 #include "types.h"
+#include "entities/CEntityHero.h"
 
 class CGameRoomManager {
 public:
@@ -14,5 +15,7 @@ public:
     void UpdateTimer(f32 dt);
     void StopTimer();
     void DisplayTimer();
+
+    CEntityHero* GetCurrentHero();
 };
 REQUIRE_SIZE(CGameRoomManager, 0x178);

@@ -5,11 +5,18 @@
 enum ENPCGenericBehaviour {
     GENERIC_BEHAVIOUR_0 = 0,
     GENERIC_BEHAVIOUR_4 = 4,
+    GENERIC_BEHAVIOUR_6 = 6,
+    GENERIC_BEHAVIOUR_9 = 9,
 };
 
 class CEntityNPC : public CEntityMesh {
-private:
-    u8 m_unkF4[0x2D4 - 0xF4];
+protected:
+    u32 m_unkF4;
+    u8 m_unkF8[0x15C - 0xF8];
+    u8 m_unk15C;
+    u8 m_unk15D[0x1A8 - 0x15D];
+    u8 m_unk1A8;
+    u8 m_unk1A9[0x2D4 - 0x1A9];
 
 public:
     CEntityNPC(CEntityManager* entity_manager, std::string name);

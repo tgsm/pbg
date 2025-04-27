@@ -11,6 +11,7 @@ public:
     u8 m_unk18[0x20];
 
 public:
-
+    BOOL StartFightMode(CEntityMesh*, int);
+    BOOL UnblockFightMode();
 };
 REQUIRE_SIZE(CGamePartIngame, 0x38);

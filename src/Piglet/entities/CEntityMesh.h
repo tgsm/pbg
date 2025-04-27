@@ -1,10 +1,13 @@
 #pragma once on
 
+#include "engine/display/CAnimationStarController.h"
 #include "entities/CEntityObject.h"
 
 class CEntityMesh : public CEntityObject {
-private:
-    u8 m_unk40[0xF4 - 0x40];
+protected:
+    u8 m_unk40[0xC4 - 0x40];
+    DKDSP::CAnimationStarController* m_animation_star_controller;
+    u8 m_unkC8[0xF4 - 0xC8];
 
 public:
     CEntityMesh(CEntityManager* entity_manager, std::string name);
