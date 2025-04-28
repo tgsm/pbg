@@ -1,5 +1,6 @@
 #include "entities/CEntityManager.h"
 #include "entities/CEntity.h"
+#include "entities/CEntityHero.h"
 #include <cstring>
 #include <iostream>
 
@@ -220,12 +221,12 @@ u32 CEntityManager::GetEntityCount() {
     return m_entities.size();
 }
 
-CEntity* CEntityManager::GetHero() {
-    CEntity* entity = GetEntity("Piglet");
+CEntityHero* CEntityManager::GetHero() {
+    CEntityHero* entity = static_cast<CEntityHero*>(GetEntity("Piglet"));
     if (entity == 0) {
-        entity = GetEntity("Tigger");
+        entity = static_cast<CEntityHero*>(GetEntity("Tigger"));
         if (entity == 0) {
-            entity = GetEntity("Winnie");
+            entity = static_cast<CEntityHero*>(GetEntity("Winnie"));
         }
     }
     return entity;

@@ -2,6 +2,7 @@
 
 #include "engine/xmd/CChunkIterator.h"
 #include "entities/CEntity.h"
+#include "entities/CEntityHero.h"
 #include "entities/CEntityBhvTagData.h"
 
 class CEntityBhvTagTeleport : public CEntityBhvTagData {
@@ -68,7 +69,7 @@ public:
 
             entity->m_entity_manager->GetGame()->FadeIn(-1.0f);
 
-            CEntity* hero = entity->m_entity_manager->GetHero();
+            CEntityHero* hero = entity->m_entity_manager->GetHero();
             if (hero != NULL) {
                 entity->m_entity_manager->GetGame()->GetMailbox()->SendMessage(entity->m_unk0, hero->m_unk0, "EXIT", 0);
             }

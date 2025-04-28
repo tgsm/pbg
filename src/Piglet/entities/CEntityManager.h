@@ -7,6 +7,7 @@
 #include "types.h"
 
 class CEntity;
+class CEntityHero;
 
 class CEntityManager {
 private:
@@ -40,6 +41,6 @@ public:
     CEntity* GetEntity(u32 n);
     u32 GetEntityCount();
 
-    CEntity* GetHero();
+    CEntityHero* GetHero();
 };
 REQUIRE_SIZE(CEntityManager, 0x28);
