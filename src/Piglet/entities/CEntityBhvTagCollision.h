@@ -23,7 +23,7 @@ public:
     }
 
     virtual u32 GetType() {
-        return 8;
+        return BEHAVIOR_TAG_COLLISION;
     }
 };
 REQUIRE_SIZE(CEntityBhvTagCollision, 0x10);

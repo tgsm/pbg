@@ -13,7 +13,7 @@ public:
     virtual ~CEntityTimer();
 
     virtual u32 GetType() {
-        return 11;
+        return ENTITY_TIMER;
     }
     virtual void Update(f32 dt_maybe);
     virtual void Parse(DkXmd::CChunkIterator iter);

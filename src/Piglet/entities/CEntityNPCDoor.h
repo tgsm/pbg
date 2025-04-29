@@ -13,7 +13,7 @@ public:
     virtual ~CEntityNPCDoor();
 
     virtual u32 GetType() {
-        return 34;
+        return ENTITY_NPC_DOOR;
     }
     virtual void Reset();
     virtual void Render(f32 dt_maybe);

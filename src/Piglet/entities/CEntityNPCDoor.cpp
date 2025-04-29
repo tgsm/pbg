@@ -172,7 +172,7 @@ void CEntityNPCDoor::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBeha
 
 // Equivalent: stack offsets
 BOOL CEntityNPCDoor::CanLaunchFightMode() {
-    if (m_entity_manager->GetHero()->GetType() == 18) {
+    if (m_entity_manager->GetHero()->GetType() == ENTITY_PIGLET) {
         CEntityPiglet* piglet = static_cast<CEntityPiglet*>(m_entity_manager->GetHero());
         if (piglet->m_unk27C >= m_unk2DC) {
             return TRUE;

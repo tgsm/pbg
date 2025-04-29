@@ -15,7 +15,7 @@ public:
     virtual void Set(CEntity* entity);
 
     virtual u32 GetType() {
-        return 2;
+        return BEHAVIOR_TAG_POSITION;
     }
 
     void Parse(DkXmd::CChunkIterator iter);

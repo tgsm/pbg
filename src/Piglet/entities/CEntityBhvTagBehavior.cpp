@@ -19,17 +19,17 @@ CEntityBhvTagBehavior::~CEntityBhvTagBehavior() {
 void CEntityBhvTagBehavior::Set(CEntity* entity) {
     for (CEntityBhvTagData* data = m_unk4; data != NULL; data = data->m_unk0) {
         switch (data->GetType()) {
-            case 0:
-            case 1:
-            case 4:
-            case 5:
-            case 6:
-            case 10:
-            case 12:
-            case 13:
-            case 14:
-            case 16:
-            case 17:
+            case BEHAVIOR_TAG_0:
+            case BEHAVIOR_TAG_BEHAVIOR:
+            case BEHAVIOR_TAG_MESSAGE:
+            case BEHAVIOR_TAG_RESPONSE:
+            case BEHAVIOR_TAG_SEND_MESSAGE:
+            case BEHAVIOR_TAG_TELEPORT:
+            case BEHAVIOR_TAG_CAMERA_SYSTEM:
+            case BEHAVIOR_TAG_GUI_CONTROL:
+            case BEHAVIOR_TAG_SETTINGS:
+            case BEHAVIOR_TAG_FINISH_MISSION:
+            case BEHAVIOR_TAG_NARRATOR:
                 break;
             default:
                 data->Set(entity);

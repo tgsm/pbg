@@ -14,7 +14,7 @@ public:
     virtual ~CEntityBhvTagOrientation();
 
     virtual u32 GetType() {
-        return 3;
+        return BEHAVIOR_TAG_ORIENTATION;
     }
 
     virtual void Set(CEntity* entity);

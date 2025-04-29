@@ -16,7 +16,7 @@ public:
     }
 
     virtual u32 GetType() {
-        return 5;
+        return BEHAVIOR_TAG_RESPONSE;
     }
 
     void Parse(DkXmd::CChunkIterator iter);

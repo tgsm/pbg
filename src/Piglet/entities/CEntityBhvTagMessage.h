@@ -16,14 +16,14 @@ public:
 
     virtual void Set(CEntity* entity) {
         for (CEntityBhvTagData* bhv = m_unk4; bhv != NULL; bhv = bhv->m_unk4) {
-            if (bhv->GetType() == 5) {
+            if (bhv->GetType() == BEHAVIOR_TAG_RESPONSE) {
                 bhv->Set(entity);
             }
         }
     }
 
     virtual u32 GetType() {
-        return 4;
+        return BEHAVIOR_TAG_MESSAGE;
     }
 
     void Parse(DkXmd::CChunkIterator iter);

@@ -11,7 +11,7 @@ public:
     virtual ~CEntityNPCBasicWoozle();
 
     virtual u32 GetType() {
-        return 25;
+        return ENTITY_NPC_BASIC_WOOZLE;
     }
     virtual void Reset();
     virtual void Render(f32 dt_maybe);

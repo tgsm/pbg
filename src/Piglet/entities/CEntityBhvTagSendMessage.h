@@ -20,7 +20,7 @@ public:
     }
 
     virtual u32 GetType() {
-        return 6;
+        return BEHAVIOR_TAG_SEND_MESSAGE;
     }
     
     void Parse(DkXmd::CChunkIterator iter);

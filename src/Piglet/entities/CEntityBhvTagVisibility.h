@@ -21,7 +21,7 @@ public:
     }
 
     virtual u32 GetType() {
-        return 7;
+        return BEHAVIOR_TAG_VISIBILITY;
     }
 
     void Parse(DkXmd::CChunkIterator iter);

@@ -8,7 +8,7 @@ public:
     virtual ~CEntityNPCTree();
 
     virtual u32 GetType() {
-        return 26;
+        return ENTITY_NPC_TREE;
     }
     virtual void Reset();
     virtual void Render(f32 dt_maybe);

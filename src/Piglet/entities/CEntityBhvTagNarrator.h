@@ -22,7 +22,7 @@ public:
     }
 
     virtual u32 GetType() {
-        return 17;
+        return BEHAVIOR_TAG_NARRATOR;
     }
 };
 REQUIRE_SIZE(CEntityBhvTagNarrator, 0x10);

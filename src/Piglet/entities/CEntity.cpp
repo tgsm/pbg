@@ -110,7 +110,7 @@ void CEntity::ProcessMessages() {
         CEntityBhvTagBehavior* behavior = m_unk18->GetBehavior(m_unk10);
         if (behavior != NULL) {
             for (CEntityBhvTagBehavior* bhv = (CEntityBhvTagBehavior*)behavior->m_unk4; bhv != NULL; bhv = (CEntityBhvTagBehavior*)bhv->m_unk0) {
-                if (bhv->GetType() == 4) {
+                if (bhv->GetType() == BEHAVIOR_TAG_MESSAGE) {
                     CEntityBhvTagMessage* bhv_message = ((CEntityBhvTagMessage*)bhv);
                     if (bhv_message->m_unkC == message.unk0 || (message.unk0 == "" && m_unk0 == bhv_message->m_unkC)) {
                         if (bhv_message->m_unk10 == message.unk20) {

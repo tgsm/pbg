@@ -26,7 +26,7 @@ public:
     }
 
     virtual u32 GetType() {
-        return 42;
+        return ENTITY_NPC_ARROW;
     }
 };
 REQUIRE_SIZE(CEntityNPCArrow, 0x118);

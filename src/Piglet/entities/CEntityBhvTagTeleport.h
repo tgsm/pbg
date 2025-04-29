@@ -80,7 +80,7 @@ public:
     }
 
     virtual u32 GetType() {
-        return 10;
+        return BEHAVIOR_TAG_TELEPORT;
     }
 };
 REQUIRE_SIZE(CEntityBhvTagTeleport, 0x30);

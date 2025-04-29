@@ -12,7 +12,7 @@ public:
 
     virtual void Set(CEntity* entity); // entity actually be derived from CEntity
     virtual u32 GetType() {
-        return 11;
+        return BEHAVIOR_TAG_ANIM;
     }
 
     void Parse(DkXmd::CChunkIterator);

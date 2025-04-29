@@ -65,73 +65,73 @@ u32 CEntityManager::GetTypeFromModel(std::string model_name) {
 
 u32 CEntityManager::GetTypeFromString(std::string type_str) {
     if (type_str == "WorldEntity") {
-        return 3;
+        return ENTITY_WORLD;
     } else if (type_str == "WarpEntity") {
-        return 4;
+        return ENTITY_WARP;
     } else if (type_str == "MeshEntity") {
-        return 14;
+        return ENTITY_MESH;
     } else if (type_str == "LightEntity") {
-        return 10;
+        return ENTITY_LIGHT;
     } else if (type_str == "RTCPlayerEntity") {
-        return 12;
+        return ENTITY_RTC_PLAYER;
     } else if (type_str == "FXEntity") {
-        return 13;
+        return ENTITY_FX;
     } else if (type_str == "ZoneEntity") {
-        return 6;
+        return ENTITY_ZONE;
     } else if (type_str == "SearchableZoneEntity") {
-        return 7;
+        return ENTITY_SEARCHABLE_ZONE;
     } else if (type_str == "ScaryFaceBoxEntity") {
-        return 8;
+        return ENTITY_SCARY_FACE_BOX;
     } else if (type_str == "PigletEntity") {
-        return 18;
+        return ENTITY_PIGLET;
     } else if (type_str == "WinnieEntity") {
-        return 19;
+        return ENTITY_WINNIE;
     } else if (type_str == "TiggerEntity") {
-        return 20;
+        return ENTITY_TIGGER;
     } else if (type_str == "NPCEntity") {
-        return 21;
+        return ENTITY_NPC21;
     } else if (type_str == "BasicEffalumEntity") {
-        return 24;
+        return ENTITY_NPC_BASIC_EFFALUMP;
     } else if (type_str == "BasicWoozleEntity") {
-        return 25;
+        return ENTITY_NPC_BASIC_WOOZLE;
     } else if (type_str == "BasicTreeEntity") {
-        return 26;
+        return ENTITY_NPC_TREE;
     } else if (type_str == "BeeEffalumEntity") {
-        return 27;
+        return ENTITY_NPC_BEE_EFFALUMP;
     } else if (type_str == "HideAndSeekWoozleEntity") {
-        return 28;
+        return ENTITY_NPC_HNS_WOOZLE;
     } else if (type_str == "MirrorWoozleEntity") {
-        return 29;
+        return ENTITY_NPC_MIRROR_WOOZLE;
     } else if (type_str == "RoadSweeperEffalumEntity") {
-        return 30;
+        return ENTITY_NPC_ROAD_SWEEPER_EFFALUMP;
     } else if (type_str == "TubaEffalumEntity") {
-        return 31;
+        return ENTITY_NPC_TUBA_EFFALUMP;
     } else if (type_str == "JackpotEffalumEntity") {
-        return 32;
+        return ENTITY_NPC_JACKPOT_EFFALUMP;
     } else if (type_str == "TennisWoozleEntity") {
-        return 33;
+        return ENTITY_NPC_TENNIS_WOOZLE;
     } else if (type_str == "DoorEntity") {
-        return 34;
+        return ENTITY_NPC_DOOR;
     } else if (type_str == "GralosaurusEntity") {
-        return 35;
+        return ENTITY_NPC_GRALOSAURUS;
     } else if (type_str == "PathFinder") {
-        return 45;
+        return ENTITY_PATH_FINDER;
     } else if (type_str == "PushingBoxEntity") {
-        return 15;
+        return ENTITY_PUSHING_BOX;
     } else if (type_str == "TimerEntity") {
-        return 11;
+        return ENTITY_TIMER;
     } else if (type_str == "CookieEntity") {
-        return 16;
+        return ENTITY_COOKIE;
     } else if (type_str == "EscapingObjectEntity") {
-        return 39;
+        return ENTITY_ESCAPING_OBJECT;
     } else if (type_str == "NPCArrowEntity") {
-        return 42;
+        return ENTITY_NPC_ARROW;
     } else if (type_str == "KeySequenceEntity") {
-        return 43;
+        return ENTITY_SEQ_KEY;
     } else if (type_str == "3DSoundEntity") {
-        return 46;
+        return ENTITY_3D_SOUND;
     } else {
-        return 0;
+        return ENTITY_INVALID;
     }
 }
 

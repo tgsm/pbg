@@ -20,7 +20,7 @@ public:
     virtual void Set(CEntity* entity) {
         if (m_on == TRUE) {
             entity->AddFlag(1 << 0);
-            if (entity->GetType() > 23 && entity->GetType() < 36) {
+            if (entity->GetType() > ENTITY_NPC23 && entity->GetType() < ENTITY_UNK36) {
                 ((CEntityMesh*)entity)->UpdateAnimations(rand() / 32767.0f);
             }
         } else {
@@ -29,7 +29,7 @@ public:
     }
 
     virtual u32 GetType() {
-        return 9;
+        return BEHAVIOR_TAG_ACTIVATION;
     }
 
     void Parse(DkXmd::CChunkIterator iter);
