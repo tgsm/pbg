@@ -1,0 +1,15 @@
+#ifndef _MSL_CSTDDEF
+#define _MSL_CSTDDEF
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include "null.h"
+#include "size_t.h"
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

@@ -1,5 +1,6 @@
 #pragma once on
 
+#include "null.h"
 #include "size_t.h"
 
 #ifdef __cplusplus
@@ -11,7 +12,7 @@ char* strcpy(char* dst, const char* src);
 int strcmp(const char* s1, const char* s2);
 
 void* memset(void* s, int c, size_t n);
-int memcmp(const char s1[], const char s2[], unsigned long n);
+int memcmp(const void* s1, const void* s2, unsigned long n);
 void* memcpy(void* dest, const void* src, unsigned long n);
 
 #ifdef __cplusplus

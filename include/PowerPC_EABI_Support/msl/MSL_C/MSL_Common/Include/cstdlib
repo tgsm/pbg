@@ -1,0 +1,21 @@
+#ifndef _MSL_CSTDLIB
+#define _MSL_CSTDLIB
+
+#include "null.h"
+#include "size_t.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define abs(x) __abs(x)
+
+double strtod(const char* nptr, char** endptr);
+
+void* malloc(size_t);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

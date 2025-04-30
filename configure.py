@@ -239,6 +239,18 @@ cflags_engine_input = [
     "-opt noschedule",
 ]
 
+cflags_rw = [
+    *cflags_base,
+    "-i src/rwsdk/tool/png/libpng",
+    "-i src/rwsdk/tool/png/zlib",
+    "-DPNG_NO_STDIO",
+    "-DPNG_NO_WRITE_tIME",
+    "-DPNG_USER_MEM_SUPPORTED",
+    "-DPNG_NO_PROGRESSIVE_READ",
+
+    "-fp_contract off",
+]
+
 # Debug flags
 if args.debug:
     # Or -sym dwarf-2 for Wii compilers
@@ -275,7 +287,7 @@ def RenderWareLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
         "mw_version": "GC/1.3.2",
-        "cflags": cflags_base,
+        "cflags": cflags_rw,
         "progress_category": "sdk",
         "objects": objects,
     }
@@ -1157,31 +1169,31 @@ config.libs = [
     RenderWareLib(
         "rtpng",
         [
-            Object(NonMatching, "rwsdk/tool/png/zlib/adler32.c"),
-            Object(NonMatching, "rwsdk/tool/png/zlib/deflate.c"),
-            Object(NonMatching, "rwsdk/tool/png/zlib/trees.c"),
-            Object(NonMatching, "rwsdk/tool/png/zlib/zutil.c"),
-            Object(NonMatching, "rwsdk/tool/png/zlib/inflate.c"),
-            Object(NonMatching, "rwsdk/tool/png/zlib/infblock.c"),
-            Object(NonMatching, "rwsdk/tool/png/zlib/inftrees.c"),
-            Object(NonMatching, "rwsdk/tool/png/zlib/infcodes.c"),
-            Object(NonMatching, "rwsdk/tool/png/zlib/infutil.c"),
-            Object(NonMatching, "rwsdk/tool/png/zlib/inffast.c"),
-            Object(NonMatching, "rwsdk/tool/png/zlib/crc32.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/png.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngerror.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngget.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngmem.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngread.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngrio.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngrtran.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngrutil.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngset.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngtrans.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngwio.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngwrite.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngwtran.c"),
-            Object(NonMatching, "rwsdk/tool/png/libpng/pngwutil.c"),
+            Object(Matching, "rwsdk/tool/png/zlib/adler32.c"),
+            Object(Matching, "rwsdk/tool/png/zlib/deflate.c"),
+            Object(Matching, "rwsdk/tool/png/zlib/trees.c"),
+            Object(Matching, "rwsdk/tool/png/zlib/zutil.c"),
+            Object(Matching, "rwsdk/tool/png/zlib/inflate.c"),
+            Object(Matching, "rwsdk/tool/png/zlib/infblock.c"),
+            Object(Matching, "rwsdk/tool/png/zlib/inftrees.c"),
+            Object(Matching, "rwsdk/tool/png/zlib/infcodes.c"),
+            Object(Matching, "rwsdk/tool/png/zlib/infutil.c"),
+            Object(Matching, "rwsdk/tool/png/zlib/inffast.c"),
+            Object(Matching, "rwsdk/tool/png/zlib/crc32.c"),
+            Object(Matching, "rwsdk/tool/png/libpng/png.c"),
+            Object(Matching, "rwsdk/tool/png/libpng/pngerror.c"),
+            Object(Matching, "rwsdk/tool/png/libpng/pngget.c"),
+            Object(Matching, "rwsdk/tool/png/libpng/pngmem.c"),
+            Object(Matching, "rwsdk/tool/png/libpng/pngread.c"),
+            Object(Matching, "rwsdk/tool/png/libpng/pngrio.c"),
+            Object(Equivalent, "rwsdk/tool/png/libpng/pngrtran.c"),
+            Object(Matching, "rwsdk/tool/png/libpng/pngrutil.c", extra_cflags=["-inline level=2"]),
+            Object(Matching, "rwsdk/tool/png/libpng/pngset.c"),
+            Object(Matching, "rwsdk/tool/png/libpng/pngtrans.c"),
+            Object(Matching, "rwsdk/tool/png/libpng/pngwio.c"),
+            Object(Matching, "rwsdk/tool/png/libpng/pngwrite.c"),
+            Object(Matching, "rwsdk/tool/png/libpng/pngwtran.c"),
+            Object(Equivalent, "rwsdk/tool/png/libpng/pngwutil.c"),
             Object(NonMatching, "rwsdk/tool/png/rtpng.c"),
         ]
     ),
