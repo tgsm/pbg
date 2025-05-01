@@ -1,37 +1,21 @@
 Piglet's Big Game
 =================
+[![Build Status]][actions] [![Progress]][Progress Site] [![Game Progress]][Progress Site] [![Engine Progress]][Progress Site]
 <!--
-[![Build Status]][actions] ![Progress] ![DOL Progress] ![RELs Progress] [![Discord Badge]][discord]
+[![Discord Badge]][discord]
 -->
 
-<!--
-Replace with your repository's URL.
--->
 [Build Status]: https://github.com/tgsm/pbg/actions/workflows/build.yml/badge.svg
 [actions]: https://github.com/tgsm/pbg/actions/workflows/build.yml
-<!---
-Code progress URL:
-https://progress.decomp.club/data/[project]/[version]/all/?mode=shield&measure=code
-URL encoded then appended to: https://img.shields.io/endpoint?label=Code&url=
--->
-[Progress]: https://img.shields.io/endpoint?label=Code&url=https%3A%2F%2Fprogress.decomp.club%2Fdata%2Ftww%2FGZLE01%2Fall%2F%3Fmode%3Dshield%26measure%3Dcode
-<!---
-DOL progress URL:
-https://progress.decomp.club/data/[project]/[version]/dol/?mode=shield&measure=code
-URL encoded then appended to: https://img.shields.io/endpoint?label=DOL&url=
--->
-[DOL Progress]: https://img.shields.io/endpoint?label=DOL&url=https%3A%2F%2Fprogress.decomp.club%2Fdata%2Ftww%2FGZLE01%2Fdol%2F%3Fmode%3Dshield%26measure%3Dcode
-<!--
-REL progress URL:
-https://progress.decomp.club/data/[project]/[version]/modules/?mode=shield&measure=code
-URL encoded then appended to: https://img.shields.io/endpoint?label=RELs&url=
--->
-[RELs Progress]: https://img.shields.io/endpoint?label=RELs&url=https%3A%2F%2Fprogress.decomp.club%2Fdata%2Ftww%2FGZLE01%2Fmodules%2F%3Fmode%3Dshield%26measure%3Dcode
+[Progress]: https://decomp.dev/tgsm/pbg.svg?mode=shield&measure=code&label=Overall
+[Game Progress]: https://decomp.dev/tgsm/pbg.svg?mode=shield&measure=code&label=Game&category=game
+[Engine Progress]: https://decomp.dev/tgsm/pbg.svg?mode=shield&measure=code&label=Engine&category=engine
+[Progress Site]: https://decomp.dev/tgsm/pbg
 <!--
 Replace with your Discord server's ID and invite URL.
--->
 [Discord Badge]: https://img.shields.io/discord/727908905392275526?color=%237289DA&logo=discord&logoColor=%23FFFFFF
 [discord]: https://discord.gg/hKx3FJJgrV
+-->
 
 A work-in-progress decompilation of Piglet's Big Game.
 
@@ -39,7 +23,7 @@ This repository does **not** contain any game assets or assembly whatsoever. An 
 
 Supported versions:
 
-- `GPLE9G`: Rev 0 (USA)
+- `GPLE9G`: USA
 
 Dependencies
 ============
