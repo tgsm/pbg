@@ -4,10 +4,14 @@
 
 // TODO
 class CEntityHero : public CEntityMesh {
-private:
+protected:
     u8 m_unkF4[0x128 - 0xF4];
     u32 m_state;
-    u8 m_unk12C[0x260 - 0x12C];
+    u8 m_unk12C[0x13C - 0x12C];
+    int m_unk13C;
+    u8 m_unk140[0x1DC - 0x140];
+    f32 m_unk1DC;
+    u8 m_unk1E0[0x260 - 0x1E0];
 
 public:
     struct HeroMoveParams {
@@ -34,8 +38,8 @@ public:
     virtual u32 GetState() { return m_state; }
     virtual f32 GetSpeed();
     virtual f32 GetMaxSpeed();
-    virtual void unk1() = 0;
-    virtual void unk2() = 0;
+    virtual void SetMode(u32 mode) = 0;
+    virtual void DicreaseLife(int) = 0;
     virtual CDKW_V3d GetPadDirection();
     virtual u8 GetActions();
     virtual void UpdateActions();
@@ -43,7 +47,7 @@ public:
     virtual void UpdateAnimations_Idle(f32);
     virtual void UpdateAnimations_AdventureMode(f32);
     virtual void Move(HeroMoveParams& params, f32);
-    virtual void unk3() = 0;
+    virtual void UpdateMoving(f32) = 0;
     virtual void ConvertPadToDirection(CDKW_V3d, CDKW_V3d*, f32*);
     virtual void ResetPadTimer(f32);
     virtual void SetToGround();
