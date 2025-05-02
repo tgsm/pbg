@@ -28,8 +28,7 @@ public:
         if (m_animation_star_controller->IsPlayingAnimationLooped()) {
             ret = TRUE;
         }
-        // FIXME: Should probably be calling c_str(), not begin().
-        if (strcmp(m_animation_star_controller->GetPlayingAnimationName()->begin(), "FRIGHTEN_PIGLET") != 0) {
+        if (strcmp(m_animation_star_controller->GetPlayingAnimationName()->c_str(), "FRIGHTEN_PIGLET") != 0) {
             ret = FALSE;
         }
 

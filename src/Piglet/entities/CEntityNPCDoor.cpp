@@ -46,8 +46,7 @@ void CEntityNPCDoor::UpdateDetectionBehaviour(f32) {
 
 void CEntityNPCDoor::UpdateSpecialBehaviour(f32) {
     std::string* anim_name = m_animation_star_controller->GetPlayingAnimationName();
-    // FIXME: We should call c_str(), not begin().
-    if (strcmp(anim_name->begin(), "LAUGH") == 0) {
+    if (strcmp(anim_name->c_str(), "LAUGH") == 0) {
         if (m_animation_star_controller->IsPlayingAnimationLooped()) {
             m_unkF4 &= ~(1 << 20);
             m_animation_star_controller->Play("WAIT");
