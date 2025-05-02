@@ -4,7 +4,7 @@
 
 class CGamePart {
 public:
-    u32 m_unk0;
+    int m_unk0;
     u32 m_unk4;
 
 public:

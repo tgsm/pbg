@@ -5,6 +5,47 @@
 // TODO
 class CEntityHero : public CEntityMesh {
 private:
-    u8 m_unkF4[0x260 - 0xF4];
+    u8 m_unkF4[0x128 - 0xF4];
+    u32 m_state;
+    u8 m_unk12C[0x260 - 0x12C];
+
+public:
+    struct HeroMoveParams {
+
+    };
+
+    CEntityHero(CEntityManager* entity_manager, std::string name);
+    virtual ~CEntityHero();
+
+    virtual void AddFlag(u32 flag);
+    virtual void DelFlag(u32 flag);
+    virtual u32 GetType() { return ENTITY_HERO; }
+    virtual void Reset();
+    virtual void Update(f32 dt_maybe);
+    virtual void Render(f32 dt_maybe);
+    virtual void Parse(DkXmd::CChunkIterator iter);
+    virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
+    virtual u32 GetSaveSize();
+    virtual void ManageMessage(SDkMessage&);
+    virtual void ResolveContact(); // FIXME: params
+    virtual void SetDirection(CDKW_V3d& direction);
+    virtual CDKW_V3d GetDirection();
+    virtual u32 GetMode();
+    virtual u32 GetState() { return m_state; }
+    virtual f32 GetSpeed();
+    virtual f32 GetMaxSpeed();
+    virtual void unk1() = 0;
+    virtual void unk2() = 0;
+    virtual CDKW_V3d GetPadDirection();
+    virtual u8 GetActions();
+    virtual void UpdateActions();
+    virtual void UpdateAnimations_Wait(f32, int);
+    virtual void UpdateAnimations_Idle(f32);
+    virtual void UpdateAnimations_AdventureMode(f32);
+    virtual void Move(HeroMoveParams& params, f32);
+    virtual void unk3() = 0;
+    virtual void ConvertPadToDirection(CDKW_V3d, CDKW_V3d*, f32*);
+    virtual void ResetPadTimer(f32);
+    virtual void SetToGround();
 };
 REQUIRE_SIZE(CEntityHero, 0x260);
