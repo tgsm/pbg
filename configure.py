@@ -205,6 +205,8 @@ cflags_base = [
 
     "-i include/PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Include",
     "-i include/PowerPC_EABI_Support/msl/MSL_C++/MSL_Common/Include",
+
+    "-D__GEKKO__"
 ]
 
 cflags_piglet = [
@@ -782,27 +784,27 @@ config.libs = [
     DolphinLib(
         "os",
         [
-            Object(NonMatching, "dolphin/os/OS.c"),
-            Object(NonMatching, "dolphin/os/OSAlarm.c"),
-            Object(NonMatching, "dolphin/os/OSArena.c"),
-            Object(NonMatching, "dolphin/os/OSAudioSystem.c"),
-            Object(NonMatching, "dolphin/os/OSCache.c"),
-            Object(NonMatching, "dolphin/os/OSContext.c"),
-            Object(NonMatching, "dolphin/os/OSError.c"),
+            Object(Equivalent, "dolphin/os/OS.c"),
+            Object(Matching, "dolphin/os/OSAlarm.c"),
+            Object(Matching, "dolphin/os/OSArena.c"),
+            Object(Matching, "dolphin/os/OSAudioSystem.c"),
+            Object(Matching, "dolphin/os/OSCache.c"),
+            Object(Matching, "dolphin/os/OSContext.c"),
+            Object(Equivalent, "dolphin/os/OSError.c"), # should be matching, something is making it not match though...
             Object(NonMatching, "dolphin/os/OSFont.c"),
-            Object(NonMatching, "dolphin/os/OSInterrupt.c"),
-            Object(NonMatching, "dolphin/os/OSLink.c"),
-            Object(NonMatching, "dolphin/os/OSMessage.c"),
-            Object(NonMatching, "dolphin/os/OSMemory.c"),
-            Object(NonMatching, "dolphin/os/OSMutex.c"),
+            Object(Matching, "dolphin/os/OSInterrupt.c"),
+            Object(Matching, "dolphin/os/OSLink.c"),
+            Object(Matching, "dolphin/os/OSMessage.c"),
+            Object(Matching, "dolphin/os/OSMemory.c"),
+            Object(Matching, "dolphin/os/OSMutex.c"),
             Object(NonMatching, "dolphin/os/OSReboot.c"),
             Object(NonMatching, "dolphin/os/OSReset.c"),
-            Object(NonMatching, "dolphin/os/OSResetSW.c"),
-            Object(NonMatching, "dolphin/os/OSRtc.c"),
-            Object(NonMatching, "dolphin/os/OSSemaphore.c"),
-            Object(NonMatching, "dolphin/os/OSSync.c"),
-            Object(NonMatching, "dolphin/os/OSThread.c"),
-            Object(NonMatching, "dolphin/os/OSTime.c"),
+            Object(Matching, "dolphin/os/OSResetSW.c"),
+            Object(Matching, "dolphin/os/OSRtc.c"),
+            Object(Matching, "dolphin/os/OSSemaphore.c"),
+            Object(Matching, "dolphin/os/OSSync.c"),
+            Object(Matching, "dolphin/os/OSThread.c"),
+            Object(Matching, "dolphin/os/OSTime.c"),
             Object(NonMatching, "dolphin/os/init/__start.c"),
             Object(NonMatching, "dolphin/os/init/__ppc_eabi_init.cpp"),
         ]
