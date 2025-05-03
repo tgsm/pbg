@@ -5,7 +5,8 @@
 // TODO
 class CEntityHero : public CEntityMesh {
 protected:
-    u8 m_unkF4[0x128 - 0xF4];
+    u8 m_unkF4[0x124 - 0xF4];
+    u32 m_unk124;
     u32 m_state;
     u8 m_unk12C[0x13C - 0x12C];
     int m_unk13C;
