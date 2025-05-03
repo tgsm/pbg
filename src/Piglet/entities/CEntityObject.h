@@ -4,6 +4,16 @@
 #include "engine/wrap/DKW_V3d.h"
 #include "entities/CEntity.h"
 
+// FIXME: Move this to the engine
+namespace DkPh {
+
+class Collider {
+public:
+    class Body {};
+};
+
+};
+
 // TODO
 class CDKW_Matrix {};
 
@@ -39,7 +49,7 @@ public:
     virtual void SetYOrientation(f32 y);
     virtual CDKW_Matrix GetMatrix();
     virtual void UpdateContacts();
-    virtual void ResolveContact(); // FIXME: params
+    virtual void ResolveContact(const DkPh::Collider::Body&, int, int);
     virtual void UpdateVolumes();
     virtual void ParseCollisions(DkXmd::CChunkIterator iter);
     virtual void ParseCollisionsBVolume(DkXmd::CChunkIterator iter); // FIXME: params

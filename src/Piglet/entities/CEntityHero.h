@@ -9,9 +9,18 @@ protected:
     u32 m_state;
     u8 m_unk12C[0x13C - 0x12C];
     int m_unk13C;
-    u8 m_unk140[0x1DC - 0x140];
+    u8 m_unk140[0x1CC - 0x140];
+    CDKW_V3d m_unk1CC;
+    u8 m_unk1D8[4];
     f32 m_unk1DC;
-    u8 m_unk1E0[0x260 - 0x1E0];
+    u8 m_unk1E0[0x244 - 0x1E0];
+    f32 m_unk244;
+    f32 m_unk248;
+    f32 m_unk24C;
+    f32 m_unk250;
+    f32 m_unk254;
+    f32 m_unk258;
+    u8 m_unk25C[4];
 
 public:
     struct HeroMoveParams {
@@ -29,9 +38,10 @@ public:
     virtual void Render(f32 dt_maybe);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
-    virtual u32 GetSaveSize();
+    virtual u32 GetSaveSize() { return 0; }
     virtual void ManageMessage(SDkMessage&);
-    virtual void ResolveContact(); // FIXME: params
+    virtual void ResolveContact(const DkPh::Collider::Body&, int, int);
+    virtual void UpdateAnimations(f32);
     virtual void SetDirection(CDKW_V3d& direction);
     virtual CDKW_V3d GetDirection();
     virtual u32 GetMode();

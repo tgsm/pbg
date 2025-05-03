@@ -28,7 +28,7 @@ public:
     virtual void Save(void*);
     virtual void Restore(void*);
     virtual void ManageMessage(SDkMessage&);
-    virtual void ResolveContact(); // FIXME: params
+    virtual void ResolveContact(const DkPh::Collider::Body&, int, int);
     virtual void UpdateAnimations(f32);
     virtual void SetMode(u32 mode);
     virtual void DicreaseLife(int);

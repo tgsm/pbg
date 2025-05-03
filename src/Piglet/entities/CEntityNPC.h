@@ -30,7 +30,7 @@ public:
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual void Save(void*);
     virtual void Restore(void*);
-    virtual void ResolveContact(); // FIXME: params
+    virtual void ResolveContact(const DkPh::Collider::Body&, int, int);
     virtual u32 Create(std::string);
     virtual void UpdateDetectionBehaviour(f32);
     virtual void UpdatePursuitBehaviour(f32);
