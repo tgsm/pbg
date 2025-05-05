@@ -1,8 +1,9 @@
 #pragma once on
 
 #include <string>
-#include "CGame.h"
 #include "types.h"
+
+class CGame;
 
 struct CMission_UnkSubstruct {
     u8 unk0[256];

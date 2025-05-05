@@ -7,6 +7,7 @@
 #include "engine/wrap/DKW_RGBA.h"
 #include "CGamePart.h"
 #include "CMailBox.h"
+#include "CMission.h"
 #include "CResourceFactory.h"
 
 class CEntityManager;
@@ -24,7 +25,9 @@ public:
     };
 
 public:
-    u8 m_unk0[0x4F50];
+    u8 m_unk0[0x210];
+    CMission m_unk210[8];
+    CMission m_unk28B0[8];
     f32 m_delta_time;
     u8 m_unk4F54[0x4F5C - 0x4F54];
     u32 m_unk4F5C;

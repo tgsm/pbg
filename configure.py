@@ -499,7 +499,7 @@ config.libs = [
             Object(Matching, "engine/display/ITimer.cpp"),
             Object(NonMatching, "engine/display/CCharset.cpp"),
             Object(NonMatching, "engine/display/CHierarchy.cpp"),
-            Object(NonMatching, "engine/display/IImage.cpp"),
+            Object(Matching, "engine/display/IImage.cpp"),
             Object(NonMatching, "engine/display/CImage.cpp"),
             Object(NonMatching, "engine/display/CTexture.cpp"),
             Object(NonMatching, "engine/display/CTextureDictionary.cpp"),

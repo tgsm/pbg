@@ -9,6 +9,8 @@ class IRaster;
 // TODO
 class IImage {
 public:
+    IImage();
+
     virtual u8* AllocatePixels() = 0;
     virtual u32 FreePixels() = 0;
     virtual BOOL SetFromRaster(IRaster*) = 0;
