@@ -6,7 +6,8 @@
 class CGame;
 
 struct CMission_UnkSubstruct {
-    u8 unk0[256];
+    int unk0[8];
+    int unk20[8];
 };
 
 class CMission {
@@ -27,7 +28,7 @@ private:
     u32 m_unk34;
     int m_num_rooms;
     u32 m_rooms[16];
-    CMission_UnkSubstruct m_unk7C[4];
+    CMission_UnkSubstruct m_unk7C[16];
     std::string m_start_mission_fmv;
     std::string m_end_mission_fmv;
     std::string m_mission_fight_warp_model;
