@@ -1,8 +1,187 @@
+#include "engine/xmd/CChunkIterator.h"
+#include "engine/xmd/CXmdFile.h"
 #include "CMission.h"
+#include "CGame.h"
 #include <cstring>
 #include <iostream>
 
 u32 CMission::m_MaxNbCookies = 0;
+
+BOOL CMission::LoadConfigFile(u32 a1) {
+    u32 unk1 = m_game->m_resource_factory->m_unk8;
+    m_game->m_resource_factory->m_unk8 = 1;
+
+    char filename[128];
+    sprintf(filename, "Missions/Mission%d/Mission%0d.XMD", m_mission_no, m_mission_no);
+    void* file = m_game->m_resource_factory->LoadPureFile(filename, NULL);
+    if (file == NULL) {
+        m_game->m_resource_factory->m_unk8 = unk1;
+        return FALSE;
+    }
+
+    DkXmd::CXmdFile xmd;
+    if (!xmd.Parse(file)) {
+        m_game->m_resource_factory->m_unk8 = unk1;
+        delete file;
+        return FALSE;
+    }
+
+    DkXmd::CChunkIterator file_chunk = xmd.m_chunk_iterator;
+
+    char buf[256];
+    DkXmd::CChunkIterator dest1, dest2;
+    CResourceFactory* resource_factory;
+
+    if (a1) {
+        if (file_chunk.GetChunk("MissionName", dest1)) {
+            SetName(dest1.GetStringValue());
+        }
+        if (file_chunk.GetChunk("StartLockStatus", dest1)) {
+            if (dest1.GetS32Value() == 0) {
+                m_unk30 = 0;
+            } else {
+                m_unk30 = 1;
+            }
+        }
+        if (file_chunk.GetChunk("StartCompletionStatus", dest1)) {
+            if (dest1.GetS32Value() == 0) {
+                m_unk2C = 0;
+            } else {
+                m_unk2C = 1;
+            }
+        }
+        if (file_chunk.GetChunk("StartRoom", dest1)) {
+            m_unkC = dest1.GetS32Value();
+            m_rooms[m_unkC] |= (1 << 0);
+        }
+        if (file_chunk.GetChunk("StartMode", dest1)) {
+            m_unk10 = dest1.GetS32Value();
+        }
+
+        if (file_chunk.GetChunk("StartPosition", dest1)) {
+            if (dest1.GetChunk("X", dest2)) {
+                m_start_position_x = dest2.GetFloatValue();
+            }
+            if (dest1.GetChunk("Y", dest2)) {
+                m_start_position_y = dest2.GetFloatValue();
+            }
+            if (dest1.GetChunk("Z", dest2)) {
+                m_start_position_z = dest2.GetFloatValue();
+            }
+        }
+        if (file_chunk.GetChunk("StartRotation", dest1)) {
+            if (dest1.GetChunk("X", dest2)) {
+                m_start_rotation_x = dest2.GetFloatValue();
+            }
+            if (dest1.GetChunk("Y", dest2)) {
+                m_start_rotation_y = dest2.GetFloatValue();
+            }
+            if (dest1.GetChunk("Z", dest2)) {
+                m_start_rotation_z = dest2.GetFloatValue();
+            }
+        }
+
+        if (file_chunk.GetChunk("StartFMV", dest1)) {
+            SetStartMissionFMV(dest1.GetStringValue());
+        }
+        if (file_chunk.GetChunk("StartRTC", dest1)) {
+            SetStartRTC(dest1.GetStringValue());
+        }
+        if (file_chunk.GetChunk("EndFMV", dest1)) {
+            SetEndMissionFMV(dest1.GetStringValue());
+        }
+        if (file_chunk.GetChunk("MissionRoomNumbers", dest1)) {
+            m_num_rooms = dest1.GetS32Value();
+        }
+        if (file_chunk.GetChunk("MissionFightWarpModel", dest1)) {
+            SetMissionFightWarpModel(dest1.GetStringValue());
+        }
+        if (file_chunk.GetChunk("MissionTotalCookies", dest1)) {
+            m_num_total_cookies = dest1.GetS32Value();
+        }
+
+        if (file_chunk.GetChunk("MissionNoNPCRoomList", dest1)) {
+            dest1.GetFirstChildChunk(dest1);
+            do {
+                char* name = dest1.GetName();
+                if (name != NULL && strcmp(name, "Room") == 0) {
+                    m_rooms[dest1.GetS32Value()] |= (1 << 1);
+                } else {
+                    break;
+                }
+            } while (dest1.GetNextSiblingChunk(dest1));
+        }
+    } else {
+        if (file_chunk.GetFirstChildChunk(dest1)) {
+            do {
+                strcpy(buf, dest1.GetName());
+
+                if (strcmp(buf, "TexDict") == 0) {
+                    resource_factory = m_game->m_resource_factory;
+                    resource_factory->LoadResource(6, dest1.GetStringValue());
+                }
+            } while (dest1.GetNextSiblingChunk(dest1));
+        }
+
+        if (file_chunk.GetFirstChildChunk(dest1)) {
+            do {
+                strcpy(buf, dest1.GetName());
+
+                resource_factory = m_game->m_resource_factory;
+                if (strcmp(buf, "Mesh") == 0) {
+                    resource_factory = m_game->m_resource_factory;
+                    resource_factory->LoadResource(1, dest1.GetStringValue());
+                } else if (strcmp(buf, "ANM") == 0) {
+                    resource_factory = m_game->m_resource_factory;
+                    resource_factory->LoadResource(3, dest1.GetStringValue());
+                } else if (strcmp(buf, "DMA") == 0) {
+                    resource_factory = m_game->m_resource_factory;
+                    resource_factory->LoadResource(4, dest1.GetStringValue());
+                } else if (strcmp(buf, "TAN") == 0) {
+                    resource_factory = m_game->m_resource_factory;
+                    resource_factory->LoadResource(5, dest1.GetStringValue());
+                } else if (strcmp(buf, "ParticleEmitterFile") == 0) {
+                    if (dest1.GetStringValue() != NULL) {
+                        resource_factory = m_game->m_resource_factory;
+                        resource_factory->LoadResource(9, dest1.GetStringValue());
+                    }
+                } else if (strcmp(buf, "SndDict") == 0) {
+                    resource_factory = m_game->m_resource_factory;
+                    resource_factory->LoadResource(10, dest1.GetStringValue());
+                } else if (strcmp(buf, "StreamDict") == 0) {
+                    resource_factory = m_game->m_resource_factory;
+                    resource_factory->LoadResource(12, dest1.GetStringValue());
+                } else if (strcmp(buf, "GUI") == 0) {
+                    m_game->m_gui_manager->LoadGui(&dest1, 1);
+                } else if (strcmp(buf, "Minimap") == 0) {
+                    m_game->m_minimap->Load(&dest1);
+                }
+            } while (dest1.GetNextSiblingChunk(dest1));
+        }
+
+        if (file_chunk.GetChunk("MissionNoNPCRoomList", dest1)) {
+            dest1.GetFirstChildChunk(dest1);
+            do {
+                strcpy(buf, dest1.GetName());
+                if (strcmp(buf, "Room") == 0) {
+                    m_rooms[dest1.GetS32Value()] |= (1 << 1);
+                } else {
+                    break;
+                }
+            } while (dest1.GetNextSiblingChunk(dest1));
+        }
+    }
+
+    m_game->m_resource_factory->m_unk8 = unk1;
+    delete file;
+    return TRUE;
+}
+
+void CMission::UnloadConfigFile() {
+    m_game->m_gui_manager->UnLoadLevel(1);
+    m_game->m_resource_factory->UnloadResources(1);
+    m_game->m_minimap->Unload();
+}
 
 u32 CMission::GetSaveSize() {
     // FIXME: Calculate this

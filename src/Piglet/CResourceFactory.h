@@ -5,6 +5,11 @@
 
 class CResourceFactory : public DKDSP::ITextureCallback {
 public:
+    u8 m_unk0[0x8];
+    u32 m_unk8;
+    u8 m_unkC[0x24 - 0xC];
+
+public:
     virtual ~CResourceFactory();
 
     virtual void AddTexture(DKDSP::ITexture*);
@@ -12,4 +17,7 @@ public:
     virtual void LoadResource(u32, const char*);
     virtual void* LoadPureFile(std::string&, u32*);
     virtual void* LoadPureFile(const char*, u32*);
+
+    void UnloadResources(u32);
 };
+REQUIRE_SIZE(CResourceFactory, 0x28);

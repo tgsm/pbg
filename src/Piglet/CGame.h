@@ -6,7 +6,9 @@
 #include "engine/display/CTimer.h"
 #include "engine/wrap/DKW_RGBA.h"
 #include "CGamePart.h"
+#include "CGuiManager.h"
 #include "CMailBox.h"
+#include "CMiniMap.h"
 #include "CMission.h"
 #include "CResourceFactory.h"
 
@@ -36,11 +38,13 @@ public:
     DKDSP::CTextureDictionary* m_texture_dictionary;
     u8 m_unk4F90[0x4FA0 - 0x4F90];
     CEntityManager* m_entity_manager;
-    u8 m_unk4FA4[4];
+    CMiniMap* m_minimap;
     CResourceFactory* m_resource_factory;
     DKDSP::CTimer* m_timer;
     CMailBox* m_mailbox;
-    u8 m_unk4FB4[0x4FE4 - 0x4FB4];
+    u8 m_unk4FB4[0x4FDC - 0x4FB4];
+    CGuiManager* m_gui_manager;
+    u8 m_unk4FE0[4];
     CShadowZone* m_shadow_zone;
     u8 m_unk4FE8[0x500C - 0x4FE8];
     CGamePart* m_game_part;
