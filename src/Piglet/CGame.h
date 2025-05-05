@@ -1,12 +1,16 @@
 #pragma once on
 
 #include <string>
+#include "engine/display/CEngine.h"
+#include "engine/display/CTextureDictionary.h"
 #include "engine/display/CTimer.h"
 #include "engine/wrap/DKW_RGBA.h"
 #include "CGamePart.h"
 #include "CMailBox.h"
+#include "CResourceFactory.h"
 
 class CEntityManager;
+class CShadowZone;
 
 // Very TODO, there's a lot of stuff in this class
 class CGame {
@@ -24,12 +28,18 @@ public:
     f32 m_delta_time;
     u8 m_unk4F54[0x4F5C - 0x4F54];
     u32 m_unk4F5C;
-    u8 m_unk4F60[0x4FA0 - 0x4F60];
+    u8 m_unk4F60[0x4F88 - 0x4F60];
+    DKDSP::CEngine* m_display_engine;
+    DKDSP::CTextureDictionary* m_texture_dictionary;
+    u8 m_unk4F90[0x4FA0 - 0x4F90];
     CEntityManager* m_entity_manager;
-    u8 m_unk4FA4[0x4FAC - 0x4FA4];
+    u8 m_unk4FA4[4];
+    CResourceFactory* m_resource_factory;
     DKDSP::CTimer* m_timer;
     CMailBox* m_mailbox;
-    u8 m_unk4FB4[0x500C - 0x4FB4];
+    u8 m_unk4FB4[0x4FE4 - 0x4FB4];
+    CShadowZone* m_shadow_zone;
+    u8 m_unk4FE8[0x500C - 0x4FE8];
     CGamePart* m_game_part;
     u8 m_unk5010[0x502C - 0x5010];
     f32 m_unk502C;
