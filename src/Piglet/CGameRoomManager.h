@@ -5,7 +5,8 @@
 
 class CGameRoomManager {
 public:
-    u8 m_unk0[0x44];
+    u32 m_unk0;
+    u8 m_unk4[0x40];
     u32 m_unk44;
     u8 m_unk48[0x178 - 0x48];
 

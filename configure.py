@@ -417,7 +417,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CMiniMap.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityBhvTagBoxPosition.cpp"),
             Object(NonMatching, "Piglet/entities/CEntity3DSound.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityBhvTagFinishMission.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityBhvTagFinishMission.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagNarrator.cpp"),
             Object(NonMatching, "Piglet/CFxManager.cpp"),
             Object(NonMatching, "Piglet/CShadowZone.cpp"),

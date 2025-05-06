@@ -31,7 +31,8 @@ public:
     CMission m_unk210[8];
     CMission m_unk28B0[8];
     f32 m_delta_time;
-    u8 m_unk4F54[0x4F5C - 0x4F54];
+    u32 m_unk4F54;
+    u8 m_unk4F58[4];
     u32 m_unk4F5C;
     u8 m_unk4F60[0x4F88 - 0x4F60];
     DKDSP::CEngine* m_display_engine;
