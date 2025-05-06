@@ -436,7 +436,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CRTCMessageEvent.cpp"),
             Object(NonMatching, "Piglet/CFullScreenEffect.cpp"),
             Object(NonMatching, "Piglet/CRTCGrimaceEvent.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityBhvTagReceiveShadow.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityBhvTagReceiveShadow.cpp"),
             Object(NonMatching, "Piglet/CGCNFont.cpp"),
         ]
     },

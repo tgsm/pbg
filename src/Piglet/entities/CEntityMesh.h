@@ -4,8 +4,10 @@
 #include "entities/CEntityObject.h"
 
 class CEntityMesh : public CEntityObject {
-protected:
-    u8 m_unk40[0xC4 - 0x40];
+public: // protected
+    u8 m_unk40[4];
+    BOOL m_unk44;
+    u8 m_unk48[0xC4 - 0x48];
     DKDSP::CAnimationStarController* m_animation_star_controller;
     u8 m_unkC8[0xF4 - 0xC8];
 
