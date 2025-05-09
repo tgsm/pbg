@@ -4,7 +4,9 @@
 #include "engine/display/CEngine.h"
 #include "engine/display/CTextureDictionary.h"
 #include "engine/display/CTimer.h"
+#include "engine/sound/CSoundEngine.h"
 #include "engine/wrap/DKW_RGBA.h"
+#include "CFullScreenEffect.h"
 #include "CGamePart.h"
 #include "CGuiManager.h"
 #include "CMailBox.h"
@@ -32,9 +34,11 @@ public:
     CMission m_unk28B0[8];
     f32 m_delta_time;
     u32 m_unk4F54;
-    u8 m_unk4F58[4];
+    u32 m_unk4F58;
     u32 m_unk4F5C;
-    u8 m_unk4F60[0x4F88 - 0x4F60];
+    u8 m_unk4F60[0x4F80 - 0x4F60];
+    DKSND::CSoundEngine* m_sound_engine;
+    u8 m_unk4F84[4];
     DKDSP::CEngine* m_display_engine;
     DKDSP::CTextureDictionary* m_texture_dictionary;
     u8 m_unk4F90[0x4FA0 - 0x4F90];
@@ -47,7 +51,9 @@ public:
     CGuiManager* m_gui_manager;
     u8 m_unk4FE0[4];
     CShadowZone* m_shadow_zone;
-    u8 m_unk4FE8[0x500C - 0x4FE8];
+    u8 m_unk4FE8[0x5000 - 0x4FE8];
+    CScreenEffect* m_screen_effect;
+    u8 m_unk5004[0x500C - 0x5004];
     CGamePart* m_game_part;
     u8 m_unk5010[0x502C - 0x5010];
     f32 m_unk502C;
