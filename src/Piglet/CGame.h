@@ -31,7 +31,9 @@ public:
     };
 
 public:
-    u8 m_unk0[0x210];
+    u8 m_unk0[8];
+    u32 m_unk8;
+    u8 m_unkC[0x210 - 0xC];
     CMission m_unk210[8];
     CMission m_unk28B0[8];
     f32 m_delta_time;
@@ -76,6 +78,8 @@ public:
     virtual BOOL NextFrame();
 
     CMailBox* GetMailbox() { return m_mailbox; }
+
+    u32& GetFlags() { return m_unk8; }
 
     void PlayNarratorLine(std::string line_id);
     void ResetOpcodeBuffer();

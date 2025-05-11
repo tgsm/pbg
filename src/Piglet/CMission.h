@@ -11,7 +11,7 @@ struct CMission_UnkSubstruct {
 };
 
 class CMission {
-private:
+public:
     CGame* m_game;
     std::string m_mission_name;
     int m_mission_no;
@@ -88,6 +88,6 @@ public:
     u32 GetMaxCollectedNbCookies();
     BOOL IsRoomCompleted(u32 room_no);
     BOOL IsRoomOpened(u32 room_no);
-    BOOL IsSecondPassCompleted();
+    u32 IsSecondPassCompleted();
 };
 REQUIRE_SIZE(CMission, 0x4D4);

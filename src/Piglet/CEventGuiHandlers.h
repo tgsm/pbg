@@ -96,7 +96,9 @@ public:
 
     virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
 
-    std::string GetFilename();
+    std::string GetFilename() {
+        return m_unk10;
+    }
 };
 
 class CGuiLoadLoadSuccessEventHandler : public CGuiBaseEventHandler {
@@ -341,6 +343,9 @@ public:
     virtual ~CGuiDreamSelectEventHandler() {}
 
     virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
+
+    void GotoMission(int);
+    void PlayNarrator(int mission_no);
 };
 
 class CGuiScreenSettingEventHandler : public CGuiBaseEventHandler {
