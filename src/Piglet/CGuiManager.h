@@ -17,4 +17,5 @@ public:
     PlaceholderGUIStruct* GetGuiPtr(const std::string& name); // FIXME: Figure out what this actually returns
     void SetActive(const std::string& name, int);
     void SetVisible(const std::string& name, int);
+    void* IsEventCallbackRegistered(const std::string& event_name);
 };

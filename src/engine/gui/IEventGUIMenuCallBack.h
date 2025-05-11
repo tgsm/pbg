@@ -7,6 +7,8 @@ namespace DKGUI {
 class IGUIMenu;
 
 enum EMENU_EVENT {
+    EVENT_0 = 0,
+    EVENT_2 = 2,
     EVENT_3 = 3,
 };
 

@@ -1,6 +1,7 @@
 #pragma once on
 
 #include <string>
+#include "engine/backup/CGCNBAKEngine.h"
 #include "engine/display/CEngine.h"
 #include "engine/display/CTextureDictionary.h"
 #include "engine/display/CTimer.h"
@@ -21,6 +22,7 @@ class CShadowZone;
 class CGame {
 public:
     enum ERommFadeType {
+        FADE_TYPE_3 = 3,
         FADE_TYPE_4 = 4,
     };
 
@@ -51,14 +53,17 @@ public:
     CGuiManager* m_gui_manager;
     u8 m_unk4FE0[4];
     CShadowZone* m_shadow_zone;
-    u8 m_unk4FE8[0x5000 - 0x4FE8];
+    u8 m_unk4FE8[4];
+    DKBAK::CGCNBAKEngine* m_backup_engine;
+    u8 m_unk4FF0[0x5000 - 0x4FF0];
     CScreenEffect* m_screen_effect;
     u8 m_unk5004[0x500C - 0x5004];
     CGamePart* m_game_part;
     u8 m_unk5010[0x502C - 0x5010];
     f32 m_unk502C;
     f32 m_unk5030;
-    u8 m_unk5034[0x503C - 0x5034];
+    u8 m_unk5034[4];
+    u32 m_unk5038;
     u8 m_unk503C;
     u8 m_unk503D[0x5048 - 0x503D];
     f32 m_unk5048;

@@ -25,6 +25,8 @@ public:
 
 template <typename T, typename Allocator = allocator<T>, bool IsPOD>
 class __vector_imp : public __vector_pod<T, Allocator> {
+public:
+    void reserve(unsigned long n);
 };
 
 template <typename T, typename Allocator = allocator<T> >
