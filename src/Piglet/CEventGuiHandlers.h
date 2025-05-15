@@ -76,7 +76,6 @@ public:
 
 class CGuiChooseGameEventHandler : public CGuiBaseEventHandler {
 private:
-    u32 m_unkC;
     std::vector<std::string> m_unk10;
 
 public:
@@ -143,6 +142,10 @@ public:
     virtual ~CGuiEnterNameEventHandler() {}
 
     virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
+
+    std::string GetText() {
+        return m_unk14;
+    }
 };
 
 class CGuiSaveCheckingMemorycardEventHandler : public CGuiBaseEventHandler {

@@ -16,7 +16,7 @@ public:
     virtual void SetIconFile(std::string icon);
     virtual void SetEventCB(IEventBackupCB*);
     virtual u32 GetState();
-    virtual int Format();
+    virtual u32 Format();
     virtual void FindFirst(std::string, std::string);
     virtual void FindNext();
     virtual void GetDate(std::string, std::string, DKBAK_DATE&);
