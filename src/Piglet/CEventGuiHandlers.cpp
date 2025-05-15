@@ -583,6 +583,7 @@ CGuiLoadCorruptMemcardEventHandler::CGuiLoadCorruptMemcardEventHandler() : CGuiB
 
 }
 
+// Equivalent: regalloc
 void CGuiLoadCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT event, void* unk) {
     CGuiBaseEventHandler::OnEvent(menu, event, unk);
 
@@ -814,13 +815,20 @@ void CGuiSaveFormatEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
             m_game->m_timer->Resume();
 
             if (!(backup_state & (1 << 0))) {
-                m_game->m_gui_manager->GetGuiPtr("SAVE_MMC_UNUSEABLE")->menu->Reset();
-                m_game->m_gui_manager->SetActive("SAVE_MMC_UNUSEABLE", 0);
-                m_game->m_gui_manager->SetVisible("SAVE_MMC_UNUSEABLE", 0);
+                m_game->m_gui_manager->GetGuiPtr("SAVE_UNFORMAT")->menu->Reset();
+                m_game->m_gui_manager->SetActive("SAVE_UNFORMAT", 0);
+                m_game->m_gui_manager->SetVisible("SAVE_UNFORMAT", 0);
 
-                m_game->m_gui_manager->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
-                m_game->m_gui_manager->SetActive("SAVE_CHECK_MMC", 1);
-                m_game->m_gui_manager->SetVisible("SAVE_CHECK_MMC", 1);
+                if (m_game->m_unk8 & (1 << 9)) {
+                    m_game->m_gui_manager->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
+                    m_game->m_gui_manager->SetActive("LOAD_CHECK_MMC", 1);
+                    m_game->m_gui_manager->SetVisible("LOAD_CHECK_MMC", 1);
+                    m_game->m_unk8 &= ~(1 << 9);
+                } else {
+                    m_game->m_gui_manager->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
+                    m_game->m_gui_manager->SetActive("SAVE_CHECK_MMC", 1);
+                    m_game->m_gui_manager->SetVisible("SAVE_CHECK_MMC", 1);
+                }
             } else {
                 gs_TimeBeforeMemCardCheck = 1.0f;
             }
@@ -830,17 +838,23 @@ void CGuiSaveFormatEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
     } else if (event == DKGUI::EVENT_3) {
         std::string str = (char*)unk;
         if (str == "yes") {
-            m_game->m_gui_manager->GetGuiPtr("SAVE_MMC_UNUSEABLE")->menu->Reset();
-            m_game->m_gui_manager->SetActive("SAVE_MMC_UNUSEABLE", 0);
-            m_game->m_gui_manager->SetVisible("SAVE_MMC_UNUSEABLE", 0);
+            m_game->m_gui_manager->GetGuiPtr("SAVE_UNFORMAT")->menu->Reset();
+            m_game->m_gui_manager->SetActive("SAVE_UNFORMAT", 0);
+            m_game->m_gui_manager->SetVisible("SAVE_UNFORMAT", 0);
 
-            m_game->m_gui_manager->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
-            m_game->m_gui_manager->SetActive("SAVE_CHECK_MMC", 1);
-            m_game->m_gui_manager->SetVisible("SAVE_CHECK_MMC", 1);
+            m_game->m_gui_manager->GetGuiPtr("SAVE_FORMAT_SURE")->menu->Reset();
+            m_game->m_gui_manager->SetActive("SAVE_FORMAT_SURE", 1);
+            m_game->m_gui_manager->SetVisible("SAVE_FORMAT_SURE", 1);
+
         } else if (str == "no") {
-            m_game->m_gui_manager->GetGuiPtr("SAVE_MMC_UNUSEABLE")->menu->Reset();
-            m_game->m_gui_manager->SetActive("SAVE_MMC_UNUSEABLE", 0);
-            m_game->m_gui_manager->SetVisible("SAVE_MMC_UNUSEABLE", 0);
+            m_game->m_gui_manager->GetGuiPtr("SAVE_UNFORMAT")->menu->Reset();
+            m_game->m_gui_manager->SetActive("SAVE_UNFORMAT", 0);
+            m_game->m_gui_manager->SetVisible("SAVE_UNFORMAT", 0);
+
+            if (m_game->m_unk8 & (1 << 9)) {
+                m_game->m_unk8 &= ~(1 << 9);
+                return;
+            }
 
             if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
@@ -1016,6 +1030,7 @@ CGuiFormatOkEventHandler::CGuiFormatOkEventHandler() : CGuiBaseEventHandler("Gui
 
 }
 
+// Equivalent: regalloc
 void CGuiFormatOkEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT event, void* unk) {
     CGuiBaseEventHandler::OnEvent(menu, event, unk);
 
