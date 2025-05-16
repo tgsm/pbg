@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ENGINE_INPUT_CINPUT_H
+#define ENGINE_INPUT_CINPUT_H
 
 #include "input/IInput.h"
 
@@ -27,3 +28,5 @@ public:
 REQUIRE_SIZE(CInput, 0x10);
 
 }
+
+#endif

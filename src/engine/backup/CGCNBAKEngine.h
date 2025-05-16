@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ENGINE_BACKUP_CGCNBAKENGINE_H
+#define ENGINE_BACKUP_CGCNBAKENGINE_H
 
 #include <string>
 #include "types.h"
@@ -28,3 +29,5 @@ public:
 };
 
 }
+
+#endif

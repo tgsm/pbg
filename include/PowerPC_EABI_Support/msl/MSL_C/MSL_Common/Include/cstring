@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef _MSL_CSTRING
+#define _MSL_CSTRING
 
 #include "null.h"
 #include "size_t.h"
@@ -19,4 +20,6 @@ void* memcpy(void* dest, const void* src, unsigned long n);
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif

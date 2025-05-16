@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef _MSL_IOSTREAM
+#define _MSL_IOSTREAM
 
 namespace std {
 
@@ -18,3 +19,5 @@ static __nInit __msl_ios_base_ninit;
 static __wInit __msl_ios_base_winit;
 
 }
+
+#endif

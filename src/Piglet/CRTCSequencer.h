@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PIGLET_CRTCSEQUENCER_H
+#define PIGLET_CRTCSEQUENCER_H
 
 #include "types.h"
 
@@ -17,3 +18,5 @@ public:
     virtual void Reinitialize();
 };
 REQUIRE_SIZE(CRTCSeqKey, 0x10);
+
+#endif

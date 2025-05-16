@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef _MSL_CSTDIO
+#define _MSL_CSTDIO
 
 #ifdef __cplusplus
 extern "C" {
@@ -8,4 +9,6 @@ int sprintf(char* str, const char* fmt, ...);
 
 #ifdef __cplusplus
 }
+#endif
+
 #endif

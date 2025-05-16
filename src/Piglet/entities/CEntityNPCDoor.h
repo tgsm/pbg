@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PIGLET_ENTITIES_CENTITYNPCDOOR_H
+#define PIGLET_ENTITIES_CENTITYNPCDOOR_H
 
 #include "entities/CEntityNPC.h"
 
@@ -29,3 +30,5 @@ public:
     BOOL CanLaunchFightMode();
 };
 REQUIRE_SIZE(CEntityNPCDoor, 0x2E0);
+
+#endif

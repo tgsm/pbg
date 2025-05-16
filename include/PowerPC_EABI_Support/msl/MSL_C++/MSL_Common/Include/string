@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef _MSL_STRING
+#define _MSL_STRING
 
 #include <cstring>
 #include <memory>
@@ -66,3 +67,5 @@ struct basic_string {
 typedef basic_string<char> string;
 
 }
+
+#endif

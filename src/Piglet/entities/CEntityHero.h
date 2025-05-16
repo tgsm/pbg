@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PIGLET_ENTITIES_CENTITYHERO_H
+#define PIGLET_ENTITIES_CENTITYHERO_H
 
 #include "entities/CEntityMesh.h"
 
@@ -64,3 +65,5 @@ public:
     virtual void SetToGround();
 };
 REQUIRE_SIZE(CEntityHero, 0x260);
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PIGLET_ENTITIES_CENTITYTIGGER_H
+#define PIGLET_ENTITIES_CENTITYTIGGER_H
 
 #include "entities/CEntityHero.h"
 
@@ -27,3 +28,5 @@ public:
     virtual void UnDetected();
 };
 REQUIRE_SIZE(CEntityTigger, 0x268);
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ENGINE_DISPLAY_ITEXTURECALLBACK_H
+#define ENGINE_DISPLAY_ITEXTURECALLBACK_H
 
 #include "types.h"
 
@@ -12,3 +13,5 @@ public:
 };
 
 }
+
+#endif

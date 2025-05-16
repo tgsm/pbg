@@ -9,7 +9,7 @@ def change_include_guard(filename: str):
     lines = []
     with open(filename, "r") as file:
         lines = file.readlines()
-        if lines[0] != "#pragma once on\n":
+        if lines[0] != "#pragma once on\n" and lines[0] != "#pragma once\n":
             return
 
     lines[0] = "#ifndef {0}\n#define {0}\n".format(filename_to_define(filename))

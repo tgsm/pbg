@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef _MSL_VECTOR
+#define _MSL_VECTOR
 
 #include <memory>
 #include <null.h>
@@ -39,3 +40,5 @@ public:
 };
 
 }
+
+#endif
