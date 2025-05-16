@@ -2,13 +2,15 @@
 #define PIGLET_ENTITIES_CENTITYMESH_H
 
 #include "engine/display/CAnimationStarController.h"
+#include "engine/display/CController.h"
 #include "entities/CEntityObject.h"
 
 class CEntityMesh : public CEntityObject {
 public: // protected
     u8 m_unk40[4];
     BOOL m_unk44;
-    u8 m_unk48[0xC4 - 0x48];
+    u8 m_unk48[0xC0 - 0x48];
+    DKDSP::CController* m_controller;
     DKDSP::CAnimationStarController* m_animation_star_controller;
     u8 m_unkC8[0xF4 - 0xC8];
 

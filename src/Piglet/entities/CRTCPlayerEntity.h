@@ -4,8 +4,11 @@
 #include "entities/CEntity.h"
 
 class CRTCPlayerEntity : public CEntity {
-private:
-    u8 m_unk24[0x108 - 0x24];
+public:
+    u8 m_unk24[0x50 - 0x24];
+    f32 m_grimace_duration;
+    f32 m_grimace_delay;
+    u8 m_unk58[0x108 - 0x58];
 
 public:
 };
