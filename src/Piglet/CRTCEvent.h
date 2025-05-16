@@ -6,7 +6,7 @@
 class CRTCPlayerEntity;
 
 class CRTCEvent : public CRTCSeqKey {
-private:
+protected:
     CRTCPlayerEntity* m_player_entity;
     u32 m_unk14;
 
@@ -14,8 +14,6 @@ public:
     CRTCEvent(CRTCPlayerEntity* player_entity);
     virtual ~CRTCEvent();
 
-    virtual void Activate();
-    virtual void Reinitialize();
     virtual BOOL ParseParam(DkXmd::CChunkIterator* iter);
 
     BOOL CreateFromFile(DkXmd::CChunkIterator* iter);
