@@ -432,7 +432,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CloadingTigger.cpp"),
             Object(NonMatching, "Piglet/CloadingWinnie.cpp"),
             Object(NonMatching, "Piglet/CGamePartStartScreen.cpp"),
-            Object(NonMatching, "Piglet/CRTCVibrationEvent.cpp"),
+            Object(Equivalent, "Piglet/CRTCVibrationEvent.cpp"),
             Object(Equivalent, "Piglet/CRTCMessageEvent.cpp"),
             Object(NonMatching, "Piglet/CFullScreenEffect.cpp"),
             Object(NonMatching, "Piglet/CRTCGrimaceEvent.cpp"),
