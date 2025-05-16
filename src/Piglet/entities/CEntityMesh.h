@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYMESH_H
+#define PIGLET_ENTITIES_CENTITYMESH_H
 
 #include "engine/display/CAnimationStarController.h"
 #include "entities/CEntityObject.h"
@@ -41,3 +42,5 @@ public:
     virtual void OrientToDirection(CDKW_V3d&, f32, f32);
 };
 REQUIRE_SIZE(CEntityMesh, 0xF4);
+
+#endif

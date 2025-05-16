@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CMISSION_H
+#define PIGLET_CMISSION_H
 
 #include <string>
 #include "types.h"
@@ -91,3 +92,5 @@ public:
     u32 IsSecondPassCompleted();
 };
 REQUIRE_SIZE(CMission, 0x4D4);
+
+#endif

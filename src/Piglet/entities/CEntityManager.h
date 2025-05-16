@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYMANAGER_H
+#define PIGLET_ENTITIES_CENTITYMANAGER_H
 
 #include <string>
 #include <vector>
@@ -44,3 +45,5 @@ public:
     CEntityHero* GetHero();
 };
 REQUIRE_SIZE(CEntityManager, 0x28);
+
+#endif

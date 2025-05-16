@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_WRAP_DKW_RGBAREAL_H
+#define ENGINE_WRAP_DKW_RGBAREAL_H
 
 #include "types.h"
 
@@ -16,3 +17,5 @@ public:
     f32 m_r, m_g, m_b, m_a;
 };
 REQUIRE_SIZE(CDKW_RGBAReal, 0x10);
+
+#endif

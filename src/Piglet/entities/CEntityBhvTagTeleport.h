@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYBHVTAGTELEPORT_H
+#define PIGLET_ENTITIES_CENTITYBHVTAGTELEPORT_H
 
 #include "engine/xmd/CChunkIterator.h"
 #include "entities/CEntity.h"
@@ -84,3 +85,5 @@ public:
     }
 };
 REQUIRE_SIZE(CEntityBhvTagTeleport, 0x30);
+
+#endif

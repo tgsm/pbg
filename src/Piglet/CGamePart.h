@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CGAMEPART_H
+#define PIGLET_CGAMEPART_H
 
 #include "types.h"
 
@@ -16,3 +17,5 @@ public:
     virtual u32 NextFrame() = 0;
 };
 REQUIRE_SIZE(CGamePart, 0xC);
+
+#endif

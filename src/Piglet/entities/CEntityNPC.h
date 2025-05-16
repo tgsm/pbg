@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYNPC_H
+#define PIGLET_ENTITIES_CENTITYNPC_H
 
 #include "entities/CEntityMesh.h"
 
@@ -54,3 +55,5 @@ public:
     void SetGenericBehaviour(ENPCGenericBehaviour behaviour);
 };
 REQUIRE_SIZE(CEntityNPC, 0x2D4);
+
+#endif

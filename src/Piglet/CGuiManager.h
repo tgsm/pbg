@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CGUIMANAGER_H
+#define PIGLET_CGUIMANAGER_H
 
 #include "engine/gui/CGUIMenu.h"
 #include "engine/xmd/CChunkIterator.h"
@@ -19,3 +20,5 @@ public:
     void SetVisible(const std::string& name, int);
     void* IsEventCallbackRegistered(const std::string& event_name);
 };
+
+#endif

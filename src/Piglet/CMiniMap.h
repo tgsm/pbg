@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CMINIMAP_H
+#define PIGLET_CMINIMAP_H
 
 #include "engine/xmd/CChunkIterator.h"
 
@@ -8,3 +9,5 @@ public:
     BOOL Load(DkXmd::CChunkIterator*);
     BOOL Unload();
 };
+
+#endif

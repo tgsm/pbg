@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYBHVTAGBEHAVIOR_H
+#define PIGLET_ENTITIES_CENTITYBHVTAGBEHAVIOR_H
 
 #include "engine/xmd/CChunkIterator.h"
 #include "entities/CEntityBhvTagData.h"
@@ -21,3 +22,5 @@ public:
     CEntityBhvTagBehavior* GetBehavior(u32 id);
 };
 REQUIRE_SIZE(CEntityBhvTagBehavior, 0x10);
+
+#endif

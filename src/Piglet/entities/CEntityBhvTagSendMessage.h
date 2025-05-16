@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYBHVTAGSENDMESSAGE_H
+#define PIGLET_ENTITIES_CENTITYBHVTAGSENDMESSAGE_H
 
 #include "entities/CEntityBhvTagData.h"
 #include "entities/CEntity.h"
@@ -26,3 +27,5 @@ public:
     void Parse(DkXmd::CChunkIterator iter);
 };
 REQUIRE_SIZE(CEntityBhvTagSendMessage, 0x18);
+
+#endif

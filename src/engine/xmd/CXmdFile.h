@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_XMD_CXMDFILE_H
+#define ENGINE_XMD_CXMDFILE_H
 
 #include "types.h"
 #include "engine/xmd/CChunkIterator.h"
@@ -21,3 +22,5 @@ public:
 REQUIRE_SIZE(CXmdFile, 0x18);
 
 }
+
+#endif

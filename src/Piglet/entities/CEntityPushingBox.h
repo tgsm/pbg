@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYPUSHINGBOX_H
+#define PIGLET_ENTITIES_CENTITYPUSHINGBOX_H
 
 #include "entities/CEntityMesh.h"
 
@@ -27,3 +28,5 @@ public:
     virtual void func56();
     virtual void func57();
 };
+
+#endif

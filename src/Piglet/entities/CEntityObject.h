@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYOBJECT_H
+#define PIGLET_ENTITIES_CENTITYOBJECT_H
 
 #include "engine/xmd/CChunkIterator.h"
 #include "engine/wrap/DKW_V3d.h"
@@ -56,3 +57,5 @@ public:
     virtual void ParseCollisionsBVolumeOBox(DkXmd::CChunkIterator iter); // FIXME: params
 };
 REQUIRE_SIZE(CEntityObject, 0x40);
+
+#endif

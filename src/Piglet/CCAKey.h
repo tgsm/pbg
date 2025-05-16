@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CCAKEY_H
+#define PIGLET_CCAKEY_H
 
 #include "engine/xmd/CChunkIterator.h"
 #include "engine/wrap/DKW_V3d.h"
@@ -19,3 +20,5 @@ public:
     char* GetName();
 };
 REQUIRE_SIZE(CCAKey, 0x30);
+
+#endif

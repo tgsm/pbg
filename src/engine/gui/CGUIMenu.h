@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_GUI_CGUIMENU_H
+#define ENGINE_GUI_CGUIMENU_H
 
 #include "engine/gui/IGUIMenu.h"
 
@@ -23,3 +24,5 @@ public:
 };
 
 }
+
+#endif

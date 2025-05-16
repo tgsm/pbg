@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYNPCTREE_H
+#define PIGLET_ENTITIES_CENTITYNPCTREE_H
 
 #include "entities/CEntityNPC.h"
 
@@ -35,3 +36,5 @@ public:
         return ret;
     }
 };
+
+#endif

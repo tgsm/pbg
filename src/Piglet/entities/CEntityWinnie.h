@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYWINNIE_H
+#define PIGLET_ENTITIES_CENTITYWINNIE_H
 
 #include "entities/CEntityHero.h"
 
@@ -16,3 +17,5 @@ public:
     virtual void UpdateMoving(f32);
 };
 REQUIRE_SIZE(CEntityWinnie, 0x260);
+
+#endif

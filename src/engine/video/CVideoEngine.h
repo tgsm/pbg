@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_VIDEO_CVIDEOENGINE_H
+#define ENGINE_VIDEO_CVIDEOENGINE_H
 
 #include "video/IVideoEngine.h"
 
@@ -22,3 +23,5 @@ private:
 };
 
 }
+
+#endif

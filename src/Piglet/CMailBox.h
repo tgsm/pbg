@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CMAILBOX_H
+#define PIGLET_CMAILBOX_H
 
 #include <string>
 #include "types.h"
@@ -15,3 +16,5 @@ public:
     int GetMessage(SDkMessage* message, std::string& a1, int a2); // Does this return void?
 };
 REQUIRE_SIZE(CMailBox, 0x20);
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITY_H
+#define PIGLET_ENTITIES_CENTITY_H
 
 #include <string>
 #include "engine/xmd/CChunkIterator.h"
@@ -95,3 +96,5 @@ public:
     void ProcessMessages();
 };
 REQUIRE_SIZE(CEntity, 0x24);
+
+#endif

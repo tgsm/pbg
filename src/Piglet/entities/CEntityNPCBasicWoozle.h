@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYNPCBASICWOOZLE_H
+#define PIGLET_ENTITIES_CENTITYNPCBASICWOOZLE_H
 
 #include "entities/CEntityNPC.h"
 
@@ -30,3 +31,5 @@ public:
     virtual void UpdateDeathBehaviour(f32);
 };
 REQUIRE_SIZE(CEntityNPCBasicWoozle, 0x2D8);
+
+#endif

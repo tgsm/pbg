@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CGAMEROOMMANAGER_H
+#define PIGLET_CGAMEROOMMANAGER_H
 
 #include "types.h"
 #include "entities/CEntityHero.h"
@@ -20,3 +21,5 @@ public:
     CEntityHero* GetCurrentHero();
 };
 REQUIRE_SIZE(CGameRoomManager, 0x178);
+
+#endif

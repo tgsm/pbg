@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYBHVTAGPOSITION_H
+#define PIGLET_ENTITIES_CENTITYBHVTAGPOSITION_H
 
 #include "entities/CEntityBhvTagData.h"
 #include "engine/xmd/CChunkIterator.h"
@@ -21,3 +22,5 @@ public:
     void Parse(DkXmd::CChunkIterator iter);
 };
 REQUIRE_SIZE(CEntityBhvTagPosition, 0x18);
+
+#endif

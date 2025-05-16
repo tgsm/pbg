@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_WRAP_DKW_V2D_H
+#define ENGINE_WRAP_DKW_V2D_H
 
 #include "types.h"
 
@@ -24,3 +25,5 @@ private:
     f32 m_x, m_y;
 };
 REQUIRE_SIZE(CDKW_V2d, 0x8);
+
+#endif

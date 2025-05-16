@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYBHVTAGRESPONSE_H
+#define PIGLET_ENTITIES_CENTITYBHVTAGRESPONSE_H
 
 #include "entities/CEntityBhvTagData.h"
 #include "entities/CEntity.h"
@@ -22,3 +23,5 @@ public:
     void Parse(DkXmd::CChunkIterator iter);
 };
 REQUIRE_SIZE(CEntityBhvTagResponse, 0xC);
+
+#endif

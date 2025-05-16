@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CGAMEBACKUP_H
+#define PIGLET_CGAMEBACKUP_H
 
 #include "CGame.h"
 
@@ -51,3 +52,5 @@ public:
     CSlotContainer* GetCurrentContainer();
 };
 REQUIRE_SIZE(CGameBackup, 0xC);
+
+#endif

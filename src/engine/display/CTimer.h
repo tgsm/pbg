@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_DISPLAY_CTIMER_H
+#define ENGINE_DISPLAY_CTIMER_H
 
 #include "engine/display/ITimer.h"
 
@@ -37,3 +38,5 @@ public:
 REQUIRE_SIZE(CTimer, 0x38);
 
 }
+
+#endif

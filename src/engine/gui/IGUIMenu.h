@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_GUI_IGUIMENU_H
+#define ENGINE_GUI_IGUIMENU_H
 
 #include "engine/gui/IEventGUIMenuCallBack.h"
 
@@ -23,3 +24,5 @@ public:
 };
 
 }
+
+#endif

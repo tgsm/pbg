@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYNPCGRALOSAURUS_H
+#define PIGLET_ENTITIES_CENTITYNPCGRALOSAURUS_H
 
 #include "engine/wrap/DKW_V3d.h"
 #include "entities/CEntityNPC.h"
@@ -36,3 +37,5 @@ public:
     BOOL MoveAlongZ(f32);
 };
 REQUIRE_SIZE(CEntityNPCGralosaurus, 0x300);
+
+#endif

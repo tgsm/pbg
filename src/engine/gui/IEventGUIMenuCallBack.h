@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_GUI_IEVENTGUIMENUCALLBACK_H
+#define ENGINE_GUI_IEVENTGUIMENUCALLBACK_H
 
 #include "types.h"
 
@@ -21,3 +22,5 @@ public:
 };
 
 }
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYBHVTAGFINISHMISSION_H
+#define PIGLET_ENTITIES_CENTITYBHVTAGFINISHMISSION_H
 
 #include "engine/xmd/CChunkIterator.h"
 #include "entities/CEntityBhvTagData.h"
@@ -41,3 +42,5 @@ public:
     void Parse(DkXmd::CChunkIterator iter);
 };
 REQUIRE_SIZE(CEntityBhvTagFinishMission, 0xC);
+
+#endif

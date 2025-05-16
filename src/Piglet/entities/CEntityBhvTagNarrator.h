@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYBHVTAGNARRATOR_H
+#define PIGLET_ENTITIES_CENTITYBHVTAGNARRATOR_H
 
 #include <string>
 #include "entities/CEntityBhvTagData.h"
@@ -26,3 +27,5 @@ public:
     }
 };
 REQUIRE_SIZE(CEntityBhvTagNarrator, 0x10);
+
+#endif

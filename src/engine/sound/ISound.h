@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_SOUND_ISOUND_H
+#define ENGINE_SOUND_ISOUND_H
 
 #include "types.h"
 
@@ -9,3 +10,5 @@ class ISound {
 };
 
 }
+
+#endif

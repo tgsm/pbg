@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYBHVTAGCOLLISION_H
+#define PIGLET_ENTITIES_CENTITYBHVTAGCOLLISION_H
 
 #include "entities/CEntityBhvTagData.h"
 #include "entities/CEntity.h"
@@ -27,3 +28,5 @@ public:
     }
 };
 REQUIRE_SIZE(CEntityBhvTagCollision, 0x10);
+
+#endif

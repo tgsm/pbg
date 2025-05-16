@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYBHVTAGDATA_H
+#define PIGLET_ENTITIES_CENTITYBHVTAGDATA_H
 
 #include "types.h"
 
@@ -42,3 +43,5 @@ public:
     void AddData(CEntityBhvTagData* unk);
 };
 REQUIRE_SIZE(CEntityBhvTagData, 0xC);
+
+#endif

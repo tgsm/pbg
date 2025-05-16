@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CRTCFXEVENT_H
+#define PIGLET_CRTCFXEVENT_H
 
 #include <string>
 #include "CRTCEvent.h"
@@ -18,3 +19,5 @@ public:
     virtual BOOL ParseParam(DkXmd::CChunkIterator* iter);
 };
 REQUIRE_SIZE(CRTCFXEvent, 0x28);
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CGAME_H
+#define PIGLET_CGAME_H
 
 #include <string>
 #include "engine/backup/CGCNBAKEngine.h"
@@ -93,3 +94,5 @@ public:
     CGamePart* GetGamePartPointer();
 };
 REQUIRE_SIZE(CGame, 0x5098);
+
+#endif

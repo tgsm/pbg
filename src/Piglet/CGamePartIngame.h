@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CGAMEPARTINGAME_H
+#define PIGLET_CGAMEPARTINGAME_H
 
 #include "CGamePart.h"
 #include "CGameRoomManager.h"
@@ -15,3 +16,5 @@ public:
     BOOL UnblockFightMode();
 };
 REQUIRE_SIZE(CGamePartIngame, 0x38);
+
+#endif

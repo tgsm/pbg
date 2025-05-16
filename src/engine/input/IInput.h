@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_INPUT_IINPUT_H
+#define ENGINE_INPUT_IINPUT_H
 
 #include <cstring>
 #include "engine/xmd/CChunkIterator.h"
@@ -46,3 +47,5 @@ public:
 REQUIRE_SIZE(IInput, 0x8);
 
 }
+
+#endif

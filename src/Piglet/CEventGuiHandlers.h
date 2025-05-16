@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CEVENTGUIHANDLERS_H
+#define PIGLET_CEVENTGUIHANDLERS_H
 
 #include <string>
 #include <vector>
@@ -377,3 +378,5 @@ public:
 
     virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
 };
+
+#endif

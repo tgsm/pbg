@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_DISPLAY_CIMAGE_H
+#define ENGINE_DISPLAY_CIMAGE_H
 
 #include "engine/display/IImage.h"
 
@@ -25,3 +26,5 @@ public:
 };
 
 }
+
+#endif

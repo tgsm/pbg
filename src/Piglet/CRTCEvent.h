@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CRTCEVENT_H
+#define PIGLET_CRTCEVENT_H
 
 #include "engine/xmd/CChunkIterator.h"
 #include "CRTCSequencer.h"
@@ -20,3 +21,5 @@ public:
     static char* ReadType(DkXmd::CChunkIterator* iter);
 };
 REQUIRE_SIZE(CRTCEvent, 0x18);
+
+#endif

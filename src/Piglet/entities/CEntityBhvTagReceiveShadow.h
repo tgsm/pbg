@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYBHVTAGRECEIVESHADOW_H
+#define PIGLET_ENTITIES_CENTITYBHVTAGRECEIVESHADOW_H
 
 #include "engine/xmd/CChunkIterator.h"
 #include "entities/CEntityBhvTagData.h"
@@ -28,3 +29,5 @@ public:
     void Parse(DkXmd::CChunkIterator iter);
 };
 REQUIRE_SIZE(CEntityBhvTagReceiveShadow, 0x10);
+
+#endif

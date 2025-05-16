@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_VIDEO_IVIDEOENGINE_H
+#define ENGINE_VIDEO_IVIDEOENGINE_H
 
 #include "types.h"
 
@@ -19,3 +20,5 @@ public:
 };
 
 }
+
+#endif

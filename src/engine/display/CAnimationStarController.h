@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_DISPLAY_CANIMATIONSTARCONTROLLER_H
+#define ENGINE_DISPLAY_CANIMATIONSTARCONTROLLER_H
 
 #include "engine/display/IAnimationStarController.h"
 
@@ -60,3 +61,5 @@ public:
 REQUIRE_SIZE(CAnimationStarController, 0x3C);
 
 }
+
+#endif

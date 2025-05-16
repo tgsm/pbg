@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_WRAP_DKW_V3D_H
+#define ENGINE_WRAP_DKW_V3D_H
 
 #include "types.h"
 
@@ -12,3 +13,5 @@ public:
     f32 m_x, m_y, m_z;
 };
 REQUIRE_SIZE(CDKW_V3d, 0xC);
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_DISPLAY_IIMAGE_H
+#define ENGINE_DISPLAY_IIMAGE_H
 
 #include "engine/wrap/DKW_RGBA.h"
 
@@ -29,3 +30,5 @@ public:
 };
 
 }
+
+#endif

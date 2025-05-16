@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYTIMER_H
+#define PIGLET_ENTITIES_CENTITYTIMER_H
 
 #include "entities/CEntity.h"
 #include "CGamePartIngame.h"
@@ -21,3 +22,5 @@ public:
     virtual void ManageMessage(SDkMessage& message);
 };
 REQUIRE_SIZE(CEntityTimer, 0x2C);
+
+#endif

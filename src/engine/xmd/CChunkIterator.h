@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_XMD_CCHUNKITERATOR_H
+#define ENGINE_XMD_CCHUNKITERATOR_H
 
 #include "types.h"
 
@@ -96,3 +97,5 @@ public:
 };
 
 }
+
+#endif

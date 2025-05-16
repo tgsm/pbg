@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_DISPLAY_ITEXTUREDICTIONARY_H
+#define ENGINE_DISPLAY_ITEXTUREDICTIONARY_H
 
 #include <string>
 #include "engine/display/CImage.h"
@@ -35,3 +36,5 @@ public:
 };
 
 }
+
+#endif

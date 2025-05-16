@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CGAMEPARTFRONTEND_H
+#define PIGLET_CGAMEPARTFRONTEND_H
 
 #include "CGamePart.h"
 
@@ -12,3 +13,5 @@ public:
     virtual u32 NextFrame();
 };
 REQUIRE_SIZE(CGamePartFrontend, 0xC);
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_SOUND_CSOUND2D_H
+#define ENGINE_SOUND_CSOUND2D_H
 
 #include "engine/sound/ISound2D.h"
 
@@ -19,3 +20,5 @@ public:
 };
 
 }
+
+#endif

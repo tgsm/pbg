@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYPIGLET_H
+#define PIGLET_ENTITIES_CENTITYPIGLET_H
 
 #include "entities/CEntityHero.h"
 
@@ -50,3 +51,5 @@ public:
     virtual void PushStop(CEntityPushingBox* box);
 };
 REQUIRE_SIZE(CEntityPiglet, 0x32C);
+
+#endif

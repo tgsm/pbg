@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_SOUND_CSOUNDENGINE_H
+#define ENGINE_SOUND_CSOUNDENGINE_H
 
 #include "engine/sound/ISoundEngine.h"
 #include "engine/sound/CSound2D.h"
@@ -50,3 +51,5 @@ public:
 };
 
 }
+
+#endif

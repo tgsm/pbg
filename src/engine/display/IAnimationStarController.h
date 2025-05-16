@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_DISPLAY_IANIMATIONSTARCONTROLLER_H
+#define ENGINE_DISPLAY_IANIMATIONSTARCONTROLLER_H
 
 #include <string>
 #include "types.h"
@@ -57,3 +58,5 @@ public:
 };
 
 }
+
+#endif

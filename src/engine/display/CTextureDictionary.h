@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_DISPLAY_CTEXTUREDICTIONARY_H
+#define ENGINE_DISPLAY_CTEXTUREDICTIONARY_H
 
 #include "engine/display/ITextureDictionary.h"
 
@@ -30,3 +31,5 @@ public:
 };
 
 }
+
+#endif

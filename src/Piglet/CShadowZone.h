@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CSHADOWZONE_H
+#define PIGLET_CSHADOWZONE_H
 
 #include "engine/wrap/DKW_RGBA.h"
 #include "engine/wrap/DKW_RGBAReal.h"
@@ -35,3 +36,5 @@ public:
     CDKW_RGBAReal HSVToRGB(CDKW_RGBAReal);
 };
 REQUIRE_SIZE(CShadowZone, 0x2C);
+
+#endif

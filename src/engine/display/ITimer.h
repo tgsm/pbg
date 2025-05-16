@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_DISPLAY_ITIMER_H
+#define ENGINE_DISPLAY_ITIMER_H
 
 #include "types.h"
 
@@ -20,3 +21,5 @@ public:
 REQUIRE_SIZE(ITimer, 0x4);
 
 }
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef ENGINE_INPUT_IINPUTENGINE_H
+#define ENGINE_INPUT_IINPUTENGINE_H
 
 #include "engine/input/IInput.h"
 
@@ -11,3 +12,5 @@ public:
 };
 
 }
+
+#endif

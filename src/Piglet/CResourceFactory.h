@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_CRESOURCEFACTORY_H
+#define PIGLET_CRESOURCEFACTORY_H
 
 #include <string>
 #include "engine/display/ITextureCallback.h"
@@ -21,3 +22,5 @@ public:
     void UnloadResources(u32);
 };
 REQUIRE_SIZE(CResourceFactory, 0x28);
+
+#endif

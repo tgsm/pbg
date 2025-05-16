@@ -1,4 +1,5 @@
-#pragma once on
+#ifndef PIGLET_ENTITIES_CENTITYNPCARROW_H
+#define PIGLET_ENTITIES_CENTITYNPCARROW_H
 
 #include "engine/xmd/CChunkIterator.h"
 #include "engine/wrap/DKW_V3d.h"
@@ -30,3 +31,5 @@ public:
     }
 };
 REQUIRE_SIZE(CEntityNPCArrow, 0x118);
+
+#endif
