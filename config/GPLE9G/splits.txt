@@ -416,7 +416,7 @@ Piglet/CRTCFXEvent.cpp:
 	.sbss       start:0x80296810 end:0x80296818
 	.sdata2     start:0x80297E60 end:0x80297E68
 
-Piglet/CRTCPlayerEntity.cpp:
+Piglet/entities/CRTCPlayerEntity.cpp:
 	.text       start:0x8006183C end:0x80064698
 	.ctors      start:0x8023EF20 end:0x8023EF24
 	.data       start:0x802468A0 end:0x80246A60

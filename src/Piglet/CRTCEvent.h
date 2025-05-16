@@ -1,10 +1,9 @@
 #ifndef PIGLET_CRTCEVENT_H
 #define PIGLET_CRTCEVENT_H
 
+#include "entities/CRTCPlayerEntity.h"
 #include "engine/xmd/CChunkIterator.h"
 #include "CRTCSequencer.h"
-
-class CRTCPlayerEntity;
 
 class CRTCEvent : public CRTCSeqKey {
 protected:
