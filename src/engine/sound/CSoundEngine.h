@@ -14,7 +14,7 @@ public:
     virtual void func2();
     virtual void func3();
     virtual void func4();
-    virtual void func5();
+    virtual void SetGlobalVolume(f32 volume);
     virtual void func6();
     virtual void func7();
     virtual void func8();
@@ -47,6 +47,27 @@ public:
     virtual void func35();
     virtual CSound2D* PlaySound2D(std::string*, int);
     virtual CSound2D* PlaySound2D(std::string, int);
+    virtual void func38();
+    virtual void func39();
+    virtual void func40();
+    virtual void func41();
+    virtual void func42();
+    virtual void func43();
+    virtual void func44();
+    virtual void func45();
+    virtual void func46();
+    virtual void func47();
+    virtual void func48();
+    virtual void func49();
+    virtual void func50();
+    virtual void func51();
+    virtual void func52();
+    virtual void func53();
+    virtual void func54();
+    virtual void func55();
+    virtual void func56();
+    virtual void func57();
+    virtual void SetStereoMode(int mode);
     // TODO
 };
 

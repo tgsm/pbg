@@ -8,6 +8,8 @@ class CMiniMap {
 public:
     BOOL Load(DkXmd::CChunkIterator*);
     BOOL Unload();
+    void ShowFriendNPC(int, int, int);
+    void HideFriendNPC(int);
 };
 
 #endif

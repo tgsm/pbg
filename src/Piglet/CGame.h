@@ -70,7 +70,8 @@ public:
     u8 m_unk503C;
     u8 m_unk503D[0x5048 - 0x503D];
     f32 m_unk5048;
-    u8 m_unk504C[0x5094 - 0x504C];
+    f32 m_unk504C;
+    u8 m_unk5050[0x5094 - 0x5050];
 
 public:
     CGame(void*, u32);

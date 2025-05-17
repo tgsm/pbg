@@ -20,7 +20,7 @@ public:
     virtual void UpdateFightBehaviour(f32);
     virtual void UpdateGrimaceBehaviour(f32);
     virtual void UpdateSpecialBehaviour(f32);
-    virtual void PlayWalkAnim(s32);
+    virtual void PlayWalkAnim(int);
     virtual void UpdateDeathBehaviour(f32);
 
     BOOL funny_check() {
