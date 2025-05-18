@@ -66,7 +66,7 @@ public:
     f32 m_unk502C;
     f32 m_unk5030;
     u8 m_unk5034[4];
-    u32 m_unk5038;
+    int m_unk5038;
     u8 m_unk503C;
     u8 m_unk503D[0x5048 - 0x503D];
     f32 m_unk5048;

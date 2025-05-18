@@ -2,6 +2,7 @@
 #define ENGINE_GUI_IGUIMENU_H
 
 #include "engine/gui/IEventGUIMenuCallBack.h"
+#include "engine/gui/IGUIAnim.h"
 
 namespace DKGUI {
 
@@ -20,7 +21,7 @@ public:
     virtual void Update(f32 dt_maybe) = 0;
     virtual void Render() = 0;
     virtual IEventGUIMenuCallBack* SetEventCallback(IEventGUIMenuCallBack* callback) = 0; // Returns the old callback
-    virtual void* GetAnim() = 0; // unknown return type
+    virtual IGUIAnim* GetAnim() = 0;
 };
 
 }

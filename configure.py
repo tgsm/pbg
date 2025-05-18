@@ -425,7 +425,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CGamePartScrapBook.cpp"),
             Object(NonMatching, "Piglet/CGamePartMovieClips.cpp"),
             Object(NonMatching, "Piglet/CIcon.cpp"),
-            Object(NonMatching, "Piglet/CGuiScrapBookEventHandler.cpp"),
+            Object(Equivalent, "Piglet/CGuiScrapBookEventHandler.cpp"),
             Object(NonMatching, "Piglet/CGuiMovieClipsEventHandler.cpp"),
             Object(NonMatching, "Piglet/CLoadingAdventure.cpp"),
             Object(NonMatching, "Piglet/CLoadingCatchThemAll.cpp"),
