@@ -1,11 +1,6 @@
+#include "engine/Allocator.h"
 #include "CGame.h"
 #include <iostream>
-
-extern "C" {
-extern void OSSetNumberOfVerySmallBuffers(int);
-extern void OSSetQualificationSize(int);
-extern void OSSetConfigurator(void(*)(int*), BOOL);
-}
 
 void MemoryConfig(int* unk) {
     *unk = 0x340000;
