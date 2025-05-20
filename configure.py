@@ -459,7 +459,7 @@ config.libs = [
         "progress_category": "engine",
         "objects": [
             Object(NonMatching, "engine/Allocator.cpp"),
-            Object(NonMatching, "engine/GCN_MW_Memory.cpp"),
+            Object(Matching, "engine/GCN_MW_Memory.cpp"),
             Object(NonMatching, "engine/filesys/DkFileSysDlfs.c"),
             Object(NonMatching, "engine/filesys/DkFileSys.cpp"),
             Object(NonMatching, "engine/filesys/DkFileSysFat.cpp"),
