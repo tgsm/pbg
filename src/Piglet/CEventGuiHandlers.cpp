@@ -1290,7 +1290,7 @@ CGuiDreamSelectEventHandler::CGuiDreamSelectEventHandler() : CGuiBaseEventHandle
 }
 
 void CGuiDreamSelectEventHandler::PlayNarrator(int mission_no) {
-    if (m_game->m_unk210[mission_no - 1].IsSecondPassCompleted()) {
+    if (m_game->m_unk210[mission_no - 1].IsSecondPassCompleted() != 0u) {
         return;
     }
 
