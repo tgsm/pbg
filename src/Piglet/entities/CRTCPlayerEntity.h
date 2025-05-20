@@ -11,6 +11,8 @@ public:
     u8 m_unk58[0x108 - 0x58];
 
 public:
+    BOOL IsInFade();
+    void StartFade(u32);
 };
 REQUIRE_SIZE(CRTCPlayerEntity, 0x108);
 

@@ -23,6 +23,7 @@ class CShadowZone;
 class CGame {
 public:
     enum ERommFadeType {
+        FADE_TYPE_0,
         FADE_TYPE_3 = 3,
         FADE_TYPE_4 = 4,
     };
@@ -87,7 +88,7 @@ public:
     void ResetOpcodeBuffer();
     void PushOpcodeValue(int opcode);
     CDKW_RGBA ComputeGameFadeColor();
-    void FadeInit(f32 a1, ERommFadeType fade_type, u8 red, u8 green, u8 blue, f32 a6);
+    void FadeInit(f32 duration, ERommFadeType fade_type, u8 red, u8 green, u8 blue, f32 a6);
     void FadeIn(f32 a1);
     void SetCurrentRoomReturnType(ERoomReturnType return_type, int a2);
     void ComputeDeltaTime();

@@ -4,11 +4,11 @@
 #include "types.h"
 
 class CRTCFade {
-private:
-    u32 m_unk0;
-    u32 m_unk4;
+public:
+    u32 m_type;
+    u32 m_duration;
     u32 m_unk8;
-    u32 m_unkC;
+    u32 m_color_maybe; // 0 if white
 
 public:
     CRTCFade();
