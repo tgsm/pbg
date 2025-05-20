@@ -89,7 +89,7 @@ public:
     u32 GetMaxCollectedNbCookies();
     BOOL IsRoomCompleted(u32 room_no);
     BOOL IsRoomOpened(u32 room_no);
-    u32 IsSecondPassCompleted();
+    BOOL IsSecondPassCompleted();
 };
 REQUIRE_SIZE(CMission, 0x4D4);
 

@@ -309,8 +309,8 @@ BOOL CMission::IsRoomOpened(u32 room_no) {
     return (m_rooms[room_no] & 1) != 0;
 }
 
-u32 CMission::IsSecondPassCompleted() {
-    u32 ret = TRUE;
+BOOL CMission::IsSecondPassCompleted() {
+    BOOL ret = TRUE;
 
     for (int i = 1; i <= m_num_rooms; i++) {
         ret = IsRoomCompleted(i) ? TRUE : FALSE;
