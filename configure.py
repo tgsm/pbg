@@ -369,7 +369,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CRTCAnimForEntity.cpp"),
             Object(NonMatching, "Piglet/CRTCEntityAnimated.cpp"),
             Object(NonMatching, "Piglet/CRTCEvent.cpp"),
-            Object(NonMatching, "Piglet/CRTCFade.cpp"),
+            Object(Equivalent, "Piglet/CRTCFade.cpp"),
             Object(NonMatching, "Piglet/CRTCFadeEvent.cpp"),
             Object(Equivalent, "Piglet/CRTCFXEvent.cpp"),
             Object(NonMatching, "Piglet/entities/CRTCPlayerEntity.cpp"),
