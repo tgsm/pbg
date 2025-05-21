@@ -25,13 +25,13 @@ BOOL CRTCFadeEvent::ParseParam(DkXmd::CChunkIterator* iter) {
     if (iter->GetFirstChildChunk(dest1)) {
         do {
             if (strcmp(dest1.GetName(), "Type") == 0) {
-                if (strcmp(dest1.GetName(), "In") == 0 ||
-                    strcmp(dest1.GetName(), "IN") == 0 ||
-                    strcmp(dest1.GetName(), "in") == 0) {
+                if (strcmp(dest1.GetStringValue(), "In") == 0 ||
+                    strcmp(dest1.GetStringValue(), "IN") == 0 ||
+                    strcmp(dest1.GetStringValue(), "in") == 0) {
                     m_fade.m_type = 0;
-                } else if (strcmp(dest1.GetName(), "Out") == 0 ||
-                           strcmp(dest1.GetName(), "OUT") == 0 ||
-                           strcmp(dest1.GetName(), "out") == 0) {
+                } else if (strcmp(dest1.GetStringValue(), "Out") == 0 ||
+                           strcmp(dest1.GetStringValue(), "OUT") == 0 ||
+                           strcmp(dest1.GetStringValue(), "out") == 0) {
                     m_fade.m_type = 1;
                 } else {
                     m_fade.m_type = 2;
