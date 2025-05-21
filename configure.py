@@ -239,6 +239,7 @@ cflags_engine_input = [
     "-RTTI on",
     "-opt nopeephole",
     "-opt noschedule",
+    "-pool off",
 ]
 
 cflags_rw = [
@@ -447,7 +448,7 @@ config.libs = [
             Object(NonMatching, "engine/input/CCombo.cpp"),
             Object(NonMatching, "engine/input/CInput.cpp"),
             Object(NonMatching, "engine/input/CState.cpp"),
-            Object(NonMatching, "engine/input/CGCNPad.cpp"),
+            Object(Matching, "engine/input/CGCNPad.cpp", extra_cflags=["-inline deferred"]),
             Object(NonMatching, "engine/input/CInputHalfAxe.cpp"),
         ]
     ),

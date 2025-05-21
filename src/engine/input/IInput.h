@@ -2,17 +2,18 @@
 #define ENGINE_INPUT_IINPUT_H
 
 #include <cstring>
+#include "engine/input/CState.h"
 #include "engine/xmd/CChunkIterator.h"
 
 namespace DKI {
 
 class IDevice {
 public:
-    virtual ~IDevice();
+    virtual ~IDevice() {}
 
-    virtual void Init(DkXmd::CChunkIterator* iter) = 0;
+    virtual BOOL Init(DkXmd::CChunkIterator* iter) = 0;
     virtual void Update(const f32& dt_maybe) = 0;
-    virtual u32 GetState(const int&) = 0;
+    virtual CState GetState(const int&) = 0;
     virtual BOOL IsConnected() = 0;
     virtual u32 GetType() = 0;
 
