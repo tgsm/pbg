@@ -3,6 +3,7 @@
 
 #include <string>
 #include "engine/backup/CGCNBAKEngine.h"
+#include "engine/display/CAnimDictionary.h"
 #include "engine/display/CEngine.h"
 #include "engine/display/CTextureDictionary.h"
 #include "engine/display/CTimer.h"
@@ -47,7 +48,9 @@ public:
     u8 m_unk4F84[4];
     DKDSP::CEngine* m_display_engine;
     DKDSP::CTextureDictionary* m_texture_dictionary;
-    u8 m_unk4F90[0x4FA0 - 0x4F90];
+    u8 m_unk4F90[4];
+    DKDSP::CAnimDictionary* m_anim_dictionary;
+    u8 m_unk4F98[0x4FA0 - 0x4F98];
     CEntityManager* m_entity_manager;
     CMiniMap* m_minimap;
     CResourceFactory* m_resource_factory;
