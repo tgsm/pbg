@@ -3,7 +3,7 @@
 #include <iostream>
 
 CRTCFOVEvent::CRTCFOVEvent(CRTCPlayerEntity* player_entity) : CRTCEvent(player_entity) {
-    m_unk14 = 4;
+    m_type = EVENT_FOV;
     m_fov = 45.0f;
 }
 

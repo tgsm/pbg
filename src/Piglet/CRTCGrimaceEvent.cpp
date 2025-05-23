@@ -12,7 +12,7 @@ CRTCGrimaceEvent::CRTCGrimaceEvent(CRTCPlayerEntity* player_entity) : CRTCEvent(
     m_orientation.m_z = 0.0f;
     m_duration = 0.0f;
     m_delay = 0.0f;
-    m_unk14 = 7;
+    m_type = EVENT_GRIMACE;
 }
 
 CRTCGrimaceEvent::~CRTCGrimaceEvent() {

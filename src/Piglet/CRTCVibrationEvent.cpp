@@ -4,7 +4,7 @@
 
 CRTCVibrationEvent::CRTCVibrationEvent(CRTCPlayerEntity* player_entity) : CRTCEvent(player_entity) {
     m_unk18 = 0;
-    m_unk14 = 6;
+    m_type = EVENT_VIBRATION;
 }
 
 CRTCVibrationEvent::~CRTCVibrationEvent() {

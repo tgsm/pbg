@@ -3,7 +3,7 @@
 #include <iostream>
 
 CRTCEvent::CRTCEvent(CRTCPlayerEntity* player_entity) {
-    m_unk14 = 0;
+    m_type = EVENT_NONE;
     m_player_entity = player_entity;
 }
 

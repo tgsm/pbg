@@ -3,7 +3,7 @@
 #include <iostream>
 
 CRTCFXEvent::CRTCFXEvent(CRTCPlayerEntity* player_entity) : CRTCEvent(player_entity) {
-    m_unk14 = 1;
+    m_type = EVENT_FX;
     m_name = "undefined";
     m_position_x = 0.0f;
     m_position_y = 0.0f;

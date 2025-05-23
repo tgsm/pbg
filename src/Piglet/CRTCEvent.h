@@ -7,8 +7,19 @@
 
 class CRTCEvent : public CRTCSeqKey {
 protected:
+    enum EEventType {
+        EVENT_NONE,
+        EVENT_FX,
+        EVENT_FADE,
+        EVENT_ADD_COLOR,
+        EVENT_FOV,
+        EVENT_MESSAGE,
+        EVENT_VIBRATION,
+        EVENT_GRIMACE,
+    };
+
     CRTCPlayerEntity* m_player_entity;
-    u32 m_unk14;
+    EEventType m_type;
 
 public:
     CRTCEvent(CRTCPlayerEntity* player_entity);

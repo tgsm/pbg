@@ -8,7 +8,7 @@ class CRTCMessageEvent : public CRTCEvent {
 private:
     std::string m_emitter;
     std::string m_receiver;
-    std::string m_type;
+    std::string m_message_type;
     u32 m_param;
 
 public:

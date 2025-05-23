@@ -5,9 +5,9 @@
 CRTCMessageEvent::CRTCMessageEvent(CRTCPlayerEntity* player_entity) : CRTCEvent(player_entity) {
     m_emitter = "";
     m_receiver = "";
-    m_type = "";
+    m_message_type = "";
     m_param = 0;
-    m_unk14 = 5;
+    m_type = EVENT_MESSAGE;
 }
 
 CRTCMessageEvent::~CRTCMessageEvent() {
@@ -16,7 +16,7 @@ CRTCMessageEvent::~CRTCMessageEvent() {
 
 void CRTCMessageEvent::Activate() {
     CRTCSeqKey::Activate();
-    m_player_entity->m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_emitter, m_receiver, m_type, m_param);
+    m_player_entity->m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_emitter, m_receiver, m_message_type, m_param);
 }
 
 // Equivalent: regalloc
@@ -46,7 +46,7 @@ BOOL CRTCMessageEvent::ParseParam(DkXmd::CChunkIterator* iter) {
                 m_param = dest1.GetS32Value();
                 got_param = TRUE;
             } else if (strcmp(dest1.GetName(), "Type") == 0) {
-                m_type = dest1.GetStringValue();
+                m_message_type = dest1.GetStringValue();
                 got_type = TRUE;
             }
         } while (dest1.GetNextSiblingChunk(dest1));

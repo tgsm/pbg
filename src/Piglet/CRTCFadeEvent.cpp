@@ -3,7 +3,7 @@
 #include <iostream>
 
 CRTCFadeEvent::CRTCFadeEvent(CRTCPlayerEntity* player_entity) : CRTCEvent(player_entity) {
-    m_unk14 = 2;
+    m_type = EVENT_FADE;
 }
 
 CRTCFadeEvent::~CRTCFadeEvent() {
