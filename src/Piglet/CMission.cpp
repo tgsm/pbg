@@ -8,20 +8,20 @@
 u32 CMission::m_MaxNbCookies = 0;
 
 BOOL CMission::LoadConfigFile(u32 a1) {
-    u32 unk1 = m_game->m_resource_factory->m_unk8;
-    m_game->m_resource_factory->m_unk8 = 1;
+    u32 unk1 = m_game->m_resource_factory->m_unkC;
+    m_game->m_resource_factory->m_unkC = 1;
 
     char filename[128];
     sprintf(filename, "Missions/Mission%d/Mission%0d.XMD", m_mission_no, m_mission_no);
     void* file = m_game->m_resource_factory->LoadPureFile(filename, NULL);
     if (file == NULL) {
-        m_game->m_resource_factory->m_unk8 = unk1;
+        m_game->m_resource_factory->m_unkC = unk1;
         return FALSE;
     }
 
     DkXmd::CXmdFile xmd;
     if (!xmd.Parse(file)) {
-        m_game->m_resource_factory->m_unk8 = unk1;
+        m_game->m_resource_factory->m_unkC = unk1;
         delete file;
         return FALSE;
     }
@@ -172,7 +172,7 @@ BOOL CMission::LoadConfigFile(u32 a1) {
         }
     }
 
-    m_game->m_resource_factory->m_unk8 = unk1;
+    m_game->m_resource_factory->m_unkC = unk1;
     delete file;
     return TRUE;
 }

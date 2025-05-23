@@ -4,12 +4,15 @@
 #include <string>
 #include "engine/backup/CGCNBAKEngine.h"
 #include "engine/display/CAnimDictionary.h"
+#include "engine/display/CCamera.h"
 #include "engine/display/CEngine.h"
+#include "engine/display/CScene.h"
 #include "engine/display/CTextureDictionary.h"
 #include "engine/display/CTimer.h"
 #include "engine/sound/CSoundEngine.h"
 #include "engine/wrap/DKW_RGBA.h"
 #include "CFullScreenEffect.h"
+#include "CFxManager.h"
 #include "CGamePart.h"
 #include "CGuiManager.h"
 #include "CMailBox.h"
@@ -50,7 +53,8 @@ public:
     DKDSP::CTextureDictionary* m_texture_dictionary;
     u8 m_unk4F90[4];
     DKDSP::CAnimDictionary* m_anim_dictionary;
-    u8 m_unk4F98[0x4FA0 - 0x4F98];
+    DKDSP::CScene* m_scene;
+    DKDSP::CCamera* m_camera;
     CEntityManager* m_entity_manager;
     CMiniMap* m_minimap;
     CResourceFactory* m_resource_factory;
@@ -58,7 +62,7 @@ public:
     CMailBox* m_mailbox;
     u8 m_unk4FB4[0x4FDC - 0x4FB4];
     CGuiManager* m_gui_manager;
-    u8 m_unk4FE0[4];
+    CFxManager* m_fx_manager;
     CShadowZone* m_shadow_zone;
     u8 m_unk4FE8[4];
     DKBAK::CGCNBAKEngine* m_backup_engine;
@@ -90,9 +94,12 @@ public:
     void PlayNarratorLine(std::string line_id);
     void ResetOpcodeBuffer();
     void PushOpcodeValue(int opcode);
+    BOOL LoadConfigFile(char* filename);
     CDKW_RGBA ComputeGameFadeColor();
     void FadeInit(f32 duration, ERommFadeType fade_type, u8 red, u8 green, u8 blue, f32 a6);
-    void FadeIn(f32 a1);
+    int FadeIn(f32 a1);
+    int FadeOut(f32 a1);
+    void RenderFade();
     void SetCurrentRoomReturnType(ERoomReturnType return_type, int a2);
     void ComputeDeltaTime();
     f32 GetDeltaTime();

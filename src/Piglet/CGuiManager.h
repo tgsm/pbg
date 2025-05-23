@@ -19,6 +19,9 @@ public:
     void SetActive(const std::string& name, int);
     void SetVisible(const std::string& name, int);
     void* IsEventCallbackRegistered(const std::string& event_name);
+    void Reset();
+    void Update(f32 dt);
+    void Render(f32 dt);
 };
 
 #endif

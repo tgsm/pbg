@@ -12,8 +12,8 @@ public:
 
     virtual void func1();
     virtual void func2();
-    virtual void func3();
-    virtual void func4();
+    virtual void BeginUpdate();
+    virtual void EndUpdate();
     virtual void SetGlobalVolume(f32 volume);
     virtual void func6();
     virtual void func7();
@@ -66,7 +66,7 @@ public:
     virtual void func54();
     virtual void func55();
     virtual void func56();
-    virtual void func57();
+    virtual void DeleteAllSounds();
     virtual void SetStereoMode(int mode);
     // TODO
 };

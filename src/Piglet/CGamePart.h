@@ -6,7 +6,7 @@
 class CGamePart {
 public:
     int m_unk0;
-    u32 m_unk4;
+    int m_unk4;
 
 public:
     CGamePart() {
@@ -14,7 +14,7 @@ public:
     }
     virtual ~CGamePart();
 
-    virtual u32 NextFrame() = 0;
+    virtual void NextFrame() = 0;
 };
 REQUIRE_SIZE(CGamePart, 0xC);
 

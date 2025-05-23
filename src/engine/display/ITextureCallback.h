@@ -11,6 +11,7 @@ class ITextureCallback {
 public:
     virtual void AddTexture(ITexture*) = 0;
 };
+REQUIRE_SIZE(ITextureCallback, 0x4);
 
 }
 
