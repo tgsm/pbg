@@ -53,6 +53,9 @@ public:
     virtual void UnIdle();
 
     void SetGenericBehaviour(ENPCGenericBehaviour behaviour);
+    BOOL FollowSplinePath(f32, f32, int);
+    void ComputeRotationAngle(CDKW_V3d&, CDKW_V3d&);
+    BOOL RotateAccordingToGarbageVar(f32);
 };
 REQUIRE_SIZE(CEntityNPC, 0x2D4);
 

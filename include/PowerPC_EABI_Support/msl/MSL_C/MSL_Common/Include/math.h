@@ -8,6 +8,7 @@ extern "C" {
 inline double fabs(double x) { return __fabs(x); }
 double pow(double x, double y);
 double floor(double x);
+double cos(double x);
 
 #ifdef __cplusplus
 }

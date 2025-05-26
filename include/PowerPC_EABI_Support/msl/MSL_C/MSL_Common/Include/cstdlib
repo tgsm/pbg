@@ -12,6 +12,9 @@ extern "C" {
 
 double strtod(const char* nptr, char** endptr);
 
+int rand(void);
+void srand(unsigned int seed);
+
 void* malloc(size_t);
 
 #ifdef __cplusplus

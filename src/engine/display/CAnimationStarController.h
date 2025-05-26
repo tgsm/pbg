@@ -44,7 +44,7 @@ public:
     virtual BOOL IsTargetAnimation(std::string);
     virtual BOOL IsTargetAnimation(char*);
     virtual std::string* GetPlayingAnimationName();
-    virtual char* GetTargetAnimationName();
+    virtual std::string* GetTargetAnimationName();
     virtual f32 GetPlayingAnimationTime();
     virtual f32 GetPlayingAnimationAbsoluteTime();
     virtual BOOL IsPlayingAnimationLooped();

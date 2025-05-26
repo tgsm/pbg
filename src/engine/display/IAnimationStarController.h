@@ -42,7 +42,7 @@ public:
     virtual BOOL IsTargetAnimation(std::string) = 0;
     virtual BOOL IsTargetAnimation(char*) = 0;
     virtual std::string* GetPlayingAnimationName() = 0;
-    virtual char* GetTargetAnimationName() = 0;
+    virtual std::string* GetTargetAnimationName() = 0;
     virtual f32 GetPlayingAnimationTime() = 0;
     virtual f32 GetPlayingAnimationAbsoluteTime() = 0;
     virtual BOOL IsPlayingAnimationLooped() = 0;
