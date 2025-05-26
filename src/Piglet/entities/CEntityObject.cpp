@@ -38,8 +38,7 @@ void CEntityObject::Reset() {
 void CEntityObject::Update(f32 dt_maybe) {
     CEntity::Update(dt_maybe);
     if (IsFlagged(1 << 0) && IsFlagged(1 << 7) == TRUE) {
-        // FIXME: Fakematch
-        asm { cmpwi r3, 1 }
+        return;
     }
 }
 
@@ -50,8 +49,7 @@ void CEntityObject::Init() {
 
 void CEntityObject::Render(f32 dt_maybe) {
     if (!IsFlagged(1 << 8) && !IsFlagged(1 << 1)) {
-        // FIXME: Fakematch
-        asm { cmpwi r3, 0 }
+        return;
     }
 }
 
