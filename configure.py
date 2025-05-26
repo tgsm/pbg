@@ -336,7 +336,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CResourceFactory.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityManager.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityMesh.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityWarp.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityWarp.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityWorld.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityZone.cpp"),
             Object(NonMatching, "Piglet/entities/CEntity.cpp"),

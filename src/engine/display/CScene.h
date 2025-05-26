@@ -7,6 +7,9 @@ namespace DKDSP {
 
 class CScene : public IScene {
 public:
+    virtual IWarp* CreateWarp();
+    virtual void RemoveWarp(IWarp*);
+    virtual void RenderWarp(IWarp*);
     virtual void SelectCamera(ICamera*);
     virtual void Clear(int, f32, f32, f32);
     virtual void BeginRender();

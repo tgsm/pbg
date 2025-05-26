@@ -8,6 +8,8 @@ namespace DKDSP {
 class CClump : public IClump {
 public:
     virtual CDKW_Frame* GetFrame();
+    virtual void Update(f32 dt_maybe);
+    virtual void SetAnimation(IAnimation*);
     // TODO
 };
 

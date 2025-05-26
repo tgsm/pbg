@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "engine/display/ICamera.h"
+#include "engine/display/IWarp.h"
 
 namespace DKDSP {
 
@@ -73,17 +74,17 @@ public:
     virtual void func61();
     virtual void func62();
     virtual void func63();
-    virtual void func64();
+    virtual IWarp* CreateWarp() = 0;
     virtual void func65();
     virtual void func66();
     virtual void func67();
     virtual void func68();
-    virtual void func69();
+    virtual void RemoveWarp(IWarp*) = 0;
     virtual void func70();
     virtual void func71();
     virtual void func72();
     virtual void func73();
-    virtual void func74();
+    virtual void RenderWarp(IWarp*) = 0;
     virtual void func75();
     virtual void func76();
     virtual void func77();
