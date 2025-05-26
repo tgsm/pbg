@@ -9,6 +9,8 @@ public:
     CDKW_V3d() {}
     CDKW_V3d(f32 x, f32 y, f32 z);
 
+    f32 SquareDistToPoint(CDKW_V3d& other);
+
 public:
     f32 m_x, m_y, m_z;
 };
