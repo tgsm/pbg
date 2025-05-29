@@ -16,6 +16,7 @@ int rand(void);
 void srand(unsigned int seed);
 
 void* malloc(size_t);
+void free(void*);
 
 #ifdef __cplusplus
 }

@@ -144,6 +144,7 @@ static Cell* DLInsert(Cell* list, Cell* cell) {
     return cell;
 }
 
+// Equivalent?
 void* OSAllocFromHeap(int heap, u32 size) {
     Cell* cell;
     Cell* newCell;

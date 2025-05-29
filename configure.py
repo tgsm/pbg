@@ -605,7 +605,7 @@ config.libs = [
             Object(NonMatching, "engine/wrap/DKW_World.cpp"),
             Object(NonMatching, "engine/wrap/DKW_WorldSector.cpp"),
             Object(NonMatching, "engine/wrap/DkWrap.cpp"),
-            Object(NonMatching, "engine/wrap/DKW_GCNEngine.cpp"),
+            Object(Matching, "engine/wrap/DKW_GCNEngine.cpp"),
             Object(NonMatching, "engine/sound/DkSound.cpp"),
             Object(NonMatching, "engine/sound/ISoundEngine.cpp"),
             Object(NonMatching, "engine/sound/ISample.cpp"),
