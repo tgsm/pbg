@@ -34,7 +34,7 @@ public:
     virtual void fillerfunc15();
     virtual void fillerfunc16();
     virtual void Update();
-    virtual void fillerfunc18();
+    virtual void Release();
     virtual void fillerfunc19();
     virtual void fillerfunc20();
     virtual void fillerfunc21();

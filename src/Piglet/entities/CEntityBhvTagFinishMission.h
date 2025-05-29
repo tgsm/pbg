@@ -28,7 +28,7 @@ public:
         entity->m_entity_manager->GetGame()->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
 
         CGame* game = entity->m_entity_manager->GetGame();
-        game->m_unk502C = game->m_unk5030 + game->m_unk5048;
+        game->m_unk502C = game->m_fade_duration + game->m_unk5048;
 
         if (entity->m_entity_manager->GetGame()->m_unk4F54 == 7) {
             CDKW_RGBA fade_color = entity->m_entity_manager->GetGame()->ComputeGameFadeColor();

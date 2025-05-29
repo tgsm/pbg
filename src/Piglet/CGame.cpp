@@ -1,6 +1,193 @@
 #include "CGame.h"
 #include "entities/CEntityHero.h"
 #include "entities/CEntityManager.h"
+#include <iostream>
+
+CGuiManager* CGame::gs_CurrentGuiManager;
+
+// *Very* incomplete
+CGame::CGame(void*, u32) {
+    m_gui_manager = new CGuiManager(this);
+    m_fx_manager = new CFxManager(this);
+    m_game_backup = new CGameBackup(this);
+    m_game_backup->CreateNewGame();
+    m_minimap = new CMiniMap(this);
+    m_shadow_zone = new CShadowZone(this);
+
+    RegisterVideo(0, "MOVIES/DISNEY");
+    RegisterVideo(1, "MOVIES/DOKI");
+    RegisterVideo(2, "MOVIES/CLIPS/CLIP01");
+    RegisterVideo(3, "MOVIES/CLIPS/CLIP02");
+    RegisterVideo(4, "MOVIES/CLIPS/CLIP03");
+    RegisterVideo(5, "MOVIES/CLIPS/CLIP04");
+    RegisterVideo(6, "MOVIES/CLIPS/CLIP05");
+    RegisterVideo(7, "MOVIES/CLIPS/CLIP06");
+    RegisterVideo(8, "MOVIES/CLIPS/CLIP07");
+    RegisterVideo(9, "MOVIES/CLIPS/CLIP08");
+    RegisterVideo(10, "MOVIES/CLIPS/CLIP09");
+    RegisterVideo(11, "MOVIES/CLIPS/CLIP10");
+    RegisterVideo(12, "MOVIES/CLIPS/CLIP11");
+    RegisterVideo(13, "MOVIES/CLIPS/CLIP12");
+    RegisterVideo(14, "MOVIES/FMV/FMV01");
+    RegisterVideo(15, "MOVIES/FMV/FMV02");
+    RegisterVideo(16, "MOVIES/FMV/FMV03");
+    RegisterVideo(17, "MOVIES/FMV/FMV04");
+    RegisterVideo(18, "MOVIES/FMV/FMV05");
+    RegisterVideo(19, "MOVIES/FMV/FMV06");
+    RegisterVideo(20, "MOVIES/FMV/FMV07");
+    RegisterVideo(21, "MOVIES/FMV/FMV08");
+    RegisterVideo(22, "MOVIES/FMV/FMV09");
+    RegisterVideo(23, "MOVIES/FMV/FMV10");
+    RegisterVideo(24, "MOVIES/FMV/FMV11");
+    RegisterVideo(25, "MOVIES/FMV/FMV12");
+    RegisterVideo(26, "MOVIES/FMV/FMV13");
+    RegisterVideo(27, "MOVIES/FMV/FMV14");
+    RegisterVideo(28, "MOVIES/FMV/FMV15");
+    RegisterVideo(29, "MOVIES/FMV/FMV16");
+    RegisterVideo(30, "MOVIES/FMV/FMV17");
+    RegisterVideo(31, "MOVIES/ROLLING");
+    RegisterVideo(32, "MOVIES/GOTHAM");
+
+    gs_CurrentGuiManager = m_gui_manager;
+
+    // ...
+
+    m_entity_manager = new CEntityManager(this);
+    m_resource_factory = new CResourceFactory(this);
+
+    // ...
+
+    m_entity_manager->CreateEntity("Piglet", "PigletEntity", "100_PIGLET");
+    m_entity_manager->DestroyEntity("Piglet");
+
+    m_entity_manager->CreateEntity("FIOLE", ENTITY_PHIAL, "CAR_650");
+    m_entity_manager->DestroyEntity("FIOLE");
+
+    m_entity_manager->CreateEntity("COOKIE", ENTITY_COOKIE, "CAR_600");
+    m_entity_manager->DestroyEntity("COOKIE");
+
+    // ...
+
+    std::string car700 = "Models/700_FIGHT_PATH/CAR_700.txd";
+    std::string car701 = "Models/700_FIGHT_PATH/CAR_701.txd";
+    m_resource_factory->LoadResource(6, car700);
+    m_resource_factory->LoadResource(6, car701);
+    car700 = "Models/700_FIGHT_PATH/CAR_700.dff";
+    car701 = "Models/700_FIGHT_PATH/CAR_701.dff";
+    m_resource_factory->LoadResource(1, car700);
+    m_resource_factory->LoadResource(1, car701);
+
+    m_resource_factory->LoadResource(9, "FX/FX_C340_03.xmd");
+    m_resource_factory->LoadResource(6, "WARPS/WRP_COMBAT/WARPCOMBAT.TXD");
+    m_resource_factory->LoadResource(1, "WARPS/WRP_COMBAT/WARPCOMBAT.DFF");
+}
+
+// *Very* incomplete
+CGame::~CGame() {
+    if (m_unk508C != NULL) {
+        DKI::IInputEngine::DestroyInput(m_unk508C);
+        m_unk508C = NULL;
+    }
+
+    // ...
+
+    if (m_game_part != NULL) {
+        delete m_game_part;
+        m_game_part = NULL;
+    }
+
+    m_resource_factory->UnloadResources(2);
+
+    if (m_mailbox != NULL) {
+        delete m_mailbox;
+    }
+
+    m_mailbox = NULL;
+    if (m_timer != NULL) {
+        m_timer->Release();
+    }
+
+    m_timer = NULL;
+    if (m_entity_manager != NULL) {
+        delete m_entity_manager;
+    }
+
+    m_entity_manager = NULL;
+
+    if (m_resource_factory != NULL) {
+        delete m_resource_factory;
+    }
+    m_resource_factory = NULL;
+
+    // ...
+
+    if (m_gui_manager != NULL) {
+        delete m_gui_manager;
+    }
+
+    m_gui_manager = NULL;
+    if (m_fx_manager != NULL) {
+        delete m_fx_manager;
+    }
+
+    m_fx_manager = NULL;
+    if (m_minimap != NULL) {
+        delete m_minimap;
+    }
+
+    m_minimap = NULL;
+    if (m_shadow_zone != NULL) {
+        delete m_shadow_zone;
+    }
+
+    m_shadow_zone = NULL;
+    if (m_game_backup != NULL) {
+        delete m_game_backup;
+    }
+
+    m_game_backup = NULL;
+    if (m_screen_effect != NULL) {
+        delete m_screen_effect;
+    }
+
+    m_screen_effect = NULL;
+
+    // ...
+
+    if (m_texture_dictionary != NULL) {
+        m_texture_dictionary->Release();
+    }
+    m_texture_dictionary = NULL;
+
+    if (m_anim_dictionary != NULL) {
+        m_anim_dictionary->Release();
+    }
+    m_anim_dictionary = NULL;
+
+    // ...
+
+    m_camera = NULL;
+
+    delete m_scene;
+    m_scene = NULL;
+    delete m_sound_engine;
+    m_sound_engine = NULL;
+
+    // ...
+
+    if (m_display_engine != NULL) {
+        m_display_engine->Release();
+    }
+    m_display_engine = NULL;
+    // DkDisplayRelease();
+
+    DKI::IInputEngine::Clear();
+    DKI::IInputEngine::Close();
+}
+
+f32 CGame::GetDeltaTime() {
+    return m_delta_time;
+}
 
 void CGame::ComputeDeltaTime() {
     f32 old_dt = m_delta_time;
@@ -9,12 +196,62 @@ void CGame::ComputeDeltaTime() {
     m_delta_time *= 0.5f;
 }
 
-f32 CGame::GetDeltaTime() {
-    return m_delta_time;
-}
-
 CGamePart* CGame::GetGamePartPointer() {
     return m_game_part;
+}
+
+void CGame::ResetOpcodeBuffer() {
+    m_opcode_buffer_size = 0;
+    m_opcode_buffer[0] = -1;
+}
+
+void CGame::PushOpcodeValue(int opcode) {
+    m_opcode_buffer[m_opcode_buffer_size] = opcode;
+    m_opcode_buffer_size++;
+    m_opcode_buffer[m_opcode_buffer_size] = -1;
+}
+
+void CGame::FadeInit(f32 duration, ERommFadeType fade_type, u8 red, u8 green, u8 blue, f32 a6) {
+    m_unk502C = 0.0f;
+    m_fade_duration = duration;
+    m_fade_type = fade_type;
+    m_unk5038 = 0;
+    m_unk5040 = 0.0f;
+    m_fade_color = (red << 0) | (green << 8) | (blue << 16);
+    m_unk5044 = a6;
+    m_unk503C = (1 << 2);
+    m_unk5048 = 0.1f;
+    m_unk503C |= (1 << 3);
+}
+
+int CGame::FadeUpdate(f32 unk) {
+    m_unk5040 = unk;
+    if (m_unk5038 == 0) {
+        if (FadeIn(-1.0f) == 0) {
+            if (m_unk503C & (1 << 1)) {
+                if (m_unk5038 == 3) {
+                    m_unk5038 = 3;
+                } else {
+                    m_unk5038 = 2;
+                }
+                m_unk502C = 0.0f;
+            } else {
+                m_unk5038 = 1;
+                m_unk502C = 0.0f;
+                m_unk5044 = 0.0f;
+                FadeOut(-1.0f);
+            }
+        }
+    } else if (m_unk5038 == 1 && FadeOut(-1.0f) == 0) {
+        if (m_unk5038 == 3) {
+            m_unk5038 = 3;
+        } else {
+            m_unk5038 = 2;
+        }
+        m_unk502C = 0.0f;
+    }
+
+    return m_unk5038;
 }
 
 CDKW_RGBA CGame::ComputeGameFadeColor() {

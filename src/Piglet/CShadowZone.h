@@ -5,11 +5,12 @@
 #include "engine/wrap/DKW_RGBAReal.h"
 #include "engine/wrap/DKW_V3d.h"
 #include "engine/xmd/CChunkIterator.h"
-#include "CGame.h"
 
 namespace DKDSP {
 class CImage;
 }
+
+class CGame;
 
 class CShadowZone {
 private:

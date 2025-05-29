@@ -32,8 +32,8 @@ void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
         unk_float = 0.0f;
     } else {
         unk_float = 0.0f;
-        if (unk_float != m_game->m_unk5030) {
-            unk_float = m_game->m_unk502C / m_game->m_unk5030;
+        if (unk_float != m_game->m_fade_duration) {
+            unk_float = m_game->m_unk502C / m_game->m_fade_duration;
         }
     }
 

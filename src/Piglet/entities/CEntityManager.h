@@ -24,9 +24,8 @@ private:
     u32 m_entity_light_01; // ?
 
 public:
-    // FIXME: Make an enum for entity types
-
     CEntityManager(CGame* game);
+    ~CEntityManager();
 
     CGame* GetGame() { return m_game; }
 
@@ -34,6 +33,7 @@ public:
     u32 GetTypeFromString(std::string type_str);
     BOOL CreateEntity(std::string name, std::string type, std::string model);
     BOOL CreateEntity(std::string name, u32 type, std::string model);
+    BOOL DestroyEntity(std::string name);
 
     BOOL FindChunkModel(std::string str, DkXmd::CChunkIterator& iter);
     BOOL Parse(DkXmd::CChunkIterator iter);

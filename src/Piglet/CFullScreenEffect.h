@@ -6,6 +6,8 @@
 // TODO
 class CScreenEffect {
 public:
+    ~CScreenEffect();
+
     void SetSequenceByIndex(int);
 };
 

@@ -12,6 +12,7 @@ public:
     u8 m_unk10[0x28 - 0x10];
 
 public:
+    CResourceFactory(CGame* game);
     virtual ~CResourceFactory();
 
     virtual void AddTexture(DKDSP::ITexture*);

@@ -1,4 +1,5 @@
 #include "CGameBackup.h"
+#include "CGame.h"
 #include <iostream>
 
 void CSlotContainer::StoreS8(s8 value, s8* dest) {

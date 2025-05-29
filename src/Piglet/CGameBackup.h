@@ -1,12 +1,14 @@
 #ifndef PIGLET_CGAMEBACKUP_H
 #define PIGLET_CGAMEBACKUP_H
 
-#include "CGame.h"
+#include "types.h"
 
 extern "C" {
-extern void* OSAllocFromHeapAligned(int heap, u32 size, int align);
+extern void* OSAllocFromHeapAligned(int heap, u32 size, u32 align);
 extern void OSFreeToHeap(int heap, void* ptr);
 }
+
+class CGame;
 
 class CSlotContainer {
 private:

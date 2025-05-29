@@ -76,7 +76,7 @@ public:
             }
         } else {
             CGame* game = entity->m_entity_manager->GetGame();
-            game->m_unk502C = game->m_unk5030 + game->m_unk5048;
+            game->m_unk502C = game->m_fade_duration + game->m_unk5048;
         }
     }
 

@@ -1,4 +1,5 @@
 #include "engine/display/CTextureDictionary.h"
+#include "CGame.h"
 #include "CShadowZone.h"
 #include <math.h>
 #include <iostream>

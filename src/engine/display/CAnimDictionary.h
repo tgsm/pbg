@@ -8,6 +8,7 @@ namespace DKDSP {
 // TODO
 class CAnimDictionary : public IAnimDictionary {
 public:
+    virtual void Release();
     virtual CAnimation* FindAnimation(std::string name);
 };
 
