@@ -14,7 +14,7 @@ public:
     CDebugMenu* m_debug_menu;
     u8 m_unk4[0x8];
     u32 m_unkC;
-    std::vector<CControlValue*> m_control_values;
+    std::vector<size_t> m_control_values;
     u32 m_unk1C;
     CDKW_V2d m_unk20;
     CDKW_V2d m_unk28;
