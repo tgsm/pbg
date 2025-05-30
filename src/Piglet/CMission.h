@@ -26,7 +26,7 @@ public:
     f32 m_start_rotation_z;
     u32 m_unk2C;
     u32 m_unk30;
-    u32 m_unk34;
+    int m_unk34;
     int m_num_rooms;
     u32 m_rooms[16];
     CMission_UnkSubstruct m_unk7C[16];

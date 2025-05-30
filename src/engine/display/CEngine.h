@@ -33,7 +33,7 @@ public:
     virtual void fillerfunc14();
     virtual void fillerfunc15();
     virtual void fillerfunc16();
-    virtual void Update();
+    virtual BOOL Update();
     virtual void Release();
     virtual void fillerfunc19();
     virtual void fillerfunc20();

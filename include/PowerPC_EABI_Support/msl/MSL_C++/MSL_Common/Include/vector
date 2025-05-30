@@ -15,6 +15,9 @@ public:
     unsigned long size() { return m_size; }
     T* data() { return m_data; }
     void reserve(unsigned long capacity);
+    void insert(T* pos, size_t count, const T& value);
+    // Is this right?
+    void push_back(const T& value) { insert(data() + size(), 1, value); }
 
     T& operator[](unsigned long n) { return *(data() + n); }
 

@@ -14,7 +14,7 @@ public:
     }
     virtual ~CGamePart();
 
-    virtual void NextFrame() = 0;
+    virtual u32 NextFrame() = 0;
 };
 REQUIRE_SIZE(CGamePart, 0xC);
 

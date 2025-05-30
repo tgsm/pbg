@@ -7,6 +7,7 @@ namespace DKDSP {
 
 class CCamera : public ICamera {
 public:
+    virtual void SetViewWindow(f32, f32);
 };
 
 }
