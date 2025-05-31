@@ -17,6 +17,7 @@ public:
     u8 m_unk2A4[0x32C - 0x2A4];
 
 public:
+    CEntityPiglet(CEntityManager* entity_manager, std::string name);
     virtual ~CEntityPiglet();
 
     virtual void AddFlag(u32 flag);

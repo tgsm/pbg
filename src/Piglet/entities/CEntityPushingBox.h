@@ -5,6 +5,11 @@
 
 class CEntityPushingBox : public CEntityMesh {
 public:
+    u8 m_unkF4[0x198 - 0xF4];
+
+public:
+    CEntityPushingBox(CEntityManager* entity_manager, std::string name);
+
     // FIXME: Stop being lazy and fill these in.
     // There are also overrides above these that need to be put in.
     virtual void func38();
@@ -28,5 +33,6 @@ public:
     virtual void func56();
     virtual void func57();
 };
+REQUIRE_SIZE(CEntityPushingBox, 0x198);
 
 #endif

@@ -11,6 +11,8 @@ public:
     u8 m_unk58[0x108 - 0x58];
 
 public:
+    CRTCPlayerEntity(CEntityManager* entity_manager, std::string name);
+
     BOOL IsInFade();
     void StartFade(u32);
 };

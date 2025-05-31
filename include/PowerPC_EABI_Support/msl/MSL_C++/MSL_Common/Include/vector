@@ -19,6 +19,8 @@ public:
     // Is this right?
     void push_back(const T& value) { insert(data() + size(), 1, value); }
 
+    T* erase(T* position);
+
     T& operator[](unsigned long n) { return *(data() + n); }
 
 public:

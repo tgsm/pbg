@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "engine/xmd/CChunkIterator.h"
+#include "engine/xmd/CXmdFile.h"
 #include "CGame.h"
 #include "types.h"
 
@@ -15,13 +16,13 @@ private:
     CGame* m_game;
     std::vector<unsigned long> m_entities;
 
+    void* m_model_xmd_data;
+    DkXmd::CXmdFile* m_model_xmd;
+    DkXmd::CChunkIterator* m_model_xmd_iter;
     // Unknown types
-    u32 m_unk10;
-    u32 m_unk14;
-    DkXmd::CChunkIterator* m_unk18;
     u32 m_unk1C;
     u32 m_unk20;
-    u32 m_entity_light_01; // ?
+    CEntity* m_entity_light_01;
 
 public:
     CEntityManager(CGame* game);
@@ -34,11 +35,12 @@ public:
     BOOL CreateEntity(std::string name, std::string type, std::string model);
     BOOL CreateEntity(std::string name, u32 type, std::string model);
     BOOL DestroyEntity(std::string name);
-
+    BOOL DestroyEntity(u32 index);
+    BOOL SetModelFile(std::string model);
     BOOL FindChunkModel(std::string str, DkXmd::CChunkIterator& iter);
     BOOL Parse(DkXmd::CChunkIterator iter);
     CEntity* GetEntity(std::string name);
-    u32 GetEntityLight01();
+    CEntity* GetEntityLight01();
     CEntity* GetEntity(u32 n);
     u32 GetEntityCount();
 

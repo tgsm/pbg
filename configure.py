@@ -219,6 +219,7 @@ cflags_piglet = [
     "-opt noschedule",
     "-pool off",
     "-fp_contract off",
+    "-char unsigned", # Helps a function in CEntityManager, not sure if this is accurate yet though
 ]
 
 cflags_engine = [
