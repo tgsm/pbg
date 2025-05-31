@@ -4,7 +4,7 @@
 
 class CEntityBhvTagAnim : public CEntityBhvTagData {
 private:
-    std::string m_unkC;
+    std::string m_animation_name;
 
 public:
     CEntityBhvTagAnim();

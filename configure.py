@@ -398,7 +398,7 @@ config.libs = [
             Object(NonMatching, "Piglet/entities/CEntityTigger.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityHero.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagTeleport.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityBhvTagAnim.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityBhvTagAnim.cpp"),
             Object(NonMatching, "Piglet/CMission.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityFX.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityScaryFaceBox.cpp"),
