@@ -231,12 +231,6 @@ void CMission::Initialize() {
     for (int i = 0; i < 16; i++) {
         m_rooms[i] = 0;
     }
-
-    for (int i = 0; i < 16; i++) {
-        for (int j = 0; j < 8; j++) {
-            m_unk7C[i].unk0[j] = -1;
-        }
-    }
 }
 
 int CMission::AddItem(s8* str_) {
