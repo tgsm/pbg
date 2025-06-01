@@ -121,6 +121,55 @@ void CShadowZone::UnloadShadowZone() {
     }
 }
 
+// Equivalent: regalloc
+CDKW_RGBAReal CShadowZone::RGBToHSV(CDKW_RGBAReal rgb) {
+    CDKW_RGBAReal ret;
+    f32 f1 = -1.0f;
+    f32 red = rgb.m_r;
+    f32 green = rgb.m_g;
+    f32 blue = rgb.m_b;
+    f32 f6 = red;
+    if (green > red) {
+        f6 = green;
+    }
+    if (blue > f6) {
+        f6 = blue;
+    }
+    f32 fVar1 = red;
+    if (green < fVar1) {
+        fVar1 = green;
+    }
+    if (blue < fVar1) {
+        fVar1 = blue;
+    }
+    fVar1 = f6 - fVar1;
+    if (fVar1 >= 0.05f) {
+        f32 yeah = fVar1 / (f6 + 0.5f);
+        if (f6 == red) {
+            f1 = 0.0f + (green - blue) / (fVar1 + 0.5f);
+        } else if (f6 == green) {
+            f1 = 2.0f + (blue - red) / (fVar1 + 0.5f);
+        } else if (f6 == blue) {
+            f1 = 4.0f + (red - green) / (fVar1 + 0.5f);
+        }
+        if (f1 < 0.0f) {
+            f1 += 6.0f;
+        } else if (f1 >= 6.0f) {
+            f1 -= 6.0f;
+        }
+
+        ret.m_r = f1 * (1.0f/6.0f);
+        ret.m_g = yeah;
+        ret.m_b = f6;
+    } else {
+        ret.m_r = f1;
+        ret.m_g = 0.0f;
+        ret.m_b = f6;
+    }
+
+    return ret;
+}
+
 // Equivalent?: regalloc
 CDKW_RGBAReal CShadowZone::HSVToRGB(CDKW_RGBAReal rgb) {
     CDKW_RGBAReal ret;
