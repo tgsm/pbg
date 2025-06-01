@@ -15,7 +15,7 @@ public:
     CGamePartStartScreen(CGame* game);
     virtual ~CGamePartStartScreen();
 
-    virtual void NextFrame();
+    virtual u32 NextFrame();
     virtual u32 NextFrameExit();
     virtual void Update(f32 dt_maybe);
     virtual void Render(f32 dt_maybe);

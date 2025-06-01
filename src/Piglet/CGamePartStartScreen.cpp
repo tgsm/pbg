@@ -40,8 +40,7 @@ CGamePartStartScreen::~CGamePartStartScreen() {
     m_game->m_resource_factory->UnloadResources(0);
 }
 
-// Equivalent: regalloc
-void CGamePartStartScreen::NextFrame() {
+u32 CGamePartStartScreen::NextFrame() {
     m_game->m_display_engine->Update();
 
     if (m_unk10 == 0.0f) {
@@ -75,8 +74,9 @@ void CGamePartStartScreen::NextFrame() {
 
     Render(dt);
     if (m_unk4 != m_unk0 && m_game->m_unk5038 == 2) {
-        NextFrameExit();
+        return NextFrameExit();
     }
+    return m_unk0;
 }
 
 void CGamePartStartScreen::Update(f32 dt) {
