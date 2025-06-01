@@ -600,7 +600,7 @@ config.libs = [
             Object(NonMatching, "engine/wrap/DKW_Spline.cpp"),
             Object(NonMatching, "engine/wrap/DKW_TexDictionary.cpp"),
             Object(NonMatching, "engine/wrap/DKW_Texture.cpp"),
-            Object(NonMatching, "engine/wrap/DKW_V2d.cpp"),
+            Object(Matching, "engine/wrap/DKW_V2d.cpp"),
             Object(NonMatching, "engine/wrap/DKW_V3d.cpp"),
             Object(NonMatching, "engine/wrap/DKW_Warp.cpp"),
             Object(NonMatching, "engine/wrap/DKW_World.cpp"),

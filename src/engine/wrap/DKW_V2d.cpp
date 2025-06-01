@@ -20,6 +20,13 @@ CDKW_V2d::CDKW_V2d(f32 x, f32 y) : m_x(x), m_y(y) {
 
 }
 
+CDKW_V2d CDKW_V2d::operator-(const CDKW_V2d& other) const {
+    volatile CDKW_V2d result;
+    f32 x = result.m_x = m_x - other.m_x;
+    f32 y = result.m_y = m_y - other.m_y;
+    return CDKW_V2d(x, y);
+}
+
 f32 CDKW_V2d::operator|(const CDKW_V2d& other) const {
     return m_x * other.m_x + m_y * other.m_y;
 }
