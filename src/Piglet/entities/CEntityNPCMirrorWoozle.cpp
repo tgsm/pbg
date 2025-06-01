@@ -179,11 +179,6 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(f32 a1) {
                 angle = 90.0f * m_unk2DC;
                 m_unk1A8 = 108;
             } else {
-                f32 unk = m_unk2D8 / 1.5f;
-                f32 unk_3 = unk * unk * unk;
-                f32 unk_4 = unk * (unk * unk) * unk;
-                f32 unk_cos = cos(5.5f * unk_3 * 3.141592653f);
-                angle = 90.0f * m_unk2DC * (1.0f - unk_cos / (1.0f + 40.0f * unk_4));
             }
 
             angle += m_unk2E4;
