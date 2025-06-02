@@ -12,14 +12,22 @@ public:
     __vector_pod() : m_capacity(0), m_size(0), m_data(NULL) {
     }
 
+    ~__vector_pod() {
+        if (m_data != NULL) {
+            delete m_data;
+        }
+    }
+
     unsigned long size() { return m_size; }
     T* data() { return m_data; }
     void reserve(unsigned long capacity);
-    void insert(T* pos, size_t count, const T& value);
+    void insert(T* pos, unsigned long count, const T& value);
     // Is this right?
     void push_back(const T& value) { insert(data() + size(), 1, value); }
 
+    // Throw this whole file away bruh
     T* erase(T* position);
+    T** erase(T** position);
 
     T& operator[](unsigned long n) { return *(data() + n); }
 
@@ -32,7 +40,7 @@ public:
 template <typename T, typename Allocator = allocator<T>, bool IsPOD>
 class __vector_imp : public __vector_pod<T, Allocator> {
 public:
-    void reserve(unsigned long n);
+    void reserve(unsigned long n) { __vector_pod::reserve(n); };
 };
 
 template <typename T, typename Allocator = allocator<T> >
@@ -42,6 +50,10 @@ public:
     void reserve(unsigned long n) { __vector_imp::reserve(n); }
 
     T& operator[](unsigned long n) { return __vector_imp::operator[](n); }
+
+    // FIXME: These return iterators
+    T** begin() { return (T**)data(); }
+    T** end() { return (T**)data() + size(); }
 };
 
 }

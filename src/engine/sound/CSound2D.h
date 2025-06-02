@@ -16,7 +16,18 @@ public:
     virtual void* GetSample(); // unknown return type
     virtual void SetLayer(u32 layer);
     virtual u32 GetLayer();
-    // TODO
+    virtual void Play(u32, u32);
+    virtual void Stop();
+    virtual void Pause();
+    virtual void Resume();
+    virtual void SetLoopMode(int mode);
+    virtual int GetLoopMode();
+    virtual BOOL IsLooping();
+    virtual BOOL IsFinished();
+    virtual BOOL IsPlaying();
+    virtual u32 GetType();
+    virtual void SetPanning(f32);
+    virtual f32 GetPanning();
 };
 
 }

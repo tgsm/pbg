@@ -1,6 +1,8 @@
 #ifndef ENGINE_DISPLAY_ICAMERA_H
 #define ENGINE_DISPLAY_ICAMERA_H
 
+#include "engine/display/CRaster.h"
+
 namespace DKDSP {
 
 // TODO
@@ -13,8 +15,8 @@ public:
     virtual void func1() = 0;
     virtual void func2() = 0;
     virtual void func3() = 0;
-    virtual void func4() = 0;
-    virtual void func5() = 0;
+    virtual void SetBuffer(IRaster*) = 0;
+    virtual IRaster* GetBuffer() = 0;
     virtual void func6() = 0;
     virtual void func7() = 0;
     virtual void func8() = 0;

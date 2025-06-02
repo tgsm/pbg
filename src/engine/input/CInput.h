@@ -1,7 +1,7 @@
 #ifndef ENGINE_INPUT_CINPUT_H
 #define ENGINE_INPUT_CINPUT_H
 
-#include "input/IInput.h"
+#include "engine/input/IInput.h"
 
 namespace DKI {
 

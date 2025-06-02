@@ -1,6 +1,9 @@
 #ifndef ENGINE_DISPLAY_CENGINE_H
 #define ENGINE_DISPLAY_CENGINE_H
 
+#include "engine/display/CAnimDictionary.h"
+#include "engine/display/CImmediate.h"
+#include "engine/display/CTextureDictionary.h"
 #include "types.h"
 
 // FIXME: This maybe goes in its own header, but it's only used here.
@@ -92,6 +95,11 @@ public:
     virtual IRWStream* OpenStreamMemory(u32, CDKW_Memory*); // FIXME: RwStreamAccessType, CDKW_Memory*
     virtual void fillerfunc74();
     virtual void DestroyStream(IRWStream*);
+    virtual void fillerfunc76();
+    virtual CAnimDictionary* GetAnimDictionary();
+    virtual CTextureDictionary* GetTextureDictionary();
+    virtual CImmediate* GetImmediate();
+    // TODO
 };
 
 }

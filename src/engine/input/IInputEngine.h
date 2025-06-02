@@ -11,6 +11,7 @@ public:
     static void Close();
     static void Clear();
     static IDevice* GetDevice(int);
+    static IInput* CreateInput(char*, int, int);
     static void DestroyInput(IInput* input);
 };
 
