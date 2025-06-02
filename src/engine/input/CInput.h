@@ -16,9 +16,8 @@ public:
         m_device = NULL;
     }
 
-    // TODO
-    virtual u32 GetState() {
-        return 0;
+    virtual CState GetState() {
+        return m_device->GetState(m_unkC);
     }
 
     virtual BOOL IsConnected() {

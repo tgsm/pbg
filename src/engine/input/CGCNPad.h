@@ -1,6 +1,7 @@
 #ifndef ENGINE_INPUT_CGCNPAD_H
 #define ENGINE_INPUT_CGCNPAD_H
 
+#include <dolphin/pad.h>
 #include "engine/input/IInput.h"
 
 namespace DKI {
