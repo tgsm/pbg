@@ -88,9 +88,8 @@ void CGamePartStartScreen::Update(f32 dt) {
     m_game->m_gui_manager->Update(dt);
 }
 
-// Equivalent: scheduling, regalloc
 void CGamePartStartScreen::Render(f32 dt) {
-    m_game->m_scene->SelectCamera(m_game->m_camera);
+    m_game->m_scene->SelectCamera(m_game->GetCamera());
 
     m_game->m_scene->Clear(3, 0.0f, 0.0f, 0.0f);
 
