@@ -20,7 +20,7 @@ CGamePartDMRoomLauncher::CGamePartDMRoomLauncher(CGame* game) {
     m_debug_menu->GetControl("Room")->SetUnk1CMinus1(m_game->m_unk4F58);
     m_debug_menu->GetControl("Player")->SetUnk1C(m_game->m_unk4F5C);
 
-    m_game->m_camera->SetViewWindow(0.5f, 0.5f);
+    m_game->GetCamera()->SetViewWindow(0.5f, 0.5f);
 
     Rt2dCTMSetIdentity();
 }

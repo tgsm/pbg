@@ -65,8 +65,8 @@ public:
     CGamePartCredits(CGame* game, int);
     virtual ~CGamePartCredits();
 
+    virtual u32 NextFrame();
     virtual BOOL SetCreditsFile(std::string credits_xmd_filename);
-
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseDefaults(DkXmd::CChunkIterator iter);
     virtual void ParseCreditsList(DkXmd::CChunkIterator iter);

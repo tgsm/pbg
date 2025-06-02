@@ -57,8 +57,8 @@ CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
     SetCreditsFile("MENUS/CREDITS/Credits.XMD");
     Parse(*m_credits_xmd_iter);
 
-    m_raster_width = m_game->m_camera->GetBuffer()->GetWidth();
-    m_raster_height = m_game->m_camera->GetBuffer()->GetHeight();
+    m_raster_width = m_game->GetCamera()->GetBuffer()->GetWidth();
+    m_raster_height = m_game->GetCamera()->GetBuffer()->GetHeight();
 
     m_unk48 = 1;
 
@@ -69,7 +69,7 @@ CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
         m_unk48 += interline;
     }
 
-    m_game->m_camera->SetViewWindow(0.5f, 0.5f);
+    m_game->GetCamera()->SetViewWindow(0.5f, 0.5f);
 
     Rt2dCTMSetIdentity();
 
@@ -210,9 +210,9 @@ void CGamePartCredits::Parse(DkXmd::CChunkIterator iter) {
             } else if (tmp == "Interline") {
                 m_interline = dest.GetFloatValue();
             } else if (tmp == "BlackStripHeight") {
-                m_black_strip_height = dest.GetFloatValue() * m_game->m_camera->GetBuffer()->GetHeight();
+                m_black_strip_height = dest.GetFloatValue() * m_game->GetCamera()->GetBuffer()->GetHeight();
             } else if (tmp == "FadeStripHeight") {
-                m_fade_strip_height = dest.GetFloatValue() * m_game->m_camera->GetBuffer()->GetHeight();
+                m_fade_strip_height = dest.GetFloatValue() * m_game->GetCamera()->GetBuffer()->GetHeight();
             } else if (tmp == "StartTime") {
                 m_start_time = -dest.GetFloatValue();
             } else if (tmp == "Defaults") {
@@ -294,4 +294,87 @@ int CGamePartCredits::GetEntryColorId(Entry& entry) {
         }
     }
     return m_color_id;
+}
+
+u32 CGamePartCredits::NextFrame() {
+    if (!m_game->m_display_engine->Update()) {
+        return 9;
+    }
+
+    f32 dt = m_game->GetDeltaTime();
+    Update(dt);
+    Render(dt);
+
+    if (TestForExit() && m_start_time > 2.0f) {
+        if (!m_game->IsUnk5038Not2()) {
+            m_game->FadeInit(2.0f, CGame::FADE_TYPE_0, 0, 0, 0, 0.0f);
+            m_game->m_unk5038 = 0;
+        }
+    }
+
+    if (m_game->m_unk5038 == 0 && !m_game->FadeIn(dt)) {
+        m_game->m_unk5038 = 2;
+        return NextFrameExit();
+    }
+
+    if (m_unk4 != m_unk0 || m_unk34 == TRUE) {
+        return NextFrameExit();
+    }
+
+    return m_unk0;
+}
+
+void CGamePartCredits::Render(f32 dt) {
+    m_game->m_scene->SelectCamera(m_game->GetCamera());
+    m_game->m_scene->Clear(3, 0.0f, 0.0f, 0.0f);
+
+    m_game->m_scene->BeginRender();
+
+    m_game->m_fx_manager->Render();
+    m_game->m_gui_engine->UpdateAndRenderOnlyTexts(m_game->GetCamera()->m_unk8->rw_camera);
+    if (!m_game->IsUnk5038Not2()) {
+        m_game->m_gui_manager->Render(dt);
+    }
+    m_game->m_scene->Flush();
+    m_game->RenderFade();
+    m_game->RenderFade(); // why did they do this twice?
+    RenderStrip(dt);
+
+    m_game->m_scene->EndRender();
+
+    m_game->m_scene->Flip(0);
+}
+
+BOOL CGamePartCredits::TestForExit() {
+    if (m_unk20 != NULL && m_unk20->GetState().m_unk0 == 1) {
+        return TRUE;
+    }
+
+    if (m_unk24 != NULL && m_unk24->GetState().m_unk0 == 1) {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+u32 CGamePartCredits::NextFrameExit() {
+    m_game->ResetOpcodeBuffer();
+    if (m_unk10 != 0) {
+        m_game->PushOpcodeValue(11);
+    } else {
+        m_game->ResetOpcodeBuffer();
+        m_game->PushOpcodeValue(1);
+        m_game->PushOpcodeValue(2);
+        m_game->PushOpcodeValue(0);
+        m_game->PushOpcodeValue(25);
+        m_game->PushOpcodeValue(0);
+        m_game->PushOpcodeValue(15);
+        m_game->PushOpcodeValue(0);
+        m_game->PushOpcodeValue(156);
+        m_game->PushOpcodeValue(0);
+        m_game->PushOpcodeValue(0);
+    }
+
+    m_game->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
+    return 0;
 }

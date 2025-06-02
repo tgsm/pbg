@@ -8,7 +8,7 @@ namespace DKI {
 // TODO
 class CState {
 public:
-    u32 m_unk0;
+    int m_unk0;
     f32 m_unk4;
     f32 m_unk8;
 

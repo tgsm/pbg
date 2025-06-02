@@ -9,6 +9,7 @@
 #include "engine/display/CScene.h"
 #include "engine/display/CTextureDictionary.h"
 #include "engine/display/CTimer.h"
+#include "engine/gui/CGUIEngine.h"
 #include "engine/input/IInputEngine.h"
 #include "engine/sound/CSoundEngine.h"
 #include "engine/wrap/DKW_RGBA.h"
@@ -49,7 +50,8 @@ public:
     u32 m_unk4F54;
     u32 m_unk4F58;
     u32 m_unk4F5C;
-    u8 m_unk4F60[0x4F80 - 0x4F60];
+    u8 m_unk4F60[0x4F7C - 0x4F60];
+    DKGUI::CGUIEngine* m_gui_engine;
     DKSND::CSoundEngine* m_sound_engine;
     u8 m_unk4F84[4];
     DKDSP::CEngine* m_display_engine;
@@ -97,9 +99,12 @@ public:
 
     virtual BOOL NextFrame();
 
+    DKDSP::CCamera* GetCamera() { return m_camera; }
     CMailBox* GetMailbox() { return m_mailbox; }
 
     u32& GetFlags() { return m_unk8; }
+
+    BOOL IsUnk5038Not2() { return m_unk5038 == 2 ? 0 : 1; }
 
     f32 GetDeltaTime();
     void ComputeDeltaTime();
