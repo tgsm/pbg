@@ -186,7 +186,6 @@ void CGamePartCredits::ParseDefaults(DkXmd::CChunkIterator iter) {
     }
 }
 
-// Equivalent: scheduling with inlines
 void CGamePartCredits::Parse(DkXmd::CChunkIterator iter) {
     std::string tmp;
     DkXmd::CChunkIterator dest;
@@ -220,12 +219,14 @@ void CGamePartCredits::Parse(DkXmd::CChunkIterator iter) {
                 ParseDefaults(dest);
             } else if (tmp == "Color") {
                 Color* color = new Color;
+                size_t c = reinterpret_cast<size_t>(color);
                 ParseColor(color, dest);
-                m_unk68.push_back(reinterpret_cast<size_t>(color));
+                m_unk68.push_back(c);
             } else if (tmp == "Style") {
                 Entry* entry = new Entry;
+                size_t e = reinterpret_cast<size_t>(entry);
                 ParseEntry(entry, dest);
-                m_unk74.push_back(reinterpret_cast<size_t>(entry));
+                m_unk74.push_back(e);
             } else if (tmp == "CreditsList") {
                 ParseCreditsList(dest);
             }
