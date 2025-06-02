@@ -635,9 +635,9 @@ void CGuiSaveCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
         m_game->m_timer->Resume();
 
         if (!(backup_state & (1 << 0))) {
-            m_game->m_gui_manager->GetGuiPtr("SAVE_MMC_UNUSEABLE")->menu->Reset();
-            m_game->m_gui_manager->SetActive("SAVE_MMC_UNUSEABLE", 0);
-            m_game->m_gui_manager->SetVisible("SAVE_MMC_UNUSEABLE", 0);
+            m_game->m_gui_manager->GetGuiPtr("SAVE_MMC_CORRUPT")->menu->Reset();
+            m_game->m_gui_manager->SetActive("SAVE_MMC_CORRUPT", 0);
+            m_game->m_gui_manager->SetVisible("SAVE_MMC_CORRUPT", 0);
 
             m_game->m_gui_manager->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
             m_game->m_gui_manager->SetActive("SAVE_CHECK_MMC", 1);
@@ -646,17 +646,17 @@ void CGuiSaveCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
     } else if (event == DKGUI::EVENT_3) {
         std::string str = (char*)unk;
         if (str == "yes") {
-            m_game->m_gui_manager->GetGuiPtr("SAVE_MMC_UNUSEABLE")->menu->Reset();
-            m_game->m_gui_manager->SetActive("SAVE_MMC_UNUSEABLE", 0);
-            m_game->m_gui_manager->SetVisible("SAVE_MMC_UNUSEABLE", 0);
+            m_game->m_gui_manager->GetGuiPtr("SAVE_MMC_CORRUPT")->menu->Reset();
+            m_game->m_gui_manager->SetActive("SAVE_MMC_CORRUPT", 0);
+            m_game->m_gui_manager->SetVisible("SAVE_MMC_CORRUPT", 0);
 
-            m_game->m_gui_manager->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
-            m_game->m_gui_manager->SetActive("SAVE_CHECK_MMC", 1);
-            m_game->m_gui_manager->SetVisible("SAVE_CHECK_MMC", 1);
+            m_game->m_gui_manager->GetGuiPtr("SAVE_FORMAT_SURE")->menu->Reset();
+            m_game->m_gui_manager->SetActive("SAVE_FORMAT_SURE", 1);
+            m_game->m_gui_manager->SetVisible("SAVE_FORMAT_SURE", 1);
         } else if (str == "no") {
-            m_game->m_gui_manager->GetGuiPtr("SAVE_MMC_UNUSEABLE")->menu->Reset();
-            m_game->m_gui_manager->SetActive("SAVE_MMC_UNUSEABLE", 0);
-            m_game->m_gui_manager->SetVisible("SAVE_MMC_UNUSEABLE", 0);
+            m_game->m_gui_manager->GetGuiPtr("SAVE_MMC_CORRUPT")->menu->Reset();
+            m_game->m_gui_manager->SetActive("SAVE_MMC_CORRUPT", 0);
+            m_game->m_gui_manager->SetVisible("SAVE_MMC_CORRUPT", 0);
 
             if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
