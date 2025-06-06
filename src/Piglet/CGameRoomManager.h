@@ -24,6 +24,8 @@ public:
     CEntityHero* GetCurrentHero();
     f32 GetCamRollAngle();
     void SetCamRollAngle(f32 angle);
+
+    u32 GetState();
 };
 REQUIRE_SIZE(CGameRoomManager, 0x178);
 

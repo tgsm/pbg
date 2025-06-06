@@ -10,6 +10,7 @@ public:
     virtual IWarp* CreateWarp();
     virtual void RemoveWarp(IWarp*);
     virtual void RenderWarp(IWarp*);
+    virtual CClump* CloneClump(std::string, IObjectDictionary*);
     virtual void SelectCamera(ICamera*);
     virtual void Clear(int, f32, f32, f32);
     virtual void BeginRender();

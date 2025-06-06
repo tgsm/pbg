@@ -58,12 +58,12 @@ public:
     virtual void func46();
     virtual void func47();
     virtual void func48();
-    virtual void func49();
+    virtual CSound2D* PlayStreamedSound(std::string*, int);
     virtual void func50();
     virtual void func51();
     virtual void func52();
     virtual void func53();
-    virtual void func54();
+    virtual void StopStreamedSound();
     virtual void func55();
     virtual void func56();
     virtual void DeleteAllSounds();

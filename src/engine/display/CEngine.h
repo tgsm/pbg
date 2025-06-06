@@ -22,12 +22,12 @@ public:
     virtual void fillerfunc0();
     virtual void fillerfunc1();
     virtual void fillerfunc2();
-    virtual void fillerfunc3();
+    virtual void SetCharsetCreation(BOOL);
     virtual void fillerfunc4();
     virtual void fillerfunc5();
     virtual void fillerfunc6();
     virtual void fillerfunc7();
-    virtual void fillerfunc8();
+    virtual void SetGCNVideoMode(void*);
     virtual void fillerfunc9();
     virtual void fillerfunc10();
     virtual void fillerfunc11();

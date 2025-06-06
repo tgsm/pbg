@@ -2,9 +2,11 @@
 #define PIGLET_CGAME_H
 
 #include <string>
+#include <vector>
 #include "engine/backup/CGCNBAKEngine.h"
 #include "engine/display/CAnimDictionary.h"
 #include "engine/display/CCamera.h"
+#include "engine/display/CController.h"
 #include "engine/display/CEngine.h"
 #include "engine/display/CScene.h"
 #include "engine/display/CTextureDictionary.h"
@@ -25,6 +27,11 @@
 #include "CShadowZone.h"
 
 class CEntityManager;
+
+struct SVideoDesc {
+    int id;
+    std::string filename;
+};
 
 // Very TODO, there's a lot of stuff in this class
 class CGame {
@@ -71,9 +78,11 @@ public:
     CShadowZone* m_shadow_zone;
     CGameBackup* m_game_backup;
     DKBAK::CGCNBAKEngine* m_backup_engine;
-    u8 m_unk4FF0[0x5000 - 0x4FF0];
+    u8 m_unk4FF0[4];
+    std::vector<SVideoDesc> m_video_descs;
     CScreenEffect* m_screen_effect;
-    u8 m_unk5004[0x500C - 0x5004];
+    std::string m_unk5004;
+    DKSND::CSound2D* m_unk5008;
     CGamePart* m_game_part;
     u8 m_unk5010[0x5028 - 0x5010];
     u32 m_fade_color;
@@ -87,7 +96,11 @@ public:
     f32 m_unk5044;
     f32 m_unk5048;
     f32 m_unk504C;
-    u8 m_unk5050[0x508C - 0x5050];
+    u8 m_unk5050[0x505C - 0x5050];
+    DKDSP::CController* m_unk505C;
+    DKDSP::CClump* m_unk5060;
+    std::vector<size_t> m_unk5064;
+    u8 m_unk5070[0x508C - 0x5070];
     DKI::IInput* m_unk508C;
     u8 m_unk5090[4];
 
@@ -113,13 +126,16 @@ public:
     void ResetOpcodeBuffer();
     void PushOpcodeValue(int opcode);
     BOOL LoadConfigFile(char* filename);
+    void ParseRTCCamFight(DkXmd::CChunkIterator iter);
     void PlayNarratorLine(std::string line_id);
+    void StopNarratorLine();
     void FadeInit(f32 duration, ERommFadeType fade_type, u8 red, u8 green, u8 blue, f32 a6);
     int FadeUpdate(f32);
     int FadeIn(f32 a1);
     int FadeOut(f32 a1);
     void RenderFade();
-    void RegisterVideo(int, std::string filename);
+    BOOL IsGUIDisplayNotAdvised();
+    void RegisterVideo(int id, std::string filename);
     CDKW_RGBA ComputeGameFadeColor();
 };
 REQUIRE_SIZE(CGame, 0x5098);

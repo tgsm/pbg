@@ -1,6 +1,7 @@
 #ifndef ENGINE_DISPLAY_ICLUMP_H
 #define ENGINE_DISPLAY_ICLUMP_H
 
+#include "engine/display/IController.h"
 #include "engine/wrap/DKW_Frame.h"
 
 namespace DKDSP {
@@ -38,7 +39,7 @@ public:
     virtual void func24() = 0;
     virtual void func25() = 0;
     virtual void func26() = 0;
-    virtual void func27() = 0;
+    virtual void SetController(IController*) = 0;
     virtual void func28() = 0;
     virtual void func29() = 0;
     virtual void func30() = 0;

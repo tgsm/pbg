@@ -7,6 +7,8 @@
 
 namespace DKDSP {
 
+class IObjectDictionary;
+
 // TODO
 class IScene {
 public:
@@ -87,7 +89,7 @@ public:
     virtual void RenderWarp(IWarp*) = 0;
     virtual void func75();
     virtual void func76();
-    virtual void func77();
+    virtual CClump* CloneClump(std::string, IObjectDictionary*) = 0;
     virtual void func78();
     virtual void func79();
     virtual void func80();

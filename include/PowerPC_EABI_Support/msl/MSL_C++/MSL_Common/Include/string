@@ -43,6 +43,14 @@ struct basic_string {
     bool operator==(const basic_string& other) {
         return size() == other.size() && compare(other) == 0;
     }
+    bool operator!=(const basic_string& other) {
+        return size() != other.size() || compare(other) != 0;
+    }
+
+    basic_string& append(const CharT* s, size_type count);
+    basic_string& operator+=(const CharT* s) {
+        return append(s, strlen(s));
+    }
 
     CharT* begin() const {
         // FIXME: This should return an iterator.

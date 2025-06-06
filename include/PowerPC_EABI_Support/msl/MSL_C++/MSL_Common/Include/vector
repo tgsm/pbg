@@ -9,7 +9,7 @@ namespace std {
 template <typename T, typename Allocator = allocator<T> >
 class __vector_pod {
 public:
-    __vector_pod() : m_capacity(0), m_size(0), m_data(NULL) {
+    __vector_pod() : m_capacity(0), m_size(0), m_data((T*)NULL) {
     }
 
     ~__vector_pod() {
@@ -37,7 +37,7 @@ public:
     T* m_data;
 };
 
-template <typename T, typename Allocator = allocator<T>, bool IsPOD>
+template <typename T, typename Allocator = allocator<T>, bool>
 class __vector_imp : public __vector_pod<T, Allocator> {
 public:
     void reserve(unsigned long n) { __vector_pod::reserve(n); };
