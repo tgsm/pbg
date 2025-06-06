@@ -563,7 +563,7 @@ config.libs = [
             Object(NonMatching, "engine/backup/DkBackUp.cpp"),
             Object(NonMatching, "engine/backup/CGCNBAKEngine.cpp"),
             Object(NonMatching, "engine/GCNIcon.c"),
-            Object(NonMatching, "engine/gui/DkGUI.cpp"),
+            Object(Matching, "engine/gui/DkGUI.cpp", extra_cflags=["-Cpp_exceptions on"]),
             Object(NonMatching, "engine/gui/CGUIAnim.cpp"),
             Object(NonMatching, "engine/gui/CGUIEngine.cpp"),
             Object(NonMatching, "engine/gui/CGUIMenu.cpp"),
