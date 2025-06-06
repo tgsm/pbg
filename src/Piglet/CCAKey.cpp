@@ -29,8 +29,8 @@ CCAKey::CCAKey(DkXmd::CChunkIterator* iter, char* name) {
 
     do {
         if (strcmp("ID", dest.GetName()) == 0) {
-            const u8* value = (const u8*)dest.GetStringValue();
-            u32 i;
+            const U8* value = (const U8*)dest.GetStringValue();
+            U32 i;
             for (i = 0; value[i] != 0u && i < 0x400; i++) {
 
             }

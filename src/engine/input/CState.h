@@ -9,8 +9,8 @@ namespace DKI {
 class CState {
 public:
     int m_unk0;
-    f32 m_unk4;
-    f32 m_unk8;
+    F32 m_unk4;
+    F32 m_unk8;
 
 public:
     CState();

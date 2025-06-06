@@ -10,7 +10,7 @@ class CEntityBhvTagSendMessage : public CEntityBhvTagData {
 private:
     std::string m_unkC;
     std::string m_unk10;
-    u32 m_unk14; // unknown type
+    U32 m_unk14; // unknown type
 
 public:
     CEntityBhvTagSendMessage();
@@ -20,7 +20,7 @@ public:
         entity->m_entity_manager->GetGame()->GetMailbox()->SendMessage(entity->m_unk0, m_unkC, m_unk10, m_unk14);
     }
 
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return BEHAVIOR_TAG_SEND_MESSAGE;
     }
     

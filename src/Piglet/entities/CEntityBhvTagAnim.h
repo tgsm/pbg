@@ -11,7 +11,7 @@ public:
     virtual ~CEntityBhvTagAnim();
 
     virtual void Set(CEntity* entity); // entity actually be derived from CEntity
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return BEHAVIOR_TAG_ANIM;
     }
 

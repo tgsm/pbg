@@ -6,14 +6,14 @@
 extern "C" {
 
 struct RwV3d {
-    f32 x;
-    f32 y;
-    f32 z;
+    F32 x;
+    F32 y;
+    F32 z;
 };
 
 // FIXME: Do this properly
 struct RwFrame {
-    u8 unk0[0x34];
+    U8 unk0[0x34];
     RwV3d unk34;
 }; // Probably wrong size
 
@@ -21,7 +21,7 @@ struct RwFrame {
 
 class CDKW_Frame {
 public:
-    u8 m_unk0[4];
+    U8 m_unk0[4];
     RwFrame* m_rwframe;
 }; // Unknown size
 

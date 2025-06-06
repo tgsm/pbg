@@ -7,25 +7,25 @@ class CEntityNPCDoor : public CEntityNPC {
 private:
     std::string m_unk2D4;
     std::string m_unk2D8;
-    u32 m_unk2DC;
+    U32 m_unk2DC;
 
 public:
     CEntityNPCDoor(CEntityManager* entity_manager, std::string name);
     virtual ~CEntityNPCDoor();
 
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return ENTITY_NPC_DOOR;
     }
     virtual void Reset();
-    virtual void Render(f32 dt_maybe);
+    virtual void Render(F32 dt_maybe);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual void Restore(void*);
-    virtual void UpdateDetectionBehaviour(f32);
-    virtual void UpdateFightBehaviour(f32);
-    virtual void UpdateGrimaceBehaviour(f32);
-    virtual void UpdateSpecialBehaviour(f32);
-    virtual void UpdateDeathBehaviour(f32);
+    virtual void UpdateDetectionBehaviour(F32);
+    virtual void UpdateFightBehaviour(F32);
+    virtual void UpdateGrimaceBehaviour(F32);
+    virtual void UpdateSpecialBehaviour(F32);
+    virtual void UpdateDeathBehaviour(F32);
 
     BOOL CanLaunchFightMode();
 };

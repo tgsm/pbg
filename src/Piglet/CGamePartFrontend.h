@@ -10,7 +10,7 @@ public:
     CGamePartFrontend(CGame* game);
     ~CGamePartFrontend();
 
-    virtual u32 NextFrame();
+    virtual U32 NextFrame();
 };
 REQUIRE_SIZE(CGamePartFrontend, 0xC);
 

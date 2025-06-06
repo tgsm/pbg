@@ -6,11 +6,11 @@
 
 class CEntityNPCMirrorWoozle : public CEntityNPC {
 private:
-    f32 m_unk2D4;
-    f32 m_unk2D8;
-    f32 m_unk2DC;
-    f32 m_unk2E0;
-    f32 m_unk2E4;
+    F32 m_unk2D4;
+    F32 m_unk2D8;
+    F32 m_unk2DC;
+    F32 m_unk2E0;
+    F32 m_unk2E4;
     int m_unk2E8;
     BOOL m_unk2EC;
 
@@ -18,16 +18,16 @@ public:
     CEntityNPCMirrorWoozle(CEntityManager* entity_manager, std::string name);
     virtual ~CEntityNPCMirrorWoozle();
 
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return ENTITY_NPC_MIRROR_WOOZLE;
     }
 
     virtual void Reset();
-    virtual void UpdateDetectionBehaviour(f32);
-    virtual void UpdateFightBehaviour(f32);
-    virtual void UpdateGrimaceBehaviour(f32);
-    virtual void UpdateDeathBehaviour(f32);
-    virtual void Render(f32);
+    virtual void UpdateDetectionBehaviour(F32);
+    virtual void UpdateFightBehaviour(F32);
+    virtual void UpdateGrimaceBehaviour(F32);
+    virtual void UpdateDeathBehaviour(F32);
+    virtual void Render(F32);
     virtual void Restore(void*);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);

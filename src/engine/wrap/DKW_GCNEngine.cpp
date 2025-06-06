@@ -13,7 +13,7 @@ extern void DolphinInstallFileSystem(void);
 
 MemoryFunctionsStruct MemoryFunctions;
 
-s64 CDKW_GCNEngine::ms_InitialTime;
+S64 CDKW_GCNEngine::ms_InitialTime;
 static BOOL IsHeapInitialized;
 
 void _printMessages(const char*) {
@@ -60,32 +60,32 @@ void CDKW_GCNEngine::InstallFileSystem() {
     DolphinInstallFileSystem();
 }
 
-s64 CDKW_GCNEngine::OSGetTime() {
+S64 CDKW_GCNEngine::OSGetTime() {
     return ::OSGetTime() - ms_InitialTime;
 }
 
-s32 CDKW_GCNEngine::Timer() {
+S32 CDKW_GCNEngine::Timer() {
     return OSGetTime() / (OS_TIMER_CLOCK / 1000);
 }
 
-f32 CDKW_GCNEngine::GetTimer() {
-    return (f32)(OSGetTime()) / OS_TIMER_CLOCK;
+F32 CDKW_GCNEngine::GetTimer() {
+    return (F32)(OSGetTime()) / OS_TIMER_CLOCK;
 }
 
-f32 CDKW_GCNEngine::GetDeltaTimer() {
-    static s64 oldtime;
-    s64 currenttime = OSGetTime();
-    s64 delta = currenttime - oldtime;
+F32 CDKW_GCNEngine::GetDeltaTimer() {
+    static S64 oldtime;
+    S64 currenttime = OSGetTime();
+    S64 delta = currenttime - oldtime;
     oldtime = currenttime;
-    return (f32)(delta) / OS_TIMER_CLOCK;
+    return (F32)(delta) / OS_TIMER_CLOCK;
 }
 
 void CDKW_GCNEngine::SaveTimer() {
     m_saved_time = ::OSGetTime() - ms_InitialTime;
 }
 
-f32 CDKW_GCNEngine::GetDeltaTimerSinceSaved() {
-    return (f32)(OSGetTime() - m_saved_time) / OS_TIMER_CLOCK;
+F32 CDKW_GCNEngine::GetDeltaTimerSinceSaved() {
+    return (F32)(OSGetTime() - m_saved_time) / OS_TIMER_CLOCK;
 }
 
 void CDKW_GCNEngine::OnPadButtonDown(DKW_PadButtonStatus*) {

@@ -12,16 +12,16 @@ public:
     CEntityWarp(CEntityManager* entity_manager, std::string name);
     virtual ~CEntityWarp();
 
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return ENTITY_WARP;
     }
-    virtual u32 GetSaveSize() {
+    virtual U32 GetSaveSize() {
         return 0;
     }
 
     virtual void Reset();
-    virtual void Update(f32 dt_maybe);
-    virtual void Render(f32 dt_maybe);
+    virtual void Update(F32 dt_maybe);
+    virtual void Render(F32 dt_maybe);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
 

@@ -37,7 +37,7 @@ public:
     virtual ~CEntityBhvTagData();
 
     virtual void Set(CEntity* entity) = 0;
-    virtual u32 GetType() = 0;
+    virtual U32 GetType() = 0;
 
     void AddBehavior(CEntityBhvTagData* unk);
     void AddData(CEntityBhvTagData* unk);

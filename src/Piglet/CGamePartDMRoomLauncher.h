@@ -15,7 +15,7 @@ public:
     CGamePartDMRoomLauncher(CGame* game);
     virtual ~CGamePartDMRoomLauncher();
 
-    virtual u32 NextFrame();
+    virtual U32 NextFrame();
 };
 REQUIRE_SIZE(CGamePartDMRoomLauncher, 0x14);
 

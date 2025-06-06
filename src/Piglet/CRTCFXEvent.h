@@ -7,9 +7,9 @@
 class CRTCFXEvent : public CRTCEvent {
 private:
     std::string m_name;
-    f32 m_position_x;
-    f32 m_position_y;
-    f32 m_position_z;
+    F32 m_position_x;
+    F32 m_position_y;
+    F32 m_position_z;
 
 public:
     CRTCFXEvent(CRTCPlayerEntity* player_entity);

@@ -2,20 +2,20 @@
 #include "CGame.h"
 #include <iostream>
 
-void CSlotContainer::StoreS8(s8 value, s8* dest) {
+void CSlotContainer::StoreS8(S8 value, S8* dest) {
     *dest = value;
 }
 
-void CSlotContainer::StoreS32(s32 value, s8* dest) {
-    *((s32*)dest) = value;
+void CSlotContainer::StoreS32(S32 value, S8* dest) {
+    *((S32*)dest) = value;
 }
 
-s8 CSlotContainer::GetS8(s8* src) {
+S8 CSlotContainer::GetS8(S8* src) {
     return *src;
 }
 
-s32 CSlotContainer::GetS32(s8* src) {
-    return *((s32*)src);
+S32 CSlotContainer::GetS32(S8* src) {
+    return *((S32*)src);
 }
 
 CGameBackup::CGameBackup(CGame* game) : m_game(game), m_unk4(0), m_current_container(NULL) {

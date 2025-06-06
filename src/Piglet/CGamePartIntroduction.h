@@ -8,7 +8,7 @@ public:
     CGamePartIntroduction();
     virtual ~CGamePartIntroduction();
 
-    virtual u32 NextFrame();
+    virtual U32 NextFrame();
 };
 REQUIRE_SIZE(CGamePartIntroduction, 0xC);
 

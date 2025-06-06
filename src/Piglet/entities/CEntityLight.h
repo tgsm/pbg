@@ -5,7 +5,7 @@
 
 class CEntityLight : public CEntityObject {
 public:
-    u8 m_unk40[0x10];
+    U8 m_unk40[0x10];
 
 public:
     CEntityLight(CEntityManager* entity_manager, std::string name);

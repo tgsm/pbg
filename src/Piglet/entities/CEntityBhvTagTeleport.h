@@ -8,14 +8,14 @@
 
 class CEntityBhvTagTeleport : public CEntityBhvTagData {
 private:
-    f32 m_hero_pos_x;
-    f32 m_hero_pos_y;
-    f32 m_hero_pos_z;
-    f32 m_hero_rot_x;
-    f32 m_hero_rot_y;
-    f32 m_hero_rot_z;
+    F32 m_hero_pos_x;
+    F32 m_hero_pos_y;
+    F32 m_hero_pos_z;
+    F32 m_hero_rot_x;
+    F32 m_hero_rot_y;
+    F32 m_hero_rot_z;
     int m_room;
-    u32 m_hero;
+    U32 m_hero;
     BOOL m_no_fade;
 
 public:
@@ -65,8 +65,8 @@ public:
             entity->m_entity_manager->GetGame()->m_unk503C &= ~(1 << 3); // bitfield?
 
             // FIXME: Which GamePart is this?
-            u8* game_part_raw = reinterpret_cast<u8*>(entity->m_entity_manager->GetGame()->GetGamePartPointer());
-            **((u32**)(game_part_raw+0x14)) |= (1 << 5);
+            U8* game_part_raw = reinterpret_cast<U8*>(entity->m_entity_manager->GetGame()->GetGamePartPointer());
+            **((U32**)(game_part_raw+0x14)) |= (1 << 5);
 
             entity->m_entity_manager->GetGame()->FadeIn(-1.0f);
 
@@ -80,7 +80,7 @@ public:
         }
     }
 
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return BEHAVIOR_TAG_TELEPORT;
     }
 };

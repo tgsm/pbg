@@ -19,7 +19,7 @@ void CEntityNPCMirrorWoozle::Reset() {
 }
 
 // Incomplete
-void CEntityNPCMirrorWoozle::UpdateDetectionBehaviour(f32 a1) {
+void CEntityNPCMirrorWoozle::UpdateDetectionBehaviour(F32 a1) {
     CDKW_V3d pos_delta;
     CDKW_V3d frame_vec;
 
@@ -66,7 +66,7 @@ void CEntityNPCMirrorWoozle::UpdateDetectionBehaviour(f32 a1) {
     }
 }
 
-void CEntityNPCMirrorWoozle::UpdateFightBehaviour(f32 a1) {
+void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
     if (m_unk1A8 == 102 || m_unk1A8 == 106 || m_unk1A8 == 107 || m_unk1A8 == 108 || m_unk1A8 == 103) {
         ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->UnblockFightMode();
 
@@ -128,7 +128,7 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(f32 a1) {
             CEntitySeqKey* key_sequence_entity = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_key_sequence_entity;
             if (key_sequence_entity != NULL) {
                 // Weird double negation
-                f32 thing = -m_unk2E4;
+                F32 thing = -m_unk2E4;
                 thing = -thing;
                 key_sequence_entity->m_unk54 = thing;
             }
@@ -174,15 +174,15 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(f32 a1) {
             break;
         case 107: {
             m_unk2D8 += a1;
-            f32 angle;
+            F32 angle;
             if (m_unk2D8 > 1.5f) {
                 angle = 90.0f * m_unk2DC;
                 m_unk1A8 = 108;
             } else {
-                f32 unk = m_unk2D8 / 1.5f;
-                f32 unk_3 = unk * unk * unk;
-                f32 unk_4 = unk * (unk * unk) * unk;
-                f32 unk_cos = cos(5.5f * unk_3 * 3.141592653f);
+                F32 unk = m_unk2D8 / 1.5f;
+                F32 unk_3 = unk * unk * unk;
+                F32 unk_4 = unk * (unk * unk) * unk;
+                F32 unk_cos = cos(5.5f * unk_3 * 3.141592653f);
                 angle = 90.0f * m_unk2DC * (1.0f - unk_cos / (1.0f + 40.0f * unk_4));
             }
 
@@ -227,7 +227,7 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(f32 a1) {
     }
 }
 
-void CEntityNPCMirrorWoozle::UpdateGrimaceBehaviour(f32) {
+void CEntityNPCMirrorWoozle::UpdateGrimaceBehaviour(F32) {
     switch (m_unk1A8) {
         case 101:
             m_unk2E4 = 0.0f;
@@ -260,11 +260,11 @@ void CEntityNPCMirrorWoozle::UpdateGrimaceBehaviour(f32) {
     }
 }
 
-void CEntityNPCMirrorWoozle::UpdateDeathBehaviour(f32) {
+void CEntityNPCMirrorWoozle::UpdateDeathBehaviour(F32) {
 
 }
 
-void CEntityNPCMirrorWoozle::Render(f32 dt_maybe) {
+void CEntityNPCMirrorWoozle::Render(F32 dt_maybe) {
     if (IsFlagged(1 << 1) == TRUE) {
         CEntityNPC::Render(dt_maybe);
     }

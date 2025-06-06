@@ -7,7 +7,7 @@
 class CRTCFadeEvent : public CRTCEvent {
 private:
     CRTCFade m_fade;
-    u8 filler[4]; // unused, not sure if it's in here or CRTCFade
+    U8 filler[4]; // unused, not sure if it's in here or CRTCFade
 
 public:
     CRTCFadeEvent(CRTCPlayerEntity* player_entity);

@@ -17,7 +17,7 @@ void CEntityWarp::Reset() {
     CEntity::Reset();
 }
 
-void CEntityWarp::Update(f32 dt_maybe) {
+void CEntityWarp::Update(F32 dt_maybe) {
     if (m_warp == NULL) {
         return;
     }
@@ -30,7 +30,7 @@ void CEntityWarp::Update(f32 dt_maybe) {
     }
 }
 
-void CEntityWarp::Render(f32 dt_maybe) {
+void CEntityWarp::Render(F32 dt_maybe) {
     if (m_warp == NULL) {
         return;
     }

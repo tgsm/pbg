@@ -9,6 +9,6 @@ CGamePartIntroduction::~CGamePartIntroduction() {
 
 }
 
-u32 CGamePartIntroduction::NextFrame() {
+U32 CGamePartIntroduction::NextFrame() {
     return 6;
 }

@@ -5,10 +5,10 @@
 
 class CRTCFade {
 public:
-    u32 m_type;
-    u32 m_duration;
-    u32 m_unk8;
-    u32 m_color_maybe; // 0 if white
+    U32 m_type;
+    U32 m_duration;
+    U32 m_unk8;
+    U32 m_color_maybe; // 0 if white
 
 public:
     CRTCFade();

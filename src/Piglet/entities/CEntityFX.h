@@ -5,7 +5,7 @@
 
 class CEntityFX : public CEntityObject {
 public:
-    u8 m_unk40[0x30];
+    U8 m_unk40[0x30];
 
 public:
     CEntityFX(CEntityManager* entity_manager, std::string name);

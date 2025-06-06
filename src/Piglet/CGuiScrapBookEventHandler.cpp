@@ -19,7 +19,7 @@ void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
     int iVar7;
     int iVar8;
     CGame* game;
-    f32 unk_float;
+    F32 unk_float;
 
     m_unk18 = 2;
     m_unk14 = 3;

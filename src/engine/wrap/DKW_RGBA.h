@@ -7,14 +7,14 @@ class CDKW_RGBA {
 public:
     CDKW_RGBA();
     CDKW_RGBA(const CDKW_RGBA& other);
-    CDKW_RGBA(u8 r, u8 g, u8 b, u8 a);
+    CDKW_RGBA(U8 r, U8 g, U8 b, U8 a);
     ~CDKW_RGBA() {}
 
-    CDKW_RGBA operator*(const f32& scalar) const;
+    CDKW_RGBA operator*(const F32& scalar) const;
     void operator=(const CDKW_RGBA& other);
 
 public:
-    u8 m_r, m_g, m_b, m_a;
+    U8 m_r, m_g, m_b, m_a;
 };
 REQUIRE_SIZE(CDKW_RGBA, 0x4);
 

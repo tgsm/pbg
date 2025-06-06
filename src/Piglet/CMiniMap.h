@@ -8,7 +8,7 @@ class CGame;
 // TODO
 class CMiniMap {
 public:
-    u8 m_unk0[0xB4];
+    U8 m_unk0[0xB4];
 
 public:
     CMiniMap(CGame* game);

@@ -8,7 +8,7 @@
 
 class CRTCCamera : public CRTCSeqKey {
 private:
-    f32 m_fov;
+    F32 m_fov;
     std::string m_cam_filename;
     DKDSP::CAnimation* m_unk18;
     BOOL m_loaded;

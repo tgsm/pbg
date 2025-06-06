@@ -48,7 +48,7 @@ CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
 
     m_game = game;
 
-    u32 rf_unkC = m_game->m_resource_factory->m_unkC;
+    U32 rf_unkC = m_game->m_resource_factory->m_unkC;
     m_game->m_resource_factory->m_unkC = 0;
 
     m_unk20 = DKI::IInputEngine::CreateInput("QUITCREDITSA", 0, 19);
@@ -63,9 +63,9 @@ CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
     m_unk48 = 1;
 
     for (size_t** iter = m_unk80.begin(); iter < m_unk80.end(); iter++) {
-        u32 size = GetEntrySize(reinterpret_cast<Entry&>(**iter));
+        U32 size = GetEntrySize(reinterpret_cast<Entry&>(**iter));
         m_unk48 += size;
-        u32 interline = m_interline;
+        U32 interline = m_interline;
         m_unk48 += interline;
     }
 
@@ -296,12 +296,12 @@ int CGamePartCredits::GetEntryColorId(Entry& entry) {
     return m_color_id;
 }
 
-u32 CGamePartCredits::NextFrame() {
+U32 CGamePartCredits::NextFrame() {
     if (!m_game->m_display_engine->Update()) {
         return 9;
     }
 
-    f32 dt = m_game->GetDeltaTime();
+    F32 dt = m_game->GetDeltaTime();
     Update(dt);
     Render(dt);
 
@@ -324,7 +324,7 @@ u32 CGamePartCredits::NextFrame() {
     return m_unk0;
 }
 
-void CGamePartCredits::Render(f32 dt) {
+void CGamePartCredits::Render(F32 dt) {
     m_game->m_scene->SelectCamera(m_game->GetCamera());
     m_game->m_scene->Clear(3, 0.0f, 0.0f, 0.0f);
 
@@ -357,7 +357,7 @@ BOOL CGamePartCredits::TestForExit() {
     return FALSE;
 }
 
-u32 CGamePartCredits::NextFrameExit() {
+U32 CGamePartCredits::NextFrameExit() {
     m_game->ResetOpcodeBuffer();
     if (m_unk10 != 0) {
         m_game->PushOpcodeValue(11);

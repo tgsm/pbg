@@ -5,7 +5,7 @@
 
 class CEntityNPCHnSWoozle : public CEntityNPC {
 public:
-    u8 m_unk2D4[0xC];
+    U8 m_unk2D4[0xC];
 
 public:
     CEntityNPCHnSWoozle(CEntityManager* entity_manager, std::string name);

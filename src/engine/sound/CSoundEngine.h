@@ -14,7 +14,7 @@ public:
     virtual void func2();
     virtual void BeginUpdate();
     virtual void EndUpdate();
-    virtual void SetGlobalVolume(f32 volume);
+    virtual void SetGlobalVolume(F32 volume);
     virtual void func6();
     virtual void func7();
     virtual void func8();

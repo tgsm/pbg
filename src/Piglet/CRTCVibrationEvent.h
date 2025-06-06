@@ -5,7 +5,7 @@
 
 class CRTCVibrationEvent : public CRTCEvent {
 private:
-    u32 m_unk18;
+    U32 m_unk18;
 
 public:
     CRTCVibrationEvent(CRTCPlayerEntity* player_entity);

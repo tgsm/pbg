@@ -9,6 +9,6 @@ CGamePartFrontend::~CGamePartFrontend() {
 
 }
 
-u32 CGamePartFrontend::NextFrame() {
+U32 CGamePartFrontend::NextFrame() {
     return m_unk0;
 }

@@ -47,23 +47,23 @@ public:
     };
 
 public:
-    u8 m_unk0[8];
-    u32 m_unk8;
+    U8 m_unk0[8];
+    U32 m_unk8;
     int m_opcode_buffer[128];
-    u32 m_opcode_buffer_size;
+    U32 m_opcode_buffer_size;
     CMission m_unk210[8];
     CMission m_unk28B0[8];
-    f32 m_delta_time;
-    u32 m_unk4F54;
-    u32 m_unk4F58;
-    u32 m_unk4F5C;
-    u8 m_unk4F60[0x4F7C - 0x4F60];
+    F32 m_delta_time;
+    U32 m_unk4F54;
+    U32 m_unk4F58;
+    U32 m_unk4F5C;
+    U8 m_unk4F60[0x4F7C - 0x4F60];
     DKGUI::CGUIEngine* m_gui_engine;
     DKSND::CSoundEngine* m_sound_engine;
-    u8 m_unk4F84[4];
+    U8 m_unk4F84[4];
     DKDSP::CEngine* m_display_engine;
     DKDSP::CTextureDictionary* m_texture_dictionary;
-    u8 m_unk4F90[4];
+    U8 m_unk4F90[4];
     DKDSP::CAnimDictionary* m_anim_dictionary;
     DKDSP::CScene* m_scene;
     DKDSP::CCamera* m_camera;
@@ -72,42 +72,42 @@ public:
     CResourceFactory* m_resource_factory;
     DKDSP::CTimer* m_timer;
     CMailBox* m_mailbox;
-    u8 m_unk4FB4[0x4FDC - 0x4FB4];
+    U8 m_unk4FB4[0x4FDC - 0x4FB4];
     CGuiManager* m_gui_manager;
     CFxManager* m_fx_manager;
     CShadowZone* m_shadow_zone;
     CGameBackup* m_game_backup;
     DKBAK::CGCNBAKEngine* m_backup_engine;
-    u8 m_unk4FF0[4];
+    U8 m_unk4FF0[4];
     std::vector<SVideoDesc> m_video_descs;
     CScreenEffect* m_screen_effect;
     std::string m_unk5004;
     DKSND::CSound2D* m_unk5008;
     CGamePart* m_game_part;
-    u8 m_unk5010[0x5028 - 0x5010];
-    u32 m_fade_color;
-    f32 m_unk502C;
-    f32 m_fade_duration;
-    u32 m_fade_type;
+    U8 m_unk5010[0x5028 - 0x5010];
+    U32 m_fade_color;
+    F32 m_unk502C;
+    F32 m_fade_duration;
+    U32 m_fade_type;
     int m_unk5038;
-    u8 m_unk503C;
-    u8 m_unk503D[3];
-    f32 m_unk5040;
-    f32 m_unk5044;
-    f32 m_unk5048;
-    f32 m_unk504C;
-    u8 m_unk5050[0x505C - 0x5050];
+    U8 m_unk503C;
+    U8 m_unk503D[3];
+    F32 m_unk5040;
+    F32 m_unk5044;
+    F32 m_unk5048;
+    F32 m_unk504C;
+    U8 m_unk5050[0x505C - 0x5050];
     DKDSP::CController* m_unk505C;
     DKDSP::CClump* m_unk5060;
     std::vector<size_t> m_unk5064;
-    u8 m_unk5070[0x508C - 0x5070];
+    U8 m_unk5070[0x508C - 0x5070];
     DKI::IInput* m_unk508C;
-    u8 m_unk5090[4];
+    U8 m_unk5090[4];
 
     static CGuiManager* gs_CurrentGuiManager;
 
 public:
-    CGame(void*, u32);
+    CGame(void*, U32);
     virtual ~CGame();
 
     virtual BOOL NextFrame();
@@ -115,11 +115,11 @@ public:
     DKDSP::CCamera* GetCamera() { return m_camera; }
     CMailBox* GetMailbox() { return m_mailbox; }
 
-    u32& GetFlags() { return m_unk8; }
+    U32& GetFlags() { return m_unk8; }
 
     BOOL IsUnk5038Not2() { return m_unk5038 == 2 ? 0 : 1; }
 
-    f32 GetDeltaTime();
+    F32 GetDeltaTime();
     void ComputeDeltaTime();
     CGamePart* GetGamePartPointer();
     void SetCurrentRoomReturnType(ERoomReturnType return_type, int a2);
@@ -129,10 +129,10 @@ public:
     void ParseRTCCamFight(DkXmd::CChunkIterator iter);
     void PlayNarratorLine(std::string line_id);
     void StopNarratorLine();
-    void FadeInit(f32 duration, ERommFadeType fade_type, u8 red, u8 green, u8 blue, f32 a6);
-    int FadeUpdate(f32);
-    int FadeIn(f32 a1);
-    int FadeOut(f32 a1);
+    void FadeInit(F32 duration, ERommFadeType fade_type, U8 red, U8 green, U8 blue, F32 a6);
+    int FadeUpdate(F32);
+    int FadeIn(F32 a1);
+    int FadeOut(F32 a1);
     void RenderFade();
     BOOL IsGUIDisplayNotAdvised();
     void RegisterVideo(int id, std::string filename);

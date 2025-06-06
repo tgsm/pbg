@@ -18,7 +18,7 @@ void CEntityNPCTree::Reset() {
     CEntityNPC::Reset();
 }
 
-void CEntityNPCTree::UpdateDetectionBehaviour(f32) {
+void CEntityNPCTree::UpdateDetectionBehaviour(F32) {
     switch (m_unk1A8) {
         case 0:
             if (m_unk15C == 2) {
@@ -41,7 +41,7 @@ void CEntityNPCTree::UpdateDetectionBehaviour(f32) {
     }
 }
 
-void CEntityNPCTree::UpdateSpecialBehaviour(f32) {
+void CEntityNPCTree::UpdateSpecialBehaviour(F32) {
     if (m_animation_star_controller->IsPlayingAnimationLooped()) {
         m_animation_star_controller->Play("WAIT");
         UpdateAnimations(0.001f);
@@ -50,7 +50,7 @@ void CEntityNPCTree::UpdateSpecialBehaviour(f32) {
     }
 }
 
-void CEntityNPCTree::UpdateFightBehaviour(f32) {
+void CEntityNPCTree::UpdateFightBehaviour(F32) {
     switch (m_unk1A8) {
         case 101:
             m_animation_star_controller->Play("WAIT");
@@ -98,7 +98,7 @@ void CEntityNPCTree::UpdateFightBehaviour(f32) {
     }
 }
 
-void CEntityNPCTree::UpdateGrimaceBehaviour(f32) {
+void CEntityNPCTree::UpdateGrimaceBehaviour(F32) {
     switch (m_unk1A8) {
         case 101:
             m_animation_star_controller->Play("IS_FRIGHTENED", 1, 1);
@@ -116,11 +116,11 @@ void CEntityNPCTree::UpdateGrimaceBehaviour(f32) {
     }
 }
 
-void CEntityNPCTree::UpdateDeathBehaviour(f32) {
+void CEntityNPCTree::UpdateDeathBehaviour(F32) {
 
 }
 
-void CEntityNPCTree::Render(f32 dt_maybe) {
+void CEntityNPCTree::Render(F32 dt_maybe) {
     if (IsFlagged(1 << 1) == TRUE) {
         CEntityNPC::Render(dt_maybe);
     }

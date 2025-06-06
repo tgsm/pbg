@@ -8,7 +8,7 @@ class CGame;
 // TODO
 class CScreenEffect {
 public:
-    u8 m_unk0[0x78];
+    U8 m_unk0[0x78];
 
 public:
     CScreenEffect(CGame* game);

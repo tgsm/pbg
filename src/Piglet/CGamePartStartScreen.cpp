@@ -16,7 +16,7 @@ CGamePartStartScreen::CGamePartStartScreen(CGame* game) {
 
     m_game = game;
     m_unk10 = 0.0f;
-    u32 rf_unkC = m_game->m_resource_factory->m_unkC;
+    U32 rf_unkC = m_game->m_resource_factory->m_unkC;
     m_game->m_resource_factory->m_unkC = 0;
     m_game->LoadConfigFile("MENUS/STARTSCR/STARTSCR.XMD");
     m_game->m_resource_factory->m_unkC = rf_unkC;
@@ -40,7 +40,7 @@ CGamePartStartScreen::~CGamePartStartScreen() {
     m_game->m_resource_factory->UnloadResources(0);
 }
 
-u32 CGamePartStartScreen::NextFrame() {
+U32 CGamePartStartScreen::NextFrame() {
     m_game->m_display_engine->Update();
 
     if (m_unk10 == 0.0f) {
@@ -56,7 +56,7 @@ u32 CGamePartStartScreen::NextFrame() {
         m_game->ComputeDeltaTime();
     }
 
-    f32 dt = m_game->GetDeltaTime();
+    F32 dt = m_game->GetDeltaTime();
     Update(dt);
 
     switch (m_game->m_unk5038) {
@@ -79,7 +79,7 @@ u32 CGamePartStartScreen::NextFrame() {
     return m_unk0;
 }
 
-void CGamePartStartScreen::Update(f32 dt) {
+void CGamePartStartScreen::Update(F32 dt) {
     m_unk10 += dt;
 
     m_game->m_sound_engine->BeginUpdate();
@@ -88,7 +88,7 @@ void CGamePartStartScreen::Update(f32 dt) {
     m_game->m_gui_manager->Update(dt);
 }
 
-void CGamePartStartScreen::Render(f32 dt) {
+void CGamePartStartScreen::Render(F32 dt) {
     m_game->m_scene->SelectCamera(m_game->GetCamera());
 
     m_game->m_scene->Clear(3, 0.0f, 0.0f, 0.0f);
@@ -103,7 +103,7 @@ void CGamePartStartScreen::Render(f32 dt) {
     m_game->m_scene->Flip(0);
 }
 
-u32 CGamePartStartScreen::NextFrameExit() {
+U32 CGamePartStartScreen::NextFrameExit() {
     m_game->m_gui_manager->SetActive("TITLE_TITLE", 0);
     m_game->m_gui_manager->SetVisible("TITLE_TITLE", 0);
 

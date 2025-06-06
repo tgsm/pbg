@@ -9,7 +9,7 @@ private:
     std::string m_emitter;
     std::string m_receiver;
     std::string m_message_type;
-    u32 m_param;
+    U32 m_param;
 
 public:
     CRTCMessageEvent(CRTCPlayerEntity* player_entity);

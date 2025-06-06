@@ -10,7 +10,7 @@
 class CDKW_Memory {
 public:
     void* m_file;
-    u32 m_unk4;
+    U32 m_unk4;
 };
 
 namespace DKDSP {
@@ -92,7 +92,7 @@ public:
     virtual void fillerfunc70();
     virtual void fillerfunc71();
     virtual void fillerfunc72();
-    virtual IRWStream* OpenStreamMemory(u32, CDKW_Memory*); // FIXME: RwStreamAccessType, CDKW_Memory*
+    virtual IRWStream* OpenStreamMemory(U32, CDKW_Memory*); // FIXME: RwStreamAccessType, CDKW_Memory*
     virtual void fillerfunc74();
     virtual void DestroyStream(IRWStream*);
     virtual void fillerfunc76();

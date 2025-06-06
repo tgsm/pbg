@@ -5,7 +5,7 @@
 
 class CEntityPushingBox : public CEntityMesh {
 public:
-    u8 m_unkF4[0x198 - 0xF4];
+    U8 m_unkF4[0x198 - 0xF4];
 
 public:
     CEntityPushingBox(CEntityManager* entity_manager, std::string name);

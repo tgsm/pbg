@@ -8,21 +8,18 @@
 // Don't include this in any RenderWare, system, etc. files
 
 #ifdef GAMECUBE
-// Hack to use Dolphin types when necessary. This may or may not bite me in the ass later.
-#ifndef _DOLPHIN_TYPES_H_
-typedef signed char s8;
-typedef signed short s16;
-typedef signed int s32;
-typedef signed long long s64;
+typedef signed char S8;
+typedef signed short S16;
+typedef signed int S32;
+typedef signed long long S64;
 
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned int u32;
-typedef unsigned long long u64;
+typedef unsigned char U8;
+typedef unsigned short U16;
+typedef unsigned int U32;
+typedef unsigned long long U64;
 
-typedef float f32;
-typedef double f64;
-#endif
+typedef float F32;
+typedef double F64;
 #endif
 
 #ifdef NULL

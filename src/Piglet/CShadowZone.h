@@ -15,16 +15,16 @@ class CGame;
 class CShadowZone {
 private:
     CGame* m_game;
-    f32 m_topleft_x;
-    f32 m_topleft_y;
-    f32 m_topleft_z;
-    f32 m_downright_x;
-    f32 m_downright_y;
-    f32 m_downright_z;
-    f32 m_unk1C;
-    f32 m_unk20;
+    F32 m_topleft_x;
+    F32 m_topleft_y;
+    F32 m_topleft_z;
+    F32 m_downright_x;
+    F32 m_downright_y;
+    F32 m_downright_z;
+    F32 m_unk1C;
+    F32 m_unk20;
     DKDSP::CImage* m_image;
-    u32 m_unk28;
+    U32 m_unk28;
 
 public:
     CShadowZone(CGame* game);

@@ -10,8 +10,8 @@ private:
     CDKW_V3d m_unk4;
     CDKW_V3d m_unk10;
     CDKW_V3d m_unk1C;
-    f32 m_fov;
-    f32 m_roll;
+    F32 m_fov;
+    F32 m_roll;
 
 public:
     CCAKey(DkXmd::CChunkIterator* iter, char* name);

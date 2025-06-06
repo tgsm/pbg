@@ -12,17 +12,17 @@ public:
     virtual ~IDevice() {}
 
     virtual BOOL Init(DkXmd::CChunkIterator* iter) = 0;
-    virtual void Update(const f32& dt_maybe) = 0;
+    virtual void Update(const F32& dt_maybe) = 0;
     virtual CState GetState(const int&) = 0;
     virtual BOOL IsConnected() = 0;
-    virtual u32 GetType() = 0;
+    virtual U32 GetType() = 0;
 
-    virtual void SetRumble(const u8& a1, const u8& a2) {}
+    virtual void SetRumble(const U8& a1, const U8& a2) {}
     virtual BOOL VibrationSupported() { return FALSE; }
     virtual void VibrationEnable() {}
     virtual BOOL IsVibrationModeEnable() { return FALSE; }
     virtual void VibrationDisable() {}
-    virtual void SendVibration(u8 a1) {}
+    virtual void SendVibration(U8 a1) {}
     virtual void StopVibration() {}
 };
 

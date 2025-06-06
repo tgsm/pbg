@@ -5,7 +5,7 @@
 
 class CEntityCookie : public CEntityMesh {
 public:
-    u8 m_unkF4[0x1C4 - 0xF4];
+    U8 m_unkF4[0x1C4 - 0xF4];
 
 public:
     CEntityCookie(CEntityManager* entity_manager, std::string name);

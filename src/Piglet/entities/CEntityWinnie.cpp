@@ -43,7 +43,7 @@ void CEntityWinnie::DicreaseLife(int life) {
     }
 }
 
-void CEntityWinnie::UpdateAnimations(f32 unk) {
+void CEntityWinnie::UpdateAnimations(F32 unk) {
     switch (GetMode()) {
         case 0:
             UpdateAnimations_AdventureMode(unk);

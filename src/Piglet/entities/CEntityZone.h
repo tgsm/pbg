@@ -5,7 +5,7 @@
 
 class CEntityZone : public CEntityObject {
 public:
-    u8 m_unk40[0x1BC - 0x40];
+    U8 m_unk40[0x1BC - 0x40];
 
 public:
     CEntityZone(CEntityManager* entity_manager, std::string name);

@@ -6,22 +6,22 @@
 
 class CEntityNPCBasicEffalump : public CEntityNPC {
 private:
-    f32 m_animation_speed;
-    f32 m_unk2D8;
+    F32 m_animation_speed;
+    F32 m_unk2D8;
 
 public:
     CEntityNPCBasicEffalump(CEntityManager* entity_manager, std::string name);
     virtual ~CEntityNPCBasicEffalump();
 
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return ENTITY_NPC_BASIC_EFFALUMP;
     }
 
     virtual void Reset();
-    virtual void UpdateDetectionBehaviour(f32);
-    virtual void UpdateFightBehaviour(f32);
-    virtual void UpdateGrimaceBehaviour(f32);
-    virtual void Render(f32);
+    virtual void UpdateDetectionBehaviour(F32);
+    virtual void UpdateFightBehaviour(F32);
+    virtual void UpdateGrimaceBehaviour(F32);
+    virtual void Render(F32);
     virtual void Restore(void*);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);

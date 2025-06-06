@@ -7,12 +7,12 @@ class CGamePartScrapBook : public CGamePart {
 public:
     virtual ~CGamePartScrapBook();
 
-    virtual u32 NextFrame();
-    virtual u32 NextFrameExit();
-    virtual void Update(f32 dt_maybe);
-    virtual void Render(f32 dt_maybe);
-    virtual void RenderIcons(f32 dt_maybe);
-    virtual void RenderBackGround(f32 dt_maybe);
+    virtual U32 NextFrame();
+    virtual U32 NextFrameExit();
+    virtual void Update(F32 dt_maybe);
+    virtual void Render(F32 dt_maybe);
+    virtual void RenderIcons(F32 dt_maybe);
+    virtual void RenderBackGround(F32 dt_maybe);
     virtual BOOL IsVideoOpen(int);
 };
 

@@ -12,7 +12,7 @@
 class CEntityBhvTagSettings : public CEntityBhvTagData {
 private:
     std::string m_unkC;
-    f32 m_unk10;
+    F32 m_unk10;
     int m_unk14;
 
 public:
@@ -60,7 +60,7 @@ public:
             }
         }
     }
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return BEHAVIOR_TAG_SETTINGS;
     }
 

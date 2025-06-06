@@ -17,7 +17,7 @@ public:
     virtual BOOL IsVisible();
     virtual void SetPriority(int priority);
     virtual void Reset();
-    virtual void Update(f32 dt_maybe);
+    virtual void Update(F32 dt_maybe);
     virtual void Render();
     virtual IEventGUIMenuCallBack* SetEventCallback(IEventGUIMenuCallBack* callback); // Returns the old callback
     virtual void* GetAnim(); // unknown return type

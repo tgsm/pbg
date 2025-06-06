@@ -6,7 +6,7 @@ class CGame;
 // TODO
 class CFxManager {
 public:
-    u8 m_unk0[0x14];
+    U8 m_unk0[0x14];
 
 public:
     CFxManager(CGame* game);

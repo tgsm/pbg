@@ -35,7 +35,7 @@ void CEntityObject::Reset() {
     CEntity::Reset();
 }
 
-void CEntityObject::Update(f32 dt_maybe) {
+void CEntityObject::Update(F32 dt_maybe) {
     CEntity::Update(dt_maybe);
     if (IsFlagged(1 << 0) && IsFlagged(1 << 7) == TRUE) {
         return;
@@ -47,7 +47,7 @@ void CEntityObject::Init() {
     UpdateVolumes();
 }
 
-void CEntityObject::Render(f32 dt_maybe) {
+void CEntityObject::Render(F32 dt_maybe) {
     if (!IsFlagged(1 << 8) && !IsFlagged(1 << 1)) {
         return;
     }

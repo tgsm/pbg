@@ -5,7 +5,7 @@
 
 class CEntityNPCRoadSweeperEffalump : public CEntityNPC {
 public:
-    u8 m_unk2D4[0x1C];
+    U8 m_unk2D4[0x1C];
 
 public:
     CEntityNPCRoadSweeperEffalump(CEntityManager* entity_manager, std::string name);

@@ -30,7 +30,7 @@ void CEntityNPCGralosaurus::Reset() {
     CEntityMesh::Reset();
 }
 
-void CEntityNPCGralosaurus::UpdatePursuitBehaviour(f32 unk) {
+void CEntityNPCGralosaurus::UpdatePursuitBehaviour(F32 unk) {
     m_unk2FC = 0;
     m_unkF4 &= ~(1 << 15);
 
@@ -83,11 +83,11 @@ void CEntityNPCGralosaurus::UpdatePursuitBehaviour(f32 unk) {
     }
 }
 
-void CEntityNPCGralosaurus::UpdateDetectionBehaviour(f32) {
+void CEntityNPCGralosaurus::UpdateDetectionBehaviour(F32) {
     SetGenericBehaviour(GENERIC_BEHAVIOUR_2);
 }
 
-void CEntityNPCGralosaurus::UpdateFightBehaviour(f32 unk) {
+void CEntityNPCGralosaurus::UpdateFightBehaviour(F32 unk) {
     SDkMessage message;
     if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.unk20, "START_FIGHT") == 0) {
         m_unk2FC = 1;
@@ -166,7 +166,7 @@ void CEntityNPCGralosaurus::UpdateFightBehaviour(f32 unk) {
     }
 }
 
-void CEntityNPCGralosaurus::UpdateGrimaceBehaviour(f32 unk) {
+void CEntityNPCGralosaurus::UpdateGrimaceBehaviour(F32 unk) {
     switch (m_unk1A8) {
         case 101:
             m_animation_star_controller->Play("IS_FRIGHTENED", 0.0f, 1, 1);
@@ -197,11 +197,11 @@ void CEntityNPCGralosaurus::UpdateGrimaceBehaviour(f32 unk) {
     }
 }
 
-void CEntityNPCGralosaurus::UpdateDeathBehaviour(f32) {
+void CEntityNPCGralosaurus::UpdateDeathBehaviour(F32) {
 
 }
 
-void CEntityNPCGralosaurus::Render(f32 dt_maybe) {
+void CEntityNPCGralosaurus::Render(F32 dt_maybe) {
     if (IsFlagged(1 << 1) == TRUE) {
         CEntityNPC::Render(dt_maybe);
     }

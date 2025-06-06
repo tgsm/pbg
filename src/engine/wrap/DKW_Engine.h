@@ -23,15 +23,15 @@ struct RwRect;
 
 class CDKW_Engine {
 private:
-    u8 m_unk0[0xC];
+    U8 m_unk0[0xC];
 
-    static s64 ms_InitialTime;
+    static S64 ms_InitialTime;
 public:
-    virtual s32 Timer();
-    virtual f32 GetTimer();
-    virtual f32 GetDeltaTimer();
+    virtual S32 Timer();
+    virtual F32 GetTimer();
+    virtual F32 GetDeltaTimer();
     virtual void SaveTimer();
-    virtual f32 GetDeltaTimerSinceSaved();
+    virtual F32 GetDeltaTimerSinceSaved();
     virtual BOOL PS_Init();
     virtual MemoryFunctionsStruct* MemorySetting();
     virtual void* DeviceSetting();
@@ -48,7 +48,7 @@ public:
     void PreInit(RwEngineOpenParams*);
     void EngineInit(int argc, char** argv);
     void GCNInit();
-    s64 OSGetTime();
+    S64 OSGetTime();
 };
 
 #endif

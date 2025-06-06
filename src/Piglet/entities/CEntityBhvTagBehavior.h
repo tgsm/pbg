@@ -6,7 +6,7 @@
 
 class CEntityBhvTagBehavior : public CEntityBhvTagData {
 private:
-    u32 m_id;
+    U32 m_id;
 
 public:
     CEntityBhvTagBehavior();
@@ -14,12 +14,12 @@ public:
 
     virtual void Set(CEntity* entity);
 
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return BEHAVIOR_TAG_BEHAVIOR;
     }
 
     void Parse(DkXmd::CChunkIterator iter);
-    CEntityBhvTagBehavior* GetBehavior(u32 id);
+    CEntityBhvTagBehavior* GetBehavior(U32 id);
 };
 REQUIRE_SIZE(CEntityBhvTagBehavior, 0x10);
 

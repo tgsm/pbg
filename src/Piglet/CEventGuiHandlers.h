@@ -135,7 +135,7 @@ public:
 
 class CGuiEnterNameEventHandler : public CGuiBaseEventHandler {
 private:
-    u32 m_unk10;
+    U32 m_unk10;
     std::string m_unk14;
 
 public:
@@ -151,7 +151,7 @@ public:
 
 class CGuiSaveCheckingMemorycardEventHandler : public CGuiBaseEventHandler {
 private:
-    u32 m_unk10;
+    U32 m_unk10;
 
 public:
     CGuiSaveCheckingMemorycardEventHandler();
@@ -338,9 +338,9 @@ public:
 
 class CGuiDreamSelectEventHandler : public CGuiBaseEventHandler {
 private:
-    u32 m_unk10;
-    u8 m_unk14[4];
-    u32 m_unk18;
+    U32 m_unk10;
+    U8 m_unk14[4];
+    U32 m_unk18;
 
 public:
     CGuiDreamSelectEventHandler();

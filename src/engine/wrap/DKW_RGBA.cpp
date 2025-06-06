@@ -21,17 +21,17 @@ CDKW_RGBA::CDKW_RGBA(const CDKW_RGBA& other) {
     m_a = other.m_a;
 }
 
-CDKW_RGBA::CDKW_RGBA(u8 r, u8 g, u8 b, u8 a) : m_r(r), m_g(g), m_b(b), m_a(a) {
+CDKW_RGBA::CDKW_RGBA(U8 r, U8 g, U8 b, U8 a) : m_r(r), m_g(g), m_b(b), m_a(a) {
 
 }
 
-CDKW_RGBA CDKW_RGBA::operator*(const f32& scalar) const {
+CDKW_RGBA CDKW_RGBA::operator*(const F32& scalar) const {
     volatile CDKW_RGBA result;
-    u8 r = result.m_r = m_r * scalar;
-    u8 g = result.m_g = m_g * scalar;
-    u8 b = result.m_b = m_b * scalar;
-    u8 a = result.m_a = m_a * scalar;
-    return CDKW_RGBA((u8)r, (u8)g, (u8)b, (u8)a);
+    U8 r = result.m_r = m_r * scalar;
+    U8 g = result.m_g = m_g * scalar;
+    U8 b = result.m_b = m_b * scalar;
+    U8 a = result.m_a = m_a * scalar;
+    return CDKW_RGBA((U8)r, (U8)g, (U8)b, (U8)a);
 }
 
 void CDKW_RGBA::operator=(const CDKW_RGBA& other) {

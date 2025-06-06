@@ -18,8 +18,8 @@ BOOL CShadowZone::LoadShadowZone(DkXmd::CChunkIterator* iter) {
     DkXmd::CChunkIterator dest;
     DkXmd::CChunkIterator dest2;
 
-    f32 z_width;
-    f32 x_width;
+    F32 z_width;
+    F32 x_width;
     DKDSP::CEngine* display_engine;
     DKDSP::CTextureDictionary* texture_dictionary;
     void* file;
@@ -42,7 +42,7 @@ BOOL CShadowZone::LoadShadowZone(DkXmd::CChunkIterator* iter) {
                         return FALSE;
                     }
 
-                    u32 local_78;
+                    U32 local_78;
                     file = m_game->m_resource_factory->LoadPureFile(maybe_filename, &local_78);
                     if (file == NULL) {
                         return FALSE;
@@ -124,18 +124,18 @@ void CShadowZone::UnloadShadowZone() {
 // Equivalent: regalloc
 CDKW_RGBAReal CShadowZone::RGBToHSV(CDKW_RGBAReal rgb) {
     CDKW_RGBAReal ret;
-    f32 f1 = -1.0f;
-    f32 red = rgb.m_r;
-    f32 green = rgb.m_g;
-    f32 blue = rgb.m_b;
-    f32 f6 = red;
+    F32 f1 = -1.0f;
+    F32 red = rgb.m_r;
+    F32 green = rgb.m_g;
+    F32 blue = rgb.m_b;
+    F32 f6 = red;
     if (green > red) {
         f6 = green;
     }
     if (blue > f6) {
         f6 = blue;
     }
-    f32 fVar1 = red;
+    F32 fVar1 = red;
     if (green < fVar1) {
         fVar1 = green;
     }
@@ -144,7 +144,7 @@ CDKW_RGBAReal CShadowZone::RGBToHSV(CDKW_RGBAReal rgb) {
     }
     fVar1 = f6 - fVar1;
     if (fVar1 >= 0.05f) {
-        f32 yeah = fVar1 / (f6 + 0.5f);
+        F32 yeah = fVar1 / (f6 + 0.5f);
         if (f6 == red) {
             f1 = 0.0f + (green - blue) / (fVar1 + 0.5f);
         } else if (f6 == green) {
@@ -174,10 +174,10 @@ CDKW_RGBAReal CShadowZone::RGBToHSV(CDKW_RGBAReal rgb) {
 CDKW_RGBAReal CShadowZone::HSVToRGB(CDKW_RGBAReal rgb) {
     CDKW_RGBAReal ret;
 
-    f32 red;
-    f32 green;
-    f32 blue;
-    f32 src_a;
+    F32 red;
+    F32 green;
+    F32 blue;
+    F32 src_a;
 
     red = rgb.m_r;
     green = rgb.m_g;
@@ -193,10 +193,10 @@ CDKW_RGBAReal CShadowZone::HSVToRGB(CDKW_RGBAReal rgb) {
     src_a *= 6.0f;
     red = src_a;
     int uVar1 = red;
-    f32 funny = red - uVar1;
-    f32 fVar2 = blue * (1.0f - green);
-    f32 fVar3 = blue * (1.0f - green * funny);
-    f32 fVar4 = blue * (1.0f - green * (1.0f - funny));
+    F32 funny = red - uVar1;
+    F32 fVar2 = blue * (1.0f - green);
+    F32 fVar3 = blue * (1.0f - green * funny);
+    F32 fVar4 = blue * (1.0f - green * (1.0f - funny));
 
     switch (uVar1) {
         case 0:

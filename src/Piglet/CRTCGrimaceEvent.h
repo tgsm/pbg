@@ -8,8 +8,8 @@ class CRTCGrimaceEvent : public CRTCEvent {
 private:
     CDKW_V3d m_position;
     CDKW_V3d m_orientation;
-    f32 m_duration;
-    f32 m_delay;
+    F32 m_duration;
+    F32 m_delay;
 
 public:
     CRTCGrimaceEvent(CRTCPlayerEntity* player_entity);

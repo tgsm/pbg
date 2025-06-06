@@ -9,14 +9,14 @@ class CSound2D : public ISound2D {
 public:
     virtual ~CSound2D();
 
-    virtual void SetVolume(f32 volume);
-    virtual f32 GetVolume();
-    virtual void SetPitch(f32 pitch);
-    virtual f32 GetPitch();
+    virtual void SetVolume(F32 volume);
+    virtual F32 GetVolume();
+    virtual void SetPitch(F32 pitch);
+    virtual F32 GetPitch();
     virtual void* GetSample(); // unknown return type
-    virtual void SetLayer(u32 layer);
-    virtual u32 GetLayer();
-    virtual void Play(u32, u32);
+    virtual void SetLayer(U32 layer);
+    virtual U32 GetLayer();
+    virtual void Play(U32, U32);
     virtual void Stop();
     virtual void Pause();
     virtual void Resume();
@@ -25,9 +25,9 @@ public:
     virtual BOOL IsLooping();
     virtual BOOL IsFinished();
     virtual BOOL IsPlaying();
-    virtual u32 GetType();
-    virtual void SetPanning(f32);
-    virtual f32 GetPanning();
+    virtual U32 GetType();
+    virtual void SetPanning(F32);
+    virtual F32 GetPanning();
 };
 
 }

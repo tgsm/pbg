@@ -10,7 +10,7 @@ class IAnimation;
 
 class IClump {
 private:
-    u8 m_unk0[4]; // FIXME: This is part of IFramable
+    U8 m_unk0[4]; // FIXME: This is part of IFramable
 public:
     virtual CDKW_Frame* GetFrame() = 0;
     virtual void func1() = 0;
@@ -43,7 +43,7 @@ public:
     virtual void func28() = 0;
     virtual void func29() = 0;
     virtual void func30() = 0;
-    virtual void Update(f32 dt_maybe) = 0;
+    virtual void Update(F32 dt_maybe) = 0;
     virtual void func31() = 0;
     virtual void SetAnimation(IAnimation*) = 0;
     virtual void func33() = 0;

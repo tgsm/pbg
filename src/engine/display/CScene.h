@@ -12,7 +12,7 @@ public:
     virtual void RenderWarp(IWarp*);
     virtual CClump* CloneClump(std::string, IObjectDictionary*);
     virtual void SelectCamera(ICamera*);
-    virtual void Clear(int, f32, f32, f32);
+    virtual void Clear(int, F32, F32, F32);
     virtual void BeginRender();
     virtual void Flush();
     virtual void EndRender();

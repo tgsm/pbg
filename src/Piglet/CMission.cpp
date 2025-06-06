@@ -5,10 +5,10 @@
 #include <cstring>
 #include <iostream>
 
-u32 CMission::m_MaxNbCookies = 0;
+U32 CMission::m_MaxNbCookies = 0;
 
-BOOL CMission::LoadConfigFile(u32 a1) {
-    u32 unk1 = m_game->m_resource_factory->m_unkC;
+BOOL CMission::LoadConfigFile(U32 a1) {
+    U32 unk1 = m_game->m_resource_factory->m_unkC;
     m_game->m_resource_factory->m_unkC = 1;
 
     char filename[128];
@@ -183,7 +183,7 @@ void CMission::UnloadConfigFile() {
     m_game->m_minimap->Unload();
 }
 
-u32 CMission::GetSaveSize() {
+U32 CMission::GetSaveSize() {
     // FIXME: Calculate this
     return 0x298;
 }
@@ -239,7 +239,7 @@ void CMission::Initialize() {
     }
 }
 
-int CMission::AddItem(s8* str_) {
+int CMission::AddItem(S8* str_) {
     int ret;
 
     char* str = (char*)str_;
@@ -266,7 +266,7 @@ int CMission::AddItem(s8* str_) {
     return ret;
 }
 
-void CMission::RemoveItem(s8* str_) {
+void CMission::RemoveItem(S8* str_) {
     char* str = (char*)str_;
 
     if (strcmp(str, m_unk48C[0]) == 0) {
@@ -289,23 +289,23 @@ char* CMission::GetItem(int item_no) {
     return m_unk48C[item_no];
 }
 
-u32 CMission::GetNbTotalCookies() {
+U32 CMission::GetNbTotalCookies() {
     return m_num_total_cookies;
 }
 
-u32 CMission::GetCurrentNbCookies() {
+U32 CMission::GetCurrentNbCookies() {
     return m_num_current_cookies;
 }
 
-u32 CMission::GetMaxCollectedNbCookies() {
+U32 CMission::GetMaxCollectedNbCookies() {
     return m_MaxNbCookies;
 }
 
-BOOL CMission::IsRoomCompleted(u32 room_no) {
+BOOL CMission::IsRoomCompleted(U32 room_no) {
     return (m_rooms[room_no] & 2) != 0;
 }
 
-BOOL CMission::IsRoomOpened(u32 room_no) {
+BOOL CMission::IsRoomOpened(U32 room_no) {
     return (m_rooms[room_no] & 1) != 0;
 }
 

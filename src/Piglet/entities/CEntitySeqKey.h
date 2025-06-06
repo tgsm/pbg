@@ -5,9 +5,9 @@
 
 class CEntitySeqKey : public CEntityObject {
 public:
-    u8 m_unk40[0x54 - 0x40];
-    f32 m_unk54;
-    u8 m_unk58[0x14908 - 0x58];
+    U8 m_unk40[0x54 - 0x40];
+    F32 m_unk54;
+    U8 m_unk58[0x14908 - 0x58];
 
 public:
     CEntitySeqKey(CEntityManager* entity_manager, std::string name);

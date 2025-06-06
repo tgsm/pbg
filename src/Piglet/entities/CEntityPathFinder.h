@@ -5,7 +5,7 @@
 
 class CEntityPathFinder : public CEntityMesh {
 public:
-    u8 m_unkF4[0x15C - 0xF4];
+    U8 m_unkF4[0x15C - 0xF4];
 
 public:
     CEntityPathFinder(CEntityManager* entity_manager, std::string name);

@@ -8,7 +8,7 @@ namespace DKDSP {
 // TODO
 class ICamera {
 private:
-    u8 m_unk0[4]; // FIXME: This belongs to IFramable
+    U8 m_unk0[4]; // FIXME: This belongs to IFramable
 
 public:
     virtual void func0() = 0;
@@ -20,7 +20,7 @@ public:
     virtual void func6() = 0;
     virtual void func7() = 0;
     virtual void func8() = 0;
-    virtual void SetViewWindow(f32, f32) = 0;
+    virtual void SetViewWindow(F32, F32) = 0;
     virtual void func10() = 0;
     virtual void func11() = 0;
     virtual void func12() = 0;

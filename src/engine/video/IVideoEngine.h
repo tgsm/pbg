@@ -15,8 +15,8 @@ public:
     virtual void Play(char*) = 0;
     virtual void Stop() = 0;
     virtual void SetCallBack(VideoEngineCallback callback) = 0;
-    virtual f32 GetVolume() = 0;
-    virtual void SetVolume(f32 volume) = 0;
+    virtual F32 GetVolume() = 0;
+    virtual void SetVolume(F32 volume) = 0;
 };
 
 }

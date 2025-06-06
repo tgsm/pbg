@@ -5,7 +5,7 @@
 
 class CEntity3DSound : public CEntityObject {
 public:
-    u8 m_unk40[0x34];
+    U8 m_unk40[0x34];
 
 public:
     CEntity3DSound(CEntityManager* entity_manager, std::string name);

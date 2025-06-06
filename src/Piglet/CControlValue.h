@@ -6,7 +6,7 @@
 // TODO
 class CControlValue {
 public:
-    u8 m_unk0[0x10];
+    U8 m_unk0[0x10];
 
 public:
     CControlValue();

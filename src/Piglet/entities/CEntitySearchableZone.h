@@ -5,7 +5,7 @@
 
 class CEntitySearchableZone : public CEntityZone {
 public:
-    u8 m_unk1BC[0x268 - 0x1BC];
+    U8 m_unk1BC[0x268 - 0x1BC];
 
 public:
     CEntitySearchableZone(CEntityManager* entity_manager, std::string name);

@@ -73,7 +73,7 @@ void CEntityBhvTagBehavior::Parse(DkXmd::CChunkIterator iter) {
 }
 
 // This feels like a fakematch
-CEntityBhvTagBehavior* CEntityBhvTagBehavior::GetBehavior(u32 id) {
+CEntityBhvTagBehavior* CEntityBhvTagBehavior::GetBehavior(U32 id) {
     CEntityBhvTagBehavior* bhv = this;
     if (bhv != NULL) {
         do {

@@ -7,15 +7,15 @@ namespace DkXmd {
 
 class CChunk {
 public:
-    u32 unk0_0 : 1;
-    u32 type : 5;
-    u32 unk0_6 : 2;
+    U32 unk0_0 : 1;
+    U32 type : 5;
+    U32 unk0_6 : 2;
 
     void* unk4;
     void* unk8;
 
 public:
-    u32 GetType() {
+    U32 GetType() {
         return type;
     }
 
@@ -25,14 +25,14 @@ public:
 class CChunkInvert {
 public:
     union {
-        u32 yeah;
+        U32 yeah;
         struct {
-            u32 unk0_0 : 8;
-            u32 unk0_8 : 8;
-            u32 unk0_16 : 8;
-            u32 unk0_30 : 2;
-            u32 type : 5;
-            u32 fdsfds : 1;
+            U32 unk0_0 : 8;
+            U32 unk0_8 : 8;
+            U32 unk0_16 : 8;
+            U32 unk0_30 : 2;
+            U32 type : 5;
+            U32 fdsfds : 1;
         } flags;
     };
     // Unknown types
@@ -50,7 +50,7 @@ public:
     //     return result;
     // }
 
-    // u32 GetType() {
+    // U32 GetType() {
     //     return byteswapped().flags.type;
     // }
 
@@ -72,17 +72,17 @@ private:
         CChunkInvert* m_inverted;
         void* ptr;
     } m_chunk;
-    u32 m_unk8;
+    U32 m_unk8;
 
 public:
     CChunkIterator();
 
-    s32 GetType() const;
+    S32 GetType() const;
     char* GetName() const;
-    u32 GetDataSize() const;
+    U32 GetDataSize() const;
     char* GetStringValue() const;
-    s32 GetS32Value() const;
-    f32 GetFloatValue() const;
+    S32 GetS32Value() const;
+    F32 GetFloatValue() const;
     BOOL GetFirstChildChunk(CChunkIterator& dest) const;
     BOOL GetNextSiblingChunk(CChunkIterator& dest) const;
     BOOL GetChunk(const char* name, CChunkIterator& dest) const;

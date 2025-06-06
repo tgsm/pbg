@@ -7,12 +7,12 @@
 class CDKW_V3d {
 public:
     CDKW_V3d() {}
-    CDKW_V3d(f32 x, f32 y, f32 z);
+    CDKW_V3d(F32 x, F32 y, F32 z);
 
-    f32 SquareDistToPoint(CDKW_V3d& other);
+    F32 SquareDistToPoint(CDKW_V3d& other);
 
 public:
-    f32 m_x, m_y, m_z;
+    F32 m_x, m_y, m_z;
 };
 REQUIRE_SIZE(CDKW_V3d, 0xC);
 

@@ -55,11 +55,11 @@ void CEntityTigger::ResolveContact(const DkPh::Collider::Body& body, int unk1, i
     CEntityHero::ResolveContact(body, unk1, unk2);
 }
 
-void CEntityTigger::AddFlag(u32 flag) {
+void CEntityTigger::AddFlag(U32 flag) {
     CEntityHero::AddFlag(flag);
 }
 
-void CEntityTigger::DelFlag(u32 flag) {
+void CEntityTigger::DelFlag(U32 flag) {
     switch (flag) {
         case (1 << 3):
             ReInit();
@@ -97,7 +97,7 @@ void CEntityTigger::DicreaseLife(int life) {
     }
 }
 
-void CEntityTigger::UpdateAnimations(f32 unk) {
+void CEntityTigger::UpdateAnimations(F32 unk) {
     switch (GetMode()) {
         case 0:
             UpdateAnimations_AdventureMode(unk);
@@ -147,7 +147,7 @@ void CEntityTigger::UpdateActions() {
 
 }
 
-void CEntityTigger::Update(f32 dt_maybe) {
+void CEntityTigger::Update(F32 dt_maybe) {
     if (m_unk260 != -1.0f) {
         m_unk260 += dt_maybe;
         if (m_unk260 >= 2.0f) {

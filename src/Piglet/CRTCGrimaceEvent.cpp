@@ -22,7 +22,7 @@ CRTCGrimaceEvent::~CRTCGrimaceEvent() {
 void CRTCGrimaceEvent::Activate() {
     CRTCSeqKey::Activate();
 
-    u32 unk27c = ((CEntityPiglet*)m_player_entity->m_entity_manager->GetHero())->m_unk27C;
+    U32 unk27c = ((CEntityPiglet*)m_player_entity->m_entity_manager->GetHero())->m_unk27C;
 
     m_player_entity->m_entity_manager->GetHero()->SetPosition(m_position);
     m_player_entity->m_entity_manager->GetHero()->SetOrientation(m_orientation);
@@ -34,7 +34,7 @@ void CRTCGrimaceEvent::Activate() {
     m_player_entity->m_entity_manager->GetHero()->m_animation_star_controller->Pause();
 
     // what?
-    f32 duration = m_duration;
+    F32 duration = m_duration;
     CRTCPlayerEntity* player_entity = m_player_entity;
     player_entity->m_grimace_delay = m_delay;
     player_entity->m_grimace_duration = duration;

@@ -1,25 +1,21 @@
 #ifndef PIGLET_CGAMEBACKUP_H
 #define PIGLET_CGAMEBACKUP_H
 
+#include "engine/Allocator.h"
 #include "types.h"
-
-extern "C" {
-extern void* OSAllocFromHeapAligned(int heap, u32 size, u32 align);
-extern void OSFreeToHeap(int heap, void* ptr);
-}
 
 class CGame;
 
 class CSlotContainer {
 private:
-    u32 m_unk0;
+    U32 m_unk0;
     void* m_unk4;
 
 public:
     CSlotContainer() {
         m_unk4 = NULL;
         m_unk4 = OSAllocFromHeapAligned(0, 0x18000, 32);
-        *((u32*)m_unk4) = 0; // FIXME: what is this?
+        *((U32*)m_unk4) = 0; // FIXME: what is this?
         m_unk0 = NULL;
     }
 
@@ -31,10 +27,10 @@ public:
         }
     }
 
-    void StoreS8(s8 value, s8* dest);
-    void StoreS32(s32 value, s8* dest);
-    s8 GetS8(s8* src);
-    s32 GetS32(s8* src);
+    void StoreS8(S8 value, S8* dest);
+    void StoreS32(S32 value, S8* dest);
+    S8 GetS8(S8* src);
+    S32 GetS32(S8* src);
 };
 REQUIRE_SIZE(CSlotContainer, 0x8);
 

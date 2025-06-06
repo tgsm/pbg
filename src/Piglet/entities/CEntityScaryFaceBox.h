@@ -5,7 +5,7 @@
 
 class CEntityScaryFaceBox : public CEntityZone {
 public:
-    u8 m_unk1BC[0x1E0 - 0x1BC];
+    U8 m_unk1BC[0x1E0 - 0x1BC];
 
 public:
     CEntityScaryFaceBox(CEntityManager* entity_manager, std::string name);

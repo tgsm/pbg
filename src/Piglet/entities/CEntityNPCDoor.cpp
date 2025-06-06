@@ -21,7 +21,7 @@ void CEntityNPCDoor::Reset() {
     CEntityNPC::Reset();
 }
 
-void CEntityNPCDoor::UpdateDetectionBehaviour(f32) {
+void CEntityNPCDoor::UpdateDetectionBehaviour(F32) {
     switch (m_unk1A8) {
         case 0:
             if (m_unk15C == 2) {
@@ -44,7 +44,7 @@ void CEntityNPCDoor::UpdateDetectionBehaviour(f32) {
     }
 }
 
-void CEntityNPCDoor::UpdateSpecialBehaviour(f32) {
+void CEntityNPCDoor::UpdateSpecialBehaviour(F32) {
     std::string* anim_name = m_animation_star_controller->GetPlayingAnimationName();
     if (strcmp(anim_name->c_str(), "LAUGH") == 0) {
         if (m_animation_star_controller->IsPlayingAnimationLooped()) {
@@ -60,7 +60,7 @@ void CEntityNPCDoor::UpdateSpecialBehaviour(f32) {
     }
 }
 
-void CEntityNPCDoor::UpdateFightBehaviour(f32) {
+void CEntityNPCDoor::UpdateFightBehaviour(F32) {
     switch (m_unk1A8) {
         case 101:
             m_animation_star_controller->Play("WAIT");
@@ -110,7 +110,7 @@ void CEntityNPCDoor::UpdateFightBehaviour(f32) {
 }
 
 // Equivalent: stack offsets
-void CEntityNPCDoor::UpdateGrimaceBehaviour(f32) {
+void CEntityNPCDoor::UpdateGrimaceBehaviour(F32) {
     switch (m_unk1A8) {
         case 101:
             m_animation_star_controller->Play("IS_FRIGHTENED", 1, 1);
@@ -129,11 +129,11 @@ void CEntityNPCDoor::UpdateGrimaceBehaviour(f32) {
     }
 }
 
-void CEntityNPCDoor::UpdateDeathBehaviour(f32) {
+void CEntityNPCDoor::UpdateDeathBehaviour(F32) {
 
 }
 
-void CEntityNPCDoor::Render(f32 dt_maybe) {
+void CEntityNPCDoor::Render(F32 dt_maybe) {
     if (IsFlagged(1 << 1) == TRUE) {
         CEntityNPC::Render(dt_maybe);
     }

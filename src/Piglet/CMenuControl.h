@@ -12,15 +12,15 @@ class CDebugMenu;
 class CMenuControl {
 public:
     CDebugMenu* m_debug_menu;
-    u8 m_unk4[0x8];
-    u32 m_unkC;
+    U8 m_unk4[0x8];
+    U32 m_unkC;
     std::vector<size_t> m_control_values;
-    u32 m_unk1C;
+    U32 m_unk1C;
     CDKW_V2d m_unk20;
     CDKW_V2d m_unk28;
     CDKW_V2d m_unk30;
     CDKW_V2d m_unk38;
-    u8 m_unk40[8];
+    U8 m_unk40[8];
     CDKW_RGBA m_unk48;
     CDKW_RGBA m_unk4C;
 

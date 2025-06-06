@@ -8,7 +8,7 @@
 CGuiManager* CGame::gs_CurrentGuiManager;
 
 // *Very* incomplete
-CGame::CGame(void* a1, u32 a2) {
+CGame::CGame(void* a1, U32 a2) {
     m_unk8 = a2;
     m_game_part = NULL;
     m_display_engine = NULL;
@@ -214,12 +214,12 @@ CGame::~CGame() {
     DKI::IInputEngine::Close();
 }
 
-f32 CGame::GetDeltaTime() {
+F32 CGame::GetDeltaTime() {
     return m_delta_time;
 }
 
 void CGame::ComputeDeltaTime() {
-    f32 old_dt = m_delta_time;
+    F32 old_dt = m_delta_time;
     m_delta_time = m_timer->GetDeltaTime();
     m_delta_time += old_dt;
     m_delta_time *= 0.5f;
@@ -369,7 +369,7 @@ void CGame::StopNarratorLine() {
     m_sound_engine->StopStreamedSound();
 }
 
-void CGame::FadeInit(f32 duration, ERommFadeType fade_type, u8 red, u8 green, u8 blue, f32 a6) {
+void CGame::FadeInit(F32 duration, ERommFadeType fade_type, U8 red, U8 green, U8 blue, F32 a6) {
     m_unk502C = 0.0f;
     m_fade_duration = duration;
     m_fade_type = fade_type;
@@ -382,7 +382,7 @@ void CGame::FadeInit(f32 duration, ERommFadeType fade_type, u8 red, u8 green, u8
     m_unk503C |= (1 << 3);
 }
 
-int CGame::FadeUpdate(f32 unk) {
+int CGame::FadeUpdate(F32 unk) {
     m_unk5040 = unk;
     if (m_unk5038 == 0) {
         if (FadeIn(-1.0f) == 0) {

@@ -9,7 +9,7 @@ class CEntityBhvTagMessage : public CEntityBhvTagData {
 public:
     std::string m_unkC;
     std::string m_unk10;
-    u32 m_unk14; // unknown type
+    U32 m_unk14; // unknown type
 
 public:
     CEntityBhvTagMessage();
@@ -23,7 +23,7 @@ public:
         }
     }
 
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return BEHAVIOR_TAG_MESSAGE;
     }
 

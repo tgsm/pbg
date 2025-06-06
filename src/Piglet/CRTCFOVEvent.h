@@ -5,7 +5,7 @@
 
 class CRTCFOVEvent : public CRTCEvent {
 private:
-    f32 m_fov;
+    F32 m_fov;
 
 public:
     CRTCFOVEvent(CRTCPlayerEntity* player_entity);

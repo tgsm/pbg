@@ -38,7 +38,7 @@
 #include <cstring>
 #include <iostream>
 
-f32 InterpolValue(f32 f1, f32 f2, f32 f3, f32 f4) {
+F32 InterpolValue(F32 f1, F32 f2, F32 f3, F32 f4) {
     if (f3 >= f4) {
         return f2;
     }
@@ -47,7 +47,7 @@ f32 InterpolValue(f32 f1, f32 f2, f32 f3, f32 f4) {
         return f1;
     }
 
-    f32 unk = f2;
+    F32 unk = f2;
     unk -= f1;
     unk /= f4;
     unk *= f3;
@@ -76,7 +76,7 @@ CEntityManager::CEntityManager(CGame* game) {
 }
 
 // Equivalent
-u32 CEntityManager::GetTypeFromModel(std::string model_name) {
+U32 CEntityManager::GetTypeFromModel(std::string model_name) {
     std::string temp;
     DkXmd::CChunkIterator model_chunk;
     DkXmd::CChunkIterator dest;
@@ -97,7 +97,7 @@ u32 CEntityManager::GetTypeFromModel(std::string model_name) {
     return 0;
 }
 
-u32 CEntityManager::GetTypeFromString(std::string type_str) {
+U32 CEntityManager::GetTypeFromString(std::string type_str) {
     if (type_str == "WorldEntity") {
         return ENTITY_WORLD;
     } else if (type_str == "WarpEntity") {
@@ -170,11 +170,11 @@ u32 CEntityManager::GetTypeFromString(std::string type_str) {
 }
 
 BOOL CEntityManager::CreateEntity(std::string name, std::string type, std::string model) {
-    u32 type_id = GetTypeFromString(type);
+    U32 type_id = GetTypeFromString(type);
     return CreateEntity(name, type_id, model);
 }
 
-BOOL CEntityManager::CreateEntity(std::string name, u32 type, std::string model) {
+BOOL CEntityManager::CreateEntity(std::string name, U32 type, std::string model) {
     CEntity* entity = NULL;
 
     BOOL exists = GetEntity(name) != NULL;
@@ -182,7 +182,7 @@ BOOL CEntityManager::CreateEntity(std::string name, u32 type, std::string model)
         return TRUE;
     }
 
-    u32 type_ = GetTypeFromModel(model);
+    U32 type_ = GetTypeFromModel(model);
     if (type_ == 0) {
         type_ = type;
     }
@@ -303,7 +303,7 @@ BOOL CEntityManager::CreateEntity(std::string name, u32 type, std::string model)
 }
 
 // Equivalent: std::vector erase() scheduling
-BOOL CEntityManager::DestroyEntity(u32 index) {
+BOOL CEntityManager::DestroyEntity(U32 index) {
     if (m_entities[index] != 0) {
         delete reinterpret_cast<CEntity*>(m_entities[index]);
     }
@@ -400,11 +400,11 @@ CEntity* CEntityManager::GetEntityLight01() {
     return m_entity_light_01;
 }
 
-CEntity* CEntityManager::GetEntity(u32 n) {
+CEntity* CEntityManager::GetEntity(U32 n) {
     return reinterpret_cast<CEntity*>(m_entities[n]);
 }
 
-u32 CEntityManager::GetEntityCount() {
+U32 CEntityManager::GetEntityCount() {
     return m_entities.size();
 }
 

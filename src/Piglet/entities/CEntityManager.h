@@ -20,8 +20,8 @@ private:
     DkXmd::CXmdFile* m_model_xmd;
     DkXmd::CChunkIterator* m_model_xmd_iter;
     // Unknown types
-    u32 m_unk1C;
-    u32 m_unk20;
+    U32 m_unk1C;
+    U32 m_unk20;
     CEntity* m_entity_light_01;
 
 public:
@@ -30,19 +30,19 @@ public:
 
     CGame* GetGame() { return m_game; }
 
-    u32 GetTypeFromModel(std::string);
-    u32 GetTypeFromString(std::string type_str);
+    U32 GetTypeFromModel(std::string);
+    U32 GetTypeFromString(std::string type_str);
     BOOL CreateEntity(std::string name, std::string type, std::string model);
-    BOOL CreateEntity(std::string name, u32 type, std::string model);
+    BOOL CreateEntity(std::string name, U32 type, std::string model);
     BOOL DestroyEntity(std::string name);
-    BOOL DestroyEntity(u32 index);
+    BOOL DestroyEntity(U32 index);
     BOOL SetModelFile(std::string model);
     BOOL FindChunkModel(std::string str, DkXmd::CChunkIterator& iter);
     BOOL Parse(DkXmd::CChunkIterator iter);
     CEntity* GetEntity(std::string name);
     CEntity* GetEntityLight01();
-    CEntity* GetEntity(u32 n);
-    u32 GetEntityCount();
+    CEntity* GetEntity(U32 n);
+    U32 GetEntityCount();
 
     CEntityHero* GetHero();
 };

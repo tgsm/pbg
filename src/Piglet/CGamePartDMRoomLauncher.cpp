@@ -33,8 +33,8 @@ CGamePartDMRoomLauncher::~CGamePartDMRoomLauncher() {
 }
 
 // Incomplete, maybe equivalent
-u32 CGamePartDMRoomLauncher::NextFrame() {
-    u32 ret;
+U32 CGamePartDMRoomLauncher::NextFrame() {
+    U32 ret;
 
     if (m_game->m_display_engine->Update()) {
         switch (m_debug_menu->UpdateAndDisplay()) {
@@ -100,7 +100,7 @@ u32 CGamePartDMRoomLauncher::NextFrame() {
                 CMission* mission = &m_game->m_unk210[value - 1];
                 if (mission->m_unk34 == 0) {
                     room_control = m_debug_menu->GetControl("Room");
-                    u32 iVar4 = m_game->m_unk210[value].m_unkC;
+                    U32 iVar4 = m_game->m_unk210[value].m_unkC;
                     if (iVar4 == reinterpret_cast<CControlValue*>(room_control->m_control_values[room_control->m_unk1C])->GetS32Value()) {
                         m_game->PushOpcodeValue(6);
                     }

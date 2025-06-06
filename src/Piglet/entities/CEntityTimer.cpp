@@ -14,7 +14,7 @@ CEntityTimer::~CEntityTimer() {
 
 }
 
-void CEntityTimer::Update(f32 dt_maybe) {
+void CEntityTimer::Update(F32 dt_maybe) {
     if (IsFlagged(1 << 7)) {
         return;
     }

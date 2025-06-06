@@ -20,7 +20,7 @@ void CEntityNPCBasicEffalump::Reset() {
 }
 
 // Incomplete
-void CEntityNPCBasicEffalump::UpdateDetectionBehaviour(f32 a1) {
+void CEntityNPCBasicEffalump::UpdateDetectionBehaviour(F32 a1) {
     CDKW_V3d pos_delta;
     CDKW_V3d frame_vec;
 
@@ -81,7 +81,7 @@ void CEntityNPCBasicEffalump::UpdateDetectionBehaviour(f32 a1) {
     }
 }
 
-void CEntityNPCBasicEffalump::UpdateFightBehaviour(f32 a1) {
+void CEntityNPCBasicEffalump::UpdateFightBehaviour(F32 a1) {
     switch (m_unk1A8) {
         case 101:
             m_animation_star_controller->Play("WAIT");
@@ -135,7 +135,7 @@ void CEntityNPCBasicEffalump::UpdateFightBehaviour(f32 a1) {
     }
 }
 
-void CEntityNPCBasicEffalump::UpdateGrimaceBehaviour(f32) {
+void CEntityNPCBasicEffalump::UpdateGrimaceBehaviour(F32) {
     switch (m_unk1A8) {
         case 101:
             m_animation_star_controller->Play("IS_FRIGHTENED", 1, 1);
@@ -156,7 +156,7 @@ void CEntityNPCBasicEffalump::UpdateGrimaceBehaviour(f32) {
     }
 }
 
-void CEntityNPCBasicEffalump::Render(f32 dt_maybe) {
+void CEntityNPCBasicEffalump::Render(F32 dt_maybe) {
     if (IsFlagged(1 << 1) == TRUE) {
         CEntityNPC::Render(dt_maybe);
     }

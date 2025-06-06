@@ -6,7 +6,7 @@
 #include "CGamePartIngame.h"
 #include <iostream>
 
-static f32 gs_TimeBeforeMemCardCheck;
+static F32 gs_TimeBeforeMemCardCheck;
 
 CGuiBaseEventHandler::CGuiBaseEventHandler(const std::string& unk) : m_unk4(unk) {
 
@@ -266,7 +266,7 @@ void CGuiSaveFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
             m_game->m_timer->Pause();
-            u32 backup_state = m_game->m_backup_engine->GetState();
+            U32 backup_state = m_game->m_backup_engine->GetState();
             m_game->m_timer->Resume();
 
             if (!(backup_state & (1 << 0))) {
@@ -364,7 +364,7 @@ void CGuiLoadFileCorruptEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
             m_game->m_timer->Pause();
-            u32 backup_state = m_game->m_backup_engine->GetState();
+            U32 backup_state = m_game->m_backup_engine->GetState();
             m_game->m_timer->Resume();
 
             if (!(backup_state & (1 << 0))) {
@@ -474,7 +474,7 @@ void CGuiLoadWrongDeviceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
             m_game->m_timer->Pause();
-            u32 backup_state = m_game->m_backup_engine->GetState();
+            U32 backup_state = m_game->m_backup_engine->GetState();
             m_game->m_timer->Resume();
 
             if (!(backup_state & (1 << 1))) {
@@ -521,7 +521,7 @@ void CGuiSaveWrongDeviceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
             m_game->m_timer->Pause();
-            u32 backup_state = m_game->m_backup_engine->GetState();
+            U32 backup_state = m_game->m_backup_engine->GetState();
             m_game->m_timer->Resume();
 
             if (!(backup_state & (1 << 1))) {
@@ -589,7 +589,7 @@ void CGuiLoadCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
 
     if (event == DKGUI::EVENT_0) {
         m_game->m_timer->Pause();
-        u32 backup_state = m_game->m_backup_engine->GetState();
+        U32 backup_state = m_game->m_backup_engine->GetState();
         m_game->m_timer->Resume();
 
         if (!(backup_state & (1 << 0))) {
@@ -631,7 +631,7 @@ void CGuiSaveCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
 
     if (event == DKGUI::EVENT_0) {
         m_game->m_timer->Pause();
-        u32 backup_state = m_game->m_backup_engine->GetState();
+        U32 backup_state = m_game->m_backup_engine->GetState();
         m_game->m_timer->Resume();
 
         if (!(backup_state & (1 << 0))) {
@@ -696,7 +696,7 @@ void CGuiSaveMemoryCardUnuseableEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKG
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
             m_game->m_timer->Pause();
-            u32 backup_state = m_game->m_backup_engine->GetState();
+            U32 backup_state = m_game->m_backup_engine->GetState();
             m_game->m_timer->Resume();
 
             if (!(backup_state & (1 << 0))) {
@@ -869,7 +869,7 @@ void CGuiSaveFormatEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
             m_game->m_timer->Pause();
-            u32 backup_state = m_game->m_backup_engine->GetState();
+            U32 backup_state = m_game->m_backup_engine->GetState();
             m_game->m_timer->Resume();
 
             if (!(backup_state & (1 << 0))) {
@@ -952,7 +952,7 @@ void CGuiSaveFormatSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
             m_game->m_timer->Pause();
-            u32 backup_state = m_game->m_backup_engine->GetState();
+            U32 backup_state = m_game->m_backup_engine->GetState();
             m_game->m_timer->Resume();
 
             if (!(backup_state & (1 << 0))) {
@@ -1041,7 +1041,7 @@ void CGuiSaveFormattingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
         m_game->m_gui_manager->SetVisible("SAVE_FORMAT_FAILED", 0);
 
         m_game->m_timer->Pause();
-        u32 backup_status = m_game->m_backup_engine->GetState();
+        U32 backup_status = m_game->m_backup_engine->GetState();
         m_game->m_timer->Resume();
 
         if (backup_status == 17) {
@@ -1134,7 +1134,7 @@ void CGuiFormatFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
             m_game->m_timer->Pause();
-            u32 backup_state = m_game->m_backup_engine->GetState();
+            U32 backup_state = m_game->m_backup_engine->GetState();
             m_game->m_timer->Resume();
 
             if (!(backup_state & (1 << 0))) {
@@ -1222,7 +1222,7 @@ void CGuiOverwriteEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
             m_game->m_timer->Pause();
-            u32 backup_state = m_game->m_backup_engine->GetState();
+            U32 backup_state = m_game->m_backup_engine->GetState();
             m_game->m_timer->Resume();
 
             if (!(backup_state & (1 << 0))) {
@@ -1270,7 +1270,7 @@ void CGuiOverwriteSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
             m_game->m_timer->Pause();
-            u32 backup_state = m_game->m_backup_engine->GetState();
+            U32 backup_state = m_game->m_backup_engine->GetState();
             m_game->m_timer->Resume();
 
             if (!(backup_state & (1 << 0))) {
@@ -1295,7 +1295,7 @@ void CGuiOverwriteSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_
             m_game->m_gui_manager->SetVisible("CREATE_OVERWRITE_SURE", 0);
 
             m_game->m_timer->Pause();
-            u32 backup_state = m_game->m_backup_engine->GetState();
+            U32 backup_state = m_game->m_backup_engine->GetState();
             m_game->m_timer->Resume();
 
             if (backup_state == 17) {

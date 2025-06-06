@@ -2,11 +2,11 @@
 #include "CGamePartIngame.h"
 #include <iostream>
 
-u32 CEntityPiglet::GetSaveSize() {
+U32 CEntityPiglet::GetSaveSize() {
     return 0x10;
 }
 
-void CEntityPiglet::AddFlag(u32 flag) {
+void CEntityPiglet::AddFlag(U32 flag) {
     switch (flag) {
         case (1 << 3):
             m_unk284 = 0;
@@ -21,7 +21,7 @@ void CEntityPiglet::AddFlag(u32 flag) {
     CEntityHero::AddFlag(flag);
 }
 
-void CEntityPiglet::DelFlag(u32 flag) {
+void CEntityPiglet::DelFlag(U32 flag) {
     switch (flag) {
         case (1 << 3):
             SetMode(0);
@@ -91,7 +91,7 @@ void CEntityPiglet::DicreaseLife(int life) {
     }
 }
 
-void CEntityPiglet::Render(f32 dt_maybe) {
+void CEntityPiglet::Render(F32 dt_maybe) {
     CEntityHero::Render(dt_maybe);
     CEntityPiglet::RenderOSD();
 }
@@ -134,7 +134,7 @@ void CEntityPiglet::HideOSD() {
     }
 }
 
-void CEntityPiglet::UnHideOSD(u32 unk) {
+void CEntityPiglet::UnHideOSD(U32 unk) {
     m_unk2A0 = unk;
     PlayOSDSound("SND_201_2D", 0);
 

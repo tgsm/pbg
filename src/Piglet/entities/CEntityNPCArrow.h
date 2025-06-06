@@ -7,7 +7,7 @@
 
 class CEntityNPCArrow : public CEntityMesh {
 private:
-    u8 m_unkF4[0x100 - 0xF4];
+    U8 m_unkF4[0x100 - 0xF4];
     CDKW_V3d m_unk100;
     CDKW_V3d m_unk10C;
 
@@ -16,17 +16,17 @@ public:
     virtual ~CEntityNPCArrow();
 
     virtual void Reset();
-    virtual void Update(f32 dt_maybe);
-    virtual void Render(f32 dt_maybe);
+    virtual void Update(F32 dt_maybe);
+    virtual void Render(F32 dt_maybe);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual void SetPosition(CDKW_V3d& position);
 
-    virtual u32 GetSaveSize() {
+    virtual U32 GetSaveSize() {
         return 0;
     }
 
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return ENTITY_NPC_ARROW;
     }
 };

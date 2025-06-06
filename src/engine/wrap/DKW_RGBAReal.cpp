@@ -33,7 +33,7 @@ void CDKW_RGBAReal::operator=(const CDKW_RGBAReal& other) {
     m_a = other.m_a;
 }
 
-CDKW_RGBAReal& CDKW_RGBAReal::operator*=(const f32& scalar) {
+CDKW_RGBAReal& CDKW_RGBAReal::operator*=(const F32& scalar) {
     m_r *= scalar;
     m_g *= scalar;
     m_b *= scalar;

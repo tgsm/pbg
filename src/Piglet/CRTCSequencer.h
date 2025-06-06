@@ -6,9 +6,9 @@
 // TODO
 class CRTCSeqKey {
 protected:
-    f32 m_unk0;
-    f32 m_unk4;
-    u32 m_unk8;
+    F32 m_unk0;
+    F32 m_unk4;
+    U32 m_unk8;
 
 public:
     CRTCSeqKey();

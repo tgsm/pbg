@@ -29,11 +29,11 @@ void CEntity::Reset() {
 
 }
 
-void CEntity::Update(f32 dt_maybe) {
+void CEntity::Update(F32 dt_maybe) {
     ProcessMessages();
 }
 
-void CEntity::Render(f32 dt_maybe) {
+void CEntity::Render(F32 dt_maybe) {
 
 }
 
@@ -67,7 +67,7 @@ void CEntity::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* b
     behavior->Parse(iter);
 }
 
-void CEntity::ParseXYZ(DkXmd::CChunkIterator iter, f32* x, f32* y, f32* z) {
+void CEntity::ParseXYZ(DkXmd::CChunkIterator iter, F32* x, F32* y, F32* z) {
     char buf[128];
     DkXmd::CChunkIterator dest;
 
@@ -90,11 +90,11 @@ void CEntity::ParseXYZ(DkXmd::CChunkIterator iter, f32* x, f32* y, f32* z) {
     }
 }
 
-u32 CEntity::GetSaveSize() {
+U32 CEntity::GetSaveSize() {
     return 12; // FIXME: This is probably calculated
 }
 
-void CEntity::SetBehavior(u32 unk) {
+void CEntity::SetBehavior(U32 unk) {
     if (m_unk18 != NULL && m_unk18->GetBehavior(unk) != NULL) {
         m_unk10 = unk;
         m_unk18->GetBehavior(m_unk10)->Set(this);
@@ -157,6 +157,6 @@ void CEntity::ManageMessage(SDkMessage& message) {
     }
 }
 
-void CEntity::UpdateBehavior(f32 dt_maybe) {
+void CEntity::UpdateBehavior(F32 dt_maybe) {
 
 }

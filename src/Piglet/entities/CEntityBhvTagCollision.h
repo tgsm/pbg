@@ -23,7 +23,7 @@ public:
         }
     }
 
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return BEHAVIOR_TAG_COLLISION;
     }
 };

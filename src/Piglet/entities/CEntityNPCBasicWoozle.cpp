@@ -13,11 +13,11 @@ void CEntityNPCBasicWoozle::Reset() {
     CEntityNPC::Reset();
 }
 
-void CEntityNPCBasicWoozle::UpdateDeathBehaviour(f32) {
+void CEntityNPCBasicWoozle::UpdateDeathBehaviour(F32) {
 
 }
 
-void CEntityNPCBasicWoozle::Render(f32 dt_maybe) {
+void CEntityNPCBasicWoozle::Render(F32 dt_maybe) {
     if (IsFlagged(1 << 1) == TRUE) {
         CEntityNPC::Render(dt_maybe);
     }

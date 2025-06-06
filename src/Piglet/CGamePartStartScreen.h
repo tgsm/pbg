@@ -8,17 +8,17 @@ class CGame;
 class CGamePartStartScreen : public CGamePart {
 private:
     CGame* m_game;
-    f32 m_unk10;
-    u32 m_unk14;
+    F32 m_unk10;
+    U32 m_unk14;
 
 public:
     CGamePartStartScreen(CGame* game);
     virtual ~CGamePartStartScreen();
 
-    virtual u32 NextFrame();
-    virtual u32 NextFrameExit();
-    virtual void Update(f32 dt_maybe);
-    virtual void Render(f32 dt_maybe);
+    virtual U32 NextFrame();
+    virtual U32 NextFrameExit();
+    virtual void Update(F32 dt_maybe);
+    virtual void Render(F32 dt_maybe);
 };
 REQUIRE_SIZE(CGamePartStartScreen, 0x18);
 

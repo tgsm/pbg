@@ -4,7 +4,7 @@
 
 PADStatus DKI::CGCNPad::ms_Datas[PAD_MAX_CONTROLLERS];
 PADStatus DKI::CGCNPad::ms_LastDatas[PAD_MAX_CONTROLLERS];
-u32 DKI::CGCNPad::ms_Motor[PAD_MAX_CONTROLLERS];
+U32 DKI::CGCNPad::ms_Motor[PAD_MAX_CONTROLLERS];
 int DKI::CGCNPad::ms_Level[PAD_MAX_CONTROLLERS];
 
 DKI::CGCNPad* DKI::CGCNPad::ms_Pad1;
@@ -47,7 +47,7 @@ void CGCNPad::Update() {
     PADClamp(&ms_Datas[0]);
 }
 
-void CGCNPad::Update(const f32& dt_maybe) {
+void CGCNPad::Update(const F32& dt_maybe) {
     if (m_not_connected) {
         switch (m_pad_no) {
             case 0:
@@ -74,7 +74,7 @@ void CGCNPad::Update(const f32& dt_maybe) {
         m_type = SIProbe(m_pad_no);
     }
 
-    s8 error = ms_Datas[m_pad_no].err;
+    S8 error = ms_Datas[m_pad_no].err;
     if (error != PAD_ERR_NONE) {
         if (error == PAD_ERR_NOT_READY || error == PAD_ERR_TRANSFER) {
             ms_Datas[m_pad_no] = ms_LastDatas[m_pad_no];
@@ -258,10 +258,10 @@ CState CGCNPad::GetState(const int& unk) {
             return ret;
         }
         case 14: {
-            u32 value;
+            U32 value;
             ret.m_unk8 = m_unk18;
             ret.m_unk4 = ms_Datas[m_pad_no].stickX / 40.0;
-            f32 old_stick_x = ms_LastDatas[m_pad_no].stickX / 40.0;
+            F32 old_stick_x = ms_LastDatas[m_pad_no].stickX / 40.0;
             if (ret.m_unk4 > 0.0f) {
                 if (old_stick_x < 0.5f && ret.m_unk4 > 0.5f) {
                     value = 1;
@@ -282,10 +282,10 @@ why1:
             return ret;
         }
         case 15: {
-            u32 value;
+            U32 value;
             ret.m_unk8 = m_unk1C;
             ret.m_unk4 = ms_Datas[m_pad_no].stickY / 40.0;
-            f32 old_stick_y = ms_LastDatas[m_pad_no].stickY / 40.0;
+            F32 old_stick_y = ms_LastDatas[m_pad_no].stickY / 40.0;
             if (ret.m_unk4 > 0.0f) {
                 if (old_stick_y < 0.5f && ret.m_unk4 > 0.5f) {
                     value = 1;
@@ -306,10 +306,10 @@ why2:
             return ret;
         }
         case 16: {
-            u32 value;
+            U32 value;
             ret.m_unk8 = m_unk20;
             ret.m_unk4 = ms_Datas[m_pad_no].substickX / 31.0;
-            f32 old_substick_x = ms_LastDatas[m_pad_no].substickX / 31.0;
+            F32 old_substick_x = ms_LastDatas[m_pad_no].substickX / 31.0;
             if (ret.m_unk4 > 0.0f) {
                 if (old_substick_x < 0.5f && ret.m_unk4 > 0.5f) {
                     value = 1;
@@ -330,10 +330,10 @@ why3:
             return ret;
         }
         case 17: {
-            u32 value;
+            U32 value;
             ret.m_unk8 = m_unk24;
             ret.m_unk4 = ms_Datas[m_pad_no].substickY / 31.0;
-            f32 old_substick_y = ms_LastDatas[m_pad_no].substickY / 31.0;
+            F32 old_substick_y = ms_LastDatas[m_pad_no].substickY / 31.0;
             if (ret.m_unk4 > 0.0f) {
                 if (old_substick_y < 0.5f && ret.m_unk4 > 0.5f) {
                     value = 1;
@@ -358,7 +358,7 @@ why4:
     }
 }
 
-void CGCNPad::SetRumble(const u8& a1, const u8& a2) {
+void CGCNPad::SetRumble(const U8& a1, const U8& a2) {
     BOOL control = FALSE;
     if (a2 > 230 && ms_Motor[m_pad_no] != 1) {
         ms_Motor[m_pad_no] = 1;

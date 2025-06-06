@@ -5,30 +5,30 @@
 
 class CEntityNPCBasicWoozle : public CEntityNPC {
 private:
-    u8 m_unk2D4[4];
+    U8 m_unk2D4[4];
 
 public:
     CEntityNPCBasicWoozle(CEntityManager* entity_manager, std::string name);
     virtual ~CEntityNPCBasicWoozle();
 
-    virtual u32 GetType() {
+    virtual U32 GetType() {
         return ENTITY_NPC_BASIC_WOOZLE;
     }
     virtual void Reset();
-    virtual void Render(f32 dt_maybe);
+    virtual void Render(F32 dt_maybe);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual void Restore(void*);
-    virtual void UpdateDetectionBehaviour(f32);
-    virtual void UpdateFightBehaviour(f32);
-    virtual void UpdateGrimaceBehaviour(f32);
+    virtual void UpdateDetectionBehaviour(F32);
+    virtual void UpdateFightBehaviour(F32);
+    virtual void UpdateGrimaceBehaviour(F32);
     virtual void MakeNPCLaughing();
     virtual void MakeNPCSatisfaction();
-    virtual void PlayWalkAnim(s32);
-    virtual void PlayRunAnim(s32);
+    virtual void PlayWalkAnim(S32);
+    virtual void PlayRunAnim(S32);
     virtual void Idle();
     virtual void UnIdle();
-    virtual void UpdateDeathBehaviour(f32);
+    virtual void UpdateDeathBehaviour(F32);
 };
 REQUIRE_SIZE(CEntityNPCBasicWoozle, 0x2D8);
 
