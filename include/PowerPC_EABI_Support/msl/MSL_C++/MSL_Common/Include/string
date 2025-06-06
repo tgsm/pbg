@@ -74,6 +74,11 @@ struct basic_string {
 
 typedef basic_string<char> string;
 
+template <typename CharT, typename Traits, typename Allocator>
+bool operator==(const basic_string<CharT, Traits, Allocator>& a, const CharT* b) {
+    return a.compare(0, a.size(), b, Traits::length(b)) == 0;
+}
+
 }
 
 #endif
