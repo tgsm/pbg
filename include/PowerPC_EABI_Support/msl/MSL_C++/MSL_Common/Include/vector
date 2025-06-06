@@ -7,7 +7,15 @@
 namespace std {
 
 template <typename T, typename Allocator = allocator<T> >
-class __vector_pod {
+class __vector_deleter {
+public:
+    ~__vector_deleter();
+
+    void clear();
+};
+
+template <typename T, typename Allocator = allocator<T> >
+class __vector_pod : public __vector_deleter<T, Allocator> {
 public:
     __vector_pod() : m_capacity(0), m_size(0), m_data((T*)NULL) {
     }
