@@ -1,6 +1,11 @@
+#include "entities/CEntityBhvTagCameraSystem.h"
+#include "entities/CEntityBhvTagFinishMission.h"
+#include "entities/CEntityBhvTagGuiCtrl.h"
 #include "entities/CEntityBhvTagNarrator.h"
 #include "entities/CEntityBhvTagResponse.h"
 #include "entities/CEntityBhvTagSendMessage.h"
+#include "entities/CEntityBhvTagSettings.h"
+#include "entities/CEntityBhvTagTeleport.h"
 #include <cstring>
 #include <iostream>
 
@@ -25,15 +30,25 @@ void CEntityBhvTagResponse::Parse(DkXmd::CChunkIterator iter) {
                 send_message->Parse(dest);
                 AddData(send_message);
             } else if (strcmp(buf, "Teleport") == 0) {
-                // FIXME: CEntityBhvTagTeleport
+                CEntityBhvTagTeleport* teleport = new CEntityBhvTagTeleport;
+                teleport->Parse(dest);
+                AddData(teleport);
             } else if (strcmp(buf, "Camera") == 0) {
-                // FIXME: CEntityBhvTagCameraSystem
+                CEntityBhvTagCameraSystem* camera_system = new CEntityBhvTagCameraSystem;
+                camera_system->Parse(dest);
+                AddData(camera_system);
             } else if (strcmp(buf, "GuiControl") == 0) {
-                // FIXME: CEntityBhvGuiCtrl
+                CEntityBhvTagGuiCtrl* gui_control = new CEntityBhvTagGuiCtrl;
+                gui_control->Parse(dest);
+                AddData(gui_control);
             } else if (strcmp(buf, "Settings") == 0) {
-                // FIXME: CEntityBhvTagSettings
+                CEntityBhvTagSettings* settings = new CEntityBhvTagSettings;
+                settings->Parse(dest);
+                AddData(settings);
             } else if (strcmp(buf, "FinishMission") == 0) {
-                // FIXME: CEntityBhvTagFinishMission
+                CEntityBhvTagFinishMission* finish_mission = new CEntityBhvTagFinishMission;
+                finish_mission->Parse(dest);
+                AddData(finish_mission);
             } else if (strcmp(buf, "Narrator") == 0) {
                 CEntityBhvTagNarrator* narrator = new CEntityBhvTagNarrator;
                 narrator->Parse(dest);
