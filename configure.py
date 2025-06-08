@@ -555,7 +555,7 @@ config.libs = [
             Object(NonMatching, "engine/display/CParticleEmitterDefinition.cpp"),
             Object(NonMatching, "engine/display/IParticleEmitterDefinition.cpp"),
             Object(NonMatching, "engine/display/CTimerGCN.cpp"),
-            Object(NonMatching, "engine/display/IShadowMapValidationCallback.cpp"),
+            Object(Matching, "engine/display/IShadowMapValidationCallback.cpp"),
             Object(NonMatching, "engine/display/IPipeline.cpp"),
             Object(NonMatching, "engine/display/IDisplacementPipeline.cpp"),
             Object(NonMatching, "engine/display/CDisplacementPipelineGCN.cpp"),
