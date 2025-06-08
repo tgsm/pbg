@@ -48,8 +48,8 @@ CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
 
     m_game = game;
 
-    U32 rf_unkC = m_game->m_resource_factory->m_unkC;
-    m_game->m_resource_factory->m_unkC = 0;
+    U32 rf_unkC = m_game->GetResourceFactory()->m_unkC;
+    m_game->GetResourceFactory()->m_unkC = 0;
 
     m_unk20 = DKI::IInputEngine::CreateInput("QUITCREDITSA", 0, 19);
     m_unk24 = DKI::IInputEngine::CreateInput("QUITCREDITSB", 0, 12);
@@ -88,7 +88,7 @@ CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
     m_game->ComputeDeltaTime();
     m_game->ComputeDeltaTime();
 
-    m_game->m_resource_factory->m_unkC = rf_unkC;
+    m_game->GetResourceFactory()->m_unkC = rf_unkC;
 
     m_game->m_gui_manager->Reset();
 }
@@ -150,11 +150,11 @@ CGamePartCredits::~CGamePartCredits() {
     CLEAR_VECTOR(m_unk80);
 
     m_game->m_gui_manager->UnLoadLevel(0);
-    m_game->m_resource_factory->UnloadResources(0);
+    m_game->GetResourceFactory()->UnloadResources(0);
 }
 
 BOOL CGamePartCredits::SetCreditsFile(std::string credits_xmd) {
-    m_credits_xmd_data = m_game->m_resource_factory->LoadPureFile(credits_xmd, NULL);
+    m_credits_xmd_data = m_game->GetResourceFactory()->LoadPureFile(credits_xmd, NULL);
     if (m_credits_xmd_data == NULL) {
         return FALSE;
     }
@@ -195,7 +195,7 @@ void CGamePartCredits::Parse(DkXmd::CChunkIterator iter) {
             tmp = dest.GetName();
 
             if (tmp == "SndDict") {
-                CResourceFactory* resource_factory = m_game->m_resource_factory;
+                CResourceFactory* resource_factory = m_game->GetResourceFactory();
                 resource_factory->LoadResource(10, dest.GetStringValue());
             } else if (tmp == "SoundId") {
                 tmp = dest.GetStringValue();

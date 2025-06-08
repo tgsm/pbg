@@ -29,7 +29,7 @@ CGamePartDMRoomLauncher::~CGamePartDMRoomLauncher() {
     delete m_debug_menu;
     m_debug_menu = NULL;
 
-    m_game->m_resource_factory->UnloadResources(0);
+    m_game->GetResourceFactory()->UnloadResources(0);
 }
 
 // Incomplete, maybe equivalent

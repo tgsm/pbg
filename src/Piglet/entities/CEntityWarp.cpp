@@ -53,7 +53,7 @@ void CEntityWarp::Parse(DkXmd::CChunkIterator iter) {
 
             if (strcmp(buf_114, "TexDict") == 0) {
                 strcpy(buf_94, dest.GetStringValue());
-                m_entity_manager->GetGame()->m_resource_factory->LoadResource(6, buf_94);
+                m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(6, buf_94);
             }
         } while (dest.GetNextSiblingChunk(dest));
     }
@@ -69,11 +69,11 @@ void CEntityWarp::Parse(DkXmd::CChunkIterator iter) {
                         DkXmd::CChunkIterator entry_chunk;
                         if (child_chunk.GetChunk("Id", entry_chunk)) {
                             strcpy(buf_194, entry_chunk.GetStringValue());
-                            m_entity_manager->GetGame()->m_resource_factory->LoadResource(1, buf_194);
+                            m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(1, buf_194);
 
                             if (child_chunk.GetChunk("ANM", entry_chunk)) {
                                 strcpy(buf_194, entry_chunk.GetStringValue());
-                                m_entity_manager->GetGame()->m_resource_factory->LoadResource(3, buf_194);
+                                m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(3, buf_194);
                             }
                         }
                     }

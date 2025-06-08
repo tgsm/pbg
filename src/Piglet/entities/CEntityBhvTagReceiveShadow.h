@@ -16,9 +16,9 @@ public:
 
     virtual void Set(CEntity* entity) {
         if (m_on == TRUE) {
-            ((CEntityMesh*)entity)->m_unk44 = TRUE;
+            ((CEntityMesh*)entity)->m_smv_callback.m_active = TRUE;
         } else {
-            ((CEntityMesh*)entity)->m_unk44 = FALSE;
+            ((CEntityMesh*)entity)->m_smv_callback.m_active = FALSE;
         }
     }
 

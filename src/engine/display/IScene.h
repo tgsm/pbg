@@ -2,6 +2,7 @@
 #define ENGINE_DISPLAY_ISCENE_H
 
 #include "types.h"
+#include "engine/display/CMirror.h"
 #include "engine/display/ICamera.h"
 #include "engine/display/IWarp.h"
 
@@ -60,7 +61,7 @@ public:
     virtual void func45();
     virtual void func46();
     virtual void func47();
-    virtual void func48();
+    virtual CMirror* CreateMirror(U32 texture_width, U32 texture_height, U32 texture_depth_maybe) = 0;
     virtual void func49();
     virtual void func50();
     virtual void func51();
@@ -68,10 +69,10 @@ public:
     virtual void func53();
     virtual void func54();
     virtual void func55();
-    virtual void func56();
+    virtual void EnableMirrorRendering(IMirror* mirror, BOOL enable) = 0;
     virtual void func57();
     virtual void func58();
-    virtual void func59();
+    virtual void AssociateClumpToMirror(IMirror* mirror, IClump* clump) = 0;
     virtual void func60();
     virtual void func61();
     virtual void func62();
@@ -138,7 +139,7 @@ public:
     virtual void func123();
     virtual void func124();
     virtual void func125();
-    virtual void func126();
+    virtual void RenderClump(IClump* clump) = 0;
     virtual void func127();
     virtual void func128();
     virtual void func129();

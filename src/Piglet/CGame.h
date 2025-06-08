@@ -113,6 +113,7 @@ public:
     virtual BOOL NextFrame();
 
     DKDSP::CCamera* GetCamera() { return m_camera; }
+    CResourceFactory* GetResourceFactory() { return m_resource_factory; }
     CMailBox* GetMailbox() { return m_mailbox; }
 
     U32& GetFlags() { return m_unk8; }

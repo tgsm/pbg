@@ -33,7 +33,7 @@ public:
     virtual void Play(char*, F32, int);
     virtual void Play(char*, int, int);
     virtual void Play(char*, F32, int, int);
-    virtual void Update(F32);
+    virtual void Update(F32 dt);
     virtual BOOL IsPlayingTargetAnimation();
     virtual BOOL IsFullyPlayingTargetAnimation();
     virtual BOOL IsFullyPlayingCurrentAnimation();

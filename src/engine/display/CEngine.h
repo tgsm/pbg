@@ -16,6 +16,7 @@ public:
 namespace DKDSP {
 
 class IRWStream;
+class IShadowMapValidationCallback;
 
 class CEngine {
 public:
@@ -50,14 +51,14 @@ public:
     virtual void fillerfunc28();
     virtual void fillerfunc29();
     virtual void fillerfunc30();
-    virtual void fillerfunc31();
+    virtual void RegisterShadowMapValidationCallback(IShadowMapValidationCallback*);
     virtual void fillerfunc32();
     virtual void fillerfunc33();
     virtual void fillerfunc34();
     virtual void fillerfunc35();
     virtual void fillerfunc36();
-    virtual void fillerfunc37();
-    virtual void fillerfunc38();
+    virtual void AlphaAtomicBufferization(BOOL enable);
+    virtual BOOL IsAlphaAtomicBufferizationEnabled();
     virtual void fillerfunc39();
     virtual void fillerfunc40();
     virtual void fillerfunc41();

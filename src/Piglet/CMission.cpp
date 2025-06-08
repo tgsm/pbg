@@ -8,20 +8,20 @@
 U32 CMission::m_MaxNbCookies = 0;
 
 BOOL CMission::LoadConfigFile(U32 a1) {
-    U32 unk1 = m_game->m_resource_factory->m_unkC;
-    m_game->m_resource_factory->m_unkC = 1;
+    U32 unk1 = m_game->GetResourceFactory()->m_unkC;
+    m_game->GetResourceFactory()->m_unkC = 1;
 
     char filename[128];
     sprintf(filename, "Missions/Mission%d/Mission%0d.XMD", m_mission_no, m_mission_no);
-    void* file = m_game->m_resource_factory->LoadPureFile(filename, NULL);
+    void* file = m_game->GetResourceFactory()->LoadPureFile(filename, NULL);
     if (file == NULL) {
-        m_game->m_resource_factory->m_unkC = unk1;
+        m_game->GetResourceFactory()->m_unkC = unk1;
         return FALSE;
     }
 
     DkXmd::CXmdFile xmd;
     if (!xmd.Parse(file)) {
-        m_game->m_resource_factory->m_unkC = unk1;
+        m_game->GetResourceFactory()->m_unkC = unk1;
         delete file;
         return FALSE;
     }
@@ -117,7 +117,7 @@ BOOL CMission::LoadConfigFile(U32 a1) {
                 strcpy(buf, dest1.GetName());
 
                 if (strcmp(buf, "TexDict") == 0) {
-                    resource_factory = m_game->m_resource_factory;
+                    resource_factory = m_game->GetResourceFactory();
                     resource_factory->LoadResource(6, dest1.GetStringValue());
                 }
             } while (dest1.GetNextSiblingChunk(dest1));
@@ -127,29 +127,29 @@ BOOL CMission::LoadConfigFile(U32 a1) {
             do {
                 strcpy(buf, dest1.GetName());
 
-                resource_factory = m_game->m_resource_factory;
+                resource_factory = m_game->GetResourceFactory();
                 if (strcmp(buf, "Mesh") == 0) {
-                    resource_factory = m_game->m_resource_factory;
+                    resource_factory = m_game->GetResourceFactory();
                     resource_factory->LoadResource(1, dest1.GetStringValue());
                 } else if (strcmp(buf, "ANM") == 0) {
-                    resource_factory = m_game->m_resource_factory;
+                    resource_factory = m_game->GetResourceFactory();
                     resource_factory->LoadResource(3, dest1.GetStringValue());
                 } else if (strcmp(buf, "DMA") == 0) {
-                    resource_factory = m_game->m_resource_factory;
+                    resource_factory = m_game->GetResourceFactory();
                     resource_factory->LoadResource(4, dest1.GetStringValue());
                 } else if (strcmp(buf, "TAN") == 0) {
-                    resource_factory = m_game->m_resource_factory;
+                    resource_factory = m_game->GetResourceFactory();
                     resource_factory->LoadResource(5, dest1.GetStringValue());
                 } else if (strcmp(buf, "ParticleEmitterFile") == 0) {
                     if (dest1.GetStringValue() != NULL) {
-                        resource_factory = m_game->m_resource_factory;
+                        resource_factory = m_game->GetResourceFactory();
                         resource_factory->LoadResource(9, dest1.GetStringValue());
                     }
                 } else if (strcmp(buf, "SndDict") == 0) {
-                    resource_factory = m_game->m_resource_factory;
+                    resource_factory = m_game->GetResourceFactory();
                     resource_factory->LoadResource(10, dest1.GetStringValue());
                 } else if (strcmp(buf, "StreamDict") == 0) {
-                    resource_factory = m_game->m_resource_factory;
+                    resource_factory = m_game->GetResourceFactory();
                     resource_factory->LoadResource(12, dest1.GetStringValue());
                 } else if (strcmp(buf, "GUI") == 0) {
                     m_game->m_gui_manager->LoadGui(&dest1, 1);
@@ -172,14 +172,14 @@ BOOL CMission::LoadConfigFile(U32 a1) {
         }
     }
 
-    m_game->m_resource_factory->m_unkC = unk1;
+    m_game->GetResourceFactory()->m_unkC = unk1;
     delete file;
     return TRUE;
 }
 
 void CMission::UnloadConfigFile() {
     m_game->m_gui_manager->UnLoadLevel(1);
-    m_game->m_resource_factory->UnloadResources(1);
+    m_game->GetResourceFactory()->UnloadResources(1);
     m_game->m_minimap->Unload();
 }
 

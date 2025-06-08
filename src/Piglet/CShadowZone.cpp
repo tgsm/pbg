@@ -43,7 +43,7 @@ BOOL CShadowZone::LoadShadowZone(DkXmd::CChunkIterator* iter) {
                     }
 
                     U32 local_78;
-                    file = m_game->m_resource_factory->LoadPureFile(maybe_filename, &local_78);
+                    file = m_game->GetResourceFactory()->LoadPureFile(maybe_filename, &local_78);
                     if (file == NULL) {
                         return FALSE;
                     }

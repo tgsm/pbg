@@ -315,7 +315,7 @@ BOOL CEntityManager::DestroyEntity(U32 index) {
 }
 
 BOOL CEntityManager::SetModelFile(std::string model) {
-    m_model_xmd_data = m_game->m_resource_factory->LoadPureFile(model, NULL);
+    m_model_xmd_data = m_game->GetResourceFactory()->LoadPureFile(model, NULL);
 
     m_model_xmd = new DkXmd::CXmdFile;
     if (!m_model_xmd->Parse(m_model_xmd_data)) {

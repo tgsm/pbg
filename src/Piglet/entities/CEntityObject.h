@@ -8,6 +8,19 @@
 // FIXME: Move this to the engine
 namespace DkPh {
 
+struct RBody {
+    RBody() : unk0(0), unk4(0), unk8(0.0f, 0.0f, 0.0f), unk14(0.0f, 0.0f, 0.0f) {
+
+    }
+
+    ~RBody();
+
+    u32 unk0;
+    u32 unk4;
+    CDKW_V3d unk8;
+    CDKW_V3d unk14;
+};
+
 class Collider {
 public:
     class Body {};

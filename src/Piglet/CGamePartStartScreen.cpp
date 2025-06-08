@@ -16,10 +16,10 @@ CGamePartStartScreen::CGamePartStartScreen(CGame* game) {
 
     m_game = game;
     m_unk10 = 0.0f;
-    U32 rf_unkC = m_game->m_resource_factory->m_unkC;
-    m_game->m_resource_factory->m_unkC = 0;
+    U32 rf_unkC = m_game->GetResourceFactory()->m_unkC;
+    m_game->GetResourceFactory()->m_unkC = 0;
     m_game->LoadConfigFile("MENUS/STARTSCR/STARTSCR.XMD");
-    m_game->m_resource_factory->m_unkC = rf_unkC;
+    m_game->GetResourceFactory()->m_unkC = rf_unkC;
 
     m_game->m_gui_manager->Reset();
     m_game->m_gui_manager->GetGuiPtr("TITLE_TITLE")->menu->Reset();
@@ -37,7 +37,7 @@ CGamePartStartScreen::~CGamePartStartScreen() {
     m_game->m_fx_manager->Clear();
     m_game->m_sound_engine->DeleteAllSounds();
     m_game->m_gui_manager->UnLoadLevel(0);
-    m_game->m_resource_factory->UnloadResources(0);
+    m_game->GetResourceFactory()->UnloadResources(0);
 }
 
 U32 CGamePartStartScreen::NextFrame() {
