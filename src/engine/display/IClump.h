@@ -1,19 +1,16 @@
 #ifndef ENGINE_DISPLAY_ICLUMP_H
 #define ENGINE_DISPLAY_ICLUMP_H
 
+#include "engine/display/IFramableGeometry.h"
 #include "engine/display/IController.h"
-#include "engine/wrap/DKW_Frame.h"
 
 namespace DKDSP {
 
 class IAnimation;
 
-class IClump {
+class IClump : public IFramableGeometry {
 private:
-    U8 m_unk0[4]; // FIXME: This is part of IFramable
 public:
-    virtual CDKW_Frame* GetFrame() = 0;
-    virtual void func1() = 0;
     virtual void func2() = 0;
     virtual void func3() = 0;
     virtual void func4() = 0;

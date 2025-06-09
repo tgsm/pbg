@@ -1,18 +1,16 @@
 #ifndef ENGINE_DISPLAY_ICAMERA_H
 #define ENGINE_DISPLAY_ICAMERA_H
 
+#include "engine/display/IFramable.h"
 #include "engine/display/CRaster.h"
 
 namespace DKDSP {
 
 // TODO
-class ICamera {
+class ICamera : public IFramable {
 private:
-    U8 m_unk0[4]; // FIXME: This belongs to IFramable
 
 public:
-    virtual void func0() = 0;
-    virtual void func1() = 0;
     virtual void func2() = 0;
     virtual void func3() = 0;
     virtual void SetBuffer(IRaster*) = 0;
