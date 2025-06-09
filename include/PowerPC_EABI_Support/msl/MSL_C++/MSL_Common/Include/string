@@ -57,7 +57,9 @@ struct basic_string {
         return *(CharT**)(m_size+3);
     }
 
-    CharT* c_str() const {
+    const CharT* data() const;
+
+    const CharT* c_str() const {
         return begin(); // no
     }
 
