@@ -11,6 +11,10 @@
 class CEntity;
 class CEntityHero;
 
+namespace DkPh {
+class Collider;
+}
+
 class CEntityManager {
 private:
     CGame* m_game;
@@ -20,7 +24,7 @@ private:
     DkXmd::CXmdFile* m_model_xmd;
     DkXmd::CChunkIterator* m_model_xmd_iter;
     // Unknown types
-    U32 m_unk1C;
+    DkPh::Collider* m_unk1C;
     U32 m_unk20;
     CEntity* m_entity_light_01;
 
@@ -29,6 +33,7 @@ public:
     ~CEntityManager();
 
     CGame* GetGame() { return m_game; }
+    DkPh::Collider* GetUnkCollider() { return m_unk1C; }
 
     U32 GetTypeFromModel(std::string);
     U32 GetTypeFromString(std::string type_str);

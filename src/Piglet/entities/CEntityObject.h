@@ -1,6 +1,7 @@
 #ifndef PIGLET_ENTITIES_CENTITYOBJECT_H
 #define PIGLET_ENTITIES_CENTITYOBJECT_H
 
+#include <vector>
 #include "engine/xmd/CChunkIterator.h"
 #include "engine/wrap/DKW_V3d.h"
 #include "entities/CEntity.h"
@@ -15,15 +16,26 @@ struct RBody {
 
     ~RBody();
 
-    u32 unk0;
-    u32 unk4;
+    U32 unk0;
+    U32 unk4;
     CDKW_V3d unk8;
     CDKW_V3d unk14;
 };
 
+class BVolume {
+
+};
+
 class Collider {
 public:
-    class Body {};
+    struct Body {
+        U8 unk0[4];
+        CEntity* entity4;
+        U8 unk8[0x34 - 0x8];
+        U32 unk34;
+    };
+
+    Body& GetBodyRef(const BVolume*);
 };
 
 };
@@ -32,10 +44,8 @@ public:
 class CDKW_Matrix {};
 
 class CEntityObject : public CEntity {
-private:
-    U32 m_unk24;
-    U32 m_unk28;
-    void* m_unk2C;
+protected:
+    std::vector<DkPh::BVolume> m_unk24;
     F32 m_unk30;
     F32 m_unk34;
     F32 m_unk38;
@@ -47,14 +57,14 @@ public:
 
     virtual void AddFlag(U32 flag);
     virtual void DelFlag(U32 flag);
-    virtual U32 GetType();
+    virtual U32 GetType() { return ENTITY_OBJECT; }
     virtual void Init();
     virtual void Reset();
     virtual void Update(F32 dt_maybe);
     virtual void Render(F32 dt_maybe);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
-    virtual U32 GetSaveSize();
+    virtual U32 GetSaveSize() { return CEntity::GetSaveSize(); }
     virtual CDKW_V3d GetPosition();
     virtual void SetPosition(CDKW_V3d& position) {}
     virtual CDKW_V3d GetOrientation();

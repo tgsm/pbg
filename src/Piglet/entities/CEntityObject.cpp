@@ -5,10 +5,6 @@
 #include <iostream>
 
 CEntityObject::CEntityObject(CEntityManager* entity_manager, std::string name) : CEntity(entity_manager, name) {
-    m_unk24 = 0;
-    m_unk28 = 0;
-    m_unk2C = 0;
-
     AddFlag(1 << 2);
 
     m_unk30 = 3.4028235e38f;
@@ -19,15 +15,15 @@ CEntityObject::CEntityObject(CEntityManager* entity_manager, std::string name) :
 
 // Incomplete
 CEntityObject::~CEntityObject() {
-    m_unk28 = 0;
-    if (m_unk2C != NULL) {
-        delete m_unk2C;
+    m_unk24.m_size = 0;
+    if (m_unk24.m_data != NULL) {
+        delete m_unk24.m_data;
     }
-    m_unk2C = NULL;
-    m_unk24 = 0;
+    m_unk24.m_data = NULL;
+    m_unk24.m_capacity = 0;
 
-    if (m_unk2C != NULL) {
-        delete m_unk2C;
+    if (m_unk24.m_data != NULL) {
+        delete m_unk24.m_data;
     }
 }
 

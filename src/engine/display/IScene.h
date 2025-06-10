@@ -3,12 +3,14 @@
 
 #include "types.h"
 #include "engine/display/CMirror.h"
+#include "engine/display/CParticleEmitter.h"
 #include "engine/display/ICamera.h"
 #include "engine/display/IWarp.h"
 
 namespace DKDSP {
 
 class IObjectDictionary;
+class IParticleEmitterDefinition;
 
 // TODO
 class IScene {
@@ -108,8 +110,8 @@ public:
     virtual void func92();
     virtual void func93();
     virtual void func94();
-    virtual void func95();
-    virtual void func96();
+    virtual CParticleEmitter* CreateParticleEmitterFromDefinition(std::string, IParticleEmitterDefinition*) = 0;
+    virtual CParticleEmitter* LoadParticleEmitter(std::string, DkXmd::CChunkIterator*) = 0;
     virtual void func97();
     virtual void func98();
     virtual void func99();
@@ -117,7 +119,7 @@ public:
     virtual void func101();
     virtual void func102();
     virtual void func103();
-    virtual void func104();
+    virtual void RemoveParticleEmitter(IParticleEmitter*) = 0;
     virtual void func105();
     virtual void func106();
     virtual void func107();
@@ -143,7 +145,7 @@ public:
     virtual void func127();
     virtual void func128();
     virtual void func129();
-    virtual void func130();
+    virtual void RenderParticleEmitter(IParticleEmitter*, int) = 0;
     virtual void func131();
     virtual void func132();
     virtual void func133();

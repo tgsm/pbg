@@ -16,6 +16,7 @@ public:
 
 public:
     BOOL IsPlayingRTC();
+    BOOL IsOnFight();
     void InitTimer(F32 duration);
     void UpdateTimer(F32 dt);
     void StopTimer();

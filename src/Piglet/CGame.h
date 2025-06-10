@@ -8,6 +8,7 @@
 #include "engine/display/CCamera.h"
 #include "engine/display/CController.h"
 #include "engine/display/CEngine.h"
+#include "engine/display/CObjectDictionary.h"
 #include "engine/display/CScene.h"
 #include "engine/display/CTextureDictionary.h"
 #include "engine/display/CTimer.h"
@@ -63,7 +64,7 @@ public:
     U8 m_unk4F84[4];
     DKDSP::CEngine* m_display_engine;
     DKDSP::CTextureDictionary* m_texture_dictionary;
-    U8 m_unk4F90[4];
+    DKDSP::CObjectDictionary* m_object_dictionary;
     DKDSP::CAnimDictionary* m_anim_dictionary;
     DKDSP::CScene* m_scene;
     DKDSP::CCamera* m_camera;

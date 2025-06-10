@@ -14,10 +14,14 @@ public:
     virtual void RemoveWarp(IWarp*);
     virtual void RenderWarp(IWarp*);
     virtual CClump* CloneClump(std::string, IObjectDictionary*);
+    virtual CParticleEmitter* CreateParticleEmitterFromDefinition(std::string, IParticleEmitterDefinition*);
+    virtual CParticleEmitter* LoadParticleEmitter(std::string, DkXmd::CChunkIterator*);
+    virtual void RemoveParticleEmitter(IParticleEmitter*);
     virtual void SelectCamera(ICamera*);
     virtual void Clear(int, F32, F32, F32);
     virtual void BeginRender();
     virtual void RenderClump(IClump* clump);
+    virtual void RenderParticleEmitter(IParticleEmitter*, int);
     virtual void Flush();
     virtual void EndRender();
     virtual void Flip(int);

@@ -11,6 +11,12 @@ public:
 
     F32 SquareDistToPoint(CDKW_V3d& other);
 
+    static CDKW_V3d ZERO;
+    static CDKW_V3d XAXIS;
+    static CDKW_V3d YAXIS;
+    static CDKW_V3d ZAXIS;
+    static CDKW_V3d ONE;
+
 public:
     F32 m_x, m_y, m_z;
 };
