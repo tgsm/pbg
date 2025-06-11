@@ -121,36 +121,43 @@ void CShadowZone::UnloadShadowZone() {
     }
 }
 
-// Equivalent: regalloc
 CDKW_RGBAReal CShadowZone::RGBToHSV(CDKW_RGBAReal rgb) {
+    F32 f1;
+    f32 min_component;
+    F32 yeah;
+    F32 max_component;
+    F32 red;
+    F32 green;
+    F32 blue;
+
     CDKW_RGBAReal ret;
-    F32 f1 = -1.0f;
-    F32 red = rgb.m_r;
-    F32 green = rgb.m_g;
-    F32 blue = rgb.m_b;
-    F32 f6 = red;
+    f1 = -1.0f;
+    red = rgb.m_r;
+    green = rgb.m_g;
+    blue = rgb.m_b;
+    max_component = red;
     if (green > red) {
-        f6 = green;
+        max_component = green;
     }
-    if (blue > f6) {
-        f6 = blue;
+    if (blue > max_component) {
+        max_component = blue;
     }
-    F32 fVar1 = red;
-    if (green < fVar1) {
-        fVar1 = green;
+    min_component = red;
+    if (green < min_component) {
+        min_component = green;
     }
-    if (blue < fVar1) {
-        fVar1 = blue;
+    if (blue < min_component) {
+        min_component = blue;
     }
-    fVar1 = f6 - fVar1;
-    if (fVar1 >= 0.05f) {
-        F32 yeah = fVar1 / (f6 + 0.5f);
-        if (f6 == red) {
-            f1 = 0.0f + (green - blue) / (fVar1 + 0.5f);
-        } else if (f6 == green) {
-            f1 = 2.0f + (blue - red) / (fVar1 + 0.5f);
-        } else if (f6 == blue) {
-            f1 = 4.0f + (red - green) / (fVar1 + 0.5f);
+    min_component = max_component - min_component;
+    if (min_component >= 0.05f) {
+        yeah = min_component / (max_component + 0.5f);
+        if (max_component == red) {
+            f1 = 0.0f + (green - blue) / (min_component + 0.5f);
+        } else if (max_component == green) {
+            f1 = 2.0f + (blue - red) / (min_component + 0.5f);
+        } else if (max_component == blue) {
+            f1 = 4.0f + (red - green) / (min_component + 0.5f);
         }
         if (f1 < 0.0f) {
             f1 += 6.0f;
@@ -160,17 +167,17 @@ CDKW_RGBAReal CShadowZone::RGBToHSV(CDKW_RGBAReal rgb) {
 
         ret.m_r = f1 * (1.0f/6.0f);
         ret.m_g = yeah;
-        ret.m_b = f6;
+        ret.m_b = max_component;
     } else {
         ret.m_r = f1;
         ret.m_g = 0.0f;
-        ret.m_b = f6;
+        ret.m_b = max_component;
     }
 
     return ret;
 }
 
-// Equivalent?: regalloc
+// Incomplete
 CDKW_RGBAReal CShadowZone::HSVToRGB(CDKW_RGBAReal rgb) {
     CDKW_RGBAReal ret;
 
