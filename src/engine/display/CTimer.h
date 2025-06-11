@@ -30,8 +30,8 @@ public:
     virtual void Reset();
     virtual void Pause();
     virtual void Resume();
-    virtual F32 GetPlatformTime() = 0;
-    virtual F32 GetPlatformDeltaTime() = 0;
+    virtual F64 GetPlatformTime() = 0;
+    virtual F64 GetPlatformDeltaTime() = 0;
 
     void SetEngine(CEngine* engine);
 };
