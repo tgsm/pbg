@@ -25,6 +25,8 @@ public:
     virtual ~CGuiBaseEventHandler();
 
     virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
+
+    void SetGame(CGame* game) { m_game = game; }
 };
 
 class CGuiNullEventHandler : public CGuiBaseEventHandler {
@@ -78,6 +80,7 @@ public:
 class CGuiChooseGameEventHandler : public CGuiBaseEventHandler {
 private:
     std::vector<std::string> m_unk10;
+    U8 m_unk1C[0xC];
 
 public:
     CGuiChooseGameEventHandler();
@@ -85,6 +88,7 @@ public:
 
     virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
 };
+REQUIRE_SIZE(CGuiChooseGameEventHandler, 0x28);
 
 class CGuiLoadingMemoryCardEventHandler : public CGuiBaseEventHandler {
 private:
@@ -146,6 +150,10 @@ public:
 
     std::string GetText() {
         return m_unk14;
+    }
+
+    void SetText(std::string text) {
+        m_unk14.assign(text, 0);
     }
 };
 
@@ -355,6 +363,7 @@ public:
 class CGuiScreenSettingEventHandler : public CGuiBaseEventHandler {
 private:
     CDKW_V2d m_unk10;
+    U8 m_unk18[8];
 
 public:
     CGuiScreenSettingEventHandler();
@@ -362,6 +371,7 @@ public:
 
     virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
 };
+REQUIRE_SIZE(CGuiScreenSettingEventHandler, 0x20);
 
 class CGuiNoPadEventHandler : public CGuiBaseEventHandler {
 public:

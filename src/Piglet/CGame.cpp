@@ -323,7 +323,7 @@ void CGame::ParseRTCCamFight(DkXmd::CChunkIterator iter) {
 
     if (m_unk5060 == NULL) {
         m_resource_factory->LoadResource(1, "MISSIONS\\RTCCamera.dff");
-        if (m_unk5060 = m_scene->CloneClump("MISSIONS\\RTCCamera.dff", NULL), !m_unk5060) {
+        if ((m_unk5060 = m_scene->CloneClump("MISSIONS\\RTCCamera.dff", NULL)) == NULL) {
             return;
         }
     }
