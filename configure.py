@@ -610,7 +610,7 @@ config.libs = [
             Object(NonMatching, "engine/sound/DkSound.cpp"),
             Object(NonMatching, "engine/sound/ISoundEngine.cpp"),
             Object(NonMatching, "engine/sound/ISample.cpp"),
-            Object(NonMatching, "engine/sound/ISoundEmitter.cpp"),
+            Object(Matching, "engine/sound/ISoundEmitter.cpp", extra_cflags=["-RTTI on", "-Cpp_exceptions on"]),
             Object(NonMatching, "engine/sound/ISoundListener.cpp"),
             Object(NonMatching, "engine/sound/ISoundStreamed.cpp"),
             Object(NonMatching, "engine/sound/ISampleDictionary.cpp"),
