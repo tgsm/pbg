@@ -607,7 +607,7 @@ config.libs = [
             Object(NonMatching, "engine/wrap/DKW_WorldSector.cpp"),
             Object(NonMatching, "engine/wrap/DkWrap.cpp"),
             Object(Matching, "engine/wrap/DKW_GCNEngine.cpp"),
-            Object(NonMatching, "engine/sound/DkSound.cpp"),
+            Object(Matching, "engine/sound/DkSound.cpp", extra_cflags=["-Cpp_exceptions on"]),
             Object(NonMatching, "engine/sound/ISoundEngine.cpp"),
             Object(NonMatching, "engine/sound/ISample.cpp"),
             Object(Matching, "engine/sound/ISoundEmitter.cpp", extra_cflags=["-RTTI on", "-Cpp_exceptions on"]),

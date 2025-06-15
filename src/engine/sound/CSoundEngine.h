@@ -2,17 +2,19 @@
 #define ENGINE_SOUND_CSOUNDENGINE_H
 
 #include "engine/sound/ISoundEngine.h"
-#include "engine/sound/CSound2D.h"
-#include "engine/sound/CSoundEmitter.h"
 
 namespace DKSND {
 
 class CSoundEngine : public ISoundEngine {
 public:
+    U8 m_unk4[0x2D0 - 4];
+
+public:
+    CSoundEngine();
     virtual ~CSoundEngine();
 
     virtual void func1();
-    virtual void func2();
+    virtual void Release();
     virtual void BeginUpdate();
     virtual void EndUpdate();
     virtual void SetGlobalVolume(F32 volume);
@@ -71,6 +73,7 @@ public:
     virtual void SetStereoMode(int mode);
     // TODO
 };
+REQUIRE_SIZE(CSoundEngine, 0x2D0);
 
 }
 
