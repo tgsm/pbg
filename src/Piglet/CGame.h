@@ -14,6 +14,7 @@
 #include "engine/display/CTimer.h"
 #include "engine/gui/CGUIEngine.h"
 #include "engine/input/IInputEngine.h"
+#include "engine/sound/CSampleDictionary.h"
 #include "engine/sound/CSoundEngine.h"
 #include "engine/wrap/DKW_RGBA.h"
 #include "CFullScreenEffect.h"
@@ -61,7 +62,7 @@ public:
     U8 m_unk4F60[0x4F7C - 0x4F60];
     DKGUI::CGUIEngine* m_gui_engine;
     DKSND::CSoundEngine* m_sound_engine;
-    U8 m_unk4F84[4];
+    DKSND::CSampleDictionary* m_sample_dictionary;
     DKDSP::CEngine* m_display_engine;
     DKDSP::CTextureDictionary* m_texture_dictionary;
     DKDSP::CObjectDictionary* m_object_dictionary;

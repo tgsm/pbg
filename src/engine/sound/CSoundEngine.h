@@ -3,6 +3,7 @@
 
 #include "engine/sound/ISoundEngine.h"
 #include "engine/sound/CSound2D.h"
+#include "engine/sound/CSoundEmitter.h"
 
 namespace DKSND {
 
@@ -32,11 +33,11 @@ public:
     virtual void func20();
     virtual void func21();
     virtual void func22();
-    virtual void func23();
+    virtual CSoundEmitter* CreateEmitter();
     virtual void func24();
     virtual void func25();
     virtual void func26();
-    virtual void func27();
+    virtual void RemoveEmitter(ISoundEmitter*);
     virtual void func28();
     virtual void func29();
     virtual void func30();
