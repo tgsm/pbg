@@ -2,12 +2,12 @@
 #define ENGINE_SOUND_ISOUNDEMITTER_H
 
 #include <string>
-#include "engine/sound/CSound3D.h"
 #include "engine/sound/ISound.h"
 #include "engine/wrap/DKW_V3d.h"
 
 namespace DKSND {
 
+class CSound3D;
 class ISample;
 
 class ISoundEmitter {
@@ -26,7 +26,7 @@ public:
     virtual void Activate() = 0;
     virtual void Deactivate() = 0;
     virtual U32 GetNbSounds() = 0;
-    virtual void Update(F32 dt) = 0;
+    virtual void Update() = 0;
     virtual void SetDestroyWhenNoSound() = 0;
     virtual CSound3D* PlaySound(ISample* sample, int) = 0;
     virtual CSound3D* PlaySound(std::string*, int) = 0;

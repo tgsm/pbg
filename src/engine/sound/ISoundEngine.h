@@ -24,7 +24,7 @@ public:
     virtual void func11() = 0;
     virtual void func12() = 0;
     virtual void func13() = 0;
-    virtual void func14() = 0;
+    virtual void RemoveSound(ISound* sound) = 0;
     virtual void func15() = 0;
     virtual void func16() = 0;
     virtual void func17() = 0;
@@ -42,8 +42,8 @@ public:
     virtual void func29() = 0;
     virtual void func30() = 0;
     virtual CSound2D* CreateSound2D(std::string*, int) = 0;
-    virtual void func32() = 0;
-    virtual void func33() = 0;
+    virtual CSound3D* CreateSound3D(ISample* sample, int) = 0;
+    virtual CSound3D* CreateSound3D(std::string* name, int) = 0;
     virtual void func34() = 0;
     virtual void func35() = 0;
     virtual CSound2D* PlaySound2D(std::string*, int) = 0;
