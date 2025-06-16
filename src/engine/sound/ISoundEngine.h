@@ -2,6 +2,7 @@
 #define ENGINE_SOUND_ISOUNDENGINE_H
 
 #include <string>
+#include "engine/sound/CSampleDictionary.h"
 #include "engine/sound/CSound2D.h"
 #include "engine/sound/CSoundEmitter.h"
 
@@ -25,7 +26,7 @@ public:
     virtual void func12() = 0;
     virtual void func13() = 0;
     virtual void RemoveSound(ISound* sound) = 0;
-    virtual void func15() = 0;
+    virtual CSampleDictionary* GetSampleDictionary() = 0;
     virtual void func16() = 0;
     virtual void func17() = 0;
     virtual void func18() = 0;

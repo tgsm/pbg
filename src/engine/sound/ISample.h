@@ -12,7 +12,7 @@ struct SSAMPLE_FORMAT {
 
 class ISample {
 public:
-    U32 m_unk0;
+    int m_unk0; // refcount?
 
 public:
     ISample();

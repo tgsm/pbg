@@ -2,12 +2,8 @@
 #define ENGINE_SOUND_CSOUND3D_H
 
 #include "engine/sound/ISound3D.h"
-#include "engine/sound/CSoundEmitter.h"
-#include "engine/wrap/DKW_V3d.h"
 
 namespace DKSND {
-
-class CSample;
 
 class CSound3D : public ISound3D {
 public:

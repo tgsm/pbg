@@ -27,7 +27,7 @@ public:
     virtual void func12();
     virtual void func13();
     virtual void RemoveSound(ISound* sound);
-    virtual void func15();
+    virtual CSampleDictionary* GetSampleDictionary();
     virtual void func16();
     virtual void func17();
     virtual void func18();
@@ -72,6 +72,8 @@ public:
     virtual void DeleteAllSounds();
     virtual void SetStereoMode(int mode);
     // TODO
+
+    void AddLayer(int);
 };
 REQUIRE_SIZE(CSoundEngine, 0x2D0);
 
