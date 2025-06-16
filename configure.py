@@ -469,7 +469,7 @@ config.libs = [
         [
             Object(Matching, "engine/sound/DkSound.cpp", extra_cflags=["-inline deferred"]),
             Object(NonMatching, "engine/sound/ISoundEngine.cpp"),
-            Object(NonMatching, "engine/sound/ISample.cpp"),
+            Object(Matching, "engine/sound/ISample.cpp"),
             Object(Matching, "engine/sound/ISoundEmitter.cpp"),
             Object(NonMatching, "engine/sound/ISoundListener.cpp"),
             Object(NonMatching, "engine/sound/ISoundStreamed.cpp"),
