@@ -471,7 +471,7 @@ config.libs = [
             Object(NonMatching, "engine/sound/ISoundEngine.cpp"),
             Object(Matching, "engine/sound/ISample.cpp"),
             Object(Matching, "engine/sound/ISoundEmitter.cpp"),
-            Object(NonMatching, "engine/sound/ISoundListener.cpp"),
+            Object(Matching, "engine/sound/ISoundListener.cpp"),
             Object(NonMatching, "engine/sound/ISoundStreamed.cpp"),
             Object(NonMatching, "engine/sound/ISampleDictionary.cpp"),
             Object(NonMatching, "engine/sound/CSampleBank.cpp"),
