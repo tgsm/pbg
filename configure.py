@@ -476,7 +476,7 @@ config.libs = [
             Object(NonMatching, "engine/sound/ISampleDictionary.cpp"),
             Object(NonMatching, "engine/sound/CSampleBank.cpp"),
             Object(NonMatching, "engine/sound/CSampleDictionary.cpp"),
-            Object(NonMatching, "engine/sound/CSound2D.cpp"),
+            Object(NonMatching, "engine/sound/CSound2D.cpp", extra_cflags=["-inline noauto"]),
             Object(NonMatching, "engine/sound/CSound3D.cpp"),
             Object(NonMatching, "engine/sound/CSoundEmitter.cpp"),
             Object(NonMatching, "engine/sound/CSoundEngine.cpp"),
