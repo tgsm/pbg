@@ -7,6 +7,8 @@
 extern "C" {
 #endif
 
+typedef void* OSMessage;
+
 typedef struct {
     OSThreadQueue queueSend;
     OSThreadQueue queueReceive;
@@ -15,6 +17,9 @@ typedef struct {
     s32 firstIndex;
     s32 usedCount;
 } OSMessageQueue;
+
+#define OS_MESSAGE_NOBLOCK (0)
+#define OS_MESSAGE_BLOCK (1)
 
 void OSInitMessageQueue(OSMessageQueue* mq, void* msgArray, s32 msgCount);
 int OSSendMessage(OSMessageQueue* mq, void* msg, s32 flags);

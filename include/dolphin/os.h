@@ -38,6 +38,7 @@ typedef u32 OSTick;
 #include <dolphin/os/OSSemaphore.h>
 #include <dolphin/os/OSUtf.h>
 #include <dolphin/os/OSTimer.h>
+#include <dolphin/os/OSFastCast.h>
 
 // private macro, maybe shouldn't be defined here?
 #define OFFSET(addr, align) (((u32)(addr) & ((align)-1)))

@@ -104,3 +104,10 @@ Download the latest release from [encounter/objdiff](https://github.com/encounte
 Select an object from the left sidebar to begin diffing. Changes to the project will rebuild automatically: changes to source files, headers, `configure.py`, `splits.txt` or `symbols.txt`.
 
 ![](assets/objdiff.png)
+
+Credits
+=======
+
+Some parts of this repository were taken from other decomp projects:
+* Dolphin OS: [dolsdk2004](https://github.com/doldecomp/dolsdk2004), [dolsdk2001](https://github.com/doldecomp/dolsdk2001), [pikmin2](https://github.com/projectPiki/pikmin2)
+* THP: [pikmin2](https://github.com/projectPiki/pikmin2), [prime](https://github.com/PrimeDecomp/prime)

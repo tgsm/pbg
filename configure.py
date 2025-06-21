@@ -297,6 +297,31 @@ def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     }
 
 
+# Helper functions for THP
+def ThpLib_1(objects: List[Object]) -> Dict[str, Any]:
+    return {
+        "lib": "THP1",
+        "mw_version": "GC/1.3.2",
+        "cflags": [
+            *cflags_base,
+            "-inline deferred",
+            "-pool off",
+            "-opt noschedule",
+            "-opt nopeephole"
+        ],
+        "progress_category": "sdk",
+        "objects": objects,
+    }
+def ThpLib_2(objects: List[Object]) -> Dict[str, Any]:
+    return {
+        "lib": "THP2",
+        "mw_version": "GC/1.2.5n",
+        "cflags": cflags_base,
+        "progress_category": "sdk",
+        "objects": objects,
+    }
+
+
 # Helper function for RenderWare libraries
 def RenderWareLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
@@ -1346,22 +1371,21 @@ config.libs = [
             Object(NonMatching, "rwa/rwaaxrenderersub.c"),
         ]
     ),
-    # FIXME: Figure this one out
-    {
-        "lib": "thp",
-        "mw_version": config.linker_version,
-        "cflags": cflags_runtime,
-        "progress_category": "sdk",
-        "objects": [
+    ThpLib_1(
+        [
             Object(NonMatching, "thp/THPAudioDecode.c"),
             Object(NonMatching, "thp/THPDraw.c"),
             Object(NonMatching, "thp/THPPlayer.c"),
             Object(NonMatching, "thp/THPRead.c"),
             Object(NonMatching, "thp/THPVideoDecode.c"),
-            Object(NonMatching, "thp/THPDec.c"),
-            Object(NonMatching, "thp/THPAudio.c"),
         ]
-    }
+    ),
+    ThpLib_2(
+        [
+            Object(Matching, "thp/THPDec.c"),
+            Object(Matching, "thp/THPAudio.c"),
+        ]
+    )
 ]
 
 
