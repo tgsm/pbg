@@ -12,7 +12,7 @@ public:
     virtual ~IVideoEngine() {}
 
     virtual void Initialize(void*) = 0;
-    virtual void Play(char*) = 0;
+    virtual void Play(char* filename) = 0;
     virtual void Stop() = 0;
     virtual void SetCallBack(VideoEngineCallback callback) = 0;
     virtual F32 GetVolume() = 0;

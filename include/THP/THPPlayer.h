@@ -72,7 +72,7 @@ BOOL THPPlayerSetVolume(int vol, int duration);
 
 int THPPlayerDrawCurrentFrame(GXRenderModeObj* obj, int x, int y, int polyWidth, int polyHeight);
 u32 THPPlayerGetTotalFrame();
-u8 THPPlayerGetState();
+int THPPlayerGetState();
 
 void THPPlayerDrawDone();
 void THPPlayerPostDrawDone();

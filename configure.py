@@ -672,7 +672,7 @@ config.libs = [
             Object(NonMatching, "engine/wrap/DkWrap.cpp"),
             Object(Matching, "engine/wrap/DKW_GCNEngine.cpp"),
             Object(Matching, "engine/video/CVideoEngine.cpp", extra_cflags=["-RTTI on"]),
-            Object(NonMatching, "engine/video/CVideoEngineGCN.cpp"),
+            Object(Matching, "engine/video/CVideoEngineGCN.cpp", extra_cflags=["-RTTI on"]),
             Object(NonMatching, "engine/video/DkVideo.cpp"),
         ]
     },

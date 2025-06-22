@@ -744,7 +744,7 @@ u32 THPPlayerGetTotalFrame()
  * @note Address: N/A
  * @note Size: 0x10
  */
-u8 THPPlayerGetState(void)
+int THPPlayerGetState(void)
 {
     return ActivePlayer.mState;
 }
