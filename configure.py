@@ -254,6 +254,18 @@ cflags_engine_sound = [
     "-Cpp_exceptions on",
 ]
 
+cflags_engine_video = [
+    *cflags_base,
+    "-i src/engine",
+    "-DGAMECUBE",
+    "-inline deferred",
+    "-opt nopeephole",
+    "-opt noschedule",
+    "-pool off",
+    "-fp_contract off",
+    "-RTTI on",
+]
+
 cflags_rw = [
     *cflags_base,
     "-i src/rwsdk/tool/png/libpng",
@@ -517,6 +529,13 @@ config.libs = [
             Object(NonMatching, "engine/sound/CSoundEmitterRWA.cpp"),
         ]
     ),
+    DkEngineLib(
+        "DKVIDEO", cflags_engine_video, [
+            Object(Matching, "engine/video/CVideoEngine.cpp"),
+            Object(Matching, "engine/video/CVideoEngineGCN.cpp"),
+            Object(Matching, "engine/video/DkVideo.cpp"),
+        ]
+    ),
     {
         # FIXME: Should we name this "DK" instead? Or some variant?
         "lib": "engine",
@@ -671,9 +690,6 @@ config.libs = [
             Object(NonMatching, "engine/wrap/DKW_WorldSector.cpp"),
             Object(NonMatching, "engine/wrap/DkWrap.cpp"),
             Object(Matching, "engine/wrap/DKW_GCNEngine.cpp"),
-            Object(Matching, "engine/video/CVideoEngine.cpp", extra_cflags=["-RTTI on"]),
-            Object(Matching, "engine/video/CVideoEngineGCN.cpp", extra_cflags=["-RTTI on"]),
-            Object(NonMatching, "engine/video/DkVideo.cpp"),
         ]
     },
     DolphinLib(
