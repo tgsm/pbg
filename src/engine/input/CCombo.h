@@ -19,8 +19,12 @@ public:
     }
 
     virtual CState GetState();
-    virtual BOOL IsConnected() { // Equivalent
-        return m_unk8->IsConnected() || m_unkC->IsConnected();
+    virtual BOOL IsConnected() {
+        BOOL result = FALSE;
+        if (m_unk8->IsConnected() || m_unkC->IsConnected()) {
+            result = TRUE;
+        }
+        return result;
     }
 };
 

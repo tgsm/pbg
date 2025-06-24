@@ -494,7 +494,7 @@ config.libs = [
         "DKI", cflags_engine_input,
         [
             Object(NonMatching, "engine/input/IInputEngine.cpp"),
-            Object(NonMatching, "engine/input/CCombo.cpp", extra_cflags=["-inline deferred"]),
+            Object(Matching, "engine/input/CCombo.cpp", extra_cflags=["-inline deferred"]),
             Object(Matching, "engine/input/CInput.cpp"),
             Object(NonMatching, "engine/input/CState.cpp"),
             Object(Matching, "engine/input/CGCNPad.cpp", extra_cflags=["-inline deferred"]),
