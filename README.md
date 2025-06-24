@@ -31,7 +31,7 @@ Dependencies
 Windows
 --------
 
-On Windows, it's **highly recommended** to use native tooling. WSL or msys2 are **not** required.  
+On Windows, it's **highly recommended** to use native tooling. WSL or msys2 are **not** required.
 When running under WSL, [objdiff](#diffing) is unable to get filesystem notifications for automatic rebuilds.
 
 - Install [Python](https://www.python.org/downloads/) and add it to `%PATH%`.
@@ -110,4 +110,5 @@ Credits
 
 Some parts of this repository were taken from other decomp projects:
 * Dolphin OS: [dolsdk2004](https://github.com/doldecomp/dolsdk2004), [dolsdk2001](https://github.com/doldecomp/dolsdk2001), [pikmin2](https://github.com/projectPiki/pikmin2)
+* Dolphin AI: [dolsdk2004](https://github.com/doldecomp/dolsdk2004)
 * THP: [pikmin2](https://github.com/projectPiki/pikmin2), [prime](https://github.com/PrimeDecomp/prime)
