@@ -40,7 +40,7 @@ typedef int BOOL;
 
 // #include "libc/stdio.h"
 #include <stdarg.h>
-// #include "libc/string.h"
+#include <string.h>
 // #include "libc/ctype.h"
 
 // #include "cmath.h"
