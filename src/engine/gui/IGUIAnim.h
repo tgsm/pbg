@@ -2,8 +2,9 @@
 #define ENGINE_GUI_IGUIANIM_H
 
 #include <string>
+#include "types.h"
 
-extern struct Rt2dObject;
+struct Rt2dObject;
 
 class IGUIAnim {
 public:

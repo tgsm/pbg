@@ -20,7 +20,7 @@ public:
     virtual void Update(F32 dt_maybe);
     virtual void Render();
     virtual IEventGUIMenuCallBack* SetEventCallback(IEventGUIMenuCallBack* callback); // Returns the old callback
-    virtual void* GetAnim(); // unknown return type
+    virtual CGUIAnim* GetAnim();
 };
 
 }
