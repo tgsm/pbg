@@ -498,7 +498,7 @@ config.libs = [
             Object(Matching, "engine/input/CInput.cpp"),
             Object(NonMatching, "engine/input/CState.cpp"),
             Object(Matching, "engine/input/CGCNPad.cpp", extra_cflags=["-inline deferred"]),
-            Object(NonMatching, "engine/input/CInputHalfAxe.cpp"),
+            Object(Matching, "engine/input/CInputHalfAxe.cpp", extra_cflags=["-inline deferred"]),
         ]
     ),
     DkEngineLib(
