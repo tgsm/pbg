@@ -76,7 +76,7 @@ public:
         }
     }
 
-    void Update();
+    static void Update();
 
     static PADStatus ms_Datas[4];
     static PADStatus ms_LastDatas[4];
