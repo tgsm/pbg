@@ -2,6 +2,7 @@
 #define ENGINE_DISPLAY_CSCENE_H
 
 #include "engine/display/IScene.h"
+#include "engine/display/IParticleEmitterDefinition.h"
 
 namespace DKDSP {
 

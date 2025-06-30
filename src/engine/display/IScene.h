@@ -4,13 +4,13 @@
 #include "types.h"
 #include "engine/display/CMirror.h"
 #include "engine/display/CParticleEmitter.h"
+#include "engine/display/CParticleEmitterDefinition.h"
 #include "engine/display/ICamera.h"
 #include "engine/display/IWarp.h"
 
 namespace DKDSP {
 
 class IObjectDictionary;
-class IParticleEmitterDefinition;
 
 // TODO
 class IScene {
