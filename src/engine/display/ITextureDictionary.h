@@ -3,12 +3,11 @@
 
 #include <string>
 #include "engine/display/CImage.h"
-#include "types.h"
+#include "engine/display/CRWStream.h"
 
 namespace DKDSP {
 
 class ITextureCallback;
-class IRWStream;
 
 class ITextureDictionary {
 public:

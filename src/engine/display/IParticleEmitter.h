@@ -2,12 +2,11 @@
 #define ENGINE_DISPLAY_IPARTICLEEMITTER_H
 
 #include <string>
+#include "engine/display/CRWStream.h"
 #include "engine/display/IFramableGeometry.h"
 #include "engine/xmd/CChunkIterator.h"
 
 namespace DKDSP {
-
-class IRWStream;
 
 class IParticleEmitter : public IFramableGeometry {
 public:

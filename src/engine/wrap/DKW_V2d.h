@@ -5,6 +5,9 @@
 
 class CDKW_V2d {
 public:
+    F32 m_x, m_y;
+
+public:
     CDKW_V2d();
     CDKW_V2d(const CDKW_V2d& other);
     CDKW_V2d(F32 x, F32 y);
@@ -20,9 +23,6 @@ public:
     static const CDKW_V2d ONE;
 
     static F32 sm_Epsilon;
-
-private:
-    F32 m_x, m_y;
 };
 REQUIRE_SIZE(CDKW_V2d, 0x8);
 

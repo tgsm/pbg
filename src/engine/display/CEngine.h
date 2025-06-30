@@ -3,6 +3,7 @@
 
 #include "engine/display/CAnimDictionary.h"
 #include "engine/display/CImmediate.h"
+#include "engine/display/CRWStream.h"
 #include "engine/display/CTextureDictionary.h"
 #include "types.h"
 
@@ -15,7 +16,6 @@ public:
 
 namespace DKDSP {
 
-class IRWStream;
 class IShadowMapValidationCallback;
 
 class CEngine {
@@ -93,7 +93,7 @@ public:
     virtual void fillerfunc70();
     virtual void fillerfunc71();
     virtual void fillerfunc72();
-    virtual IRWStream* OpenStreamMemory(U32, CDKW_Memory*); // FIXME: RwStreamAccessType, CDKW_Memory*
+    virtual CRWStream* OpenStreamMemory(U32, CDKW_Memory*); // FIXME: RwStreamAccessType, CDKW_Memory*
     virtual void fillerfunc74();
     virtual void DestroyStream(IRWStream*);
     virtual void fillerfunc76();

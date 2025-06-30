@@ -3,11 +3,10 @@
 
 #include <string>
 #include "engine/display/CClump.h"
+#include "engine/display/CRWStream.h"
 #include "engine/xmd/CChunkIterator.h"
 
 namespace DKDSP {
-
-class IRWStream;
 
 enum EWARPRENDERSTATE {
 
