@@ -16,7 +16,7 @@ public:
     virtual void SetGameTitle(std::string title) = 0;
     virtual void SetIconFile(std::string icon) = 0;
     virtual void SetEventCB(IEventBackupCB*) = 0;
-    virtual void GetState() = 0;
+    virtual U32 GetState() = 0;
     virtual U32 Format() = 0;
     virtual void FindFirst(std::string, std::string) = 0;
     virtual void FindNext() = 0;

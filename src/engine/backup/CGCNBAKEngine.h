@@ -23,7 +23,7 @@ public:
     virtual void SetGameTitle(std::string title);
     virtual void SetIconFile(std::string icon);
     virtual void SetEventCB(IEventBackupCB*);
-    virtual void GetState();
+    virtual U32 GetState();
     virtual U32 Format();
     virtual void FindFirst(std::string, std::string);
     virtual void FindNext();

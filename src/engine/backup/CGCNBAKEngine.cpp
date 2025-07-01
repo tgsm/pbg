@@ -129,9 +129,10 @@ U32 CGCNBAKEngine::CheckState() {
     }
 }
 
-void CGCNBAKEngine::GetState() {
+// I have no idea what this function even is
+U32 CGCNBAKEngine::GetState() {
     if (CheckState() != 17) {
-        CheckState();
+        return CheckState();
         // I'm assuming they would have checked for another value and did something in here,
         // but I don't know what.
     }
