@@ -241,6 +241,7 @@ cflags_engine_backup = [
     "-opt nopeephole",
     "-opt noschedule",
     # "-pool off",
+    "-Cpp_exceptions on",
 ]
 
 cflags_engine_input = [
@@ -503,8 +504,8 @@ config.libs = [
     DkEngineLib(
         "DKBAK", cflags_engine_backup,
         [
-            Object(NonMatching, "engine/backup/DkBackUp.cpp"),
-            Object(NonMatching, "engine/backup/CGCNBAKEngine.cpp", extra_cflags=["-Cpp_exceptions on"]),
+            Object(Matching, "engine/backup/DkBackUp.cpp"),
+            Object(NonMatching, "engine/backup/CGCNBAKEngine.cpp"),
         ]
     ),
     DkEngineLib(
