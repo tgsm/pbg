@@ -233,6 +233,16 @@ cflags_engine = [
     "-fp_contract off",
 ]
 
+cflags_engine_backup = [
+    *cflags_base,
+    "-i src/engine",
+    "-DGAMECUBE",
+    "-RTTI on",
+    "-opt nopeephole",
+    "-opt noschedule",
+    # "-pool off",
+]
+
 cflags_engine_input = [
     *cflags_base,
     "-i src/engine",
@@ -491,6 +501,13 @@ config.libs = [
         ]
     },
     DkEngineLib(
+        "DKBAK", cflags_engine_backup,
+        [
+            Object(NonMatching, "engine/backup/DkBackUp.cpp"),
+            Object(NonMatching, "engine/backup/CGCNBAKEngine.cpp", extra_cflags=["-Cpp_exceptions on"]),
+        ]
+    ),
+    DkEngineLib(
         "DKI", cflags_engine_input,
         [
             Object(NonMatching, "engine/input/IInputEngine.cpp"),
@@ -643,8 +660,6 @@ config.libs = [
             Object(NonMatching, "engine/display/IDisplacementPipeline.cpp"),
             Object(NonMatching, "engine/display/CDisplacementPipelineGCN.cpp"),
             Object(NonMatching, "engine/display/CShadowMapDenyCallback.cpp"),
-            Object(NonMatching, "engine/backup/DkBackUp.cpp"),
-            Object(NonMatching, "engine/backup/CGCNBAKEngine.cpp"),
             Object(NonMatching, "engine/GCNIcon.c"),
             Object(Matching, "engine/gui/DkGUI.cpp", extra_cflags=["-Cpp_exceptions on"]),
             Object(NonMatching, "engine/gui/CGUIAnim.cpp"),

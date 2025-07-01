@@ -228,7 +228,7 @@ void CARDInit(void);
 s32 CARDGetResultCode(s32 chan);
 s32 CARDCheckAsync(s32 chan, CARDCallback callback);
 s32 CARDFreeBlocks(s32 chan, s32* byteNotUsed, s32* filesNotUsed);
-s32 CARDRenameAsync(s32 chan, const char* old, const char* new, CARDCallback callback);
+s32 CARDRenameAsync(s32 chan, const char* old, const char* new_, CARDCallback callback);
 
 // CARDBios
 void CARDInit(void);
@@ -300,7 +300,7 @@ s32 CARDRead(CARDFileInfo*  fileInfo, void*  buf, s32 length, s32 offset);
 s32 CARDCancel(CARDFileInfo* fileInfo);
 
 // CARDRename
-s32 CARDRename(s32 chan, const char* old, const char* new);
+s32 CARDRename(s32 chan, const char* old, const char* new_);
 
 // CARDStat
 s32 CARDGetStatus(s32 chan, s32 fileNo, CARDStat* stat);
