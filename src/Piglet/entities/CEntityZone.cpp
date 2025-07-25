@@ -31,11 +31,11 @@ CEntityZone::~CEntityZone() {
     m_unk4C = 0.0f;
 
     if (m_unk170.emitter != NULL) {
-        m_entity_manager->GetGame()->m_scene->RemoveParticleEmitter(m_unk170.emitter);
+        m_entity_manager->GetGame()->GetScene()->RemoveParticleEmitter(m_unk170.emitter);
         m_unk170.emitter = NULL;
     }
     if (m_unk188.emitter != NULL) {
-        m_entity_manager->GetGame()->m_scene->RemoveParticleEmitter(m_unk188.emitter);
+        m_entity_manager->GetGame()->GetScene()->RemoveParticleEmitter(m_unk188.emitter);
         m_unk188.emitter = NULL;
     }
 }
@@ -92,10 +92,10 @@ void CEntityZone::Render(F32 dt) {
 
     if (!game_part->m_game_room_manager->IsPlayingRTC() && !game_part->m_game_room_manager->IsOnFight()) {
         if (m_unk170.emitter != NULL) {
-            m_entity_manager->GetGame()->m_scene->RenderParticleEmitter(m_unk170.emitter, 1);
+            m_entity_manager->GetGame()->GetScene()->RenderParticleEmitter(m_unk170.emitter, 1);
         }
         if (m_unk188.emitter != NULL) {
-            m_entity_manager->GetGame()->m_scene->RenderParticleEmitter(m_unk188.emitter, 1);
+            m_entity_manager->GetGame()->GetScene()->RenderParticleEmitter(m_unk188.emitter, 1);
         }
     }
 }
@@ -134,9 +134,8 @@ void CEntityZone::Parse(DkXmd::CChunkIterator iter) {
 BOOL CEntityZone::ParseParticleEmitter(std::string filename, SFX* fx) {
     m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(9, filename);
 
-    DKDSP::CParticleEmitterDefinition* definition = m_entity_manager->GetGame()->m_object_dictionary->FindParticleEmitterDefinition(filename);
-    // FIXME: Remove this cast
-    fx->emitter = m_entity_manager->GetGame()->m_scene->CreateParticleEmitterFromDefinition(m_unk0, (DKDSP::IParticleEmitterDefinition*)definition);
+    DKDSP::CParticleEmitterDefinition* definition = m_entity_manager->GetGame()->GetObjectDictionary()->FindParticleEmitterDefinition(filename);
+    fx->emitter = m_entity_manager->GetGame()->GetScene()->CreateParticleEmitterFromDefinition(m_unk0, definition);
 
     return TRUE;
 }

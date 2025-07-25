@@ -72,7 +72,7 @@ public:
                 if (strcmp(buf2, "ParticleEmitter") == 0) {
                     DKDSP::CParticleEmitter* emitter = m_unk188.emitter;
                     if (emitter == NULL) {
-                        m_unk188.emitter = m_entity_manager->GetGame()->m_scene->LoadParticleEmitter(m_unk0, &dest1);
+                        m_unk188.emitter = m_entity_manager->GetGame()->GetScene()->LoadParticleEmitter(m_unk0, &dest1);
                     } else {
                         emitter->LoadParameters(&dest1);
                     }
@@ -102,7 +102,7 @@ public:
                 if (strcmp(buf2, "ParticleEmitter") == 0) {
                     DKDSP::CParticleEmitter* emitter = m_unk188.emitter;
                     if (emitter == NULL) {
-                        m_unk188.emitter = m_entity_manager->GetGame()->m_scene->LoadParticleEmitter(m_unk0, &dest1);
+                        m_unk188.emitter = m_entity_manager->GetGame()->GetScene()->LoadParticleEmitter(m_unk0, &dest1);
                     } else {
                         emitter->LoadParameters(&dest1);
                     }

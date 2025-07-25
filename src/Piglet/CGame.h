@@ -114,6 +114,8 @@ public:
 
     virtual BOOL NextFrame();
 
+    DKDSP::CObjectDictionary* GetObjectDictionary() { return m_object_dictionary; }
+    DKDSP::CScene* GetScene() { return m_scene; }
     DKDSP::CCamera* GetCamera() { return m_camera; }
     CResourceFactory* GetResourceFactory() { return m_resource_factory; }
     CMailBox* GetMailbox() { return m_mailbox; }

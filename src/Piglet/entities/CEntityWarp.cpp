@@ -8,7 +8,7 @@ CEntityWarp::CEntityWarp(CEntityManager* entity_manager, std::string name) : CEn
 
 CEntityWarp::~CEntityWarp() {
     if (m_warp != NULL) {
-        m_entity_manager->GetGame()->m_scene->RemoveWarp(m_warp);
+        m_entity_manager->GetGame()->GetScene()->RemoveWarp(m_warp);
         m_warp = NULL;
     }
 }
@@ -35,7 +35,7 @@ void CEntityWarp::Render(F32 dt_maybe) {
         return;
     }
 
-    m_entity_manager->GetGame()->m_scene->RenderWarp(m_warp);
+    m_entity_manager->GetGame()->GetScene()->RenderWarp(m_warp);
 }
 
 void CEntityWarp::Parse(DkXmd::CChunkIterator iter) {
@@ -81,7 +81,7 @@ void CEntityWarp::Parse(DkXmd::CChunkIterator iter) {
             }
         }
 
-        m_warp = (DKDSP::CWarp*)m_entity_manager->GetGame()->m_scene->CreateWarp();
+        m_warp = (DKDSP::CWarp*)m_entity_manager->GetGame()->GetScene()->CreateWarp();
         if (m_warp == NULL) {
             return;
         }

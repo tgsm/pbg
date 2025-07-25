@@ -57,12 +57,12 @@ void CEntityMesh::AddFlag(U32 flag) {
     switch (flag) {
         case (1 << 8):
             if (m_mirror != NULL) {
-                m_entity_manager->GetGame()->m_scene->EnableMirrorRendering(m_mirror, FALSE);
+                m_entity_manager->GetGame()->GetScene()->EnableMirrorRendering(m_mirror, FALSE);
             }
             break;
         case (1 << 1):
             if (m_mirror != NULL) {
-                m_entity_manager->GetGame()->m_scene->EnableMirrorRendering(m_mirror, TRUE);
+                m_entity_manager->GetGame()->GetScene()->EnableMirrorRendering(m_mirror, TRUE);
             }
             break;
     }
@@ -74,12 +74,12 @@ void CEntityMesh::DelFlag(U32 flag) {
     switch (flag) {
         case (1 << 8):
             if (m_mirror != NULL) {
-                m_entity_manager->GetGame()->m_scene->EnableMirrorRendering(m_mirror, TRUE);
+                m_entity_manager->GetGame()->GetScene()->EnableMirrorRendering(m_mirror, TRUE);
             }
             break;
         case (1 << 1):
             if (m_mirror != NULL) {
-                m_entity_manager->GetGame()->m_scene->EnableMirrorRendering(m_mirror, FALSE);
+                m_entity_manager->GetGame()->GetScene()->EnableMirrorRendering(m_mirror, FALSE);
             }
             break;
     }
@@ -118,7 +118,7 @@ void CEntityMesh::Render(f32 dt) {
         m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(FALSE);
     }
 
-    m_entity_manager->GetGame()->m_scene->RenderClump(m_clump);
+    m_entity_manager->GetGame()->GetScene()->RenderClump(m_clump);
     if (m_mirror != NULL) {
         m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(TRUE);
         _rwDlRenderStateSetAlphaComp(2);
@@ -199,7 +199,7 @@ U32 CEntityMesh::Create(std::string mesh_filename) {
     }
 
     m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(1, mesh_filename);
-    BOOL created = (m_clump = m_entity_manager->GetGame()->m_scene->CloneClump(mesh_filename, NULL)) != NULL;
+    BOOL created = (m_clump = m_entity_manager->GetGame()->GetScene()->CloneClump(mesh_filename, NULL)) != NULL;
     return created != FALSE;
 }
 
@@ -269,11 +269,11 @@ BOOL CEntityMesh::ParseMirror(DkXmd::CChunkIterator iter) {
         texture_height = dest1.GetS32Value();
     }
 
-    m_mirror = m_entity_manager->GetGame()->m_scene->CreateMirror(texture_width, texture_height, 16);
+    m_mirror = m_entity_manager->GetGame()->GetScene()->CreateMirror(texture_width, texture_height, 16);
     if (m_mirror != NULL) {
         m_mirror->SetSize(width, height);
-        m_entity_manager->GetGame()->m_scene->EnableMirrorRendering(m_mirror, TRUE);
-        m_entity_manager->GetGame()->m_scene->AssociateClumpToMirror(m_mirror, m_clump);
+        m_entity_manager->GetGame()->GetScene()->EnableMirrorRendering(m_mirror, TRUE);
+        m_entity_manager->GetGame()->GetScene()->AssociateClumpToMirror(m_mirror, m_clump);
 
         if (iter.GetChunk("EntityList", dest1)) {
             if (dest1.GetFirstChildChunk(dest2)) {

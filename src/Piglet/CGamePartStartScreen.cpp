@@ -89,18 +89,18 @@ void CGamePartStartScreen::Update(F32 dt) {
 }
 
 void CGamePartStartScreen::Render(F32 dt) {
-    m_game->m_scene->SelectCamera(m_game->GetCamera());
+    m_game->GetScene()->SelectCamera(m_game->GetCamera());
 
-    m_game->m_scene->Clear(3, 0.0f, 0.0f, 0.0f);
+    m_game->GetScene()->Clear(3, 0.0f, 0.0f, 0.0f);
 
-    m_game->m_scene->BeginRender();
+    m_game->GetScene()->BeginRender();
     m_game->m_gui_manager->Render(dt);
     m_game->m_fx_manager->Render();
-    m_game->m_scene->Flush();
+    m_game->GetScene()->Flush();
     m_game->RenderFade();
-    m_game->m_scene->EndRender();
+    m_game->GetScene()->EndRender();
 
-    m_game->m_scene->Flip(0);
+    m_game->GetScene()->Flip(0);
 }
 
 U32 CGamePartStartScreen::NextFrameExit() {
