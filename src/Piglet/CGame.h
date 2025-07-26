@@ -74,7 +74,8 @@ public:
     CResourceFactory* m_resource_factory;
     DKDSP::CTimer* m_timer;
     CMailBox* m_mailbox;
-    U8 m_unk4FB4[0x4FDC - 0x4FB4];
+    U8 m_unk4FB4[0x4FD8 - 0x4FB4];
+    CErrorCallback* m_error_callback;
     CGuiManager* m_gui_manager;
     CFxManager* m_fx_manager;
     CShadowZone* m_shadow_zone;
@@ -114,11 +115,14 @@ public:
 
     virtual BOOL NextFrame();
 
+    static void ManageReset();
+
     DKDSP::CObjectDictionary* GetObjectDictionary() { return m_object_dictionary; }
     DKDSP::CScene* GetScene() { return m_scene; }
     DKDSP::CCamera* GetCamera() { return m_camera; }
     CResourceFactory* GetResourceFactory() { return m_resource_factory; }
     CMailBox* GetMailbox() { return m_mailbox; }
+    CGuiManager* GetGuiManager() { return m_gui_manager; }
 
     U32& GetFlags() { return m_unk8; }
 

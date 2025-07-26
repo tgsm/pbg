@@ -4,6 +4,7 @@
 #include "engine/display/CAnimDictionary.h"
 #include "engine/display/CImmediate.h"
 #include "engine/display/CRWStream.h"
+#include "engine/display/CScene.h"
 #include "engine/display/CTextureDictionary.h"
 #include "types.h"
 
@@ -84,7 +85,7 @@ public:
     virtual void fillerfunc61();
     virtual void fillerfunc62();
     virtual void fillerfunc63();
-    virtual void fillerfunc64();
+    virtual CScene* CreateScene();
     virtual void fillerfunc65();
     virtual void fillerfunc66();
     virtual void fillerfunc67();

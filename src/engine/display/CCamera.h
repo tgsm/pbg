@@ -19,8 +19,11 @@ public:
 
 public:
     virtual void SetBuffer(IRaster*);
-    virtual IRaster* GetBuffer();
+    virtual CRaster* GetBuffer();
     virtual void SetViewWindow(F32, F32);
+    virtual void SetZNear(F32);
+    virtual void SetZFar(F32);
+    virtual void SetFOV(F32, F32);
 };
 REQUIRE_SIZE(CCamera, 0x28);
 

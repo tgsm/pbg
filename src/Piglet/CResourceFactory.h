@@ -3,6 +3,12 @@
 
 #include <string>
 #include "engine/display/ITextureCallback.h"
+#include "engine/filesys/DkFileSys.h"
+
+// TODO
+class CErrorCallback : public CDkFileSysErrorCallBack {
+
+};
 
 class CResourceFactory : public DKDSP::ITextureCallback {
 public:

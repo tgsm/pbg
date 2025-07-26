@@ -45,6 +45,7 @@ public:
     BOOL LoadGui(DkXmd::CChunkIterator*, int);
     void UnLoadLevel(int);
     PlaceholderGUIStruct* GetGuiPtr(const std::string& name); // FIXME: Figure out what this actually returns
+    BOOL IsActive(const std::string& name);
     void SetActive(const std::string& name, int);
     void SetVisible(const std::string& name, int);
     void* IsEventCallbackRegistered(const std::string& event_name);

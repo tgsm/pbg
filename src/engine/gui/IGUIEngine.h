@@ -31,9 +31,9 @@ public:
     virtual void func18() = 0;
     virtual void func19() = 0;
     virtual void func20() = 0;
-    virtual void func21() = 0;
-    virtual void func22() = 0;
-    virtual void func23() = 0;
+    virtual void SetTextColor(U8 red, U8 green, U8 blue, U8 alpha) = 0;
+    virtual BOOL AddText(F32, F32, const char*, F32, void*, F32) = 0;
+    virtual F32 GetTextWidth(const char* text, F32, void*) = 0;
     virtual void UpdateAndRenderOnlyTexts(RwCamera* camera) = 0;
 };
 

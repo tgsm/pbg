@@ -8,6 +8,9 @@ namespace DKDSP {
 
 class CScene : public IScene {
 public:
+    virtual CCamera* CreateCamera();
+    virtual CLight* CreateLight(ELIGHTTYPE);
+    virtual void EnableLight(ILight*, int);
     virtual CMirror* CreateMirror(U32 texture_width, U32 texture_height, U32 texture_depth_maybe);
     virtual void EnableMirrorRendering(IMirror* mirror, BOOL enable);
     virtual void AssociateClumpToMirror(IMirror* mirror, IClump* clump);
@@ -18,6 +21,7 @@ public:
     virtual CParticleEmitter* CreateParticleEmitterFromDefinition(std::string, IParticleEmitterDefinition*);
     virtual CParticleEmitter* LoadParticleEmitter(std::string, DkXmd::CChunkIterator*);
     virtual void RemoveParticleEmitter(IParticleEmitter*);
+    virtual void SetAmbient(F32 red, F32 green, F32 blue);
     virtual void SelectCamera(ICamera*);
     virtual void Clear(int, F32, F32, F32);
     virtual void BeginRender();

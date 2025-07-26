@@ -14,7 +14,7 @@ public:
     virtual void func2() = 0;
     virtual void func3() = 0;
     virtual void SetBuffer(IRaster*) = 0;
-    virtual IRaster* GetBuffer() = 0;
+    virtual CRaster* GetBuffer() = 0;
     virtual void func6() = 0;
     virtual void func7() = 0;
     virtual void func8() = 0;
@@ -25,13 +25,13 @@ public:
     virtual void func13() = 0;
     virtual void func14() = 0;
     virtual void func15() = 0;
-    virtual void func16() = 0;
+    virtual void SetZNear(F32) = 0;
     virtual void func17() = 0;
-    virtual void func18() = 0;
+    virtual void SetZFar(F32) = 0;
     virtual void func19() = 0;
     virtual void func20() = 0;
     virtual void func21() = 0;
-    virtual void func22() = 0;
+    virtual void SetFOV(F32, F32) = 0;
     virtual void func23() = 0;
     virtual void func24() = 0;
     virtual void func25() = 0;

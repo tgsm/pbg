@@ -33,9 +33,9 @@ public:
     virtual void func18();
     virtual void func19();
     virtual void func20();
-    virtual void func21();
-    virtual void func22();
-    virtual void func23();
+    virtual void SetTextColor(U8 red, U8 green, U8 blue, U8 alpha);
+    virtual BOOL AddText(F32, F32, const char*, F32, void*, F32);
+    virtual F32 GetTextWidth(const char* text, F32, void*);
     virtual void UpdateAndRenderOnlyTexts(RwCamera* camera);
 };
 REQUIRE_SIZE(CGUIEngine, 0x70);

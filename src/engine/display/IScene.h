@@ -1,7 +1,8 @@
 #ifndef ENGINE_DISPLAY_ISCENE_H
 #define ENGINE_DISPLAY_ISCENE_H
 
-#include "types.h"
+#include "engine/display/CCamera.h"
+#include "engine/display/CLight.h"
 #include "engine/display/CMirror.h"
 #include "engine/display/CParticleEmitter.h"
 #include "engine/display/CParticleEmitterDefinition.h"
@@ -26,7 +27,7 @@ public:
     virtual void func8();
     virtual void func9();
     virtual void func10();
-    virtual void func11();
+    virtual CCamera* CreateCamera() = 0;
     virtual void func12();
     virtual void func13();
     virtual void func14();
@@ -34,12 +35,12 @@ public:
     virtual void func16();
     virtual void func17();
     virtual void func18();
-    virtual void func19();
+    virtual CLight* CreateLight(ELIGHTTYPE) = 0;
     virtual void func20();
     virtual void func21();
     virtual void func22();
     virtual void func23();
-    virtual void func24();
+    virtual void EnableLight(ILight*, int) = 0;
     virtual void func25();
     virtual void func26();
     virtual void func27();
@@ -124,7 +125,7 @@ public:
     virtual void func106();
     virtual void func107();
     virtual void func108();
-    virtual void func109();
+    virtual void SetAmbient(F32 red, F32 green, F32 blue) = 0;
     virtual void func110();
     virtual void func111();
     virtual void func112();
