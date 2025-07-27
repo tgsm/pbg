@@ -3,7 +3,9 @@
 
 #include <string>
 #include <vector>
+#include "CEventAnimationHandlers.h"
 #include "engine/backup/CGCNBAKEngine.h"
+#include "engine/backup/IBAKEngine.h"
 #include "engine/display/CAnimDictionary.h"
 #include "engine/display/CCamera.h"
 #include "engine/display/CController.h"
@@ -16,12 +18,14 @@
 #include "engine/input/IInputEngine.h"
 #include "engine/sound/CSampleDictionary.h"
 #include "engine/sound/CSoundEngine.h"
+#include "engine/video/CVideoEngineGCN.h"
 #include "engine/wrap/DKW_RGBA.h"
 #include "CFullScreenEffect.h"
 #include "CFxManager.h"
 #include "CGameBackup.h"
 #include "CGamePart.h"
 #include "CGuiManager.h"
+#include "CLoading.h"
 #include "CMailBox.h"
 #include "CMiniMap.h"
 #include "CMission.h"
@@ -33,6 +37,12 @@ class CEntityManager;
 struct SVideoDesc {
     int id;
     std::string filename;
+};
+
+class CMemoryCardSaveEventCallback : public IEventBackupCB {
+public:
+    virtual ~CMemoryCardSaveEventCallback() {}
+    virtual void OnSave();
 };
 
 // Very TODO, there's a lot of stuff in this class
@@ -74,20 +84,30 @@ public:
     CResourceFactory* m_resource_factory;
     DKDSP::CTimer* m_timer;
     CMailBox* m_mailbox;
-    U8 m_unk4FB4[0x4FD8 - 0x4FB4];
+    CBaseLoadingCallback* m_current_loading_callback;
+    CInGameLoadingCallback* m_ingame_loading_callback;
+    U8 m_unk4FBC[0x4FCC - 0x4FBC];
+    CBootUpLoadingCallback* m_bootup_loading_callback;
+    CPreBootUpLoadingCallback* m_prebootup_loading_callback;
+    CVideoLoadingCallback* m_video_loading_callback;
     CErrorCallback* m_error_callback;
     CGuiManager* m_gui_manager;
     CFxManager* m_fx_manager;
     CShadowZone* m_shadow_zone;
     CGameBackup* m_game_backup;
     DKBAK::CGCNBAKEngine* m_backup_engine;
-    U8 m_unk4FF0[4];
+    DKVIDEO::CVideoEngineGCN* m_video_engine;
     std::vector<SVideoDesc> m_video_descs;
     CScreenEffect* m_screen_effect;
     std::string m_unk5004;
     DKSND::CSound2D* m_unk5008;
     CGamePart* m_game_part;
-    U8 m_unk5010[0x5028 - 0x5010];
+    CFXEventCallback m_fx_event_callback;
+    CSNDEventCallback m_snd_event_callback;
+    CVIBEventCallback m_vib_event_callback;
+    CVIB2DEventCallback m_vib2d_event_callback;
+    CShakeEventCallback m_shake_event_callback;
+    CMemoryCardSaveEventCallback m_memory_card_save_event_callback;
     U32 m_fade_color;
     F32 m_unk502C;
     F32 m_fade_duration;
@@ -105,9 +125,10 @@ public:
     std::vector<size_t> m_unk5064;
     U8 m_unk5070[0x508C - 0x5070];
     DKI::IInput* m_unk508C;
-    U8 m_unk5090[4];
+    U32 m_unk5090;
 
     static CGuiManager* gs_CurrentGuiManager;
+    static DKVIDEO::CVideoEngineGCN* gs_CurrentVideoManager;
 
 public:
     CGame(void*, U32);
@@ -116,6 +137,7 @@ public:
     virtual BOOL NextFrame();
 
     static void ManageReset();
+    static void ReplayVideoCallback();
 
     DKDSP::CObjectDictionary* GetObjectDictionary() { return m_object_dictionary; }
     DKDSP::CScene* GetScene() { return m_scene; }

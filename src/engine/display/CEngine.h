@@ -3,10 +3,12 @@
 
 #include "engine/display/CAnimDictionary.h"
 #include "engine/display/CImmediate.h"
+#include "engine/display/CObjectDictionary.h"
 #include "engine/display/CRWStream.h"
 #include "engine/display/CScene.h"
 #include "engine/display/CTextureDictionary.h"
-#include "types.h"
+#include "engine/display/CTimerGCN.h"
+#include "engine/display/IEventAnimationCallback.h"
 
 // FIXME: This maybe goes in its own header, but it's only used here.
 class CDKW_Memory {
@@ -33,10 +35,10 @@ public:
     virtual void fillerfunc9();
     virtual void fillerfunc10();
     virtual void fillerfunc11();
-    virtual void fillerfunc12();
+    virtual void* Open(); // idk what this returns
     virtual void fillerfunc13();
-    virtual void fillerfunc14();
-    virtual void fillerfunc15();
+    virtual void Setup(int, int);
+    virtual void Start();
     virtual void fillerfunc16();
     virtual BOOL Update();
     virtual void Release();
@@ -87,20 +89,25 @@ public:
     virtual void fillerfunc63();
     virtual CScene* CreateScene();
     virtual void fillerfunc65();
-    virtual void fillerfunc66();
+    virtual CScene* GetScene(int);
     virtual void fillerfunc67();
     virtual void fillerfunc68();
-    virtual void fillerfunc69();
+    virtual void SetImagePath(char* path);
     virtual void fillerfunc70();
     virtual void fillerfunc71();
     virtual void fillerfunc72();
     virtual CRWStream* OpenStreamMemory(U32, CDKW_Memory*); // FIXME: RwStreamAccessType, CDKW_Memory*
     virtual void fillerfunc74();
     virtual void DestroyStream(IRWStream*);
-    virtual void fillerfunc76();
+    virtual CObjectDictionary* GetObjectDictionary();
     virtual CAnimDictionary* GetAnimDictionary();
     virtual CTextureDictionary* GetTextureDictionary();
     virtual CImmediate* GetImmediate();
+    virtual CTimerGCN* CreateTimer();
+    virtual void fillerfunc81();
+    virtual void fillerfunc82();
+    virtual void fillerfunc83();
+    virtual void RegisterEvent(U32, std::string name, IEventAnimationCallback*);
     // TODO
 };
 

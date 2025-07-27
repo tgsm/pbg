@@ -1,8 +1,8 @@
-#include "CLoading.h"
-#include "CGCNFont.h"
 #include "engine/display/CLight.h"
 #include "engine/display/DkDisplay.h"
-#include "types.h"
+#include "CLoading.h"
+#include "CGame.h"
+#include "CGCNFont.h"
 #include <iostream>
 
 CLoadingCallback::CLoadingCallback(CGame* game) : CBaseLoadingCallback(game) {

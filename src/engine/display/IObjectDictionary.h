@@ -10,7 +10,7 @@ class CParticleEmitterDefinition;
 
 class IObjectDictionary {
 public:
-    virtual void func0() = 0;
+    virtual void Release() = 0;
     virtual void func1() = 0;
     virtual void func2() = 0;
     virtual void func3() = 0;

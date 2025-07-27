@@ -4,7 +4,11 @@
 #include <string>
 #include "types.h"
 
-class IEventBackupCB;
+class IEventBackupCB {
+public:
+    virtual ~IEventBackupCB() {}
+    virtual void OnSave();
+};
 
 namespace DKBAK {
 

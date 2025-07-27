@@ -1,11 +1,29 @@
+#include <dolphin/pad.h>
+#include <dolphin/vi.h>
+#include "engine/backup/DkBackUp.h"
+#include "engine/display/DkDisplay.h"
+#include "engine/gui/DkGUI.h"
+#include "engine/sound/DkSound.h"
+#include "engine/video/DkVideo.h"
 #include "CGame.h"
 #include "CGamePartIngame.h"
+#include "CResourceFactory.h"
 #include "entities/CEntityHero.h"
 #include "entities/CEntityManager.h"
 #include <cstring>
 #include <iostream>
 
 CGuiManager* CGame::gs_CurrentGuiManager;
+DKVIDEO::CVideoEngineGCN* CGame::gs_CurrentVideoManager;
+
+static BOOL s_bResetButtonPushed;
+
+extern "C" void Rt2dOpen(RwCamera*);
+extern "C" void Rt2dDeviceSetFlat(F32);
+extern "C" void Rt2dDeviceSetCamera(RwCamera*);
+extern "C" void Rt2dFontSetPath(char*);
+extern "C" void Rt2dAnimOpen();
+extern "C" void RwResourcesSetArenaSize(U32);
 
 // *Very* incomplete
 CGame::CGame(void* a1, U32 a2) {
@@ -25,6 +43,7 @@ CGame::CGame(void* a1, U32 a2) {
     m_fx_manager = NULL;
     m_game_backup = NULL;
     m_backup_engine = NULL;
+    m_video_engine = NULL;
     m_unk5038 = 2;
     m_unk505C = NULL;
     m_unk5060 = NULL;
@@ -32,11 +51,78 @@ CGame::CGame(void* a1, U32 a2) {
     // m_video_descs.clear();
     m_video_descs.reserve(16);
     m_unk5004 = "";
+    m_unk5008 = NULL;
     m_delta_time = (1.0f/60.0f);
+    m_error_callback = NULL;
     m_screen_effect = NULL;
+    m_unk508C = NULL;
+    m_display_engine = DkDisplayGetEngine();
     m_display_engine->SetCharsetCreation(FALSE);
+    m_sound_engine = DkSoundGetEngine();
+    m_gui_engine = DkGUIGetEngine();
+    m_backup_engine = DkBakUpGetEngine();
+    m_video_engine = DkVideoGetEngine();
 
     if (m_display_engine != NULL) {
+        void* data = m_display_engine->Open();
+
+        m_display_engine->SetGCNVideoMode(&GXNtsc480IntDf);
+        m_display_engine->Setup(0, 0);
+        m_display_engine->Start();
+
+        RwResourcesSetArenaSize(0x90000);
+
+        DKI::IInputEngine::Open(a1, data);
+        DKI::IInputEngine::GetDevice(0)->VibrationEnable();
+
+        m_sound_engine->Initialize(data);
+        m_sound_engine->SetGlobalVolume(0.75f);
+        m_unk504C = 0.75f;
+        m_sound_engine->SetStereoMode(OS_SOUND_MODE_STEREO);
+        if (OSGetSoundMode() == OS_SOUND_MODE_STEREO) {
+            m_sound_engine->SetStereoMode(OS_SOUND_MODE_STEREO);
+        } else {
+            m_sound_engine->SetStereoMode(OS_SOUND_MODE_MONO);
+        }
+
+        m_video_engine->Initialize(data);
+
+        m_display_engine->SetImagePath("Data/NoTextures/");
+
+        m_sample_dictionary = m_sound_engine->GetSampleDictionary();
+        m_texture_dictionary = m_display_engine->GetTextureDictionary();
+        m_object_dictionary = m_display_engine->GetObjectDictionary();
+        m_anim_dictionary = m_display_engine->GetAnimDictionary();
+        m_scene = m_display_engine->CreateScene();
+        m_camera = m_scene->CreateCamera();
+
+        Rt2dOpen(NULL);
+        Rt2dDeviceSetFlat(1.0f);
+        Rt2dDeviceSetCamera(m_camera->m_unk8->rw_camera);
+        Rt2dFontSetPath("data/common/menus/font/");
+        Rt2dAnimOpen();
+
+        m_camera->SetZFar(300.0f);
+        m_camera->SetZNear(0.6f);
+        m_scene->SelectCamera(m_camera);
+
+        m_error_callback = new CErrorCallback;
+        m_error_callback->m_game = this;
+        CDkFileSys::SetErrorCallBack(m_error_callback);
+
+        m_timer = m_display_engine->CreateTimer();
+        m_timer->Reset();
+
+        m_mailbox = new CMailBox(this, 128);
+
+        m_ingame_loading_callback = new CInGameLoadingCallback(this);
+        m_bootup_loading_callback = new CBootUpLoadingCallback(this);
+        m_prebootup_loading_callback = new CPreBootUpLoadingCallback(this);
+        m_video_loading_callback = new CVideoLoadingCallback(this);
+        m_current_loading_callback = m_prebootup_loading_callback;
+        m_current_loading_callback->Create();
+        CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+
         m_gui_manager = new CGuiManager(this);
         m_fx_manager = new CFxManager(this);
         m_game_backup = new CGameBackup(this);
@@ -79,12 +165,56 @@ CGame::CGame(void* a1, U32 a2) {
         RegisterVideo(32, "MOVIES/GOTHAM");
 
         gs_CurrentGuiManager = m_gui_manager;
+        gs_CurrentVideoManager = m_video_engine;
+        m_video_engine->SetCallBack(ReplayVideoCallback);
+    }
+
+    CDkFileSys::init("./PIGGCN.XMD", 1 << 0, 0x400);
+    CDkFileSys::UnSetCallBackOnLoad();
+    CDkFileSys::SetErrorCallBack(m_error_callback);
+
+    // ...
+
+    for (int i = 0; i < 5; i++) {
+        m_sound_engine->BeginUpdate();
+        m_sound_engine->EndUpdate();
+
+        VIWaitForRetrace();
     }
 
     // ...
 
+    m_backup_engine->Initialize();
+    m_backup_engine->SetGameTitle("Piglet's BIG GAME");
+    m_backup_engine->SetIconFile("PIGLET.ICO");
+    m_backup_engine->SetEventCB(&m_memory_card_save_event_callback);
+
+    m_display_engine->RegisterEvent(0, "FX", &m_fx_event_callback);
+    m_display_engine->RegisterEvent(1, "SND", &m_snd_event_callback);
+    m_display_engine->RegisterEvent(2, "VIB", &m_vib_event_callback);
+    m_display_engine->RegisterEvent(3, "VIB2D", &m_vib2d_event_callback);
+    m_display_engine->RegisterEvent(4, "SHAKE", &m_shake_event_callback);
+
     m_entity_manager = new CEntityManager(this);
     m_resource_factory = new CResourceFactory(this);
+    m_texture_dictionary->RegisterTextureCallback(m_resource_factory);
+    m_entity_manager->SetModelFile("Models/Models.XMD");
+
+    U32 rf_unkC = m_resource_factory->m_unkC;
+    m_resource_factory->m_unkC = 2;
+
+    m_display_engine->SetImagePath("Data/NoTextures/");
+    LoadConfigFile("Piglet.XMD");
+    Rt2dFontSetPath("./data/gcn/menus/font/");
+
+    m_gui_engine->InitTexts();
+    m_display_engine->SetImagePath("Data/NoTextures/");
+    Rt2dFontSetPath("./data/gcn/menus/font/");
+
+    m_current_loading_callback = m_bootup_loading_callback;
+    m_delta_time = 0.0f;
+    m_current_loading_callback->Create();
+    CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
 
     // ...
 
@@ -111,7 +241,25 @@ CGame::CGame(void* a1, U32 a2) {
     m_resource_factory->LoadResource(9, "FX/FX_C340_03.xmd");
     m_resource_factory->LoadResource(6, "WARPS/WRP_COMBAT/WARPCOMBAT.TXD");
     m_resource_factory->LoadResource(1, "WARPS/WRP_COMBAT/WARPCOMBAT.DFF");
+
+    m_resource_factory->m_unkC = rf_unkC;
+    m_unk4F54 = 0;
+    m_unk5090 = 1;
+
+    for (int i = 0; i < 8; i++) {
+        m_unk210[i].Initialize();
+        m_unk210[i].m_game = this;
+        m_unk210[i].m_mission_no = i + 1;
+        m_unk210[i].LoadConfigFile(1);
+
+        m_unk28B0[i].m_game = m_unk210[i].m_game;
+        m_unk28B0[i].m_mission_name.assign(m_unk210[i].m_mission_name, 0);
+        m_unk28B0[i] = m_unk210[i];
+    }
 }
+
+extern "C" void Rt2dAnimClose();
+extern "C" void Rt2dClose();
 
 // *Very* incomplete
 CGame::~CGame() {
@@ -151,6 +299,19 @@ CGame::~CGame() {
 
     // ...
 
+    if (m_ingame_loading_callback != NULL) {
+        delete m_ingame_loading_callback;
+        m_ingame_loading_callback = NULL;
+    }
+    if (m_bootup_loading_callback != NULL) {
+        delete m_bootup_loading_callback;
+        m_bootup_loading_callback = NULL;
+    }
+    if (m_prebootup_loading_callback != NULL) {
+        delete m_prebootup_loading_callback;
+        m_prebootup_loading_callback = NULL;
+    }
+
     if (m_gui_manager != NULL) {
         delete m_gui_manager;
     }
@@ -178,10 +339,15 @@ CGame::~CGame() {
 
     if (m_screen_effect != NULL) {
         delete m_screen_effect;
+        m_screen_effect = NULL;
     }
-    m_screen_effect = NULL;
 
-    // ...
+    if (m_error_callback != NULL) {
+        delete m_error_callback;
+        m_error_callback = NULL;
+    }
+
+    CDkFileSys::UnSetErrorCallBack();
 
     if (m_texture_dictionary != NULL) {
         m_texture_dictionary->Release();
@@ -193,7 +359,10 @@ CGame::~CGame() {
     }
     m_anim_dictionary = NULL;
 
-    // ...
+    if (m_object_dictionary != NULL) {
+        m_object_dictionary->Release();
+    }
+    m_object_dictionary = NULL;
 
     m_camera = NULL;
 
@@ -202,16 +371,24 @@ CGame::~CGame() {
     delete m_sound_engine;
     m_sound_engine = NULL;
 
-    // ...
+    DkBakUpRelease();
+    m_gui_engine->ShutTexts();
+    DkGUIRelease();
+    Rt2dAnimClose();
+    Rt2dClose();
+    DkSoundRelease();
+    DkVideoRelease();
 
     if (m_display_engine != NULL) {
         m_display_engine->Release();
     }
     m_display_engine = NULL;
-    // DkDisplayRelease();
+    DkDisplayRelease();
 
     DKI::IInputEngine::Clear();
     DKI::IInputEngine::Close();
+
+    CDkFileSys::exit();
 }
 
 F32 CGame::GetDeltaTime() {
@@ -433,6 +610,15 @@ void CGame::RegisterVideo(int id, std::string filename) {
     m_video_descs.push_back(desc);
 }
 
+void CGame::ReplayVideoCallback() {
+    DKI::IInputEngine::Update(1.0f/30.0f);
+    ManageReset();
+
+    if (gs_CurrentGuiManager != NULL && gs_CurrentGuiManager->m_unk1C->GetState().m_unk0 == TRUE) {
+        gs_CurrentVideoManager->Stop();
+    }
+}
+
 CDKW_RGBA CGame::ComputeGameFadeColor() {
     CDKW_RGBA color;
     color.m_r = 0;
@@ -466,4 +652,74 @@ CDKW_RGBA CGame::ComputeGameFadeColor() {
     }
 
     return CDKW_RGBA(color);
+}
+
+static inline void UpdateResetButton() {
+    if (OSGetResetButtonState() != FALSE) {
+        s_bResetButtonPushed = TRUE;
+        return;
+    } else if (!s_bResetButtonPushed) {
+        return;
+    }
+
+    if (OSGetResetButtonState() != FALSE) {
+        s_bResetButtonPushed = TRUE;
+        return;
+    }
+}
+
+// Equivalent: stack length, reset button stuff may be inlined?
+void CGame::ManageReset() {
+    if (OSGetResetButtonState() != FALSE) {
+        s_bResetButtonPushed = TRUE;
+        return;
+    } else if (!s_bResetButtonPushed) {
+        return;
+    }
+
+    if (OSGetResetButtonState() != FALSE) {
+        s_bResetButtonPushed = TRUE;
+        return;
+    }
+
+    DKI::IInputEngine::GetDevice(0)->StopVibration();
+    DKI::IInputEngine::Update(1.0f/30.0f);
+
+    while (!PADRecalibrate(PAD_CHAN0_BIT)) {
+        PADStatus status;
+        do {
+            PADReset(PAD_CHAN0_BIT);
+            PADRead(&status);
+        } while (status.err == PAD_ERR_NO_CONTROLLER);
+    }
+
+    if (DkSoundGetEngine() != NULL) {
+        DkSoundGetEngine()->StopStreamedSound();
+    }
+
+    if (DkDisplayGetEngine() != NULL) {
+        DKDSP::CScene* scene = DkDisplayGetEngine()->GetScene(0);
+        if (scene != NULL) {
+            scene->Clear(0, 0.0f, 0.0f, 0.0f);
+            scene->BeginRender();
+            scene->EndRender();
+            scene->Flip(1);
+
+            scene->Clear(0, 0.0f, 0.0f, 0.0f);
+            scene->BeginRender();
+            scene->EndRender();
+            scene->Flip(1);
+        }
+    }
+
+    GXDrawDone();
+    VISetBlack(TRUE);
+    VIFlush();
+    VIWaitForRetrace();
+
+    OSResetSystem(FALSE, 0, FALSE);
+}
+
+void CMemoryCardSaveEventCallback::OnSave() {
+    UpdateResetButton();
 }

@@ -24,4 +24,15 @@ public:
     virtual ~CDkFileSysLoadCallBack() {}
 };
 
+class CDkFileSys {
+public:
+    static void SetErrorCallBack(CDkFileSysErrorCallBack*);
+    static void UnSetErrorCallBack();
+    static void SetCallBackOnLoad(CDkFileSysLoadCallBack*, int);
+    static void UnSetCallBackOnLoad();
+
+    static void init(char* xmd, int, int unused);
+    static void exit();
+};
+
 #endif

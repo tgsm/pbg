@@ -7,6 +7,7 @@ namespace DKDSP {
 
 class CObjectDictionary : public IObjectDictionary {
 public:
+    virtual void Release();
     virtual CParticleEmitterDefinition* FindParticleEmitterDefinition(std::string);
 };
 

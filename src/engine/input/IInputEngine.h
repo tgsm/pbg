@@ -9,6 +9,7 @@ namespace DKI {
 
 class IInputEngine {
 public:
+    static void Open(void*, void*);
     static void Close();
     static void Clear();
     static BOOL Update(F32 dt);

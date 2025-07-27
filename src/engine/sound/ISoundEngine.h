@@ -12,7 +12,7 @@ class ISoundEngine {
 public:
     virtual ~ISoundEngine();
 
-    virtual void func1() = 0;
+    virtual void Initialize(void*) = 0;
     virtual void Release() = 0;
     virtual void BeginUpdate() = 0;
     virtual void EndUpdate() = 0;

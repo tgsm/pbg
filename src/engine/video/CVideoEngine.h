@@ -1,7 +1,7 @@
 #ifndef ENGINE_VIDEO_CVIDEOENGINE_H
 #define ENGINE_VIDEO_CVIDEOENGINE_H
 
-#include "video/IVideoEngine.h"
+#include "engine/video/IVideoEngine.h"
 
 namespace DKVIDEO {
 

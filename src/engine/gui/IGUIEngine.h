@@ -11,8 +11,8 @@ class IGUIEngine {
 public:
     virtual ~IGUIEngine() {}
 
-    virtual void func1() = 0;
-    virtual void func2() = 0;
+    virtual void InitTexts() = 0;
+    virtual void ShutTexts() = 0;
     virtual void func3() = 0;
     virtual void func4() = 0;
     virtual void func5() = 0;

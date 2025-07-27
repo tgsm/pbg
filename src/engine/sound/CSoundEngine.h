@@ -13,7 +13,7 @@ public:
     CSoundEngine();
     virtual ~CSoundEngine();
 
-    virtual void func1();
+    virtual void Initialize(void*);
     virtual void Release();
     virtual void BeginUpdate();
     virtual void EndUpdate();

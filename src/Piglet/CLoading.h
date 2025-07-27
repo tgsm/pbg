@@ -8,7 +8,8 @@
 #include "engine/display/CScene.h"
 #include "engine/filesys/DkFileSys.h"
 #include "engine/wrap/DKW_RGBA.h"
-#include "CGame.h"
+
+class CGame;
 
 class CBaseLoadingCallback : public CDkFileSysLoadCallBack {
 public:
@@ -64,6 +65,10 @@ public:
 public:
     CInGameLoadingCallback(CGame* game);
     virtual ~CInGameLoadingCallback();
+
+    virtual void Destroy();
+    virtual void Update();
+    virtual void Create();
 };
 REQUIRE_SIZE(CInGameLoadingCallback, 0x18);
 

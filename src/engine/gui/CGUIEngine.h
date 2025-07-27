@@ -13,8 +13,8 @@ public:
     CGUIEngine();
     virtual ~CGUIEngine();
 
-    virtual void func1();
-    virtual void func2();
+    virtual void InitTexts();
+    virtual void ShutTexts();
     virtual void func3();
     virtual void func4();
     virtual void func5();
