@@ -30,10 +30,8 @@ void RwBBoxInitialize(RwBBox* bbox, RwV3d* vec) {
 
 void RwBBoxCalculate(RwBBox* bbox, RwV3d* points, int num_points) {
     int i;
-    RwV3d* point;
 
-    RwBBoxInitialize(bbox, points);
-    points = ++points;
+    RwBBoxInitialize(bbox, points++);
     for (i = num_points - 1; i != 0; i--, points++) {
         RwBBoxAddPoint(bbox, points);
     }
