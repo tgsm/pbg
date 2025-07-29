@@ -2,7 +2,6 @@
 #include "rwsdk/plcore/bavector.h"
 
 RwBBox* RwBBoxAddPoint(RwBBox* bbox, RwV3d* point) {
-    // Equivalent: the instructions for loading these two floats are swapped
     if (bbox->inf.x > point->x) {
         bbox->inf.x = point->x;
     }
@@ -25,9 +24,9 @@ RwBBox* RwBBoxAddPoint(RwBBox* bbox, RwV3d* point) {
     return bbox;
 }
 
-RwBBox* RwBBoxInitialize(RwBBox* bbox, RwV3d* vec) {
-    bbox->inf = *vec;
-    bbox->sup = *vec;
+RwBBox* RwBBoxInitialize(RwBBox* bbox, RwV3d* point) {
+    bbox->inf = *point;
+    bbox->sup = *point;
     return bbox;
 }
 
