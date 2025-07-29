@@ -12,9 +12,9 @@ typedef struct RwBBox {
     RwV3d inf;
 } RwBBox;
 
-void RwBBoxAddPoint(RwBBox* bbox, RwV3d* point);
-void RwBBoxInitialize(RwBBox* bbox, RwV3d* point);
-void RwBBoxCalculate(RwBBox* bbox, RwV3d* points, int num_points);
+RwBBox* RwBBoxAddPoint(RwBBox* bbox, RwV3d* point);
+RwBBox* RwBBoxInitialize(RwBBox* bbox, RwV3d* point);
+RwBBox* RwBBoxCalculate(RwBBox* bbox, RwV3d* points, int num_points);
 
 #ifdef __cplusplus
 }

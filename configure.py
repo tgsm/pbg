@@ -1300,7 +1300,7 @@ config.libs = [
             Object(NonMatching, "rwsdk/src/plcore/resmem.c"),
             Object(NonMatching, "rwsdk/src/plcore/rwstring.c"),
             Object(NonMatching, "rwsdk/os/gcn/osintf.c"),
-            Object(Equivalent, "rwsdk/src/babbox.c", extra_cflags=["-inline deferred"]),
+            Object(Matching, "rwsdk/src/babbox.c", extra_cflags=["-inline deferred"]),
             Object(NonMatching, "rwsdk/src/babincam.c"),
             Object(NonMatching, "rwsdk/src/babinfrm.c"),
             Object(NonMatching, "rwsdk/src/babintex.c"),
