@@ -1,6 +1,6 @@
 #include "CGuiScrapBookEventHandler.h"
 #include "CGamePartScrapBook.h"
-#include <cstring>
+#include <cstdio>
 #include <iostream>
 
 CGuiScrapBookEventHandler::CGuiScrapBookEventHandler() : CGuiBaseEventHandler("GuiScrapBookEventHandler") {

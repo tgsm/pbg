@@ -1,6 +1,6 @@
 #include "CMailBox.h"
 #include "CGame.h"
-#include <cstring>
+#include <cstdio>
 #include <iostream>
 
 CMailBox::CMailBox(CGame* game, U32 max_items) {

@@ -11,7 +11,7 @@ public:
     CErrorCallback() {
         m_unk8 = 0;
     }
-    virtual void Error(U32);
+    virtual U32 Error(U32);
 };
 
 class CResourceFactory : public DKDSP::ITextureCallback {

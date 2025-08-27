@@ -1,11 +1,15 @@
 #ifndef _MSL_CSTDIO
 #define _MSL_CSTDIO
 
+#include "stdarg.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 int sprintf(char* str, const char* fmt, ...);
+int vsprintf(char* str, const char* format, va_list ap);
+int sscanf(const char* str, const char* format, ...);
 
 #ifdef __cplusplus
 }

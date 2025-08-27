@@ -9,7 +9,7 @@ class CGame;
 class CDkFileSysErrorCallBack {
 public:
     CDkFileSysErrorCallBack() {}
-    virtual void Error(U32) = 0;
+    virtual U32 Error(U32) = 0;
     virtual ~CDkFileSysErrorCallBack() {}
 
 public:

@@ -2,7 +2,7 @@
 #include "engine/xmd/CXmdFile.h"
 #include "CMission.h"
 #include "CGame.h"
-#include <cstring>
+#include <cstdio>
 #include <iostream>
 
 U32 CMission::m_MaxNbCookies = 0;
