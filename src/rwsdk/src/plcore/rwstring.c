@@ -88,9 +88,7 @@ static char* StrRChr(const char* str, int c) {
     return ret;
 }
 
-// Equivalent: wacky scheduling
-// Turning off peephole helps, but that may not be the solution
-void _rwStringOpen() {
+int _rwStringOpen() {
     RwEngineInstance->stringFuncs.rwsprintf = sprintf;
     RwEngineInstance->stringFuncs.rwvsprintf = vsprintf;
     RwEngineInstance->stringFuncs.rwstrcpy = strcpy;
@@ -107,6 +105,7 @@ void _rwStringOpen() {
     RwEngineInstance->stringFuncs.rwstrlwr = StrLwr;
     RwEngineInstance->stringFuncs.rwstrtok = strtok;
     RwEngineInstance->stringFuncs.rwsscanf = sscanf;
+    return 1;
 }
 
 void _rwStringClose() {
