@@ -583,7 +583,7 @@ config.libs = [
             Object(NonMatching, "engine/display/IGeometry.cpp"),
             Object(NonMatching, "engine/display/CClump.cpp"),
             Object(NonMatching, "engine/display/IRaster.cpp"),
-            Object(NonMatching, "engine/display/ITexture.cpp"),
+            Object(Matching, "engine/display/ITexture.cpp"),
             Object(NonMatching, "engine/display/IScene.cpp"),
             Object(NonMatching, "engine/display/CScene.cpp"),
             Object(NonMatching, "engine/display/ICamera.cpp"),

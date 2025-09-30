@@ -27,6 +27,8 @@ namespace DKDSP {
 
 class ITexture {
 public:
+    ITexture();
+
     virtual U32 GetSize() = 0;
     virtual RwTextureAddressMode GetAddressing() = 0;
     virtual RwTextureAddressMode GetAddressingU() = 0;
