@@ -1,6 +1,7 @@
 #ifndef ENGINE_DISPLAY_IIMMEDIATE_H
 #define ENGINE_DISPLAY_IIMMEDIATE_H
 
+#include "engine/display/CIm3DBatch.h"
 #include "types.h"
 
 namespace DKDSP {
@@ -23,9 +24,9 @@ public:
     virtual void func10() = 0;
     virtual void func11() = 0;
     virtual void func12() = 0;
-    virtual void func13() = 0;
+    virtual CIm3DBatch* CreateBatch3D(int, int) = 0;
     virtual void func14() = 0;
-    virtual void func15() = 0;
+    virtual void RemoveBatch3D(IIm3DBatch*) = 0;
     virtual CIm2DBatch* CreateBatch2D(int, int) = 0;
     virtual void func17() = 0;
     virtual void RemoveBatch2D(IIm2DBatch*) = 0;

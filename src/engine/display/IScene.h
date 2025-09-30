@@ -7,6 +7,7 @@
 #include "engine/display/CParticleEmitter.h"
 #include "engine/display/CParticleEmitterDefinition.h"
 #include "engine/display/ICamera.h"
+#include "engine/display/IIm3DBatch.h"
 #include "engine/display/IWarp.h"
 
 namespace DKDSP {
@@ -147,7 +148,7 @@ public:
     virtual void func128();
     virtual void func129();
     virtual void RenderParticleEmitter(IParticleEmitter*, int) = 0;
-    virtual void func131();
+    virtual void RenderBatch3D(IIm3DBatch*, RwPrimitiveType, CDKW_Matrix*, int) = 0;
     virtual void func132();
     virtual void func133();
     virtual void func134();

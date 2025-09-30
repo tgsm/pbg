@@ -473,7 +473,7 @@ config.libs = [
             Object(Equivalent, "Piglet/entities/CEntityBhvTagSettings.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPCDoor.cpp"),
             Object(NonMatching, "Piglet/CGameBackup.cpp"),
-            Object(NonMatching, "Piglet/CMiniMapIcon.cpp"),
+            Object(Equivalent, "Piglet/CMiniMapIcon.cpp"),
             Object(NonMatching, "Piglet/CMiniMapSpline.cpp"),
             Object(NonMatching, "Piglet/CMiniMap.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityBhvTagBoxPosition.cpp"),

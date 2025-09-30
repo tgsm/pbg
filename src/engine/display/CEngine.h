@@ -17,6 +17,9 @@ public:
     U32 m_unk4;
 };
 
+// FIXME: Put this in a RW header.
+enum RwRenderState {};
+
 namespace DKDSP {
 
 class IShadowMapValidationCallback;
@@ -105,7 +108,7 @@ public:
     virtual CImmediate* GetImmediate();
     virtual CTimerGCN* CreateTimer();
     virtual void fillerfunc81();
-    virtual void fillerfunc82();
+    virtual void SetRenderState(RwRenderState, void*);
     virtual void fillerfunc83();
     virtual void RegisterEvent(U32, std::string name, IEventAnimationCallback*);
     // TODO

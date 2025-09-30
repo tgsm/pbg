@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "engine/xmd/CChunkIterator.h"
+#include "engine/wrap/DKW_Matrix.h"
 #include "engine/wrap/DKW_V3d.h"
 #include "entities/CEntity.h"
 
@@ -39,9 +40,6 @@ public:
 };
 
 };
-
-// TODO
-class CDKW_Matrix {};
 
 class CEntityObject : public CEntity {
 protected:

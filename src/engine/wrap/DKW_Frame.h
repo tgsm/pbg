@@ -1,15 +1,10 @@
 #ifndef ENGINE_WRAP_DKW_FRAME_H
 #define ENGINE_WRAP_DKW_FRAME_H
 
+#include <rwsdk/plcore/bavector.h>
 #include "types.h"
 
 extern "C" {
-
-struct RwV3d {
-    F32 x;
-    F32 y;
-    F32 z;
-};
 
 // FIXME: Do this properly
 struct RwFrame {
