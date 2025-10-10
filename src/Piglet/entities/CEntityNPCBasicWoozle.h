@@ -5,7 +5,7 @@
 
 class CEntityNPCBasicWoozle : public CEntityNPC {
 private:
-    U8 m_unk2D4[4];
+    F32 m_animation_speed;
 
 public:
     CEntityNPCBasicWoozle(CEntityManager* entity_manager, std::string name);
