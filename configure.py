@@ -438,7 +438,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CRTCAddColorEvent.cpp"),
             Object(NonMatching, "Piglet/CMailBox.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPCBeeEffalump.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityNPCHnSWoozle.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityNPCHnSWoozle.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPCJackpotEffalump.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityNPCMirrorWoozle.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPCRoadSweeperEffalump.cpp"),
