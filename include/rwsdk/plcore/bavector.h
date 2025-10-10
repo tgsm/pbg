@@ -11,6 +11,8 @@ typedef struct RwV3d {
     float z;
 } RwV3d;
 
+void RwV3dNormalize(RwV3d*, RwV3d*); // FIXME: What return type?
+
 #ifdef __cplusplus
 }
 #endif

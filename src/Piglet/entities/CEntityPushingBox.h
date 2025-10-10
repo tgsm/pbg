@@ -16,7 +16,7 @@ public:
     virtual void func39();
     virtual void func40();
     virtual void func41();
-    virtual void func42();
+    virtual CDKW_V3d GetDirection();
     virtual void func43();
     virtual void func44();
     virtual void func45();

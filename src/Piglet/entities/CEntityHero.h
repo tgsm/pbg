@@ -9,20 +9,29 @@ protected:
     U8 m_unkF4[0x124 - 0xF4];
     U32 m_unk124;
     U32 m_state;
-    U8 m_unk12C[0x13C - 0x12C];
+    U8 m_unk12C[0x138 - 0x12C];
+    F32 m_unk138;
     int m_unk13C;
-    U8 m_unk140[0x1CC - 0x140];
+    U8 m_unk140[0x1BC - 0x140];
+    CDKW_V3d m_unk1BC;
+    F32 m_unk1C8;
     CDKW_V3d m_unk1CC;
     U8 m_unk1D8[4];
     F32 m_unk1DC;
-    U8 m_unk1E0[0x244 - 0x1E0];
+    U8 m_unk1E0[0x1F0 - 0x1E0];
+    F32 m_unk1F0;
+    U8 m_unk1F4[0x210 - 0x1F4];
+    F32 m_unk210;
+    U8 m_unk214[4];
+    F32 m_unk218;
+    U8 m_unk21C[0x244 - 0x21C];
     F32 m_unk244;
     F32 m_unk248;
     F32 m_unk24C;
     F32 m_unk250;
     F32 m_unk254;
     F32 m_unk258;
-    U8 m_unk25C[4];
+    int m_unk25C;
 
 public:
     struct HeroMoveParams {

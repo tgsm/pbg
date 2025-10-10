@@ -20,9 +20,6 @@ void CEntityNPCMirrorWoozle::Reset() {
 
 // Incomplete
 void CEntityNPCMirrorWoozle::UpdateDetectionBehaviour(F32 a1) {
-    CDKW_V3d pos_delta;
-    CDKW_V3d frame_vec;
-
     switch (m_unk1A8) {
         case 0:
             if (m_unk15C == 1) {
@@ -35,18 +32,12 @@ void CEntityNPCMirrorWoozle::UpdateDetectionBehaviour(F32 a1) {
             m_unk1A8 = 1;
             break;
         case 1: {
-            CDKW_Frame* frame = m_clump->GetFrame();
-            RwFrame* rwframe = frame->m_rwframe;
-            frame_vec.m_x = rwframe->unk34.x;
-            frame_vec.m_y = rwframe->unk34.y;
-            frame_vec.m_z = rwframe->unk34.z;
+            CDKW_V3d at;
+            at = m_clump->GetFrame()->m_rwframe->modelling.at;
 
-            const CDKW_V3d& npc_position = GetPosition();
-            const CDKW_V3d& hero_position = m_entity_manager->GetHero()->GetPosition();
-            pos_delta.m_x = hero_position.m_x - npc_position.m_x;
-            pos_delta.m_y = hero_position.m_y - npc_position.m_y;
-            pos_delta.m_z = hero_position.m_z - npc_position.m_z;
-            ComputeRotationAngle(frame_vec, pos_delta);
+            CDKW_V3d delta = GetPosDelta();
+            ComputeRotationAngle(at, delta);
+
             if (strcmp(m_animation_star_controller->GetTargetAnimationName()->c_str(), "DETECT_VISUAL") == 0) {
                 RotateAccordingToGarbageVar(a1);
             }
@@ -229,7 +220,7 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
 
 void CEntityNPCMirrorWoozle::UpdateGrimaceBehaviour(F32) {
     switch (m_unk1A8) {
-        case 101:
+        case 101: {
             m_unk2E4 = 0.0f;
             m_unk2E8 = 1;
 
@@ -244,6 +235,7 @@ void CEntityNPCMirrorWoozle::UpdateGrimaceBehaviour(F32) {
             UpdateAnimations(0.001f);
             m_unk1A8 = 102;
             break;
+        }
         case 102:
             if (m_animation_star_controller->IsPlayingAnimationLooped()) {
                 if ((int)(m_unkF4 & (1 << 3)) != 0) {

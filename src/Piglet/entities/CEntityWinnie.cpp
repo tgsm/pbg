@@ -43,6 +43,41 @@ void CEntityWinnie::DicreaseLife(int life) {
     }
 }
 
+void CEntityWinnie::SetMode(U32 mode) {
+    switch (mode) {
+        case 9:
+            DelFlag(1 << 4);
+            SetMode(0);
+            return;
+        case 2:
+            m_unk1C8 = 0.0f;
+            AddFlag(1 << 4);
+            break;
+        case 1:
+        case 12:
+            CEntityHero::SetMode(0);
+            return;
+        case 7:
+            m_animation_star_controller->Play("DEAD_0", 1);
+            break;
+        case 8: {
+            m_animation_star_controller->Play("DEAD_1", 1, 1);
+            CDKW_Frame* frame = m_clump->GetFrame();
+            CDKW_V3d position = frame->GetRwFrame()->modelling.pos;
+            RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&(-position), 2);
+            RwFrameRotate(180.0f, frame->GetRwFrame(), (RwV3d*)&CDKW_V3d::YAXIS, 2);
+            RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&position, 2);
+
+            m_unk1BC = -m_unk1BC;
+            m_unk1C8 = m_unk218;
+            m_unk1F0 = 0.0f;
+            break;
+        }
+    }
+
+    CEntityHero::SetMode(mode);
+}
+
 void CEntityWinnie::UpdateAnimations(F32 unk) {
     switch (GetMode()) {
         case 0:

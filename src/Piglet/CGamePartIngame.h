@@ -15,6 +15,7 @@ public:
 
 public:
     BOOL StartFightMode(CEntityMesh*, int);
+    BOOL InterruptFightMode();
     BOOL UnblockFightMode();
 };
 REQUIRE_SIZE(CGamePartIngame, 0x38);

@@ -2,12 +2,14 @@
 #define PIGLET_ENTITIES_CENTITYPIGLET_H
 
 #include "entities/CEntityHero.h"
-
-class CEntityPushingBox;
+#include "entities/CEntityPushingBox.h"
 
 class CEntityPiglet : public CEntityHero {
 public:
-    U8 m_unk260[0x278 - 0x260];
+    CDKW_V3d m_unk260;
+    U32 m_unk26C; // Unknown type
+    U8 m_unk270[4];
+    CEntityPushingBox* m_pushing_box;
     F32 m_unk278;
     U32 m_unk27C;
     F32 m_unk280;

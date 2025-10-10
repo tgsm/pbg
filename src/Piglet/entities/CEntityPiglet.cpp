@@ -91,6 +91,117 @@ void CEntityPiglet::DicreaseLife(int life) {
     }
 }
 
+void CEntityPiglet::SetMode(U32 mode) {
+    if (mode == GetMode()) {
+        return;
+    }
+
+    switch (mode) {
+        case 0:
+            if (m_pushing_box != NULL) {
+                return;
+            }
+            break;
+        case 9:
+            DelFlag(1 << 4);
+            SetMode(0);
+            return;
+        case 1: {
+            CDKW_Frame* frame = m_clump->GetFrame();
+            m_unk260 = frame->m_rwframe->modelling.at;
+
+            if (m_unk25C > 0) {
+                m_animation_star_controller->Play("TURN_BACK_LEFT", 1);
+            } else {
+                m_animation_star_controller->Play("TURN_BACK_RIGHT", 1);
+            }
+            break;
+        }
+        case 2:
+            if (GetMode() == 16 || GetMode() == 17) {
+                ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->InterruptFightMode();
+                return;
+            }
+
+            m_unk1C8 = 0.0f;
+            AddFlag(1 << 4);
+            break;
+        case 14:
+            m_animation_star_controller->Play("START_FIGHT", 1);
+            break;
+        case 15:
+            // TODO
+            if (!IsFlagged(1 << 0)) {
+                SetMode(2);
+            }
+
+            m_animation_star_controller->Play("TURN_FIGHT", 1);
+            RwV3d vec;
+            vec.x = m_unk1BC.m_x;
+            vec.y = m_unk1BC.m_y;
+            vec.z = m_unk1BC.m_z;
+            // This may be an inline
+            if (!((vec.x - CDKW_V3d::ZERO.m_x) * (vec.x - CDKW_V3d::ZERO.m_x) +
+                  (vec.y - CDKW_V3d::ZERO.m_y) * (vec.y - CDKW_V3d::ZERO.m_y) +
+                  (vec.z - CDKW_V3d::ZERO.m_z) * (vec.z - CDKW_V3d::ZERO.m_z) <= CDKW_V3d::sm_Epsilon * CDKW_V3d::sm_Epsilon)) {
+                      RwV3dNormalize(&vec, &vec);
+            }
+            m_unk260 = vec;
+            break;
+        case 16:
+        case 17:
+            ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->InterruptFightMode();
+            m_unk1BC = m_pushing_box->GetDirection();
+            m_unk90.unk8 = CDKW_V3d::ZERO;
+            m_unk90.unk14 = CDKW_V3d::ZERO;
+            break;
+        case 18:
+            UnHideOSD(m_unk2A0);
+            m_animation_star_controller->Play("USE_OBJECT", 1);
+            break;
+        case 21:
+            m_animation_star_controller->Play("VICTORY", 1);
+            SetMode(11);
+            m_unk1C8 = 0.0f;
+            break;
+        case 19:
+            if (m_unk138 < 0.2f) {
+                return;
+            }
+            if (GetSpeed() <= m_unk210) {
+                m_animation_star_controller->Play("SEARCH", 1);
+                mode = 19;
+            } else {
+                m_animation_star_controller->Play("SEARCH_RUN", 1);
+                mode = 20;
+            }
+            break;
+        case 10:
+            HideOSD();
+            break;
+        case 7:
+            m_animation_star_controller->Play("DEAD_0", 1);
+            break;
+        case 8: {
+            CDKW_V3d position;
+            m_animation_star_controller->Play("DEAD_1", 1, 1);
+            CDKW_Frame* frame = m_clump->GetFrame();
+            position = frame->GetRwFrame()->modelling.pos;
+            RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&(-position), 2);
+            RwFrameRotate(180.0f, frame->GetRwFrame(), (RwV3d*)&CDKW_V3d::YAXIS, 2);
+            RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&position, 2);
+
+            m_unk1BC = -m_unk1BC;
+            m_unk1C8 = m_unk218;
+            m_unk1F0 = 0.0f;
+            break;
+        }
+    }
+
+    CEntityHero::SetMode(mode);
+    m_unk26C = 0;
+}
+
 void CEntityPiglet::Render(F32 dt_maybe) {
     CEntityHero::Render(dt_maybe);
     CEntityPiglet::RenderOSD();
