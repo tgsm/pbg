@@ -18,7 +18,6 @@ void CEntityNPCMirrorWoozle::Reset() {
     CEntityNPC::Reset();
 }
 
-// Incomplete
 void CEntityNPCMirrorWoozle::UpdateDetectionBehaviour(F32 a1) {
     switch (m_unk1A8) {
         case 0:

@@ -4,6 +4,10 @@
 #include <rwsdk/plcore/bavector.h>
 #include "types.h"
 
+// Used for operator-(const CDKW_V3d&)
+#pragma push
+#pragma supress_warnings on
+
 // TODO
 class CDKW_V3d {
 public:
@@ -16,6 +20,13 @@ public:
     CDKW_V3d(F32 x, F32 y, F32 z);
 
     CDKW_V3d operator-() const;
+    CDKW_V3d& operator-(const CDKW_V3d& other) const {
+        CDKW_V3d result;
+        result.m_x = this->m_x - other.m_x;
+        result.m_y = this->m_y - other.m_y;
+        result.m_z = this->m_z - other.m_z;
+        return result;
+    }
 
     F32 SquareDistToPoint(CDKW_V3d& other);
 
@@ -29,6 +40,9 @@ public:
 public:
     F32 m_x, m_y, m_z;
 };
+// Used for operator-(const CDKW_V3d&)
+#pragma supress_warnings reset
+
 REQUIRE_SIZE(CDKW_V3d, 0xC);
 
 #endif

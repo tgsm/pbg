@@ -1,7 +1,6 @@
 #ifndef PIGLET_ENTITIES_CENTITYNPCMIRRORWOOZLE_H
 #define PIGLET_ENTITIES_CENTITYNPCMIRRORWOOZLE_H
 
-#include <math.h>
 #include "entities/CEntityNPC.h"
 
 class CEntityNPCMirrorWoozle : public CEntityNPC {

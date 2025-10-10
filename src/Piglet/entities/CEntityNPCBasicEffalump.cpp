@@ -1,8 +1,5 @@
 #include "entities/CEntityNPCBasicEffalump.h"
-#include "CGame.h"
 #include "CGamePartIngame.h"
-#include <math.h>
-#include <cstdlib>
 #include <cstring>
 #include <iostream>
 
@@ -19,7 +16,6 @@ void CEntityNPCBasicEffalump::Reset() {
     CEntityNPC::Reset();
 }
 
-// Incomplete
 void CEntityNPCBasicEffalump::UpdateDetectionBehaviour(F32 a1) {
     switch (m_unk1A8) {
         case 0:

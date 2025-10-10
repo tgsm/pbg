@@ -58,19 +58,11 @@ public:
     void ComputeRotationAngle(CDKW_V3d&, CDKW_V3d&);
     BOOL RotateAccordingToGarbageVar(F32);
 
-    CDKW_V3d GetPosDelta() {
+    CDKW_V3d& GetPosDelta() {
         const CDKW_V3d& npc_position = GetPosition();
         const CDKW_V3d& hero_position = m_entity_manager->GetHero()->GetPosition();
 
-        CDKW_V3d pos_delta;
-        pos_delta.m_x = hero_position.m_x - npc_position.m_x;
-        volatile F32 x = pos_delta.m_x;
-        pos_delta.m_y = hero_position.m_y - npc_position.m_y;
-        volatile F32 y = pos_delta.m_y;
-        pos_delta.m_z = hero_position.m_z - npc_position.m_z;
-        volatile F32 z = pos_delta.m_z;
-        // volatile CDKW_V3d unused = pos_delta;
-        return pos_delta;
+        return hero_position - npc_position;
     }
 };
 REQUIRE_SIZE(CEntityNPC, 0x2D4);
