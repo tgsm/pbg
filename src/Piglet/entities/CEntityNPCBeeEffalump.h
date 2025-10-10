@@ -5,10 +5,24 @@
 
 class CEntityNPCBeeEffalump : public CEntityNPC {
 public:
-    U8 m_unk2D4[0x14];
+    F32 m_unk2D4;
+    U8 m_unk2D8[0x10];
 
 public:
     CEntityNPCBeeEffalump(CEntityManager* entity_manager, std::string name);
+    virtual ~CEntityNPCBeeEffalump();
+
+    virtual U32 GetType() { return ENTITY_NPC_BEE_EFFALUMP; }
+    virtual void Reset();
+    virtual void Render(F32 dt);
+    virtual void Parse(DkXmd::CChunkIterator iter);
+    virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
+    virtual void Restore(void*);
+    virtual void UpdateDetectionBehaviour(F32);
+    virtual void UpdatePursuitBehaviour(F32);
+    virtual void UpdateFightBehaviour(F32);
+    virtual void UpdateGrimaceBehaviour(F32);
+    virtual void UpdateDeathBehaviour(F32);
 };
 REQUIRE_SIZE(CEntityNPCBeeEffalump, 0x2E8);
 

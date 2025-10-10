@@ -3,6 +3,7 @@
 
 #include "entities/CEntityHero.h"
 #include "entities/CEntityMesh.h"
+#include "CPSplines.h"
 
 enum ENPCGenericBehaviour {
     GENERIC_BEHAVIOUR_0 = 0,
@@ -23,7 +24,8 @@ protected:
     U8 m_unk1A8;
     U8 m_unk1A9[0x2C4 - 0x1A9];
     std::string* m_unk2C4;
-    U8 m_unk2c8[0x2D4 - 0x2C8];
+    CPigSpline* m_pig_spline;
+    U8 m_unk2CC[0x2D4 - 0x2CC];
 
 public:
     CEntityNPC(CEntityManager* entity_manager, std::string name);
