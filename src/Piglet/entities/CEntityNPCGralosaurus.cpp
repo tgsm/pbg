@@ -14,13 +14,12 @@ CEntityNPCGralosaurus::~CEntityNPCGralosaurus() {
 
 }
 
-// Incomplete
 void CEntityNPCGralosaurus::Init() {
     CEntityNPC::Init();
 
-    // FIXME: Need CClump(?) vtable, and more
-
+    m_unk2F0 = m_clump->GetFrame()->m_rwframe->modelling.pos;
     m_unk2F0.m_y = 0.13f;
+
     m_unkF4 |= (1 << 14);
     SetGenericBehaviour(GENERIC_BEHAVIOUR_2);
     m_unk2FC = 0;
