@@ -441,7 +441,7 @@ config.libs = [
             Object(Equivalent, "Piglet/entities/CEntityNPCHnSWoozle.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityNPCJackpotEffalump.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityNPCMirrorWoozle.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityNPCRoadSweeperEffalump.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityNPCRoadSweeperEffalump.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPCTennisWoozle.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPCTree.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPCTubaEffalump.cpp"),
