@@ -20,6 +20,7 @@ public:
     void CreateRoadSweeperArrivingFX(CEntityMesh*, DKDSP::IParticleEmitter*);
     void CreateRoadSweeperDustFX(CEntityMesh*, DKDSP::IParticleEmitter*);
     void StopRoadSweeperFX();
+    void RotateOneRandomKey();
 };
 REQUIRE_SIZE(CEntitySeqKey, 0x14908);
 

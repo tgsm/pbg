@@ -66,6 +66,13 @@ public:
 
         return hero_position - npc_position;
     }
+    // FIXME: Probably not correct?
+    CDKW_V3d& GetPosDelta2() {
+        const CDKW_V3d hero_position = m_entity_manager->GetHero()->GetPosition();
+        const CDKW_V3d& npc_position = GetPosition();
+
+        return hero_position - npc_position;
+    }
 };
 REQUIRE_SIZE(CEntityNPC, 0x2D4);
 
