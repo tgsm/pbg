@@ -47,7 +47,6 @@ public:
     virtual void Save(void*);
     virtual void Restore(void*);
     virtual void ResolveContact(const DkPh::Collider::Body&, int, int);
-    virtual U32 Create(std::string);
     virtual void UpdateDetectionBehaviour(F32);
     virtual void UpdatePursuitBehaviour(F32);
     virtual void UpdateReturnBaseBehaviour(F32);
@@ -59,7 +58,7 @@ public:
     virtual void PlayWalkAnim(S32);
     virtual void PlayRunAnim(S32);
     virtual void Idle();
-    virtual void UnIdle();
+    virtual void UnIdle(int);
 
     void SetGenericBehaviour(ENPCGenericBehaviour behaviour);
     BOOL FollowSplinePath(F32, F32, int);

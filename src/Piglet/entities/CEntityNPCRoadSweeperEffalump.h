@@ -25,7 +25,6 @@ public:
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual void Restore(void*);
     virtual void UpdateDetectionBehaviour(F32);
-    virtual void UpdatePursuitBehaviour(F32);
     virtual void UpdateFightBehaviour(F32);
     virtual void UpdateGrimaceBehaviour(F32);
     virtual void UpdateDeathBehaviour(F32);

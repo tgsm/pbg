@@ -27,6 +27,10 @@ class BVolume {
 
 };
 
+class BVolumeOBB {
+
+};
+
 class Collider {
 public:
     struct Body {
@@ -74,8 +78,8 @@ public:
     virtual void ResolveContact(const DkPh::Collider::Body&, int, int);
     virtual void UpdateVolumes();
     virtual void ParseCollisions(DkXmd::CChunkIterator iter);
-    virtual void ParseCollisionsBVolume(DkXmd::CChunkIterator iter); // FIXME: params
-    virtual void ParseCollisionsBVolumeOBox(DkXmd::CChunkIterator iter); // FIXME: params
+    virtual void ParseCollisionsBVolume(DkXmd::CChunkIterator iter, DkPh::BVolume*);
+    virtual void ParseCollisionsBVolumeOBox(DkXmd::CChunkIterator iter, DkPh::BVolumeOBB*);
 };
 REQUIRE_SIZE(CEntityObject, 0x40);
 

@@ -22,12 +22,6 @@ public:
     virtual void UpdateDetectionBehaviour(F32);
     virtual void UpdateFightBehaviour(F32);
     virtual void UpdateGrimaceBehaviour(F32);
-    virtual void MakeNPCLaughing();
-    virtual void MakeNPCSatisfaction();
-    virtual void PlayWalkAnim(S32);
-    virtual void PlayRunAnim(S32);
-    virtual void Idle();
-    virtual void UnIdle();
     virtual void UpdateDeathBehaviour(F32);
 };
 REQUIRE_SIZE(CEntityNPCBasicWoozle, 0x2D8);
