@@ -7,7 +7,8 @@
 
 class CEntitySeqKey : public CEntityObject {
 public:
-    U8 m_unk40[0x54 - 0x40];
+    U8 m_unk40;
+    U8 m_unk41[0x54 - 0x41];
     F32 m_unk54;
     U8 m_unk58[0x148E4 - 0x58];
     F32 m_unk148E4;
@@ -21,6 +22,8 @@ public:
     void CreateRoadSweeperDustFX(CEntityMesh*, DKDSP::IParticleEmitter*);
     void StopRoadSweeperFX();
     void RotateOneRandomKey();
+    void Explode();
+    void UnExplode();
 };
 REQUIRE_SIZE(CEntitySeqKey, 0x14908);
 

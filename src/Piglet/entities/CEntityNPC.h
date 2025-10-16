@@ -16,13 +16,19 @@ enum ENPCGenericBehaviour {
 class CEntityNPC : public CEntityMesh {
 protected:
     U32 m_unkF4;
-    U8 m_unkF8[0x15C - 0xF8];
+    U8 m_unkF8[4];
+    U32 m_unkFC;
+    U8 m_unk100[0x15C - 0x100];
     U8 m_unk15C;
     U8 m_unk15D[0x1A0 - 0x15D];
     F32 m_rotation_angle;
     U8 m_unk1A4[0x1A8 - 0x1A4];
     U8 m_unk1A8;
-    U8 m_unk1A9[0x2C4 - 0x1A9];
+    U8 m_unk1A9;
+    U8 m_unk1AA[2];
+    U8 m_unk1AC;
+    U8 m_unk1AD;
+    U8 m_unk1AE[0x2C4 - 0x1AE];
     std::string* m_unk2C4;
     CPigSpline* m_pig_spline;
     U8 m_unk2CC[0x2D4 - 0x2CC];

@@ -12,7 +12,10 @@ public:
     U32 m_unk44;
     U8 m_unk48[0x50 - 0x48];
     CEntitySeqKey* m_key_sequence_entity;
-    U8 m_unk54[0x178 - 0x54];
+    U8 m_unk54[0x118 - 0x54];
+    F32 m_unk118;
+    F32 m_unk11C;
+    U8 m_unk120[0x178 - 0x120];
 
 public:
     BOOL IsPlayingRTC();
