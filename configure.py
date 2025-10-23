@@ -422,7 +422,7 @@ config.libs = [
             Object(Equivalent, "Piglet/entities/CEntityBhvTagOrientation.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPC.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityLight.cpp"),
-            Object(NonMatching, "Piglet/CGamePartDMRoomLauncher.cpp"),
+            Object(Equivalent, "Piglet/CGamePartDMRoomLauncher.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityNPCBasicEffalump.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPCArrow.cpp"),
             Object(NonMatching, "Piglet/entities/CEntitySeqKey.cpp"),
