@@ -484,7 +484,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CShadowZone.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPCGralosaurus.cpp"),
             Object(NonMatching, "Piglet/CGamePartScrapBook.cpp"),
-            Object(NonMatching, "Piglet/CGamePartMovieClips.cpp"),
+            Object(Equivalent, "Piglet/CGamePartMovieClips.cpp"),
             Object(NonMatching, "Piglet/CIcon.cpp"),
             Object(Equivalent, "Piglet/CGuiScrapBookEventHandler.cpp"),
             Object(NonMatching, "Piglet/CGuiMovieClipsEventHandler.cpp"),

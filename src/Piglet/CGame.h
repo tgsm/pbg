@@ -150,6 +150,8 @@ public:
 
     BOOL IsUnk5038Not2() { return m_unk5038 == 2 ? 0 : 1; }
 
+    CMission& GetMission(int index) { return m_unk210[index]; }
+
     F32 GetDeltaTime();
     void ComputeDeltaTime();
     CGamePart* GetGamePartPointer();

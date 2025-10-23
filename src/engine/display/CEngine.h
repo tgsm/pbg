@@ -1,30 +1,11 @@
 #ifndef ENGINE_DISPLAY_CENGINE_H
 #define ENGINE_DISPLAY_CENGINE_H
 
-#include "engine/display/CAnimDictionary.h"
-#include "engine/display/CImmediate.h"
-#include "engine/display/CObjectDictionary.h"
-#include "engine/display/CRWStream.h"
-#include "engine/display/CScene.h"
-#include "engine/display/CTextureDictionary.h"
-#include "engine/display/CTimerGCN.h"
-#include "engine/display/IEventAnimationCallback.h"
-
-// FIXME: This maybe goes in its own header, but it's only used here.
-class CDKW_Memory {
-public:
-    void* m_file;
-    U32 m_unk4;
-};
-
-// FIXME: Put this in a RW header.
-enum RwRenderState {};
+#include "engine/display/IEngine.h"
 
 namespace DKDSP {
 
-class IShadowMapValidationCallback;
-
-class CEngine {
+class CEngine : public IEngine {
 public:
     virtual void fillerfunc0();
     virtual void fillerfunc1();

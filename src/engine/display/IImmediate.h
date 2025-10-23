@@ -1,13 +1,10 @@
 #ifndef ENGINE_DISPLAY_IIMMEDIATE_H
 #define ENGINE_DISPLAY_IIMMEDIATE_H
 
+#include "engine/display/CIm2DBatch.h"
 #include "engine/display/CIm3DBatch.h"
-#include "types.h"
 
 namespace DKDSP {
-
-class IIm2DBatch;
-class CIm2DBatch;
 
 class IImmediate {
 public:
