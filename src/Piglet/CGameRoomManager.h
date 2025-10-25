@@ -8,7 +8,9 @@
 class CGameRoomManager {
 public:
     U32 m_unk0;
-    U8 m_unk4[0x40];
+    U8 m_unk4[0x8];
+    U32 m_unkC;
+    U8 m_unk10[0x34];
     U32 m_unk44;
     U8 m_unk48[0x50 - 0x48];
     CEntitySeqKey* m_key_sequence_entity;

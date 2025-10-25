@@ -139,6 +139,7 @@ public:
     static void ManageReset();
     static void ReplayVideoCallback();
 
+    DKGUI::CGUIEngine* GetGuiEngine() { return m_gui_engine; }
     DKDSP::CObjectDictionary* GetObjectDictionary() { return m_object_dictionary; }
     DKDSP::CScene* GetScene() { return m_scene; }
     DKDSP::CCamera* GetCamera() { return m_camera; }

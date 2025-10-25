@@ -17,7 +17,8 @@ public:
     F32 m_unk10;
     F32 m_unk14;
     F32 m_unk18;
-    U8 m_unk1C[0x14];
+    U8 m_unk1C[0x13];
+    U8 m_alpha;
 
 public:
     CIcon();

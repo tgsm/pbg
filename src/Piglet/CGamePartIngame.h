@@ -17,6 +17,8 @@ public:
     BOOL StartFightMode(CEntityMesh*, int);
     BOOL InterruptFightMode();
     BOOL UnblockFightMode();
+
+    CGameRoomManager* GetGameRoomManager() { return m_game_room_manager; }
 };
 REQUIRE_SIZE(CGamePartIngame, 0x38);
 

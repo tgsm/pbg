@@ -11,7 +11,7 @@ public:
     U8 m_unk270[4];
     CEntityPushingBox* m_pushing_box;
     F32 m_unk278;
-    U32 m_unk27C;
+    U32 m_grimace_level;
     F32 m_unk280;
     int m_unk284;
     U8 m_unk288[0x2A0 - 0x288];
