@@ -1,23 +1,11 @@
 #ifndef ENGINE_DISPLAY_IIM3DBATCH_H
 #define ENGINE_DISPLAY_IIM3DBATCH_H
 
-#include "engine/wrap/DKW_Matrix.h"
-
-// FIXME: Move this to a RW header.
-enum RwPrimitiveType {
-    rwPRIMTYPENAPRIMTYPE = 0,
-    rwPRIMTYPELINELIST = 1,
-    rwPRIMTYPEPOLYLINE = 2,
-    rwPRIMTYPETRILIST = 3,
-    rwPRIMTYPETRISTRIP = 4,
-    rwPRIMTYPETRIFAN = 5,
-    rwPRIMTYPEPOINTLIST = 6,
-    rwPRIMITIVETYPEFORCEENUMSIZEINT = 0x7FFFFFFF,
-};
+#include "engine/display/IImBatch.h"
 
 namespace DKDSP {
 
-class IIm3DBatch {
+class IIm3DBatch : public IImBatch {
 public:
     virtual void GrabRenderstates() = 0;
     virtual void Render(RwPrimitiveType, CDKW_Matrix*) = 0;

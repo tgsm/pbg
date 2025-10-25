@@ -155,12 +155,12 @@ void CEntityScaryFaceBox::RenderCookiesNbIcon(F32 dt) {
 }
 
 // Equivalent: GUI engine load scheduling
-void CEntityScaryFaceBox::RenderCookiesNbIconDirect(CGame* game, int a1, F32 a2, F32 a3, int a4, F32 a5, F32 a6, int a7, int a8) {
+void CEntityScaryFaceBox::RenderCookiesNbIconDirect(CGame* game, int a1, F32 x, F32 y, int a4, F32 width, F32 height, int a7, int a8) {
     F32 dVar6;
     F32 dVar5;
     F32 unk;
     F32 text_width;
-    int alpha;
+    int alpha_;
     CIcon icon1, icon2;
 
     if (m_pImediatePolyBack == NULL) {
@@ -171,12 +171,12 @@ void CEntityScaryFaceBox::RenderCookiesNbIconDirect(CGame* game, int a1, F32 a2,
     }
 
     CIcon::BeginRender(game->m_display_engine, game->GetCamera(), game->GetScene());
-    icon2.m_unk14 = a5;
-    icon2.m_unk18 = a6;
-    alpha = a4;
-    icon2.m_alpha = alpha;
-    icon2.m_unk8 = a2;
-    icon2.m_unkC = a3;
+    icon2.m_width = width;
+    icon2.m_height = height;
+    alpha_ = a4;
+    icon2.m_alpha = alpha_;
+    icon2.m_x = x;
+    icon2.m_y = y;
 
     switch (a7) {
         case 0:
@@ -188,25 +188,25 @@ void CEntityScaryFaceBox::RenderCookiesNbIconDirect(CGame* game, int a1, F32 a2,
     }
     icon2.Render(m_pImediatePolyBack, a8);
 
-    CDKW_RGBA color = CDKW_RGBA(0xFF, 0xFF, 0x99, alpha);
+    CDKW_RGBA color = CDKW_RGBA(0xFF, 0xFF, 0x99, alpha_);
     game->GetGuiEngine()->SetTextColor(color.m_r, color.m_g, color.m_b, color.m_a);
 
     char str[10] = {};
     sprintf(str, "%d", a1);
 
-    unk = 0.46f * a6;
+    unk = 0.46f * height;
     // here
     text_width = game->GetGuiEngine()->GetTextWidth(str, unk, NULL);
-    dVar6 = 0.23f * a5;
-    dVar5 = (dVar6 + (text_width + (0.03f * a5))) / 2;
+    dVar6 = 0.23f * width;
+    dVar5 = (dVar6 + (text_width + (0.03f * width))) / 2;
 
-    game->GetGuiEngine()->AddText(a2 - dVar5, a3 + (0.65f * (unk / 2)), str, unk, NULL, 0.0f);
+    game->GetGuiEngine()->AddText(x - dVar5, y + (0.65f * (unk / 2)), str, unk, NULL, 0.0f);
 
-    icon1.m_unk14 = dVar6;
-    icon1.m_unk18 = (4.0f * dVar6) / 3.0f;
-    icon1.m_alpha = alpha;
-    icon1.m_unk8 = (a2 + dVar5) - (dVar6 / 2);
-    icon1.m_unkC = a3;
+    icon1.m_width = dVar6;
+    icon1.m_height = (4.0f * dVar6) / 3.0f;
+    icon1.m_alpha = alpha_;
+    icon1.m_x = (x + dVar5) - (dVar6 / 2);
+    icon1.m_y = y;
     icon1.m_texture = game->m_texture_dictionary->FindTexture("BMP_201");
     icon1.Render(m_pImediatePolyIcon, a8);
 

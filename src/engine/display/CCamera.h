@@ -22,7 +22,9 @@ public:
     virtual CRaster* GetBuffer();
     virtual void SetViewWindow(F32, F32);
     virtual void SetZNear(F32);
+    virtual F32 GetZNear();
     virtual void SetZFar(F32);
+    virtual F32 GetZFar();
     virtual void SetFOV(F32, F32);
 };
 REQUIRE_SIZE(CCamera, 0x28);

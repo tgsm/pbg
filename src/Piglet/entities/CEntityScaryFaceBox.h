@@ -32,7 +32,7 @@ public:
     virtual BOOL ShouldKick();
 
     void RenderCookiesNbIcon(F32 dt);
-    static void RenderCookiesNbIconDirect(CGame* game, int, F32, F32, int, F32, F32, int, int);
+    static void RenderCookiesNbIconDirect(CGame* game, int, F32 x, F32 y, int, F32 width, F32 height, int, int);
 
     int NbCookiesForNextGrimaceLevel() {
         CEntityPiglet* piglet = (CEntityPiglet*)m_entity_manager->GetHero();

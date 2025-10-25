@@ -26,9 +26,9 @@ public:
     virtual void func14() = 0;
     virtual void func15() = 0;
     virtual void SetZNear(F32) = 0;
-    virtual void func17() = 0;
+    virtual F32 GetZNear() = 0;
     virtual void SetZFar(F32) = 0;
-    virtual void func19() = 0;
+    virtual F32 GetZFar() = 0;
     virtual void func20() = 0;
     virtual void func21() = 0;
     virtual void SetFOV(F32, F32) = 0;

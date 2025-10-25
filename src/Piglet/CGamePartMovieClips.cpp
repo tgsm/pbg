@@ -138,10 +138,10 @@ void CGamePartMovieClips::RenderBackGround(F32 dt) {
     CIcon::BeginRender(m_game->m_display_engine, m_game->GetCamera(), m_game->GetScene());
 
     CIcon icon;
-    icon.m_unk14 = 1.0f;
-    icon.m_unk18 = 1.0f;
-    icon.m_unk8 = 0.5f;
-    icon.m_unkC = 0.5f;
+    icon.m_width = 1.0f;
+    icon.m_height = 1.0f;
+    icon.m_x = 0.5f;
+    icon.m_y = 0.5f;
 
     char name[256] = {};
     RwEngineInstance->stringFuncs.rwsprintf(name, "BMP_520");
@@ -176,40 +176,40 @@ void CGamePartMovieClips::RenderIcons(F32 dt) {
     CIcon icon;
 
     for (int i = 0; i < 6; i++) {
-        icon.m_unk14 = 0.18765625f;
-        icon.m_unk18 = 0.18875f;
+        icon.m_width = 0.18765625f;
+        icon.m_height = 0.18875f;
         switch (i) {
             case 0:
-                icon.m_unk8 = 0.12875f;
-                icon.m_unkC = 0.27562502f;
+                icon.m_x = 0.12875f;
+                icon.m_y = 0.27562502f;
                 break;
             case 1:
-                icon.m_unk8 = 0.3878125f;
-                icon.m_unkC = 0.27562502f;
+                icon.m_x = 0.3878125f;
+                icon.m_y = 0.27562502f;
                 break;
             case 2:
-                icon.m_unk8 = 0.64875f;
-                icon.m_unkC = 0.27562502f;
+                icon.m_x = 0.64875f;
+                icon.m_y = 0.27562502f;
                 break;
             case 3:
-                icon.m_unk8 = 0.12875f;
-                icon.m_unkC = 0.5085417f;
+                icon.m_x = 0.12875f;
+                icon.m_y = 0.5085417f;
                 break;
             case 4:
-                icon.m_unk8 = 0.3878125f;
-                icon.m_unkC = 0.5085417f;
+                icon.m_x = 0.3878125f;
+                icon.m_y = 0.5085417f;
                 break;
             case 5:
-                icon.m_unk8 = 0.6509375f;
-                icon.m_unkC = 0.5085417f;
+                icon.m_x = 0.6509375f;
+                icon.m_y = 0.5085417f;
                 break;
         }
 
-        icon.m_unk8 += icon.m_unk14 / 2;
-        icon.m_unkC += icon.m_unk18 / 2;
-        icon.m_unk14 *= 0.9f;
-        icon.m_unk18 *= 0.9f;
-        icon.m_unk10 = 0.0f;
+        icon.m_x += icon.m_width / 2;
+        icon.m_y += icon.m_height / 2;
+        icon.m_width *= 0.9f;
+        icon.m_height *= 0.9f;
+        icon.m_depth = 0.0f;
 
         char name[256] = {};
         int unk_batch_no = ((CGuiMovieClipsEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiMovieClipsEventHandler"))->GetUnk10();
