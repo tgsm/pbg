@@ -5,9 +5,9 @@
 
 class CEntityNPCDoor : public CEntityNPC {
 private:
-    std::string m_unk2D4;
-    std::string m_unk2D8;
-    U32 m_unk2DC;
+    std::string m_bad_grimace_str;
+    std::string m_victory_str;
+    U32 m_needed_grimace;
 
 public:
     CEntityNPCDoor(CEntityManager* entity_manager, std::string name);
@@ -28,6 +28,15 @@ public:
     virtual void UpdateDeathBehaviour(F32);
 
     BOOL CanLaunchFightMode();
+
+    void SendVictoryStartMessage() {
+        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_victory_str, "START", 0);
+        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_unk0, "DIE", 0);
+    }
+
+    void SendBadGrimaceStartMessage() {
+        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_bad_grimace_str, "START", 0);
+    }
 };
 REQUIRE_SIZE(CEntityNPCDoor, 0x2E0);
 

@@ -471,7 +471,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CEventGuiHandlers.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityBhvTagGuiCtrl.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagSettings.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityNPCDoor.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityNPCDoor.cpp"),
             Object(NonMatching, "Piglet/CGameBackup.cpp"),
             Object(Equivalent, "Piglet/CMiniMapIcon.cpp"),
             Object(NonMatching, "Piglet/CMiniMapSpline.cpp"),

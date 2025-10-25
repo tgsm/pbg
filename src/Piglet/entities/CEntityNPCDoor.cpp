@@ -5,9 +5,9 @@
 #include <iostream>
 
 CEntityNPCDoor::CEntityNPCDoor(CEntityManager* entity_manager, std::string name) : CEntityNPC(entity_manager, name) {
-    m_unk2D4 = "";
-    m_unk2D8 = "";
-    m_unk2DC = 0;
+    m_bad_grimace_str = "";
+    m_victory_str = "";
+    m_needed_grimace = 0;
     m_unkF4 |= (1 << 14);
     SetGenericBehaviour(GENERIC_BEHAVIOUR_0);
     m_unk1A8 = 3;
@@ -109,7 +109,6 @@ void CEntityNPCDoor::UpdateFightBehaviour(F32) {
     }
 }
 
-// Equivalent: stack offsets
 void CEntityNPCDoor::UpdateGrimaceBehaviour(F32) {
     switch (m_unk1A8) {
         case 101:
@@ -122,8 +121,7 @@ void CEntityNPCDoor::UpdateGrimaceBehaviour(F32) {
                 SetGenericBehaviour(GENERIC_BEHAVIOUR_6);
                 m_unkF4 &= ~((1 << 2) | (1 << 1) | (1 << 0));
                 m_unkF4 |= (1 << 3);
-                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_unk2D8, "START", 0);
-                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_unk0, "DIE", 0);
+                SendVictoryStartMessage();
             }
             break;
     }
@@ -155,11 +153,11 @@ void CEntityNPCDoor::Parse(DkXmd::CChunkIterator iter) {
             strcpy(buf, dest.GetName());
 
             if (strcmp(buf, "NPCDoor_RTC_BadGrimace") == 0) {
-                m_unk2D4 = dest.GetStringValue();
+                m_bad_grimace_str = dest.GetStringValue();
             } else if (strcmp(buf, "NPCDoor_RTC_Victory") == 0) {
-                m_unk2D8 = dest.GetStringValue();
+                m_victory_str = dest.GetStringValue();
             } else if (strcmp(buf, "NPCDoor_NeededGrimace") == 0) {
-                m_unk2DC = dest.GetS32Value();
+                m_needed_grimace = dest.GetS32Value();
             }
         } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }
@@ -169,15 +167,14 @@ void CEntityNPCDoor::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBeha
     CEntityNPC::ParseBehavior(iter, behavior);
 }
 
-// Equivalent: stack offsets
 BOOL CEntityNPCDoor::CanLaunchFightMode() {
     if (m_entity_manager->GetHero()->GetType() == ENTITY_PIGLET) {
         CEntityPiglet* piglet = static_cast<CEntityPiglet*>(m_entity_manager->GetHero());
-        if (piglet->m_grimace_level >= m_unk2DC) {
+        if (piglet->m_grimace_level >= m_needed_grimace) {
             return TRUE;
         }
 
-        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_unk2D4, "START", 0);
+        SendBadGrimaceStartMessage();
         SetGenericBehaviour(GENERIC_BEHAVIOUR_0);
         m_unk1A8 = 3;
         return FALSE;
