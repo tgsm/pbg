@@ -4,6 +4,7 @@
 #include "engine/xmd/CChunkIterator.h"
 #include "entities/CEntityBhvTagData.h"
 #include "entities/CEntity.h"
+#include "CGame.h"
 #include "CGamePartIngame.h"
 
 class CEntityBhvTagFinishMission : public CEntityBhvTagData {

@@ -1,4 +1,5 @@
 #include "CRTCMessageEvent.h"
+#include "CGame.h"
 #include <cstring>
 #include <iostream>
 

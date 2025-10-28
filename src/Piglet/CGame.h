@@ -3,13 +3,13 @@
 
 #include <string>
 #include <vector>
-#include "CEventAnimationHandlers.h"
 #include "engine/backup/CGCNBAKEngine.h"
 #include "engine/backup/IBAKEngine.h"
 #include "engine/display/CAnimDictionary.h"
 #include "engine/display/CCamera.h"
 #include "engine/display/CController.h"
 #include "engine/display/CEngine.h"
+#include "engine/display/CIm2DBatch.h"
 #include "engine/display/CObjectDictionary.h"
 #include "engine/display/CScene.h"
 #include "engine/display/CTextureDictionary.h"
@@ -20,6 +20,9 @@
 #include "engine/sound/CSoundEngine.h"
 #include "engine/video/CVideoEngineGCN.h"
 #include "engine/wrap/DKW_RGBA.h"
+#include "entities/CEntity.h"
+#include "entities/CEntityManager.h"
+#include "CEventAnimationHandlers.h"
 #include "CFullScreenEffect.h"
 #include "CFxManager.h"
 #include "CGameBackup.h"
@@ -31,8 +34,6 @@
 #include "CMission.h"
 #include "CResourceFactory.h"
 #include "CShadowZone.h"
-
-class CEntityManager;
 
 struct SVideoDesc {
     int id;
@@ -69,7 +70,13 @@ public:
     U32 m_unk4F54;
     U32 m_unk4F58;
     U32 m_unk4F5C;
-    U8 m_unk4F60[0x4F7C - 0x4F60];
+    F32 m_unk4F60;
+    F32 m_unk4F64;
+    F32 m_unk4F68;
+    F32 m_unk4F6C;
+    F32 m_unk4F70;
+    F32 m_unk4F74;
+    int m_room_return_type;
     DKGUI::CGUIEngine* m_gui_engine;
     DKSND::CSoundEngine* m_sound_engine;
     DKSND::CSampleDictionary* m_sample_dictionary;
@@ -86,7 +93,10 @@ public:
     CMailBox* m_mailbox;
     CBaseLoadingCallback* m_current_loading_callback;
     CInGameLoadingCallback* m_ingame_loading_callback;
-    U8 m_unk4FBC[0x4FCC - 0x4FBC];
+    CDkFileSysLoadCallBack* m_loading_adventure; // FIXME: CLoadingAdventure
+    CDkFileSysLoadCallBack* m_loading_catch_em_all; // FIXME: CLoadingCatchThemAll
+    CDkFileSysLoadCallBack* m_loading_tigger; // FIXME: CLoadingTigger
+    CDkFileSysLoadCallBack* m_loading_winnie; // FIXME: CLoadingWinnie
     CBootUpLoadingCallback* m_bootup_loading_callback;
     CPreBootUpLoadingCallback* m_prebootup_loading_callback;
     CVideoLoadingCallback* m_video_loading_callback;
@@ -119,7 +129,8 @@ public:
     F32 m_unk5044;
     F32 m_unk5048;
     F32 m_unk504C;
-    U8 m_unk5050[0x505C - 0x5050];
+    DKDSP::CIm2DBatch* m_batch5050;
+    U8 m_unk5054[0x505C - 0x5054];
     DKDSP::CController* m_unk505C;
     DKDSP::CClump* m_unk5060;
     std::vector<size_t> m_unk5064;
@@ -153,6 +164,17 @@ public:
 
     CMission& GetMission(int index) { return m_unk210[index]; }
 
+    BOOL HasEntityOfType(U32 type) {
+        BOOL result = FALSE;
+        for (U32 i = 0; i < m_entity_manager->GetEntityCount(); i++) {
+            if (m_entity_manager->GetEntity(i)->GetType() == type) {
+                result = TRUE;
+                break;
+            }
+        }
+        return result;
+    }
+
     F32 GetDeltaTime();
     void ComputeDeltaTime();
     CGamePart* GetGamePartPointer();
@@ -170,6 +192,7 @@ public:
     void RenderFade();
     BOOL IsGUIDisplayNotAdvised();
     void RegisterVideo(int id, std::string filename);
+    void PlayVideo(int id);
     CDKW_RGBA ComputeGameFadeColor();
 };
 REQUIRE_SIZE(CGame, 0x5098);

@@ -2,12 +2,22 @@
 #include <dolphin/vi.h>
 #include "engine/backup/DkBackUp.h"
 #include "engine/display/DkDisplay.h"
+#include "engine/display/IImBatch.h"
+#include "engine/filesys/DkFileSys.h"
 #include "engine/gui/DkGUI.h"
 #include "engine/sound/DkSound.h"
 #include "engine/video/DkVideo.h"
 #include "CGame.h"
+#include "CGamePartCredits.h"
+#include "CGamePartDMRoomLauncher.h"
+#include "CGamePartFrontend.h"
 #include "CGamePartIngame.h"
+#include "CGamePartIntroduction.h"
+#include "CGamePartMovieClips.h"
+#include "CGamePartScrapBook.h"
+#include "CGamePartStartScreen.h"
 #include "CResourceFactory.h"
+#include "entities/CEntity.h"
 #include "entities/CEntityHero.h"
 #include "entities/CEntityManager.h"
 #include <cstring>
@@ -391,6 +401,590 @@ CGame::~CGame() {
     CDkFileSys::exit();
 }
 
+extern "C" void RwFreeListPurgeAllFreeLists(void);
+
+// Incomplete
+BOOL CGame::NextFrame() {
+    int iVar12;
+
+    ComputeDeltaTime();
+    BOOL bVar8 = FALSE;
+    int iVar24 = 0;
+    BOOL bVar9 = FALSE;
+    DKI::IInputEngine::Update(m_delta_time);
+
+    ManageReset();
+
+    if (m_game_part != NULL) {
+        if (m_unk5008 != NULL && m_sound_engine->GetStreamedSound() == m_unk5008 && m_unk5008->IsFinished()) {
+            m_unk5004 = "";
+            m_unk5008 = NULL;
+            m_sound_engine->StopStreamedSound();
+        }
+        iVar12 = m_game_part->NextFrame();
+    } else {
+        iVar12 = 0;
+    }
+
+    if (m_game_part == NULL || iVar12 != m_game_part->m_unk0 || m_game_part == NULL) {
+        if (m_current_loading_callback != NULL) {
+            m_current_loading_callback->Destroy();
+            CDkFileSys::UnSetCallBackOnLoad();
+        }
+
+        m_unk5004 = "";
+        m_unk5008 = NULL;
+        m_sound_engine->StopStreamedSound();
+
+        m_gui_manager->Reset();
+
+        DKI::IInputEngine::GetDevice(0)->StopVibration();
+
+        if (iVar12 != 10) {
+            int command;
+            // Probably wrong
+            for (int i = 0; i < m_opcode_buffer_size, command = m_opcode_buffer[i], command != -1;) {
+                i++;
+                switch (command) {
+                    case 1: {
+                        U32 unk4F58 = m_opcode_buffer[i++];
+                        int unk4F5C = m_opcode_buffer[i++];
+                        int unk4F60 = m_opcode_buffer[i++];
+                        int unk4F64 = m_opcode_buffer[i++];
+                        int unk4F68 = m_opcode_buffer[i++];
+                        int unk4F6C = m_opcode_buffer[i++];
+                        int unk4F70 = m_opcode_buffer[i++];
+                        int unk4F74 = m_opcode_buffer[i++];
+                        int unk5090 = m_opcode_buffer[i++];
+
+                        m_unk4F58 = unk4F58;
+                        m_unk4F5C = unk4F5C;
+                        m_unk4F60 = unk4F60;
+                        m_unk4F64 = unk4F64;
+                        m_unk4F68 = unk4F68;
+                        m_unk4F6C = unk4F6C;
+                        m_unk4F70 = unk4F70;
+                        m_unk4F74 = unk4F74;
+                        m_unk5090 = unk5090;
+
+                        if (unk4F58 == 1 && m_unk4F54 == 8) {
+                            m_game_backup->CreateNewGame();
+                            for (U32 j = 0; j < 8; j++) {
+                                m_unk210[j].Initialize();
+                                m_unk210[j].m_game = this;
+                                m_unk210[j].m_mission_no = j + 1;
+                                m_unk210[j].LoadConfigFile(1);
+                            }
+                            bVar8 = TRUE;
+                        }
+
+                        GetMission(m_unk4F54 - 1).m_rooms[unk4F58] |= (1 << 0);
+
+                        m_game_backup->GetFromGameData(1);
+                        m_game_backup->Backup();
+                        iVar12 = 7;
+                        break;
+                    }
+
+                    case 2: {
+                        m_game_backup->GetFromGameData(1);
+                        if (m_game_part != NULL) {
+                            delete m_game_part;
+                            m_game_part = NULL;
+                        }
+
+                        U32 fortnite = m_opcode_buffer[i++];
+                        if (GetMission(fortnite - 1).m_unk2C != 0) {
+                            m_current_loading_callback = (CBaseLoadingCallback*)m_loading_catch_em_all;
+                        } else {
+                            m_current_loading_callback = (CBaseLoadingCallback*)m_loading_adventure;
+                        }
+                        m_current_loading_callback->Create();
+                        CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+
+                        if (fortnite != m_unk4F54) {
+                            U32 lol = m_unk4F54;
+                            if (lol != 0) {
+                                GetMission(lol - 1).UnloadConfigFile();
+                            }
+                            if (lol != 0) {
+                                GetMission(lol - 1).LoadConfigFile(0);
+                            }
+                        }
+                        m_unk4F54 = fortnite;
+                        m_current_loading_callback->Destroy();
+                        CDkFileSys::UnSetCallBackOnLoad();
+                        iVar12 = 7;
+                        break;
+                    }
+
+                    case 3:
+                        GetMission(m_unk4F54 - 1).m_unk2C = 1;
+                        m_game_backup->GetFromGameData(1);
+
+                        if (m_game_part != NULL) {
+                            delete m_game_part;
+                            m_game_part = NULL;
+                        }
+
+                        GetMission(m_unk4F54 - 1).UnloadConfigFile();
+                        switch (m_unk4F54) {
+                            case 1:
+                                PlayVideo(16);
+                                if (GetMission(1).m_unk2C != 0) {
+                                    PlayVideo(19);
+                                }
+                                break;
+                            case 2:
+                                PlayVideo(18);
+                                if (GetMission(0).m_unk2C != 0) {
+                                    PlayVideo(19);
+                                }
+                                break;
+                            case 3:
+                                PlayVideo(21);
+                                if (GetMission(3).m_unk2C != 0) {
+                                    PlayVideo(24);
+                                }
+                                break;
+                            case 4:
+                                PlayVideo(23);
+                                if (GetMission(2).m_unk2C != 0) {
+                                    PlayVideo(24);
+                                }
+                                break;
+                            case 5:
+                                PlayVideo(26);
+                                if (GetMission(5).m_unk2C != 0) {
+                                    PlayVideo(29);
+                                }
+                                break;
+                            case 6:
+                                PlayVideo(28);
+                                if (GetMission(4).m_unk2C != 0) {
+                                    PlayVideo(29);
+                                }
+                                break;
+                            case 7:
+                                PlayVideo(30);
+                                iVar24 = 1;
+                                break;
+                        }
+
+                        if (m_unk8 & (1 << 3)) {
+                            iVar12 = 9;
+                        } else if (iVar24 != 0) {
+                            iVar12 = 1;
+                        } else {
+                            m_unk210[7].LoadConfigFile(0);
+                            m_unk4F54 = 8;
+                            m_unk4F58 = 3;
+                            m_unk4F5C = 0;
+                            m_unk4F60 = 0.0f;
+                            m_unk4F64 = 0.0f;
+                            m_unk4F68 = 0.0f;
+                            m_unk4F6C = 0.0f;
+                            m_unk4F70 = 0.0f;
+                            m_unk4F74 = 0.0f;
+                            m_unk5090 = 1;
+                            GetMission(m_unk4F54 - 1).m_rooms[3] |= (1 << 0);
+                            m_game_backup->GetFromGameData(1);
+                            iVar12 = 7;
+                        }
+
+                        break;
+
+                    case 4:
+                        m_game_backup->GetFromGameData(1);
+
+                        if (m_unk8 & (1 << 3)) {
+                            iVar12 = 9;
+                        } else {
+                            if (m_game_part != NULL) {
+                                delete m_game_part;
+                                m_game_part = NULL;
+                            }
+
+                            if (m_unk4F54 == 7) {
+                                m_unk210[6].Initialize();
+                                m_unk210[6].m_game = this;
+                                m_unk210[6].m_mission_no = 7;
+                                m_unk210[6].LoadConfigFile(1);
+                                bVar8 = TRUE;
+                            }
+
+                            if (m_unk4F5C == 0) {
+                                CMission& mission = GetMission(m_unk4F54 - 1);
+                                F32 start_pos_x = mission.m_start_position_x;
+                                F32 start_pos_y = mission.m_start_position_y;
+                                F32 start_pos_z = mission.m_start_position_z;
+                                F32 start_rot_x = mission.m_start_rotation_x;
+                                F32 start_rot_y = mission.m_start_rotation_y;
+                                F32 start_rot_z = mission.m_start_rotation_z;
+
+                                m_unk4F58 = mission.m_unkC;
+                                m_unk4F5C = GetMission(m_unk4F54 - 1).m_unk10;
+                                m_unk4F60 = start_pos_x;
+                                m_unk4F64 = start_pos_y;
+                                m_unk4F68 = start_pos_z;
+                                m_unk4F6C = start_rot_x;
+                                m_unk4F70 = start_rot_y;
+                                m_unk4F74 = start_rot_z;
+                                m_unk5090 = 0;
+
+                                GetMission(m_unk4F54 - 1).m_rooms[GetMission(m_unk4F54 - 1).m_unkC] |= (1 << 0);
+
+                                m_game_backup->GetFromGameData(1);
+                                iVar12 = 7;
+                            } else if (m_unk4F5C == 1) {
+                                if (m_unk4F54 == 2) {
+                                    m_unk4F58 = 4;
+                                    m_mailbox->SendMessage("Tigger", "RTC_204_02_B", "START", 1);
+                                } else if (m_unk4F54 == 5) {
+                                    m_unk4F58 = 9;
+                                    m_mailbox->SendMessage("Tigger", "RTC_509_09", "START", 1);
+                                }
+
+                                m_unk4F5C = 1;
+                                m_unk4F60 = 0.0f;
+                                m_unk4F64 = 0.0f;
+                                m_unk4F68 = 0.0f;
+                                m_unk4F6C = 0.0f;
+                                m_unk4F70 = 0.0f;
+                                m_unk4F74 = 0.0f;
+                                m_unk5090 = 1;
+
+                                GetMission(m_unk4F54 - 1).m_rooms[m_unk4F58] |= (1 << 0);
+
+                                m_game_backup->GetFromGameData(1);
+                                iVar12 = 7;
+                            } else if (m_unk4F5C == 2) {
+                                if (m_unk4F54 == 3) {
+                                    m_unk4F58 = 3;
+                                    m_mailbox->SendMessage("Winnie", "RTC_303_03_B", "START", 1);
+                                } else if (m_unk4F54 == 6) {
+                                    m_unk4F58 = 9;
+                                    m_mailbox->SendMessage("Winnie", "RTC_609_03", "START", 1);
+                                }
+
+                                m_unk4F5C = 2;
+                                m_unk4F60 = 0.0f;
+                                m_unk4F64 = 0.0f;
+                                m_unk4F68 = 0.0f;
+                                m_unk4F6C = 0.0f;
+                                m_unk4F70 = 0.0f;
+                                m_unk4F74 = 0.0f;
+                                m_unk5090 = 1;
+
+                                GetMission(m_unk4F54 - 1).m_rooms[m_unk4F58] |= (1 << 0);
+
+                                m_game_backup->GetFromGameData(1);
+                                iVar12 = 7;
+                            }
+                        }
+                        break;
+
+                    case 5:
+                        m_game_backup->GetFromGameData(1);
+
+                        if (m_unk8 & (1 << 3)) {
+                            iVar12 = 9;
+                        } else {
+                            if (m_game_part != NULL) {
+                                delete m_game_part;
+                                m_game_part = NULL;
+                            }
+
+                            if (m_unk4F54 != 8) {
+                                if (m_unk4F54 != 0) {
+                                    GetMission(m_unk4F54 - 1).UnloadConfigFile();
+                                }
+                                GetMission(7).LoadConfigFile(0);
+                            }
+
+                            m_unk4F54 = 8;
+                            m_unk4F58 = 3;
+                            m_unk4F5C = 0;
+                            m_unk4F60 = 0.0f;
+                            m_unk4F64 = 0.0f;
+                            m_unk4F68 = 0.0f;
+                            m_unk4F6C = 0.0f;
+                            m_unk4F70 = 0.0f;
+                            m_unk4F74 = 0.0f;
+                            m_unk5090 = 1;
+
+                            GetMission(m_unk4F54 - 1).m_rooms[3] |= (1 << 0);
+
+                            m_game_backup->GetFromGameData(1);
+                            iVar12 = 7;
+                        }
+                        break;
+
+                    case 7:
+                        m_game_backup->GetFromGameData(1);
+                        if (m_game_part != NULL) {
+                            delete m_game_part;
+                            m_game_part = NULL;
+                        }
+                        iVar12 = 1;
+                        break;
+
+                    case 8:
+                        m_game_backup->GetFromGameData(1);
+                        if (m_game_part != NULL) {
+                            delete m_game_part;
+                            m_game_part = NULL;
+                        }
+                        iVar12 = 2;
+                        break;
+
+                    case 9:
+                        m_game_backup->GetFromGameData(1);
+                        if (m_game_part != NULL) {
+                            delete m_game_part;
+                            m_game_part = NULL;
+                        }
+                        iVar12 = 3;
+                        break;
+
+                    case 13: {
+                        m_game_backup->GetFromGameData(1);
+                        if (m_game_part != NULL) {
+                            delete m_game_part;
+                            m_game_part = NULL;
+                        }
+                        int video_id = m_opcode_buffer[i++];
+                        PlayVideo(video_id);
+                        break;
+                    }
+
+                    case 11:
+                        m_game_backup->GetFromGameData(1);
+                        if (m_game_part != NULL) {
+                            delete m_game_part;
+                            m_game_part = NULL;
+                        }
+                        iVar12 = 4;
+                        break;
+
+                    case 6:
+                        bVar8 = TRUE;
+                        break;
+
+                    case 14:
+                        bVar9 = TRUE;
+                        break;
+
+                    case 10:
+                        if (m_game_part != NULL) {
+                            delete m_game_part;
+                            m_game_part = NULL;
+                        }
+
+                        for (U32 j = 0; j < 8; j++) {
+                            m_unk210[j].Initialize();
+                            m_unk210[j].m_game = this;
+                            m_unk210[j].m_mission_no = j + 1;
+                            m_unk210[j].LoadConfigFile(1);
+                        }
+
+                        m_game_backup->CreateNewGame();
+                        m_game_backup->GetFromGameData(1);
+                        m_game_backup->Backup();
+
+                        iVar12 = 0;
+                        break;
+                }
+            }
+
+            m_opcode_buffer_size = 0;
+            m_opcode_buffer[0] = -1;
+        }
+
+        if (m_game_part != NULL) {
+            delete m_game_part;
+            m_game_part = NULL;
+        }
+
+        if (m_unk505C != NULL) {
+            m_anim_dictionary->RemoveController(m_unk505C);
+            m_unk505C = NULL;
+        }
+
+        if (m_batch5050 != NULL) {
+            m_display_engine->GetImmediate()->RemoveBatch2D(m_batch5050);
+        }
+        m_batch5050 = NULL;
+
+        RwFreeListPurgeAllFreeLists();
+
+        F32 volume = m_sound_engine->GetGlobalVolume();
+        m_sound_engine->SetGlobalVolume(0.0f);
+        m_sound_engine->BeginUpdate();
+        m_sound_engine->EndUpdate();
+
+        CDKW_RGBA fade_color;
+        switch (iVar12) {
+            case 8:
+                m_game_part = new CGamePartIntroduction;
+                break;
+            case 1: {
+                CDkFileSys::UnSetCallBackOnLoad();
+
+                U32 rf_unkC = m_resource_factory->m_unkC;
+                m_resource_factory->m_unkC = 0;
+                m_game_part = new CGamePartCredits(this, iVar24);
+                m_resource_factory->m_unkC = rf_unkC;
+
+                m_game_backup->Backup();
+                m_game_backup->ApplyToGameData();
+
+                m_timer->Reset();
+                ComputeDeltaTime();
+
+                break;
+            }
+            case 2: {
+                CDkFileSys::UnSetCallBackOnLoad();
+
+                U32 rf_unkC = m_resource_factory->m_unkC;
+                m_resource_factory->m_unkC = 0;
+                m_game_part = new CGamePartMovieClips(this);
+                m_resource_factory->m_unkC = rf_unkC;
+
+                m_game_backup->Backup();
+                m_game_backup->ApplyToGameData();
+
+                m_timer->Reset();
+                ComputeDeltaTime();
+
+                break;
+            }
+            case 3: {
+                CDkFileSys::UnSetCallBackOnLoad();
+
+                U32 rf_unkC = m_resource_factory->m_unkC;
+                m_resource_factory->m_unkC = 0;
+                m_game_part = new CGamePartScrapBook(this);
+                m_resource_factory->m_unkC = rf_unkC;
+
+                m_game_backup->Backup();
+                m_game_backup->ApplyToGameData();
+
+                m_timer->Reset();
+                ComputeDeltaTime();
+
+                break;
+            }
+            case 4: {
+                CDkFileSys::UnSetCallBackOnLoad();
+
+                U32 rf_unkC = m_resource_factory->m_unkC;
+                m_resource_factory->m_unkC = 0;
+                m_game_part = new CGamePartStartScreen(this);
+                m_resource_factory->m_unkC = rf_unkC;
+
+                m_game_backup->Backup();
+                m_game_backup->ApplyToGameData();
+
+                m_timer->Reset();
+                ComputeDeltaTime();
+
+                break;
+            }
+            case 6:
+                m_game_part = new CGamePartFrontend(this);
+                break;
+            case 7: {
+                switch (m_unk4F5C) {
+                    case 1:
+                        m_current_loading_callback = (CBaseLoadingCallback*)m_loading_tigger;
+                        m_screen_effect->SetSequenceByIndex(4);
+                        break;
+                    case 2:
+                        m_current_loading_callback = (CBaseLoadingCallback*)m_loading_winnie;
+                        m_screen_effect->SetSequenceByIndex(3);
+                        break;
+                    case 3:
+                        m_current_loading_callback = (CBaseLoadingCallback*)m_loading_catch_em_all;
+                        break;
+                    default:
+                        m_current_loading_callback = (CBaseLoadingCallback*)m_loading_adventure;
+                        break;
+                }
+
+                m_current_loading_callback->Create();
+                CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+
+                m_game_part = new CGamePartIngame(this);
+
+                m_game_backup->Backup();
+                m_game_backup->ApplyToGameData();
+
+                fade_color = ComputeGameFadeColor();
+                ((CGamePartIngame*)m_game_part)->m_game_room_manager->m_unk154 = (fade_color.m_r << 0) | (fade_color.m_g << 8) | (fade_color.m_b << 16) | (0x80 << 24);
+                m_current_loading_callback->Destroy();
+
+                if (!HasEntityOfType(ENTITY_SEARCHABLE_ZONE)) {
+                    GetMission(m_unk4F54 - 1).m_rooms[m_unk4F58] |= (1 << 2);
+                }
+
+                CDkFileSys::UnSetCallBackOnLoad();
+                m_current_loading_callback = m_ingame_loading_callback;
+                m_current_loading_callback->Create();
+                CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+
+                m_timer->Reset();
+                ComputeDeltaTime();
+
+                if (bVar8 && m_unk4F54 != 8 && GetMission(m_unk4F54 - 1).GetUnk34() == 0) {
+                    GetMission(m_unk4F54 - 1).GetUnk34() = 1;
+
+                    m_sound_engine->SetGlobalVolume(volume);
+                    m_sound_engine->BeginUpdate();
+                    m_sound_engine->EndUpdate();
+
+                    m_game_backup->GetFromGameData(0);
+                    m_game_backup->Backup();
+
+                    if (GetMission(m_unk4F54 - 1).GetStartRTC() == "") {
+                        m_mailbox->SendMessage("Piglet", GetMission(m_unk4F54 - 1).GetStartRTC(), "START", 0);
+                    }
+                } else if (bVar8 && m_unk4F54 == 8 && m_unk4F58 == 1) {
+                    m_mailbox->SendMessage("Piglet", "RTC_801_01", "START", 0);
+                }
+
+                if (bVar9) {
+                    m_unk8 |= m_unk8 | (1 << 7);
+                }
+
+                break;
+            }
+            case 9: {
+                if (m_unk4F54 != 0 && m_unk4F54 != 0) {
+                    GetMission(m_unk4F54 - 1).UnloadConfigFile();
+                }
+                m_unk4F54 = 0;
+
+                U32 rf_unkC = m_resource_factory->m_unkC;
+                m_resource_factory->m_unkC = 0;
+                m_game_part = new CGamePartDMRoomLauncher(this);
+                m_resource_factory->m_unkC = rf_unkC;
+
+                break;
+            }
+            case 10:
+                return FALSE;
+        }
+
+        m_sound_engine->SetGlobalVolume(volume);
+        m_sound_engine->BeginUpdate();
+        m_sound_engine->EndUpdate();
+    }
+
+    return TRUE;
+}
+
 F32 CGame::GetDeltaTime() {
     return m_delta_time;
 }
@@ -404,6 +998,14 @@ void CGame::ComputeDeltaTime() {
 
 CGamePart* CGame::GetGamePartPointer() {
     return m_game_part;
+}
+
+void CGame::SetCurrentRoomReturnType(ERoomReturnType return_type, int a2) {
+    if (a2 == -1) {
+        m_room_return_type = return_type;
+    } else {
+        m_room_return_type = return_type | (a2 << 4);
+    }
 }
 
 void CGame::ResetOpcodeBuffer() {
@@ -587,6 +1189,22 @@ int CGame::FadeUpdate(F32 unk) {
     }
 
     return m_unk5038;
+}
+
+void CGame::RenderFade() {
+    if (m_batch5050 == NULL) {
+        return;
+    }
+
+    m_display_engine->SetRenderState((RwRenderState)12, (void*)1);
+    m_display_engine->SetRenderState((RwRenderState)10, (void*)5);
+    m_display_engine->SetRenderState((RwRenderState)11, (void*)6);
+    m_display_engine->SetRenderState((RwRenderState)1, (void*)0);
+
+    m_display_engine->SetRenderState((RwRenderState)8, (void*)0);
+    m_display_engine->AlphaEnable();
+    m_batch5050->Render(rwPRIMTYPETRIFAN);
+    m_display_engine->SetRenderState((RwRenderState)8, (void*)1);
 }
 
 BOOL CGame::IsGUIDisplayNotAdvised() {

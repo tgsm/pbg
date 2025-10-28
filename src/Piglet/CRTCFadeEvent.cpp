@@ -1,4 +1,5 @@
 #include "CRTCFadeEvent.h"
+#include "CGame.h"
 #include <cstring>
 #include <iostream>
 

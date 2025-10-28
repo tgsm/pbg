@@ -2,9 +2,10 @@
 #define PIGLET_ENTITIES_CENTITYBHVTAGNARRATOR_H
 
 #include <string>
+#include "engine/xmd/CChunkIterator.h"
 #include "entities/CEntityBhvTagData.h"
 #include "entities/CEntity.h"
-#include "engine/xmd/CChunkIterator.h"
+#include "CGame.h"
 
 class CEntityBhvTagNarrator : public CEntityBhvTagData {
 private:

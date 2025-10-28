@@ -76,7 +76,7 @@ public:
     virtual void func61() = 0;
     virtual void func62() = 0;
     virtual void func63() = 0;
-    virtual void func64() = 0;
+    virtual void RemoveController(IController*) = 0;
     virtual void func65() = 0;
     virtual void func66() = 0;
     virtual void func67() = 0;

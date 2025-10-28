@@ -1,5 +1,7 @@
 #include "entities/CEntity.h"
 #include "entities/CEntityBhvTagMessage.h"
+#include "CGame.h"
+#include "CMailBox.h"
 #include <cstring>
 #include <iostream>
 

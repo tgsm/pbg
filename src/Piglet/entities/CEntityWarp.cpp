@@ -1,4 +1,5 @@
 #include "entities/CEntityWarp.h"
+#include "CGame.h"
 #include <cstring>
 #include <iostream>
 

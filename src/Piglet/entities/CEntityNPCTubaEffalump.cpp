@@ -1,5 +1,6 @@
 #include "engine/input/IInputEngine.h"
 #include "entities/CEntityNPCTubaEffalump.h"
+#include "CGame.h"
 #include "CGamePartIngame.h"
 #include <cstring>
 #include <iostream>

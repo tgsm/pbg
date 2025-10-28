@@ -1,5 +1,6 @@
 #include "entities/CEntityNPCGralosaurus.h"
 #include "entities/CEntityHero.h"
+#include "CGame.h"
 #include "CGamePartIngame.h"
 #include <cstring>
 #include <iostream>

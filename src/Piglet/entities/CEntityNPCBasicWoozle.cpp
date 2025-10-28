@@ -1,4 +1,5 @@
 #include "entities/CEntityNPCBasicWoozle.h"
+#include "CGame.h"
 #include "CGamePartIngame.h"
 #include <cstdlib>
 #include <iostream>

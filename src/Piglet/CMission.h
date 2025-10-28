@@ -92,7 +92,7 @@ public:
     BOOL IsSecondPassCompleted();
 
     U32 GetUnkC() { return m_unkC; }
-    int GetUnk34() { return m_unk34; }
+    int& GetUnk34() { return m_unk34; }
 };
 REQUIRE_SIZE(CMission, 0x4D4);
 

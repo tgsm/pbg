@@ -5,11 +5,11 @@
 #include <vector>
 #include "engine/xmd/CChunkIterator.h"
 #include "engine/xmd/CXmdFile.h"
-#include "CGame.h"
 #include "types.h"
 
 class CEntity;
 class CEntityHero;
+class CGame;
 
 namespace DkPh {
 class Collider;

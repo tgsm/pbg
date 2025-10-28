@@ -43,7 +43,7 @@ public:
     virtual void fillerfunc33();
     virtual void fillerfunc34();
     virtual void fillerfunc35();
-    virtual void fillerfunc36();
+    virtual void AlphaEnable();
     virtual void AlphaAtomicBufferization(BOOL enable);
     virtual BOOL IsAlphaAtomicBufferizationEnabled();
     virtual void fillerfunc39();

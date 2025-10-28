@@ -2,6 +2,7 @@
 #define PIGLET_ENTITIES_CENTITYNPCDOOR_H
 
 #include "entities/CEntityNPC.h"
+#include "CGame.h"
 
 class CEntityNPCDoor : public CEntityNPC {
 private:

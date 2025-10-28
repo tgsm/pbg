@@ -1,4 +1,5 @@
 #include "CRTCCamera.h"
+#include "CGame.h"
 #include <cstring>
 #include <iostream>
 

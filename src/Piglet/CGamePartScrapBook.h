@@ -3,8 +3,14 @@
 
 #include "CGamePart.h"
 
+class CGame;
+
 class CGamePartScrapBook : public CGamePart {
 public:
+    U8 m_unkC[0x20];
+
+public:
+    CGamePartScrapBook(CGame* game);
     virtual ~CGamePartScrapBook();
 
     virtual U32 NextFrame();
@@ -15,5 +21,6 @@ public:
     virtual void RenderBackGround(F32 dt_maybe);
     virtual BOOL IsVideoOpen(int);
 };
+REQUIRE_SIZE(CGamePartScrapBook, 0x2C);
 
 #endif

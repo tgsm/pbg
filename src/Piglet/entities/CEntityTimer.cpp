@@ -1,4 +1,5 @@
 #include "entities/CEntityTimer.h"
+#include "CGame.h"
 #include "CGamePartIngame.h"
 #include <cstring>
 #include <iostream>

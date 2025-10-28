@@ -1,4 +1,5 @@
 #include "entities/CEntityNPCJackpotEffalump.h"
+#include "CGame.h"
 #include "CGamePartIngame.h"
 #include <iostream>
 

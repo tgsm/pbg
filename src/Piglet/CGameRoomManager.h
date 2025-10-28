@@ -17,7 +17,9 @@ public:
     U8 m_unk54[0x118 - 0x54];
     F32 m_unk118;
     F32 m_unk11C;
-    U8 m_unk120[0x178 - 0x120];
+    U8 m_unk120[0x154 - 0x120];
+    U32 m_unk154; // color?
+    U8 m_unk158[0x178 - 0x158];
 
 public:
     BOOL IsPlayingRTC();

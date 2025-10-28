@@ -7,6 +7,7 @@
 #include "entities/CEntity.h"
 #include "entities/CEntityBhvTagData.h"
 #include "CCACamera.h"
+#include "CGame.h"
 #include "CGamePartIngame.h"
 
 class CEntityBhvTagCameraSystem : public CEntityBhvTagData {

@@ -11,6 +11,7 @@ public:
     virtual void Release();
     virtual CAnimation* FindAnimation(std::string name);
     virtual CController* CreateController(std::string, IClump*, int);
+    virtual void RemoveController(IController*);
 };
 
 }

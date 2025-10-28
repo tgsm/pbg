@@ -29,7 +29,7 @@ struct SAttachedFX {
 
 struct SAttachedSND {
     int id;
-    u8 unk4[8];
+    U8 unk4[8];
 };
 
 class CEntityMesh : public CEntityObject {

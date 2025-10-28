@@ -6,6 +6,10 @@
 #include "entities/CEntityManager.h"
 #include "CRTCSequencer.h"
 
+namespace DKDSP {
+class CAnimation;
+}
+
 class CRTCCamera : public CRTCSeqKey {
 private:
     F32 m_fov;

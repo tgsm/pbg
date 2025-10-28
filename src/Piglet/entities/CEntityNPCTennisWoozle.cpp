@@ -1,4 +1,5 @@
 #include "entities/CEntityNPCTennisWoozle.h"
+#include "CGame.h"
 #include "CGamePartIngame.h"
 #include "engine/input/IInputEngine.h"
 #include "entities/CEntityHero.h"

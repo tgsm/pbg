@@ -1,4 +1,5 @@
 #include "entities/CEntityPiglet.h"
+#include "CGame.h"
 #include "CGamePartIngame.h"
 #include <iostream>
 

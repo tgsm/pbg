@@ -3,6 +3,7 @@
 
 #include <engine/display/CParticleEmitter.h>
 #include "entities/CEntityObject.h"
+#include "CGame.h"
 
 class CEntityFX : public CEntityObject {
 public:

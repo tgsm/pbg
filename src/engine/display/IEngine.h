@@ -62,7 +62,7 @@ public:
     virtual void fillerfunc33() = 0;
     virtual void fillerfunc34() = 0;
     virtual void fillerfunc35() = 0;
-    virtual void fillerfunc36() = 0;
+    virtual void AlphaEnable() = 0;
     virtual void AlphaAtomicBufferization(BOOL enable) = 0;
     virtual BOOL IsAlphaAtomicBufferizationEnabled() = 0;
     virtual void fillerfunc39() = 0;

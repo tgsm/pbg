@@ -5,6 +5,7 @@
 #include "entities/CEntity.h"
 #include "entities/CEntityHero.h"
 #include "entities/CEntityBhvTagData.h"
+#include "CGame.h"
 
 class CEntityBhvTagTeleport : public CEntityBhvTagData {
 private:

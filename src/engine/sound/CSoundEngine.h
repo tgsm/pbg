@@ -18,7 +18,7 @@ public:
     virtual void BeginUpdate();
     virtual void EndUpdate();
     virtual void SetGlobalVolume(F32 volume);
-    virtual void func6();
+    virtual F32 GetGlobalVolume();
     virtual void func7();
     virtual void func8();
     virtual void func9();
@@ -65,13 +65,15 @@ public:
     virtual void func50();
     virtual void func51();
     virtual void func52();
-    virtual void func53();
+    virtual ISound* GetStreamedSound();
     virtual void StopStreamedSound();
     virtual void func55();
     virtual void func56();
     virtual void DeleteAllSounds();
     virtual void SetStereoMode(int mode);
-    // TODO
+    virtual int RWAGetNbFreeVoice();
+    virtual F32 RWAGetCurrentStreamPosition();
+    virtual void RWASetCurrentStreamPosition(F32);
 
     void AddLayer(int);
 };

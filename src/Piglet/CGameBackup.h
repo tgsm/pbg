@@ -46,6 +46,7 @@ public:
 
     void CreateNewGame();
     void Backup();
+    void GetFromGameData(U32);
     void ApplyToGameData();
     CSlotContainer* GetCurrentContainer();
 };

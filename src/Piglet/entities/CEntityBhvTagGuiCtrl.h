@@ -5,6 +5,7 @@
 #include "engine/xmd/CChunkIterator.h"
 #include "entities/CEntity.h"
 #include "entities/CEntityBhvTagData.h"
+#include "CGame.h"
 
 class CEntityBhvTagGuiCtrl : public CEntityBhvTagData {
 public:

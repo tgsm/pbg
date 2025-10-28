@@ -1,4 +1,5 @@
 #include "entities/CEntityNPCBeeEffalump.h"
+#include "CGame.h"
 #include "CGamePartIngame.h"
 #include <iostream>
 

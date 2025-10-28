@@ -2,6 +2,7 @@
 #include "entities/CEntityBhvTagReceiveShadow.h"
 #include "entities/CEntityMesh.h"
 #include "entities/CEntityWorld.h"
+#include "CGame.h"
 #include <cstring>
 #include <iostream>
 

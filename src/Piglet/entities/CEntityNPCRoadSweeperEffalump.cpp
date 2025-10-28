@@ -1,6 +1,7 @@
 #include "engine/display/CParticleEmitterDefinition.h"
 #include "entities/CEntityNPCRoadSweeperEffalump.h"
 #include "entities/CEntitySeqKey.h"
+#include "CGame.h"
 #include "CGamePartIngame.h"
 #include <cstring>
 #include <iostream>

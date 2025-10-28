@@ -6,6 +6,7 @@
 #include "engine/sound/CSampleDictionary.h"
 #include "engine/sound/CSoundEmitter.h"
 #include "entities/CEntityObject.h"
+#include "CGame.h"
 
 struct SAttachedSound {
     int id;

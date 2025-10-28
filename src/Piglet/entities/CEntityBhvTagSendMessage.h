@@ -4,6 +4,7 @@
 #include "entities/CEntityBhvTagData.h"
 #include "entities/CEntity.h"
 #include "CMailBox.h"
+#include "CGame.h"
 #include "engine/xmd/CChunkIterator.h"
 
 class CEntityBhvTagSendMessage : public CEntityBhvTagData {
@@ -23,7 +24,7 @@ public:
     virtual U32 GetType() {
         return BEHAVIOR_TAG_SEND_MESSAGE;
     }
-    
+
     void Parse(DkXmd::CChunkIterator iter);
 };
 REQUIRE_SIZE(CEntityBhvTagSendMessage, 0x18);

@@ -4,6 +4,7 @@
 #include "engine/display/CParticleEmitter.h"
 #include "engine/wrap/DKW_V3d.h"
 #include "entities/CEntityObject.h"
+#include "CGame.h"
 
 class CEntityZone : public CEntityObject {
 public:

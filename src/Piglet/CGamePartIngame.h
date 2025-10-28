@@ -5,6 +5,8 @@
 #include "CCACamera.h"
 #include "CGameRoomManager.h"
 
+class CGame;
+
 // TODO: Set up this class
 class CGamePartIngame : public CGamePart {
 public:
@@ -14,6 +16,11 @@ public:
     U8 m_unk18[0x20];
 
 public:
+    CGamePartIngame(CGame* game);
+    virtual ~CGamePartIngame();
+
+    virtual U32 NextFrame();
+
     BOOL StartFightMode(CEntityMesh*, int);
     BOOL InterruptFightMode();
     BOOL UnblockFightMode();
