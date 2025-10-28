@@ -48,6 +48,8 @@ public:
     CEntity* GetEntityLight01();
     CEntity* GetEntity(U32 n);
     U32 GetEntityCount();
+    CEntity* GetEntityType(U32 type, U32 index);
+    U32 GetEntityTypeCount(U32 type);
 
     CEntityHero* GetHero();
 };

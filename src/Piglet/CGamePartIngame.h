@@ -4,13 +4,14 @@
 #include "CGamePart.h"
 #include "CCACamera.h"
 #include "CGameRoomManager.h"
+#include "entities/CRTCPlayerEntity.h"
 
 class CGame;
 
 // TODO: Set up this class
 class CGamePartIngame : public CGamePart {
 public:
-    U8 m_unkC[4];
+    CGame* m_game;
     CCACamera* m_camera;
     CGameRoomManager* m_game_room_manager;
     U8 m_unk18[0x20];
@@ -24,6 +25,10 @@ public:
     BOOL StartFightMode(CEntityMesh*, int);
     BOOL InterruptFightMode();
     BOOL UnblockFightMode();
+    BOOL HeroAskForFightModeLaunch();
+    void StartRTCMode(CRTCPlayerEntity* player, int);
+    BOOL IsAllCookiesCollected();
+    void SetupSoundsLayer(U32, U32);
 
     CGameRoomManager* GetGameRoomManager() { return m_game_room_manager; }
 };

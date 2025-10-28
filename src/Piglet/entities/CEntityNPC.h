@@ -37,7 +37,7 @@ public:
     CEntityNPC(CEntityManager* entity_manager, std::string name);
     virtual ~CEntityNPC();
 
-    virtual U32 GetType();
+    virtual U32 GetType() { return ENTITY_NPC23; }
     virtual void Init();
     virtual void Reset();
     virtual void Update(F32 dt_maybe);
@@ -61,9 +61,12 @@ public:
     virtual void UnIdle(int);
 
     void SetGenericBehaviour(ENPCGenericBehaviour behaviour);
+    ENPCGenericBehaviour GetGenericBehaviour();
     BOOL FollowSplinePath(F32, F32, int);
+    void SaveBaseBehaviour();
     void ComputeRotationAngle(CDKW_V3d&, CDKW_V3d&);
     BOOL RotateAccordingToGarbageVar(F32);
+    void CreatePathFinder(CDKW_V3d, int, int);
 
     CDKW_V3d& GetPosDelta() {
         const CDKW_V3d& npc_position = GetPosition();

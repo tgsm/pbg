@@ -23,8 +23,8 @@ public:
     virtual void func9() = 0;
     virtual void func10() = 0;
     virtual void func11() = 0;
-    virtual void func12() = 0;
-    virtual void func13() = 0;
+    virtual void PauseLayer(int layer) = 0;
+    virtual void ResumeLayer(int layer) = 0;
     virtual void RemoveSound(ISound* sound) = 0;
     virtual CSampleDictionary* GetSampleDictionary() = 0;
     virtual void func16() = 0;
