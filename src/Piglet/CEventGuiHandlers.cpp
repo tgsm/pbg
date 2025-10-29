@@ -435,6 +435,55 @@ CGuiLoadFileDeletingEventHandler::CGuiLoadFileDeletingEventHandler() : CGuiBaseE
 
 }
 
+void CGuiLoadFileDeletingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT event, void* unk) {
+    CGuiBaseEventHandler::OnEvent(menu, event, unk);
+
+    if (event == DKGUI::EVENT_0) {
+        m_game->m_timer->Pause();
+        U32 state = m_game->m_backup_engine->GetState();
+        m_game->m_timer->Resume();
+
+        if (state != 17) {
+            m_game->m_gui_manager->GetGuiPtr("LOAD_FILE_DELETING")->menu->Reset();
+            m_game->m_gui_manager->SetActive("LOAD_FILE_DELETING", 0);
+            m_game->m_gui_manager->SetVisible("LOAD_FILE_DELETING", 0);
+
+            m_game->m_gui_manager->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
+            m_game->m_gui_manager->SetActive("LOAD_CHECK_MMC", 1);
+            m_game->m_gui_manager->SetVisible("LOAD_CHECK_MMC", 1);
+        }
+    } else if (event == DKGUI::EVENT_3) {
+        std::string str = (char*)unk;
+        if (str == "exit") {
+            m_game->m_gui_manager->GetGuiPtr("LOAD_FILE_DELETING")->menu->Reset();
+            m_game->m_gui_manager->SetActive("LOAD_FILE_DELETING", 0);
+            m_game->m_gui_manager->SetVisible("LOAD_FILE_DELETING", 0);
+
+            CGuiLoadingMemoryCardEventHandler* handler = (CGuiLoadingMemoryCardEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiLoadingMemoryCardEventHandler");
+            if (handler && handler->GetFilename() != "") {
+                if (m_game->m_backup_engine->Delete("GPLE9G", handler->GetFilename())) {
+                    m_game->m_timer->Pause();
+                    if (m_game->m_backup_engine->GetState() == 8) {
+                        m_game->m_timer->Resume();
+                        m_game->m_gui_manager->GetGuiPtr("LOAD_MMC_UNUSEABLE")->menu->Reset();
+                        m_game->m_gui_manager->SetActive("LOAD_MMC_UNUSEABLE", 1);
+                        m_game->m_gui_manager->SetVisible("LOAD_MMC_UNUSEABLE", 1);
+                    } else {
+                        m_game->m_timer->Resume();
+                        m_game->m_gui_manager->GetGuiPtr("LOAD_FILE_DELETEFAIL")->menu->Reset();
+                        m_game->m_gui_manager->SetActive("LOAD_FILE_DELETEFAIL", 1);
+                        m_game->m_gui_manager->SetVisible("LOAD_FILE_DELETEFAIL", 1);
+                    }
+                } else {
+                    m_game->m_gui_manager->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
+                    m_game->m_gui_manager->SetActive("LOAD_CHECK_MMC", 1);
+                    m_game->m_gui_manager->SetVisible("LOAD_CHECK_MMC", 1);
+                }
+            }
+        }
+    }
+}
+
 CGuiLoadFileDeletingSuccessEventHandler::CGuiLoadFileDeletingSuccessEventHandler() : CGuiBaseEventHandler("GuiLoadFileDeletingSuccessEventHandler") {
 
 }
@@ -460,6 +509,25 @@ void CGuiLoadFileDeletingSuccessEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKG
 
 CGuiLoadFileDeletingFailedEventHandler::CGuiLoadFileDeletingFailedEventHandler() : CGuiBaseEventHandler("GuiLoadFileDeletingFailedEventHandler") {
 
+}
+
+void CGuiLoadFileDeletingFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT event, void* unk) {
+    CGuiBaseEventHandler::OnEvent(menu, event, unk);
+
+    if (event != DKGUI::EVENT_3) {
+        return;
+    }
+
+    std::string str = (char*)unk;
+    if (str == "exit") {
+        m_game->m_gui_manager->GetGuiPtr("LOAD_FILE_DELETEFAIL")->menu->Reset();
+        m_game->m_gui_manager->SetActive("LOAD_FILE_DELETEFAIL", 0);
+        m_game->m_gui_manager->SetVisible("LOAD_FILE_DELETEFAIL", 0);
+
+        m_game->m_gui_manager->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
+        m_game->m_gui_manager->SetActive("LOAD_CHECK_MMC", 1);
+        m_game->m_gui_manager->SetVisible("LOAD_CHECK_MMC", 1);
+    }
 }
 
 CGuiLoadWrongDeviceEventHandler::CGuiLoadWrongDeviceEventHandler() : CGuiBaseEventHandler("GuiLoadWrongDeviceEventHandler") {
@@ -609,7 +677,9 @@ void CGuiLoadCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
             m_game->m_gui_manager->SetVisible("LOAD_MMC_CORRUPT", 0);
 
             // nice
-            m_game->m_unk8 |= m_game->m_unk8 | (1 << 9);
+            U32 flags = m_game->m_unk8;
+            flags |= m_game->m_unk8 | (1 << 9);
+            m_game->m_unk8 = flags;
 
             m_game->m_gui_manager->GetGuiPtr("SAVE_FORMAT_SURE")->menu->Reset();
             m_game->m_gui_manager->SetActive("SAVE_FORMAT_SURE", 1);
@@ -1035,18 +1105,19 @@ void CGuiSaveFormattingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
     }
 
     std::string str = (char*)unk;
-    if (str == "yes") {
-        m_game->m_gui_manager->GetGuiPtr("SAVE_FORMAT_FAILED")->menu->Reset();
-        m_game->m_gui_manager->SetActive("SAVE_FORMAT_FAILED", 0);
-        m_game->m_gui_manager->SetVisible("SAVE_FORMAT_FAILED", 0);
+    if (str == "exit") {
+        m_game->m_gui_manager->GetGuiPtr("SAVE_FORMAT")->menu->Reset();
+        m_game->m_gui_manager->SetActive("SAVE_FORMAT", 0);
+        m_game->m_gui_manager->SetVisible("SAVE_FORMAT", 0);
 
         m_game->m_timer->Pause();
         U32 backup_status = m_game->m_backup_engine->GetState();
         m_game->m_timer->Resume();
 
         if (backup_status == 17) {
-            if (m_game->m_unk8 & (1 << 9)) {
-                m_game->m_unk8 &= ~(1 << 9);
+            U32 flags = m_game->m_unk8;
+            if (flags & (1 << 9)) {
+                m_game->m_unk8 = flags & ~(1 << 9);
                 m_game->m_gui_manager->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                 m_game->m_gui_manager->SetActive("LOAD_CHECK_MMC", 1);
                 m_game->m_gui_manager->SetVisible("LOAD_CHECK_MMC", 1);
@@ -1058,8 +1129,9 @@ void CGuiSaveFormattingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
                 return;
             }
         } else if (backup_status == 0) {
-            if (m_game->m_unk8 & (1 << 9)) {
-                m_game->m_unk8 &= ~(1 << 9);
+            U32 flags = m_game->m_unk8;
+            if (flags & (1 << 9)) {
+                m_game->m_unk8 = flags & ~(1 << 9);
                 m_game->m_gui_manager->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                 m_game->m_gui_manager->SetActive("LOAD_CHECK_MMC", 1);
                 m_game->m_gui_manager->SetVisible("LOAD_CHECK_MMC", 1);
@@ -1073,13 +1145,13 @@ void CGuiSaveFormattingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
         }
 
         if (m_game->m_backup_engine->Format() != 0) {
-            m_game->m_gui_manager->GetGuiPtr("SAVE_FORMAT_OK")->menu->Reset();
-            m_game->m_gui_manager->SetActive("SAVE_FORMAT_OK", 1);
-            m_game->m_gui_manager->SetVisible("SAVE_FORMAT_OK", 1);
-        } else {
             m_game->m_gui_manager->GetGuiPtr("SAVE_FORMAT_FAILED")->menu->Reset();
             m_game->m_gui_manager->SetActive("SAVE_FORMAT_FAILED", 1);
             m_game->m_gui_manager->SetVisible("SAVE_FORMAT_FAILED", 1);
+        } else {
+            m_game->m_gui_manager->GetGuiPtr("SAVE_FORMAT_OK")->menu->Reset();
+            m_game->m_gui_manager->SetActive("SAVE_FORMAT_OK", 1);
+            m_game->m_gui_manager->SetVisible("SAVE_FORMAT_OK", 1);
         }
     }
 }
@@ -1103,8 +1175,9 @@ void CGuiFormatOkEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT
             m_game->m_gui_manager->SetActive("SAVE_FORMAT_OK", 0);
             m_game->m_gui_manager->SetVisible("SAVE_FORMAT_OK", 0);
 
-            if (m_game->m_unk8 & (1 << 9)) {
-                m_game->m_unk8 &= ~(1 << 9);
+            U32 flags = m_game->m_unk8;
+            if (flags & (1 << 9)) {
+                m_game->m_unk8 = flags & ~(1 << 9);
             } else {
                 m_game->m_gui_manager->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
                 m_game->m_gui_manager->SetActive("SAVE_CHECK_MMC", 1);
@@ -1142,8 +1215,9 @@ void CGuiFormatFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
                 m_game->m_gui_manager->SetActive("SAVE_FORMAT_FAILED", 0);
                 m_game->m_gui_manager->SetVisible("SAVE_FORMAT_FAILED", 0);
 
-                if (m_game->m_unk8 & (1 << 9)) {
-                    m_game->m_unk8 &= ~(1 << 9);
+                U32 flags = m_game->m_unk8;
+                if (flags & (1 << 9)) {
+                    m_game->m_unk8 = flags & ~(1 << 9);
                     m_game->m_gui_manager->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                     m_game->m_gui_manager->SetActive("LOAD_CHECK_MMC", 1);
                     m_game->m_gui_manager->SetVisible("LOAD_CHECK_MMC", 1);
@@ -1165,8 +1239,9 @@ void CGuiFormatFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
             m_game->m_gui_manager->SetActive("SAVE_FORMAT_FAILED", 0);
             m_game->m_gui_manager->SetVisible("SAVE_FORMAT_FAILED", 0);
 
-            if (m_game->m_unk8 & (1 << 9)) {
-                m_game->m_unk8 &= ~(1 << 9);
+            U32 flags = m_game->m_unk8;
+            if (flags & (1 << 9)) {
+                m_game->m_unk8 = flags & ~(1 << 9);
                 m_game->m_gui_manager->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                 m_game->m_gui_manager->SetActive("LOAD_CHECK_MMC", 1);
                 m_game->m_gui_manager->SetVisible("LOAD_CHECK_MMC", 1);
@@ -1300,9 +1375,9 @@ void CGuiOverwriteSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_
 
             if (backup_state == 17) {
                 CGuiEnterNameEventHandler* handler = (CGuiEnterNameEventHandler*)m_game->m_gui_manager->IsEventCallbackRegistered("GuiEnterNameEventHandler");
-                m_game->m_backup_engine->FindFirst("GPLE9G", handler->GetText());
+                std::string temp = m_game->m_backup_engine->FindFirst("GPLE9G", handler->GetText());
 
-                if (m_game->m_backup_engine->IsSpaceAvailable("GPLE9G", handler->GetText(), 0x18000) != 0) {
+                if (temp != handler->GetText() && m_game->m_backup_engine->IsSpaceAvailable("GPLE9G", handler->GetText(), 0x18000) == FALSE) {
                     m_game->m_gui_manager->GetGuiPtr("SAVE_NO_SPACE")->menu->Reset();
                     m_game->m_gui_manager->SetActive("SAVE_NO_SPACE", 1);
                     m_game->m_gui_manager->SetVisible("SAVE_NO_SPACE", 1);
@@ -1310,9 +1385,8 @@ void CGuiOverwriteSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_
                     m_game->m_gui_manager->GetGuiPtr("SAVE_SAVE_DATA")->menu->Reset();
                     m_game->m_gui_manager->SetActive("SAVE_SAVE_DATA", 1);
                     m_game->m_gui_manager->SetVisible("SAVE_SAVE_DATA", 1);
-                    return;
                 }
-                
+
             } else if (backup_state & (1 << 2)) {
                 m_game->m_gui_manager->GetGuiPtr("SAVE_MMC_CORRUPT")->menu->Reset();
                 m_game->m_gui_manager->SetActive("SAVE_MMC_CORRUPT", 1);

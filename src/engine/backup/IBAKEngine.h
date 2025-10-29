@@ -22,7 +22,7 @@ public:
     virtual void SetEventCB(IEventBackupCB*) = 0;
     virtual U32 GetState() = 0;
     virtual U32 Format() = 0;
-    virtual void FindFirst(std::string, std::string) = 0;
+    virtual std::string FindFirst(std::string, std::string) = 0;
     virtual void FindNext() = 0;
     virtual void GetDate(std::string, std::string, DKBAK_DATE&) = 0;
     virtual void GetSize(std::string, std::string, int&) = 0;
