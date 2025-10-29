@@ -1,30 +1,65 @@
 #ifndef PIGLET_ENTITIES_CENTITYHERO_H
 #define PIGLET_ENTITIES_CENTITYHERO_H
 
+#include "engine/input/CInput.h"
+#include "engine/physics/DkPh_Dynamics.h"
 #include "entities/CEntityMesh.h"
+#include "CGame.h"
 
 // TODO
 class CEntityHero : public CEntityMesh {
 protected:
-    U8 m_unkF4[0x124 - 0xF4];
+    U32 m_mode;
+    F32 m_delta_time;
+    DKI::CInput* m_axe_h_input;
+    DKI::CInput* m_axe_v_input;
+    DKI::CInput* m_action_input;
+    DKI::CInput* m_object_a_input;
+    DKI::CInput* m_object_b_input;
+    DKI::CInput* m_object_c_input;
+    DKI::CInput* m_pad_r1_input;
+    DKI::CInput* m_pad_r2_input;
+    DKI::CInput* m_pad_l1_input;
+    DKI::CInput* m_pad_l2_input;
     U32 m_unk124;
     U32 m_state;
-    U8 m_unk12C[0x138 - 0x12C];
+    F32 m_unk12C;
+    F32 m_pad_timer;
+    U32 m_unk134;
     F32 m_unk138;
     int m_unk13C;
-    U8 m_unk140[0x1BC - 0x140];
+    DkPh::Dynamics m_dynamics;
+    U8 m_unk1B8[0x1BC - 0x1B8];
     CDKW_V3d m_unk1BC;
     F32 m_unk1C8;
     CDKW_V3d m_unk1CC;
-    U8 m_unk1D8[4];
-    F32 m_unk1DC;
-    U8 m_unk1E0[0x1F0 - 0x1E0];
-    F32 m_unk1F0;
-    U8 m_unk1F4[0x210 - 0x1F4];
-    F32 m_unk210;
-    U8 m_unk214[4];
-    F32 m_unk218;
-    U8 m_unk21C[0x244 - 0x21C];
+    F32 m_acceleration;
+    F32 m_friction;
+    F32 m_friction_turn_back;
+    F32 m_stop_speed;
+    F32 m_speed_rotate;
+    F32 m_speed_rotate_turn_back;
+    F32 m_gravity;
+    F32 m_pad_threshold_run;
+    F32 m_pad_threshold_walk;
+    F32 m_pad_threshold_slow;
+    F32 m_rotate_angle;
+    F32 m_turn_back_angle;
+    F32 m_turn_back_speed;
+    F32 m_unk20C;
+    F32 m_speed_slow;
+    F32 m_speed_walk;
+    F32 m_speed_run;
+    F32 m_speed_slow_worried;
+    F32 m_speed_walk_worried;
+    F32 m_speed_run_panic;
+    F32 m_anim_threshold_slow;
+    F32 m_anim_threshold_walk;
+    F32 m_anim_threshold_run;
+    F32 m_anim_threshold_slow_worried;
+    F32 m_anim_threshold_walk_worried;
+    F32 m_anim_threshold_run_panic;
+    F32 m_anim_threshold_idle;
     F32 m_unk244;
     F32 m_unk248;
     F32 m_unk24C;
@@ -62,7 +97,7 @@ public:
     virtual void SetMode(U32 mode) = 0;
     virtual void DicreaseLife(int) = 0;
     virtual CDKW_V3d GetPadDirection();
-    virtual U8 GetActions();
+    virtual U32 GetActions();
     virtual void UpdateActions();
     virtual void UpdateAnimations_Wait(F32, int);
     virtual void UpdateAnimations_Idle(F32);
@@ -72,6 +107,22 @@ public:
     virtual void ConvertPadToDirection(CDKW_V3d, CDKW_V3d*, F32*);
     virtual void ResetPadTimer(F32);
     virtual void SetToGround();
+
+    F32 FadeRelatedInline() {
+        CGame* game = m_entity_manager->GetGame();
+
+        F32 fVar1;
+        if (game->m_unk5038 != 0) {
+            fVar1 = 0.0f;
+        } else {
+            fVar1 = 0.0f;
+            if (game->m_fade_duration != 0.0f) {
+                fVar1 = game->m_unk502C / game->m_fade_duration;
+            }
+        }
+
+        return fVar1;
+    }
 };
 REQUIRE_SIZE(CEntityHero, 0x260);
 

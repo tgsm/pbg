@@ -7,6 +7,7 @@ namespace DKDSP {
 
 class CController : public IController {
 public:
+    virtual void Resume();
     virtual void Update(F32 dt);
     virtual int PlayAnimation(IGenericAnimation* animation, int, F32, F32, F32, F32);
     virtual void StopAllAnimations(EANIMATIONTYPE, int);

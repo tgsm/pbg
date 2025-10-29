@@ -69,8 +69,8 @@ void CEntityWinnie::SetMode(U32 mode) {
             RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&position, 2);
 
             m_unk1BC = -m_unk1BC;
-            m_unk1C8 = m_unk218;
-            m_unk1F0 = 0.0f;
+            m_unk1C8 = m_speed_run;
+            m_gravity = 0.0f;
             break;
         }
     }

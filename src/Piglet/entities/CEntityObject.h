@@ -10,25 +10,25 @@
 // FIXME: Move this to the engine
 namespace DkPh {
 
-struct RBody {
-    RBody() : unk0(0), unk4(0), unk8(0.0f, 0.0f, 0.0f), unk14(0.0f, 0.0f, 0.0f) {
-
-    }
-
-    ~RBody();
-
-    U32 unk0;
-    U32 unk4;
-    CDKW_V3d unk8;
-    CDKW_V3d unk14;
-};
-
 class BVolume {
 
 };
 
 class BVolumeOBB {
 
+};
+
+struct RBody {
+    RBody() : unk0(NULL), unk4(0), unk8(0.0f, 0.0f, 0.0f), unk14(0.0f, 0.0f, 0.0f) {
+
+    }
+
+    ~RBody();
+
+    BVolume* unk0;
+    U32 unk4;
+    CDKW_V3d unk8;
+    CDKW_V3d unk14;
 };
 
 class Collider {

@@ -12,6 +12,7 @@ typedef struct RwV3d {
 } RwV3d;
 
 void RwV3dNormalize(RwV3d*, RwV3d*); // FIXME: What return type?
+float RwV3dLength(RwV3d* vec);
 
 #ifdef __cplusplus
 }

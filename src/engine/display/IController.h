@@ -28,7 +28,7 @@ public:
     virtual void func3() = 0;
     virtual void func4() = 0;
     virtual void func5() = 0;
-    virtual void func6() = 0;
+    virtual void Resume() = 0;
     virtual void func7() = 0;
     virtual void func8() = 0;
     virtual void func9() = 0;

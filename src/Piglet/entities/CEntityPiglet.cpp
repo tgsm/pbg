@@ -169,7 +169,7 @@ void CEntityPiglet::SetMode(U32 mode) {
             if (m_unk138 < 0.2f) {
                 return;
             }
-            if (GetSpeed() <= m_unk210) {
+            if (GetSpeed() <= m_speed_slow) {
                 m_animation_star_controller->Play("SEARCH", 1);
                 mode = 19;
             } else {
@@ -193,8 +193,8 @@ void CEntityPiglet::SetMode(U32 mode) {
             RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&position, 2);
 
             m_unk1BC = -m_unk1BC;
-            m_unk1C8 = m_unk218;
-            m_unk1F0 = 0.0f;
+            m_unk1C8 = m_speed_run;
+            m_gravity = 0.0f;
             break;
         }
     }
@@ -210,7 +210,7 @@ void CEntityPiglet::Render(F32 dt_maybe) {
 
 void CEntityPiglet::Parse(DkXmd::CChunkIterator iter) {
     CEntityHero::Parse(iter);
-    m_unk278 = m_unk1DC;
+    m_unk278 = m_friction;
 
     std::string tmp;
     DkXmd::CChunkIterator dest;
