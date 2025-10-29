@@ -468,7 +468,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CEventAnimationHandlers.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityPathFinder.cpp"),
             Object(NonMatching, "Piglet/CGuiManager.cpp"),
-            Object(NonMatching, "Piglet/CEventGuiHandlers.cpp"),
+            Object(NonMatching, "Piglet/CEventGuiHandlers.cpp", extra_cflags=["-bool off"]),
             Object(NonMatching, "Piglet/entities/CEntityBhvTagGuiCtrl.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagSettings.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityNPCDoor.cpp"),

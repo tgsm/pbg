@@ -4,6 +4,13 @@
 #include <cstring>
 #include <memory>
 
+// HACK for "-bool off"
+#if !__option(bool)
+#define bool int
+#define true 1
+#define false 0
+#endif
+
 namespace std {
 
 template <typename CharT>
