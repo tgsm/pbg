@@ -138,7 +138,7 @@ public:
 };
 
 class CGuiEnterNameEventHandler : public CGuiBaseEventHandler {
-private:
+public:
     U32 m_unk10;
     std::string m_unk14;
 
@@ -347,7 +347,7 @@ public:
 class CGuiDreamSelectEventHandler : public CGuiBaseEventHandler {
 private:
     U32 m_unk10;
-    U8 m_unk14[4];
+    U32 m_unk14;
     U32 m_unk18;
 
 public:
