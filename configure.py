@@ -289,6 +289,13 @@ cflags_rw = [
     "-fp_contract off",
 ]
 
+cflags_rwa = [
+    *cflags_base,
+
+    "-opt noschedule",
+    "-opt nopeephole",
+]
+
 # Debug flags
 if args.debug:
     # Or -sym dwarf-2 for Wii compilers
@@ -351,6 +358,17 @@ def RenderWareLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
         "lib": lib_name,
         "mw_version": "GC/1.3.2",
         "cflags": cflags_rw,
+        "progress_category": "sdk",
+        "objects": objects,
+    }
+
+
+# Helper function for RenderWare Audio
+def RwaLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
+    return {
+        "lib": lib_name,
+        "mw_version": "GC/1.3.2",
+        "cflags": cflags_rwa,
         "progress_category": "sdk",
         "objects": objects,
     }
@@ -1340,7 +1358,7 @@ config.libs = [
         ]
     ),
     # FIXME: Figure out the proper name and directory structure for this library (or libraries)
-    RenderWareLib(
+    RwaLib(
         "rwa",
         [
             Object(NonMatching, "rwa/rwaobjdefalias.c"),
@@ -1350,7 +1368,7 @@ config.libs = [
             Object(NonMatching, "rwa/rwaobjinterface.c"),
             Object(NonMatching, "rwa/rwaparam.c"),
             Object(NonMatching, "rwa/rwasymboltable.c"),
-            Object(NonMatching, "rwa/rwamemory.c"),
+            Object(Matching, "rwa/rwamemory.c"),
             Object(NonMatching, "rwa/rwafile.c"),
             Object(NonMatching, "rwa/rwabase.c"),
             Object(NonMatching, "rwa/rwawavedict.c"),

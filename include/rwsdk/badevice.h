@@ -4,7 +4,7 @@
 #include <stdarg.h>
 
 typedef struct RwStringFunctions {
-    int (*rwsprintf)(char* str, const char* format, ...);
+    int (*rwsprintf)(char* str, const char* format, ...); // 0xF0
     int (*rwvsprintf)(char* str, const char* format, va_list ap);
     char* (*rwstrcpy)(char* dst, const char* src);
     char* (*rwstrncpy)(char* dst, const char* src, unsigned long len);
@@ -22,13 +22,18 @@ typedef struct RwStringFunctions {
     int (*rwsscanf)(const char* str, const char* format, ...);
 } RwStringFunctions; // size: 0x40
 
+typedef struct RwMemoryFunctions {
+    void* (*rwmalloc)(unsigned long size); // 0x130
+    void (*rwfree)(void* ptr);
+    void* (*rwrealloc)(void* ptr, unsigned long size);
+    void* (*rwcalloc)(unsigned long n, unsigned long size);
+} RwMemoryFunctions; // size: 0x10
+
 typedef struct RwGlobals {
     char unk0[0xF0];
     RwStringFunctions stringFuncs;
-    char unk130[4];
-    void (*unk134)(void* ptr);
-    void* (*unk138)(void* ptr, unsigned int);
-    char unk13C[0x154 - 0x13C];
+    RwMemoryFunctions memoryFuncs;
+    char unk140[0x154 - 0x140];
 } RwGlobals; // size: 0x154
 
 extern RwGlobals* RwEngineInstance;

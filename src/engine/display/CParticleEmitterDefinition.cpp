@@ -24,7 +24,7 @@ void CParticleEmitterDefinition::Release() {
     m_xmd = NULL;
 
     if (m_unkC != NULL) {
-        RwEngineInstance->unk134(m_unkC);
+        RwEngineInstance->memoryFuncs.rwfree(m_unkC);
     }
     m_unkC = NULL;
 
@@ -53,7 +53,7 @@ BOOL CParticleEmitterDefinition::Load(IRWStream* stream) {
     U32 unk;
     U32 iVar3 = 0;
     do {
-        m_unkC = RwEngineInstance->unk138(m_unkC, iVar3 + 0x200);
+        m_unkC = RwEngineInstance->memoryFuncs.rwrealloc(m_unkC, iVar3 + 0x200);
         if (m_unkC == NULL) {
             return FALSE;
         }
@@ -64,7 +64,7 @@ BOOL CParticleEmitterDefinition::Load(IRWStream* stream) {
 
     m_xmd = new DkXmd::CXmdFile;
     if (m_xmd == NULL) {
-        RwEngineInstance->unk134(m_unkC);
+        RwEngineInstance->memoryFuncs.rwfree(m_unkC);
         m_unkC = NULL;
         return FALSE;
     }
@@ -74,7 +74,7 @@ BOOL CParticleEmitterDefinition::Load(IRWStream* stream) {
 
     delete m_xmd;
     m_xmd = NULL;
-    RwEngineInstance->unk134(m_unkC);
+    RwEngineInstance->memoryFuncs.rwfree(m_unkC);
     m_unkC = NULL;
 
     return TRUE;
