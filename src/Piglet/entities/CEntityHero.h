@@ -107,22 +107,6 @@ public:
     virtual void ConvertPadToDirection(CDKW_V3d, CDKW_V3d*, F32*);
     virtual void ResetPadTimer(F32);
     virtual void SetToGround();
-
-    F32 FadeRelatedInline() {
-        CGame* game = m_entity_manager->GetGame();
-
-        F32 fVar1;
-        if (game->m_unk5038 != 0) {
-            fVar1 = 0.0f;
-        } else {
-            fVar1 = 0.0f;
-            if (game->m_fade_duration != 0.0f) {
-                fVar1 = game->m_unk502C / game->m_fade_duration;
-            }
-        }
-
-        return fVar1;
-    }
 };
 REQUIRE_SIZE(CEntityHero, 0x260);
 

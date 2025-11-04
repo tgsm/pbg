@@ -6,11 +6,12 @@
 class CGuiMovieClipsEventHandler : public CGuiBaseEventHandler {
 public:
     int m_unk10;
-    U8 m_unk14[0x8];
+    int m_unk14;
+    int m_unk18;
 
 public:
     CGuiMovieClipsEventHandler();
-    virtual ~CGuiMovieClipsEventHandler() {}
+    virtual ~CGuiMovieClipsEventHandler();
 
     virtual void OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT event, void*);
 

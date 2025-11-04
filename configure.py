@@ -505,7 +505,7 @@ config.libs = [
             Object(Equivalent, "Piglet/CGamePartMovieClips.cpp"),
             Object(Equivalent, "Piglet/CIcon.cpp"),
             Object(Equivalent, "Piglet/CGuiScrapBookEventHandler.cpp"),
-            Object(NonMatching, "Piglet/CGuiMovieClipsEventHandler.cpp"),
+            Object(Equivalent, "Piglet/CGuiMovieClipsEventHandler.cpp"),
             Object(NonMatching, "Piglet/CLoadingAdventure.cpp"),
             Object(NonMatching, "Piglet/CLoadingCatchThemAll.cpp"),
             Object(NonMatching, "Piglet/CloadingTigger.cpp"),

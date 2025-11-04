@@ -175,6 +175,20 @@ public:
         return result;
     }
 
+    F32 FadeRelatedInline() {
+        F32 fVar1;
+        if (m_unk5038 != 0) {
+            fVar1 = 0.0f;
+        } else {
+            fVar1 = 0.0f;
+            if (m_fade_duration != 0.0f) {
+                fVar1 = m_unk502C / m_fade_duration;
+            }
+        }
+
+        return fVar1;
+    }
+
     F32 GetDeltaTime();
     void ComputeDeltaTime();
     CGamePart* GetGamePartPointer();

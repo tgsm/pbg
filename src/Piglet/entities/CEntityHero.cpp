@@ -131,9 +131,7 @@ void CEntityHero::ResolveContact(const DkPh::Collider::Body& body, int, int) {
 }
 
 U32 CEntityHero::GetActions() {
-    CGame* game = m_entity_manager->GetGame();
-
-    if (FadeRelatedInline()) {
+    if (m_entity_manager->GetGame()->FadeRelatedInline()) {
         return 0;
     }
 

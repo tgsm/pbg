@@ -1,14 +1,19 @@
-#include "CGuiScrapBookEventHandler.h"
-#include "CGamePartScrapBook.h"
+#include "CGuiMovieClipsEventHandler.h"
+#include "CGamePartIngame.h"
+#include "CGamePartMovieClips.h"
 #include <cstdio>
 #include <iostream>
 
-CGuiScrapBookEventHandler::CGuiScrapBookEventHandler() : CGuiBaseEventHandler("GuiScrapBookEventHandler") {
+CGuiMovieClipsEventHandler::CGuiMovieClipsEventHandler() : CGuiBaseEventHandler("GuiMovieClipsEventHandler") {
     m_unk10 = 0;
 }
 
+CGuiMovieClipsEventHandler::~CGuiMovieClipsEventHandler() {
+
+}
+
 // Equivalent: stack offsets
-void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT event, void* unk) {
+void CGuiMovieClipsEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT event, void* unk) {
     CGuiBaseEventHandler::OnEvent(menu, event, unk);
 
     char buf_30[32];
@@ -22,8 +27,8 @@ void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
 
     int unk10 = m_unk10;
     int unk14 = m_unk14;
-    int iVar7 = unk10 / unk14;
-    int iVar8 = unk10 - iVar7 * unk14;
+    int iVar6 = unk10 / unk14;
+    int iVar7 = unk10 - iVar6 * unk14;
 
     if (m_game->FadeRelatedInline()) {
         return;
@@ -32,20 +37,20 @@ void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
     switch (event) {
         case DKGUI::EVENT_1:
         case DKGUI::EVENT_2: {
-            sprintf(buf_b0, "SCRAP_BOOK_%02d", m_unk10 + 1);
+            sprintf(buf_b0, "PROJECTOR_%02d", m_unk10 + 1);
             menu->GetAnim()->GotoFrameLabel(buf_b0);
 
-            m_game->m_gui_manager->SetActive("SCRAPBOOK_MAIN", 1);
-            m_game->m_gui_manager->SetVisible("SCRAPBOOK_MAIN", 1);
+            m_game->GetGuiManager()->SetActive("MOVIECLIPS_MAIN", 1);
+            m_game->GetGuiManager()->SetVisible("MOVIECLIPS_MAIN", 1);
 
             break;
         }
         case DKGUI::EVENT_12: {
-            if (m_game->m_unk5038 != 2) {
+            if (m_game->IsUnk5038Not2()) {
                 break;
             }
 
-            if (((CGamePartScrapBook*)m_game->GetGamePartPointer())->IsVideoOpen(m_unk10)) {
+            if (((CGamePartMovieClips*)m_game->GetGamePartPointer())->IsVideoOpen(m_unk10)) {
                 CGuiBaseEventHandler::OnEvent(menu, DKGUI::EVENT_3, (void*)"playsound SND_003_2D");
 
                 CDKW_RGBA fade_color;
@@ -56,8 +61,8 @@ void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
 
                 m_game->ResetOpcodeBuffer();
                 m_game->PushOpcodeValue(13);
-                m_game->PushOpcodeValue(m_unk10 + 2);
-                m_game->PushOpcodeValue(9);
+                m_game->PushOpcodeValue(m_unk10 + 8);
+                m_game->PushOpcodeValue(8);
 
                 UnkGamePartAndReturnTypeInline();
             } else {
@@ -67,7 +72,7 @@ void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
             break;
         }
         case DKGUI::EVENT_13: {
-            if (m_game->m_unk5038 != 2) {
+            if (m_game->IsUnk5038Not2()) {
                 break;
             }
 
@@ -83,11 +88,11 @@ void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
             m_game->PushOpcodeValue(1);
             m_game->PushOpcodeValue(3);
             m_game->PushOpcodeValue(0);
-            m_game->PushOpcodeValue(-11);
+            m_game->PushOpcodeValue(12);
             m_game->PushOpcodeValue(0);
-            m_game->PushOpcodeValue(-11);
+            m_game->PushOpcodeValue(-5);
             m_game->PushOpcodeValue(0);
-            m_game->PushOpcodeValue(171);
+            m_game->PushOpcodeValue(115);
             m_game->PushOpcodeValue(0);
             m_game->PushOpcodeValue(0);
 
@@ -96,42 +101,42 @@ void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
             break;
         }
         case DKGUI::EVENT_8: {
-            iVar7--;
-            if (iVar7 < 0) {
-                iVar7 = m_unk18 - 1;
+            iVar6--;
+            if (iVar6 < 0) {
+                iVar6 = m_unk18 - 1;
             }
-            m_unk10 = iVar8 + iVar7 * m_unk14;
-            sprintf(buf_30, "SCRAP_BOOK_%02d", m_unk10 + 1);
+            m_unk10 = iVar7 + iVar6 * unk14;
+            sprintf(buf_30, "PROJECTOR_%02d", m_unk10 + 1);
             menu->GetAnim()->GotoFrameLabel(buf_30);
             break;
         }
         case DKGUI::EVENT_9: {
-            iVar7++;
-            if (iVar7 > m_unk18 - 1) {
-                iVar7 = 0;
+            iVar6++;
+            if (iVar6 > m_unk18 - 1) {
+                iVar6 = 0;
             }
-            m_unk10 = iVar8 + iVar7 * m_unk14;
-            sprintf(buf_50, "SCRAP_BOOK_%02d", m_unk10 + 1);
+            m_unk10 = iVar7 + iVar6 * unk14;
+            sprintf(buf_50, "PROJECTOR_%02d", m_unk10 + 1);
             menu->GetAnim()->GotoFrameLabel(buf_50);
             break;
         }
         case DKGUI::EVENT_10: {
-            iVar8--;
-            if (iVar8 < 0) {
-                iVar8 = m_unk14 - 1;
+            iVar7--;
+            if (iVar7 < 0) {
+                iVar7 = m_unk14 - 1;
             }
-            m_unk10 = iVar8 + iVar7 * m_unk14;
-            sprintf(buf_70, "SCRAP_BOOK_%02d", m_unk10 + 1);
+            m_unk10 = iVar7 + iVar6 * m_unk14;
+            sprintf(buf_70, "PROJECTOR_%02d", m_unk10 + 1);
             menu->GetAnim()->GotoFrameLabel(buf_70);
             break;
         }
         case DKGUI::EVENT_11: {
-            iVar8++;
-            if (iVar8 > m_unk14 - 1) {
-                iVar8 = 0;
+            iVar7++;
+            if (iVar7 > m_unk14 - 1) {
+                iVar7 = 0;
             }
-            m_unk10 = iVar8 + iVar7 * m_unk14;
-            sprintf(buf_90, "SCRAP_BOOK_%02d", m_unk10 + 1);
+            m_unk10 = iVar7 + iVar6 * m_unk14;
+            sprintf(buf_90, "PROJECTOR_%02d", m_unk10 + 1);
             menu->GetAnim()->GotoFrameLabel(buf_90);
             break;
         }
