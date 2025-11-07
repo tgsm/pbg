@@ -15,6 +15,8 @@ namespace DkPh {
 class Collider;
 }
 
+F32 InterpolValue(F32 f1, F32 f2, F32 f3, F32 f4);
+
 class CEntityManager {
 private:
     CGame* m_game;

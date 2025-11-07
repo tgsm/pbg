@@ -14,6 +14,7 @@ char* strncat(char* dst, const char* src, unsigned long ssize);
 char* strcpy(char* dst, const char* src);
 char* strncpy(char* dst, const char* src, unsigned long n);
 int strcmp(const char* s1, const char* s2);
+int strncmp(const char* s1, const char* s2, unsigned long n);
 char* strstr(const char* haystack, const char* needle);
 char* strtok(char* str, const char* delim);
 

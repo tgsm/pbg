@@ -70,7 +70,10 @@ protected:
 
 public:
     struct HeroMoveParams {
-
+        F32 unk0;
+        F32 unk4;
+        F32 unk8;
+        F32 unkC;
     };
 
     CEntityHero(CEntityManager* entity_manager, std::string name);
@@ -93,7 +96,7 @@ public:
     virtual U32 GetMode();
     virtual U32 GetState() { return m_state; }
     virtual F32 GetSpeed();
-    virtual F32 GetMaxSpeed();
+    virtual F32 GetMaxSpeed() { return (m_speed_walk >= m_speed_run) ? m_speed_walk : m_speed_run; }
     virtual void SetMode(U32 mode) = 0;
     virtual void DicreaseLife(int) = 0;
     virtual CDKW_V3d GetPadDirection();
@@ -107,6 +110,14 @@ public:
     virtual void ConvertPadToDirection(CDKW_V3d, CDKW_V3d*, F32*);
     virtual void ResetPadTimer(F32);
     virtual void SetToGround();
+
+    void NormalizeInline(CDKW_V3d& vec) {
+        if (!((vec.m_x - CDKW_V3d::ZERO.m_x) * (vec.m_x - CDKW_V3d::ZERO.m_x) +
+            (vec.m_y - CDKW_V3d::ZERO.m_y) * (vec.m_y - CDKW_V3d::ZERO.m_y) +
+            (vec.m_z - CDKW_V3d::ZERO.m_z) * (vec.m_z - CDKW_V3d::ZERO.m_z) <= CDKW_V3d::sm_Epsilon * CDKW_V3d::sm_Epsilon)) {
+            RwV3dNormalize((RwV3d*)&vec, (RwV3d*)&vec);
+        }
+    }
 };
 REQUIRE_SIZE(CEntityHero, 0x260);
 

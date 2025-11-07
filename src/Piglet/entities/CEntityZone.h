@@ -29,7 +29,7 @@ public:
     F32 m_unk1A4;
     CDKW_V3d m_unk1A8;
     F32 m_unk1B4;
-    U32 m_unk1B8;
+    int m_unk1B8;
 
 public:
     CEntityZone(CEntityManager* entity_manager, std::string name);

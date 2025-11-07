@@ -163,11 +163,7 @@ CDKW_V3d CEntityHero::GetPadDirection() {
     direction.m_y = 0.0f;
 
     if (RwV3dLength((RwV3d*)&direction) > 1.0f) {
-        if (!((direction.m_x - CDKW_V3d::ZERO.m_x) * (direction.m_x - CDKW_V3d::ZERO.m_x) +
-            (direction.m_y - CDKW_V3d::ZERO.m_y) * (direction.m_y - CDKW_V3d::ZERO.m_y) +
-            (direction.m_z - CDKW_V3d::ZERO.m_z) * (direction.m_z - CDKW_V3d::ZERO.m_z) <= CDKW_V3d::sm_Epsilon * CDKW_V3d::sm_Epsilon)) {
-            RwV3dNormalize((RwV3d*)&direction, (RwV3d*)&direction);
-        }
+        NormalizeInline(direction);
     }
 
     return direction;

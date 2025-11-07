@@ -5,7 +5,9 @@
 
 class CEntityPushingBox : public CEntityMesh {
 public:
-    U8 m_unkF4[0x198 - 0xF4];
+    U8 m_unkF4[0x144 - 0xF4];
+    CDKW_V3d m_direction;
+    U8 m_unk150[0x198 - 0x150];
 
 public:
     CEntityPushingBox(CEntityManager* entity_manager, std::string name);
@@ -16,7 +18,7 @@ public:
     virtual void func39();
     virtual void func40();
     virtual void func41();
-    virtual CDKW_V3d GetDirection();
+    virtual CDKW_V3d GetDirection() { return m_direction; }
     virtual void func43();
     virtual void func44();
     virtual void func45();
