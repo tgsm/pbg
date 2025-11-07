@@ -30,8 +30,7 @@ public:
     int m_unk2A8;
     U32 m_unk2AC;
     U8 m_unk2B0[0x2B4 - 0x2B0];
-    char m_unk2B4[4];
-    U8 m_unk2B8[0x2D4 - 0x2B8];
+    char m_unk2B4[32];
     DKSND::CSound2D* m_unk2D4;
     ItemsMission m_items_missions[7];
 
