@@ -3,6 +3,17 @@
 
 #include <stdarg.h>
 
+typedef struct RwFileFunctions {
+    char unk0[4];
+    void* (*rwfopen)(const char* path, const char* mode);
+    int (*rwfclose)(void* stream);
+    unsigned long (*rwfread)(void* ptr, unsigned long size, unsigned long n, void* stream);
+    char unk10[0x20 - 0x10];
+    void* (*rwfseek)(const void* stream, long offset, int whence);
+    char unk24[0x28 - 0x24];
+    long (*rwftell)(const void* stream);
+} RwFileFunctions; // size: 0x2C
+
 typedef struct RwStringFunctions {
     int (*rwsprintf)(char* str, const char* format, ...); // 0xF0
     int (*rwvsprintf)(char* str, const char* format, va_list ap);
@@ -30,7 +41,8 @@ typedef struct RwMemoryFunctions {
 } RwMemoryFunctions; // size: 0x10
 
 typedef struct RwGlobals {
-    char unk0[0xF0];
+    char unk0[0xC4];
+    RwFileFunctions fileFuncs;
     RwStringFunctions stringFuncs;
     RwMemoryFunctions memoryFuncs;
     char unk140[0x154 - 0x140];
