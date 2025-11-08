@@ -1021,7 +1021,7 @@ engine/filesys/DkFileSys.cpp:
 	.text       start:0x800C57E8 end:0x800C58A8
 	.ctors      start:0x8023F028 end:0x8023F02C
 	.data       start:0x8024CAC0 end:0x8024CAE0
-	.bss        start:0x80260260 end:0x8026026C
+	.bss        start:0x80260260 end:0x802602B0
 	.sdata      start:0x80295B20 end:0x80295B38
 	.sbss       start:0x80296AF0 end:0x80296B30
 
