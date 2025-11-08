@@ -1,13 +1,16 @@
 #ifndef PIGLET_CGAMEPARTSCRAPBOOK_H
 #define PIGLET_CGAMEPARTSCRAPBOOK_H
 
+#include "engine/display/CIm2DBatch.h"
 #include "CGamePart.h"
 
 class CGame;
 
 class CGamePartScrapBook : public CGamePart {
 public:
-    U8 m_unkC[0x20];
+    CGame* m_game;
+    F32 m_time;
+    DKDSP::CIm2DBatch* m_batches[6];
 
 public:
     CGamePartScrapBook(CGame* game);
