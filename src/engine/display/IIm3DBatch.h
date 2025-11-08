@@ -7,9 +7,11 @@ namespace DKDSP {
 
 class IIm3DBatch : public IImBatch {
 public:
+    IIm3DBatch();
+
     virtual void GrabRenderstates() = 0;
     virtual void Render(RwPrimitiveType, CDKW_Matrix*) = 0;
-    virtual void Render(RwPrimitiveType);
+    virtual void Render(RwPrimitiveType type) { Render(type, NULL); }
     virtual int GetSize() = 0;
     virtual void* GetVerticeArray() = 0; // FIXME: what type is this?
     virtual int GetNumberOfVertices() = 0;
