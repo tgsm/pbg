@@ -533,7 +533,7 @@ void CEntityPiglet::UpdateAnimations(F32 dt) {
             break;
         case 18:
             if (m_animation_star_controller->IsPlayingAnimation("USE_OBJECT") == TRUE && m_animation_star_controller->IsPlayingAnimationLooped()) {
-                char* item = m_entity_manager->GetGame()->GetMission(m_entity_manager->GetGame()->m_unk4F54 - 1).GetItem(m_unk2A0);
+                char* item = m_entity_manager->GetGame()->GetCurrentMission().GetItem(m_unk2A0);
                 if (item != NULL) {
                     char buf[32];
 
