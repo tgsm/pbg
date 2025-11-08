@@ -660,7 +660,7 @@ config.libs = [
             Object(NonMatching, "engine/display/CImmediate.cpp"),
             Object(NonMatching, "engine/display/IAnimationStarEntry.cpp"),
             Object(NonMatching, "engine/display/IIm3DBatch.cpp"),
-            Object(NonMatching, "engine/display/IImBatch.cpp"),
+            Object(Matching, "engine/display/IImBatch.cpp"),
             Object(NonMatching, "engine/display/IIm2DBatch.cpp"),
             Object(NonMatching, "engine/display/CIm3DBatch.cpp"),
             Object(NonMatching, "engine/display/CIm2DBatch.cpp"),

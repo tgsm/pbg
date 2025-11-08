@@ -20,6 +20,8 @@ namespace DKDSP {
 // TODO
 class IImBatch {
 public:
+    IImBatch();
+
     virtual void GrabRenderstates() = 0;
     virtual void Render(RwPrimitiveType, CDKW_Matrix*) = 0;
     virtual void Render(RwPrimitiveType) = 0;
