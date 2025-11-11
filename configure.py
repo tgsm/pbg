@@ -231,6 +231,7 @@ cflags_engine = [
     "-opt noschedule",
     "-pool off",
     "-fp_contract off",
+    "-char unsigned",
 ]
 
 cflags_engine_backup = [
@@ -583,7 +584,7 @@ config.libs = [
             Object(Matching, "engine/GCN_MW_Memory.cpp"),
             Object(NonMatching, "engine/filesys/DkFileSysDlfs.c"),
             Object(NonMatching, "engine/filesys/DkFileSys.cpp", extra_cflags=["-sym on"]),
-            Object(NonMatching, "engine/filesys/DkFileSysFat.cpp"),
+            Object(Equivalent, "engine/filesys/DkFileSysFat.cpp"),
             Object(NonMatching, "engine/filesys/DkFileSysUnCompress.cpp"),
             Object(NonMatching, "engine/display/DkDisplay.cpp"),
             Object(NonMatching, "engine/display/CEngine.cpp"),

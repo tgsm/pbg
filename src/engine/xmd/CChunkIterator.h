@@ -65,7 +65,7 @@ struct CCI_UnkSubstruct {
 
 // TODO
 class CChunkIterator {
-private:
+public:
     CCI_UnkSubstruct* m_unk0;
     union {
         CChunk* m_non_inverted;
