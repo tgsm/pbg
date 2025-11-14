@@ -2,6 +2,7 @@
 #define PIGLET_ENTITIES_CENTITYOBJECT_H
 
 #include <vector>
+#include "engine/physics/DkPh_Primitives.h"
 #include "engine/xmd/CChunkIterator.h"
 #include "engine/wrap/DKW_Matrix.h"
 #include "engine/wrap/DKW_V3d.h"
@@ -10,25 +11,8 @@
 // FIXME: Move this to the engine
 namespace DkPh {
 
-class BVolume {
-
-};
-
 class BVolumeOBB {
 
-};
-
-struct RBody {
-    RBody() : unk0(NULL), unk4(0), unk8(0.0f, 0.0f, 0.0f), unk14(0.0f, 0.0f, 0.0f) {
-
-    }
-
-    ~RBody();
-
-    BVolume* unk0;
-    U32 unk4;
-    CDKW_V3d unk8;
-    CDKW_V3d unk14;
 };
 
 class Collider {

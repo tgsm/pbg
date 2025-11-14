@@ -28,6 +28,18 @@ public:
         return result;
     }
 
+    CDKW_V3d operator*(const F32& scalar) const;
+    CDKW_V3d operator/(const F32& scalar) const;
+
+    CDKW_V3d& operator+=(const CDKW_V3d& rhs);
+    CDKW_V3d& operator-=(const CDKW_V3d& rhs);
+    CDKW_V3d& operator*=(const F32 scalar) {
+        m_x *= scalar;
+        m_y *= scalar;
+        m_z *= scalar;
+        return *this;
+    }
+
     F32 SquareDistToPoint(CDKW_V3d& other);
 
     static CDKW_V3d ZERO;
