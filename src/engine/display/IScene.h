@@ -6,6 +6,7 @@
 #include "engine/display/CMirror.h"
 #include "engine/display/CParticleEmitter.h"
 #include "engine/display/CParticleEmitterDefinition.h"
+#include "engine/display/CShadowMap.h"
 #include "engine/display/ICamera.h"
 #include "engine/display/IIm2DBatch.h"
 #include "engine/display/IIm3DBatch.h"
@@ -38,22 +39,22 @@ public:
     virtual void func17();
     virtual void func18();
     virtual CLight* CreateLight(ELIGHTTYPE) = 0;
-    virtual void func20();
+    virtual CLight* CopyLight(ILight*) = 0;
     virtual void func21();
     virtual void func22();
     virtual void func23();
     virtual void EnableLight(ILight*, int) = 0;
     virtual void func25();
     virtual void func26();
-    virtual void func27();
+    virtual void RemoveLight(ILight*) = 0;
     virtual void func28();
     virtual void func29();
-    virtual void func30();
+    virtual CShadowMap* CreateShadowMap(ILight* light, U32, U32, U32) = 0;
     virtual void func31();
     virtual void func32();
     virtual void func33();
     virtual void func34();
-    virtual void func35();
+    virtual void RemoveShadowMap(IShadowMap*) = 0;
     virtual void func36();
     virtual void func37();
     virtual void func38();

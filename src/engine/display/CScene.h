@@ -10,7 +10,11 @@ class CScene : public IScene {
 public:
     virtual CCamera* CreateCamera();
     virtual CLight* CreateLight(ELIGHTTYPE);
+    virtual CLight* CopyLight(ILight*);
     virtual void EnableLight(ILight*, int);
+    virtual void RemoveLight(ILight*);
+    virtual CShadowMap* CreateShadowMap(ILight* light, U32, U32, U32);
+    virtual void RemoveShadowMap(IShadowMap*);
     virtual CMirror* CreateMirror(U32 texture_width, U32 texture_height, U32 texture_depth_maybe);
     virtual void EnableMirrorRendering(IMirror* mirror, BOOL enable);
     virtual void AssociateClumpToMirror(IMirror* mirror, IClump* clump);

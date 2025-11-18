@@ -54,14 +54,14 @@ void CLoadingCallback::Create() {
     m_game->m_gui_manager->Update(1.0f/30.0f);
 
     if (m_light == NULL) {
-        if ((m_light = m_scene->CreateLight(DKDSP::LIGHT_TYPE_0)) == NULL) {
+        if ((m_light = m_scene->CreateLight(DKDSP::LIGHT_TYPE_DIRECTIONAL)) == NULL) {
             return;
         }
     }
     m_scene->EnableLight(m_light, 0);
 
     if (m_light2 == NULL) {
-        if ((m_light2 = m_scene->CreateLight(DKDSP::LIGHT_TYPE_0)) == NULL) {
+        if ((m_light2 = m_scene->CreateLight(DKDSP::LIGHT_TYPE_DIRECTIONAL)) == NULL) {
             return;
         }
     }
