@@ -61,7 +61,7 @@ void CEntityTigger::AddFlag(U32 flag) {
 
 void CEntityTigger::DelFlag(U32 flag) {
     switch (flag) {
-        case (1 << 3):
+        case ENTITY_FLAG_UNK3:
             ReInit();
             break;
     }
@@ -100,12 +100,12 @@ void CEntityTigger::DicreaseLife(int life) {
 void CEntityTigger::SetMode(U32 mode) {
     switch (mode) {
         case 9:
-            DelFlag(1 << 4);
+            DelFlag(ENTITY_FLAG_UNK4);
             SetMode(0);
             return;
         case 2:
             m_unk1C8 = 0.0f;
-            AddFlag(1 << 4);
+            AddFlag(ENTITY_FLAG_UNK4);
             break;
         case 3:
             m_unk1C8 = 0.0f;

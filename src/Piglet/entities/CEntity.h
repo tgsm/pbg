@@ -7,6 +7,16 @@
 #include "entities/CEntityBhvTagBehavior.h"
 #include "types.h"
 
+#define ENTITY_FLAG_ACTIVE        (1 << 0)
+#define ENTITY_FLAG_VISIBLE       (1 << 1)
+#define ENTITY_FLAG_HAS_COLLISION (1 << 2)
+#define ENTITY_FLAG_UNK3          (1 << 3)
+#define ENTITY_FLAG_UNK4          (1 << 4)
+#define ENTITY_FLAG_UNK5          (1 << 5)
+#define ENTITY_FLAG_UNK6          (1 << 6)
+#define ENTITY_FLAG_UNK7          (1 << 7)
+#define ENTITY_FLAG_UNK8          (1 << 8) // Related to visibility
+
 // FIXME: This is part of the engine, but where do we put it?
 struct SDkMessage {
     char unk0[32];

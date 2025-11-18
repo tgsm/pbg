@@ -81,7 +81,7 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
             if (key_sequence_entity == NULL) {
                 break;
             }
-            key_sequence_entity->DelFlag(1 << 0);
+            key_sequence_entity->DelFlag(ENTITY_FLAG_ACTIVE);
             m_unk2D8 = 0.0f;
 
             if (rand() / 32767.0f > 0.5f) {
@@ -103,7 +103,7 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
         case 103: {
             CEntitySeqKey* key_sequence_entity = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_key_sequence_entity;
             if (key_sequence_entity != NULL) {
-                key_sequence_entity->AddFlag(1 << 0);
+                key_sequence_entity->AddFlag(ENTITY_FLAG_ACTIVE);
             }
 
             if (m_unk2EC == TRUE) {
@@ -256,7 +256,7 @@ void CEntityNPCMirrorWoozle::UpdateDeathBehaviour(F32) {
 }
 
 void CEntityNPCMirrorWoozle::Render(F32 dt_maybe) {
-    if (IsFlagged(1 << 1) == TRUE) {
+    if (IsFlagged(ENTITY_FLAG_VISIBLE) == TRUE) {
         CEntityNPC::Render(dt_maybe);
     }
 }

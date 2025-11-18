@@ -15,7 +15,7 @@ void CEntityNPCArrow::Reset() {
 }
 
 void CEntityNPCArrow::Update(F32 dt_maybe) {
-    BOOL active = IsFlagged(1 << 0);
+    BOOL active = IsFlagged(ENTITY_FLAG_ACTIVE);
 }
 
 void CEntityNPCArrow::Parse(DkXmd::CChunkIterator iter) {

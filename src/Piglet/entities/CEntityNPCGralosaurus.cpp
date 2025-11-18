@@ -202,7 +202,7 @@ void CEntityNPCGralosaurus::UpdateDeathBehaviour(F32) {
 }
 
 void CEntityNPCGralosaurus::Render(F32 dt_maybe) {
-    if (IsFlagged(1 << 1) == TRUE) {
+    if (IsFlagged(ENTITY_FLAG_VISIBLE) == TRUE) {
         CEntityNPC::Render(dt_maybe);
     }
 }

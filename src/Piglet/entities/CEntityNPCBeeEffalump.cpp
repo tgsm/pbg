@@ -138,7 +138,7 @@ void CEntityNPCBeeEffalump::UpdateDeathBehaviour(F32) {
 }
 
 void CEntityNPCBeeEffalump::Render(F32 dt) {
-    if (IsFlagged(1 << 1) == TRUE) {
+    if (IsFlagged(ENTITY_FLAG_VISIBLE) == TRUE) {
         CEntityNPC::Render(dt);
     }
 }

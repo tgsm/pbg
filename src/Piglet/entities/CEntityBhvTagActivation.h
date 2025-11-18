@@ -20,12 +20,12 @@ public:
 
     virtual void Set(CEntity* entity) {
         if (m_on == TRUE) {
-            entity->AddFlag(1 << 0);
+            entity->AddFlag(ENTITY_FLAG_ACTIVE);
             if (entity->GetType() > ENTITY_NPC23 && entity->GetType() < ENTITY_UNK36) {
                 ((CEntityMesh*)entity)->UpdateAnimations(rand() / 32767.0f);
             }
         } else {
-            entity->DelFlag(1 << 0);
+            entity->DelFlag(ENTITY_FLAG_ACTIVE);
         }
     }
 

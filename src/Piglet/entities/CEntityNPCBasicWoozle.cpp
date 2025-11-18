@@ -113,7 +113,7 @@ void CEntityNPCBasicWoozle::UpdateDeathBehaviour(F32) {
 }
 
 void CEntityNPCBasicWoozle::Render(F32 dt_maybe) {
-    if (IsFlagged(1 << 1) == TRUE) {
+    if (IsFlagged(ENTITY_FLAG_VISIBLE) == TRUE) {
         CEntityNPC::Render(dt_maybe);
     }
 }

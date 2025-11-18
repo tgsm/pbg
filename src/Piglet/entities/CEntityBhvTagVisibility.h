@@ -15,9 +15,9 @@ public:
 
     virtual void Set(CEntity* entity) {
         if (m_on == TRUE) {
-            entity->AddFlag(1 << 1);
+            entity->AddFlag(ENTITY_FLAG_VISIBLE);
         } else {
-            entity->DelFlag(1 << 1);
+            entity->DelFlag(ENTITY_FLAG_VISIBLE);
         }
     }
 

@@ -92,13 +92,13 @@ void CEntityHero::SetMode(U32 mode) {
 
 void CEntityHero::AddFlag(U32 flag) {
     switch (flag) {
-        case (1 << 3):
+        case ENTITY_FLAG_UNK3:
             m_unk1BC = CDKW_V3d::ZERO;
             m_unk90.unk8 = CDKW_V3d::ZERO;
             m_unk90.unk14 = CDKW_V3d::ZERO;
             SetMode(11);
             break;
-        case (1 << 4):
+        case ENTITY_FLAG_UNK4:
             m_unk134 = 0;
             m_pad_timer = 0.0f;
             break;
@@ -109,7 +109,7 @@ void CEntityHero::AddFlag(U32 flag) {
 
 void CEntityHero::DelFlag(U32 flag) {
     switch (flag) {
-        case (1 << 3):
+        case ENTITY_FLAG_UNK3:
             SetToGround();
             SetMode(0);
             m_controller->Resume();
@@ -302,7 +302,7 @@ void CEntityHero::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavio
 }
 
 void CEntityHero::Render(F32 dt) {
-    if (IsFlagged(1 << 1) && !IsFlagged(1 << 8)) {
+    if (IsFlagged(ENTITY_FLAG_VISIBLE) && !IsFlagged(ENTITY_FLAG_UNK8)) {
         CEntityMesh::Render(dt);
     }
 }

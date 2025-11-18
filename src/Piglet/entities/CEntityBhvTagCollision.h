@@ -17,9 +17,9 @@ public:
 
     virtual void Set(CEntity* entity) {
         if (m_on == TRUE) {
-            entity->AddFlag(1 << 2);
+            entity->AddFlag(ENTITY_FLAG_HAS_COLLISION);
         } else {
-            entity->DelFlag(1 << 2);
+            entity->DelFlag(ENTITY_FLAG_HAS_COLLISION);
         }
     }
 

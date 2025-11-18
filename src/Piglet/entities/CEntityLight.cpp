@@ -172,18 +172,18 @@ void CEntityLight::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavi
 }
 
 void CEntityLight::DelFlag(U32 flag) {
-    if (flag & (1 << 0)) {
+    if (flag & ENTITY_FLAG_ACTIVE) {
         m_entity_manager->GetGame()->GetScene()->EnableLight(m_light4C, 0);
-        flag |= (1 << 1);
+        flag |= ENTITY_FLAG_VISIBLE;
     }
 
     CEntityObject::DelFlag(flag);
 }
 
 void CEntityLight::AddFlag(U32 flag) {
-    if (flag & (1 << 0)) {
+    if (flag & ENTITY_FLAG_ACTIVE) {
         m_entity_manager->GetGame()->GetScene()->EnableLight(m_light4C, 1);
-        flag |= (1 << 1);
+        flag |= ENTITY_FLAG_VISIBLE;
     }
 
     CEntityObject::AddFlag(flag);

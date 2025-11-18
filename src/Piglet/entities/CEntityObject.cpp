@@ -5,7 +5,7 @@
 #include <iostream>
 
 CEntityObject::CEntityObject(CEntityManager* entity_manager, std::string name) : CEntity(entity_manager, name) {
-    AddFlag(1 << 2);
+    AddFlag(ENTITY_FLAG_HAS_COLLISION);
 
     m_unk30 = 3.4028235e38f;
     m_unk34 = 3.4028235e38f;
@@ -33,7 +33,7 @@ void CEntityObject::Reset() {
 
 void CEntityObject::Update(F32 dt_maybe) {
     CEntity::Update(dt_maybe);
-    if (IsFlagged(1 << 0) && IsFlagged(1 << 7) == TRUE) {
+    if (IsFlagged(ENTITY_FLAG_ACTIVE) && IsFlagged(ENTITY_FLAG_UNK7) == TRUE) {
         return;
     }
 }
@@ -44,7 +44,7 @@ void CEntityObject::Init() {
 }
 
 void CEntityObject::Render(F32 dt_maybe) {
-    if (!IsFlagged(1 << 8) && !IsFlagged(1 << 1)) {
+    if (!IsFlagged(ENTITY_FLAG_UNK8) && !IsFlagged(ENTITY_FLAG_VISIBLE)) {
         return;
     }
 }

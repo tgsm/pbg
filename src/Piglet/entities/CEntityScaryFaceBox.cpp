@@ -32,23 +32,23 @@ CEntityScaryFaceBox::~CEntityScaryFaceBox() {
 }
 
 void CEntityScaryFaceBox::Update(F32 dt) {
-    if (IsFlagged(1 << 6)) {
-        DelFlag(1 << 0);
-        DelFlag(1 << 1);
-        DelFlag(1 << 2);
+    if (IsFlagged(ENTITY_FLAG_UNK6)) {
+        DelFlag(ENTITY_FLAG_ACTIVE);
+        DelFlag(ENTITY_FLAG_VISIBLE);
+        DelFlag(ENTITY_FLAG_HAS_COLLISION);
     }
 
     CEntityZone::Update(dt);
 }
 
 void CEntityScaryFaceBox::ManageMessage(SDkMessage& message) {
-    if (IsFlagged(1 << 6)) {
+    if (IsFlagged(ENTITY_FLAG_UNK6)) {
         return;
     }
 
-    if (IsFlagged(1 << 0)) {
+    if (IsFlagged(ENTITY_FLAG_ACTIVE)) {
         // We've already checked if this is active, but we'll check again for good measure :^)
-        if (strcmp(message.unk0, "Piglet") == 0 && strcmp(message.unk20, "ACTION") == 0 && IsFlagged(1 << 0)) {
+        if (strcmp(message.unk0, "Piglet") == 0 && strcmp(message.unk20, "ACTION") == 0 && IsFlagged(ENTITY_FLAG_ACTIVE)) {
             HandleAction();
         }
     }
@@ -214,7 +214,7 @@ void CEntityScaryFaceBox::RenderCookiesNbIconDirect(CGame* game, int a1, F32 x, 
 }
 
 void CEntityScaryFaceBox::Render(F32 dt) {
-    if (IsFlagged(1 << 1)) {
+    if (IsFlagged(ENTITY_FLAG_VISIBLE)) {
         CEntityZone::Render(dt);
     }
     RenderCookiesNbIcon(dt);

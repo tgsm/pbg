@@ -46,12 +46,12 @@ void CEntityWinnie::DicreaseLife(int life) {
 void CEntityWinnie::SetMode(U32 mode) {
     switch (mode) {
         case 9:
-            DelFlag(1 << 4);
+            DelFlag(ENTITY_FLAG_UNK4);
             SetMode(0);
             return;
         case 2:
             m_unk1C8 = 0.0f;
-            AddFlag(1 << 4);
+            AddFlag(ENTITY_FLAG_UNK4);
             break;
         case 1:
         case 12:

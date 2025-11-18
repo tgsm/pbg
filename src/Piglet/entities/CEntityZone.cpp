@@ -80,13 +80,13 @@ void CEntityZone::ResolveContact(const DkPh::Collider::Body& body, int, int) {
 void CEntityZone::Render(F32 dt) {
     CEntityObject::Render(dt);
 
-    if (!IsFlagged(1 << 1)) {
+    if (!IsFlagged(ENTITY_FLAG_VISIBLE)) {
         return;
     }
 
     CGamePartIngame* game_part = (CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer();
 
-    if (IsFlagged(1 << 0) != TRUE) {
+    if (IsFlagged(ENTITY_FLAG_ACTIVE) != TRUE) {
         return;
     }
 
@@ -180,7 +180,7 @@ void CEntityZone::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavio
 }
 
 void CEntityZone::DelFlag(U32 flag) {
-    if (flag & (1 << 0)) {
+    if (flag & ENTITY_FLAG_ACTIVE) {
         if (m_unk170.emitter != NULL) {
             m_unk170.emitter->Stop();
         }
@@ -193,8 +193,8 @@ void CEntityZone::DelFlag(U32 flag) {
 }
 
 void CEntityZone::AddFlag(U32 flag) {
-    if (flag & (1 << 0)) {
-        CEntityObject::AddFlag(1 << 1);
+    if (flag & ENTITY_FLAG_ACTIVE) {
+        CEntityObject::AddFlag(ENTITY_FLAG_VISIBLE);
         if (m_unk188.emitter != NULL) {
             m_unk188.emitter->Start();
         }
@@ -204,7 +204,7 @@ void CEntityZone::AddFlag(U32 flag) {
 }
 
 BOOL CEntityZone::ShouldKick() {
-    if (!IsFlagged(1 << 0)) {
+    if (!IsFlagged(ENTITY_FLAG_ACTIVE)) {
         return TRUE;
     }
 

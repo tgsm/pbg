@@ -8,8 +8,8 @@ CEntityFX::CEntityFX(CEntityManager* entity_manager, std::string name) : CEntity
     m_unk60 = 0.0f;
     m_lifetime = -1.0f;
 
-    AddFlag(1 << 0);
-    DelFlag(1 << 1);
+    AddFlag(ENTITY_FLAG_ACTIVE);
+    DelFlag(ENTITY_FLAG_VISIBLE);
 
     m_radial_velocity = 0.0f;
     m_radius = 0.0f;
@@ -77,13 +77,13 @@ void CEntityFX::ManageMessage(SDkMessage& message) {
         if (m_particle_emitter != NULL) {
             m_particle_emitter->Start();
             m_particle_emitter->Resume();
-            CEntityObject::AddFlag(1 << 0);
+            CEntityObject::AddFlag(ENTITY_FLAG_ACTIVE);
         }
     } else if (strcmp(message.unk20, "STOP") == 0) {
         if (m_particle_emitter != NULL) {
             m_particle_emitter->Stop();
             m_unk60 = 0.0f;
-            CEntityObject::DelFlag(1 << 0);
+            CEntityObject::DelFlag(ENTITY_FLAG_ACTIVE);
         }
     } else if (strcmp(message.unk20, "PAUSE") == 0) {
         if (m_particle_emitter != NULL) {
@@ -97,7 +97,7 @@ void CEntityFX::ManageMessage(SDkMessage& message) {
 }
 
 void CEntityFX::Render(F32 dt) {
-    if (IsFlagged(1 << 1) != TRUE) {
+    if (IsFlagged(ENTITY_FLAG_VISIBLE) != TRUE) {
         return;
     }
 
@@ -110,20 +110,20 @@ void CEntityFX::Render(F32 dt) {
 }
 
 void CEntityFX::DelFlag(U32 flag) {
-    if ((flag & (1 << 0)) && m_particle_emitter != NULL) {
+    if ((flag & ENTITY_FLAG_ACTIVE) && m_particle_emitter != NULL) {
         m_particle_emitter->Stop();
         m_unk60 = 0.0f;
-        CEntityObject::DelFlag(1 << 0);
+        CEntityObject::DelFlag(ENTITY_FLAG_ACTIVE);
     }
 
     CEntityObject::DelFlag(flag);
 }
 
 void CEntityFX::AddFlag(U32 flag) {
-    if ((flag & (1 << 0)) && m_particle_emitter != NULL) {
+    if ((flag & ENTITY_FLAG_ACTIVE) && m_particle_emitter != NULL) {
         m_particle_emitter->Start();
         m_particle_emitter->Resume();
-        CEntityObject::AddFlag(1 << 0);
+        CEntityObject::AddFlag(ENTITY_FLAG_ACTIVE);
     }
 
     CEntityObject::AddFlag(flag);

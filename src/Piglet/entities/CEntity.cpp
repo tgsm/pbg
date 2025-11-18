@@ -133,21 +133,21 @@ void CEntity::ProcessMessages() {
 void CEntity::ManageMessage(SDkMessage& message) {
     if (strcmp(message.unk20, "VISIBILITY") == 0) {
         if (!message.unk30) {
-            DelFlag(1 << 1);
+            DelFlag(ENTITY_FLAG_VISIBLE);
         } else {
-            AddFlag(1 << 1);
+            AddFlag(ENTITY_FLAG_VISIBLE);
         }
     } else if (strcmp(message.unk20, "ACTIVATION") == 0) {
         if (!message.unk30) {
-            DelFlag(1 << 0);
+            DelFlag(ENTITY_FLAG_ACTIVE);
         } else {
-            AddFlag(1 << 0);
+            AddFlag(ENTITY_FLAG_ACTIVE);
         }
     } else if (strcmp(message.unk20, "COLLISION") == 0) {
         if (!message.unk30) {
-            DelFlag(1 << 2);
+            DelFlag(ENTITY_FLAG_HAS_COLLISION);
         } else {
-            AddFlag(1 << 2);
+            AddFlag(ENTITY_FLAG_HAS_COLLISION);
         }
     } else if (strcmp(message.unk20, "SET_BEHAVIOR") == 0) {
         m_unk14 = message.unk30;

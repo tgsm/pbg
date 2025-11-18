@@ -7,8 +7,8 @@
 CEntityTimer::CEntityTimer(CEntityManager* entity_manager, std::string name) : CEntity(entity_manager, name) {
     m_elapsed = 0.0f;
 
-    DelFlag(1 << 0);
-    DelFlag(1 << 1);
+    DelFlag(ENTITY_FLAG_ACTIVE);
+    DelFlag(ENTITY_FLAG_VISIBLE);
 }
 
 CEntityTimer::~CEntityTimer() {
@@ -16,13 +16,13 @@ CEntityTimer::~CEntityTimer() {
 }
 
 void CEntityTimer::Update(F32 dt_maybe) {
-    if (IsFlagged(1 << 7)) {
+    if (IsFlagged(ENTITY_FLAG_UNK7)) {
         return;
     }
 
     CEntity::Update(dt_maybe);
 
-    if (!IsFlagged(1 << 0)) {
+    if (!IsFlagged(ENTITY_FLAG_ACTIVE)) {
         return;
     }
 
@@ -34,21 +34,21 @@ void CEntityTimer::Update(F32 dt_maybe) {
     if (m_elapsed > m_duration) {
         CMailBox* mailbox = m_entity_manager->GetGame()->GetMailbox();
         mailbox->SendMessage(m_unk0, m_unk0, "TIMEROVER", 0);
-        if (IsFlagged(1 << 0)) {
-            DelFlag(1 << 0);
-            DelFlag(1 << 1);
+        if (IsFlagged(ENTITY_FLAG_ACTIVE)) {
+            DelFlag(ENTITY_FLAG_ACTIVE);
+            DelFlag(ENTITY_FLAG_VISIBLE);
             m_elapsed = 0.0f;
             ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->StopTimer();
         }
     } else {
         ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->UpdateTimer(dt_maybe);
-        if (IsFlagged(1 << 1)) {
+        if (IsFlagged(ENTITY_FLAG_VISIBLE)) {
             if (((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_unk44 == 0) {
                 CMailBox* mailbox = m_entity_manager->GetGame()->GetMailbox();
                 mailbox->SendMessage(m_unk0, m_unk0, "TIMEROVER", 0);
-                if (IsFlagged(1 << 0)) {
-                    DelFlag(1 << 0);
-                    DelFlag(1 << 1);
+                if (IsFlagged(ENTITY_FLAG_ACTIVE)) {
+                    DelFlag(ENTITY_FLAG_ACTIVE);
+                    DelFlag(ENTITY_FLAG_VISIBLE);
                     m_elapsed = 0.0f;
                     ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->StopTimer();
                 }
@@ -79,17 +79,17 @@ void CEntityTimer::Parse(DkXmd::CChunkIterator iter) {
 
 void CEntityTimer::ManageMessage(SDkMessage& message) {
     if (strcmp(message.unk20, "STOP") == 0) {
-        if (IsFlagged(1 << 0)) {
-            DelFlag(1 << 0);
-            DelFlag(1 << 1);
+        if (IsFlagged(ENTITY_FLAG_ACTIVE)) {
+            DelFlag(ENTITY_FLAG_ACTIVE);
+            DelFlag(ENTITY_FLAG_VISIBLE);
             m_elapsed = 0.0f;
 
             ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->StopTimer();
         }
     } else if (strcmp(message.unk20, "START") == 0) {
-        if (!IsFlagged(1 << 0)) {
-            AddFlag(1 << 0);
-            AddFlag(1 << 1);
+        if (!IsFlagged(ENTITY_FLAG_ACTIVE)) {
+            AddFlag(ENTITY_FLAG_ACTIVE);
+            AddFlag(ENTITY_FLAG_VISIBLE);
             m_elapsed = 0.0f;
 
             ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->InitTimer(m_duration);
@@ -100,8 +100,8 @@ void CEntityTimer::ManageMessage(SDkMessage& message) {
 }
 
 void CEntityTimer::Save(void* unk) {
-    DelFlag(1 << 0);
-    DelFlag(1 << 1);
+    DelFlag(ENTITY_FLAG_ACTIVE);
+    DelFlag(ENTITY_FLAG_VISIBLE);
 
     CEntity::Save(unk);
 }

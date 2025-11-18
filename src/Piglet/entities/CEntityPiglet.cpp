@@ -38,11 +38,11 @@ void CEntityPiglet::SetStateEnvironement() {
 
 void CEntityPiglet::AddFlag(U32 flag) {
     switch (flag) {
-        case (1 << 3):
+        case ENTITY_FLAG_UNK3:
             m_unk284 = 0;
             m_unk280 = 0.0f;
             break;
-        case (1 << 4):
+        case ENTITY_FLAG_UNK4:
             ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->UnblockFightMode();
             break;
     }
@@ -53,7 +53,7 @@ void CEntityPiglet::AddFlag(U32 flag) {
 
 void CEntityPiglet::DelFlag(U32 flag) {
     switch (flag) {
-        case (1 << 3):
+        case ENTITY_FLAG_UNK3:
             SetMode(0);
             UpdateAnimations_Wait(0.0f, 1);
             break;
@@ -345,7 +345,7 @@ void CEntityPiglet::SetMode(U32 mode) {
             }
             break;
         case 9:
-            DelFlag(1 << 4);
+            DelFlag(ENTITY_FLAG_UNK4);
             SetMode(0);
             return;
         case 1: {
@@ -366,14 +366,14 @@ void CEntityPiglet::SetMode(U32 mode) {
             }
 
             m_unk1C8 = 0.0f;
-            AddFlag(1 << 4);
+            AddFlag(ENTITY_FLAG_UNK4);
             break;
         case 14:
             m_animation_star_controller->Play("START_FIGHT", 1);
             break;
         case 15:
             // TODO
-            if (!IsFlagged(1 << 0)) {
+            if (!IsFlagged(ENTITY_FLAG_ACTIVE)) {
                 SetMode(2);
             }
 

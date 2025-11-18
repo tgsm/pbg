@@ -56,12 +56,12 @@ void CEntityMesh::UpdateAnimations(F32 dt) {
 
 void CEntityMesh::AddFlag(U32 flag) {
     switch (flag) {
-        case (1 << 8):
+        case ENTITY_FLAG_UNK8:
             if (m_mirror != NULL) {
                 m_entity_manager->GetGame()->GetScene()->EnableMirrorRendering(m_mirror, FALSE);
             }
             break;
-        case (1 << 1):
+        case ENTITY_FLAG_VISIBLE:
             if (m_mirror != NULL) {
                 m_entity_manager->GetGame()->GetScene()->EnableMirrorRendering(m_mirror, TRUE);
             }
@@ -73,12 +73,12 @@ void CEntityMesh::AddFlag(U32 flag) {
 
 void CEntityMesh::DelFlag(U32 flag) {
     switch (flag) {
-        case (1 << 8):
+        case ENTITY_FLAG_UNK8:
             if (m_mirror != NULL) {
                 m_entity_manager->GetGame()->GetScene()->EnableMirrorRendering(m_mirror, TRUE);
             }
             break;
-        case (1 << 1):
+        case ENTITY_FLAG_VISIBLE:
             if (m_mirror != NULL) {
                 m_entity_manager->GetGame()->GetScene()->EnableMirrorRendering(m_mirror, FALSE);
             }
@@ -94,11 +94,11 @@ extern void _rwDlRenderStateSetAlphaComp(int);
 }
 
 void CEntityMesh::Render(f32 dt) {
-    if (!IsFlagged(1 << 1)) {
+    if (!IsFlagged(ENTITY_FLAG_VISIBLE)) {
         return;
     }
 
-    if (IsFlagged(1 << 8)) {
+    if (IsFlagged(ENTITY_FLAG_UNK8)) {
         return;
     }
 

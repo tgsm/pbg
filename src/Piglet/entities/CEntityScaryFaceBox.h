@@ -102,10 +102,10 @@ public:
 
             CMission::m_MaxNbCookies -= NbCookiesForNextGrimaceLevel();
 
-            DelFlag(1 << 0);
-            DelFlag(1 << 1);
-            DelFlag(1 << 2);
-            AddFlag(1 << 6);
+            DelFlag(ENTITY_FLAG_ACTIVE);
+            DelFlag(ENTITY_FLAG_VISIBLE);
+            DelFlag(ENTITY_FLAG_HAS_COLLISION);
+            AddFlag(ENTITY_FLAG_UNK6);
 
             ((CEntityPiglet*)m_entity_manager->GetHero())->m_grimace_level++;
         } else {
