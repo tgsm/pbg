@@ -18,8 +18,7 @@ CEntity3DSound::CEntity3DSound(CEntityManager* entity_manager, std::string name)
 // Equivalent?: std::vector dtor
 CEntity3DSound::~CEntity3DSound() {
     if (m_sound_emitter != NULL) {
-        // FIXME: Remove this cast
-        m_entity_manager->GetGame()->m_sound_engine->RemoveEmitter((DKSND::ISoundEmitter*)m_sound_emitter);
+        m_entity_manager->GetGame()->m_sound_engine->RemoveEmitter(m_sound_emitter);
         m_sound_emitter = NULL;
     }
 }

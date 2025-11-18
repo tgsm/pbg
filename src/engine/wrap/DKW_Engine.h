@@ -1,23 +1,11 @@
 #ifndef ENGINE_WRAP_DKW_ENGINE_H
 #define ENGINE_WRAP_DKW_ENGINE_H
 
+#include <rwsdk/badevice.h>
 #include "types.h"
 
-// FIXME: Put this in badevice?
-struct RwEngineOpenParams {
-
-};
-
 extern "C" {
-// TODO: Used by RenderWare
-struct MemoryFunctionsStruct {
-    void* (*alloc)(size_t);
-    void (*free)(void*);
-    void* (*realloc)(void*, size_t);
-    void* (*calloc)(size_t, size_t);
-};
-extern void DolphinInitMemorySystem(MemoryFunctionsStruct*);
-
+extern void DolphinInitMemorySystem(RwMemoryFunctions*);
 struct RwRect;
 }
 
@@ -33,7 +21,7 @@ public:
     virtual void SaveTimer();
     virtual F32 GetDeltaTimerSinceSaved();
     virtual BOOL PS_Init();
-    virtual MemoryFunctionsStruct* MemorySetting();
+    virtual RwMemoryFunctions* MemorySetting();
     virtual void* DeviceSetting();
     virtual void InstallDebugMessage();
     virtual BOOL NativeTextureSupport();

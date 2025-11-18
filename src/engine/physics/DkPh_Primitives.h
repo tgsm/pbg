@@ -20,6 +20,11 @@ public:
 };
 REQUIRE_SIZE(BVolume, 0x20);
 
+// TODO
+class BVolumeOBB {
+
+};
+
 class Dynamics;
 
 struct RBody {

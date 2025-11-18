@@ -6,6 +6,7 @@
 #include "entities/CEntityHero.h"
 #include "entities/CEntityBhvTagData.h"
 #include "CGame.h"
+#include "CGamePartIngame.h"
 
 class CEntityBhvTagTeleport : public CEntityBhvTagData {
 private:
@@ -55,7 +56,7 @@ public:
                 entity->m_entity_manager->GetGame()->PushOpcodeValue(4);
             }
         }
-        CGamePart* game_part = entity->m_entity_manager->GetGame()->GetGamePartPointer();
+        CGamePartIngame* game_part = (CGamePartIngame*)entity->m_entity_manager->GetGame()->GetGamePartPointer();
         game_part->m_unk4 = 0;
 
         entity->m_entity_manager->GetGame()->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
@@ -65,9 +66,8 @@ public:
             entity->m_entity_manager->GetGame()->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
             entity->m_entity_manager->GetGame()->m_unk503C &= ~(1 << 3); // bitfield?
 
-            // FIXME: Which GamePart is this?
-            U8* game_part_raw = reinterpret_cast<U8*>(entity->m_entity_manager->GetGame()->GetGamePartPointer());
-            **((U32**)(game_part_raw+0x14)) |= (1 << 5);
+            CGamePartIngame* game_part = (CGamePartIngame*)entity->m_entity_manager->GetGame()->GetGamePartPointer();
+            game_part->m_game_room_manager->m_unk0 |= (1 << 5);
 
             entity->m_entity_manager->GetGame()->FadeIn(-1.0f);
 

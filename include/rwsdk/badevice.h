@@ -3,6 +3,11 @@
 
 #include <stdarg.h>
 
+// TODO
+typedef struct RwEngineOpenParams {
+    int stub;
+} RwEngineOpenParams;
+
 typedef struct RwFileFunctions {
     char unk0[4];
     void* (*rwfopen)(const char* path, const char* mode);

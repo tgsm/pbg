@@ -2,32 +2,12 @@
 #define PIGLET_ENTITIES_CENTITYOBJECT_H
 
 #include <vector>
+#include "engine/physics/DkPh_Collider.h"
 #include "engine/physics/DkPh_Primitives.h"
 #include "engine/xmd/CChunkIterator.h"
 #include "engine/wrap/DKW_Matrix.h"
 #include "engine/wrap/DKW_V3d.h"
 #include "entities/CEntity.h"
-
-// FIXME: Move this to the engine
-namespace DkPh {
-
-class BVolumeOBB {
-
-};
-
-class Collider {
-public:
-    struct Body {
-        U8 unk0[4];
-        CEntity* entity4;
-        U8 unk8[0x34 - 0x8];
-        U32 unk34;
-    };
-
-    Body& GetBodyRef(const BVolume*);
-};
-
-};
 
 class CEntityObject : public CEntity {
 protected:

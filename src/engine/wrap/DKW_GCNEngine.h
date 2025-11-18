@@ -19,7 +19,7 @@ public:
     virtual void SaveTimer();
     virtual F32 GetDeltaTimerSinceSaved();
     virtual BOOL PS_Init();
-    virtual MemoryFunctionsStruct* MemorySetting();
+    virtual RwMemoryFunctions* MemorySetting();
     virtual void InstallDebugMessage();
     virtual void InstallFileSystem();
     virtual void OnPadButtonDown(DKW_PadButtonStatus*);

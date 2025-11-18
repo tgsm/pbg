@@ -7,11 +7,11 @@
 #include "engine/wrap/DKW_GCNEngine.h"
 
 extern "C" {
-extern void DolphinInitMemorySystem(MemoryFunctionsStruct*);
+extern void DolphinInitMemorySystem(RwMemoryFunctions*);
 extern void DolphinInstallFileSystem(void);
 }
 
-MemoryFunctionsStruct MemoryFunctions;
+RwMemoryFunctions MemoryFunctions;
 
 S64 CDKW_GCNEngine::ms_InitialTime;
 static BOOL IsHeapInitialized;
@@ -52,7 +52,7 @@ void CDKW_GCNEngine::GCNInit() {
     ms_InitialTime = ::OSGetTime();
 }
 
-MemoryFunctionsStruct* CDKW_GCNEngine::MemorySetting() {
+RwMemoryFunctions* CDKW_GCNEngine::MemorySetting() {
     return &MemoryFunctions;
 }
 

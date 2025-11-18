@@ -99,8 +99,7 @@ CGamePartCredits::~CGamePartCredits() {
     m_game->m_sound_engine->DeleteAllSounds();
 
     for (int i = 0; i < 4; i++) {
-        // FIXME: Remove this cast
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D((DKDSP::IIm2DBatch*)m_batches[i]);
+        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batches[i]);
         m_batches[i] = NULL;
     }
 
