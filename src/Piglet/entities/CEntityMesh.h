@@ -6,6 +6,8 @@
 #include "engine/display/CController.h"
 #include "engine/display/CMirror.h"
 #include "engine/display/IShadowMapValidationCallback.h"
+#include "engine/sound/CSample.h"
+#include "engine/sound/CSoundEmitter.h"
 #include "engine/wrap/DKW_RGBAReal.h"
 #include "engine/wrap/DKW_V3d.h"
 #include "entities/CEntityObject.h"
@@ -41,7 +43,7 @@ public: // protected
     CDKW_RGBAReal m_unk70;
     CEntityLight* m_entity_light_01;
     DKDSP::CMirror* m_mirror;
-    void* m_unk88; // CSoundEmitter*
+    DKSND::CSoundEmitter* m_sound_emitter;
     DKDSP::CClump* m_clump;
     DkPh::RBody m_unk90;
     U8 m_unkB0[0xBC - 0xB0];
@@ -95,6 +97,13 @@ public:
     void PlayAnimTan(DKDSP::IGenericAnimation* animation, U32);
     void LoadAnimations(DkXmd::CChunkIterator iter);
     void ParseStar(std::string);
+    void StopAttachedFX(int id);
+    void StartAttachedFX(int id);
+    void ResumeAllAttachedFX();
+    void PauseAllAttachedFX();
+    void StopAllAttachedFX();
+    DKSND::CSample* GetSampleById(int id);
+    F32 GetPitchVariationById(int id);
     BOOL ParseMirror(DkXmd::CChunkIterator iter);
 };
 REQUIRE_SIZE(CEntityMesh, 0xF4);

@@ -35,6 +35,8 @@
 #include "CResourceFactory.h"
 #include "CShadowZone.h"
 
+class CGamePartIngame;
+
 struct SVideoDesc {
     int id;
     std::string filename;
@@ -164,6 +166,8 @@ public:
 
     CMission& GetMission(int index) { return m_unk210[index]; }
     CMission& GetCurrentMission() { return m_unk210[m_unk4F54 - 1]; }
+
+    CGamePartIngame* GetIngameGamePart() { return (CGamePartIngame*)GetGamePartPointer(); }
 
     BOOL HasEntityOfType(U32 type) {
         BOOL result = FALSE;

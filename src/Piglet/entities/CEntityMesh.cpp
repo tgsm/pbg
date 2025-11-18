@@ -31,7 +31,7 @@ CEntityMesh::CEntityMesh(CEntityManager* entity_manager, std::string name) : CEn
     m_attached_snds.clear();
     m_attached_snds.reserve(4);
 
-    m_unk88 = NULL;
+    m_sound_emitter = NULL;
     m_unkEC = FALSE;
     m_entity_light_01 = NULL;
 }

@@ -52,7 +52,7 @@ public:
     virtual CSound2D* PlaySound2D(std::string, int);
     virtual CSound2D* PlaySound2DLooped(std::string*, int);
     virtual CSound2D* PlaySound2DLooped(std::string, int);
-    virtual void func40();
+    virtual CSound2D* PlaySound2D(ISample* sample, int);
     virtual void func41();
     virtual void func42();
     virtual void func43();
