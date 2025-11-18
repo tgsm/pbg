@@ -5,6 +5,7 @@
 #include "engine/xmd/CChunkIterator.h"
 #include "entities/CEntityManager.h"
 #include "entities/CEntityBhvTagBehavior.h"
+#include "CMailBox.h"
 #include "types.h"
 
 #define ENTITY_FLAG_ACTIVE        (1 << 0)
@@ -16,14 +17,6 @@
 #define ENTITY_FLAG_UNK6          (1 << 6)
 #define ENTITY_FLAG_UNK7          (1 << 7)
 #define ENTITY_FLAG_UNK8          (1 << 8) // Related to visibility
-
-// FIXME: This is part of the engine, but where do we put it?
-struct SDkMessage {
-    char unk0[32];
-    char unk20[16];
-    U32 unk30;
-};
-REQUIRE_SIZE(SDkMessage, 0x34);
 
 enum EEntityType {
     ENTITY_INVALID = 0,

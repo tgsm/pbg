@@ -6,7 +6,13 @@
 #include "types.h"
 
 class CGame;
-struct SDkMessage;
+
+struct SDkMessage {
+    char unk0[32];
+    char unk20[16];
+    U32 unk30;
+};
+REQUIRE_SIZE(SDkMessage, 0x34);
 
 struct MailBoxItem { // Unknown name, may just be SDkMessage
     char unk0[16];
