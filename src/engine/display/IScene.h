@@ -40,8 +40,8 @@ public:
     virtual void func18();
     virtual CLight* CreateLight(ELIGHTTYPE) = 0;
     virtual CLight* CopyLight(ILight*) = 0;
-    virtual void func21();
-    virtual void func22();
+    virtual int GetNumberOfLights() = 0;
+    virtual CLight* GetLight(int) = 0;
     virtual void func23();
     virtual void EnableLight(ILight*, int) = 0;
     virtual void func25();
@@ -129,9 +129,9 @@ public:
     virtual void func107();
     virtual void func108();
     virtual void SetAmbient(F32 red, F32 green, F32 blue) = 0;
-    virtual void func110();
-    virtual void func111();
-    virtual void func112();
+    virtual F32 GetAmbientRed() = 0;
+    virtual F32 GetAmbientGreen() = 0;
+    virtual F32 GetAmbientBlue() = 0;
     virtual void func113();
     virtual void SelectCamera(ICamera*) = 0;
     virtual void func115();

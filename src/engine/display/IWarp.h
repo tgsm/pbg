@@ -9,7 +9,8 @@
 namespace DKDSP {
 
 enum EWARPRENDERSTATE {
-
+    WARP_RENDER_STATE_6 = 6,
+    WARP_RENDER_STATE_7 = 7,
 };
 
 class IWarp {

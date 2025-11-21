@@ -5,7 +5,8 @@
 
 class CEntityPhial : public CEntityMesh {
 public:
-    U8 m_unkF4[0x18];
+    U32 m_unkF4;
+    U8 m_unkF8[0x10C - 0xF8];
 
 public:
     CEntityPhial(CEntityManager* entity_manager, std::string name);

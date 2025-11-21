@@ -4,6 +4,7 @@
 #include "entities/CEntityHero.h"
 #include "entities/CEntityMesh.h"
 #include "CPSplines.h"
+#include "entities/CEntityPhial.h"
 
 enum ENPCGenericBehaviour {
     GENERIC_BEHAVIOUR_0 = 0,
@@ -14,11 +15,13 @@ enum ENPCGenericBehaviour {
 };
 
 class CEntityNPC : public CEntityMesh {
-protected:
+public:
     U32 m_unkF4;
     U8 m_unkF8[4];
     U32 m_unkFC;
-    U8 m_unk100[0x15C - 0x100];
+    U8 m_unk100[0x118 - 0x100];
+    CDKW_V3d m_unk118;
+    U8 m_unk124[0x15C - 0x124];
     U8 m_unk15C;
     U8 m_unk15D[0x1A0 - 0x15D];
     F32 m_rotation_angle;
@@ -28,7 +31,11 @@ protected:
     U8 m_unk1AA[2];
     U8 m_unk1AC;
     U8 m_unk1AD;
-    U8 m_unk1AE[0x2C4 - 0x1AE];
+    U8 m_unk1AE[2];
+    U32 m_unk1B0;
+    U8 m_unk1B4[0x234 - 0x1B4];
+    CEntityPhial* m_phial;
+    U8 m_unk238[0x2C4 - 0x238];
     std::string* m_unk2C4;
     CPigSpline* m_pig_spline;
     U8 m_unk2CC[0x2D4 - 0x2CC];
@@ -67,6 +74,9 @@ public:
     void ComputeRotationAngle(CDKW_V3d&, CDKW_V3d&);
     BOOL RotateAccordingToGarbageVar(F32);
     void CreatePathFinder(CDKW_V3d, int, int);
+    void SetDeadInSecondPass();
+    void SaveCurrentAnim();
+    void RestoreSavedAnim();
 
     CDKW_V3d& GetPosDelta() {
         const CDKW_V3d& npc_position = GetPosition();

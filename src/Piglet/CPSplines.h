@@ -6,6 +6,8 @@
 // TODO
 class CPigSpline {
 public:
+    ~CPigSpline();
+
     U32 SwapMovingDirection();
 };
 

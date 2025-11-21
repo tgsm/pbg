@@ -131,7 +131,7 @@ void CEntityNPCTubaEffalump::UpdateFightBehaviour(F32 a1) {
                         key_sequence->Explode();
                         key_sequence->m_unk40 |= (1 << 1);
                     }
-                    manager->m_unk0 |= (1 << 23);
+                    manager->m_flags |= (1 << 23);
                     manager->m_unk118 = 0.7f;
                     manager->m_unk11C = 0.0f;
                     m_unk1A8 = 105;

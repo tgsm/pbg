@@ -53,12 +53,15 @@ class CGame {
 public:
     enum ERommFadeType {
         FADE_TYPE_0,
+        FADE_TYPE_2 = 2,
         FADE_TYPE_3 = 3,
         FADE_TYPE_4 = 4,
     };
 
     enum ERoomReturnType {
-        RETURN_TYPE_0,
+        RETURN_TYPE_0 = 0,
+        RETURN_TYPE_1 = 1,
+        RETURN_TYPE_2 = 2,
     };
 
 public:
@@ -166,6 +169,7 @@ public:
 
     CMission& GetMission(int index) { return m_unk210[index]; }
     CMission& GetCurrentMission() { return m_unk210[m_unk4F54 - 1]; }
+    U32 GetUnk4F58() { return m_unk4F58; }
 
     CGamePartIngame* GetIngameGamePart() { return (CGamePartIngame*)GetGamePartPointer(); }
 
@@ -193,6 +197,9 @@ public:
 
         return fVar1;
     }
+
+    F32 GetUnk502C() { return m_unk502C; }
+    F32 GetFadeDuration() { return m_fade_duration; }
 
     F32 GetDeltaTime();
     void ComputeDeltaTime();

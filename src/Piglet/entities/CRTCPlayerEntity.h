@@ -13,8 +13,10 @@ public:
 public:
     CRTCPlayerEntity(CEntityManager* entity_manager, std::string name);
 
-    BOOL IsInFade();
+    void Start();
+    BOOL IsFinished();
     void StartFade(U32);
+    BOOL IsInFade();
 };
 REQUIRE_SIZE(CRTCPlayerEntity, 0x108);
 

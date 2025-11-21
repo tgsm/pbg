@@ -80,7 +80,7 @@ void CGamePartIngame::StartRTCMode(CRTCPlayerEntity* player, int a2) {
 
     CGameRoomManager* manager = m_game_room_manager;
     manager->m_player_entity = player;
-    manager->m_unk0 |= (1 << 20);
+    manager->m_flags |= (1 << 20);
 
     if (a2 != 0) {
         m_game_room_manager->AddFlag(1 << 24);

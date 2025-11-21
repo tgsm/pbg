@@ -52,6 +52,7 @@ public:
     void Reset();
     void Update(F32 dt);
     void Render(F32 dt);
+    void HideAllUnPauseGUI();
 
     template <typename T>
     inline void PushEvent(size_t& event_as_size) {

@@ -43,7 +43,7 @@ void CEntityTimer::Update(F32 dt_maybe) {
     } else {
         ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->UpdateTimer(dt_maybe);
         if (IsFlagged(ENTITY_FLAG_VISIBLE)) {
-            if (((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_unk44 == 0) {
+            if (((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_batch44 == NULL) {
                 CMailBox* mailbox = m_entity_manager->GetGame()->GetMailbox();
                 mailbox->SendMessage(m_unk0, m_unk0, "TIMEROVER", 0);
                 if (IsFlagged(ENTITY_FLAG_ACTIVE)) {

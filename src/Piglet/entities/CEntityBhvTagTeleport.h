@@ -67,7 +67,7 @@ public:
             entity->m_entity_manager->GetGame()->m_unk503C &= ~(1 << 3); // bitfield?
 
             CGamePartIngame* game_part = (CGamePartIngame*)entity->m_entity_manager->GetGame()->GetGamePartPointer();
-            game_part->m_game_room_manager->m_unk0 |= (1 << 5);
+            game_part->m_game_room_manager->m_flags |= (1 << 5);
 
             entity->m_entity_manager->GetGame()->FadeIn(-1.0f);
 

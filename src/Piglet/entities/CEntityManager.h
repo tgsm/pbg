@@ -5,6 +5,7 @@
 #include <vector>
 #include "engine/xmd/CChunkIterator.h"
 #include "engine/xmd/CXmdFile.h"
+#include "CPathFinder.h"
 #include "types.h"
 
 class CEntity;
@@ -18,16 +19,15 @@ class Collider;
 F32 InterpolValue(F32 f1, F32 f2, F32 f3, F32 f4);
 
 class CEntityManager {
-private:
+public:
     CGame* m_game;
     std::vector<unsigned long> m_entities;
-
     void* m_model_xmd_data;
     DkXmd::CXmdFile* m_model_xmd;
     DkXmd::CChunkIterator* m_model_xmd_iter;
     // Unknown types
     DkPh::Collider* m_unk1C;
-    U32 m_unk20;
+    CPathFinder* m_path_finder;
     CEntity* m_entity_light_01;
 
 public:

@@ -72,7 +72,7 @@ CEntityManager::CEntityManager(CGame* game) {
     m_entities.reserve(256);
 
     m_unk1C = 0;
-    m_unk20 = 0;
+    m_path_finder = NULL;
 }
 
 // Equivalent

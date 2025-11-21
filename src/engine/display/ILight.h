@@ -23,8 +23,8 @@ public:
     virtual F32 GetColorRed() = 0;
     virtual F32 GetColorGreen() = 0;
     virtual F32 GetColorBlue() = 0;
-    virtual void func30() = 0;
-    virtual void func34() = 0;
+    virtual void Affect(U32) = 0;
+    virtual U32 GetAffected() = 0;
     virtual void SetRadius(F32 radius) = 0;
     virtual F32 GetRadius() = 0;
     virtual void SetConeAngle(F32 angle) = 0;
