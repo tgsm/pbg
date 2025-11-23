@@ -12,7 +12,7 @@
 class CDKW_V3d {
 public:
     CDKW_V3d() {}
-    CDKW_V3d(const RwV3d& rwvec) {
+    explicit CDKW_V3d(const RwV3d& rwvec) {
         m_x = rwvec.x;
         m_y = rwvec.y;
         m_z = rwvec.z;

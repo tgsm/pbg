@@ -32,8 +32,7 @@ void CEntityNPCTennisWoozle::UpdateDetectionBehaviour(F32 a1) {
             m_unk1A8 = 1;
             break;
         case 1: {
-            CDKW_V3d at;
-            at = m_clump->GetFrame()->m_rwframe->modelling.at;
+            CDKW_V3d at = CDKW_V3d(m_clump->GetFrame()->m_rwframe->modelling.at);
 
             CDKW_V3d delta = GetPosDelta();
             ComputeRotationAngle(at, delta);

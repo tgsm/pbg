@@ -75,7 +75,7 @@ public:
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual U32 GetSaveSize() { return CEntity::GetSaveSize(); }
-    virtual CDKW_V3d GetPosition() { return m_clump->GetFrame()->m_rwframe->modelling.pos; }
+    virtual CDKW_V3d GetPosition() { return CDKW_V3d(m_clump->GetFrame()->m_rwframe->modelling.pos); }
     virtual void SetPosition(CDKW_V3d& position);
     virtual CDKW_V3d GetOrientation();
     virtual void SetOrientation(CDKW_V3d& orientation);

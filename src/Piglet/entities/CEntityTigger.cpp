@@ -120,7 +120,7 @@ void CEntityTigger::SetMode(U32 mode) {
         case 8: {
             m_animation_star_controller->Play("DEAD_1", 1, 1);
             CDKW_Frame* frame = m_clump->GetFrame();
-            CDKW_V3d position = frame->GetRwFrame()->modelling.pos;
+            CDKW_V3d position = CDKW_V3d(frame->GetRwFrame()->modelling.pos);
             RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&(-position), 2);
             RwFrameRotate(180.0f, frame->GetRwFrame(), (RwV3d*)&CDKW_V3d::YAXIS, 2);
             RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&position, 2);

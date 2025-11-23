@@ -350,7 +350,7 @@ void CEntityPiglet::SetMode(U32 mode) {
             return;
         case 1: {
             CDKW_Frame* frame = m_clump->GetFrame();
-            m_unk260 = frame->m_rwframe->modelling.at;
+            m_unk260 = CDKW_V3d(frame->m_rwframe->modelling.at);
 
             if (m_unk25C > 0) {
                 m_animation_star_controller->Play("TURN_BACK_LEFT", 1);
@@ -388,7 +388,7 @@ void CEntityPiglet::SetMode(U32 mode) {
                   (vec.z - CDKW_V3d::ZERO.m_z) * (vec.z - CDKW_V3d::ZERO.m_z) <= CDKW_V3d::sm_Epsilon * CDKW_V3d::sm_Epsilon)) {
                       RwV3dNormalize(&vec, &vec);
             }
-            m_unk260 = vec;
+            m_unk260 = CDKW_V3d(vec);
             break;
         case 16:
         case 17:
@@ -428,7 +428,7 @@ void CEntityPiglet::SetMode(U32 mode) {
             CDKW_V3d position;
             m_animation_star_controller->Play("DEAD_1", 1, 1);
             CDKW_Frame* frame = m_clump->GetFrame();
-            position = frame->GetRwFrame()->modelling.pos;
+            position = CDKW_V3d(frame->GetRwFrame()->modelling.pos);
             RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&(-position), 2);
             RwFrameRotate(180.0f, frame->GetRwFrame(), (RwV3d*)&CDKW_V3d::YAXIS, 2);
             RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&position, 2);
