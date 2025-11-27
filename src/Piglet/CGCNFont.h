@@ -10,6 +10,7 @@ public:
     static RwImage* m_pImage;
 
 public:
+    static void Create();
     static void PrintText(int, int, char* text);
 };
 

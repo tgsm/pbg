@@ -76,6 +76,7 @@ public:
     virtual void RWASetCurrentStreamPosition(F32);
 
     void AddLayer(int);
+    void* RWAGetOSOutputHandle(); // TODO: return type
 };
 REQUIRE_SIZE(CSoundEngine, 0x2D0);
 

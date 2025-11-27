@@ -29,6 +29,10 @@
 #include "CGamePart.h"
 #include "CGuiManager.h"
 #include "CLoading.h"
+#include "CLoadingAdventure.h"
+#include "CLoadingCatchThemAll.h"
+#include "CLoadingTigger.h"
+#include "CLoadingWinnie.h"
 #include "CMailBox.h"
 #include "CMiniMap.h"
 #include "CMission.h"
@@ -98,10 +102,10 @@ public:
     CMailBox* m_mailbox;
     CBaseLoadingCallback* m_current_loading_callback;
     CInGameLoadingCallback* m_ingame_loading_callback;
-    CDkFileSysLoadCallBack* m_loading_adventure; // FIXME: CLoadingAdventure
-    CDkFileSysLoadCallBack* m_loading_catch_em_all; // FIXME: CLoadingCatchThemAll
-    CDkFileSysLoadCallBack* m_loading_tigger; // FIXME: CLoadingTigger
-    CDkFileSysLoadCallBack* m_loading_winnie; // FIXME: CLoadingWinnie
+    CLoadingAdventure* m_loading_adventure;
+    CLoadingCatchThemAll* m_loading_catch_them_all;
+    CLoadingTigger* m_loading_tigger;
+    CLoadingWinnie* m_loading_winnie;
     CBootUpLoadingCallback* m_bootup_loading_callback;
     CPreBootUpLoadingCallback* m_prebootup_loading_callback;
     CVideoLoadingCallback* m_video_loading_callback;
@@ -135,7 +139,8 @@ public:
     F32 m_unk5048;
     F32 m_unk504C;
     DKDSP::CIm2DBatch* m_batch5050;
-    U8 m_unk5054[0x505C - 0x5054];
+    size_t m_unk5054;
+    U8 m_unk5058[0x505C - 0x5058];
     DKDSP::CController* m_unk505C;
     DKDSP::CClump* m_unk5060;
     std::vector<size_t> m_unk5064;

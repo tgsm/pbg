@@ -9,7 +9,7 @@ typedef struct RwEngineOpenParams {
 } RwEngineOpenParams;
 
 typedef struct RwFileFunctions {
-    char unk0[4];
+    int (*rwfexist)(const char* path);
     void* (*rwfopen)(const char* path, const char* mode);
     int (*rwfclose)(void* stream);
     unsigned long (*rwfread)(void* ptr, unsigned long size, unsigned long n, void* stream);

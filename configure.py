@@ -406,7 +406,7 @@ config.libs = [
         "progress_category": "game",
         "objects": [
             Object(Equivalent, "Piglet/main.cpp"),
-            Object(NonMatching, "Piglet/CGame.cpp"),
+            Object(NonMatching, "Piglet/CGame.cpp", extra_cflags=["-bool off"]),
             Object(NonMatching, "Piglet/CGamePartCredits.cpp"),
             Object(Equivalent, "Piglet/CGamePartFrontend.cpp"),
             Object(NonMatching, "Piglet/CGamePartIngame.cpp"),

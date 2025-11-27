@@ -1,5 +1,7 @@
+#include <cstddef>
 #include <dolphin/pad.h>
 #include <dolphin/vi.h>
+#include <rwa/rwastream.h>
 #include "engine/backup/DkBackUp.h"
 #include "engine/display/DkDisplay.h"
 #include "engine/display/IImBatch.h"
@@ -16,6 +18,7 @@
 #include "CGamePartMovieClips.h"
 #include "CGamePartScrapBook.h"
 #include "CGamePartStartScreen.h"
+#include "CGCNFont.h"
 #include "CResourceFactory.h"
 #include "entities/CEntity.h"
 #include "entities/CEntityHero.h"
@@ -41,6 +44,7 @@ CGame::CGame(void* a1, U32 a2) {
     m_game_part = NULL;
     m_display_engine = NULL;
     m_texture_dictionary = NULL;
+    m_object_dictionary = NULL;
     m_anim_dictionary = NULL;
     m_entity_manager = NULL;
     m_resource_factory = NULL;
@@ -48,17 +52,20 @@ CGame::CGame(void* a1, U32 a2) {
     m_scene = NULL;
     m_mailbox = NULL;
     m_sound_engine = NULL;
+    m_sample_dictionary = NULL;
     m_gui_engine = NULL;
     m_gui_manager = NULL;
     m_fx_manager = NULL;
     m_game_backup = NULL;
     m_backup_engine = NULL;
     m_video_engine = NULL;
+    m_batch5050 = NULL;
     m_unk5038 = 2;
+    m_unk5054 = 0;
     m_unk505C = NULL;
     m_unk5060 = NULL;
     m_unk5064.reserve(40);
-    // m_video_descs.clear();
+    m_video_descs.clear();
     m_video_descs.reserve(16);
     m_unk5004 = "";
     m_unk5008 = NULL;
@@ -116,6 +123,8 @@ CGame::CGame(void* a1, U32 a2) {
         m_camera->SetZNear(0.6f);
         m_scene->SelectCamera(m_camera);
 
+        CGCNFont::Create();
+
         m_error_callback = new CErrorCallback;
         m_error_callback->m_game = this;
         CDkFileSys::SetErrorCallBack(m_error_callback);
@@ -124,6 +133,11 @@ CGame::CGame(void* a1, U32 a2) {
         m_timer->Reset();
 
         m_mailbox = new CMailBox(this, 128);
+
+        m_loading_adventure = new CLoadingAdventure(this);
+        m_loading_catch_them_all = new CLoadingCatchThemAll(this);
+        m_loading_tigger = new CLoadingTigger(this);
+        m_loading_winnie = new CLoadingWinnie(this);
 
         m_ingame_loading_callback = new CInGameLoadingCallback(this);
         m_bootup_loading_callback = new CBootUpLoadingCallback(this);
@@ -183,6 +197,8 @@ CGame::CGame(void* a1, U32 a2) {
     CDkFileSys::UnSetCallBackOnLoad();
     CDkFileSys::SetErrorCallBack(m_error_callback);
 
+    std::string rws_filename = "GCNStereo.rws";
+
     // ...
 
     for (int i = 0; i < 5; i++) {
@@ -191,6 +207,28 @@ CGame::CGame(void* a1, U32 a2) {
 
         VIWaitForRetrace();
     }
+
+    RwaStream* stream = RwaStreamCreate(NULL, 0, 0, 0, 0);
+    static char tmpString[255];
+    strcpy(tmpString, "GCNStereo.rws");
+
+    RwaUnkMedia media;
+    media.filename = tmpString;
+    media.unk4 = 1;
+    media.unkC = 0;
+    media.unk10 = 0;
+    media.unk8 = 0;
+    media.unk14 = 0;
+    media.unk18 = 8;
+    media.unk1C = 4;
+    media.unk20 = 1;
+    _rwaStreamSetMedia(stream, &media);
+
+    do {
+        m_sound_engine->BeginUpdate();
+        m_sound_engine->EndUpdate();
+        VIWaitForRetrace();
+    } while (_rwaStreamGetStatus(stream) == 2);
 
     // ...
 
@@ -271,14 +309,17 @@ CGame::CGame(void* a1, U32 a2) {
 extern "C" void Rt2dAnimClose();
 extern "C" void Rt2dClose();
 
-// *Very* incomplete
+// Equivalent?: std::vector
 CGame::~CGame() {
     if (m_unk508C != NULL) {
         DKI::IInputEngine::DestroyInput(m_unk508C);
         m_unk508C = NULL;
     }
 
-    // ...
+    if (m_batch5050 != NULL) {
+        m_display_engine->GetImmediate()->RemoveBatch2D(m_batch5050);
+        m_batch5050 = NULL;
+    }
 
     if (m_game_part != NULL) {
         delete m_game_part;
@@ -307,7 +348,22 @@ CGame::~CGame() {
     }
     m_resource_factory = NULL;
 
-    // ...
+    if (m_loading_adventure != NULL) {
+        delete m_loading_adventure;
+        m_loading_adventure = NULL;
+    }
+    if (m_loading_catch_them_all != NULL) {
+        delete m_loading_catch_them_all;
+        m_loading_catch_them_all = NULL;
+    }
+    if (m_loading_tigger != NULL) {
+        delete m_loading_tigger;
+        m_loading_tigger = NULL;
+    }
+    if (m_loading_winnie != NULL) {
+        delete m_loading_winnie;
+        m_loading_winnie = NULL;
+    }
 
     if (m_ingame_loading_callback != NULL) {
         delete m_ingame_loading_callback;
@@ -376,9 +432,14 @@ CGame::~CGame() {
 
     m_camera = NULL;
 
-    delete m_scene;
+    if (m_scene != NULL) {
+        m_scene->Release();
+    }
     m_scene = NULL;
-    delete m_sound_engine;
+
+    if (m_sound_engine != NULL) {
+        m_sound_engine->Release();
+    }
     m_sound_engine = NULL;
 
     DkBakUpRelease();
@@ -495,7 +556,7 @@ BOOL CGame::NextFrame() {
 
                         U32 fortnite = m_opcode_buffer[i++];
                         if (GetMission(fortnite - 1).m_unk2C != 0) {
-                            m_current_loading_callback = (CBaseLoadingCallback*)m_loading_catch_em_all;
+                            m_current_loading_callback = (CBaseLoadingCallback*)m_loading_catch_them_all;
                         } else {
                             m_current_loading_callback = (CBaseLoadingCallback*)m_loading_adventure;
                         }
@@ -906,7 +967,7 @@ BOOL CGame::NextFrame() {
                         m_screen_effect->SetSequenceByIndex(3);
                         break;
                     case 3:
-                        m_current_loading_callback = (CBaseLoadingCallback*)m_loading_catch_em_all;
+                        m_current_loading_callback = (CBaseLoadingCallback*)m_loading_catch_them_all;
                         break;
                     default:
                         m_current_loading_callback = (CBaseLoadingCallback*)m_loading_adventure;
@@ -1226,6 +1287,51 @@ void CGame::RegisterVideo(int id, std::string filename) {
     desc.filename.assign(filename_, 0);
 
     m_video_descs.push_back(desc);
+}
+
+// Incomplete
+void CGame::PlayVideo(int id) {
+    CVideoLoadingCallback* callback = NULL;
+    if (m_current_loading_callback != m_video_loading_callback) {
+        callback = (CVideoLoadingCallback*)m_current_loading_callback;
+    }
+    if (callback != NULL) {
+        callback->Destroy();
+    }
+    m_current_loading_callback = m_video_loading_callback;
+    CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+
+    for (U32 i = 0; i < m_video_descs.size(); i++) {
+        SVideoDesc& desc = m_video_descs[i];
+        if (id != m_video_descs[i].id) {
+            continue;
+        }
+            if (RWFileInterface.rwfexist(m_video_descs[i].filename.c_str())) {
+                m_video_engine->SetCallBack(ReplayVideoCallback);
+                m_video_engine->SetVolume(m_sound_engine->GetGlobalVolume());
+                m_video_engine->Play((char*)m_video_descs[i].filename.c_str());
+            }
+
+            m_gui_manager->Reset();
+            m_gui_manager->Update(1.0f/30.0f);
+
+            if (callback != NULL) {
+                m_current_loading_callback = callback;
+                callback->Create();
+                CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+            }
+
+            return;
+    }
+
+    m_gui_manager->Reset();
+    m_gui_manager->Update(1.0f/30.0f);
+
+    if (callback != NULL) {
+        m_current_loading_callback = callback;
+        callback->Create();
+        CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+    }
 }
 
 void CGame::ReplayVideoCallback() {

@@ -19,7 +19,7 @@ class IObjectDictionary;
 // TODO
 class IScene {
 public:
-    virtual void func0();
+    virtual void Release() = 0;
     virtual void func1();
     virtual void func2();
     virtual void func3();

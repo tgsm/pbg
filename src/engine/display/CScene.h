@@ -8,6 +8,7 @@ namespace DKDSP {
 
 class CScene : public IScene {
 public:
+    virtual void Release();
     virtual CCamera* CreateCamera();
     virtual CLight* CreateLight(ELIGHTTYPE);
     virtual CLight* CopyLight(ILight*);
