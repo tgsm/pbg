@@ -166,6 +166,10 @@ public:
     virtual ~CGuiSaveCheckingMemorycardEventHandler() {}
 
     virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
+
+    void SetUnk10(U32 value) {
+        m_unk10 = value;
+    }
 };
 
 class CGuiSaveNoSpaceEventHandler : public CGuiBaseEventHandler {

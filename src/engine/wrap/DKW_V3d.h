@@ -19,6 +19,16 @@ public:
     }
     CDKW_V3d(F32 x, F32 y, F32 z);
 
+    // FIXME: Doesn't match yet
+    CDKW_V3d operator+(const CDKW_V3d& other) const {
+        CDKW_V3d result;
+        volatile F32 z, y, x;
+        x = result.m_x = (this->m_x + other.m_x);
+        y = result.m_y = (this->m_y + other.m_y);
+        z = result.m_z = (this->m_z + other.m_z);
+        return result;
+    }
+
     CDKW_V3d operator-() const;
     CDKW_V3d& operator-(const CDKW_V3d& other) const {
         CDKW_V3d result;
@@ -39,6 +49,8 @@ public:
         m_z *= scalar;
         return *this;
     }
+
+    CDKW_V3d& operator+=(const F32& scalar);
 
     F32 SquareDistToPoint(CDKW_V3d& other);
 

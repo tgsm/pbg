@@ -26,6 +26,7 @@ public:
     virtual void SetZFar(F32);
     virtual F32 GetZFar();
     virtual void SetFOV(F32, F32);
+    virtual F32 GetFOV();
 };
 REQUIRE_SIZE(CCamera, 0x28);
 

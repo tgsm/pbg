@@ -32,7 +32,7 @@ public:
     virtual void func20() = 0;
     virtual void func21() = 0;
     virtual void SetFOV(F32, F32) = 0;
-    virtual void func23() = 0;
+    virtual F32 GetFOV() = 0;
     virtual void func24() = 0;
     virtual void func25() = 0;
     virtual void func26() = 0;

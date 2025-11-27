@@ -82,7 +82,7 @@ public:
     virtual void AddFlag(U32 flag);
     virtual void DelFlag(U32 flag);
     virtual void SetBehavior(U32 unk);
-    virtual U32 GetType();
+    virtual U32 GetType() { return ENTITY_BASE; }
     virtual void Init();
     virtual void Reset();
     virtual void Update(F32 dt_maybe);

@@ -15,7 +15,9 @@ public:
     CCACamera* m_camera;
     CGameRoomManager* m_game_room_manager;
     U32 m_unk18;
-    U8 m_unk1C[0x1C];
+    U8 m_unk1C[8];
+    CDKW_V3d m_unk24;
+    U8 m_unk30[8];
 
 public:
     CGamePartIngame(CGame* game);

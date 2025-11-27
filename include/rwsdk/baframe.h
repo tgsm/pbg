@@ -17,7 +17,9 @@ typedef struct RwFrame {
     RwFrame* root;
 } RwFrame; // size: 0xA4 (probably right size?)
 
+RwFrame* RwFrameUpdateObjects(RwFrame* frame);
 RwFrame* RwFrameTranslate(RwFrame* frame, RwV3d*, int);
+RwFrame* RwFrameScale(RwFrame* frame, RwV3d*, int scale);
 RwFrame* RwFrameRotate(float, RwFrame* frame, RwV3d*, int);
 
 #ifdef __cplusplus

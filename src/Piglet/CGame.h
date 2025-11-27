@@ -217,6 +217,7 @@ public:
     int FadeOut(F32 a1);
     void RenderFade();
     BOOL IsGUIDisplayNotAdvised();
+    void UpdateRTCCamera(F32 dt);
     void RegisterVideo(int id, std::string filename);
     void PlayVideo(int id);
     CDKW_RGBA ComputeGameFadeColor();

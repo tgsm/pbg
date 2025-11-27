@@ -17,6 +17,7 @@ public:
     virtual void RemoveLight(ILight*);
     virtual CShadowMap* CreateShadowMap(ILight* light, U32, U32, U32);
     virtual void RemoveShadowMap(IShadowMap*);
+    virtual void SetupClumpToReceiveShadowMap(IClump* clump, int);
     virtual CMirror* CreateMirror(U32 texture_width, U32 texture_height, U32 texture_depth_maybe);
     virtual void EnableMirrorRendering(IMirror* mirror, BOOL enable);
     virtual void AssociateClumpToMirror(IMirror* mirror, IClump* clump);
@@ -24,6 +25,7 @@ public:
     virtual void RemoveWarp(IWarp*);
     virtual void RenderWarp(IWarp*);
     virtual CClump* CloneClump(std::string, IObjectDictionary*);
+    virtual void RemoveClump(IClump* clump);
     virtual CParticleEmitter* CreateParticleEmitterFromDefinition(std::string, IParticleEmitterDefinition*);
     virtual CParticleEmitter* LoadParticleEmitter(std::string, DkXmd::CChunkIterator*);
     virtual void RemoveParticleEmitter(IParticleEmitter*);

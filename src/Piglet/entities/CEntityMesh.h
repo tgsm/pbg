@@ -97,6 +97,7 @@ public:
     void PlayAnimTan(DKDSP::IGenericAnimation* animation, U32);
     void LoadAnimations(DkXmd::CChunkIterator iter);
     void ParseStar(std::string);
+    BOOL IsViewedWithoutY(CDKW_V3d&, int);
     void StopAttachedFX(int id);
     void StartAttachedFX(int id);
     void ResumeAllAttachedFX();

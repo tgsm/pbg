@@ -56,7 +56,7 @@ public:
     virtual void func34();
     virtual void RemoveShadowMap(IShadowMap*) = 0;
     virtual void func36();
-    virtual void func37();
+    virtual void SetupClumpToReceiveShadowMap(IClump* clump, int) = 0;
     virtual void func38();
     virtual void func39();
     virtual void func40();
@@ -103,7 +103,7 @@ public:
     virtual void func81();
     virtual void func82();
     virtual void func83();
-    virtual void func84();
+    virtual void RemoveClump(IClump* clump) = 0;
     virtual void func85();
     virtual void func86();
     virtual void func87();

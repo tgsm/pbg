@@ -34,12 +34,14 @@ public:
     CGamePartIngame* m_game_part;
     U32 m_unk8;
     U32 m_unkC;
-    U32 m_unk10;
+    ERoomState m_room_state10;
     U32 m_unk14;
     CGame* m_game;
     F32 m_delta_time;
     CEntityHero* m_hero;
-    U8 m_unk24[0x40 - 0x24];
+    CDKW_V3d m_camera_position;
+    CDKW_V3d m_camera_target;
+    U8 m_unk3C[0x40 - 0x3C];
     F32 m_unk40;
     DKDSP::CIm2DBatch* m_batch44;
     DKDSP::CIm2DBatch* m_batch48;
@@ -49,12 +51,18 @@ public:
     CDKW_V3d m_unk60;
     CDKW_V3d m_unk6C;
     CDKW_V3d m_unk78;
-    U8 m_unk84[0x9C - 0x84];
+    CDKW_V3d m_unk84;
+    CDKW_V3d m_unk90;
     F32 m_unk9C;
     F32 m_unkA0;
-    F32 m_unkA4;
+    F32 m_camera_roll_angle;
     F32 m_unkA8;
-    U8 m_unkAC[0xC4 - 0xAC];
+    U8 m_unkAC;
+    U32 m_unkB0;
+    U8 m_unkB4[4];
+    F32 m_fov;
+    F32 m_unkBC;
+    F32 m_camera_rollC0;
     CEntityPathFinder* m_pathfinder_entity;
     F32 m_unkC8;
     F32 m_unkCC;
@@ -88,10 +96,10 @@ public:
     DKDSP::CIm2DBatch* m_batch148;
     U8 m_unk14C[0x154 - 0x14C];
     U32 m_unk154; // color?
-    F32 m_unk158;
-    U8 m_unk15C[0x160 - 0x15C];
+    F32 m_timer;
+    F32 m_unk15C;
     DKDSP::CClump* m_clump160;
-    U32 m_unk164;
+    DKDSP::CClump* m_clump164;
     U8 m_unk168[4];
     CRTCPlayerEntity* m_player_entity;
     F32 m_unk170;
@@ -124,10 +132,15 @@ public:
     void Victory();
     void DisplayCatchThemAll();
     void UpdateAdventureCam();
+    void UpdateFightCam(int);
+    void LaunchCurrentGrimace();
+    void UpdateRTCCamFight();
     void InitTimer(F32 duration);
     void UpdateTimer(F32 dt);
     void StopTimer();
     void DisplayTimer();
+    void Create2ndPassVictoryCamParam(int);
+    BOOL Update2ndPassVictoryCam(int);
 
     CEntityHero* GetCurrentHero();
     void SetEntitiesOnFight(CEntityMesh*);
@@ -137,9 +150,11 @@ public:
     U32 GetState();
     BOOL CheckIfHeroIsPushing();
     BOOL CheckIfFightPossible();
+    void DisplayActionKey();
     void DisplayExclamation();
     void CreateScreenEffect(DkXmd::CChunkIterator iter);
     void DisplayTicTac();
+    void DisplayCookiesNbOnCatch();
 
     BOOL UnkInlineFor4C() {
         return (m_unk4C != NULL && m_unk4C->GetGenericBehaviour() != GENERIC_BEHAVIOUR_6) ? TRUE : FALSE;
@@ -155,25 +170,27 @@ public:
         }
     }
 
-    void InitHeroEntityMember() {
-        if (m_hero != NULL) {
-            return;
-        }
+    void dothething(DKDSP::CClump* clump, const CDKW_V3d& vec) {
+        RwMatrix* model = &clump->GetFrame()->m_rwframe->modelling;
+        model->pos.x = vec.m_x;
+        model->pos.y = vec.m_y;
+        model->pos.z = vec.m_z;
+        RwMatrixUpdate(model);
+        RwFrameUpdateObjects(clump->GetFrame()->m_rwframe);
+    }
 
-        switch (m_game->m_unk4F5C) {
-            case 0:
-                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Piglet");
-                break;
-            case 1:
-                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Tigger");
-                break;
-            case 2:
-                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Winnie");
-                break;
-            case 3:
-                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Piglet");
-                break;
-        }
+    void dothething(DKDSP::CClump* clump, F32 x, F32 y, F32 z) {
+        RwMatrix* model = &clump->GetFrame()->m_rwframe->modelling;
+        model->pos.x = x;
+        model->pos.y = y;
+        model->pos.z = z;
+        RwMatrixUpdate(model);
+        RwFrameUpdateObjects(clump->GetFrame()->m_rwframe);
+    }
+
+    void dothescalething(DKDSP::CClump* clump) {
+        CDKW_V3d vec(m_unkA8, m_unkA8, m_unkA8);
+        RwFrameScale(clump->GetFrame()->m_rwframe, (RwV3d*)&vec, 2);
     }
 };
 REQUIRE_SIZE(CGameRoomManager, 0x178);

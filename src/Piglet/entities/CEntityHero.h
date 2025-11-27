@@ -91,9 +91,13 @@ public:
     virtual void ManageMessage(SDkMessage&);
     virtual void ResolveContact(const DkPh::Collider::Body&, int, int);
     virtual void UpdateAnimations(F32);
-    virtual void SetDirection(CDKW_V3d& direction);
+    virtual void SetDirection(CDKW_V3d& direction) {
+        CDKW_V3d normalized = direction;
+        NormalizeInline(normalized);
+        m_unk1BC = CDKW_V3d(normalized);
+    }
     virtual CDKW_V3d GetDirection();
-    virtual U32 GetMode();
+    virtual U32 GetMode() { return m_mode; }
     virtual U32 GetState() { return m_state; }
     virtual F32 GetSpeed();
     virtual F32 GetMaxSpeed() { return (m_speed_walk >= m_speed_run) ? m_speed_walk : m_speed_run; }

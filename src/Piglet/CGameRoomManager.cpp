@@ -1,3 +1,4 @@
+#include <rwsdk/baframe.h>
 #include "engine/display/CLight.h"
 #include "engine/display/CTexture.h"
 #include "engine/display/CWarp.h"
@@ -7,9 +8,11 @@
 #include "entities/CEntityScaryFaceBox.h"
 #include "entities/CEntityTimer.h"
 #include "entities/CEntityWarp.h"
+#include "CEventGuiHandlers.h"
 #include "CGame.h"
 #include "CGamePartIngame.h"
 #include "CGameRoomManager.h"
+#include <math.h>
 #include <cstdlib>
 #include <iostream>
 
@@ -109,7 +112,7 @@ void CGameRoomManager::Init() {
     m_unkCC = 15.0f;
     m_unkD0 = 5.0f;
     m_unkD4 = 20.0f;
-    m_unkA4 = 0.0f;
+    m_camera_roll_angle = 0.0f;
     m_unkA8 = 0.0f;
     m_unkD8 = 0.0f;
     m_unkDC = 3.0f;
@@ -128,7 +131,7 @@ void CGameRoomManager::Init() {
     m_soundF8 = NULL;
     m_sound104 = NULL;
     m_clump160 = NULL;
-    m_unk164 = 0;
+    m_clump164 = NULL;
     m_unk154 = 0;
     m_unk10C = 1.0f;
     m_light = NULL;
@@ -181,7 +184,7 @@ void CGameRoomManager::Update(F32 dt) {
 
         switch (GetState()) {
             case 0:
-                InitHeroEntityMember();
+                GetCurrentHero();
 
                 m_game->m_unk504C = m_game->m_sound_engine->GetGlobalVolume();
                 m_delta_time = 0.0f;
@@ -777,7 +780,7 @@ void CGameRoomManager::OnPlayNormal() {
                 m_flags |= (1 << 16);
                 m_flags |= (1 << 17);
                 m_unk14 = 4;
-                m_unk10 = 2;
+                m_room_state10 = ROOM_STATE_2;
                 SetState(ROOM_STATE_14, 1);
             }
         }
@@ -943,7 +946,7 @@ void CGameRoomManager::SecondPass() {
                 m_flags |= (1 << 16);
                 m_flags |= (1 << 17);
                 m_unk14 = m_unkC;
-                m_unk10 = 10;
+                m_room_state10 = ROOM_STATE_10;
                 SetState(ROOM_STATE_14, 1);
                 return;
             }
@@ -1097,8 +1100,528 @@ void CGameRoomManager::SecondPass() {
     }
 }
 
+void CGameRoomManager::Victory() {
+    if (m_flags & (1 << 3)) {
+        SetState(ROOM_STATE_9, 1);
+        return;
+    }
+
+    switch (m_unkC) {
+        case 0:
+            m_flags |= (1 << 22);
+            m_hero->SetMode(11);
+            UpdateAdventureCam();
+            m_flags |= (1 << 12);
+            m_hero->DelFlag(ENTITY_FLAG_VISIBLE);
+            m_game->FadeInit(0.5f, CGame::FADE_TYPE_0, 0, 0, 0, 0.0f);
+            m_unkE0 = 0.0f;
+            m_unkA8 = 1.0f;
+            m_unkC = 2;
+            m_game->m_unk503C |= (1 << 3);
+            m_camera_rollC0 = m_game_part->m_camera->GetCameraRoll();
+            m_camera_roll_angle = m_camera_rollC0;
+            m_fov = m_game->GetCamera()->GetFOV();
+            m_unkBC = m_fov;
+
+            for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
+                CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+                U32 type = entity->GetType();
+                if (type >= ENTITY_NPC23 && type <= ENTITY_UNK36) {
+                    CEntityNPC* npc = (CEntityNPC*)entity;
+                    if (npc->IsFlagged(ENTITY_FLAG_VISIBLE)) {
+                        npc->Idle();
+                    }
+                }
+            }
+
+            m_unk4C = NULL;
+            break;
+        case 1: {
+            m_unkE0 += m_delta_time;
+            F32 dVar14 = cos((21.991148f * m_unkE0) / 0.5f);
+            dVar14 = 1.0f + (-0.9f * (0.5f * (1.0f + dVar14))) / (1.0f + 10.0f * m_unkE0);
+
+            dothething(m_clump160, CDKW_V3d::ZERO);
+
+            m_unkA8 = 1.0f / m_unkA8;
+            RwV3d vec;
+            vec.x = m_unkA8;
+            vec.y = m_unkA8;
+            vec.z = m_unkA8;
+            RwFrameScale(m_clump160->GetFrame()->m_rwframe, &vec, 2);
+
+            if (m_unkE0 >= 0.5f) {
+                vec.x = 1.0f;
+                vec.y = 1.0f;
+                vec.z = 1.0f;
+            } else {
+                vec.x = dVar14;
+                vec.y = dVar14;
+                vec.z = dVar14;
+            }
+            RwFrameScale(m_clump160->GetFrame()->m_rwframe, &vec, 2);
+
+            CDKW_V3d yuhyuh = m_hero->GetPosition();
+            RwFrameTranslate(m_clump160->GetFrame()->m_rwframe, (RwV3d*)&yuhyuh, 2);
+            m_unkA8 = dVar14;
+
+            if (m_unkE0 >= 0.5f) {
+                m_hero->DelFlag(ENTITY_FLAG_UNK7);
+                m_hero->DelFlag(ENTITY_FLAG_UNK8);
+                m_hero->AddFlag(ENTITY_FLAG_VISIBLE);
+                m_hero->SetMode(21);
+
+                CDKW_V3d killme = m_camera_position - m_hero->GetPosition();
+                killme.m_y = 0.0f;
+                m_hero->SetDirection(killme);
+
+                m_unkC8 = 0.0f;
+
+                m_unk84 = m_camera_position;
+                m_unk6C = m_unk84;
+                m_unk90 = m_camera_target;
+                m_unk78 = m_unk90;
+
+                {
+                    std::string sound_name;
+                    sound_name = "MIG_05_2D";
+                    if (DKSND::CSound2D* sound = DkSoundGetEngine()->PlaySound2D(&sound_name, 1)) {
+                        sound->SetLayer(1);
+                    }
+                }
+                m_unkC = 3;
+            }
+
+            break;
+        }
+        case 2: {
+            if (!m_game->FadeIn(m_delta_time)) {
+                for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
+                    CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+                    U32 type = entity->GetType();
+                    entity->AddFlag(ENTITY_FLAG_UNK7);
+                    entity->AddFlag(ENTITY_FLAG_UNK8);
+                }
+
+                m_game->m_unk502C = 0.0f;
+
+                m_hero->DelFlag(ENTITY_FLAG_UNK7);
+                m_hero->DelFlag(ENTITY_FLAG_UNK8);
+                m_hero->AddFlag(ENTITY_FLAG_VISIBLE);
+
+                m_flags &= ~(1 << 12);
+                m_flags |= (1 << 13);
+                m_flags &= ~(1 << 22);
+
+                m_clump160 = m_game->GetScene()->CloneClump("Models/700_FIGHT_PATH/CAR_701.dff", NULL);
+                m_game->GetScene()->SetupClumpToReceiveShadowMap(m_clump160, 0);
+
+                m_unkE0 = 0.0f;
+                m_unkA8 = 0.1f;
+
+                dothething(m_clump160, CDKW_V3d::ZERO);
+
+                dothescalething(m_clump160);
+
+                CDKW_V3d pos = m_hero->GetPosition();
+                pos.m_y += 0.05f;
+                dothething(m_clump160, pos.m_x, pos.m_y, pos.m_z);
+
+                if (m_batch124 != NULL) {
+                    m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch124);
+                    m_batch124 = NULL;
+                }
+
+                m_game_part->m_unk18 |= (1 << 2);
+                m_game_part->m_unk24.m_x = 1.0f;
+                m_game_part->m_unk24.m_y = 1.0f;
+                m_game_part->m_unk24.m_z = 1.0f;
+                m_unkC = 1;
+            } else {
+                UpdateAdventureCam();
+            }
+            break;
+        }
+        case 3: {
+            CDKW_V3d pos = m_hero->GetPosition();
+
+            m_game_part->m_camera->Update(pos, m_delta_time);
+            m_camera_position = m_game_part->m_camera->GetCameraPosition();
+            m_camera_target = m_game_part->m_camera->GetCameraTarget();
+
+            Create2ndPassVictoryCamParam(0);
+            pos.m_y += 0.05f;
+
+            dothething(m_clump160, pos);
+
+            if (m_unkC8 >= 2.0f) {
+                m_camera_roll_angle = 0.0f;
+                m_unkBC = 45.0f;
+            } else {
+                F32 fVar1 = m_unkC8 / 2;
+                m_camera_roll_angle = m_camera_rollC0 * (1.0f - fVar1);
+                m_unkBC = 45.0f * fVar1 + m_fov * (1.0f - fVar1);
+            }
+
+            m_game->GetCamera()->SetFOV(m_unkBC, 4.0f/3.0f);
+
+            if (!Update2ndPassVictoryCam(0) && m_hero->GetMode() == 11) {
+                m_flags &= ~(1 << 12);
+                m_unkAC &= ~(1 << 5);
+                m_unkAC &= ~(1 << 0);
+                m_unkAC &= ~(1 << 1);
+                m_unkC = 4;
+            }
+
+            break;
+        }
+        case 4: {
+            CDKW_V3d pos = m_hero->GetPosition();
+
+            m_game_part->m_camera->Update(pos, m_delta_time);
+            m_camera_position = m_game_part->m_camera->GetCameraPosition();
+            m_camera_target = m_game_part->m_camera->GetCameraTarget();
+
+            m_unkC8 = 1.0f;
+
+            Create2ndPassVictoryCamParam(1);
+            pos.m_y += 0.05f;
+
+            dothething(m_clump160, pos);
+
+            m_unkC = 5;
+            break;
+        }
+        case 5: {
+            CDKW_V3d pos = m_hero->GetPosition();
+
+            m_game_part->m_camera->Update(pos, m_delta_time);
+            m_camera_position = m_game_part->m_camera->GetCameraPosition();
+            m_camera_target = m_game_part->m_camera->GetCameraTarget();
+
+            Create2ndPassVictoryCamParam(1);
+
+            pos.m_y += 0.05f;
+            dothething(m_clump160, pos);
+
+            if (m_unkC8 <= 0.0f) {
+                m_camera_roll_angle = m_camera_rollC0;
+                m_unkBC = m_fov;
+            } else {
+                F32 fVar1 = m_unkC8;
+                m_camera_roll_angle = m_camera_rollC0 * (1.0f - fVar1);
+                m_unkBC = 45.0f * fVar1 + m_fov * (1.0f - fVar1);
+            }
+
+            m_game->GetCamera()->SetFOV(m_unkBC, 4.0f/3.0f);
+
+            if (!Update2ndPassVictoryCam(1)) {
+                m_hero->AddFlag(ENTITY_FLAG_VISIBLE);
+                m_flags &= ~(1 << 14);
+                m_flags &= ~(1 << 12);
+                m_unkE0 = 0.0f;
+
+                m_unk90 = m_hero->GetPosition();
+                m_unk90 += 0.05f;
+
+                m_unkC = 7;
+            }
+
+            break;
+        }
+        case 6: {
+            CDKW_V3d pos = m_hero->GetPosition();
+            pos.m_y += 0.05f;
+
+            dothething(m_clump160, pos);
+
+            if (!m_game->FadeOut(m_delta_time)) {
+                m_hero->AddFlag(ENTITY_FLAG_VISIBLE);
+                m_flags &= ~(1 << 14);
+                m_flags &= ~(1 << 12);
+                m_unkE0 = 0.0f;
+                m_unkA8 = 1.0f;
+                m_unkC = 8;
+            }
+
+            UpdateAdventureCam();
+            break;
+        }
+        case 7: {
+            m_unkE0 += m_delta_time;
+            F32 dVar14 = cos((21.991148f * m_unkE0) / 0.5f);
+            dVar14 = 0.1f + (0.9f * (0.5f * (1.0f + dVar14))) / (1.0f + 10.0f * m_unkE0);
+
+            dothething(m_clump160, CDKW_V3d::ZERO);
+
+            m_unkA8 = 1.0f / m_unkA8;
+            RwV3d vec;
+            vec.x = m_unkA8;
+            vec.y = m_unkA8;
+            vec.z = m_unkA8;
+            RwFrameScale(m_clump160->GetFrame()->m_rwframe, &vec, 2);
+
+            if (m_unkE0 >= 0.5f) {
+                vec.x = 0.1f;
+                vec.y = 0.1f;
+                vec.z = 0.1f;
+            } else {
+                vec.x = dVar14;
+                vec.y = dVar14;
+                vec.z = dVar14;
+            }
+            RwFrameScale(m_clump160->GetFrame()->m_rwframe, &vec, 2);
+
+            RwFrameTranslate(m_clump160->GetFrame()->m_rwframe, (RwV3d*)&m_unk90, 2);
+            m_unkA8 = dVar14;
+
+            if (m_unkE0 >= 0.5f) {
+                m_flags |= (1 << 12);
+                m_flags &= ~(1 << 13);
+                m_flags |= (1 << 14);
+                m_flags |= (1 << 22);
+                m_hero->DelFlag(ENTITY_FLAG_VISIBLE);
+
+                for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
+                    CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+                    entity->DelFlag(ENTITY_FLAG_UNK7);
+                    entity->DelFlag(ENTITY_FLAG_UNK8);
+                }
+
+                m_game->FadeInit(0.5f, CGame::FADE_TYPE_0, 0, 0, 0, 0.0f);
+                m_game->m_unk503C |= (1 << 3);
+                m_game->m_unk502C = 0.0f;
+                m_game->FadeOut(m_delta_time);
+                m_unkC = 6;
+                m_game_part->m_unk18 &= ~(1 << 2);
+            }
+
+            break;
+        }
+        case 8:
+            for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
+                CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+                U32 type = entity->GetType();
+                if (type >= ENTITY_NPC23 && type <= ENTITY_UNK36) {
+                    CEntityNPC* npc = (CEntityNPC*)entity;
+                    npc->UnIdle(1);
+                }
+            }
+
+            m_flags &= ~(1 << 22);
+            m_game->m_unk503C &= ~(1 << 3);
+
+            if (m_batch124 != NULL) {
+                m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch124);
+                m_batch124 = NULL;
+            }
+
+            if (m_clump160 != NULL) {
+                m_game->GetScene()->RemoveClump(m_clump160);
+                m_clump160 = NULL;
+            }
+            if (m_clump164 != NULL) {
+                m_game->GetScene()->RemoveClump(m_clump164);
+                m_clump164 = NULL;
+            }
+
+            UpdateAdventureCam();
+            SetState(m_room_state10, 1);
+
+            if (m_flags & (1 << 6)) {
+                m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
+                m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
+                m_game->GetGuiManager()->SetVisible("SAVE_CHECK_MMC", 1);
+                m_game->m_unk8 &= ~(1 << 7);
+
+                CGuiSaveCheckingMemorycardEventHandler* handler = (CGuiSaveCheckingMemorycardEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiSaveCheckingMemorycardEventHandler");
+                if (handler != NULL) {
+                    handler->SetUnk10(1);
+                }
+            }
+
+            m_hero->SetMode(0);
+            m_flags &= ~(1 << 17);
+            m_flags &= ~(1 << 18);
+            m_unkC = m_unk14;
+
+            break;
+    }
+}
+
+CEntityHero* CGameRoomManager::GetCurrentHero() {
+    if (m_hero == NULL) {
+        switch (m_game->m_unk4F5C) {
+            case 0:
+                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Piglet");
+                break;
+            case 1:
+                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Tigger");
+                break;
+            case 2:
+                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Winnie");
+                break;
+            case 3:
+                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Piglet");
+                break;
+        }
+    }
+
+    return m_hero;
+}
+
+void CGameRoomManager::SetEntitiesOnFight(CEntityMesh* mesh) {
+    m_unk4C = (CEntityNPC*)mesh;
+    GetCurrentHero();
+}
+
+void CGameRoomManager::SetCamRollAngle(F32 angle) {
+    m_camera_roll_angle = angle;
+}
+
+F32 CGameRoomManager::GetCamRollAngle() {
+    return m_camera_roll_angle;
+}
+
+void CGameRoomManager::LaunchCurrentGrimace() {
+    CMailBox* mailbox = m_game->GetMailbox();
+
+    switch (m_unkB0) {
+        case 1:
+            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE01", 0);
+            break;
+        case 2:
+            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE02", 0);
+            break;
+        case 3:
+            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE03", 0);
+            break;
+        case 4:
+            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE04", 0);
+            break;
+        case 5:
+            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE05", 0);
+            break;
+        case 6:
+            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE06", 0);
+            break;
+        case 7:
+            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE08", 0);
+            break;
+        case 8:
+            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE09", 0);
+            break;
+        case 9:
+            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE10", 0);
+            break;
+        case 10:
+            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE11", 0);
+            break;
+    }
+}
+
+// Incomplete: vector additions
+void CGameRoomManager::UpdateRTCCamFight() {
+    if (m_flags & (1 << 15)) {
+        UpdateFightCam(0);
+        return;
+    }
+
+    m_game->UpdateRTCCamera(m_delta_time);
+    DKDSP::CCamera* camera = m_game->GetCamera();
+
+    const CDKW_V3d& pos = CDKW_V3d(camera->GetFrame()->m_rwframe->modelling.pos);
+    m_unk84 = pos;
+    m_unk6C = m_unk84;
+    m_unk54 = m_unk6C;
+    const CDKW_V3d& at = CDKW_V3d(camera->GetFrame()->m_rwframe->modelling.at);
+    const CDKW_V3d& sum = CDKW_V3d(camera->GetFrame()->m_rwframe->modelling.pos) + at;
+    m_unk90 = sum;
+    m_unk78 = m_unk90;
+    m_unk60 = m_unk78;
+
+    camera->SetFOV(54.431999f, 4.0f/3.0f);
+    m_unkBC = 54.431999f;
+}
+
+BOOL CGameRoomManager::CheckIfHeroIsPushing() {
+    U32 i;
+
+    if (m_flags & (1 << 7)) {
+        U32 hero_mode = m_hero->GetMode();
+        if (GetState() != 2 || (hero_mode != 16 && hero_mode != 17)) {
+            m_flags &= ~(1 << 7);
+
+            for (i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
+                CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+                U32 type = entity->GetType();
+                if (type > ENTITY_NPC23 && type < ENTITY_UNK36) {
+                    CEntityNPC* npc = (CEntityNPC*)entity;
+                    if (npc->m_unkF4 & (1 << 10)) {
+                        npc->UnIdle(1);
+                    }
+                }
+            }
+        }
+    } else {
+        U32 hero_mode = m_hero->GetMode();
+        if (GetState() == 2 && (hero_mode == 16 || hero_mode == 17)) {
+            m_flags |= (1 << 7);
+
+            for (i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
+                CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+                U32 type = entity->GetType();
+                if (type > ENTITY_NPC23 && type < ENTITY_UNK36) {
+                    CEntityNPC* npc = (CEntityNPC*)entity;
+                    npc->Idle();
+                }
+            }
+        }
+    }
+
+    return (m_flags & (1 << 7)) != 0 ? TRUE : FALSE;
+}
+
+void CGameRoomManager::InitTimer(F32 duration) {
+    m_timer = duration;
+    m_unk15C = duration;
+    m_unkE0 = 0.0f;
+
+    if (m_batch44 != NULL) {
+        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch44);
+    }
+    if (m_batch48 != NULL) {
+        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch48);
+    }
+    m_batch44 = m_game->m_display_engine->GetImmediate()->CreateBatch2D(4, 0);
+    m_batch48 = m_game->m_display_engine->GetImmediate()->CreateBatch2D(4, 0);
+
+    m_unk40 = 0.0f;
+    m_flags &= ~(1 << 27);
+}
+
+void CGameRoomManager::UpdateTimer(F32 dt) {
+    m_timer -= dt;
+    if (m_flags & (1 << 27)) {
+        m_timer = 0.0f;
+        m_flags &= ~(1 << 27);
+    }
+
+    if (m_timer <= 0.0f) {
+        m_timer = 0.0f;
+
+        if (m_sound104 != NULL) {
+            m_sound104->Stop();
+            m_game->m_sound_engine->RemoveSound(m_sound104);
+            m_sound104 = NULL;
+
+            DKI::IInputEngine::GetDevice(0)->StopVibration();
+        }
+    }
+}
+
 void CGameRoomManager::StopTimer() {
-    m_unk158 = 0.0f;
+    m_timer = 0.0f;
 
     if (m_batch44 != NULL) {
         m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch44);
@@ -1126,4 +1649,70 @@ void CGameRoomManager::CreateScreenEffect(DkXmd::CChunkIterator iter) {
     }
     m_screen_effect->Parse(iter);
     m_screen_effect->SetSequenceByIndex(0);
+}
+
+void CGameRoomManager::DisplayTicTac() {
+    m_timer -= m_delta_time;
+    DisplayTimer();
+
+    if (m_timer <= 0.0f) {
+        if (m_sound104 != NULL) {
+            m_sound104->Stop();
+            m_game->m_sound_engine->RemoveSound(m_sound104);
+            m_sound104 = NULL;
+
+            DKI::IInputEngine::GetDevice(0)->StopVibration();
+        }
+        m_unkC = 5;
+        if (m_sound100 != NULL) {
+            m_sound100->Stop();
+            m_game->m_sound_engine->RemoveSound(m_sound100);
+            m_sound100 = NULL;
+        }
+        return;
+    }
+
+    if (m_unk120 <= 0) {
+        if (m_batch44 != NULL) {
+            m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch44);
+            m_batch44 = NULL;
+        }
+        if (m_batch48 != NULL) {
+            m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch48);
+            m_batch48 = NULL;
+        }
+
+        m_flags |= (1 << 18);
+        m_unk14 = 4;
+        m_room_state10 = ROOM_STATE_10;
+
+        m_game->GetCurrentMission().m_rooms[m_game->GetUnk4F58()] |= (1 << 1);
+
+        if (m_sound100 != NULL) {
+            m_sound100->Stop();
+            m_game->m_sound_engine->RemoveSound(m_sound100);
+            m_sound100 = NULL;
+        }
+        if (m_sound104 != NULL) {
+            m_sound104->Stop();
+            m_game->m_sound_engine->RemoveSound(m_sound104);
+            m_sound104 = NULL;
+
+            DKI::IInputEngine::GetDevice(0)->StopVibration();
+        }
+
+        SetState(ROOM_STATE_14, 1);
+    }
+}
+
+void CGameRoomManager::DisplayCookiesNbOnCatch() {
+    if (m_unk170 == 0.0f) {
+        m_unk170 = 3.0f;
+    } else if (m_unk170 > 0.5f) {
+        if (m_unk170 < 2.5f) {
+            m_unk170 = 2.5f;
+        }
+    } else {
+        m_unk170 = 3.0f - m_unk170;
+    }
 }

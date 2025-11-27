@@ -1,6 +1,10 @@
 #ifndef RWA_RWAMEMORY
 #define RWA_RWAMEMORY
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdlib.h>
 #include <rwsdk/badevice.h>
 
@@ -11,5 +15,9 @@ void _rwaFree(void* ptr);
 void* _rwaCalloc(size_t n, size_t size);
 int _rwaMemoryOpen(RwMemoryFunctions* funcs_ptr);
 void _rwaMemoryClose(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
