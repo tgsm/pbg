@@ -5,6 +5,8 @@
 
 namespace DkXmd {
 
+class CXmdFile;
+
 class CChunk {
 public:
     U32 unk0_0 : 1;
@@ -58,15 +60,10 @@ public:
     void** GetData();
 };
 
-struct CCI_UnkSubstruct {
-    BOOL m_inverted;
-    char** unk4;
-};
-
 // TODO
 class CChunkIterator {
 public:
-    CCI_UnkSubstruct* m_unk0;
+    CXmdFile* m_xmd;
     union {
         CChunk* m_non_inverted;
         CChunkInvert* m_inverted;

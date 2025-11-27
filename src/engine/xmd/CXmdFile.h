@@ -9,15 +9,15 @@ namespace DkXmd {
 class CXmdFile {
 public:
     U32 m_unk0; // unknown return type
-    U32* m_unk4; // unknown return type
+    char** m_chunk_names;
     CChunkIterator m_chunk_iterator;
-    U32 m_unk14; // unknown return type
+    void* m_xmd_data;
 
 public:
     CXmdFile();
     ~CXmdFile();
 
-    BOOL Parse(void* unk);
+    BOOL Parse(void* xmd_data);
 };
 REQUIRE_SIZE(CXmdFile, 0x18);
 
