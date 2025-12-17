@@ -3,9 +3,8 @@
 
 #include <stdarg.h>
 
-// TODO
 typedef struct RwEngineOpenParams {
-    int stub;
+    void* displayID;
 } RwEngineOpenParams;
 
 typedef struct RwFileFunctions {

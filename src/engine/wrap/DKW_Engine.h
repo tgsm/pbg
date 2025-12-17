@@ -6,8 +6,17 @@
 
 extern "C" {
 extern void DolphinInitMemorySystem(RwMemoryFunctions*);
-struct RwRect;
+struct RwRect {
+    int x;
+    int y;
+    int w;
+    int h;
+};
 }
+
+enum DKW_Event {
+    DKW_EVENT_18 = 18,
+};
 
 class CDKW_Engine {
 private:
@@ -15,6 +24,9 @@ private:
 
     static S64 ms_InitialTime;
 public:
+    CDKW_Engine(RwEngineOpenParams* params, U32);
+    ~CDKW_Engine();
+
     virtual S32 Timer();
     virtual F32 GetTimer();
     virtual F32 GetDeltaTimer();
@@ -37,6 +49,8 @@ public:
     void EngineInit(int argc, char** argv);
     void GCNInit();
     S64 OSGetTime();
+
+    static BOOL EventHandler(DKW_Event event, void* a1);
 };
 
 #endif

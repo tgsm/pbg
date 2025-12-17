@@ -46,6 +46,8 @@ public:
     virtual void func98() = 0;
     virtual CTexture* FindTexture(char* name) = 0;
     // FIXME: There are more virtuals after this, but this is all I need for now
+
+    static void RegisterCallbacks();
 };
 
 }

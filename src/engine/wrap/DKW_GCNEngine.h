@@ -13,6 +13,8 @@ private:
 
     static S64 ms_InitialTime;
 public:
+    CDKW_GCNEngine(RwEngineOpenParams* params, U32 a1) : CDKW_Engine(params, a1) {}
+
     virtual S32 Timer();
     virtual F32 GetTimer();
     virtual F32 GetDeltaTimer();
@@ -26,7 +28,7 @@ public:
     virtual void OnPadButtonUp(DKW_PadButtonStatus*);
     virtual void OnPadAnalogRight(CDKW_V2d*);
     virtual void OnPadAnalogLeft(CDKW_V2d*);
-    
+
     void PreInit(RwEngineOpenParams*);
     void EngineInit(int argc, char** argv);
     void GCNInit();

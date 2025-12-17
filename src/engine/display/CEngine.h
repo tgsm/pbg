@@ -5,6 +5,11 @@
 
 namespace DKDSP {
 
+struct IInitCallback {
+    virtual void func8(CEngine* engine);
+};
+// Unknown size
+
 class CEngine : public IEngine {
 public:
     virtual void fillerfunc0();
@@ -93,6 +98,9 @@ public:
     virtual void fillerfunc83();
     virtual void RegisterEvent(U32, std::string name, IEventAnimationCallback*);
     // TODO
+
+    static IInitCallback* ms_pInitCallback;
+    static CEngine* ms_pEngine;
 };
 
 }
