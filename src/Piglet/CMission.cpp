@@ -223,10 +223,10 @@ void CMission::Initialize() {
 
     m_unk34 = 0;
 
-    m_unk4C4 = 0;
-    m_unk4C8 = 0;
-    m_unk4CC = 0;
-    m_unk4D0 = 0;
+    m_unk4C4[0] = 0;
+    m_unk4C4[1] = 0;
+    m_unk4C4[2] = 0;
+    m_unk4C4[3] = 0;
 
     for (int i = 0; i < 16; i++) {
         m_rooms[i] = 0;

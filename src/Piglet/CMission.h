@@ -37,10 +37,7 @@ public:
     char m_unk48C[3][16];
     U32 m_num_total_cookies;
     U32 m_num_current_cookies;
-    U32 m_unk4C4;
-    U32 m_unk4C8;
-    U32 m_unk4CC;
-    U32 m_unk4D0;
+    U32 m_unk4C4[4];
 
     static U32 m_MaxNbCookies;
 

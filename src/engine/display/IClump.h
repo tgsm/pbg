@@ -1,6 +1,7 @@
 #ifndef ENGINE_DISPLAY_ICLUMP_H
 #define ENGINE_DISPLAY_ICLUMP_H
 
+#include "engine/display/CAtomic.h"
 #include "engine/display/IFramableGeometry.h"
 #include "engine/display/IController.h"
 
@@ -18,14 +19,14 @@ public:
     virtual void func6() = 0;
     virtual void func7() = 0;
     virtual void func8() = 0;
-    virtual void func9() = 0;
+    virtual CAtomic* GetAtomic(int id) = 0;
     virtual void func10() = 0;
     virtual void func11() = 0;
     virtual void func12() = 0;
     virtual void func13() = 0;
     virtual void func14() = 0;
     virtual void func15() = 0;
-    virtual void func16() = 0;
+    virtual int GetAtomicIndexFromID(int id) = 0;
     virtual void func17() = 0;
     virtual void func18() = 0;
     virtual void func19() = 0;

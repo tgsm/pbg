@@ -139,12 +139,12 @@ void CGameRoomManager::Init() {
 
     m_game->m_entity_manager->m_path_finder->m_unk4B6C.clear();
 
-    if (m_game->GetCurrentMission().m_rooms[m_game->m_unk4F58] & (1 << 2)) {
+    if (m_game->GetCurrentMission()->m_rooms[m_game->m_unk4F58] & (1 << 2)) {
         m_flags |= (1 << 16);
         m_flags &= ~(1 << 17);
     }
 
-    if (m_game->GetCurrentMission().IsSecondPassCompleted() != 0u) {
+    if (m_game->GetCurrentMission()->IsSecondPassCompleted() != 0u) {
         m_flags |= (1 << 21);
     }
 }
@@ -209,7 +209,7 @@ void CGameRoomManager::Update(F32 dt) {
                     m_unkC = 0;
                 }
 
-                if (m_game->GetCurrentMission().m_rooms[m_game->m_unk4F58] & (1 << 2)) {
+                if (m_game->GetCurrentMission()->m_rooms[m_game->m_unk4F58] & (1 << 2)) {
                     m_flags |= (1 << 25);
                 }
 
@@ -311,7 +311,7 @@ void CGameRoomManager::Render() {
         } else {
             iVar8 = 200;
         }
-        CEntityScaryFaceBox::RenderCookiesNbIconDirect(m_game, m_game->GetCurrentMission().GetMaxCollectedNbCookies(), 0.17250001f, 0.11750001f, iVar8, 0.27f, 0.135f, 1, 0);
+        CEntityScaryFaceBox::RenderCookiesNbIconDirect(m_game, m_game->GetCurrentMission()->GetMaxCollectedNbCookies(), 0.17250001f, 0.11750001f, iVar8, 0.27f, 0.135f, 1, 0);
     }
 
     m_unk170 -= m_delta_time;
@@ -773,7 +773,7 @@ void CGameRoomManager::OnPlayNormal() {
     CheckIfHeroIsPushing();
 
     if (!(m_flags & (1 << 25))) {
-        if (m_game->GetCurrentMission().m_rooms[m_game->m_unk4F58] & (1 << 2)) {
+        if (m_game->GetCurrentMission()->m_rooms[m_game->m_unk4F58] & (1 << 2)) {
             if (m_flags & (1 << 16)) {
                 m_flags &= ~(1 << 17);
             } else {
@@ -939,7 +939,7 @@ void CGameRoomManager::SecondPass() {
         OnPlayRTCInit();
         return;
     } else if (!(m_flags & (1 << 25))) {
-        if (m_game->GetCurrentMission().m_rooms[m_game->m_unk4F58] & (1 << 2)) {
+        if (m_game->GetCurrentMission()->m_rooms[m_game->m_unk4F58] & (1 << 2)) {
             if (m_flags & (1 << 16)) {
                 m_flags &= ~(1 << 17);
             } else {
@@ -957,7 +957,7 @@ void CGameRoomManager::SecondPass() {
         case 0:
             m_game->m_unk503C &= ~(1 << 0);
 
-            if (!m_game->GetCurrentMission().IsRoomCompleted(m_game->GetUnk4F58())) {
+            if (!m_game->GetCurrentMission()->IsRoomCompleted(m_game->GetUnk4F58())) {
                 for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
                     CEntity* entity = m_game->m_entity_manager->GetEntity(i);
                     U32 type = entity->GetType();
@@ -992,7 +992,7 @@ void CGameRoomManager::SecondPass() {
                 }
 
                 if (m_unk120 <= 0) {
-                    m_game->GetCurrentMission().m_rooms[m_game->GetUnk4F58()] |= (1 << 1);
+                    m_game->GetCurrentMission()->m_rooms[m_game->GetUnk4F58()] |= (1 << 1);
                     m_unkC = 4;
                     m_hero->SetMode(0);
                 } else {
@@ -1020,7 +1020,7 @@ void CGameRoomManager::SecondPass() {
             }
             break;
         case 8:
-            if (!(m_flags & (1 << 21)) && m_game->GetCurrentMission().IsSecondPassCompleted() != 0u) {
+            if (!(m_flags & (1 << 21)) && m_game->GetCurrentMission()->IsSecondPassCompleted() != 0u) {
                 if (m_unk154 & (1 << 31)) {
                     m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, m_unk154 & 0xFF, (m_unk154 & 0xFF00) >> 8, (m_unk154 & 0xFF0000) >> 16, 0.0f);
                 } else {
@@ -1047,7 +1047,7 @@ void CGameRoomManager::SecondPass() {
             UpdateAdventureCam();
             break;
         case 4:
-            if (!(m_flags & (1 << 21)) && m_game->GetCurrentMission().IsSecondPassCompleted() != 0u) {
+            if (!(m_flags & (1 << 21)) && m_game->GetCurrentMission()->IsSecondPassCompleted() != 0u) {
                 m_flags |= (1 << 26);
                 m_hero->SetMode(11);
                 SetState(ROOM_STATE_15, 1);
@@ -1686,7 +1686,7 @@ void CGameRoomManager::DisplayTicTac() {
         m_unk14 = 4;
         m_room_state10 = ROOM_STATE_10;
 
-        m_game->GetCurrentMission().m_rooms[m_game->GetUnk4F58()] |= (1 << 1);
+        m_game->GetCurrentMission()->m_rooms[m_game->GetUnk4F58()] |= (1 << 1);
 
         if (m_sound100 != NULL) {
             m_sound100->Stop();

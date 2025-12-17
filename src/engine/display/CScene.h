@@ -10,6 +10,8 @@ class CScene : public IScene {
 public:
     virtual void Release();
     virtual CCamera* CreateCamera();
+    virtual CCamera* GetCamera(int id);
+    virtual void RemoveCamera(ICamera* camera);
     virtual CLight* CreateLight(ELIGHTTYPE);
     virtual CLight* CopyLight(ILight*);
     virtual int GetNumberOfLights();
@@ -34,6 +36,7 @@ public:
     virtual F32 GetAmbientRed();
     virtual F32 GetAmbientGreen();
     virtual F32 GetAmbientBlue();
+    virtual void SelectCamera(int id);
     virtual void SelectCamera(ICamera*);
     virtual void Clear(int, F32, F32, F32);
     virtual void BeginRender();

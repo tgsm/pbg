@@ -580,7 +580,7 @@ BOOL CGame::NextFrame() {
                     }
 
                     case 3:
-                        GetCurrentMission().m_unk2C = 1;
+                        GetCurrentMission()->m_unk2C = 1;
                         m_game_backup->GetFromGameData(1);
 
                         if (m_game_part != NULL) {
@@ -588,7 +588,7 @@ BOOL CGame::NextFrame() {
                             m_game_part = NULL;
                         }
 
-                        GetCurrentMission().UnloadConfigFile();
+                        GetCurrentMission()->UnloadConfigFile();
                         switch (m_unk4F54) {
                             case 1:
                                 PlayVideo(16);
@@ -648,7 +648,7 @@ BOOL CGame::NextFrame() {
                             m_unk4F70 = 0.0f;
                             m_unk4F74 = 0.0f;
                             m_unk5090 = 1;
-                            GetCurrentMission().m_rooms[3] |= (1 << 0);
+                            GetCurrentMission()->m_rooms[3] |= (1 << 0);
                             m_game_backup->GetFromGameData(1);
                             iVar12 = 7;
                         }
@@ -675,16 +675,16 @@ BOOL CGame::NextFrame() {
                             }
 
                             if (m_unk4F5C == 0) {
-                                CMission& mission = GetCurrentMission();
-                                F32 start_pos_x = mission.m_start_position_x;
-                                F32 start_pos_y = mission.m_start_position_y;
-                                F32 start_pos_z = mission.m_start_position_z;
-                                F32 start_rot_x = mission.m_start_rotation_x;
-                                F32 start_rot_y = mission.m_start_rotation_y;
-                                F32 start_rot_z = mission.m_start_rotation_z;
+                                CMission* mission = GetCurrentMission();
+                                F32 start_pos_x = mission->m_start_position_x;
+                                F32 start_pos_y = mission->m_start_position_y;
+                                F32 start_pos_z = mission->m_start_position_z;
+                                F32 start_rot_x = mission->m_start_rotation_x;
+                                F32 start_rot_y = mission->m_start_rotation_y;
+                                F32 start_rot_z = mission->m_start_rotation_z;
 
-                                m_unk4F58 = mission.m_unkC;
-                                m_unk4F5C = GetCurrentMission().m_unk10;
+                                m_unk4F58 = mission->m_unkC;
+                                m_unk4F5C = GetCurrentMission()->m_unk10;
                                 m_unk4F60 = start_pos_x;
                                 m_unk4F64 = start_pos_y;
                                 m_unk4F68 = start_pos_z;
@@ -758,7 +758,7 @@ BOOL CGame::NextFrame() {
 
                             if (m_unk4F54 != 8) {
                                 if (m_unk4F54 != 0) {
-                                    GetCurrentMission().UnloadConfigFile();
+                                    GetCurrentMission()->UnloadConfigFile();
                                 }
                                 GetMission(7).LoadConfigFile(0);
                             }
@@ -774,7 +774,7 @@ BOOL CGame::NextFrame() {
                             m_unk4F74 = 0.0f;
                             m_unk5090 = 1;
 
-                            GetCurrentMission().m_rooms[3] |= (1 << 0);
+                            GetCurrentMission()->m_rooms[3] |= (1 << 0);
 
                             m_game_backup->GetFromGameData(1);
                             iVar12 = 7;
@@ -987,7 +987,7 @@ BOOL CGame::NextFrame() {
                 m_current_loading_callback->Destroy();
 
                 if (!HasEntityOfType(ENTITY_SEARCHABLE_ZONE)) {
-                    GetCurrentMission().m_rooms[m_unk4F58] |= (1 << 2);
+                    GetCurrentMission()->m_rooms[m_unk4F58] |= (1 << 2);
                 }
 
                 CDkFileSys::UnSetCallBackOnLoad();
@@ -998,8 +998,8 @@ BOOL CGame::NextFrame() {
                 m_timer->Reset();
                 ComputeDeltaTime();
 
-                if (bVar8 && m_unk4F54 != 8 && GetCurrentMission().GetUnk34() == 0) {
-                    GetCurrentMission().GetUnk34() = 1;
+                if (bVar8 && m_unk4F54 != 8 && GetCurrentMission()->GetUnk34() == 0) {
+                    GetCurrentMission()->GetUnk34() = 1;
 
                     m_sound_engine->SetGlobalVolume(volume);
                     m_sound_engine->BeginUpdate();
@@ -1008,8 +1008,8 @@ BOOL CGame::NextFrame() {
                     m_game_backup->GetFromGameData(0);
                     m_game_backup->Backup();
 
-                    if (GetCurrentMission().GetStartRTC() != "") {
-                        m_mailbox->SendMessage("Piglet", GetCurrentMission().GetStartRTC(), "START", 0);
+                    if (GetCurrentMission()->GetStartRTC() != "") {
+                        m_mailbox->SendMessage("Piglet", GetCurrentMission()->GetStartRTC(), "START", 0);
                     }
                 } else if (bVar8 && m_unk4F54 == 8 && m_unk4F58 == 1) {
                     m_mailbox->SendMessage("Piglet", "RTC_801_01", "START", 0);
@@ -1023,7 +1023,7 @@ BOOL CGame::NextFrame() {
             }
             case 9: {
                 if (m_unk4F54 != 0 && m_unk4F54 != 0) {
-                    GetCurrentMission().UnloadConfigFile();
+                    GetCurrentMission()->UnloadConfigFile();
                 }
                 m_unk4F54 = 0;
 

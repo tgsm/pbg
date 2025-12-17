@@ -90,7 +90,7 @@ public:
         std::string str;
         m_unk1D8 = 0.0f;
         BOOL cond = FALSE;
-        F32 cookies = m_entity_manager->GetGame()->GetCurrentMission().GetMaxCollectedNbCookies();
+        F32 cookies = m_entity_manager->GetGame()->GetCurrentMission()->GetMaxCollectedNbCookies();
 
         if (cookies >= NbCookiesForNextGrimaceLevel()) {
             cond = TRUE;

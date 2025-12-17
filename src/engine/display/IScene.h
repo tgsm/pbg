@@ -32,10 +32,10 @@ public:
     virtual void func10();
     virtual CCamera* CreateCamera() = 0;
     virtual void func12();
-    virtual void func13();
+    virtual CCamera* GetCamera(int id) = 0;
     virtual void func14();
     virtual void func15();
-    virtual void func16();
+    virtual void RemoveCamera(ICamera* camera) = 0;
     virtual void func17();
     virtual void func18();
     virtual CLight* CreateLight(ELIGHTTYPE) = 0;
@@ -132,7 +132,7 @@ public:
     virtual F32 GetAmbientRed() = 0;
     virtual F32 GetAmbientGreen() = 0;
     virtual F32 GetAmbientBlue() = 0;
-    virtual void func113();
+    virtual void SelectCamera(int id) = 0;
     virtual void SelectCamera(ICamera*) = 0;
     virtual void func115();
     virtual void func116();

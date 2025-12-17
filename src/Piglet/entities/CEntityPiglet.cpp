@@ -65,13 +65,13 @@ void CEntityPiglet::DelFlag(U32 flag) {
 void CEntityPiglet::AddItem(char* item) {
     // Don't add the item if we're already carrying it.
     for (int i = 0; i < 3; i++) {
-        char* current_item = m_entity_manager->GetGame()->GetCurrentMission().GetItem(i);
+        char* current_item = m_entity_manager->GetGame()->GetCurrentMission()->GetItem(i);
         if (current_item != NULL && RwEngineInstance->stringFuncs.rwstrcmp(item, current_item) == 0) {
             return;
         }
     }
 
-    int result = m_entity_manager->GetGame()->GetCurrentMission().AddItem((S8*)item);
+    int result = m_entity_manager->GetGame()->GetCurrentMission()->AddItem((S8*)item);
     if (result != -1) {
         std::string name = "SND_204_2D";
         DKSND::CSound2D* sound = DkSoundGetEngine()->PlaySound2D(&name, 1);
@@ -83,7 +83,7 @@ void CEntityPiglet::AddItem(char* item) {
 }
 
 void CEntityPiglet::RemoveItem(char* item) {
-    m_entity_manager->GetGame()->GetCurrentMission().RemoveItem((S8*)item);
+    m_entity_manager->GetGame()->GetCurrentMission()->RemoveItem((S8*)item);
 
     std::string name = "SND_205_2D";
     DKSND::CSound2D* sound = DkSoundGetEngine()->PlaySound2D(&name, 1);
@@ -93,7 +93,7 @@ void CEntityPiglet::RemoveItem(char* item) {
 }
 
 void CEntityPiglet::RemoveItem(int item) {
-    m_entity_manager->GetGame()->GetCurrentMission().RemoveItem(item);
+    m_entity_manager->GetGame()->GetCurrentMission()->RemoveItem(item);
 
     std::string name = "SND_205_2D";
     DKSND::CSound2D* sound = DkSoundGetEngine()->PlaySound2D(&name, 1);
@@ -254,7 +254,7 @@ void CEntityPiglet::ResolveContact(const DkPh::Collider::Body& body, int a2, int
         m_animation_star_controller->GetPlayingAnimationTime();
         if (m_unk26C == 0 && m_animation_star_controller->IsPlayingAnimation("USE_OBJECT") == TRUE) {
             if ((m_animation_star_controller->GetPlayingAnimationTime() > 0.85f * m_animation_star_controller->GetPlayingAnimationDuration()) && !iVar8) {
-                char* item = m_entity_manager->GetGame()->GetCurrentMission().GetItem(m_unk2A0);
+                char* item = m_entity_manager->GetGame()->GetCurrentMission()->GetItem(m_unk2A0);
                 m_unk26C = 1;
 
                 char buf[32];
@@ -533,7 +533,7 @@ void CEntityPiglet::UpdateAnimations(F32 dt) {
             break;
         case 18:
             if (m_animation_star_controller->IsPlayingAnimation("USE_OBJECT") == TRUE && m_animation_star_controller->IsPlayingAnimationLooped()) {
-                char* item = m_entity_manager->GetGame()->GetCurrentMission().GetItem(m_unk2A0);
+                char* item = m_entity_manager->GetGame()->GetCurrentMission()->GetItem(m_unk2A0);
                 if (item != NULL) {
                     char buf[32];
 
@@ -934,7 +934,7 @@ void CEntityPiglet::RenderOSD() {
         icon2.m_texture = m_entity_manager->GetGame()->m_texture_dictionary->FindTexture(buf);
         icon2.Render(m_batches[i * 2 + 0], 1);
 
-        char* item = m_entity_manager->GetGame()->GetCurrentMission().GetItem(i);
+        char* item = m_entity_manager->GetGame()->GetCurrentMission()->GetItem(i);
         if (item != NULL) {
             if (i == m_unk2A0) {
                 icon1.m_alpha = 0xFF;
