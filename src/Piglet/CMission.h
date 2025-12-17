@@ -34,7 +34,7 @@ public:
     std::string m_end_mission_fmv;
     std::string m_mission_fight_warp_model;
     std::string m_start_rtc;
-    char m_unk48C[3][16];
+    S8 m_unk48C[3][16];
     U32 m_num_total_cookies;
     U32 m_num_current_cookies;
     U32 m_unk4C4[4];
