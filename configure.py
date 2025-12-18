@@ -711,7 +711,7 @@ config.libs = [
             Object(NonMatching, "engine/wrap/DKW_MatFX.cpp"),
             Object(NonMatching, "engine/wrap/DKW_Matrix.cpp"),
             Object(NonMatching, "engine/wrap/DKW_Primitive.cpp"),
-            Object(NonMatching, "engine/wrap/DKW_Quat.cpp"),
+            Object(Matching, "engine/wrap/DKW_Quat.cpp"),
             Object(NonMatching, "engine/wrap/DKW_RenderProperty.cpp"),
             Object(Matching, "engine/wrap/DKW_RGBA.cpp"),
             Object(Matching, "engine/wrap/DKW_RGBAReal.cpp"),
