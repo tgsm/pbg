@@ -700,7 +700,7 @@ config.libs = [
             Object(NonMatching, "engine/wrap/DKW_Clump.cpp"),
             Object(NonMatching, "engine/wrap/DKW_ClumpAnim.cpp"),
             Object(NonMatching, "engine/wrap/DKW_Engine.cpp"),
-            Object(NonMatching, "engine/wrap/DKW_Frame.cpp"),
+            Object(Matching, "engine/wrap/DKW_Frame.cpp"),
             Object(NonMatching, "engine/wrap/DKW_Geometry.cpp"),
             Object(NonMatching, "engine/wrap/DKW_Hierarchy.cpp"),
             Object(NonMatching, "engine/wrap/DKW_Im2D.cpp"),
