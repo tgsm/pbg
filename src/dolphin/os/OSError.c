@@ -5,6 +5,7 @@
 #include <dolphin/os/__os.h>
 
 OSErrorHandler __OSErrorTable[17];
+u8 __padding_deadstripped[12];
 
 #define FPSCR_ENABLE (FPSCR_VE | FPSCR_OE | FPSCR_UE | FPSCR_ZE | FPSCR_XE)
 u32 __OSFpscrEnableBits = FPSCR_ENABLE;
