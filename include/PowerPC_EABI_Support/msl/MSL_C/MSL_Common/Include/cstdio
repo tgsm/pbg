@@ -2,10 +2,23 @@
 #define _MSL_CSTDIO
 
 #include "stdarg.h"
+#include "stddef.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+// FIXME: FILE
+void* fopen(const char* path, const char* mode);
+int fclose(void* stream);
+size_t fread(void* ptr, size_t size, size_t n, void* stream);
+size_t fwrite(const void* ptr, size_t size, size_t n, void* stream);
+char* fgets(char* s, int size, void* stream);
+int fputs(const char* s, void* stream);
+int feof(void* stream);
+int fseek(void* stream, long offset, int whence);
+int fflush(void* stream);
+long ftell(void* stream);
 
 int sprintf(char* str, const char* fmt, ...);
 int vsprintf(char* str, const char* format, va_list ap);

@@ -2,21 +2,11 @@
 #define RWSDK_BADEVICE_H
 
 #include <stdarg.h>
+#include <rwsdk/plcore/bafsys.h>
 
 typedef struct RwEngineOpenParams {
     void* displayID;
 } RwEngineOpenParams;
-
-typedef struct RwFileFunctions {
-    int (*rwfexist)(const char* path);
-    void* (*rwfopen)(const char* path, const char* mode);
-    int (*rwfclose)(void* stream);
-    unsigned long (*rwfread)(void* ptr, unsigned long size, unsigned long n, void* stream);
-    char unk10[0x20 - 0x10];
-    void* (*rwfseek)(const void* stream, long offset, int whence);
-    char unk24[0x28 - 0x24];
-    long (*rwftell)(const void* stream);
-} RwFileFunctions; // size: 0x2C
 
 typedef struct RwStringFunctions {
     int (*rwsprintf)(char* str, const char* format, ...); // 0xF0
