@@ -3,10 +3,15 @@
 
 #include "engine/display/IImage.h"
 
+struct RwImage;
+
 namespace DKDSP {
 
 // TODO
 class CImage : public IImage {
+public:
+    RwImage* m_rw_image;
+
 public:
     virtual U8* AllocatePixels();
     virtual U32 FreePixels();
@@ -24,6 +29,7 @@ public:
     virtual BOOL SetGamma(F32);
     virtual void* GammaCorrect();
 };
+REQUIRE_SIZE(CImage, 0x8);
 
 }
 

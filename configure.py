@@ -625,7 +625,7 @@ config.libs = [
             Object(NonMatching, "engine/display/CImage.cpp"),
             Object(NonMatching, "engine/display/CTexture.cpp"),
             Object(NonMatching, "engine/display/CTextureDictionary.cpp"),
-            Object(NonMatching, "engine/display/CRaster.cpp"),
+            Object(Matching, "engine/display/CRaster.cpp"),
             Object(NonMatching, "engine/display/CShadowMap.cpp"),
             Object(NonMatching, "engine/display/IShadowMap.cpp"),
             Object(NonMatching, "engine/display/IShadowMapPipeline.cpp"),
