@@ -601,7 +601,7 @@ config.libs = [
             Object(Matching, "engine/display/IFramableGeometry.cpp"),
             Object(NonMatching, "engine/display/IGeometry.cpp"),
             Object(NonMatching, "engine/display/CClump.cpp"),
-            Object(NonMatching, "engine/display/IRaster.cpp"),
+            Object(Matching, "engine/display/IRaster.cpp"),
             Object(Matching, "engine/display/ITexture.cpp"),
             Object(NonMatching, "engine/display/IScene.cpp"),
             Object(NonMatching, "engine/display/CScene.cpp"),
