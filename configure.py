@@ -643,7 +643,7 @@ config.libs = [
             Object(NonMatching, "engine/display/ISpline.cpp"),
             Object(NonMatching, "engine/display/IMaterialAnimationInterpolator.cpp"),
             Object(NonMatching, "engine/display/CMaterialAnimationInterpolator.cpp"),
-            Object(NonMatching, "engine/display/IController.cpp"),
+            Object(Matching, "engine/display/IController.cpp"),
             Object(NonMatching, "engine/display/IGenericAnimation.cpp"),
             Object(NonMatching, "engine/display/CController.cpp"),
             Object(NonMatching, "engine/display/ISubController.cpp"),

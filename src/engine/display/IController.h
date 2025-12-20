@@ -1,6 +1,7 @@
 #ifndef ENGINE_DISPLAY_ICONTROLLER_H
 #define ENGINE_DISPLAY_ICONTROLLER_H
 
+#include <string>
 #include "types.h"
 
 namespace DKDSP {
@@ -18,70 +19,81 @@ enum EANIMATIONLOOP {
 };
 
 class IGenericAnimation;
+class ISubController;
+class CAnimation;
 
 // TODO
 class IController {
 public:
-    virtual void func0() = 0;
-    virtual void func1() = 0;
-    virtual void func2() = 0;
-    virtual void func3() = 0;
-    virtual void func4() = 0;
-    virtual void func5() = 0;
+    IController();
+
+    virtual void SetEventUserData(void* data) = 0;
+    virtual void Play(F32) = 0;
+    virtual void Play() = 0;
+    virtual void Stop() = 0;
+    virtual BOOL IsPlaying() = 0;
+    virtual void Pause() = 0;
     virtual void Resume() = 0;
-    virtual void func7() = 0;
-    virtual void func8() = 0;
-    virtual void func9() = 0;
-    virtual void func10() = 0;
-    virtual void func11() = 0;
-    virtual void func12() = 0;
-    virtual void func13() = 0;
-    virtual void func14() = 0;
+    virtual BOOL IsPaused() = 0;
+    virtual F32 GetTime() = 0;
+    virtual void SetTime(F32 time) = 0;
+    virtual F32 GetSpeed() = 0;
+    virtual void SetSpeed(F32 speed) = 0;
+    virtual int GetNumberOfNodes() = 0;
+    virtual std::string& GetName() = 0;
+    virtual ISubController* GetSubController(EANIMATIONTYPE type) = 0;
     virtual void Update(F32 dt) = 0;
-    virtual void func16() = 0;
-    virtual void func17() = 0;
-    virtual void func18() = 0;
-    virtual void func19() = 0;
+    virtual BOOL IsHierarchySafe() = 0;
+    virtual int GetSize() = 0;
+    virtual int GetNumberOfAnimations(EANIMATIONTYPE type) = 0;
+    virtual CAnimation* GetAnimation(EANIMATIONTYPE type, int) = 0;
     virtual int PlayAnimation(IGenericAnimation* animation, int, F32, F32, F32, F32) = 0;
-    virtual void func21() = 0;
-    virtual void func22() = 0;
-    virtual void func23() = 0;
+    virtual int PlayAnimation(IGenericAnimation* animation, int, F32) = 0;
+    virtual int PlayAnimation(IGenericAnimation* animation, int) = 0;
+    virtual void StopAnimation(IGenericAnimation* animation, int) = 0;
     virtual void StopAllAnimations(EANIMATIONTYPE, int) = 0;
-    virtual void func25() = 0;
-    virtual void func26() = 0;
-    virtual void func27() = 0;
-    virtual void func28() = 0;
-    virtual void func29() = 0;
-    virtual void func30() = 0;
-    virtual void func31() = 0;
-    virtual void func32() = 0;
-    virtual void func33() = 0;
-    virtual void func34() = 0;
-    virtual void func35() = 0;
-    virtual void func36() = 0;
-    virtual void func37() = 0;
-    virtual void func38() = 0;
-    virtual void func39() = 0;
-    virtual void func40() = 0;
-    virtual void func41() = 0;
-    virtual void func42() = 0;
-    virtual void func43() = 0;
-    virtual void func44() = 0;
-    virtual void func45() = 0;
-    virtual void func46() = 0;
+    virtual BOOL IsAnimationPlaying(IGenericAnimation* animation) = 0;
+    virtual void PauseAnimation(IGenericAnimation* animation) = 0;
+    virtual void ResumeAnimation(IGenericAnimation* animation) = 0;
+    virtual F32 GetAnimationTime(IGenericAnimation* animation) = 0;
+    virtual F32 GetAnimationAbsoluteTime(IGenericAnimation* animation) = 0;
+    virtual F32 GetAnimationTimeBeforePlay(IGenericAnimation* animation) = 0;
+    virtual void SetAnimationTime(F32 time) = 0;
+    virtual void SetAnimationSpeed(F32 speed) = 0;
+    virtual F32 GetAnimationSpeed(IGenericAnimation* animation) = 0;
+    virtual F32 GetAnimationDuration(IGenericAnimation* animation) = 0;
+    virtual void SetAnimationLoopMode(IGenericAnimation* animation, EANIMATIONLOOP loop, int) = 0;
+    virtual EANIMATIONLOOP GetAnimationLoopMode(IGenericAnimation* animation) = 0;
+    virtual F32 GetAnimationWeight(IGenericAnimation* animation) = 0;
+    virtual F32 GetAnimationNormalizedWeight(IGenericAnimation* animation) = 0;
+    virtual void SetAnimationWeight(IGenericAnimation* animation, F32 weight) = 0;
+    virtual void SetAnimationTargetWeight(IGenericAnimation* animation, F32 target_weight) = 0;
+    virtual int GetAnimationStatus(IGenericAnimation* animation) = 0;
+    virtual void SetAnimationDelayOut(IGenericAnimation* animation, F32 delay_out) = 0;
+    virtual void SetAnimationDelayIn(IGenericAnimation* animation, F32 delay_in) = 0;
+    virtual BOOL IsAnimationLooped(IGenericAnimation* animation) = 0;
+    virtual F32 GetAnimationLoopDelta(IGenericAnimation* animation) = 0;
+    virtual int FindAnimation(IGenericAnimation* animation) = 0;
     virtual int FindAnimationFromUID(EANIMATIONTYPE type, int uid) = 0;
-    virtual void func48() = 0;
-    virtual void func49() = 0;
-    virtual void func50() = 0;
-    virtual void func51() = 0;
-    virtual void func52() = 0;
-    virtual void func53() = 0;
-    virtual void func54() = 0;
-    virtual void func55() = 0;
-    virtual void func56() = 0;
-    virtual void func57() = 0;
+    virtual int StopAnimation(EANIMATIONTYPE type, int, int) = 0;
+    virtual BOOL IsAnimationPlaying(EANIMATIONTYPE type, int) = 0;
+    virtual void PauseAnimation(EANIMATIONTYPE type, int) = 0;
+    virtual void ResumeAnimation(EANIMATIONTYPE type, int) = 0;
+    virtual F32 GetAnimationTime(EANIMATIONTYPE type, int) = 0;
+    virtual F32 GetAnimationAbsoluteTime(EANIMATIONTYPE type, int) = 0;
+    virtual void SetAnimationTime(EANIMATIONTYPE type, int, F32 time) = 0;
+    virtual void SetAnimationSpeed(EANIMATIONTYPE type, int, F32 speed) = 0;
+    virtual F32 GetAnimationSpeed(EANIMATIONTYPE type, int) = 0;
+    virtual F32 GetAnimationDuration(EANIMATIONTYPE type, int) = 0;
     virtual void SetAnimationLoopMode(EANIMATIONTYPE type, int, EANIMATIONLOOP, int) = 0;
-    // TODO
+    virtual EANIMATIONLOOP GetAnimationLoopMode(EANIMATIONTYPE type, int) = 0;
+    virtual void SetAnimationWeight(EANIMATIONTYPE type, int, F32 weight) = 0;
+    virtual void SetAnimationTargetWeight(EANIMATIONTYPE type, int, F32 target_weight) = 0;
+    virtual int GetAnimationStatus(EANIMATIONTYPE type, int) = 0;
+    virtual void SetAnimationDelayOut(EANIMATIONTYPE type, int, F32 delay_out) = 0;
+    virtual void SetAnimationDelayIn(EANIMATIONTYPE type, int, F32 delay_in) = 0;
+    virtual BOOL IsAnimationLooped(EANIMATIONTYPE type, int) = 0;
+    virtual F32 GetAnimationLoopDelta(EANIMATIONTYPE type, int) = 0;
 };
 
 }
