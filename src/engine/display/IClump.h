@@ -2,6 +2,7 @@
 #define ENGINE_DISPLAY_ICLUMP_H
 
 #include "engine/display/CAtomic.h"
+#include "engine/display/CHierarchy.h"
 #include "engine/display/IFramableGeometry.h"
 #include "engine/display/IController.h"
 
@@ -18,7 +19,7 @@ public:
     virtual void func5() = 0;
     virtual void func6() = 0;
     virtual void func7() = 0;
-    virtual void func8() = 0;
+    virtual int GetNumberOfAtomics() = 0;
     virtual CAtomic* GetAtomic(int id) = 0;
     virtual void func10() = 0;
     virtual void func11() = 0;
@@ -27,14 +28,14 @@ public:
     virtual void func14() = 0;
     virtual void func15() = 0;
     virtual int GetAtomicIndexFromID(int id) = 0;
-    virtual void func17() = 0;
+    virtual int GetAtomicIndexFromNodeIndex(int node_index) = 0;
     virtual void func18() = 0;
     virtual void func19() = 0;
     virtual void func20() = 0;
     virtual void func21() = 0;
     virtual void func22() = 0;
     virtual void func23() = 0;
-    virtual void func24() = 0;
+    virtual CHierarchy* GetHierarchy() = 0;
     virtual void func25() = 0;
     virtual void func26() = 0;
     virtual void SetController(IController*) = 0;

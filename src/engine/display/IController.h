@@ -2,23 +2,16 @@
 #define ENGINE_DISPLAY_ICONTROLLER_H
 
 #include <string>
+#include "engine/display/IGenericAnimation.h"
 #include "types.h"
 
 namespace DKDSP {
 
-enum EANIMATIONTYPE {
-    ANIMATION_TYPE_ANM,
-    ANIMATION_TYPE_DMA,
-    ANIMATION_TYPE_TAN,
-    ANIMATION_TYPE_EVN,
-    ANIMATION_TYPE_4,
-};
-
 enum EANIMATIONLOOP {
+    ANIMATION_LOOP_1 = 1,
     ANIMATION_LOOP_3 = 3,
 };
 
-class IGenericAnimation;
 class ISubController;
 class CAnimation;
 
@@ -58,8 +51,8 @@ public:
     virtual F32 GetAnimationTime(IGenericAnimation* animation) = 0;
     virtual F32 GetAnimationAbsoluteTime(IGenericAnimation* animation) = 0;
     virtual F32 GetAnimationTimeBeforePlay(IGenericAnimation* animation) = 0;
-    virtual void SetAnimationTime(F32 time) = 0;
-    virtual void SetAnimationSpeed(F32 speed) = 0;
+    virtual void SetAnimationTime(IGenericAnimation* animation, F32 time) = 0;
+    virtual void SetAnimationSpeed(IGenericAnimation* animation, F32 speed) = 0;
     virtual F32 GetAnimationSpeed(IGenericAnimation* animation) = 0;
     virtual F32 GetAnimationDuration(IGenericAnimation* animation) = 0;
     virtual void SetAnimationLoopMode(IGenericAnimation* animation, EANIMATIONLOOP loop, int) = 0;
@@ -75,7 +68,7 @@ public:
     virtual F32 GetAnimationLoopDelta(IGenericAnimation* animation) = 0;
     virtual int FindAnimation(IGenericAnimation* animation) = 0;
     virtual int FindAnimationFromUID(EANIMATIONTYPE type, int uid) = 0;
-    virtual int StopAnimation(EANIMATIONTYPE type, int, int) = 0;
+    virtual void StopAnimation(EANIMATIONTYPE type, int, int) = 0;
     virtual BOOL IsAnimationPlaying(EANIMATIONTYPE type, int) = 0;
     virtual void PauseAnimation(EANIMATIONTYPE type, int) = 0;
     virtual void ResumeAnimation(EANIMATIONTYPE type, int) = 0;
