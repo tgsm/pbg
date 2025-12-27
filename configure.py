@@ -533,7 +533,7 @@ config.libs = [
             Object(NonMatching, "engine/input/IInputEngine.cpp"),
             Object(Matching, "engine/input/CCombo.cpp", extra_cflags=["-inline deferred"]),
             Object(Matching, "engine/input/CInput.cpp"),
-            Object(NonMatching, "engine/input/CState.cpp"),
+            Object(NonMatching, "engine/input/CState.cpp", extra_cflags=["-inline deferred", "-bool off"]),
             Object(Matching, "engine/input/CGCNPad.cpp", extra_cflags=["-inline deferred"]),
             Object(Matching, "engine/input/CInputHalfAxe.cpp", extra_cflags=["-inline deferred"]),
         ]
