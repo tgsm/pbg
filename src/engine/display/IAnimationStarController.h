@@ -11,6 +11,8 @@ class IAnimationStar;
 
 class IAnimationStarController {
 public:
+    IAnimationStarController();
+
     virtual void SetController(IController* controller) = 0;
     virtual IController* GetController() = 0;
     virtual void SetAnimationStar(IAnimationStar* animation_star) = 0;
