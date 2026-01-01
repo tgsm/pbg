@@ -556,7 +556,7 @@ config.libs = [
             Object(NonMatching, "engine/sound/CSoundEngine.cpp"),
             Object(NonMatching, "engine/sound/CSoundListener.cpp"),
             Object(NonMatching, "engine/sound/CSoundStreamed.cpp"),
-            Object(NonMatching, "engine/sound/CSample.cpp"),
+            Object(Equivalent, "engine/sound/CSample.cpp"),
             Object(NonMatching, "engine/sound/CSound3DRWA.cpp"),
             Object(NonMatching, "engine/sound/CSound2DRWA.cpp"),
             Object(NonMatching, "engine/sound/CSoundStreamedRWA.cpp"),

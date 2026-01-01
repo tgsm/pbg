@@ -7,7 +7,13 @@
 namespace DKSND {
 
 struct SSAMPLE_FORMAT {
-
+    U8 unk0;
+    U8 unk1;
+    U8 bitrate;
+    U8 nb_channels;
+    U32 frequency;
+    U32 unk8;
+    U32 size;
 };
 
 class ISample {
