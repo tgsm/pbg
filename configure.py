@@ -611,7 +611,7 @@ config.libs = [
             Object(NonMatching, "engine/display/CLight.cpp"),
             Object(NonMatching, "engine/display/IRWStream.cpp"),
             Object(NonMatching, "engine/display/CRWStream.cpp"),
-            Object(NonMatching, "engine/display/IAnimation.cpp"),
+            Object(Matching, "engine/display/IAnimation.cpp"),
             Object(NonMatching, "engine/display/IDMorphAnimation.cpp"),
             Object(NonMatching, "engine/display/IHierarchy.cpp"),
             Object(NonMatching, "engine/display/CAnimation.cpp"),
