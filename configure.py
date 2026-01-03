@@ -656,7 +656,7 @@ config.libs = [
             Object(NonMatching, "engine/display/CAnimationStar.cpp"),
             Object(NonMatching, "engine/display/CAnimationStarEntry.cpp"),
             Object(Matching, "engine/display/IAnimationStarController.cpp"),
-            Object(NonMatching, "engine/display/CAnimationStarController.cpp"),
+            Object(Matching, "engine/display/CAnimationStarController.cpp", extra_cflags=["-bool off"]),
             Object(NonMatching, "engine/display/IImmediate.cpp"),
             Object(NonMatching, "engine/display/CImmediate.cpp"),
             Object(NonMatching, "engine/display/IAnimationStarEntry.cpp"),

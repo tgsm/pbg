@@ -2,13 +2,10 @@
 #define PIGLET_CRTCCAMERA_H
 
 #include <string>
+#include "engine/display/CAnimation.h"
 #include "engine/xmd/CChunkIterator.h"
 #include "entities/CEntityManager.h"
 #include "CRTCSequencer.h"
-
-namespace DKDSP {
-class CAnimation;
-}
 
 class CRTCCamera : public CRTCSeqKey {
 private:

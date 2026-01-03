@@ -3,11 +3,10 @@
 
 #include <string>
 #include "engine/display/IClump.h"
+#include "engine/display/CAnimation.h"
 #include "engine/display/CController.h"
 
 namespace DKDSP {
-
-class CAnimation;
 
 // TODO
 class IAnimDictionary {

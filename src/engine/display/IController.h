@@ -3,7 +3,7 @@
 
 #include <string>
 #include "engine/display/IGenericAnimation.h"
-#include "types.h"
+#include "engine/display/CAnimation.h"
 
 namespace DKDSP {
 
@@ -13,7 +13,6 @@ enum EANIMATIONLOOP {
 };
 
 class ISubController;
-class CAnimation;
 
 // TODO
 class IController {
