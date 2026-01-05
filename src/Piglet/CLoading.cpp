@@ -172,30 +172,30 @@ void CBootUpLoadingCallback::Update() {
 
 
     CDKW_RGBA color;
-    color.m_a = 0xFF;
-    color.m_b = 0xFF;
-    color.m_g = 0xFF;
-    color.m_r = 0xFF;
+    color.alpha = 0xFF;
+    color.blue = 0xFF;
+    color.green = 0xFF;
+    color.red = 0xFF;
     if (m_unkC < 2.0f) {
         F32 calc = m_unkC * 255.0f;
         calc *= 0.5f;
-        color.m_r = calc;
-        color.m_g = calc;
-        color.m_b = calc;
+        color.red = calc;
+        color.green = calc;
+        color.blue = calc;
     } else if (m_unkC < 5.0f) {
-        color.m_r = 0xFF;
-        color.m_g = 0xFF;
-        color.m_b = 0xFF;
+        color.red = 0xFF;
+        color.green = 0xFF;
+        color.blue = 0xFF;
     } else if (m_unkC < 7.0f) {
         F32 calc = (255.0f * (m_unkC - 5.0f));
         calc *= 0.5f;
-        color.m_r = 0xFF - (U8)calc;
-        color.m_g = 0xFF - calc;
-        color.m_b = 0xFF - calc;
+        color.red = 0xFF - (U8)calc;
+        color.green = 0xFF - calc;
+        color.blue = 0xFF - calc;
     } else {
-        color.m_r = 0;
-        color.m_g = 0;
-        color.m_b = 0;
+        color.red = 0;
+        color.green = 0;
+        color.blue = 0;
     }
 
     F32 width = m_game->GetCamera()->GetBuffer()->GetWidth();
@@ -204,21 +204,21 @@ void CBootUpLoadingCallback::Update() {
     {
         F32 text_width = m_game->m_gui_engine->GetTextWidth("!!!Caution!!!", 16.0f / height, NULL);
         text_width = (width - (width * text_width));
-        m_game->m_gui_engine->SetTextColor(color.m_r, color.m_g, color.m_b, color.m_a);
+        m_game->m_gui_engine->SetTextColor(color.red, color.green, color.blue, color.alpha);
         m_game->m_gui_engine->AddText((0.5f * (width - text_width)) / width, 240.0f / height, "!!!Caution!!!", 16.0f / height, NULL, 0.0f);
     }
 
     {
         F32 text_width = m_game->m_gui_engine->GetTextWidth("This game supports an Autosave feature to Memory Card Slot A.", 16.0f / height, NULL);
         text_width = width - (width * text_width);
-        m_game->m_gui_engine->SetTextColor(color.m_r, color.m_g, color.m_b, color.m_a);
+        m_game->m_gui_engine->SetTextColor(color.red, color.green, color.blue, color.alpha);
         m_game->m_gui_engine->AddText((0.5f * (width - text_width)) / width, 260.0f / height, "This game supports an Autosave feature to Memory Card Slot A.", 16.0f / height, NULL, 0.0f);
     }
 
     {
         F32 text_width = m_game->m_gui_engine->GetTextWidth("Do not turn the power off or remove the Memory Card while saving.", 16.0f / height, NULL);
         text_width = (width * text_width);
-        m_game->m_gui_engine->SetTextColor(color.m_r, color.m_g, color.m_b, color.m_a);
+        m_game->m_gui_engine->SetTextColor(color.red, color.green, color.blue, color.alpha);
         m_game->m_gui_engine->AddText((width - text_width) / width, 280.0f / height, "Do not turn the power off or remove the Memory Card while saving.", 16.0f / height, NULL, 0.0f);
     }
 

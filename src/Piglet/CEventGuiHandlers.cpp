@@ -61,7 +61,7 @@ void CGuiPauseEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT ev
         UnkGamePartAndReturnTypeInline();
 
         CDKW_RGBA fade_color = CDKW_RGBA(199, 226, 222, 0xFF);
-        m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+        m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
 
         m_game->m_screen_effect->SetSequenceByIndex(0);
 
@@ -245,7 +245,7 @@ void CGuiLoadLoadSuccessEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
             m_game->m_gui_manager->SetVisible("LOAD_LOAD_OK", 0);
 
             CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-            m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+            m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
             ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
             m_game->FadeIn(-1.0f);
 
@@ -458,7 +458,7 @@ void CGuiSaveNoSpaceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
 
             if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
                 ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
@@ -569,7 +569,7 @@ void CGuiSaveFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
 
             if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
                 ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
@@ -892,7 +892,7 @@ void CGuiSaveWrongDeviceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
 
             if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
                 ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
@@ -999,7 +999,7 @@ void CGuiSaveCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
 
             if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
                 ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
@@ -1069,7 +1069,7 @@ void CGuiSaveMemoryCardUnuseableEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKG
 
             if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
                 ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
@@ -1115,7 +1115,7 @@ void CGuiSaveOkEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT e
 
             if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
                 ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
@@ -1173,7 +1173,7 @@ void CGuiSaveNoMemCardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_
 
         if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
             CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-            m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+            m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
             ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
             m_game->FadeIn(-1.0f);
 
@@ -1255,7 +1255,7 @@ void CGuiSaveFormatEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
 
             if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
                 ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
@@ -1337,7 +1337,7 @@ void CGuiSaveFormatSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
 
             if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
                 ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
@@ -1530,7 +1530,7 @@ void CGuiFormatFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
                 return;
             } else if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
                 ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 

@@ -63,7 +63,7 @@ public:
 
         if (!m_no_fade) {
             CDKW_RGBA fade_color = entity->m_entity_manager->GetGame()->ComputeGameFadeColor();
-            entity->m_entity_manager->GetGame()->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+            entity->m_entity_manager->GetGame()->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
             entity->m_entity_manager->GetGame()->m_unk503C &= ~(1 << 3); // bitfield?
 
             CGamePartIngame* game_part = (CGamePartIngame*)entity->m_entity_manager->GetGame()->GetGamePartPointer();

@@ -50,7 +50,7 @@ void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
 
                 CDKW_RGBA fade_color;
                 fade_color = CDKW_RGBA(199, 226, 222, 0xFF);
-                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+                m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
                 m_game->m_unk5038 = 0;
                 m_game->m_unk503C |= (1 << 4);
 
@@ -75,7 +75,7 @@ void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
 
             CDKW_RGBA fade_color;
             fade_color = CDKW_RGBA(199, 226, 222, 0xFF);
-            m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+            m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
             m_game->m_unk5038 = 0;
             m_game->m_unk503C |= (1 << 4);
 

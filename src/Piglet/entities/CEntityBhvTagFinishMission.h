@@ -33,7 +33,7 @@ public:
 
         if (entity->m_entity_manager->GetGame()->m_unk4F54 == 7) {
             CDKW_RGBA fade_color = entity->m_entity_manager->GetGame()->ComputeGameFadeColor();
-            entity->m_entity_manager->GetGame()->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+            entity->m_entity_manager->GetGame()->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
             entity->m_entity_manager->GetGame()->m_unk503C &= ~(1 << 3);
             ((CGamePartIngame*)entity->m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
             entity->m_entity_manager->GetGame()->FadeIn(-1.0f);

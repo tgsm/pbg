@@ -832,7 +832,7 @@ void CGameRoomManager::OnPlayRTCInit() {
 
             if (m_flags & (1 << 24)) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
-                m_game->FadeInit(0.5f, CGame::FADE_TYPE_4, fade_color.m_r, fade_color.m_g, fade_color.m_b, 0.0f);
+                m_game->FadeInit(0.5f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
                 m_game->m_unk503C &= ~(1 << 3);
                 m_unkC = 1;
             }

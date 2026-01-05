@@ -189,7 +189,7 @@ void CEntityScaryFaceBox::RenderCookiesNbIconDirect(CGame* game, int a1, F32 x, 
     icon2.Render(m_pImediatePolyBack, a8);
 
     CDKW_RGBA color = CDKW_RGBA(0xFF, 0xFF, 0x99, alpha_);
-    game->GetGuiEngine()->SetTextColor(color.m_r, color.m_g, color.m_b, color.m_a);
+    game->GetGuiEngine()->SetTextColor(color.red, color.green, color.blue, color.alpha);
 
     char str[10] = {};
     sprintf(str, "%d", a1);

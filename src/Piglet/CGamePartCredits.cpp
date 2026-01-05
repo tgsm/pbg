@@ -261,13 +261,13 @@ void CGamePartCredits::ParseColor(Color* color, DkXmd::CChunkIterator iter) {
             if (tmp == "Id") {
                 color->id = dest.GetS32Value();
             } else if (tmp == "R") {
-                color->color.m_r = dest.GetS32Value();
+                color->color.red = dest.GetS32Value();
             } else if (tmp == "G") {
-                color->color.m_g = dest.GetS32Value();
+                color->color.green = dest.GetS32Value();
             } else if (tmp == "B") {
-                color->color.m_b = dest.GetS32Value();
+                color->color.blue = dest.GetS32Value();
             } else if (tmp == "A") {
-                color->color.m_a = dest.GetS32Value();
+                color->color.alpha = dest.GetS32Value();
             }
         } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }

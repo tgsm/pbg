@@ -271,7 +271,7 @@ void CMiniMap::RenderCookiesNbIcon(F32 dt) {
     char x_str[2] = {};
 
     CDKW_RGBA text_color = CDKW_RGBA(0xFF, 0xFF, 0x99, 0xFF);
-    m_game->GetGuiEngine()->SetTextColor(text_color.m_r, text_color.m_g, text_color.m_b, text_color.m_a);
+    m_game->GetGuiEngine()->SetTextColor(text_color.red, text_color.green, text_color.blue, text_color.alpha);
     int cookies = m_game->GetCurrentMission()->GetMaxCollectedNbCookies();
 
     sprintf(x_str, "x");

@@ -20,7 +20,7 @@ CGamePartScrapBook::CGamePartScrapBook(CGame* game) {
     clear_color = CDKW_RGBA(199, 226, 222, 0xFF);
 
     m_game->GetScene()->SelectCamera(m_game->GetCamera());
-    m_game->GetScene()->Clear(3, clear_color.m_r / 255.0f, clear_color.m_g / 255.0f, clear_color.m_b / 255.0f);
+    m_game->GetScene()->Clear(3, clear_color.red / 255.0f, clear_color.green / 255.0f, clear_color.blue / 255.0f);
     m_game->GetScene()->BeginRender();
     m_game->GetScene()->Flush();
     m_game->GetScene()->EndRender();
@@ -47,7 +47,7 @@ CGamePartScrapBook::CGamePartScrapBook(CGame* game) {
 
     Rt2dCTMSetIdentity();
 
-    m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, clear_color.m_r, clear_color.m_g, clear_color.m_b, 0.0f);
+    m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, clear_color.red, clear_color.green, clear_color.blue, 0.0f);
 
     m_game->m_unk5038 = 1;
 }

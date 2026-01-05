@@ -109,7 +109,7 @@ CDKW_RenderProperty CDKW_RenderProperty::Activate() {
     }
 
     if (m_unk0 & (1 << 5)) {
-        RwRenderStateSet(13, m_border_color.m_a << 24 | m_border_color.m_r << 16 | m_border_color.m_g << 8 | m_border_color.m_b << 0);
+        RwRenderStateSet(13, m_border_color.alpha << 24 | m_border_color.red << 16 | m_border_color.green << 8 | m_border_color.blue << 0);
     }
 
     if (m_unk0 & (1 << 6)) {

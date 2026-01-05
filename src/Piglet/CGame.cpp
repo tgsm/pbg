@@ -983,7 +983,7 @@ BOOL CGame::NextFrame() {
                 m_game_backup->ApplyToGameData();
 
                 fade_color = ComputeGameFadeColor();
-                ((CGamePartIngame*)m_game_part)->m_game_room_manager->m_unk154 = (fade_color.m_r << 0) | (fade_color.m_g << 8) | (fade_color.m_b << 16) | (0x80 << 24);
+                ((CGamePartIngame*)m_game_part)->m_game_room_manager->m_unk154 = (fade_color.red << 0) | (fade_color.green << 8) | (fade_color.blue << 16) | (0x80 << 24);
                 m_current_loading_callback->Destroy();
 
                 if (!HasEntityOfType(ENTITY_SEARCHABLE_ZONE)) {
@@ -1345,10 +1345,10 @@ void CGame::ReplayVideoCallback() {
 
 CDKW_RGBA CGame::ComputeGameFadeColor() {
     CDKW_RGBA color;
-    color.m_r = 0;
-    color.m_g = 0;
-    color.m_b = 0;
-    color.m_a = 0xFF;
+    color.red = 0;
+    color.green = 0;
+    color.blue = 0;
+    color.alpha = 0xFF;
 
     if (m_game_part != NULL && m_game_part->m_unk0 == 7) {
         CEntityHero* hero = m_entity_manager->GetHero();
