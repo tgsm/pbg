@@ -5,9 +5,8 @@
 extern "C" {
 #endif
 
+#include <rwsdk/baimage.h>
 #include <rwsdk/baraster.h>
-
-typedef struct RwImage RwImage;
 
 RwImage* RwImageSetFromRaster(RwImage* image, RwRaster* raster);
 RwRaster* RwRasterSetFromImage(RwRaster* raster, RwImage* image);

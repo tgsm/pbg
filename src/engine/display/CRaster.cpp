@@ -51,7 +51,7 @@ int CRaster::GetStride() {
 }
 
 BOOL CRaster::SetFromImage(IImage* image) {
-    return RwRasterSetFromImage(m_wrap_raster, ((CImage*)image)->m_rw_image) != NULL ? TRUE : FALSE;
+    return RwRasterSetFromImage(m_wrap_raster, ((CImage*)image)->m_wrap_image) != NULL ? TRUE : FALSE;
 }
 
 RwRaster* CRaster::GetParent() {

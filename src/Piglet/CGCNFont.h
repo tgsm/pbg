@@ -1,9 +1,8 @@
 #ifndef PIGLET_CGCNFONT_H
 #define PIGLET_CGCNFONT_H
 
+#include <rwsdk/baimage.h>
 #include "types.h"
-
-struct RwImage;
 
 class CGCNFont {
 public:
