@@ -4,14 +4,13 @@
 #include <rwsdk/baraster.h>
 #include "engine/display/IRaster.h"
 
-// Not sure what to do with this, it's basically just an alias for RwRaster.
-class CDKW_Raster;
+class CDKW_Raster : public RwRaster {};
 
 namespace DKDSP {
 
 class CRaster : public IRaster {
 public:
-    RwRaster* m_rw_raster;
+    CDKW_Raster* m_wrap_raster;
     int m_unk8;
 
 public:
