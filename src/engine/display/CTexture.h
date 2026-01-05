@@ -3,10 +3,17 @@
 
 #include "engine/display/ITexture.h"
 
+class CDKW_Texture : public RwTexture {};
+
 namespace DKDSP {
 
 class CTexture : public ITexture {
 public:
+    CTexture() {
+        m_wrap_texture = NULL;
+    }
+    ~CTexture();
+
     virtual U32 GetSize();
     virtual RwTextureAddressMode GetAddressing();
     virtual RwTextureAddressMode GetAddressingU();
@@ -24,6 +31,14 @@ public:
     virtual char* GetMaskName();
     virtual void SetMaskName(char* mask);
     virtual int GetReferenceCount();
+
+    void Release();
+    void SetDkWrapTexture(CDKW_Texture* wrap_texture);
+    char* InternalGetName();
+
+public:
+    CDKW_Texture* m_wrap_texture;
+    CRaster m_raster;
 };
 
 }
