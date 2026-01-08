@@ -22,6 +22,7 @@ typedef struct RwImage {
     RwRGBA* palette;
 } RwImage;
 
+RwImage* RwImageCreate(int width, int height, int depth);
 int RwImageDestroy(RwImage* image);
 RwImage* RwImageAllocatePixels(RwImage* image);
 RwImage* RwImageFreePixels(RwImage* image);

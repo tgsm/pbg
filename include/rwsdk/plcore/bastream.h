@@ -1,6 +1,10 @@
 #ifndef RWSDK_PLCORE_BASTREAM_H
 #define RWSDK_PLCORE_BASTREAM_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 enum RwStreamType {
     rwNASTREAM = 0,
     rwSTREAMFILE = 1,
@@ -47,5 +51,14 @@ typedef struct RwStream {
     union RwStreamUnion Type;
     int rwOwned;
 } RwStream; // size: 0x24
+
+unsigned int RwStreamRead(RwStream* stream, void* dest, unsigned int size);
+unsigned int RwStreamWrite(RwStream* stream, void* src, unsigned int size);
+RwStream* RwStreamOpen(int, int, const char* path);
+int RwStreamClose(RwStream* stream, void* a1);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

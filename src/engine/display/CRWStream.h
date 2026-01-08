@@ -1,7 +1,10 @@
 #ifndef ENGINE_DISPLAY_CRWSTREAM_H
 #define ENGINE_DISPLAY_CRWSTREAM_H
 
+#include <rwsdk/plcore/bastream.h>
 #include "engine/display/IRWStream.h"
+
+class CDKW_Stream : public RwStream {};
 
 namespace DKDSP {
 
