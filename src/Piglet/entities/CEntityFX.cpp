@@ -2,6 +2,7 @@
 #include "CGamePartIngame.h"
 #include <cstring>
 #include <iostream>
+#include <math.h>
 
 CEntityFX::CEntityFX(CEntityManager* entity_manager, std::string name) : CEntityObject(entity_manager, name) {
     m_particle_emitter = NULL;
@@ -70,6 +71,24 @@ void CEntityFX::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior*
     CEntityObject::ParseBehavior(iter, behavior);
 }
 
+void CEntityFX::Init() {
+    if (IsFlagged(ENTITY_FLAG_VISIBLE) == TRUE) {
+        if (m_particle_emitter != NULL) {
+            m_particle_emitter->Start();
+            m_particle_emitter->Resume();
+            CEntityObject::AddFlag(ENTITY_FLAG_ACTIVE);
+        }
+    } else {
+        if (m_particle_emitter != NULL) {
+            m_particle_emitter->Stop();
+            m_unk60 = 0.0f;
+            CEntityObject::DelFlag(ENTITY_FLAG_ACTIVE);
+        }
+    }
+
+    m_unk44 = CDKW_V3d(m_particle_emitter->GetFrame()->m_rwframe->modelling.pos);
+}
+
 void CEntityFX::ManageMessage(SDkMessage& message) {
     CEntity::ManageMessage(message);
 
@@ -92,6 +111,40 @@ void CEntityFX::ManageMessage(SDkMessage& message) {
     } else if (strcmp(message.unk20, "RESUME") == 0) {
         if (m_particle_emitter != NULL) {
             m_particle_emitter->Resume();
+        }
+    }
+}
+
+void CEntityFX::Update(F32 dt) {
+    CEntityObject::Update(dt);
+
+    if (IsFlagged(ENTITY_FLAG_VISIBLE) != TRUE) {
+        return;
+    }
+
+    if (m_particle_emitter == NULL) {
+        return;
+    }
+
+    if (m_radial_velocity > 0.0f) {
+        m_unk64 += dt;
+        CDKW_V3d unk44 = m_unk44;
+        F32 x = (F32)cos(3.1415927f * ((m_unk64 * m_radial_velocity) / 180.0f));
+        unk44.m_x += m_radius * x;
+        F32 z = (F32)sin(3.1415927f * ((m_unk64 * m_radial_velocity) / 180.0f));
+        unk44.m_z += m_radius * z;
+        SetPosition(unk44);
+    }
+
+    m_particle_emitter->GetParticleEmissionGap(); // unused result
+    m_particle_emitter->Update(dt);
+
+    if (!m_particle_emitter->IsPaused() && !m_particle_emitter->IsStopped() && m_lifetime > 0.0f) {
+        m_unk60 += dt;
+        if (m_unk60 > m_lifetime && m_particle_emitter != NULL) {
+            m_particle_emitter->Stop();
+            m_unk60 = 0.0f;
+            CEntityObject::DelFlag(ENTITY_FLAG_ACTIVE);
         }
     }
 }

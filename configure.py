@@ -478,7 +478,7 @@ config.libs = [
             Object(Equivalent, "Piglet/entities/CEntityBhvTagTeleport.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagAnim.cpp"),
             Object(Equivalent, "Piglet/CMission.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityFX.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityFX.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityScaryFaceBox.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityEscapingObject.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityBhvTagCameraSystem.cpp"),

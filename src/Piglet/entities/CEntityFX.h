@@ -8,7 +8,7 @@
 class CEntityFX : public CEntityObject {
 public:
     DKDSP::CParticleEmitter* m_particle_emitter;
-    U8 m_unk44[0x50 - 0x44];
+    CDKW_V3d m_unk44;
     CDKW_V3d m_position;
     F32 m_lifetime;
     F32 m_unk60;
@@ -26,9 +26,21 @@ public:
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual void Init();
     virtual void ManageMessage(SDkMessage& message);
+    virtual void Update(F32 dt);
     virtual void Render(F32 dt);
     virtual void DelFlag(U32 flag);
     virtual void AddFlag(U32 flag);
+    virtual void SetPosition(CDKW_V3d& position) {
+        m_position = position;
+        DKDSP::CParticleEmitter* pe = m_particle_emitter;
+        if (pe != NULL) {
+            RwFrame* frame = pe->GetFrame()->m_rwframe;
+            RwMatrix* model = &frame->modelling;
+            model->pos = *(RwV3d*)&m_position;
+            RwMatrixUpdate(model);
+            RwFrameUpdateObjects(pe->GetFrame()->m_rwframe);
+        }
+    }
 
     BOOL ParseParticleEmitter(std::string filename);
     void ParseParticleEmitter(DkXmd::CChunkIterator iter) {
