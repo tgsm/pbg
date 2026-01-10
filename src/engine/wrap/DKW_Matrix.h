@@ -5,7 +5,7 @@
 #include "engine/wrap/DKW_V3d.h"
 
 // TODO
-class CDKW_Matrix {
+class CDKW_Matrix : public RwMatrix {
 public:
     CDKW_Matrix();
     CDKW_Matrix(const CDKW_Matrix& other);
@@ -14,9 +14,7 @@ public:
     CDKW_Matrix operator*(const CDKW_Matrix& other) const;
 
     static CDKW_Matrix IDENTITY;
-public:
-    RwMatrix m_rw_matrix;
 };
-
+REQUIRE_SIZE(CDKW_Matrix, 0x40);
 
 #endif
