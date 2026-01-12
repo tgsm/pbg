@@ -19,10 +19,11 @@ struct RwMatrixTag {
 };
 typedef struct RwMatrixTag RwMatrix;
 
-RwMatrix* RwMatrixCreate(void);
-int RwMatrixDestroy(RwMatrix* matrix);
 void RwMatrixUpdate(RwMatrix* matrix);
+void RwMatrixMultiply(RwMatrix* dest, RwMatrix* a, RwMatrix* b);
 void RwMatrixScale(RwMatrix* matrix, RwV3d*, int);
+int RwMatrixDestroy(RwMatrix* matrix);
+RwMatrix* RwMatrixCreate(void);
 
 #ifdef __cplusplus
 }
