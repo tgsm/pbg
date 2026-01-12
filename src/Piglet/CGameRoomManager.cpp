@@ -1144,7 +1144,7 @@ void CGameRoomManager::Victory() {
             dothething(m_clump160, CDKW_V3d::ZERO);
 
             m_unkA8 = 1.0f / m_unkA8;
-            RwV3d vec;
+            CDKW_V3d vec;
             vec.x = m_unkA8;
             vec.y = m_unkA8;
             vec.z = m_unkA8;
@@ -1162,7 +1162,7 @@ void CGameRoomManager::Victory() {
             RwFrameScale(m_clump160->GetFrame()->m_rwframe, &vec, 2);
 
             CDKW_V3d yuhyuh = m_hero->GetPosition();
-            RwFrameTranslate(m_clump160->GetFrame()->m_rwframe, (RwV3d*)&yuhyuh, 2);
+            RwFrameTranslate(m_clump160->GetFrame()->m_rwframe, &yuhyuh, 2);
             m_unkA8 = dVar14;
 
             if (m_unkE0 >= 0.5f) {
@@ -1172,7 +1172,7 @@ void CGameRoomManager::Victory() {
                 m_hero->SetMode(21);
 
                 CDKW_V3d killme = m_camera_position - m_hero->GetPosition();
-                killme.m_y = 0.0f;
+                killme.y = 0.0f;
                 m_hero->SetDirection(killme);
 
                 m_unkC8 = 0.0f;
@@ -1224,8 +1224,8 @@ void CGameRoomManager::Victory() {
                 dothescalething(m_clump160);
 
                 CDKW_V3d pos = m_hero->GetPosition();
-                pos.m_y += 0.05f;
-                dothething(m_clump160, pos.m_x, pos.m_y, pos.m_z);
+                pos.y += 0.05f;
+                dothething(m_clump160, pos.x, pos.y, pos.z);
 
                 if (m_batch124 != NULL) {
                     m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch124);
@@ -1233,9 +1233,9 @@ void CGameRoomManager::Victory() {
                 }
 
                 m_game_part->m_unk18 |= (1 << 2);
-                m_game_part->m_unk24.m_x = 1.0f;
-                m_game_part->m_unk24.m_y = 1.0f;
-                m_game_part->m_unk24.m_z = 1.0f;
+                m_game_part->m_unk24.x = 1.0f;
+                m_game_part->m_unk24.y = 1.0f;
+                m_game_part->m_unk24.z = 1.0f;
                 m_unkC = 1;
             } else {
                 UpdateAdventureCam();
@@ -1250,7 +1250,7 @@ void CGameRoomManager::Victory() {
             m_camera_target = m_game_part->m_camera->GetCameraTarget();
 
             Create2ndPassVictoryCamParam(0);
-            pos.m_y += 0.05f;
+            pos.y += 0.05f;
 
             dothething(m_clump160, pos);
 
@@ -1285,7 +1285,7 @@ void CGameRoomManager::Victory() {
             m_unkC8 = 1.0f;
 
             Create2ndPassVictoryCamParam(1);
-            pos.m_y += 0.05f;
+            pos.y += 0.05f;
 
             dothething(m_clump160, pos);
 
@@ -1301,7 +1301,7 @@ void CGameRoomManager::Victory() {
 
             Create2ndPassVictoryCamParam(1);
 
-            pos.m_y += 0.05f;
+            pos.y += 0.05f;
             dothething(m_clump160, pos);
 
             if (m_unkC8 <= 0.0f) {
@@ -1331,7 +1331,7 @@ void CGameRoomManager::Victory() {
         }
         case 6: {
             CDKW_V3d pos = m_hero->GetPosition();
-            pos.m_y += 0.05f;
+            pos.y += 0.05f;
 
             dothething(m_clump160, pos);
 
@@ -1355,7 +1355,7 @@ void CGameRoomManager::Victory() {
             dothething(m_clump160, CDKW_V3d::ZERO);
 
             m_unkA8 = 1.0f / m_unkA8;
-            RwV3d vec;
+            CDKW_V3d vec;
             vec.x = m_unkA8;
             vec.y = m_unkA8;
             vec.z = m_unkA8;
@@ -1372,7 +1372,7 @@ void CGameRoomManager::Victory() {
             }
             RwFrameScale(m_clump160->GetFrame()->m_rwframe, &vec, 2);
 
-            RwFrameTranslate(m_clump160->GetFrame()->m_rwframe, (RwV3d*)&m_unk90, 2);
+            RwFrameTranslate(m_clump160->GetFrame()->m_rwframe, &m_unk90, 2);
             m_unkA8 = dVar14;
 
             if (m_unkE0 >= 0.5f) {

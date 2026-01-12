@@ -48,7 +48,7 @@ public:
     virtual CDKW_V3d GetPosition() { return m_position; }
     virtual void SetPosition(CDKW_V3d& position) { m_position = position; }
     virtual CDKW_V3d GetOrientation() { return CDKW_V3d(0.0f, m_unk4C, 0.0f); }
-    virtual void SetOrientation(CDKW_V3d& orientation) { m_unk4C = orientation.m_y; }
+    virtual void SetOrientation(CDKW_V3d& orientation) { m_unk4C = orientation.y; }
     virtual F32 GetYOrientation() { return m_unk4C; }
     virtual void SetYOrientation(F32 y) { m_unk4C = y; }
     virtual CDKW_Matrix GetMatrix();
@@ -133,7 +133,7 @@ public:
                 } else if (strcmp(buf, "Radius") == 0) {
                     m_unk1A0 = dest.GetFloatValue();
                 } else if (strcmp(buf, "Position") == 0) {
-                    ParseXYZ(dest, &m_unk1A8.m_x, &m_unk1A8.m_y, &m_unk1A8.m_z);
+                    ParseXYZ(dest, &m_unk1A8.x, &m_unk1A8.y, &m_unk1A8.z);
                 }
             } while (dest.GetNextSiblingChunk(dest) == TRUE);
         }

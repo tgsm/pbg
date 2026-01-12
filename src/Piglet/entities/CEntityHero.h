@@ -116,10 +116,10 @@ public:
     virtual void SetToGround();
 
     void NormalizeInline(CDKW_V3d& vec) {
-        if (!((vec.m_x - CDKW_V3d::ZERO.m_x) * (vec.m_x - CDKW_V3d::ZERO.m_x) +
-            (vec.m_y - CDKW_V3d::ZERO.m_y) * (vec.m_y - CDKW_V3d::ZERO.m_y) +
-            (vec.m_z - CDKW_V3d::ZERO.m_z) * (vec.m_z - CDKW_V3d::ZERO.m_z) <= CDKW_V3d::sm_Epsilon * CDKW_V3d::sm_Epsilon)) {
-            RwV3dNormalize((RwV3d*)&vec, (RwV3d*)&vec);
+        if (!((vec.x - CDKW_V3d::ZERO.x) * (vec.x - CDKW_V3d::ZERO.x) +
+            (vec.y - CDKW_V3d::ZERO.y) * (vec.y - CDKW_V3d::ZERO.y) +
+            (vec.z - CDKW_V3d::ZERO.z) * (vec.z - CDKW_V3d::ZERO.z) <= CDKW_V3d::sm_Epsilon * CDKW_V3d::sm_Epsilon)) {
+            RwV3dNormalize(&vec, &vec);
         }
     }
 };

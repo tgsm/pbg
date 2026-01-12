@@ -64,9 +64,9 @@ void CEntityWinnie::SetMode(U32 mode) {
             m_animation_star_controller->Play("DEAD_1", 1, 1);
             CDKW_Frame* frame = m_clump->GetFrame();
             CDKW_V3d position = CDKW_V3d(frame->GetRwFrame()->modelling.pos);
-            RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&(-position), 2);
-            RwFrameRotate(180.0f, frame->GetRwFrame(), (RwV3d*)&CDKW_V3d::YAXIS, 2);
-            RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&position, 2);
+            RwFrameTranslate(frame->GetRwFrame(), &(-position), 2);
+            RwFrameRotate(180.0f, frame->GetRwFrame(), &CDKW_V3d::YAXIS, 2);
+            RwFrameTranslate(frame->GetRwFrame(), &position, 2);
 
             m_unk1BC = -m_unk1BC;
             m_unk1C8 = m_speed_run;

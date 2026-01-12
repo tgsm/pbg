@@ -45,8 +45,8 @@ Dynamics& Dynamics::Move(RBody& body, F32 a1) {
 // Incomplete
 void Dynamics::ApplyFriction() {
     CDKW_V3d local_30 = m_rbody->unk8;
-    F32 dVar4 = RwV3dLength((RwV3d*)&local_30);
-    F32 dVar5 = local_30.m_y;
+    F32 dVar4 = RwV3dLength(&local_30);
+    F32 dVar5 = local_30.y;
     if (dVar4 < 0.01f) {
         local_30 = CDKW_V3d::ZERO;
     } else {
@@ -59,7 +59,7 @@ void Dynamics::ApplyFriction() {
         }
     }
 
-    if (m_rbody->unk8.m_x * local_30.m_x + m_rbody->unk8.m_y * local_30.m_y + m_rbody->unk8.m_z * local_30.m_z < 0.0f) {
+    if (m_rbody->unk8.x * local_30.x + m_rbody->unk8.y * local_30.y + m_rbody->unk8.z * local_30.z < 0.0f) {
         local_30 = CDKW_V3d::ZERO;
     }
 
@@ -71,7 +71,7 @@ void Dynamics::Accelerate() {
     CDKW_V3d local_14 = m_rbody->unk8;
     CDKW_V3d local_2c = m_unk50 * mp_move_params[m_unk4].unkC;
     CDKW_V3d local_20 = local_2c - local_14;
-    F32 dVar3 = RwV3dLength((RwV3d*)&local_20);
+    F32 dVar3 = RwV3dLength(&local_20);
     DkMoveParams* params = &mp_move_params[m_unk4];
     F32 dVar4 = m_unk4C;
     dVar4 *= params->acceleration_amount;

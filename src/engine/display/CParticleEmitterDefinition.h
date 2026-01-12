@@ -84,11 +84,11 @@ public:
                 char* name_ = dest.GetName();
 
                 if (dkdsp_stricmp(name_, "X") == 0) {
-                    vec.m_x = dest.GetFloatValue();
+                    vec.x = dest.GetFloatValue();
                 } else if (dkdsp_stricmp(name_, "Y") == 0) {
-                    vec.m_y = dest.GetFloatValue();
+                    vec.y = dest.GetFloatValue();
                 } else if (dkdsp_stricmp(name_, "Z") == 0) {
-                    vec.m_z = dest.GetFloatValue();
+                    vec.z = dest.GetFloatValue();
                 }
             } while (dest.GetNextSiblingChunk(dest));
         }

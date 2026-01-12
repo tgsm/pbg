@@ -130,9 +130,9 @@ void CEntityFX::Update(F32 dt) {
         m_unk64 += dt;
         CDKW_V3d unk44 = m_unk44;
         F32 x = (F32)cos(3.1415927f * ((m_unk64 * m_radial_velocity) / 180.0f));
-        unk44.m_x += m_radius * x;
+        unk44.x += m_radius * x;
         F32 z = (F32)sin(3.1415927f * ((m_unk64 * m_radial_velocity) / 180.0f));
-        unk44.m_z += m_radius * z;
+        unk44.z += m_radius * z;
         SetPosition(unk44);
     }
 

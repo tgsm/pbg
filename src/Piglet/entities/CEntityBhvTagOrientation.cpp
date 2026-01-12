@@ -19,11 +19,11 @@ void CEntityBhvTagOrientation::Parse(DkXmd::CChunkIterator iter) {
         do {
             strcpy(buf, dest.GetName());
             if (strcmp(buf, "X") == 0) {
-                m_orientation.m_x = dest.GetFloatValue();
+                m_orientation.x = dest.GetFloatValue();
             } else if (strcmp(buf, "Y") == 0) {
-                m_orientation.m_y = dest.GetFloatValue();
+                m_orientation.y = dest.GetFloatValue();
             } else if (strcmp(buf, "Z") == 0) {
-                m_orientation.m_z = dest.GetFloatValue();
+                m_orientation.z = dest.GetFloatValue();
             }
         } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }

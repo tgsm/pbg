@@ -9,32 +9,35 @@
 #pragma supress_warnings on
 
 // TODO
-class CDKW_V3d {
+class CDKW_V3d : public RwV3d {
 public:
     CDKW_V3d() {}
     explicit CDKW_V3d(const RwV3d& rwvec) {
-        m_x = rwvec.x;
-        m_y = rwvec.y;
-        m_z = rwvec.z;
+        x = rwvec.x;
+        y = rwvec.y;
+        z = rwvec.z;
     }
     CDKW_V3d(F32 x, F32 y, F32 z);
+    CDKW_V3d(const CDKW_V3d& other) {
+        *this = other;
+    }
 
     // FIXME: Doesn't match yet
     CDKW_V3d operator+(const CDKW_V3d& other) const {
         CDKW_V3d result;
         volatile F32 z, y, x;
-        x = result.m_x = (this->m_x + other.m_x);
-        y = result.m_y = (this->m_y + other.m_y);
-        z = result.m_z = (this->m_z + other.m_z);
+        x = result.x = (this->x + other.x);
+        y = result.y = (this->y + other.y);
+        z = result.z = (this->z + other.z);
         return result;
     }
 
     CDKW_V3d operator-() const;
     CDKW_V3d& operator-(const CDKW_V3d& other) const {
         CDKW_V3d result;
-        result.m_x = this->m_x - other.m_x;
-        result.m_y = this->m_y - other.m_y;
-        result.m_z = this->m_z - other.m_z;
+        result.x = this->x - other.x;
+        result.y = this->y - other.y;
+        result.z = this->z - other.z;
         return result;
     }
 
@@ -44,9 +47,9 @@ public:
     CDKW_V3d& operator+=(const CDKW_V3d& rhs);
     CDKW_V3d& operator-=(const CDKW_V3d& rhs);
     CDKW_V3d& operator*=(const F32 scalar) {
-        m_x *= scalar;
-        m_y *= scalar;
-        m_z *= scalar;
+        x *= scalar;
+        y *= scalar;
+        z *= scalar;
         return *this;
     }
 
@@ -60,9 +63,6 @@ public:
     static CDKW_V3d ZAXIS;
     static CDKW_V3d ONE;
     static F32 sm_Epsilon;
-
-public:
-    F32 m_x, m_y, m_z;
 };
 // Used for operator-(const CDKW_V3d&)
 #pragma supress_warnings reset

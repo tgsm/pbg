@@ -20,11 +20,11 @@ void CEntityBhvTagPosition::Parse(DkXmd::CChunkIterator iter) {
             strcpy(buf, dest.GetName());
 
             if (strcmp(buf, "X") == 0) {
-                m_position.m_x = dest.GetFloatValue();
+                m_position.x = dest.GetFloatValue();
             } else if (strcmp(buf, "Y") == 0) {
-                m_position.m_y = dest.GetFloatValue();
+                m_position.y = dest.GetFloatValue();
             } else if (strcmp(buf, "Z") == 0) {
-                m_position.m_z = dest.GetFloatValue();
+                m_position.z = dest.GetFloatValue();
             }
         } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }

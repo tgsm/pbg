@@ -19,7 +19,7 @@ void CEntityNPCGralosaurus::Init() {
     CEntityNPC::Init();
 
     m_unk2F0 = CDKW_V3d(m_clump->GetFrame()->m_rwframe->modelling.pos);
-    m_unk2F0.m_y = 0.13f;
+    m_unk2F0.y = 0.13f;
 
     m_unkF4 |= (1 << 14);
     SetGenericBehaviour(GENERIC_BEHAVIOUR_2);

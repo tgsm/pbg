@@ -4,12 +4,12 @@
 #include <iostream>
 
 CRTCGrimaceEvent::CRTCGrimaceEvent(CRTCPlayerEntity* player_entity) : CRTCEvent(player_entity) {
-    m_position.m_x = 0.0f;
-    m_position.m_y = 0.0f;
-    m_position.m_z = 0.0f;
-    m_orientation.m_x = 0.0f;
-    m_orientation.m_y = 0.0f;
-    m_orientation.m_z = 0.0f;
+    m_position.x = 0.0f;
+    m_position.y = 0.0f;
+    m_position.z = 0.0f;
+    m_orientation.x = 0.0f;
+    m_orientation.y = 0.0f;
+    m_orientation.z = 0.0f;
     m_duration = 0.0f;
     m_delay = 0.0f;
     m_type = EVENT_GRIMACE;
@@ -49,11 +49,11 @@ BOOL CRTCGrimaceEvent::ParseParam(DkXmd::CChunkIterator* iter) {
                 if (dest1.GetFirstChildChunk(dest2)) {
                     do {
                         if (strcmp(dest2.GetName(), "X") == 0) {
-                            m_position.m_x = dest2.GetFloatValue();
+                            m_position.x = dest2.GetFloatValue();
                         } else if (strcmp(dest2.GetName(), "Y") == 0) {
-                            m_position.m_y = dest2.GetFloatValue();
+                            m_position.y = dest2.GetFloatValue();
                         } else if (strcmp(dest2.GetName(), "Z") == 0) {
-                            m_position.m_z = dest2.GetFloatValue();
+                            m_position.z = dest2.GetFloatValue();
                         }
                     } while (dest2.GetNextSiblingChunk(dest2));
                 }
@@ -61,11 +61,11 @@ BOOL CRTCGrimaceEvent::ParseParam(DkXmd::CChunkIterator* iter) {
                 if (dest1.GetFirstChildChunk(dest2)) {
                     do {
                         if (strcmp(dest2.GetName(), "X") == 0) {
-                            m_orientation.m_x = dest2.GetFloatValue();
+                            m_orientation.x = dest2.GetFloatValue();
                         } else if (strcmp(dest2.GetName(), "Y") == 0) {
-                            m_orientation.m_y = dest2.GetFloatValue();
+                            m_orientation.y = dest2.GetFloatValue();
                         } else if (strcmp(dest2.GetName(), "Z") == 0) {
-                            m_orientation.m_z = dest2.GetFloatValue();
+                            m_orientation.z = dest2.GetFloatValue();
                         }
                     } while (dest2.GetNextSiblingChunk(dest2));
                 }

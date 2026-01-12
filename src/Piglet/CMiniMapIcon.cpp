@@ -22,24 +22,22 @@ CMiniMapIcon::CMiniMapIcon(const CDKW_V3d& position, F32 width, F32 height, F32 
         *m_rw_matrix = CDKW_Matrix::IDENTITY;
     }
 
-    m_x = position.m_x;
-    m_y = position.m_y;
-    m_z = position.m_z;
+    m_x = position.x;
+    m_y = position.y;
+    m_z = position.z;
     m_width = width;
     m_height = height;
     *m_rw_matrix = CDKW_Matrix::IDENTITY;
 
-    RwV3d rwv3d;
+    CDKW_V3d v3d_copy;
     CDKW_V3d v3d(width, height, 1.0f);
-    rwv3d.x = v3d.m_x;
-    rwv3d.y = v3d.m_y;
-    rwv3d.z = v3d.m_z;
-    RwMatrixScale(m_rw_matrix, &rwv3d, 2);
+    v3d_copy = v3d;
+    RwMatrixScale(m_rw_matrix, &v3d_copy, 2);
 
     RwMatrix* mtx = m_rw_matrix;
-    mtx->pos.x = position.m_x;
-    mtx->pos.y = position.m_y;
-    mtx->pos.z = position.m_z;
+    mtx->pos.x = position.x;
+    mtx->pos.y = position.y;
+    mtx->pos.z = position.z;
     RwMatrixUpdate(mtx);
 
     Create(a4);
@@ -121,17 +119,17 @@ BOOL CMiniMapIcon::Create(F32 a1) {
 }
 
 void CMiniMapIcon::SetPosition(const CDKW_V3d& position) {
-    m_x = position.m_x;
-    m_y = position.m_y;
-    m_z = position.m_z;
+    m_x = position.x;
+    m_y = position.y;
+    m_z = position.z;
 
     *m_rw_matrix = CDKW_Matrix::IDENTITY;
 
     RwV3d rwv3d;
     CDKW_V3d v3d(m_width, m_height, 1.0f);
-    rwv3d.x = v3d.m_x;
-    rwv3d.y = v3d.m_y;
-    rwv3d.z = v3d.m_z;
+    rwv3d.x = v3d.x;
+    rwv3d.y = v3d.y;
+    rwv3d.z = v3d.z;
     RwMatrixScale(m_rw_matrix, &rwv3d, 2);
 
     RwMatrix* mtx = m_rw_matrix;
@@ -149,9 +147,9 @@ void CMiniMapIcon::SetSize(F32 size) {
 
     CDKW_V3d v3d(size, size, 1.0f);
     RwV3d rwv3d;
-    rwv3d.x = v3d.m_x;
-    rwv3d.y = v3d.m_y;
-    rwv3d.z = v3d.m_z;
+    rwv3d.x = v3d.x;
+    rwv3d.y = v3d.y;
+    rwv3d.z = v3d.z;
     RwMatrixScale(m_rw_matrix, &rwv3d, 2);
 
     RwMatrix* mtx = m_rw_matrix;

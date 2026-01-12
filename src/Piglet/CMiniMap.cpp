@@ -148,14 +148,14 @@ BOOL CMiniMap::Create() {
     m_scene->SetAmbient(0.0f, 0.0f, 0.0f);
 
     CDKW_V3d position;
-    position.m_x = 0.0f;
-    position.m_y = 0.0f;
-    position.m_z = 0.0f;
+    position.x = 0.0f;
+    position.y = 0.0f;
+    position.z = 0.0f;
     m_icon38 = new CMiniMapIcon(position, 8.0f, 8.0f, 1.0f);
     m_icon3C = new CMiniMapIcon(position, 10.0f, 10.0f, 1.0f);
     m_icon44 = new CMiniMapIcon(position, 15.0f, 15.0f, 1.0f);
 
-    position.m_z = -1.0f;
+    position.z = -1.0f;
     m_icon40 = new CMiniMapIcon(position, 200.0f, 100.0f, 1.0f);
 
     m_icon38->SetRGBA(0xFF, 0xFF, 0xFF, 0xFF);
@@ -199,7 +199,7 @@ void CMiniMap::RenderDarkenRooms(F32 dt) {
     }
 
     position40 = CDKW_V3d(m_camera->GetFrame()->m_rwframe->modelling.pos);
-    position40.m_z = -1.0f;
+    position40.z = -1.0f;
     m_icon40->SetPosition(position40);
     m_icon40->SetTexture(NULL);
     m_game->m_display_engine->SetRenderState((RwRenderState)10, (void*)5);
@@ -240,9 +240,9 @@ void CMiniMap::RenderDarkenRooms(F32 dt) {
                         DKDSP::CAtomic* atomic = m_clump20->GetAtomic(atomic_index);
                         if (atomic != NULL) {
                             position44 = CDKW_V3d(atomic->GetFrame()->m_rwframe->modelling.pos);
-                            F32 z = position44.m_z;
-                            position44.m_z = -position44.m_y;
-                            position44.m_y = z;
+                            F32 z = position44.z;
+                            position44.z = -position44.y;
+                            position44.y = z;
                             m_icon44->SetPosition(position44);
                             m_icon44->Render(m_scene);
                         }

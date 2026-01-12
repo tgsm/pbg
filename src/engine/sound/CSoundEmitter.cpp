@@ -18,9 +18,9 @@ void CSoundEmitter::Clear() {
     m_num_sounds = 0;
     m_active = FALSE;
     m_unk38 = 0;
-    m_position.m_x = 0.0f;
-    m_position.m_y = 0.0f;
-    m_position.m_z = 0.0f;
+    m_position.x = 0.0f;
+    m_position.y = 0.0f;
+    m_position.z = 0.0f;
     m_pPosition = &m_position;
 
     m_unk14 = CDKW_V3d(-10000.0f, -10000.0f, -10000.0f);
@@ -136,7 +136,7 @@ U32 CSoundEmitter::GetNbSounds() {
 
 void CSoundEmitter::Update() {
     CDKW_V3d* position = m_pPosition;
-    if (position->m_x != m_unk14.m_x || position->m_y != m_unk14.m_y || position->m_z != m_unk14.m_z) {
+    if (position->x != m_unk14.x || position->y != m_unk14.y || position->z != m_unk14.z) {
         for (U32 i = 0; i < m_sounds.size(); i++) {
             CSound3D* sound = (CSound3D*)m_sounds[i];
             if (sound != NULL) {

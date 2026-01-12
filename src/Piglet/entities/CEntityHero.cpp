@@ -158,11 +158,11 @@ U32 CEntityHero::GetActions() {
 
 CDKW_V3d CEntityHero::GetPadDirection() {
     CDKW_V3d direction = CDKW_V3d::ZERO;
-    direction.m_x = m_axe_h_input->GetState().m_unk4;
-    direction.m_z = -m_axe_v_input->GetState().m_unk4;
-    direction.m_y = 0.0f;
+    direction.x = m_axe_h_input->GetState().m_unk4;
+    direction.z = -m_axe_v_input->GetState().m_unk4;
+    direction.y = 0.0f;
 
-    if (RwV3dLength((RwV3d*)&direction) > 1.0f) {
+    if (RwV3dLength(&direction) > 1.0f) {
         NormalizeInline(direction);
     }
 

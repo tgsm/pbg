@@ -371,25 +371,23 @@ void CEntityPiglet::SetMode(U32 mode) {
         case 14:
             m_animation_star_controller->Play("START_FIGHT", 1);
             break;
-        case 15:
+        case 15: {
             // TODO
             if (!IsFlagged(ENTITY_FLAG_ACTIVE)) {
                 SetMode(2);
             }
 
             m_animation_star_controller->Play("TURN_FIGHT", 1);
-            RwV3d vec;
-            vec.x = m_unk1BC.m_x;
-            vec.y = m_unk1BC.m_y;
-            vec.z = m_unk1BC.m_z;
+            CDKW_V3d vec = m_unk1BC;
             // This may be an inline
-            if (!((vec.x - CDKW_V3d::ZERO.m_x) * (vec.x - CDKW_V3d::ZERO.m_x) +
-                  (vec.y - CDKW_V3d::ZERO.m_y) * (vec.y - CDKW_V3d::ZERO.m_y) +
-                  (vec.z - CDKW_V3d::ZERO.m_z) * (vec.z - CDKW_V3d::ZERO.m_z) <= CDKW_V3d::sm_Epsilon * CDKW_V3d::sm_Epsilon)) {
-                      RwV3dNormalize(&vec, &vec);
+            if (!((vec.x - CDKW_V3d::ZERO.x) * (vec.x - CDKW_V3d::ZERO.x) +
+                  (vec.y - CDKW_V3d::ZERO.y) * (vec.y - CDKW_V3d::ZERO.y) +
+                  (vec.z - CDKW_V3d::ZERO.z) * (vec.z - CDKW_V3d::ZERO.z) <= CDKW_V3d::sm_Epsilon * CDKW_V3d::sm_Epsilon)) {
+                RwV3dNormalize(&vec, &vec);
             }
             m_unk260 = CDKW_V3d(vec);
             break;
+        }
         case 16:
         case 17:
             ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->InterruptFightMode();
@@ -429,9 +427,9 @@ void CEntityPiglet::SetMode(U32 mode) {
             m_animation_star_controller->Play("DEAD_1", 1, 1);
             CDKW_Frame* frame = m_clump->GetFrame();
             position = CDKW_V3d(frame->GetRwFrame()->modelling.pos);
-            RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&(-position), 2);
-            RwFrameRotate(180.0f, frame->GetRwFrame(), (RwV3d*)&CDKW_V3d::YAXIS, 2);
-            RwFrameTranslate(frame->GetRwFrame(), (RwV3d*)&position, 2);
+            RwFrameTranslate(frame->GetRwFrame(), &(-position), 2);
+            RwFrameRotate(180.0f, frame->GetRwFrame(), &CDKW_V3d::YAXIS, 2);
+            RwFrameTranslate(frame->GetRwFrame(), &position, 2);
 
             m_unk1BC = -m_unk1BC;
             m_unk1C8 = m_speed_run;
@@ -653,9 +651,9 @@ void CEntityPiglet::UpdateMoving(F32 dt) {
         case 15:
             if (m_animation_star_controller->IsPlayingAnimation("TURN_FIGHT") == TRUE) {
                 if (m_animation_star_controller->GetPlayingAnimationTime() - 0.23333333f >= 0.0f) {
-                    F32 x = (F32)atan2(m_unk260.m_x, m_unk260.m_z) - 3.1241393f;
-                    m_unk1BC.m_x = sin(x);
-                    m_unk1BC.m_z = cos(x);
+                    F32 x = (F32)atan2(m_unk260.x, m_unk260.z) - 3.1241393f;
+                    m_unk1BC.x = sin(x);
+                    m_unk1BC.z = cos(x);
                 }
             }
             m_unk1C8 = 0.0f;

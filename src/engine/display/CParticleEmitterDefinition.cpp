@@ -165,22 +165,22 @@ BOOL CParticleEmitterDefinition::Parse() {
             ParseColor(&dest, &m_unk10.m_end_color_bias);
         } else if (dkdsp_stricmp(name, "StartSize") == 0) {
             CDKW_V3d size = ParseVector3d(&dest);
-            m_unk10.m_start_size.m_x = size.m_x;
-            m_unk10.m_start_size.m_y = size.m_y;
-            m_unk10.m_unk78.m_x = size.m_x;
-            m_unk10.m_unk78.m_y = size.m_y;
+            m_unk10.m_start_size.m_x = size.x;
+            m_unk10.m_start_size.m_y = size.y;
+            m_unk10.m_unk78.m_x = size.x;
+            m_unk10.m_unk78.m_y = size.y;
         } else if (dkdsp_stricmp(name, "StartSizeBias") == 0) {
             CDKW_V3d size = ParseVector3d(&dest);
-            m_unk10.m_start_size_bias.m_x = size.m_x;
-            m_unk10.m_start_size_bias.m_y = size.m_y;
+            m_unk10.m_start_size_bias.m_x = size.x;
+            m_unk10.m_start_size_bias.m_y = size.y;
         } else if (dkdsp_stricmp(name, "EndSize") == 0) {
             CDKW_V3d size = ParseVector3d(&dest);
-            m_unk10.m_end_size.m_x = size.m_x;
-            m_unk10.m_end_size.m_y = size.m_y;
+            m_unk10.m_end_size.m_x = size.x;
+            m_unk10.m_end_size.m_y = size.y;
         } else if (dkdsp_stricmp(name, "EndSizeBias") == 0) {
             CDKW_V3d size = ParseVector3d(&dest);
-            m_unk10.m_end_size_bias.m_x = size.m_x;
-            m_unk10.m_end_size_bias.m_y = size.m_y;
+            m_unk10.m_end_size_bias.m_x = size.x;
+            m_unk10.m_end_size_bias.m_y = size.y;
         } else if (dkdsp_stricmp(name, "StartTexCoords") == 0) {
             ParseTexCoords(&dest, &m_unk10.m_start_tex_coords);
         } else if (dkdsp_stricmp(name, "EndTexCoords") == 0) {
@@ -237,29 +237,29 @@ void CParticleEmitterDefinition::SetupDefault() {
     m_unk10.m_particle_emission_bias = 0;
     m_unk10.m_src_blend = 2;
     m_unk10.m_dest_blend = 2;
-    m_unk10.m_initial_direction.m_x = 0.0f;
-    m_unk10.m_initial_direction.m_y = 1.0f;
-    m_unk10.m_initial_direction.m_z = 0.0f;
-    m_unk10.m_initial_direction_bias.m_x = 0.0f;
-    m_unk10.m_initial_direction_bias.m_y = 0.0f;
-    m_unk10.m_initial_direction_bias.m_z = 0.0f;
+    m_unk10.m_initial_direction.x = 0.0f;
+    m_unk10.m_initial_direction.y = 1.0f;
+    m_unk10.m_initial_direction.z = 0.0f;
+    m_unk10.m_initial_direction_bias.x = 0.0f;
+    m_unk10.m_initial_direction_bias.y = 0.0f;
+    m_unk10.m_initial_direction_bias.z = 0.0f;
 
     m_unk10.m_unk3C.m_r = 255.0f;
     m_unk10.m_unk3C.m_g = 255.0f;
     m_unk10.m_unk3C.m_b = 255.0f;
     m_unk10.m_unk3C.m_a = 255.0f;
 
-    m_unk10.m_emitter_size.m_x = 0.0f;
-    m_unk10.m_emitter_size.m_y = 0.0f;
-    m_unk10.m_emitter_size.m_z = 0.0f;
+    m_unk10.m_emitter_size.x = 0.0f;
+    m_unk10.m_emitter_size.y = 0.0f;
+    m_unk10.m_emitter_size.z = 0.0f;
     m_unk10.m_texture_id[0] = '\0';
 
     m_unk10.m_unk78.m_x = 1.0f;
     m_unk10.m_unk78.m_y = 1.0f;
 
-    m_unk10.m_force.m_x = 0.0f;
-    m_unk10.m_force.m_y = 0.0f;
-    m_unk10.m_force.m_z = 0.0f;
+    m_unk10.m_force.x = 0.0f;
+    m_unk10.m_force.y = 0.0f;
+    m_unk10.m_force.z = 0.0f;
     m_unk10.m_life_time = 1.0f;
     m_unk10.m_life_time_bias = 0.0f;
     m_unk10.m_initial_velocity = 1.0f;

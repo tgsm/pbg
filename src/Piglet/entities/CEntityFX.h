@@ -36,7 +36,7 @@ public:
         if (pe != NULL) {
             RwFrame* frame = pe->GetFrame()->m_rwframe;
             RwMatrix* model = &frame->modelling;
-            model->pos = *(RwV3d*)&m_position;
+            model->pos = m_position;
             RwMatrixUpdate(model);
             RwFrameUpdateObjects(pe->GetFrame()->m_rwframe);
         }

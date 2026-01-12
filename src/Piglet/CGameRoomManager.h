@@ -172,9 +172,9 @@ public:
 
     void dothething(DKDSP::CClump* clump, const CDKW_V3d& vec) {
         RwMatrix* model = &clump->GetFrame()->m_rwframe->modelling;
-        model->pos.x = vec.m_x;
-        model->pos.y = vec.m_y;
-        model->pos.z = vec.m_z;
+        model->pos.x = vec.x;
+        model->pos.y = vec.y;
+        model->pos.z = vec.z;
         RwMatrixUpdate(model);
         RwFrameUpdateObjects(clump->GetFrame()->m_rwframe);
     }
@@ -190,7 +190,7 @@ public:
 
     void dothescalething(DKDSP::CClump* clump) {
         CDKW_V3d vec(m_unkA8, m_unkA8, m_unkA8);
-        RwFrameScale(clump->GetFrame()->m_rwframe, (RwV3d*)&vec, 2);
+        RwFrameScale(clump->GetFrame()->m_rwframe, &vec, 2);
     }
 };
 REQUIRE_SIZE(CGameRoomManager, 0x178);

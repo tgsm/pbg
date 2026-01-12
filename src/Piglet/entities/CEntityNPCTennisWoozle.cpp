@@ -54,7 +54,7 @@ void CEntityNPCTennisWoozle::UpdateDetectionBehaviour(F32 a1) {
 }
 
 static inline F32 DistanceSquared(const CDKW_V3d& vec) {
-    return (F32)(F64)vec.m_x * (F32)(F64)vec.m_x + (F32)(F64)vec.m_y * (F32)(F64)vec.m_y + (F32)(F64)vec.m_z * (F32)(F64)vec.m_z;
+    return (F32)(F64)vec.x * (F32)(F64)vec.x + (F32)(F64)vec.y * (F32)(F64)vec.y + (F32)(F64)vec.z * (F32)(F64)vec.z;
 }
 
 static inline F32 DistanceSquared(F64 x, F64 y, F64 z) {

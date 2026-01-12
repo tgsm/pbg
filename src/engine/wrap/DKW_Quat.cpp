@@ -15,8 +15,7 @@ CDKW_Quat::CDKW_Quat(F32 a, F32 b, F32 c, F32 d) {
 
 CDKW_Quat::CDKW_Quat(const CDKW_V3d& abc, F32 d) {
     real = d;
-    // FIXME: Make CDKW_V3d inherit RwV3d
-    imag = *(RwV3d*)&abc;
+    imag = abc;
 }
 
 CDKW_Quat CDKW_Quat::operator*(const CDKW_Quat& other) const {
