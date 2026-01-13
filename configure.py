@@ -619,7 +619,7 @@ config.libs = [
             Object(Matching, "engine/display/ITexture.cpp"),
             Object(NonMatching, "engine/display/IScene.cpp"),
             Object(NonMatching, "engine/display/CScene.cpp"),
-            Object(NonMatching, "engine/display/ICamera.cpp"),
+            Object(Matching, "engine/display/ICamera.cpp"),
             Object(NonMatching, "engine/display/CCamera.cpp"),
             Object(NonMatching, "engine/display/ILight.cpp"),
             Object(NonMatching, "engine/display/CLight.cpp"),
@@ -1495,4 +1495,3 @@ elif args.mode == "progress":
     calculate_progress(config)
 else:
     sys.exit("Unknown mode: " + args.mode)
-
