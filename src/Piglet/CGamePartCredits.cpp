@@ -330,7 +330,7 @@ void CGamePartCredits::Render(F32 dt) {
     m_game->GetScene()->BeginRender();
 
     m_game->m_fx_manager->Render();
-    m_game->m_gui_engine->UpdateAndRenderOnlyTexts(m_game->GetCamera()->m_unk8->rw_camera);
+    m_game->m_gui_engine->UpdateAndRenderOnlyTexts(m_game->GetCamera()->m_wrap_camera->m_rw_camera);
     if (!m_game->IsUnk5038Not2()) {
         m_game->m_gui_manager->Render(dt);
     }

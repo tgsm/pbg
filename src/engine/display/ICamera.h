@@ -4,14 +4,10 @@
 #include <rwsdk/bacamera.h>
 #include "engine/display/IFramable.h"
 #include "engine/display/CRaster.h"
+#include "engine/wrap/DKW_Camera.h"
 #include "engine/wrap/DKW_V3d.h"
 
 namespace DKDSP {
-
-// TODO
-struct SDKW_Frustum {
-
-};
 
 class ICamera : public IFramable {
 public:

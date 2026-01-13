@@ -39,7 +39,7 @@ typedef struct RwGlobals {
     RwFileFunctions fileFuncs;
     RwStringFunctions stringFuncs;
     RwMemoryFunctions memoryFuncs;
-    char unk140[4];
+    void* (*unk140)(void*);
     void* (*unk144)(void*, void*);
     char unk148[0x154 - 0x148];
 } RwGlobals; // size: 0x154

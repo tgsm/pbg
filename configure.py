@@ -620,7 +620,7 @@ config.libs = [
             Object(NonMatching, "engine/display/IScene.cpp"),
             Object(NonMatching, "engine/display/CScene.cpp"),
             Object(Matching, "engine/display/ICamera.cpp"),
-            Object(NonMatching, "engine/display/CCamera.cpp"),
+            Object(Matching, "engine/display/CCamera.cpp"),
             Object(NonMatching, "engine/display/ILight.cpp"),
             Object(NonMatching, "engine/display/CLight.cpp"),
             Object(NonMatching, "engine/display/IRWStream.cpp"),

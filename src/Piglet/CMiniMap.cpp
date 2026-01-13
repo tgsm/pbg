@@ -293,7 +293,7 @@ void CMiniMap::RenderCookiesNbIcon(F32 dt) {
 
     CIcon::EndRender();
 
-    m_game->GetGuiEngine()->UpdateAndRenderOnlyTexts(m_camera->m_unk8->rw_camera);
+    m_game->GetGuiEngine()->UpdateAndRenderOnlyTexts(m_camera->m_wrap_camera->m_rw_camera);
 }
 
 BOOL CMiniMap::IsVisible() {

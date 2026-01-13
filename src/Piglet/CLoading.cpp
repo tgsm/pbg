@@ -49,7 +49,7 @@ void CLoadingCallback::Create() {
     m_camera->SetZFar(20.0f);
     m_camera->SetViewWindow(4.0f/3.0f, 1.0f);
     m_camera->SetFOV(45.0f, 4.0f/3.0f);
-    Rt2dDeviceSetCamera(m_camera->m_unk8->rw_camera);
+    Rt2dDeviceSetCamera(m_camera->m_wrap_camera->m_rw_camera);
 
     m_game->m_gui_manager->Update(1.0f/30.0f);
 

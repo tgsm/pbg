@@ -8,6 +8,8 @@
 #pragma push
 #pragma supress_warnings on
 
+class CDKW_Matrix;
+
 // TODO
 class CDKW_V3d : public RwV3d {
 public:
@@ -53,6 +55,7 @@ public:
         return *this;
     }
 
+    CDKW_V3d& operator*=(const CDKW_Matrix& matrix);
     CDKW_V3d& operator+=(const F32& scalar);
 
     CDKW_V3d Normalized() const {

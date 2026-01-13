@@ -115,7 +115,7 @@ CGame::CGame(void* a1, U32 a2) {
 
         Rt2dOpen(NULL);
         Rt2dDeviceSetFlat(1.0f);
-        Rt2dDeviceSetCamera(m_camera->m_unk8->rw_camera);
+        Rt2dDeviceSetCamera(m_camera->m_wrap_camera->m_rw_camera);
         Rt2dFontSetPath("data/common/menus/font/");
         Rt2dAnimOpen();
 

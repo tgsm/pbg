@@ -5,17 +5,41 @@
 
 namespace DKDSP {
 
-struct UnkCameraSubstruct {
-    U8 unk0;
-    RwCamera* rw_camera;
-};
-
 class CCamera : public ICamera {
 public:
-    UnkCameraSubstruct* m_unk8;
-    U8 m_unkC[0x28 - 0xC];
+    CDKW_Camera* m_wrap_camera;
+    BOOL m_unkC;
+    CRaster m_buffer;
+    CRaster m_z_buffer;
 
 public:
+    CCamera() {
+        Construct(NULL);
+    }
+    ~CCamera();
+
+    virtual RwMatrix* GetViewMatrix() { return &m_wrap_camera->m_rw_camera->viewMatrix; }
+
+    virtual CDKW_Frame* GetFrame() {
+        CDKW_Camera* wrap_camera = m_wrap_camera;
+        if (wrap_camera != NULL) {
+            if (m_wrap_camera->m_wrap_frame != NULL) {
+                return m_wrap_camera->m_wrap_frame;
+            }
+
+            RwFrame* rw_frame = wrap_camera->GetRwFrame();
+            if (rw_frame != NULL) {
+                wrap_camera->m_wrap_frame = CDKW_Frame::GetInstance(rw_frame);
+                return wrap_camera->m_wrap_frame;
+            }
+
+            return NULL;
+        }
+
+        return NULL;
+    }
+
+    virtual void SetFrame(CDKW_Frame* frame);
     virtual void SetProjection(RwCameraProjection projection);
     virtual RwCameraProjection GetProjection();
     virtual void SetBuffer(IRaster* buffer);
@@ -29,7 +53,6 @@ public:
     virtual void SetViewOffset(F32, F32);
     virtual F32 GetViewXOffset();
     virtual F32 GetViewYOffset();
-    virtual RwMatrix* GetViewMatrix();
     virtual void SetZNear(F32 near);
     virtual F32 GetZNear();
     virtual void SetZFar(F32 far);
@@ -43,6 +66,8 @@ public:
     virtual SDKW_Frustum GetFrustum();
     virtual void Flush();
     virtual void BuildRay(F32, F32, CDKW_V3d&, CDKW_V3d&);
+
+    void Construct(CDKW_Camera* wrap_camera);
 };
 REQUIRE_SIZE(CCamera, 0x28);
 

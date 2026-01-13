@@ -1,0 +1,10 @@
+#ifndef _MSL_NEW
+#define _MSL_NEW
+
+#include "size_t.h"
+
+static inline void* operator new(size_t count, void* ptr) {
+    return ptr;
+}
+
+#endif
