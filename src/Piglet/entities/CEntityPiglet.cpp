@@ -378,14 +378,7 @@ void CEntityPiglet::SetMode(U32 mode) {
             }
 
             m_animation_star_controller->Play("TURN_FIGHT", 1);
-            CDKW_V3d vec = m_unk1BC;
-            // This may be an inline
-            if (!((vec.x - CDKW_V3d::ZERO.x) * (vec.x - CDKW_V3d::ZERO.x) +
-                  (vec.y - CDKW_V3d::ZERO.y) * (vec.y - CDKW_V3d::ZERO.y) +
-                  (vec.z - CDKW_V3d::ZERO.z) * (vec.z - CDKW_V3d::ZERO.z) <= CDKW_V3d::sm_Epsilon * CDKW_V3d::sm_Epsilon)) {
-                RwV3dNormalize(&vec, &vec);
-            }
-            m_unk260 = CDKW_V3d(vec);
+            m_unk260 = m_unk1BC.Normalized();
             break;
         }
         case 16:
@@ -617,7 +610,7 @@ void CEntityPiglet::UpdateMoving(F32 dt) {
         }
         case 10:
             m_unk1BC = m_unk260 - GetPosition();
-            NormalizeInline(m_unk1BC);
+            m_unk1BC.Normalize();
 
             m_unk1C8 = (m_state == 0) ? m_speed_run : m_speed_run_panic;
 

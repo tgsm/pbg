@@ -55,6 +55,20 @@ public:
 
     CDKW_V3d& operator+=(const F32& scalar);
 
+    CDKW_V3d Normalized() const {
+        CDKW_V3d normalized = *this;
+        normalized.Normalize();
+        return normalized;
+    }
+
+    void Normalize() {
+        if (!((x - CDKW_V3d::ZERO.x) * (x - CDKW_V3d::ZERO.x) +
+            (y - CDKW_V3d::ZERO.y) * (y - CDKW_V3d::ZERO.y) +
+            (z - CDKW_V3d::ZERO.z) * (z - CDKW_V3d::ZERO.z) <= CDKW_V3d::sm_Epsilon * CDKW_V3d::sm_Epsilon)) {
+            RwV3dNormalize(this, this);
+        }
+    }
+
     F32 SquareDistToPoint(CDKW_V3d& other);
 
     static CDKW_V3d ZERO;

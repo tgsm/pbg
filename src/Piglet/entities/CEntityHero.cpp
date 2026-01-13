@@ -163,7 +163,7 @@ CDKW_V3d CEntityHero::GetPadDirection() {
     direction.y = 0.0f;
 
     if (RwV3dLength(&direction) > 1.0f) {
-        NormalizeInline(direction);
+        direction.Normalize();
     }
 
     return direction;

@@ -92,9 +92,7 @@ public:
     virtual void ResolveContact(const DkPh::Collider::Body&, int, int);
     virtual void UpdateAnimations(F32);
     virtual void SetDirection(CDKW_V3d& direction) {
-        CDKW_V3d normalized = direction;
-        NormalizeInline(normalized);
-        m_unk1BC = CDKW_V3d(normalized);
+        m_unk1BC = direction.Normalized();
     }
     virtual CDKW_V3d GetDirection();
     virtual U32 GetMode() { return m_mode; }
@@ -114,14 +112,6 @@ public:
     virtual void ConvertPadToDirection(CDKW_V3d, CDKW_V3d*, F32*);
     virtual void ResetPadTimer(F32);
     virtual void SetToGround();
-
-    void NormalizeInline(CDKW_V3d& vec) {
-        if (!((vec.x - CDKW_V3d::ZERO.x) * (vec.x - CDKW_V3d::ZERO.x) +
-            (vec.y - CDKW_V3d::ZERO.y) * (vec.y - CDKW_V3d::ZERO.y) +
-            (vec.z - CDKW_V3d::ZERO.z) * (vec.z - CDKW_V3d::ZERO.z) <= CDKW_V3d::sm_Epsilon * CDKW_V3d::sm_Epsilon)) {
-            RwV3dNormalize(&vec, &vec);
-        }
-    }
 };
 REQUIRE_SIZE(CEntityHero, 0x260);
 
