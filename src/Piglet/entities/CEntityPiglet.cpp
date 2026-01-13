@@ -594,9 +594,9 @@ void CEntityPiglet::UpdateMoving(F32 dt) {
     m_unk134 = 0;
 
     HeroMoveParams params;
-    params.unk4 = m_friction;
-    params.unk0 = m_acceleration;
-    params.unkC = m_speed_rotate;
+    params.unk8 = m_friction;
+    params.unk4 = m_acceleration;
+    params.unk10 = m_speed_rotate;
 
     switch (GetMode()) {
         case 0: {
@@ -622,21 +622,24 @@ void CEntityPiglet::UpdateMoving(F32 dt) {
             }
             if (dVar11 < 0.46f) {
                 m_unk1C8 = 0.0f;
-                params.unkC = m_speed_rotate_turn_back;
-                params.unk8 = InterpolValue(m_friction_turn_back, m_friction, dVar11, 0.0f);
+                params.unk10 = m_speed_rotate_turn_back;
+                params.unk8 = InterpolValue(m_friction_turn_back, m_friction, dVar11, 0.46f);
             } else {
-                ConvertPadToDirection(GetPadDirection(), &m_unk1BC, &m_unk1C8);
-                params.unkC = 0.0f;
+                CDKW_V3d dir = GetPadDirection();
+                ConvertPadToDirection(dir, &m_unk1BC, &m_unk1C8);
+                params.unk10 = 0.0f;
             }
             break;
-        case 20:
-            ConvertPadToDirection(GetPadDirection(), &m_unk1BC, &m_unk1C8);
+        case 20: {
+            CDKW_V3d dir = GetPadDirection();
+            ConvertPadToDirection(dir, &m_unk1BC, &m_unk1C8);
             m_unk1C8 = GetSpeed();
 
-            params.unk4 = m_unk278;
-            params.unk0 = m_acceleration;
-            params.unkC = m_speed_rotate / 2;
+            params.unk8 = m_unk278;
+            params.unk4 = m_acceleration;
+            params.unk10 = m_speed_rotate / 2;
             break;
+        }
         case 16:
         case 17:
             m_unk1C8 = 2.0f * m_speed_walk;
@@ -650,7 +653,7 @@ void CEntityPiglet::UpdateMoving(F32 dt) {
                 }
             }
             m_unk1C8 = 0.0f;
-            params.unkC = 6.5f;
+            params.unk10 = 6.5f;
             break;
         case 2:
         case 3:
@@ -663,7 +666,7 @@ void CEntityPiglet::UpdateMoving(F32 dt) {
             break;
         default:
             m_unk1C8 = 0.0f;
-            params.unkC = 0.0f;
+            params.unk10 = 0.0f;
             break;
         case 8:
             break;
@@ -671,9 +674,9 @@ void CEntityPiglet::UpdateMoving(F32 dt) {
 
     params.unk0 = m_unk1C8;
     if (params.unk0 != 0.0f) {
-        params.unk8 = params.unk0 / 3.0f;
+        params.unkC = params.unk0 / 3.0f;
     } else {
-        params.unk8 = m_stop_speed;
+        params.unkC = m_stop_speed;
     }
 
     Move(params, dt);

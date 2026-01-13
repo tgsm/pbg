@@ -74,6 +74,7 @@ public:
         F32 unk4;
         F32 unk8;
         F32 unkC;
+        F32 unk10;
     };
 
     CEntityHero(CEntityManager* entity_manager, std::string name);
