@@ -588,7 +588,6 @@ void CEntityPiglet::UpdateAnimations(F32 dt) {
     CEntityHero::UpdateAnimations(dt);
 }
 
-// Incomplete: extra copies on the stack, maybe other things
 void CEntityPiglet::UpdateMoving(F32 dt) {
     F32 dVar11 = 0.0f;
     m_unk134 = 0;

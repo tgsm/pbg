@@ -107,3 +107,49 @@ void CEntityWinnie::UpdateAnimations(F32 unk) {
 
     CEntityHero::UpdateAnimations(unk);
 }
+
+void CEntityWinnie::UpdateMoving(F32 dt) {
+    HeroMoveParams params;
+    params.unk8 = m_friction;
+    params.unk4 = m_acceleration;
+    params.unk10 = m_speed_rotate;
+
+    switch (GetMode()) {
+        case 0: {
+            CDKW_V3d pad_dir = GetPadDirection();
+
+            if (m_entity_manager->GetGame()->FadeRelatedInline() == 0.0f) {
+                ConvertPadToDirection(pad_dir, &m_unk1BC, &m_unk1C8);
+            }
+
+            break;
+        }
+        case 10:
+            m_unk1BC = m_unk1CC - GetPosition();
+            m_unk1BC.Normalize();
+            m_unk1C8 = m_speed_walk;
+            break;
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+            m_unk1C8 = 0.0f;
+            break;
+        default:
+            m_unk1C8 = 0.0f;
+            params.unk10 = 0.0f;
+            break;
+        case 8:
+            break;
+    }
+
+    params.unk0 = m_unk1C8;
+    if (params.unk0 != 0.0f) {
+        params.unkC = params.unk0 / 3.0f;
+    } else {
+        params.unkC = m_stop_speed;
+    }
+
+    Move(params, dt);
+}
