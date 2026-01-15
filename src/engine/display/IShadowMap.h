@@ -25,7 +25,7 @@ public:
     virtual void func3C();
     virtual void func40();
     virtual void func44();
-    virtual void func48();
+    virtual BOOL EnableDisplay(BOOL enable) = 0;
     virtual void func4C();
     virtual void func50();
     virtual void SetShadowColor(F32 red, F32 green, F32 blue) = 0;

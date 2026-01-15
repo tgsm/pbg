@@ -12,7 +12,7 @@ CLoadingCallback::CLoadingCallback(CGame* game) : CBaseLoadingCallback(game) {
     m_light = NULL;
     m_clump1C = NULL;
     m_clump24 = NULL;
-    m_unk14 = 0;
+    m_shadow_map = NULL;
     m_light2 = NULL;
     m_controller = NULL;
     m_unk30 = DKW_RGBA_WHITE;

@@ -16,7 +16,7 @@ public:
 
 class CResourceFactory : public DKDSP::ITextureCallback {
 public:
-    U8 m_unk4[0x4];
+    int m_unk4;
     U32 m_unk8;
     U32 m_unkC;
     U8 m_unk10[0x28 - 0x10];

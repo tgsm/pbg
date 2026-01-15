@@ -6,6 +6,7 @@
 #include "engine/display/CController.h"
 #include "engine/display/CLight.h"
 #include "engine/display/CScene.h"
+#include "engine/display/CShadowMap.h"
 #include "engine/filesys/DkFileSys.h"
 #include "engine/wrap/DKW_RGBA.h"
 
@@ -29,7 +30,7 @@ public:
     DKDSP::CScene* m_scene;
     DKDSP::CCamera* m_camera;
     DKDSP::CLight* m_light;
-    U32 m_unk14;
+    DKDSP::CShadowMap* m_shadow_map;
     DKDSP::CLight* m_light2;
     DKDSP::CClump* m_clump1C;
     DKDSP::CController* m_controller;
@@ -38,7 +39,7 @@ public:
     F32 m_unk2C;
     CDKW_RGBA m_unk30;
     CDKW_RGBA m_unk34;
-    U32 m_unk38;
+    RwTexture* m_unk38;
     U32 m_unk3C;
     U32 m_unk40;
 

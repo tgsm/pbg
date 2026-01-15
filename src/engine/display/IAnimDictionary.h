@@ -5,6 +5,7 @@
 #include "engine/display/IClump.h"
 #include "engine/display/CAnimation.h"
 #include "engine/display/CController.h"
+#include "engine/display/CDMorphAnimation.h"
 
 namespace DKDSP {
 
@@ -37,7 +38,7 @@ public:
     virtual void func23() = 0;
     virtual void func24() = 0;
     virtual void func25() = 0;
-    virtual void func26() = 0;
+    virtual CDMorphAnimation* FindDMorphAnimation(std::string name) = 0;
     virtual void func27() = 0;
     virtual void func28() = 0;
     virtual void func29() = 0;
