@@ -13,31 +13,18 @@ CLoadingAdventure::~CLoadingAdventure() {
 }
 
 void CLoadingAdventure::Create() {
-    BOOL failed;
-    CDKW_Material* material;
-    DKDSP::CAnimation* anim;
-    DKDSP::CDMorphAnimation* anim2;
-    DKDSP::CAtomic* atomic;
-    int iVar16;
-    int nb_materials;
-    int nb_atomics;
-    CDKW_Geometry* geo;
-    RpMaterial* rp_material;
-    int i;
-    int j;
-
     CLoadingCallback::Create();
 
     if (m_game != NULL && m_scene != NULL && m_camera != NULL && m_light != NULL && m_clump24 != NULL && m_light2 != NULL) {
         if (m_clump1C == NULL) {
-            failed = (m_clump1C = m_scene->CloneClump("Models/100_PIGLET/CAR_100.dff", NULL)) == NULL;
+            BOOL failed = (m_clump1C = m_scene->CloneClump("Models/100_PIGLET/CAR_100.dff", NULL)) == NULL;
             if (failed) {
                 return;
             }
         }
 
         if (m_controller == NULL) {
-            failed = (m_controller = m_game->m_anim_dictionary->CreateController("Models/100_PIGLET/CAR_100.dff", m_clump1C, 6)) == NULL;
+            BOOL failed = (m_controller = m_game->m_anim_dictionary->CreateController("Models/100_PIGLET/CAR_100.dff", m_clump1C, 6)) == NULL;
             if (failed) {
                 return;
             }
@@ -46,11 +33,11 @@ void CLoadingAdventure::Create() {
         std::string anm_filename, dma_filename;
         CDKW_RGBA tmp_color;
 
-        iVar16 = m_hero_state;
+        int hero_state = m_hero_state;
         if (m_game->m_unk4F5C == 3 || m_game->m_unk4F54 == 8) {
-            iVar16 = 0;
+            hero_state = 0;
         }
-        switch (iVar16) {
+        switch (hero_state) {
             case 2:
                 anm_filename = "Models/100_PIGLET/ANM_100_280.anm";
                 dma_filename = "Models/100_PIGLET/ANM_100_070_1.dma";
@@ -96,40 +83,39 @@ void CLoadingAdventure::Create() {
         m_light->SetRadius(20.0f);
         m_scene->EnableLight(m_light, 1);
 
-        CDKW_V3d model_pos_ = CDKW_V3d::ZERO;
+        CDKW_V3d model_pos = CDKW_V3d::ZERO;
         CDKW_V3d local_d8(3.0f, 3.0f, 3.0f);
         local_9c = local_d8;
 
-        UpdateModelPos(m_clump24, model_pos_);
+        UpdateModelPos(m_clump24, model_pos);
         RwFrameScale(m_clump24->GetFrame()->m_rwframe, &local_9c, 2);
 
-        nb_atomics = m_clump24->GetNumberOfAtomics();
-        for (i = 0; i < nb_atomics; i++) {
-            atomic = m_clump24->GetAtomic(i);
-            atomic->GetNumberOfMaterials();
-            geo = atomic->GetGeometry()->wrap_geometry;
+        int nb_atomics = m_clump24->GetNumberOfAtomics();
+        for (int i = 0; i < nb_atomics; i++) {
+            DKDSP::CAtomic* atomic = m_clump24->GetAtomic(i);
+            atomic->GetNumberOfMaterials(); // unused
+            CDKW_Geometry* geo = atomic->GetGeometry()->GetDkWrapGeometry();
 
             if (geo->Lock()) {
-                geo->rw_geometry->flags |= (1 << 6);
+                geo->m_rw_geometry->flags |= (1 << 6);
 
-                nb_materials = geo->rw_geometry->matList.numMaterials;
-                for (j = 0; j < nb_materials; j++) {
-                    rp_material = geo->rw_geometry->matList.materials[j];
-                    material = CDKW_Material::GetInstance(rp_material);
-                    m_unk34 = (CDKW_RGBA&)(material->rw_material->color);
-                    m_unk38 = material->rw_material->texture;
-                    material->rw_material->color = color;
-                    RpMaterialSetTexture(material->rw_material, NULL);
+                int nb_materials = geo->GetNumberOfMaterials();
+                for (int j = 0; j < nb_materials; j++) {
+                    CDKW_Material* material = CDKW_Material::GetInstance(geo->m_rw_geometry->matList.materials[j]);
+                    m_unk34 = (CDKW_RGBA&)(material->m_rw_material->color);
+                    m_unk38 = material->m_rw_material->texture;
+                    material->m_rw_material->color = color;
+                    RpMaterialSetTexture(material->m_rw_material, NULL);
                 }
 
-                RpGeometryUnlock(geo->rw_geometry);
+                RpGeometryUnlock(geo->m_rw_geometry);
             }
         }
 
         UpdateModelPos(m_clump1C, CDKW_V3d::ZERO);
 
-        anim = m_game->m_anim_dictionary->FindAnimation(anm_filename);
-        anim2 = m_game->m_anim_dictionary->FindDMorphAnimation(dma_filename);
+        DKDSP::CAnimation* anim = m_game->m_anim_dictionary->FindAnimation(anm_filename);
+        DKDSP::CDMorphAnimation* anim2 = m_game->m_anim_dictionary->FindDMorphAnimation(dma_filename);
 
         m_controller->StopAllAnimations(DKDSP::ANIMATION_TYPE_ANM, 0);
         m_controller->StopAllAnimations(DKDSP::ANIMATION_TYPE_DMA, 0);

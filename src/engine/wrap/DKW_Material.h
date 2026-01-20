@@ -10,7 +10,7 @@ public:
     static CDKW_Material* GetInstance(RpMaterial* rw_material);
 
 public:
-    RpMaterial* rw_material;
+    RpMaterial* m_rw_material;
 };
 
 #endif

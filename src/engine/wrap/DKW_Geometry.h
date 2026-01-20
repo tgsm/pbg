@@ -10,7 +10,7 @@ class CDKW_Geometry : public CDKW_ObjPlg {
 public:
     BOOL Lock() {
         BOOL ret;
-        if (!(rw_geometry->flags & (1 << 24)) && RpGeometryLock(rw_geometry, 0xFFF)) {
+        if (!(m_rw_geometry->flags & (1 << 24)) && RpGeometryLock(m_rw_geometry, 0xFFF)) {
             ret = TRUE;
         } else {
             ret = FALSE;
@@ -18,9 +18,12 @@ public:
         return ret;
     }
 
+    RpGeometry* GetRwGeometry() { return m_rw_geometry; }
+    int GetNumberOfMaterials() { return m_rw_geometry->matList.numMaterials; }
 
+    RpMaterial* GetMaterial(int id) const { return m_rw_geometry->matList.materials[id]; }
 public:
-    RpGeometry* rw_geometry;
+    RpGeometry* m_rw_geometry;
 };
 
 #endif

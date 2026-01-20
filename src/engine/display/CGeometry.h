@@ -9,7 +9,10 @@ namespace DKDSP {
 // TODO
 class CGeometry : public IGeometry {
 public:
-    CDKW_Geometry* wrap_geometry;
+    CDKW_Geometry* GetDkWrapGeometry() { return m_wrap_geometry; }
+
+public:
+    CDKW_Geometry* m_wrap_geometry;
 };
 
 }
