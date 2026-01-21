@@ -19,18 +19,6 @@ public:
     virtual void SetHeroState(int state) {
         m_hero_state = state;
     }
-
-    inline void LookAtInline(DKDSP::IFramable* framable, CDKW_V3d vec1, CDKW_V3d vec2, CDKW_V3d vec3) {
-        ((CDKW_Matrix*)(&framable->GetFrame()->m_rwframe->modelling))->LookAt(vec1, vec2, vec3);
-        RwFrameUpdateObjects(framable->GetFrame()->m_rwframe);
-    }
-
-    inline void UpdateModelPos(DKDSP::IFramable* framable, CDKW_V3d pos) {
-        RwMatrix* model = &framable->GetFrame()->m_rwframe->modelling;
-        model->pos = pos;
-        RwMatrixUpdate(model);
-        RwFrameUpdateObjects(framable->GetFrame()->m_rwframe);
-    }
 };
 REQUIRE_SIZE(CLoadingAdventure, 0x48);
 
