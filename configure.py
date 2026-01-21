@@ -524,7 +524,7 @@ config.libs = [
             Object(Equivalent, "Piglet/CLoadingAdventure.cpp", extra_cflags=["-bool off"]),
             Object(NonMatching, "Piglet/CLoadingCatchThemAll.cpp"),
             Object(NonMatching, "Piglet/CloadingTigger.cpp"),
-            Object(NonMatching, "Piglet/CloadingWinnie.cpp"),
+            Object(Equivalent, "Piglet/CloadingWinnie.cpp", extra_cflags=["-bool off"]),
             Object(Equivalent, "Piglet/CGamePartStartScreen.cpp"),
             Object(Equivalent, "Piglet/CRTCVibrationEvent.cpp"),
             Object(Equivalent, "Piglet/CRTCMessageEvent.cpp"),
