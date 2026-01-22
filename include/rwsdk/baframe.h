@@ -26,6 +26,7 @@ typedef RwFrame* (*RwFrameForAllChildrenCB)(RwFrame*, void*);
 RwFrame* RwFrameCreate(void);
 int RwFrameDestroy(RwFrame* frame);
 RwFrame* RwFrameUpdateObjects(RwFrame* frame);
+RwMatrix* RwFrameGetLTM(RwFrame* frame);
 RwFrame* RwFrameForAllChildren(RwFrame* frame, void* callback, void*);
 RwFrame* RwFrameTranslate(RwFrame* frame, RwV3d*, int);
 RwFrame* RwFrameScale(RwFrame* frame, RwV3d*, int scale);

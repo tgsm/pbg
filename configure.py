@@ -522,7 +522,7 @@ config.libs = [
             Object(Equivalent, "Piglet/CGuiScrapBookEventHandler.cpp"),
             Object(Equivalent, "Piglet/CGuiMovieClipsEventHandler.cpp"),
             Object(Equivalent, "Piglet/CLoadingAdventure.cpp", extra_cflags=["-bool off"]),
-            Object(NonMatching, "Piglet/CLoadingCatchThemAll.cpp"),
+            Object(NonMatching, "Piglet/CLoadingCatchThemAll.cpp", extra_cflags=["-bool off"]),
             Object(NonMatching, "Piglet/CloadingTigger.cpp", extra_cflags=["-bool off"]),
             Object(Equivalent, "Piglet/CloadingWinnie.cpp", extra_cflags=["-bool off"]),
             Object(Equivalent, "Piglet/CGamePartStartScreen.cpp"),

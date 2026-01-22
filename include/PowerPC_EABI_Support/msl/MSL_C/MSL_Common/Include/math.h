@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 inline double fabs(double x) { return __fabs(x); }
+inline float fabsf(float x) { return __fabsf(x); }
 double pow(double x, double y);
 double floor(double x);
 double sin(double x);
