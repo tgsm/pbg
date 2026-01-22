@@ -5,6 +5,7 @@
 #include <rwsdk/plcore/bamemory.h>
 #include <rwsdk/plcore/bavector.h>
 #include "engine/wrap/DKW_Node3d.h"
+#include "engine/wrap/DKW_V3d.h"
 #include "types.h"
 
 class CDKW_Frame : public CDKW_Node3d {
@@ -18,6 +19,13 @@ public:
     void operator delete(void* ptr) {
         ms_NbObject--;
         RwEngineInstance->unk144(ms_pMemEntry, ptr);
+    }
+
+    void Rotate(CDKW_V3d* a1, const F32& degrees, int a3) {
+        RwFrameRotate(m_rwframe, a1, degrees, a3);
+    }
+    void Rotate2(CDKW_V3d* a1, const F32& degrees, int a3) {
+        RwFrameRotate(GetRwFrame(), a1, degrees, a3);
     }
 
     static CDKW_Frame* GetInstance(RwFrame* rw_frame);

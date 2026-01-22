@@ -107,7 +107,7 @@ void CLoadingCatchThemAll::Create() {
         m_anims50[0] = m_game->m_anim_dictionary->FindDMorphAnimation("Models/100_PIGLET/ANM_100_020_1.dma");
         m_anims50[1] = m_game->m_anim_dictionary->FindDMorphAnimation("Models/100_PIGLET/ANM_100_080_1.dma");
 
-        RwFrameRotate(m_clump1C->GetFrame()->m_rwframe, &CDKW_V3d::YAXIS, 90.0f, 0);
+        m_clump1C->GetFrame()->Rotate(&CDKW_V3d::YAXIS, 90.0f, 0);
 
         m_controller->StopAllAnimations(DKDSP::ANIMATION_TYPE_ANM, 0);
         m_controller->StopAllAnimations(DKDSP::ANIMATION_TYPE_DMA, 0);
@@ -189,7 +189,7 @@ void CLoadingCatchThemAll::UpdateObjects(F32 dt) {
                 m_controller->PlayAnimation(m_anims48[m_unk58], 0);
                 m_controller->PlayAnimation(m_anims50[m_unk58], 1);
 
-                RwFrameRotate(m_clump1C->GetFrame()->m_rwframe, &CDKW_V3d::YAXIS, 180.0f, 2);
+                m_clump1C->GetFrame()->Rotate(&CDKW_V3d::YAXIS, 180.0f, 2);
             }
         }
 
