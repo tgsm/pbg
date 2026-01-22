@@ -31,7 +31,7 @@ RwFrame* RwFrameForAllChildren(RwFrame* frame, void* callback, void*);
 RwFrame* RwFrameTranslate(RwFrame* frame, RwV3d*, int);
 RwFrame* RwFrameScale(RwFrame* frame, RwV3d*, int scale);
 RwFrame* RwFrameTransform(RwFrame* frame, RwMatrix*, int);
-RwFrame* RwFrameRotate(float, RwFrame* frame, RwV3d*, int);
+RwFrame* RwFrameRotate(RwFrame* frame, RwV3d*, float, int);
 int RwFrameRegisterPlugin(int a0, int a1, RwFrameDataConstructorCB constructorCB, RwFrameDataDestructorCB destructorCB, RwFrameDataCopierCB copierCB);
 
 #ifdef __cplusplus
