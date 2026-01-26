@@ -37,6 +37,13 @@ public:
     virtual void UnIdle(int);
 
     BOOL MoveAlongZ(F32);
+
+    inline void UpdateModelPos(DKDSP::IFramable* framable, CDKW_V3d& pos) {
+        RwMatrix* model = &framable->GetFrame()->m_rwframe->modelling;
+        model->pos = pos;
+        RwMatrixUpdate(model);
+        RwFrameUpdateObjects(framable->GetFrame()->m_rwframe);
+    }
 };
 REQUIRE_SIZE(CEntityNPCGralosaurus, 0x300);
 

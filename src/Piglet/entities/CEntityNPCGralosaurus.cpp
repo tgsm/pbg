@@ -30,6 +30,36 @@ void CEntityNPCGralosaurus::Reset() {
     CEntityMesh::Reset();
 }
 
+// Incomplete
+BOOL CEntityNPCGralosaurus::MoveAlongZ(F32 a1) {
+    const CDKW_V3d& hero_pos = m_entity_manager->GetHero()->GetPosition();
+    volatile CDKW_V3d yeah = hero_pos;
+    const CDKW_V3d& my_pos = GetPosition();
+    CDKW_V3d fStack_80 = hero_pos - my_pos;
+    // CDKW_V3d fStack_80 = GetPosition() - m_entity_manager->GetHero()->GetPosition();
+    CDKW_V3d local_20 = fStack_80;
+    local_20.x = 0.0f;
+    local_20.y = 0.0f;
+    F32 fVar1 = (fStack_80.z >= 0.0f) ? fStack_80.z : -fStack_80.z;
+    if (fVar1 > 0.01f) {
+        // local_20.z = fVar1;
+        local_20.Normalize();
+
+        m_unk2E4 = local_20 * 1.5f;
+        m_unk2D8 += m_unk2E4 * a1;
+
+        F32 length = RwV3dLength(&m_unk2D8);
+        if (length > 2.1f) {
+            m_unk2D8 = (m_unk2D8 / length) * 2.1f;
+        }
+        m_unk2F0 += m_unk2D8 * a1;
+        this->SetPosition(m_unk2F0);
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
 void CEntityNPCGralosaurus::UpdatePursuitBehaviour(F32 unk) {
     m_unk2FC = 0;
     m_unkF4 &= ~(1 << 15);
@@ -217,6 +247,19 @@ void CEntityNPCGralosaurus::Parse(DkXmd::CChunkIterator iter) {
 
 void CEntityNPCGralosaurus::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior) {
     CEntityNPC::ParseBehavior(iter, behavior);
+}
+
+void CEntityNPCGralosaurus::SetPosition(CDKW_V3d& position) {
+    position.y = 0.13f;
+    UpdateModelPos(m_clump, position);
+
+    if (m_unk90.unk0 != NULL) {
+        DkPh::Collider* collider = m_entity_manager->m_unk1C;
+        CDKW_V3d local_28 = position;
+        local_28 += collider->GetBodyRef(m_unk90.unk0).unk8;
+        local_28.y = 0.13f;
+        m_unk90.unk0->m_center = local_28;
+    }
 }
 
 void CEntityNPCGralosaurus::PlayWalkAnim(int unk) {

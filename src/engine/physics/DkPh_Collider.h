@@ -12,7 +12,8 @@ public:
     struct Body {
         U8 unk0[4];
         CEntity* entity4;
-        U8 unk8[0x34 - 0x8];
+        CDKW_V3d unk8;
+        U8 unk14[0x34 - 0x14];
         U32 unk34;
     };
 
