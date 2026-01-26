@@ -16,21 +16,27 @@ namespace std {
 template <typename T, typename Allocator = allocator<T> >
 class __vector_deleter {
 public:
-    ~__vector_deleter() {}
+    ~__vector_deleter() {
+        if (m_data != NULL) {
+            delete m_data;
+        }
+    }
 
     void clear();
+
+public:
+    unsigned long m_capacity;
+    unsigned long m_size;
+    T* m_data;
 };
 
 template <typename T, typename Allocator = allocator<T> >
 class __vector_pod : public __vector_deleter<T, Allocator> {
 public:
-    __vector_pod() : m_capacity(0), m_size(0), m_data((T*)NULL) {
-    }
-
-    ~__vector_pod() {
-        if (m_data != NULL) {
-            delete m_data;
-        }
+    __vector_pod() {
+        m_capacity = 0;
+        m_size = 0;
+        m_data = (T*)NULL;
     }
 
     unsigned long size() { return m_size; }
@@ -40,37 +46,53 @@ public:
     // Is this right?
     void push_back(const T& value) { insert(data() + size(), 1, value); }
 
-    // Throw this whole file away bruh
     T* erase(T* position);
-    T** erase(T** position);
 
     T& operator[](unsigned long n) { return *(data() + n); }
-
-public:
-    unsigned long m_capacity;
-    unsigned long m_size;
-    T* m_data;
 };
 
 template <typename T, typename Allocator = allocator<T>, bool>
-class __vector_imp : public __vector_pod<T, Allocator> {
+class __vector_imp : public __vector_deleter<T, Allocator> {
 public:
-    void reserve(unsigned long n) { __vector_pod::reserve(n); };
+    __vector_imp() {
+        m_capacity = 0;
+        m_size = 0;
+        m_data = (T*)NULL;
+    }
+    void reserve(unsigned long n);
+    unsigned long size() { return m_size; }
+    T* data() { return m_data; }
+    T& operator[](unsigned long n) { return *(data() + n); }
+    void insert(T* pos, unsigned long count, const T& value);
+    // Is this right?
+    void push_back(const T& value) { insert(data() + size(), 1, value); }
+
+    T* begin() { return __vector_deleter::begin(); }
+};
+
+template <>
+class __vector_imp<unsigned long, allocator<unsigned long>, false> : public __vector_pod<unsigned long, allocator<unsigned long> > {
+
 };
 
 template <typename T, typename Allocator = allocator<T> >
 class vector : public __vector_imp<T, Allocator, false> {
+public:
+    typedef T* iterator;
+
 public:
     unsigned long size() { return __vector_imp::size(); }
     void reserve(unsigned long n) { __vector_imp::reserve(n); }
 
     T& operator[](unsigned long n) { return __vector_imp::operator[](n); }
 
-    // FIXME: These return iterators
-    T** begin() { return (T**)data(); }
-    T** end() { return (T**)data() + size(); }
+    iterator begin() { return data(); }
+    iterator end() { return data() + size(); }
 };
 
 }
+
+#define AS_ULONG_VECTOR_HACK(vec) \
+    (*reinterpret_cast<std::vector<unsigned long>*>(&vec))
 
 #endif

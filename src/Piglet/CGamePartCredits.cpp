@@ -40,11 +40,11 @@ CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
     m_unk10 = a2;
 
     CLEAR_VECTOR(m_unk68);
-    m_unk68.reserve(6);
+    AS_ULONG_VECTOR_HACK(m_unk68).reserve(6);
     CLEAR_VECTOR(m_unk74);
-    m_unk74.reserve(6);
-    CLEAR_VECTOR(m_unk80);
-    m_unk80.reserve(100);
+    AS_ULONG_VECTOR_HACK(m_unk74).reserve(6);
+    CLEAR_VECTOR(AS_ULONG_VECTOR_HACK(m_unk80));
+    AS_ULONG_VECTOR_HACK(m_unk80).reserve(100);
 
     m_game = game;
 
@@ -62,11 +62,9 @@ CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
 
     m_unk48 = 1;
 
-    for (size_t** iter = m_unk80.begin(); iter < m_unk80.end(); iter++) {
-        U32 size = GetEntrySize(reinterpret_cast<Entry&>(**iter));
-        m_unk48 += size;
-        U32 interline = m_interline;
-        m_unk48 += interline;
+    for (std::vector<std::string*>::iterator iter = m_unk80.begin(); iter < m_unk80.end(); iter++) {
+        m_unk48 += GetEntrySize(reinterpret_cast<Entry&>(**iter)); // Skeptical about this
+        m_unk48 += (U32)m_interline;
     }
 
     m_game->GetCamera()->SetViewWindow(0.5f, 0.5f);
@@ -93,7 +91,7 @@ CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
     m_game->m_gui_manager->Reset();
 }
 
-// Equivalent: std::vector shenanigans
+// Equivalent: regalloc
 CGamePartCredits::~CGamePartCredits() {
     m_game->m_fx_manager->Clear();
     m_game->m_sound_engine->DeleteAllSounds();
@@ -120,33 +118,27 @@ CGamePartCredits::~CGamePartCredits() {
         m_unk24 = NULL;
     }
 
-    // mr. hax
-
-    for (size_t** iter = m_unk68.end() - 1; iter >= m_unk68.begin(); iter--) {
-        if (*iter != NULL) {
-            delete *iter;
-        }
-        m_unk68.erase(iter);
+    for (std::vector<Color*>::iterator iter = m_unk68.end() - 1; iter >= m_unk68.begin(); iter--) {
+        delete *iter;
+        AS_ULONG_VECTOR_HACK(m_unk68).erase(reinterpret_cast<unsigned long*>(iter));
     }
     CLEAR_VECTOR(m_unk68);
 
-    for (size_t** iter = m_unk74.end() - 1; iter >= m_unk74.begin(); iter--) {
+    for (std::vector<Entry*>::iterator iter = m_unk74.end() - 1; iter >= m_unk74.begin(); iter--) {
         delete *iter;
-        m_unk74.erase(iter);
+        AS_ULONG_VECTOR_HACK(m_unk74).erase(reinterpret_cast<unsigned long*>(iter));
     }
     CLEAR_VECTOR(m_unk74);
 
-    // Freeing std::string*s from a vector of size_ts.
-    // Why would you do this
-    for (size_t** iter = m_unk80.end() - 1; iter >= m_unk80.begin(); iter--) {
+    for (std::vector<std::string*>::iterator iter = m_unk80.end() - 1; iter >= m_unk80.begin(); iter--) {
         std::string* str = reinterpret_cast<std::string*>(*iter);
         if (str != NULL) {
             str->~basic_string();
-            delete *iter;
+            delete reinterpret_cast<unsigned long*>(str);
         }
-        m_unk80.erase(iter);
+        AS_ULONG_VECTOR_HACK(m_unk80).erase(reinterpret_cast<unsigned long*>(iter));
     }
-    CLEAR_VECTOR(m_unk80);
+    CLEAR_VECTOR(AS_ULONG_VECTOR_HACK(m_unk80));
 
     m_game->m_gui_manager->UnLoadLevel(0);
     m_game->GetResourceFactory()->UnloadResources(0);
@@ -220,12 +212,12 @@ void CGamePartCredits::Parse(DkXmd::CChunkIterator iter) {
                 Color* color = new Color;
                 size_t c = reinterpret_cast<size_t>(color);
                 ParseColor(color, dest);
-                m_unk68.push_back(c);
+                AS_ULONG_VECTOR_HACK(m_unk68).push_back(c);
             } else if (tmp == "Style") {
                 Entry* entry = new Entry;
                 size_t e = reinterpret_cast<size_t>(entry);
                 ParseEntry(entry, dest);
-                m_unk74.push_back(e);
+                AS_ULONG_VECTOR_HACK(m_unk74).push_back(e);
             } else if (tmp == "CreditsList") {
                 ParseCreditsList(dest);
             }

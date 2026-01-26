@@ -57,9 +57,9 @@ public:
     U32 m_size;
     U32 m_color_id;
     DKDSP::CIm2DBatch* m_batches[4];
-    std::vector<size_t> m_unk68;
-    std::vector<size_t> m_unk74;
-    std::vector<size_t> m_unk80;
+    std::vector<Color*> m_unk68;
+    std::vector<Entry*> m_unk74;
+    std::vector<std::string*> m_unk80;
 
 public:
     CGamePartCredits(CGame* game, int);

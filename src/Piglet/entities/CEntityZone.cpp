@@ -123,8 +123,8 @@ void CEntityZone::Parse(DkXmd::CChunkIterator iter) {
             } else if (strcmp(buf_118, "RejectNPC") == 0) {
                 m_unk1B8 = dest1.GetS32Value();
 
-                for (DkPh::BVolume** iter = m_unk24.begin(); iter < m_unk24.end(); iter++) {
-                    m_entity_manager->GetUnkCollider()->GetBodyRef(*iter).unk34 = 0xFFFF0001;
+                for (std::vector<DkPh::BVolume>::iterator iter = m_unk24.begin(); iter < m_unk24.end(); iter++) {
+                    m_entity_manager->GetUnkCollider()->GetBodyRef(iter).unk34 = 0xFFFF0001;
                 }
             }
         } while (dest1.GetNextSiblingChunk(dest1) == TRUE);

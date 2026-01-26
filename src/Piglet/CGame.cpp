@@ -1175,7 +1175,7 @@ void CGame::ParseRTCCamFight(DkXmd::CChunkIterator iter) {
     strcpy(buf, iter.GetStringValue());
     m_resource_factory->LoadResource(3, buf);
     anim = reinterpret_cast<size_t>(m_anim_dictionary->FindAnimation(buf));
-    m_unk5064.push_back(anim);
+    AS_ULONG_VECTOR_HACK(m_unk5064).push_back(anim);
 }
 
 // Equivalent: std::string operator!=

@@ -13,7 +13,7 @@ public:
     CDKW_V3d m_position;
     CDKW_V3d m_unk14;
     std::string m_name;
-    std::vector<size_t> m_sounds;
+    std::vector<ISound*> m_sounds;
     U32 m_num_sounds;
     BOOL m_active;
     BOOL m_unk38;

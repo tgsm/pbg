@@ -58,14 +58,14 @@ void CSoundEmitter::AddSound(ISound* sound) {
 
     U32 i = 0;
     for (; i < m_sounds.size(); i++) {
-        if (m_sounds[i] == NULL) {
-            m_sounds[i] = sound_as_size;
+        if (AS_ULONG_VECTOR_HACK(m_sounds)[i] == NULL) {
+            AS_ULONG_VECTOR_HACK(m_sounds)[i] = sound_as_size;
             break;
         }
     }
 
     if (i == m_sounds.size()) {
-        m_sounds.push_back(sound_as_size);
+        AS_ULONG_VECTOR_HACK(m_sounds).push_back(sound_as_size);
     }
 
     reinterpret_cast<CSound3D*>(sound_as_size)->SetPosition(m_pPosition);
@@ -75,9 +75,9 @@ void CSoundEmitter::AddSound(ISound* sound) {
 
 void CSoundEmitter::RemoveSound(ISound* sound, int a2) {
     for (U32 i = 0; i < m_sounds.size(); i++) {
-        if (reinterpret_cast<ISound*>(m_sounds[i]) == reinterpret_cast<ISound*>(sound)) {
+        if (m_sounds[i] == sound) {
             m_sounds[i] = NULL;
-            ((CSound3D*)sound)->SetSoundEmitter(NULL);
+            reinterpret_cast<CSound3D*>(sound)->SetSoundEmitter(NULL);
             if (a2 != 0) {
                 DkSoundGetEngine()->RemoveSound(sound);
             }
@@ -89,11 +89,11 @@ void CSoundEmitter::RemoveSound(ISound* sound, int a2) {
 
 // Equivalent
 void CSoundEmitter::RemoveAllSounds() {
-    std::vector<size_t> sounds_to_remove;
+    std::vector<unsigned long> sounds_to_remove;
 
-    size_t sound_as_size;
+    unsigned long sound_as_size;
     for (U32 i = 0; i < m_sounds.size(); i++) {
-        sound_as_size = m_sounds[i];
+        sound_as_size = reinterpret_cast<unsigned long>(m_sounds[i]);
 
         if (sound_as_size != NULL) {
             sounds_to_remove.push_back(sound_as_size);

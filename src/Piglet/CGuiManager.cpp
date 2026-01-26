@@ -12,7 +12,7 @@ void CGuiManager::PushEnterNameEvent(size_t& event_as_size) {
     if (event_as_size != 0) {
         reinterpret_cast<CGuiEnterNameEventHandler*>(event_as_size)->SetGame(m_game);
         reinterpret_cast<CGuiEnterNameEventHandler*>(event_as_size)->SetText("TESTSAVE");
-        m_unkC.push_back(event_as_size);
+        AS_ULONG_VECTOR_HACK(m_unkC).push_back(event_as_size);
     }
 }
 

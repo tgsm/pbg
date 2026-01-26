@@ -143,7 +143,7 @@ public:
     U8 m_unk5058[0x505C - 0x5058];
     DKDSP::CController* m_unk505C;
     DKDSP::CClump* m_unk5060;
-    std::vector<size_t> m_unk5064;
+    std::vector<DKDSP::CAnimation*> m_unk5064;
     U8 m_unk5070[0x508C - 0x5070];
     DKI::IInput* m_unk508C;
     U32 m_unk5090;

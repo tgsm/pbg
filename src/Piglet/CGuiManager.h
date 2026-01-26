@@ -8,6 +8,7 @@
 #include "engine/xmd/CChunkIterator.h"
 
 class CGame;
+class CGuiBaseEventHandler;
 
 // FIXME: This doesn't exist, figure out what this actually is
 struct PlaceholderGUIStruct {
@@ -19,7 +20,7 @@ struct PlaceholderGUIStruct {
 class CGuiManager {
 public:
     std::vector<std::string> m_unk0; // may be wrong
-    std::vector<size_t> m_unkC;
+    std::vector<CGuiBaseEventHandler*> m_unkC;
     CGame* m_game;
     DKI::CInput* m_unk1C;
     DKI::CInput* m_unk20;
@@ -59,7 +60,7 @@ public:
         event_as_size = reinterpret_cast<size_t>(new T);
         if (event_as_size != 0) {
             reinterpret_cast<T*>(event_as_size)->SetGame(m_game);
-            m_unkC.push_back(event_as_size);
+            AS_ULONG_VECTOR_HACK(m_unkC).push_back(event_as_size);
         }
     }
 
