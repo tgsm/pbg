@@ -13,12 +13,12 @@ CGamePartDMRoomLauncher::CGamePartDMRoomLauncher(CGame* game) {
 
     m_debug_menu->GetControl("Mission")->SetRange(0, 7);
     if (m_game->m_unk4F54 == 0) {
-        m_debug_menu->GetControl("Mission")->SetUnk1C(0);
+        m_debug_menu->GetControl("Mission")->SetValue(0);
     } else {
-        m_debug_menu->GetControl("Mission")->SetUnk1CMinus1(m_game->m_unk4F54);
+        m_debug_menu->GetControl("Mission")->SetValueMinus1(m_game->m_unk4F54);
     }
-    m_debug_menu->GetControl("Room")->SetUnk1CMinus1(m_game->m_unk4F58);
-    m_debug_menu->GetControl("Player")->SetUnk1C(m_game->m_unk4F5C);
+    m_debug_menu->GetControl("Room")->SetValueMinus1(m_game->m_unk4F58);
+    m_debug_menu->GetControl("Player")->SetValue(m_game->m_unk4F5C);
 
     m_game->GetCamera()->SetViewWindow(0.5f, 0.5f);
 
@@ -39,7 +39,7 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
         switch (m_debug_menu->UpdateAndDisplay()) {
             case 0: {
                 CMenuControl* mission_control = m_debug_menu->GetControl("Mission");
-                switch (reinterpret_cast<CControlValue*>(mission_control->m_control_values[mission_control->m_unk1C])->GetS32Value()) {
+                switch (reinterpret_cast<CControlValue*>(mission_control->m_control_values[mission_control->m_value])->GetS32Value()) {
                     case 1:
                         m_debug_menu->GetControl("Room")->SetRange(0, 5);
                         break;
@@ -70,23 +70,23 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
             }
             case 1: {
                 CMenuControl* mission_control = m_debug_menu->GetControl("Mission");
-                int value = reinterpret_cast<CControlValue*>(mission_control->m_control_values[mission_control->m_unk1C])->GetS32Value();
+                int value = reinterpret_cast<CControlValue*>(mission_control->m_control_values[mission_control->m_value])->GetS32Value();
 
                 m_game->ResetOpcodeBuffer();
                 m_game->PushOpcodeValue(2);
                 m_game->PushOpcodeValue(value);
 
                 CMenuControl* room_control = m_debug_menu->GetControl("Room");
-                m_game->m_unk4F58 = reinterpret_cast<CControlValue*>(room_control->m_control_values[room_control->m_unk1C])->GetS32Value();
+                m_game->m_unk4F58 = reinterpret_cast<CControlValue*>(room_control->m_control_values[room_control->m_value])->GetS32Value();
                 CMenuControl* player_control = m_debug_menu->GetControl("Player");
-                m_game->m_unk4F5C = reinterpret_cast<CControlValue*>(player_control->m_control_values[player_control->m_unk1C])->GetS32Value();
+                m_game->m_unk4F5C = reinterpret_cast<CControlValue*>(player_control->m_control_values[player_control->m_value])->GetS32Value();
 
                 m_game->PushOpcodeValue(1);
 
                 room_control = m_debug_menu->GetControl("Room");
-                m_game->PushOpcodeValue(reinterpret_cast<CControlValue*>(room_control->m_control_values[room_control->m_unk1C])->GetS32Value());
+                m_game->PushOpcodeValue(reinterpret_cast<CControlValue*>(room_control->m_control_values[room_control->m_value])->GetS32Value());
                 player_control = m_debug_menu->GetControl("Player");
-                m_game->PushOpcodeValue(reinterpret_cast<CControlValue*>(player_control->m_control_values[player_control->m_unk1C])->GetS32Value());
+                m_game->PushOpcodeValue(reinterpret_cast<CControlValue*>(player_control->m_control_values[player_control->m_value])->GetS32Value());
 
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
@@ -98,7 +98,7 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
 
                 if (m_game->GetMission(value - 1).GetUnk34() == 0) {
                     room_control = m_debug_menu->GetControl("Room");
-                    if (m_game->GetMission(value - 1).GetUnkC() == reinterpret_cast<CControlValue*>(room_control->m_control_values[room_control->m_unk1C])->GetS32Value()) {
+                    if (m_game->GetMission(value - 1).GetUnkC() == reinterpret_cast<CControlValue*>(room_control->m_control_values[room_control->m_value])->GetS32Value()) {
                         m_game->PushOpcodeValue(6);
                     }
                 }
@@ -111,8 +111,8 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
                 CControlValue* new_control = new CControlValue;
                 new_control->SetS32Value(1);
                 new_control->SetTexture("loading");
-                mission_control->m_control_values.push_back(reinterpret_cast<size_t>(new_control));
-                mission_control->m_unkC++;
+                AS_ULONG_VECTOR_HACK(mission_control->m_control_values).push_back(reinterpret_cast<size_t>(new_control));
+                mission_control->m_max++;
 
                 m_debug_menu->m_unk24 = 0;
                 m_game->m_display_engine->Update();
