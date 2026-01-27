@@ -45,7 +45,7 @@ public:
     virtual void func80();
     virtual void func84();
     virtual void func88();
-    virtual void func8C();
+    virtual CTexture* LoadTextureFromFile(char* name, U32, U32);
     virtual void func90();
     virtual void func94();
     virtual void func98();

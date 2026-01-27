@@ -40,7 +40,7 @@ public:
     virtual void func80() = 0;
     virtual void func84() = 0;
     virtual void func88() = 0;
-    virtual void func8C() = 0;
+    virtual CTexture* LoadTextureFromFile(char* name, U32, U32) = 0;
     virtual void func90() = 0;
     virtual void func94() = 0;
     virtual void func98() = 0;

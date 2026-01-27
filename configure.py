@@ -448,7 +448,7 @@ config.libs = [
             Object(Equivalent, "Piglet/entities/CEntityBhvTagCollision.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagActivation.cpp"),
             Object(NonMatching, "Piglet/CMenuControl.cpp"),
-            Object(NonMatching, "Piglet/CControlValue.cpp"),
+            Object(Equivalent, "Piglet/CControlValue.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityPiglet.cpp"),
             Object(NonMatching, "Piglet/CDebugMenu.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityObject.cpp"),
