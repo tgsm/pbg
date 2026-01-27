@@ -90,8 +90,8 @@ void CCamera::GetSettingsFromCamera(ICamera* camera) {
 
 void CCamera::SetViewWindow(F32 a1, F32 a2) {
     CDKW_V2d view_window;
-    view_window.m_x = a1;
-    view_window.m_y = a2;
+    view_window.x = a1;
+    view_window.y = a2;
     if (m_wrap_camera != NULL) {
         // FIXME: Make CDKW_V2d inherit RwV2d
         RwCameraSetViewWindow(m_wrap_camera->m_rw_camera, (RwV2d*)&view_window);
@@ -116,8 +116,8 @@ F32 CCamera::GetViewWindowHalfHeight() {
 
 void CCamera::SetViewOffset(F32 a1, F32 a2) {
     CDKW_V2d view_offset;
-    view_offset.m_x = a1;
-    view_offset.m_y = a2;
+    view_offset.x = a1;
+    view_offset.y = a2;
     if (m_wrap_camera != NULL) {
         // FIXME: Make CDKW_V2d inherit RwV2d
         RwCameraSetViewOffset(m_wrap_camera->m_rw_camera, (RwV2d*)&view_offset);

@@ -1,12 +1,10 @@
 #ifndef ENGINE_WRAP_DKW_V2D_H
 #define ENGINE_WRAP_DKW_V2D_H
 
+#include <rwsdk/plcore/bavector.h>
 #include "types.h"
 
-class CDKW_V2d {
-public:
-    F32 m_x, m_y;
-
+class CDKW_V2d : public RwV2d {
 public:
     CDKW_V2d();
     CDKW_V2d(const CDKW_V2d& other);
