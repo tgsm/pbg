@@ -64,6 +64,7 @@ public:
     void ShowFriendNPC(int, int, int);
     void HideFriendNPC(int);
     void RenderDarkenRooms(F32 dt);
+    void RenderHeroIcon(F32 dt);
     void RenderCookiesNbIcon(F32 dt);
     BOOL IsVisible();
     BOOL Load(DkXmd::CChunkIterator*);

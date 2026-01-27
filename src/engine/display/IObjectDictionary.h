@@ -2,6 +2,7 @@
 #define ENGINE_DISPLAY_IOBJECTDICTIONARY_H
 
 #include <string>
+#include "engine/display/CSpline.h"
 #include "types.h"
 
 namespace DKDSP {
@@ -49,7 +50,7 @@ public:
     virtual void func36() = 0;
     virtual void func37() = 0;
     virtual void func38() = 0;
-    virtual void func39() = 0;
+    virtual CSpline* FindSpline(std::string name) = 0;
     virtual void func40() = 0;
     virtual void func41() = 0;
     virtual void func42() = 0;

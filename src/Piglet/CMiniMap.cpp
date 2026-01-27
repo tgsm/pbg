@@ -1,5 +1,6 @@
 #include "engine/display/CAtomic.h"
 #include "engine/display/DkDisplay.h"
+#include "engine/display/CTexture.h"
 #include "engine/input/IInputEngine.h"
 #include "engine/wrap/DKW_RGBA.h"
 #include "CGame.h"
@@ -7,6 +8,7 @@
 #include "CMiniMap.h"
 #include <cstdio>
 #include <iostream>
+#include <math.h>
 
 CDKW_RGBA BLUE_FILTER_COLOR = CDKW_RGBA(0x32, 0x4B, 0x4B, 0xFF);
 CDKW_RGBA BLUE_FILTER_COLOR_COMPLEMENT = CDKW_RGBA(0x64, 0x32, 0x00, 0xFF);
@@ -253,6 +255,65 @@ void CMiniMap::RenderDarkenRooms(F32 dt) {
     }
     m_game->m_display_engine->SetRenderState((RwRenderState)10, (void*)5);
     m_game->m_display_engine->SetRenderState((RwRenderState)11, (void*)6);
+}
+
+void CMiniMap::RenderHeroIcon(F32 dt) {
+    if (m_unk94 < 1.0f) {
+        return;
+    }
+
+    F32 dVar5 = 1.5f * (3.1415927f * m_unkB0);
+
+    if (m_spline_manager == NULL || m_game == NULL) {
+        return;
+    }
+
+    if (m_icon3C == NULL) {
+        return;
+    }
+
+    CMiniMapSpline* hero_spline = m_spline_manager->GetSpline("HEROSPLINE");
+    if (hero_spline == NULL) {
+        return;
+    }
+    DKDSP::CSpline* spline = hero_spline->m_spline;
+    if (spline == NULL) {
+        return;
+    }
+
+    spline->GetNumberOfControlPoints(); // unused
+    CDKW_V3d vec;
+    spline->GetControlPoint(m_game->m_unk4F58 - 1, &vec);
+    F32 size = (F32)cos(1.5f * dVar5);
+    m_icon3C->SetSize(10.0f + size - 1.0f);
+    m_icon3C->SetPosition(vec);
+
+    switch (m_game->m_unk4F5C) {
+        case 0:
+        case 3: {
+            DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_205");
+            if (texture != NULL) {
+                m_icon3C->SetTexture(texture);
+            }
+            break;
+        }
+        case 1: {
+            DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_207");
+            if (texture != NULL) {
+                m_icon3C->SetTexture(texture);
+            }
+            break;
+        }
+        case 2: {
+            DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_206");
+            if (texture != NULL) {
+                m_icon3C->SetTexture(texture);
+            }
+            break;
+        }
+    }
+
+    m_icon3C->Render(m_scene);
 }
 
 void CMiniMap::RenderCookiesNbIcon(F32 dt) {
