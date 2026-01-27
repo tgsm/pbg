@@ -706,7 +706,7 @@ config.libs = [
             Object(NonMatching, "engine/physics/DkPh_Primitives.cpp"),
             Object(NonMatching, "engine/xmd/CChunkIterator.cpp", extra_cflags=["-sym on"]),
             Object(NonMatching, "engine/xmd/CXmdFile.cpp"),
-            Object(NonMatching, "engine/wrap/DKW_2dTools.cpp"),
+            Object(Matching, "engine/wrap/DKW_2dTools.cpp"),
             Object(NonMatching, "engine/wrap/DKW_Animation.cpp"),
             Object(NonMatching, "engine/wrap/DKW_Atomic.cpp"),
             Object(NonMatching, "engine/wrap/DKW_Camera.cpp"),
