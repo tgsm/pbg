@@ -18,6 +18,7 @@ public:
     virtual CState GetState();
     virtual BOOL IsConnected() { return m_device->IsConnected(); }
 };
+REQUIRE_SIZE(CInputHalfAxe, 0x14);
 
 }
 

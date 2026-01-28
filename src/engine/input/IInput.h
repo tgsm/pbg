@@ -44,6 +44,8 @@ public:
 
     virtual CState GetState() = 0;
     virtual BOOL IsConnected() = 0;
+
+    char* GetName() { return m_name; }
 };
 REQUIRE_SIZE(IInput, 0x8);
 
