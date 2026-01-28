@@ -5,12 +5,12 @@
 #include <iostream>
 
 CMenuControl::CMenuControl(CDebugMenu* debug_menu)
-    : m_unk20(0.0f, 1.0f),
-      m_unk28(1.0f, 1.0f),
-      m_unk30(1.0f, 0.0f),
-      m_unk38(0.0f, 0.0f),
-      m_unk48(0xFF, 0xFF, 0xFF, 0xFF),
-      m_unk4C(0xFF, 0xFF, 0xFF, 0x7F)
+    : m_uv1(0.0f, 1.0f),
+      m_uv2(1.0f, 1.0f),
+      m_uv3(1.0f, 0.0f),
+      m_uv4(0.0f, 0.0f),
+      m_active_color(0xFF, 0xFF, 0xFF, 0xFF),
+      m_inactive_color(0xFF, 0xFF, 0xFF, 0x7F)
 {
     m_debug_menu = debug_menu;
     m_id = NULL;
@@ -94,13 +94,13 @@ BOOL CMenuControl::Init(DkXmd::CChunkIterator iter) {
                     } while (location_chunk_iter.GetNextSiblingChunk(location_chunk_iter));
                 }
 
-                int debug2C = m_debug_menu->GetUnk2C();
-                int debug28 = m_debug_menu->GetUnk28();
+                int debug_height = m_debug_menu->GetResolutionHeight();
+                int debug_width = m_debug_menu->GetResolutionWidth();
 
-                F32 x = (F32)x_ / (F32)debug28;
-                F32 y = (F32)y_ / (F32)debug2C;
-                F32 width = (F32)width_ / (F32)debug28;
-                F32 height = (F32)height_ / (F32)debug2C;
+                F32 x = (F32)x_ / (F32)debug_width;
+                F32 y = (F32)y_ / (F32)debug_height;
+                F32 width = (F32)width_ / (F32)debug_width;
+                F32 height = (F32)height_ / (F32)debug_height;
 
                 m_path = new CDKW_2dPath;
                 m_path->Lock();
@@ -109,7 +109,7 @@ BOOL CMenuControl::Init(DkXmd::CChunkIterator iter) {
 
                 m_brush = new CDKW_2dBrush;
                 m_brush->Create();
-                m_brush->SetUV(&m_unk20, &m_unk28, &m_unk30, &m_unk38);
+                m_brush->SetUV(&m_uv1, &m_uv2, &m_uv3, &m_uv4);
             } else if (strcmp(dest.GetName(), "ValueList") == 0) {
                 DkXmd::CChunkIterator list_chunk_iter;
                 if (dest.GetFirstChildChunk(list_chunk_iter)) {
@@ -156,13 +156,13 @@ void CMenuControl::PrevValue() {
     }
 }
 
-void CMenuControl::Render(BOOL a1) {
+void CMenuControl::Render(BOOL active) {
     DkDisplayGetEngine(); // unused
 
-    if (a1) {
-        m_brush->SetRGBA(&m_unk48, &m_unk48, &m_unk48, &m_unk48);
+    if (active) {
+        m_brush->SetRGBA(&m_active_color, &m_active_color, &m_active_color, &m_active_color);
     } else {
-        m_brush->SetRGBA(&m_unk4C, &m_unk4C, &m_unk4C, &m_unk4C);
+        m_brush->SetRGBA(&m_inactive_color, &m_inactive_color, &m_inactive_color, &m_inactive_color);
     }
     m_brush->SetTexture(m_control_values[m_value]->m_texture->m_wrap_texture);
 

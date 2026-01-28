@@ -137,7 +137,7 @@ public:
     virtual void func115();
     virtual void func116();
     virtual void Clear(int, F32, F32, F32) = 0;
-    virtual void BeginRender() = 0;
+    virtual BOOL BeginRender() = 0;
     virtual void func119();
     virtual void func120();
     virtual void func121();

@@ -39,7 +39,7 @@ public:
     virtual void SelectCamera(int id);
     virtual void SelectCamera(ICamera*);
     virtual void Clear(int, F32, F32, F32);
-    virtual void BeginRender();
+    virtual BOOL BeginRender();
     virtual void RenderClump(IClump* clump);
     virtual void RenderParticleEmitter(IParticleEmitter*, int);
     virtual void Flush();

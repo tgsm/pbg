@@ -36,6 +36,8 @@ public:
     void SetDkWrapTexture(CDKW_Texture* wrap_texture);
     char* InternalGetName();
 
+    CDKW_Texture* GetDkWrapTexture() { return m_wrap_texture; }
+
 public:
     CDKW_Texture* m_wrap_texture;
     CRaster m_raster;

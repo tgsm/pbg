@@ -450,7 +450,7 @@ config.libs = [
             Object(Equivalent, "Piglet/CMenuControl.cpp"),
             Object(Equivalent, "Piglet/CControlValue.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityPiglet.cpp"),
-            Object(NonMatching, "Piglet/CDebugMenu.cpp"),
+            Object(Equivalent, "Piglet/CDebugMenu.cpp", extra_cflags=["-bool off"]),
             Object(NonMatching, "Piglet/entities/CEntityObject.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagOrientation.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPC.cpp"),

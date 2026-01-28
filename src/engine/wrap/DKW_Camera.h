@@ -13,7 +13,12 @@ public:
 
 // TODO
 struct SDKW_Frustum {
-    U8 unk0[0x18];
+    F32 unk0;
+    F32 unk4;
+    F32 unk8;
+    F32 unkC;
+    F32 unk10;
+    F32 unk14;
 };
 
 // TODO

@@ -114,7 +114,7 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
                 AS_ULONG_VECTOR_HACK(mission_control->m_control_values).push_back(reinterpret_cast<size_t>(new_control));
                 mission_control->m_max++;
 
-                m_debug_menu->m_unk24 = 0;
+                m_debug_menu->m_current_control_no = 0;
                 m_game->m_display_engine->Update();
 
                 m_debug_menu->UpdateAndDisplay();
