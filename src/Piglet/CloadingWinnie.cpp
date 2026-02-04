@@ -45,13 +45,13 @@ void CLoadingWinnie::Create() {
         CDKW_V3d copy_a8 = local_a8;
         CDKW_V3d local_b4(0.0f, 1.8f, 0.0f);
         local_9c = local_b4;
-        LookAtInline(m_camera, copy_a8, local_9c, CDKW_V3d::YAXIS);
+        m_camera->LookAtInline(copy_a8, local_9c, CDKW_V3d::YAXIS);
 
         CDKW_V3d local_c0(3.0f, 6.0f, 6.0f);
         CDKW_V3d copy_c0 = local_c0;
         CDKW_V3d local_cc(0.0f, 1.8f, 0.0f);
         local_9c = local_cc;
-        LookAtInline(m_light, copy_c0, local_9c, CDKW_V3d::YAXIS);
+        m_light->LookAtInline(copy_c0, local_9c, CDKW_V3d::YAXIS);
 
         m_light->SetColor(0.7f, 0.7f, 0.7f);
         m_light->SetConeAngle(90.0f);
@@ -62,7 +62,7 @@ void CLoadingWinnie::Create() {
         CDKW_V3d local_d8(4.0f, 4.0f, 4.0f);
         local_9c = local_d8;
 
-        UpdateModelPos(m_clump24, model_pos_);
+        m_clump24->UpdateModelPos(model_pos_);
         RwFrameScale(m_clump24->GetFrame()->m_rwframe, &local_9c, 2);
 
         int nb_atomics = m_clump24->GetNumberOfAtomics();
@@ -87,7 +87,7 @@ void CLoadingWinnie::Create() {
             }
         }
 
-        UpdateModelPos(m_clump1C, CDKW_V3d::ZERO);
+        m_clump1C->UpdateModelPos(CDKW_V3d::ZERO);
 
         DKDSP::CAnimation* anim = m_game->m_anim_dictionary->FindAnimation("Models/110_WINNIE/ANM_110_040.anm");
 
@@ -102,7 +102,7 @@ void CLoadingWinnie::Create() {
         CDKW_V3d copy_e4 = local_e4;
         CDKW_V3d local_f0(0.0f, 1.0f, 0.0f);
         local_9c = local_f0;
-        LookAtInline(m_light2, copy_e4, local_9c, CDKW_V3d::YAXIS);
+        m_light2->LookAtInline(copy_e4, local_9c, CDKW_V3d::YAXIS);
 
         m_light2->SetColor(0.2f, 0.2f, 0.2f);
         m_light2->SetRadius(20.0f);
