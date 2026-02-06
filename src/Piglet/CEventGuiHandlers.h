@@ -5,19 +5,37 @@
 #include <vector>
 #include "engine/wrap/DKW_V2d.h"
 #include "engine/gui/IEventGUIMenuCallBack.h"
+#include "entities/CEntityMesh.h"
 #include "CGame.h"
 #include "CGamePart.h"
 
 class CGuiBaseEventHandler : public DKGUI::IEventGUIMenuCallBack {
 protected:
-    std::string m_unk4;
+    std::string m_type;
     CGame* m_game;
     BOOL m_unkC;
+
+    std::string GetType() {
+        return m_type;
+    }
 
     void UnkGamePartAndReturnTypeInline() {
         CGamePart* game_part = m_game->GetGamePartPointer();
         game_part->m_unk4 = 0;
         m_game->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
+    }
+
+    void PlaySoundInline(const char* command) {
+        std::string str = command;
+        if (str.find("playsound") >= 0) {
+            std::string str2;
+            str2 = &command[strlen("playsound ")];
+            DKSND::CSound2D* sound = m_game->m_sound_engine->PlaySound2D(str2, 1);
+            if (sound != NULL) {
+                sound->SetVolume(1.0f);
+                sound->SetLayer(2);
+            }
+        }
     }
 
 public:
@@ -78,15 +96,21 @@ public:
 };
 
 class CGuiChooseGameEventHandler : public CGuiBaseEventHandler {
-private:
+public:
     std::vector<std::string> m_unk10;
-    U8 m_unk1C[0xC];
+    int m_unk1C;
+    int m_unk20;
+    F32 m_unk24;
 
 public:
     CGuiChooseGameEventHandler();
     virtual ~CGuiChooseGameEventHandler() {}
 
     virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
+
+    void AddToList(std::string unk) {
+        m_unk10.push_back(unk);
+    }
 };
 REQUIRE_SIZE(CGuiChooseGameEventHandler, 0x28);
 
@@ -102,6 +126,10 @@ public:
 
     std::string GetFilename() {
         return m_unk10;
+    }
+
+    void SetFilename(std::string filename) {
+        m_unk10.assign(filename, 0);
     }
 };
 
@@ -139,8 +167,14 @@ public:
 
 class CGuiEnterNameEventHandler : public CGuiBaseEventHandler {
 public:
-    U32 m_unk10;
+    int m_unk10;
     std::string m_unk14;
+
+    void FrameLabelInline(DKGUI::IGUIMenu* menu) {
+        char buf[32];
+        sprintf(buf, "ENTER_NAME_%02d", m_unk10 + 1);
+        menu->GetAnim()->GotoFrameLabel(buf);
+    }
 
 public:
     CGuiEnterNameEventHandler();
@@ -159,18 +193,25 @@ public:
 
 class CGuiSaveCheckingMemorycardEventHandler : public CGuiBaseEventHandler {
 private:
-    U32 m_unk10;
+    int m_unk10;
 
 public:
     CGuiSaveCheckingMemorycardEventHandler();
-    virtual ~CGuiSaveCheckingMemorycardEventHandler() {}
+    virtual ~CGuiSaveCheckingMemorycardEventHandler() {
+        m_unk10 = 0;
+    }
 
     virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
 
-    void SetUnk10(U32 value) {
+    int GetUnk10() {
+        return m_unk10;
+    }
+
+    void SetUnk10(int value) {
         m_unk10 = value;
     }
 };
+REQUIRE_SIZE(CGuiSaveCheckingMemorycardEventHandler, 0x14);
 
 class CGuiSaveNoSpaceEventHandler : public CGuiBaseEventHandler {
 public:
@@ -350,9 +391,9 @@ public:
 
 class CGuiDreamSelectEventHandler : public CGuiBaseEventHandler {
 private:
-    U32 m_unk10;
-    U32 m_unk14;
-    U32 m_unk18;
+    int m_unk10;
+    int m_unk14;
+    CEntityMesh* m_unk18;
 
 public:
     CGuiDreamSelectEventHandler();
@@ -367,7 +408,8 @@ public:
 class CGuiScreenSettingEventHandler : public CGuiBaseEventHandler {
 private:
     CDKW_V2d m_unk10;
-    U8 m_unk18[8];
+    int m_unk18;
+    F32 m_unk1C;
 
 public:
     CGuiScreenSettingEventHandler();

@@ -7,7 +7,7 @@
 class CGame;
 
 class CSlotContainer {
-private:
+public:
     U32 m_unk0;
     void* m_unk4;
 

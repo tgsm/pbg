@@ -69,7 +69,7 @@ public:
     };
 
 public:
-    U8 m_unk0[8];
+    DKBAK::DKBAK_DATE m_backup_date;
     U32 m_unk8;
     int m_opcode_buffer[128];
     U32 m_opcode_buffer_size;
@@ -160,6 +160,8 @@ public:
     static void ManageReset();
     static void ReplayVideoCallback();
 
+    DKBAK::DKBAK_DATE& GetBackupDate() { return m_backup_date; }
+    void SetBackupDate(DKBAK::DKBAK_DATE date) { m_backup_date = date; }
     DKGUI::CGUIEngine* GetGuiEngine() { return m_gui_engine; }
     DKDSP::CObjectDictionary* GetObjectDictionary() { return m_object_dictionary; }
     DKDSP::CScene* GetScene() { return m_scene; }
@@ -167,6 +169,8 @@ public:
     CResourceFactory* GetResourceFactory() { return m_resource_factory; }
     CMailBox* GetMailbox() { return m_mailbox; }
     CGuiManager* GetGuiManager() { return m_gui_manager; }
+    CGameBackup* GetGameBackup() { return m_game_backup; }
+    DKBAK::CGCNBAKEngine* GetBackupEngine() { return m_backup_engine; }
 
     U32& GetFlags() { return m_unk8; }
 
@@ -203,6 +207,40 @@ public:
         return fVar1;
     }
 
+    BOOL MissionUnk30Inline(int no) {
+        BOOL ret = GetMission(no).m_unk30 == 0;
+        if (ret != 0) {
+            ret = GetMission(no).m_unk2C;
+            if (ret != 0) {
+                ret = GetMission(no + 1).m_unk30 == 0;
+                if (ret != 0) {
+                    ret = GetMission(no + 1).m_unk2C;
+                    if (ret == 0) {
+                        return ret;
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+
+    BOOL MissionUnk30Inline2(int no) {
+        BOOL ret = GetMission(no).m_unk30;
+        if (ret != 0) {
+            ret = GetMission(no).m_unk2C;
+            if (ret != 0) {
+                ret = GetMission(no + 1).m_unk30;
+                if (ret != 0) {
+                    ret = GetMission(no + 1).m_unk2C;
+                    if (ret == 0) {
+                        return ret;
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+
     F32 GetUnk502C() { return m_unk502C; }
     F32 GetFadeDuration() { return m_fade_duration; }
 
@@ -213,6 +251,8 @@ public:
     void ResetOpcodeBuffer();
     void PushOpcodeValue(int opcode);
     BOOL LoadConfigFile(char* filename);
+    CDKW_V2d GetScreenOffset();
+    void SetScreenOffset(CDKW_V2d offset);
     void ParseRTCCamFight(DkXmd::CChunkIterator iter);
     void PlayNarratorLine(std::string line_id);
     void StopNarratorLine();

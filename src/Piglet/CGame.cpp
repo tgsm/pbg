@@ -676,12 +676,12 @@ BOOL CGame::NextFrame() {
 
                             if (m_unk4F5C == 0) {
                                 CMission* mission = GetCurrentMission();
-                                F32 start_pos_x = mission->m_start_position_x;
-                                F32 start_pos_y = mission->m_start_position_y;
-                                F32 start_pos_z = mission->m_start_position_z;
-                                F32 start_rot_x = mission->m_start_rotation_x;
-                                F32 start_rot_y = mission->m_start_rotation_y;
-                                F32 start_rot_z = mission->m_start_rotation_z;
+                                F32 start_pos_x = mission->m_start_position.x;
+                                F32 start_pos_y = mission->m_start_position.y;
+                                F32 start_pos_z = mission->m_start_position.z;
+                                F32 start_rot_x = mission->m_start_rotation.x;
+                                F32 start_rot_y = mission->m_start_rotation.y;
+                                F32 start_rot_z = mission->m_start_rotation.z;
 
                                 m_unk4F58 = mission->m_unkC;
                                 m_unk4F5C = GetCurrentMission()->m_unk10;

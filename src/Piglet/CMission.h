@@ -2,7 +2,7 @@
 #define PIGLET_CMISSION_H
 
 #include <string>
-#include "types.h"
+#include "engine/wrap/DKW_V3d.h"
 
 class CGame;
 
@@ -18,14 +18,10 @@ public:
     int m_mission_no;
     U32 m_unkC;
     U32 m_unk10;
-    F32 m_start_position_x;
-    F32 m_start_position_y;
-    F32 m_start_position_z;
-    F32 m_start_rotation_x;
-    F32 m_start_rotation_y;
-    F32 m_start_rotation_z;
+    CDKW_V3d m_start_position;
+    CDKW_V3d m_start_rotation;
     U32 m_unk2C;
-    U32 m_unk30;
+    int m_unk30;
     int m_unk34;
     int m_num_rooms;
     U32 m_rooms[16];
@@ -89,6 +85,9 @@ public:
     BOOL IsSecondPassCompleted();
 
     U32 GetUnkC() { return m_unkC; }
+    CDKW_V3d GetStartPosition() { return m_start_position; }
+    CDKW_V3d GetStartRotation() { return m_start_rotation; }
+    BOOL Unk30Check() { return m_unk30; }
     int& GetUnk34() { return m_unk34; }
 };
 REQUIRE_SIZE(CMission, 0x4D4);

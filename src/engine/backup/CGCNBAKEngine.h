@@ -26,8 +26,8 @@ public:
     virtual U32 GetState();
     virtual U32 Format();
     virtual std::string FindFirst(std::string, std::string);
-    virtual void FindNext();
-    virtual void GetDate(std::string, std::string, DKBAK_DATE&);
+    virtual std::string FindNext();
+    virtual int GetDate(std::string, std::string, DKBAK_DATE&);
     virtual void GetSize(std::string, std::string, int&);
     virtual U32 Delete(std::string, std::string);
     virtual BOOL IsSpaceAvailable(std::string, std::string, int);

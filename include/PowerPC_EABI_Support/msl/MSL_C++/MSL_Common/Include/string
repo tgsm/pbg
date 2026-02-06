@@ -58,6 +58,20 @@ struct basic_string {
         return size() != other.size() || compare(other) != 0;
     }
 
+#if 1
+    basic_string& append(size_type count, CharT ch);
+#else
+    basic_string& append(size_type count, CharT ch) {
+        if (count != 0) {
+            // FIXME: m_size[0] is fake.
+            if (count > -2 || m_size[0] > -count - 2) {
+                __msl_error("basic_string::append results in string > max_size");
+            }
+            resize(count, ch);
+        }
+        return *this;
+    }
+#endif
     basic_string& append(const CharT* s, size_type count);
     basic_string& operator+=(const CharT* s) {
         return append(s, strlen(s));
@@ -79,6 +93,25 @@ struct basic_string {
     }
 
     int find(const CharT* s, size_type pos, size_type count) const;
+    int find(const CharT* s, size_type pos = 0) const {
+        return find(s, pos, Traits::length(s));
+    }
+
+#if 1
+    void resize(size_type count, CharT ch);
+#else
+    void resize(size_type count, CharT ch) {
+        size_type size_ = m_size[0];
+        change_size(count, true);
+        if (size_ < count) {
+            memset((void*)((int)c_str() + size_), ch, count - size_);
+        }
+    }
+#endif
+
+    // This isn't standard.
+    // FIXME: How do we pass in a bool with "-bool off"?
+    void change_size(size_type count, bool unk);
 
     size_type* m_size; // FIXME: not correct
 

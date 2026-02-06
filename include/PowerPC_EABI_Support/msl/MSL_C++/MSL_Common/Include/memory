@@ -1,7 +1,16 @@
 #ifndef _MSL_MEMORY
 #define _MSL_MEMORY
 
+#include <cstdio>
+#include <cstdlib>
+
 namespace std {
+
+// FIXME: This needs a home.
+inline void __msl_error(const char* msg) {
+    fprintf(stderr, msg);
+    abort();
+}
 
 template <typename T>
 struct allocator {

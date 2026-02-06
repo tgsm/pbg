@@ -60,24 +60,24 @@ BOOL CMission::LoadConfigFile(U32 a1) {
 
         if (file_chunk.GetChunk("StartPosition", dest1)) {
             if (dest1.GetChunk("X", dest2)) {
-                m_start_position_x = dest2.GetFloatValue();
+                m_start_position.x = dest2.GetFloatValue();
             }
             if (dest1.GetChunk("Y", dest2)) {
-                m_start_position_y = dest2.GetFloatValue();
+                m_start_position.y = dest2.GetFloatValue();
             }
             if (dest1.GetChunk("Z", dest2)) {
-                m_start_position_z = dest2.GetFloatValue();
+                m_start_position.z = dest2.GetFloatValue();
             }
         }
         if (file_chunk.GetChunk("StartRotation", dest1)) {
             if (dest1.GetChunk("X", dest2)) {
-                m_start_rotation_x = dest2.GetFloatValue();
+                m_start_rotation.x = dest2.GetFloatValue();
             }
             if (dest1.GetChunk("Y", dest2)) {
-                m_start_rotation_y = dest2.GetFloatValue();
+                m_start_rotation.y = dest2.GetFloatValue();
             }
             if (dest1.GetChunk("Z", dest2)) {
-                m_start_rotation_z = dest2.GetFloatValue();
+                m_start_rotation.z = dest2.GetFloatValue();
             }
         }
 
@@ -292,12 +292,12 @@ void CMission::Initialize() {
 
     m_num_rooms = 1;
 
-    m_start_position_x = 0.0f;
-    m_start_position_y = 0.0f;
-    m_start_position_z = 0.0f;
-    m_start_rotation_x = 0.0f;
-    m_start_rotation_y = 0.0f;
-    m_start_rotation_z = 0.0f;
+    m_start_position.x = 0.0f;
+    m_start_position.y = 0.0f;
+    m_start_position.z = 0.0f;
+    m_start_rotation.x = 0.0f;
+    m_start_rotation.y = 0.0f;
+    m_start_rotation.z = 0.0f;
     m_unk2C = 0;
     m_unk30 = 0;
 
