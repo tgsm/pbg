@@ -9,6 +9,7 @@
 #include "engine/display/CTextureDictionary.h"
 #include "engine/display/CTimerGCN.h"
 #include "engine/display/IEventAnimationCallback.h"
+#include "engine/wrap/DKW_Engine.h"
 
 // FIXME: This maybe goes in its own header, but it's only used here.
 class CDKW_Memory {
@@ -22,96 +23,110 @@ enum RwRenderState {};
 
 namespace DKDSP {
 
+class CCharset;
+class IInitCallback;
 class IShadowMapValidationCallback;
+class IWarningCollector;
+
+struct SRWAdapterInfo;
+struct SRWVideoModeInfo;
 
 class IEngine {
 public:
-    virtual void fillerfunc0() = 0;
-    virtual void fillerfunc1() = 0;
-    virtual void fillerfunc2() = 0;
-    virtual void SetCharsetCreation(BOOL) = 0;
-    virtual void fillerfunc4() = 0;
-    virtual void fillerfunc5() = 0;
-    virtual void fillerfunc6() = 0;
-    virtual void fillerfunc7() = 0;
-    virtual void SetGCNVideoMode(void*) = 0;
-    virtual void fillerfunc9() = 0;
-    virtual void fillerfunc10() = 0;
-    virtual void fillerfunc11() = 0;
-    virtual void* Open() = 0; // idk what this returns
-    virtual void fillerfunc13() = 0;
-    virtual void Setup(int, int) = 0;
+    IEngine();
+
+    virtual void EnableADLPipelines() = 0;
+    virtual BOOL IsADLEnabled() = 0;
+    virtual void SetADLDirectionalLight(ILight*) = 0;
+    virtual void SetCharsetCreation(BOOL allow) = 0;
+    virtual void* Init(void*, void*, U32 screen_width, U32 screen_height) = 0;
+    virtual void* Init(void*) = 0;
+    virtual void InitManaged() = 0;
+    virtual void InitManaged(U32 screen_width, U32 screen_height) = 0;
+    virtual void SetGCNVideoMode(void* video_mode) = 0;
+    virtual void* Open(void*, void*, U32 screen_width, U32 screen_height) = 0; // FIXME: Figure out what these return.
+    virtual void* Open(void*, void*) = 0;
+    virtual void* Open(void*) = 0;
+    virtual void* Open() = 0;
+    virtual void* Open(U32 screen_width, U32 screen_height) = 0;
+    virtual void Setup(int subsystem, int video_mode) = 0;
     virtual void Start() = 0;
-    virtual void fillerfunc16() = 0;
+    virtual void* GetWindowHandle() = 0; // Not sure what this returns, the window handle is always NULL
     virtual BOOL Update() = 0;
     virtual void Release() = 0;
-    virtual void fillerfunc19() = 0;
-    virtual void fillerfunc20() = 0;
-    virtual void fillerfunc21() = 0;
-    virtual void fillerfunc22() = 0;
-    virtual void fillerfunc23() = 0;
-    virtual void fillerfunc24() = 0;
-    virtual void fillerfunc25() = 0;
-    virtual void fillerfunc26() = 0;
-    virtual void fillerfunc27() = 0;
-    virtual void fillerfunc28() = 0;
-    virtual void fillerfunc29() = 0;
-    virtual void fillerfunc30() = 0;
+    virtual void EnableDMACheck() = 0;
+    virtual void ResetDMACheck() = 0;
+    virtual RwRect GetRect() = 0;
+    virtual CCharset* GetCharset() = 0;
+    virtual BOOL IsRendering() = 0;
+    virtual U32 GetFPS() = 0;
+    virtual F64 GetTime() = 0;
+    virtual void AllowEscape() = 0;
+    virtual void Screenshot(char*, IRaster*) = 0;
+    virtual void RegisterWarningCollector(IWarningCollector*) = 0;
+    virtual void RegisterTextureCallback(ITextureCallback*) = 0;
+    virtual void RegisterInitCallback(IInitCallback*) = 0;
     virtual void RegisterShadowMapValidationCallback(IShadowMapValidationCallback*) = 0;
-    virtual void fillerfunc32() = 0;
-    virtual void fillerfunc33() = 0;
-    virtual void fillerfunc34() = 0;
-    virtual void fillerfunc35() = 0;
+    virtual U32 GetSize() = 0;
+    virtual U32 GetResourceArenaUsed() = 0;
+    virtual void* GetVectorMemory() = 0; // FIXME: Figure out the return type
+    virtual U32 GetNumberOfAlphaAtomicBufferized() = 0;
     virtual void AlphaEnable() = 0;
     virtual void AlphaAtomicBufferization(BOOL enable) = 0;
     virtual BOOL IsAlphaAtomicBufferizationEnabled() = 0;
-    virtual void fillerfunc39() = 0;
-    virtual void fillerfunc40() = 0;
-    virtual void fillerfunc41() = 0;
-    virtual void fillerfunc42() = 0;
-    virtual void fillerfunc43() = 0;
-    virtual void fillerfunc44() = 0;
-    virtual void fillerfunc45() = 0;
-    virtual void fillerfunc46() = 0;
-    virtual void fillerfunc47() = 0;
-    virtual void fillerfunc48() = 0;
-    virtual void fillerfunc49() = 0;
-    virtual void fillerfunc50() = 0;
-    virtual void fillerfunc51() = 0;
-    virtual void fillerfunc52() = 0;
-    virtual void fillerfunc53() = 0;
-    virtual void fillerfunc54() = 0;
-    virtual void fillerfunc55() = 0;
-    virtual void fillerfunc56() = 0;
-    virtual void fillerfunc57() = 0;
-    virtual void fillerfunc58() = 0;
-    virtual void fillerfunc59() = 0;
-    virtual void fillerfunc60() = 0;
-    virtual void fillerfunc61() = 0;
-    virtual void fillerfunc62() = 0;
-    virtual void fillerfunc63() = 0;
+    virtual void EnableAtomicPreclip(BOOL enable) = 0;
+    virtual void IsAlphaPreclippingEnabled() = 0;
+    virtual BOOL EnableCameraOrthoNormalization(BOOL enable) = 0;
+    virtual BOOL IsCameraOrthoNormalizationEnabled() = 0;
+    virtual void EnableShowWindow(BOOL enable) = 0;
+    virtual BOOL IsForeground() = 0;
+    virtual void DisableAlphaTest() = 0;
+    virtual void PrepareAlphaTest() = 0;
+    virtual void SetAlphaTest(U32) = 0;
+    virtual void RestoreAlphaTest() = 0;
+    virtual U32 GetShadowMapImageProcessingRasterWidth() = 0;
+    virtual U32 GetShadowMapImageProcessingRasterHeight() = 0;
+    virtual void SetShadowMapImageProcessingResolution(U32 width, U32 height) = 0;
+    virtual U32 GetNumberOfAdapters() = 0;
+    virtual void SetAdapter(int) = 0;
+    virtual int GetCurrentAdapter() = 0;
+    virtual SRWAdapterInfo GetAdapterInfo() = 0;
+    virtual U32 GetNumberOfVideoModes() = 0;
+    virtual void SetVideoMode(int) = 0;
+    virtual int GetCurrentVideoMode() = 0;
+    virtual void GetVideoModeInfo(int, SRWVideoModeInfo*) = 0;
+    virtual U32 GetTextureMemorySize() = 0;
+    virtual U32 GetMaxTextureSize() = 0;
+    virtual void DisplayMetrics() = 0;
+    virtual void DumpDictionaryInConsole() = 0;
     virtual CScene* CreateScene() = 0;
-    virtual void fillerfunc65() = 0;
+    virtual U32 GetSceneIndex(IScene* scene) = 0;
     virtual CScene* GetScene(int) = 0;
-    virtual void fillerfunc67() = 0;
-    virtual void fillerfunc68() = 0;
+    virtual U32 GetNumberOfScenes() = 0;
+    virtual void DestroyScene(IScene* scene) = 0;
     virtual void SetImagePath(char* path) = 0;
-    virtual void fillerfunc70() = 0;
-    virtual void fillerfunc71() = 0;
-    virtual void fillerfunc72() = 0;
-    virtual CRWStream* OpenStreamMemory(U32, CDKW_Memory*) = 0; // FIXME: RwStreamAccessType, CDKW_Memory*
-    virtual void fillerfunc74() = 0;
+    virtual CRWStream* OpenStream(RwStreamType type, RwStreamAccessType access_type, const void*) = 0;
+    virtual CRWStream* OpenStreamFile(RwStreamAccessType access_type, const FILE* file) = 0; // FIXME: std::FILE*
+    virtual CRWStream* OpenStreamFileName(RwStreamAccessType access_type, char* filename) = 0;
+    virtual CRWStream* OpenStreamMemory(RwStreamAccessType access_type, CDKW_Memory* memory) = 0;
+    virtual CRWStream* OpenStreamCustom(RwStreamAccessType access_type, const void*) = 0;
     virtual void DestroyStream(IRWStream*) = 0;
     virtual CObjectDictionary* GetObjectDictionary() = 0;
     virtual CAnimDictionary* GetAnimDictionary() = 0;
     virtual CTextureDictionary* GetTextureDictionary() = 0;
     virtual CImmediate* GetImmediate() = 0;
     virtual CTimerGCN* CreateTimer() = 0;
-    virtual void fillerfunc81() = 0;
+    virtual void DestroyTimer(ITimer* timer) = 0;
     virtual void SetRenderState(RwRenderState, void*) = 0;
-    virtual void fillerfunc83() = 0;
+    virtual BOOL SetRaster(IRaster* raster) = 0;
     virtual void RegisterEvent(U32, std::string name, IEventAnimationCallback*) = 0;
-    // TODO
+    virtual BOOL ChangeEventCallback(U32, IEventAnimationCallback*) = 0;
+    virtual BOOL ChangeEventCallback(std::string name, IEventAnimationCallback*) = 0;
+    virtual IEventAnimationCallback* GetEventCallback(U32) = 0;
+    virtual IEventAnimationCallback* GetEventCallback(std::string name) = 0;
+    virtual U32 GetNumberOfEvents() = 0;
+    virtual U32 FindEvent(U32) = 0;
+    virtual U32 FindEvent(std::string name) = 0;
 };
 
 }

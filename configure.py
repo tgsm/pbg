@@ -602,7 +602,7 @@ config.libs = [
             Object(NonMatching, "engine/filesys/DkFileSysUnCompress.cpp"),
             Object(NonMatching, "engine/display/DkDisplay.cpp"),
             Object(NonMatching, "engine/display/CEngine.cpp"),
-            Object(NonMatching, "engine/display/IEngine.cpp"),
+            Object(Matching, "engine/display/IEngine.cpp"),
             Object(Matching, "engine/display/CDkWrapEngine.cpp"),
             Object(NonMatching, "engine/display/CObjectDictionary.cpp"),
             Object(NonMatching, "engine/display/IAnimDictionary.cpp"),
