@@ -1,18 +1,37 @@
 #ifndef ENGINE_DISPLAY_CTEXTUREDICTIONARY_H
 #define ENGINE_DISPLAY_CTEXTUREDICTIONARY_H
 
+#include <vector>
+#include "engine/display/ITextureCallback.h"
 #include "engine/display/ITextureDictionary.h"
 
 namespace DKDSP {
 
 class CEngine;
+class CDKW_TexDictionary;
+
+// TODO
+struct SIMAGEENTRY {};
+struct SRASTERENTRY {};
 
 class CTextureDictionary : ITextureDictionary {
 public:
     CEngine* m_engine;
-    U8 m_unk8[0x44 - 0x8];
+    ITextureCallback* m_texture_callback;
+    std::vector<SIMAGEENTRY> m_image_entries;
+    std::vector<SRASTERENTRY> m_raster_entries;
+    std::vector<CTexture*> m_textures24;
+    CDKW_TexDictionary* m_wrap_texdictionary;
+    std::vector<CTexture*> m_textures34;
+    BOOL m_unk40;
 
 public:
+    CTextureDictionary() {
+        m_engine = NULL;
+        m_wrap_texdictionary = NULL;
+        m_texture_callback = NULL;
+        m_unk40 = FALSE;
+    }
     ~CTextureDictionary();
 
     virtual void Release();

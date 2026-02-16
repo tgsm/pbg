@@ -31,9 +31,9 @@ public:
 
     void PreInit(RwEngineOpenParams*);
     void EngineInit(int argc, char** argv);
-    void GCNInit();
 
     static S64 OSGetTime();
+    static void GCNInit();
 };
 
 #endif

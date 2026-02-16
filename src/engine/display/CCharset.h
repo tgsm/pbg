@@ -11,6 +11,7 @@ public:
     U8 m_unk0[0x14];
 
 public:
+    CCharset();
     ~CCharset();
 
     void SetDkWrapCharset(CDKW_Charset* wrap_charset, int);

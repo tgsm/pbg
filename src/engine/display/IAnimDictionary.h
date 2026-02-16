@@ -12,6 +12,8 @@ namespace DKDSP {
 // TODO
 class IAnimDictionary {
 public:
+    IAnimDictionary();
+
     virtual void Release() = 0;
     virtual void func1() = 0;
     virtual void func2() = 0;

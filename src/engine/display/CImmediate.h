@@ -10,6 +10,7 @@ public:
     U8 m_unk4[0x1C - 0x4];
 
 public:
+    CImmediate();
     ~CImmediate();
 
     virtual void func0();

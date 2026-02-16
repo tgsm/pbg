@@ -8,6 +8,8 @@ namespace DKDSP {
 // TODO
 class IHierarchy {
 public:
+    IHierarchy();
+
     virtual int GetSize() = 0;
     virtual int GetNumberOfNodes() = 0;
     virtual void func10() = 0;

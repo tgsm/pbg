@@ -52,7 +52,6 @@ public:
     void EngineInit(int argc, char** argv);
     void PreInit(RwEngineOpenParams*);
     void PostInit();
-    void GCNInit();
     S64 OSGetTime();
 
     static U32 GetFPS() {

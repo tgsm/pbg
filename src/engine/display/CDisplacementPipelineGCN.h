@@ -1,12 +1,12 @@
 #ifndef ENGINE_DISPLAY_CDISPLACEMENTPIPELINEGCN_H
 #define ENGINE_DISPLAY_CDISPLACEMENTPIPELINEGCN_H
 
-#include "types.h"
+#include "engine/display/IDisplacementPipeline.h"
 
 namespace DKDSP {
 
 // TODO
-class CDisplacementPipelineGCN {
+class CDisplacementPipelineGCN : public IDisplacementPipeline {
 public:
     ~CDisplacementPipelineGCN();
 

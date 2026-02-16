@@ -24,6 +24,12 @@ struct SEVENTANIMATIONCALLBACKENTRY {
 };
 REQUIRE_SIZE(SEVENTANIMATIONCALLBACKENTRY, 0xC);
 
+// Unknown
+struct SRenderState {
+    RwRenderState state;
+    int unk4;
+};
+
 class CEngine : public IEngine {
 public:
     std::vector<CScene*> m_scenes;
@@ -38,20 +44,51 @@ public:
     CCharset m_charset;
     std::vector<CTimer*> m_timers;
     BOOL m_rendering;
-    U8 m_unk130[0x220 - 0x130];
+    U32 m_unk130;
+    SRenderState m_render_states[29];
+    U32 m_unk21C;
     void* m_window_handle;
     std::vector<SEVENTANIMATIONCALLBACKENTRY> m_event_animation_callback_entries;
     BOOL m_adl_enabled;
     CLight* m_adl_directional_light;
     BOOL m_unk238;
-    U8 m_unk23C[0x240 - 0x23C];
+    U32 m_unk23C;
     U32 m_shadow_map_processing_width;
     U32 m_shadow_map_processing_height;
     void* m_gcn_video_mode;
 
 public:
     CEngine() {
-        // TODO
+        m_wrap_engine = NULL;
+        m_rendering = FALSE;
+        m_unk21C = 0;
+        m_adl_enabled = FALSE;
+        m_adl_directional_light = NULL;
+        m_unk238 = FALSE;
+
+        ms_nUniquenessCounter = 0;
+
+        m_shadow_map_processing_width = 128;
+        m_shadow_map_processing_height = 128;
+
+        m_gcn_video_mode = NULL;
+
+        for (int i = 0; i < 29; i++) {
+            m_render_states[i].state = (RwRenderState)0;
+            m_render_states[i].unk4 = 0;
+        }
+
+        m_window_handle = NULL;
+        m_unk130 = 0;
+
+        ms_pGlobalTextureDictionary = &m_texture_dictionary;
+        ms_pEngine = this;
+
+        AS_ULONG_VECTOR_HACK(m_scenes).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_timers).reserve(16);
+        m_event_animation_callback_entries.reserve(16);
+
+        m_unk23C = 0;
     }
     ~CEngine();
 

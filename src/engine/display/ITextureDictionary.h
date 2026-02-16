@@ -12,6 +12,8 @@ class ITextureCallback;
 
 class ITextureDictionary {
 public:
+    ITextureDictionary();
+
     virtual void Release();
     virtual void Update();
     virtual U32 GetImageSize();

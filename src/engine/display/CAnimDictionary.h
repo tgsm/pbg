@@ -1,19 +1,44 @@
 #ifndef ENGINE_DISPLAY_CANIMDICTIONARY_H
 #define ENGINE_DISPLAY_CANIMDICTIONARY_H
 
+#include <vector>
+#include "engine/display/CAnimationStar.h"
+#include "engine/display/CAnimationStarController.h"
+#include "engine/display/CController.h"
+#include "engine/display/CDMorphAnimation.h"
+#include "engine/display/CEventAnimation.h"
 #include "engine/display/IAnimDictionary.h"
 
 namespace DKDSP {
 
 class CEngine;
+class CMaterialAnimation;
 
 // TODO
 class CAnimDictionary : public IAnimDictionary {
 public:
     CEngine* m_engine;
-    U8 m_unk8[0x5C - 0x8];
+    std::vector<CAnimation*> m_unk8;
+    std::vector<CDMorphAnimation*> m_unk14;
+    std::vector<CMaterialAnimation*> m_unk20;
+    std::vector<CEventAnimation*> m_unk2C;
+    std::vector<CController*> m_unk38;
+    std::vector<CAnimationStar*> m_unk44;
+    std::vector<CAnimationStarController*> m_unk50;
 
 public:
+    CAnimDictionary() {
+        DONT_INLINE_HACK();
+
+        m_engine = NULL;
+        AS_ULONG_VECTOR_HACK(m_unk8).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_unk14).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_unk20).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_unk2C).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_unk38).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_unk44).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_unk50).reserve(16);
+    }
     ~CAnimDictionary();
 
     virtual void Release();

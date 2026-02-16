@@ -11,6 +11,8 @@ class CParticleEmitterDefinition;
 
 class IObjectDictionary {
 public:
+    IObjectDictionary();
+
     virtual void Release() = 0;
     virtual void func1() = 0;
     virtual void func2() = 0;

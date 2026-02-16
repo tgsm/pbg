@@ -8,6 +8,8 @@ namespace DKDSP {
 
 class IShadowMapPipeline : public IPipeline {
 public:
+    IShadowMapPipeline();
+
     virtual BOOL Create() = 0;
     virtual void Release() = 0;
     virtual void SetupClump(IClump* clump, int) = 0;

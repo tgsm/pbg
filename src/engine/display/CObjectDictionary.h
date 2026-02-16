@@ -1,18 +1,31 @@
 #ifndef ENGINE_DISPLAY_COBJECTDICTIONARY_H
 #define ENGINE_DISPLAY_COBJECTDICTIONARY_H
 
+#include <vector>
 #include "engine/display/IObjectDictionary.h"
 
 namespace DKDSP {
 
 class CEngine;
 
+// TODO
+struct SCLUMPENTRY {};
+struct SSPLINEENTRY {};
+
 class CObjectDictionary : public IObjectDictionary {
 public:
     CEngine* m_engine;
-    U8 m_unk8[0x2C - 0x8];
+    std::vector<SCLUMPENTRY> m_clump_entries;
+    std::vector<SSPLINEENTRY> m_spline_entries;
+    std::vector<unsigned long> m_unk20;
 
 public:
+    CObjectDictionary() {
+        m_engine = NULL;
+        m_clump_entries.reserve(16);
+        m_spline_entries.reserve(16);
+        m_unk20.reserve(16);
+    }
     ~CObjectDictionary();
 
     virtual void Release();

@@ -1,12 +1,12 @@
 #ifndef ENGINE_DISPLAY_CMATERIALANIMATIONPIPELINEGCN_H
 #define ENGINE_DISPLAY_CMATERIALANIMATIONPIPELINEGCN_H
 
-#include "types.h"
+#include "engine/display/IMaterialAnimationPipeline.h"
 
 namespace DKDSP {
 
 // TODO
-class CMaterialAnimationPipelineGCN {
+class CMaterialAnimationPipelineGCN : public IMaterialAnimationPipeline {
 public:
     ~CMaterialAnimationPipelineGCN();
 
