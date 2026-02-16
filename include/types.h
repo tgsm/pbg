@@ -2,6 +2,7 @@
 #define PIGLET_TYPES_H
 
 #include <size_t.h>
+#include "dont_inline_hack.h"
 #include "require_size.h"
 
 // Note: only include this header inside PBG-related headers/source code files.
