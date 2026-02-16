@@ -8,7 +8,14 @@ namespace DKDSP {
 
 class CScene : public IScene {
 public:
+    U8 m_unk4[0xD8 - 0x4];
+
+public:
+    CScene();
+    ~CScene();
+
     virtual void Release();
+    virtual U32 GetSize();
     virtual CCamera* CreateCamera();
     virtual CCamera* GetCamera(int id);
     virtual void RemoveCamera(ICamera* camera);
@@ -42,10 +49,15 @@ public:
     virtual BOOL BeginRender();
     virtual void RenderClump(IClump* clump);
     virtual void RenderParticleEmitter(IParticleEmitter*, int);
+    virtual void RenderBatch3D(IIm3DBatch*, RwPrimitiveType, CDKW_Matrix*, int);
+    virtual void RenderBatch2D(IIm2DBatch*, RwPrimitiveType, int);
     virtual void Flush();
     virtual void EndRender();
     virtual void Flip(int);
+
+    void Initialize(CObjectDictionary* object_dictionary, CEngine* engine);
 };
+REQUIRE_SIZE(CScene, 0xD8);
 
 }
 

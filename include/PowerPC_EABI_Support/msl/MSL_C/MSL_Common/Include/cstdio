@@ -6,6 +6,7 @@
 #include "stddef.h"
 
 #ifdef __cplusplus
+namespace std {
 extern "C" {
 #endif
 
@@ -32,6 +33,22 @@ int sscanf(const char* str, const char* format, ...);
 
 #ifdef __cplusplus
 }
+}
+
+using std::fopen;
+using std::fclose;
+using std::fread;
+using std::fwrite;
+using std::fgets;
+using std::fputs;
+using std::feof;
+using std::fseek;
+using std::fflush;
+using std::ftell;
+using std::fprintf;
+using std::sprintf;
+using std::vsprintf;
+using std::sscanf;
 #endif
 
 #endif

@@ -15,7 +15,7 @@ public:
     virtual void func4() = 0;
     virtual void func5() = 0;
     virtual void func6() = 0;
-    virtual void func7() = 0;
+    virtual U32 GetSize() = 0;
     virtual void func8() = 0;
     virtual void func9() = 0;
     virtual void func10() = 0;

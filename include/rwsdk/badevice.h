@@ -4,9 +4,29 @@
 #include <stdarg.h>
 #include <rwsdk/plcore/bafsys.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct RwEngineOpenParams {
     void* displayID;
+
+    // These may be unique to PBG, they're not present in BfBB DWARF
+    void* unk4;
+    int unk8;
+    int unkC;
 } RwEngineOpenParams;
+
+typedef struct RwSubSystem {
+    char unk0[0x50];
+} RwSubSystem;
+
+typedef struct RwVideoMode {
+    unsigned int unk0;
+    unsigned int unk4;
+    unsigned int unk8;
+    unsigned int unkC;
+} RwVideoMode;
 
 typedef struct RwStringFunctions {
     int (*rwsprintf)(char* str, const char* format, ...); // 0xF0
@@ -47,5 +67,19 @@ typedef struct RwGlobals {
 extern RwGlobals* RwEngineInstance;
 
 unsigned int RwEngineGetVersion(void);
+unsigned int RwEngineGetNumSubSystems(void);
+RwSubSystem* RwEngineGetSubSystemInfo(RwSubSystem* subsystem, int);
+int RwEngineGetCurrentSubSystem(void);
+int RwEngineSetSubSystem(int);
+unsigned int RwEngineGetNumVideoModes(void);
+RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* videoMode, int);
+int RwEngineGetCurrentVideoMode(void);
+int RwEngineSetVideoMode(int);
+unsigned int RwEngineGetTextureMemorySize(void);
+unsigned int RwEngineGetMaxTextureSize(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

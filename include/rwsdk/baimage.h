@@ -26,6 +26,7 @@ RwImage* RwImageCreate(int width, int height, int depth);
 int RwImageDestroy(RwImage* image);
 RwImage* RwImageAllocatePixels(RwImage* image);
 RwImage* RwImageFreePixels(RwImage* image);
+void RwImageSetPath(char* path);
 RwImage* RwImageGammaCorrect(RwImage* image);
 float RwImageGetGamma(void);
 void RwImageSetGamma(float gamma);

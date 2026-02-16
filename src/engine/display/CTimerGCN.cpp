@@ -1,4 +1,3 @@
-#include <dolphin/os.h>
 #include "engine/display/CTimerGCN.h"
 #include "engine/wrap/DKW_GCNEngine.h"
 

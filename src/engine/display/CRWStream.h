@@ -10,6 +10,12 @@ namespace DKDSP {
 
 class CRWStream : public IRWStream {
 public:
+    U8 m_unk4[0x10];
+
+public:
+    CRWStream(CDKW_Stream* wrap_stream, RwStreamType type, RwStreamAccessType access_type, void*);
+    ~CRWStream();
+
     virtual BOOL FindChunk(U32, U32, U32);
     virtual BOOL ReadChunkHeaderInfo(SRWChunckHeaderInfo*);
     virtual BOOL Read(void*, U32); // does this actually return a BOOL?
@@ -22,6 +28,8 @@ public:
     virtual BOOL WriteS32(S32*, U32);
     virtual BOOL WriteFloat(F32*, U32);
     virtual BOOL Skip(U32);
+
+    void Release();
 };
 
 }

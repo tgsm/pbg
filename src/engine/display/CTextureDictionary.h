@@ -5,50 +5,61 @@
 
 namespace DKDSP {
 
+class CEngine;
+
 class CTextureDictionary : ITextureDictionary {
 public:
-    virtual void Release() = 0;
-    virtual void Update() = 0;
-    virtual U32 GetImageSize() = 0;
-    virtual U32 GetRasterSize() = 0;
-    virtual U32 GetTextureSize() = 0;
-    virtual U32 GetSize() = 0;
-    virtual U32 GetVectorSize() = 0;
-    virtual void RegisterTextureCallback(ITextureCallback*) = 0;
-    virtual CImage* LoadImageFromFile(char*, char*) = 0;
-    virtual CImage* LoadImage(std::string, IRWStream*) = 0;
-    virtual CImage* LoadImageFromTGA(std::string, IRWStream*) = 0;
-    virtual U32 CopyImage(std::string, std::string) = 0; // what does this return?
-    virtual CImage* CreateImage(std::string, int, int, int) = 0;
-    virtual BOOL WriteImage(IImage*, char*) = 0;
-    virtual BOOL WriteImage(IImage*, IRWStream*) = 0;
-    virtual CImage* FindImage(std::string) = 0;
-    virtual U32 GetNumberOfImages() = 0;
-    virtual CImage* GetImage(int) = 0;
-    virtual void RemoveImage(std::string) = 0;
-    virtual void RemoveImage(IImage*) = 0;
-    virtual void func58() = 0;
-    virtual void func5C() = 0;
-    virtual void func60() = 0;
-    virtual void func64() = 0;
-    virtual void func68() = 0;
-    virtual void func6C() = 0;
-    virtual void func70() = 0;
-    virtual void func74() = 0;
-    virtual void func78() = 0;
-    virtual void func7C() = 0;
-    virtual void func80() = 0;
-    virtual void func84() = 0;
-    virtual void func88() = 0;
-    virtual CTexture* LoadTextureFromFile(char* name, U32, U32) = 0;
-    virtual void func90() = 0;
-    virtual void func94() = 0;
-    virtual void func98() = 0;
-    virtual CTexture* FindTexture(char* name) = 0;
+    CEngine* m_engine;
+    U8 m_unk8[0x44 - 0x8];
+
+public:
+    ~CTextureDictionary();
+
+    virtual void Release();
+    virtual void Update();
+    virtual U32 GetImageSize();
+    virtual U32 GetRasterSize();
+    virtual U32 GetTextureSize();
+    virtual U32 GetSize();
+    virtual U32 GetVectorSize();
+    virtual void RegisterTextureCallback(ITextureCallback*);
+    virtual CImage* LoadImageFromFile(char*, char*);
+    virtual CImage* LoadImage(std::string, IRWStream*);
+    virtual CImage* LoadImageFromTGA(std::string, IRWStream*);
+    virtual U32 CopyImage(std::string, std::string); // what does this return?
+    virtual CImage* CreateImage(std::string, int, int, int);
+    virtual BOOL WriteImage(IImage*, char*);
+    virtual BOOL WriteImage(IImage*, IRWStream*);
+    virtual CImage* FindImage(std::string);
+    virtual U32 GetNumberOfImages();
+    virtual CImage* GetImage(int);
+    virtual void RemoveImage(std::string);
+    virtual void RemoveImage(IImage*);
+    virtual void func58();
+    virtual void func5C();
+    virtual void func60();
+    virtual void func64();
+    virtual void func68();
+    virtual void func6C();
+    virtual void func70();
+    virtual void func74();
+    virtual void func78();
+    virtual void func7C();
+    virtual void func80();
+    virtual void func84();
+    virtual void func88();
+    virtual CTexture* LoadTextureFromFile(char* name, U32, U32);
+    virtual void func90();
+    virtual void func94();
+    virtual void func98();
+    virtual CTexture* FindTexture(char* name);
     // FIXME: There are more virtuals after this, but this is all I need for now
+
+    void Init();
 
     static void RegisterCallbacks();
 };
+REQUIRE_SIZE(CTextureDictionary, 0x44);
 
 }
 

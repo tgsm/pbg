@@ -54,7 +54,7 @@ typedef struct RwStream {
 
 unsigned int RwStreamRead(RwStream* stream, void* dest, unsigned int size);
 unsigned int RwStreamWrite(RwStream* stream, void* src, unsigned int size);
-RwStream* RwStreamOpen(int, int, const char* path);
+RwStream* RwStreamOpen(RwStreamType type, RwStreamAccessType accessType, void* a2);
 int RwStreamClose(RwStream* stream, void* a1);
 
 #ifdef __cplusplus

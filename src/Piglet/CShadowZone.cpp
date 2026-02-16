@@ -56,7 +56,7 @@ BOOL CShadowZone::LoadShadowZone(DkXmd::CChunkIterator* iter) {
                     CDKW_Memory memory;
                     memory.m_unk4 = local_78;
                     memory.m_file = file;
-                    stream = display_engine->OpenStreamMemory(1, &memory);
+                    stream = display_engine->OpenStreamMemory(rwSTREAMREAD, &memory);
                     if (stream == NULL) {
                         return FALSE;
                     }

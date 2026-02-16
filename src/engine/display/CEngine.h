@@ -2,6 +2,9 @@
 #define ENGINE_DISPLAY_CENGINE_H
 
 #include "engine/display/IEngine.h"
+#include "engine/display/CDisplacementPipelineGCN.h"
+#include "engine/display/CMaterialAnimationPipelineGCN.h"
+#include "engine/display/CShadowMapPipelineGCN.h"
 
 namespace DKDSP {
 
@@ -10,98 +13,169 @@ struct IInitCallback {
 };
 // Unknown size
 
+struct SEVENTANIMATIONCALLBACKENTRY {
+    std::string name;
+    int id;
+    IEventAnimationCallback* callback;
+
+    SEVENTANIMATIONCALLBACKENTRY() : name("") {
+
+    }
+};
+REQUIRE_SIZE(SEVENTANIMATIONCALLBACKENTRY, 0xC);
+
 class CEngine : public IEngine {
 public:
-    virtual void fillerfunc0();
-    virtual void fillerfunc1();
-    virtual void fillerfunc2();
-    virtual void SetCharsetCreation(BOOL);
-    virtual void fillerfunc4();
-    virtual void fillerfunc5();
-    virtual void fillerfunc6();
-    virtual void fillerfunc7();
-    virtual void SetGCNVideoMode(void*);
-    virtual void fillerfunc9();
-    virtual void fillerfunc10();
-    virtual void fillerfunc11();
-    virtual void* Open(); // idk what this returns
-    virtual void fillerfunc13();
-    virtual void Setup(int, int);
+    std::vector<CScene*> m_scenes;
+    CObjectDictionary m_object_dictionary;
+    CAnimDictionary m_anim_dictionary;
+    CTextureDictionary m_texture_dictionary;
+    CImmediate m_immediate;
+    CShadowMapPipelineGCN m_shadow_map_pipeline;
+    CMaterialAnimationPipelineGCN m_material_animation_pipeline;
+    CDisplacementPipelineGCN m_displacement_pipeline;
+    CDkWrapEngine* m_wrap_engine;
+    CCharset m_charset;
+    std::vector<CTimer*> m_timers;
+    BOOL m_rendering;
+    U8 m_unk130[0x220 - 0x130];
+    void* m_window_handle;
+    std::vector<SEVENTANIMATIONCALLBACKENTRY> m_event_animation_callback_entries;
+    BOOL m_adl_enabled;
+    CLight* m_adl_directional_light;
+    BOOL m_unk238;
+    U8 m_unk23C[0x240 - 0x23C];
+    U32 m_shadow_map_processing_width;
+    U32 m_shadow_map_processing_height;
+    void* m_gcn_video_mode;
+
+public:
+    CEngine() {
+        // TODO
+    }
+    ~CEngine();
+
+    virtual void EnableADLPipelines();
+    virtual BOOL IsADLEnabled();
+    virtual void SetADLDirectionalLight(ILight*);
+    virtual void SetCharsetCreation(BOOL allow) { CDKW_Engine::ms_bAllowCharset = allow; }
+    virtual void* Init(void*, void*, U32 screen_width, U32 screen_height);
+    virtual void* Init(void* a1) { return Init(a1, NULL, 640, 480); }
+    virtual void* InitManaged() { return Init(NULL, NULL, 640, 480); }
+    virtual void* InitManaged(U32 screen_width, U32 screen_height) { return Init(NULL, NULL, screen_width, screen_height); }
+    virtual void SetGCNVideoMode(void* video_mode);
+    virtual void* Open(void*, void*, U32 screen_width, U32 screen_height); // FIXME: Figure out what these return.
+    virtual void* Open(void* a1, void* a2) { return Open(a1, a2, 640, 480); }
+    virtual void* Open(void* a1) { return Open(a1, NULL, 640, 480); }
+    virtual void* Open() { return Open(NULL, NULL, 640, 480); }
+    virtual void* Open(U32 screen_width, U32 screen_height) { return Open(NULL, NULL, 640, 480); }
+    virtual void Setup(int subsystem, int video_mode);
     virtual void Start();
-    virtual void fillerfunc16();
+    virtual void* GetWindowHandle(); // Not sure what this returns, the window handle is always NULL
     virtual BOOL Update();
     virtual void Release();
-    virtual void fillerfunc19();
-    virtual void fillerfunc20();
-    virtual void fillerfunc21();
-    virtual void fillerfunc22();
-    virtual void fillerfunc23();
-    virtual void fillerfunc24();
-    virtual void fillerfunc25();
-    virtual void fillerfunc26();
-    virtual void fillerfunc27();
-    virtual void fillerfunc28();
-    virtual void fillerfunc29();
-    virtual void fillerfunc30();
+    virtual void EnableDMACheck();
+    virtual void ResetDMACheck();
+    virtual RwRect GetRect();
+    virtual CCharset* GetCharset();
+    virtual BOOL IsRendering();
+    virtual U32 GetFPS();
+    virtual F64 GetTime();
+    virtual void AllowEscape();
+    virtual void Screenshot(char*, IRaster*);
+    virtual void RegisterWarningCollector(IWarningCollector*);
+    virtual void RegisterTextureCallback(ITextureCallback*);
+    virtual void RegisterInitCallback(IInitCallback*);
     virtual void RegisterShadowMapValidationCallback(IShadowMapValidationCallback*);
-    virtual void fillerfunc32();
-    virtual void fillerfunc33();
-    virtual void fillerfunc34();
-    virtual void fillerfunc35();
+    virtual U32 GetSize();
+    virtual U32 GetResourceArenaUsed();
+    virtual U32 GetVectorMemory();
+    virtual U32 GetNumberOfAlphaAtomicBufferized();
     virtual void AlphaEnable();
     virtual void AlphaAtomicBufferization(BOOL enable);
     virtual BOOL IsAlphaAtomicBufferizationEnabled();
-    virtual void fillerfunc39();
-    virtual void fillerfunc40();
-    virtual void fillerfunc41();
-    virtual void fillerfunc42();
-    virtual void fillerfunc43();
-    virtual void fillerfunc44();
-    virtual void fillerfunc45();
-    virtual void fillerfunc46();
-    virtual void fillerfunc47();
-    virtual void fillerfunc48();
-    virtual void fillerfunc49();
-    virtual void fillerfunc50();
-    virtual void fillerfunc51();
-    virtual void fillerfunc52();
-    virtual void fillerfunc53();
-    virtual void fillerfunc54();
-    virtual void fillerfunc55();
-    virtual void fillerfunc56();
-    virtual void fillerfunc57();
-    virtual void fillerfunc58();
-    virtual void fillerfunc59();
-    virtual void fillerfunc60();
-    virtual void fillerfunc61();
-    virtual void fillerfunc62();
-    virtual void fillerfunc63();
+    virtual void EnableAtomicPreclip(BOOL enable);
+    virtual BOOL IsAlphaPreclippingEnabled();
+    virtual void EnableCameraOrthoNormalization(BOOL enable);
+    virtual BOOL IsCameraOrthoNormalizationEnabled();
+    virtual void EnableShowWindow(BOOL enable);
+    virtual BOOL IsForeground();
+    virtual void DisableAlphaTest();
+    virtual void PrepareAlphaTest();
+    virtual void SetAlphaTest(U32);
+    virtual void RestoreAlphaTest();
+    virtual U32 GetShadowMapImageProcessingRasterWidth() { return m_shadow_map_processing_width; }
+    virtual U32 GetShadowMapImageProcessingRasterHeight() { return m_shadow_map_processing_height; }
+    virtual void SetShadowMapImageProcessingResolution(U32 width, U32 height) {
+        m_shadow_map_processing_height = height;
+        m_shadow_map_processing_width = width;
+    }
+    virtual U32 GetNumberOfAdapters();
+    virtual void SetAdapter(int);
+    virtual int GetCurrentAdapter();
+    virtual void GetAdapterInfo(int, SRWAdapterInfo*);
+    virtual U32 GetNumberOfVideoModes();
+    virtual void SetVideoMode(int);
+    virtual int GetCurrentVideoMode();
+    virtual void GetVideoModeInfo(int, SRWVideoModeInfo*);
+    virtual U32 GetTextureMemorySize();
+    virtual U32 GetMaxTextureSize();
+    virtual void DisplayMetrics();
+    virtual void DumpDictionaryInConsole();
     virtual CScene* CreateScene();
-    virtual void fillerfunc65();
+    virtual U32 GetSceneIndex(IScene* scene);
     virtual CScene* GetScene(int);
-    virtual void fillerfunc67();
-    virtual void fillerfunc68();
+    virtual U32 GetNumberOfScenes();
+    virtual void DestroyScene(IScene* scene);
     virtual void SetImagePath(char* path);
-    virtual void fillerfunc70();
-    virtual void fillerfunc71();
-    virtual void fillerfunc72();
-    virtual CRWStream* OpenStreamMemory(U32, CDKW_Memory*); // FIXME: RwStreamAccessType, CDKW_Memory*
-    virtual void fillerfunc74();
+    virtual CRWStream* OpenStream(RwStreamType type, RwStreamAccessType access_type, const void*);
+    virtual CRWStream* OpenStreamFile(RwStreamAccessType access_type, const std::FILE* file);
+    virtual CRWStream* OpenStreamFileName(RwStreamAccessType access_type, char* filename);
+    virtual CRWStream* OpenStreamMemory(RwStreamAccessType access_type, CDKW_Memory* memory);
+    virtual CRWStream* OpenStreamCustom(RwStreamAccessType access_type, const void*);
     virtual void DestroyStream(IRWStream*);
     virtual CObjectDictionary* GetObjectDictionary();
     virtual CAnimDictionary* GetAnimDictionary();
     virtual CTextureDictionary* GetTextureDictionary();
     virtual CImmediate* GetImmediate();
     virtual CTimerGCN* CreateTimer();
-    virtual void fillerfunc81();
+    virtual void DestroyTimer(ITimer* timer);
     virtual void SetRenderState(RwRenderState, void*);
-    virtual void fillerfunc83();
-    virtual void RegisterEvent(U32, std::string name, IEventAnimationCallback*);
-    // TODO
+    virtual BOOL SetRaster(IRaster* raster);
+    virtual BOOL RegisterEvent(U32, std::string name, IEventAnimationCallback*);
+    virtual BOOL ChangeEventCallback(U32, IEventAnimationCallback*);
+    virtual BOOL ChangeEventCallback(std::string name, IEventAnimationCallback*);
+    virtual IEventAnimationCallback* GetEventCallback(U32);
+    virtual IEventAnimationCallback* GetEventCallback(std::string name);
+    virtual U32 GetNumberOfEvents();
+    virtual int FindEvent(U32);
+    virtual int FindEvent(std::string name);
 
+    CRWStream* OpenStreamInline(CDKW_Stream* wrap_stream, RwStreamType type, RwStreamAccessType access_type, void* a4) {
+        CRWStream* stream = new CRWStream(wrap_stream, type, access_type, a4);
+        if (stream == NULL) {
+            RwStreamClose(wrap_stream, a4);
+            return NULL;
+        }
+        return stream;
+    }
+
+    void SetCurrentCamera(ICamera* camera);
+    void SetRendering(BOOL, CScene* scene);
+    CShadowMapPipelineGCN* GetShadowMapPipeline();
+    CMaterialAnimationPipelineGCN* GetMaterialAnimationPipeline();
+    void UpdateRenderState();
+    SEVENTANIMATIONCALLBACKENTRY* GetEvent(int id);
+
+    static IWarningCollector* ms_pWarningCollector;
     static IInitCallback* ms_pInitCallback;
+    static IShadowMapValidationCallback* ms_pShadowMapValidationCallback;
+    static CTextureDictionary* ms_pGlobalTextureDictionary;
     static CEngine* ms_pEngine;
+    static CScene* ms_pCurrentRenderingScene;
+    static U32 ms_nUniquenessCounter;
 };
+REQUIRE_SIZE(CEngine, 0x24C);
 
 }
 

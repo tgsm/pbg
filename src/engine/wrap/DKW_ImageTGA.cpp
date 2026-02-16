@@ -156,7 +156,7 @@ BOOL CDKW_ImageTGA::CheckTGA(CDKW_Stream *stream) {
 }
 
 CDKW_Image* CDKW_ImageTGA::Read(const char* path) {
-    CDKW_Stream* stream = (CDKW_Stream*)RwStreamOpen(2, 1, path);
+    CDKW_Stream* stream = (CDKW_Stream*)RwStreamOpen(rwSTREAMFILENAME, rwSTREAMREAD, (void*)path);
     if (stream == NULL) {
         return NULL;
     }
@@ -534,7 +534,7 @@ CDKW_Image* CDKW_ImageTGA::Write(CDKW_Image* image, const char* path) {
         return NULL;
     }
 
-    stream = (CDKW_Stream*)RwStreamOpen(2, 2, path);
+    stream = (CDKW_Stream*)RwStreamOpen(rwSTREAMFILENAME, rwSTREAMWRITE, (void*)path);
     if (stream == NULL) {
         return NULL;
     }

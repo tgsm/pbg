@@ -9,6 +9,7 @@
 class CDKW_AlphaSortedAtomicList {
 public:
     static void Render(CDKW_AlphaSortedAtomicList*);
+    static U32 ms_nNumberOfEntries;
 };
 
 // TODO
