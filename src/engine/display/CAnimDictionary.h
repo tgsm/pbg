@@ -7,12 +7,12 @@
 #include "engine/display/CController.h"
 #include "engine/display/CDMorphAnimation.h"
 #include "engine/display/CEventAnimation.h"
+#include "engine/display/CMaterialAnimation.h"
 #include "engine/display/IAnimDictionary.h"
 
 namespace DKDSP {
 
 class CEngine;
-class CMaterialAnimation;
 
 // TODO
 class CAnimDictionary : public IAnimDictionary {
