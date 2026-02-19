@@ -650,7 +650,7 @@ config.libs = [
             Object(NonMatching, "engine/display/CMaterialAnimationPipelineGCN.cpp"),
             Object(NonMatching, "engine/display/IMirror.cpp"),
             Object(NonMatching, "engine/display/CMirror.cpp"),
-            Object(NonMatching, "engine/display/IMaterialAnimation.cpp"),
+            Object(Matching, "engine/display/IMaterialAnimation.cpp"),
             Object(NonMatching, "engine/display/CMaterialAnimation.cpp"),
             Object(Matching, "engine/display/IWarp.cpp"),
             Object(NonMatching, "engine/display/CWarp.cpp"),
