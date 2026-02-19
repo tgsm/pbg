@@ -605,7 +605,7 @@ config.libs = [
             Object(Matching, "engine/display/IEngine.cpp"),
             Object(Matching, "engine/display/CDkWrapEngine.cpp"),
             Object(NonMatching, "engine/display/CObjectDictionary.cpp"),
-            Object(NonMatching, "engine/display/IAnimDictionary.cpp"),
+            Object(Matching, "engine/display/IAnimDictionary.cpp"),
             Object(NonMatching, "engine/display/IObjectDictionary.cpp"),
             Object(NonMatching, "engine/display/ITextureDictionary.cpp"),
             Object(NonMatching, "engine/display/CAnimDictionary.cpp"),
