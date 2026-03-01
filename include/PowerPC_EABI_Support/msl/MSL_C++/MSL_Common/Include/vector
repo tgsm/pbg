@@ -24,6 +24,11 @@ public:
 
     void clear();
 
+    Allocator& alloc() {
+        // FIXME: Fakematch
+        return (Allocator&)m_capacity;
+    }
+
 public:
     unsigned long m_capacity;
     unsigned long m_size;

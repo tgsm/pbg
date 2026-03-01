@@ -2,9 +2,12 @@
 #define ENGINE_DISPLAY_CRWSTREAM_H
 
 #include <rwsdk/plcore/bastream.h>
+#include "engine/display/CAnimation.h"
 #include "engine/display/IRWStream.h"
 
 class CDKW_Stream : public RwStream {};
+
+struct RpDMorphAnimation;
 
 namespace DKDSP {
 
@@ -30,6 +33,10 @@ public:
     virtual BOOL Skip(U32);
 
     void Release();
+    CDKW_Animation* ReadAnimation();
+    CDKW_Animation* ReadSmoothAnimation();
+    RpDMorphAnimation* ReadDMorphAnimation();
+    BOOL WriteAnimation(CDKW_Animation* animation);
 };
 
 }

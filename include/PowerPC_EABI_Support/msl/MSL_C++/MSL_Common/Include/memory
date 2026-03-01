@@ -18,6 +18,14 @@ struct allocator {
     allocator() {}
 
     // TODO
+
+    T* allocate(size_t n, const void* hint) {
+        T* ptr = (T*)operator new(n * 4);
+        if (ptr == NULL) {
+            __msl_error("Memory allocation failure");
+        }
+        return ptr;
+    }
 };
 
 }

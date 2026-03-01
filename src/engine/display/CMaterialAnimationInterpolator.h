@@ -9,6 +9,9 @@ namespace DKDSP {
 class CMaterialAnimationInterpolator {
 public:
     U8 m_unk0[0x28];
+
+public:
+    CMaterialAnimationInterpolator();
 };
 REQUIRE_SIZE(CMaterialAnimationInterpolator, 0x28);
 

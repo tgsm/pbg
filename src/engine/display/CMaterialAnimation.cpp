@@ -6,9 +6,9 @@ CMaterialAnimation::CMaterialAnimation() : m_name("") {
     m_duration = 0.0f;
     m_key_table = NULL;
     m_nb_keyframes = 0;
-    m_interpolator_types[0] = ANIM_SCHEME_0;
-    m_interpolator_types[1] = ANIM_SCHEME_0;
-    m_interpolator_types[2] = ANIM_SCHEME_0;
+    m_interpolator_types[0] = MAT_ANIM_SCHEME_0;
+    m_interpolator_types[1] = MAT_ANIM_SCHEME_0;
+    m_interpolator_types[2] = MAT_ANIM_SCHEME_0;
 }
 
 CMaterialAnimation::~CMaterialAnimation() {

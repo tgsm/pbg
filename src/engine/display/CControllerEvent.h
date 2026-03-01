@@ -2,14 +2,21 @@
 #define ENGINE_DISPLAY_CCONTROLLEREVENT_H
 
 #include "engine/display/ISubController.h"
+#include "engine/display/CControllerAnimEntry.h"
 
 namespace DKDSP {
 
 class CControllerEvent : public ISubController {
 public:
-    U8 m_unk4[0x18 - 0x4];
+    U32 m_unk4;
+    std::vector<CControllerAnimEntry> m_anim_entries;
+    U32 m_unk14;
 
 public:
+    CControllerEvent() {
+        m_unk4 = 0;
+        m_unk14 = 0;
+    }
     ~CControllerEvent();
 
     virtual void Release();

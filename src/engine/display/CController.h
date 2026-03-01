@@ -7,7 +7,6 @@
 #include "engine/display/CControllerHAnim.h"
 #include "engine/display/CControllerMaterial.h"
 #include "engine/display/CHierarchy.h"
-#include "engine/display/CMaterialAnimationInterpolator.h"
 #include "engine/display/IController.h"
 
 namespace DKDSP {
@@ -27,14 +26,15 @@ public:
     CControllerHAnim m_hanim_controller;
     CControllerDMorph m_dmorph_controller;
     CControllerMaterial m_material_controller;
-    CMaterialAnimationInterpolator m_material_animation_interpolator;
     CControllerEvent m_event_controller;
     CHierarchy* m_hierarchy;
     CClump* m_clump;
     void* m_user_data;
 
 public:
-    CController() {
+    CController() : m_name("") {
+        DONT_INLINE_HACK();
+
         m_time = 0.0f;
         m_unkC = 0.0f;
         m_speed = 1.0f;

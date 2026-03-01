@@ -1,16 +1,26 @@
 #ifndef ENGINE_DISPLAY_CCONTROLLERDMORPH_H
 #define ENGINE_DISPLAY_CCONTROLLERDMORPH_H
 
+#include <vector>
 #include "engine/display/ISubController.h"
 #include "engine/display/CClump.h"
+#include "engine/display/CControllerAnimEntry.h"
 
 namespace DKDSP {
 
 class CControllerDMorph : public ISubController {
 public:
-    U8 m_unk4[0x1C - 0x4];
+    U32 m_unk4;
+    U32 m_unk8;
+    U32 m_unkC;
+    std::vector<CControllerAnimEntry> m_anim_entries;
 
 public:
+    CControllerDMorph() {
+        m_unk4 = 0;
+        m_unk8 = 0;
+        m_unkC = 0;
+    }
     ~CControllerDMorph();
 
     virtual void Release();

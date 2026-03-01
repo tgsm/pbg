@@ -3,14 +3,27 @@
 
 #include "engine/display/ISubController.h"
 #include "engine/display/CClump.h"
+#include "engine/display/CControllerAnimEntry.h"
+#include "engine/display/CMaterialAnimationInterpolator.h"
 
 namespace DKDSP {
 
 class CControllerMaterial : public ISubController {
 public:
-    U8 m_unk4[0x20 - 0x4];
+    U32 m_unk4;
+    U32 m_unk8;
+    U32 m_unkC;
+    U32 m_unk10;
+    std::vector<CControllerAnimEntry> m_anim_entries;
+    CMaterialAnimationInterpolator m_material_animation_interpolator;
 
 public:
+    CControllerMaterial() {
+        m_unk4 = 0;
+        m_unk8 = 0;
+        m_unkC = 0;
+        m_unk10 = 0;
+    }
     ~CControllerMaterial();
 
     virtual void Release();
@@ -50,7 +63,7 @@ public:
 
     void UpdateClump(CClump* clump);
 };
-REQUIRE_SIZE(CControllerMaterial, 0x20);
+REQUIRE_SIZE(CControllerMaterial, 0x48);
 
 }
 

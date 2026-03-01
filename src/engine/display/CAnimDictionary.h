@@ -12,26 +12,26 @@ class CEngine;
 class CAnimDictionary : public IAnimDictionary {
 public:
     CEngine* m_engine;
-    std::vector<CAnimation*> m_unk8;
-    std::vector<CDMorphAnimation*> m_unk14;
-    std::vector<CMaterialAnimation*> m_unk20;
-    std::vector<CEventAnimation*> m_unk2C;
-    std::vector<CController*> m_unk38;
-    std::vector<CAnimationStar*> m_unk44;
-    std::vector<CAnimationStarController*> m_unk50;
+    std::vector<CAnimation*> m_animations;
+    std::vector<CDMorphAnimation*> m_dmorph_animations;
+    std::vector<CMaterialAnimation*> m_material_animations;
+    std::vector<CEventAnimation*> m_event_animations;
+    std::vector<CController*> m_controllers;
+    std::vector<CAnimationStar*> m_animation_stars;
+    std::vector<CAnimationStarController*> m_animation_star_controllers;
 
 public:
     CAnimDictionary() {
         DONT_INLINE_HACK();
 
         m_engine = NULL;
-        AS_ULONG_VECTOR_HACK(m_unk8).reserve(16);
-        AS_ULONG_VECTOR_HACK(m_unk14).reserve(16);
-        AS_ULONG_VECTOR_HACK(m_unk20).reserve(16);
-        AS_ULONG_VECTOR_HACK(m_unk2C).reserve(16);
-        AS_ULONG_VECTOR_HACK(m_unk38).reserve(16);
-        AS_ULONG_VECTOR_HACK(m_unk44).reserve(16);
-        AS_ULONG_VECTOR_HACK(m_unk50).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_animations).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_dmorph_animations).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_material_animations).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_event_animations).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_controllers).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_animation_stars).reserve(16);
+        AS_ULONG_VECTOR_HACK(m_animation_star_controllers).reserve(16);
     }
     ~CAnimDictionary();
 
@@ -52,8 +52,8 @@ public:
     virtual BOOL WriteAnimation(IAnimation*, char*);
     virtual BOOL WriteAnimation(IAnimation*, IRWStream*);
     virtual CAnimation* FindAnimation(std::string name);
-    virtual std::string* FindAnimationID(IAnimation*); // Skeptical about the return type. Same for other Find[...]ID functions
-    virtual U32 GetNumberOfAnimations();
+    virtual std::string* FindAnimationID(IAnimation*);
+    virtual int GetNumberOfAnimations();
     virtual CAnimation* GetAnimation(int);
     virtual void RemoveAnimation(std::string);
     virtual void RemoveAnimation(IAnimation*);
@@ -63,7 +63,7 @@ public:
     virtual CDMorphAnimation* LoadDMorphAnimationFromFile(std::string, char*);
     virtual CDMorphAnimation* FindDMorphAnimation(std::string name);
     virtual std::string* FindDMorphAnimationID(IDMorphAnimation*);
-    virtual U32 GetNumberOfDMorphAnimations();
+    virtual int GetNumberOfDMorphAnimations();
     virtual CDMorphAnimation* GetDMorphAnimation(int);
     virtual void RemoveDMorphAnimation(std::string);
     virtual void RemoveDMorphAnimation(IDMorphAnimation*);
@@ -75,7 +75,7 @@ public:
     virtual CMaterialAnimation* CreateMaterialAnimation(std::string, int nb_keyframes, F32 duration);
     virtual CMaterialAnimation* FindMaterialAnimation(std::string);
     virtual std::string* FindMaterialAnimationID(IMaterialAnimation*);
-    virtual U32 GetNumberOfMaterialAnimations();
+    virtual int GetNumberOfMaterialAnimations();
     virtual CMaterialAnimation* GetMaterialAnimation(int);
     virtual void RemoveMaterialAnimation(std::string);
     virtual void RemoveMaterialAnimation(IMaterialAnimation*);
@@ -87,7 +87,7 @@ public:
     virtual CEventAnimation* CreateEventAnimation(std::string, int nb_keyframes, F32 duration, DkXmd::CXmdFile*);
     virtual CEventAnimation* FindEventAnimation(std::string);
     virtual std::string* FindEventAnimationID(IEventAnimation*);
-    virtual U32 GetNumberOfEventAnimations();
+    virtual int GetNumberOfEventAnimations();
     virtual CEventAnimation* GetEventAnimation(int);
     virtual void RemoveEventAnimation(std::string);
     virtual void RemoveEventAnimation(IEventAnimation*);
@@ -96,7 +96,7 @@ public:
     virtual CController* CreateController(std::string, IClump*, int);
     virtual CController* FindController(std::string name);
     virtual std::string* FindControllerID(IController*);
-    virtual U32 GetNumberOfControllers();
+    virtual int GetNumberOfControllers();
     virtual CController* GetController(int);
     virtual void RemoveController(std::string);
     virtual void RemoveController(IController*);
@@ -104,10 +104,10 @@ public:
     virtual void RemoveAllControllers();
     virtual CAnimationStar* LoadAnimationStar(std::string, IRWStream*);
     virtual CAnimationStar* LoadAnimationStarFromFile(std::string, char*);
-    virtual CAnimationStar* LoadAnimationStarFromChunk(std::string, DkXmd::CChunkIterator*, DkXmd::CXmdFile*, void*);
+    virtual CAnimationStar* LoadAnimationStarFromChunk(std::string, DkXmd::CChunkIterator*);
     virtual CAnimationStar* FindAnimationStar(std::string);
     virtual std::string* FindAnimationStarID(IAnimationStar*);
-    virtual U32 GetNumberOfAnimationStars();
+    virtual int GetNumberOfAnimationStars();
     virtual CAnimationStar* GetAnimationStar(int);
     virtual void RemoveAnimationStar(std::string);
     virtual void RemoveAnimationStar(IAnimationStar*);
@@ -116,12 +116,22 @@ public:
     virtual CAnimationStarController* CreateAnimationStarController(std::string, IAnimationStar*, IController*);
     virtual CAnimationStarController* FindAnimationStarController(std::string);
     virtual std::string* FindAnimationStarControllerID(IAnimationStarController*);
-    virtual U32 GetNumberOfAnimationStarControllers();
+    virtual int GetNumberOfAnimationStarControllers();
     virtual CAnimationStarController* GetAnimationStarController(int);
     virtual void RemoveAnimationStarController(std::string);
     virtual void RemoveAnimationStarController(IAnimationStarController*);
     virtual void RemoveAnimationStarController(int);
     virtual void RemoveAllAnimationStarControllers();
+
+    void ParseEventData(DkXmd::CChunkIterator iter) {
+        // empty
+    }
+
+    CAnimation* AddAnimation(CAnimation* animation, std::string);
+    CDMorphAnimation* AddDMorphAnimation(CDMorphAnimation* animation, std::string);
+    CMaterialAnimation* AddMaterialAnimation(CMaterialAnimation* animation, std::string);
+    CEventAnimation* AddEventAnimation(CEventAnimation* animation, std::string);
+    CAnimationStar* CreateAnimationStar(std::string name);
 };
 REQUIRE_SIZE(CAnimDictionary, 0x5C);
 

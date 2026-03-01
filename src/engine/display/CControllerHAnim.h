@@ -3,28 +3,23 @@
 
 #include <vector>
 #include "engine/display/ISubController.h"
+#include "engine/display/CControllerAnimEntry.h"
 
 namespace DKDSP {
 
-class CControllerAnimEntry {
-public:
-    U8 m_unk0[0x28 - 0x0];
-    F32 m_unk28;
-    U8 m_unk2C[0x48 - 0x2C];
-    int m_unk48;
-    U8 m_unk4C[0x54 - 0x4C];
-    CHierarchy* m_unk54;
-    U8 m_unk58[0x60 - 0x58];
-};
-REQUIRE_SIZE(CControllerAnimEntry, 0x60);
-
 class CControllerHAnim : public ISubController {
 public:
-    U8 m_unk4[0xC - 0x4];
+    U32 m_unk4;
+    U32 m_unk8;
     std::vector<CControllerAnimEntry> m_anim_entries;
-    U8 m_unk18[0x1C - 0x18];
+    U32 m_unk18;
 
 public:
+    CControllerHAnim() {
+        m_unk4 = 0;
+        m_unk8 = 0;
+        m_unk18 = 0;
+    }
     ~CControllerHAnim();
 
     virtual void Release();
