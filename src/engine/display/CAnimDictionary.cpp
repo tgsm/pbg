@@ -141,7 +141,7 @@ U32 CAnimDictionary::GetVectorSize() {
             m_dmorph_animations.m_capacity + m_animations.m_capacity) * sizeof(unsigned long);
 }
 
-// Equivalent
+// Equivalent: stack offsets, scheduling
 CAnimation* CAnimDictionary::AddAnimation(CAnimation* animation, std::string name) {
     unsigned long ret = reinterpret_cast<unsigned long>(animation);
     reinterpret_cast<CAnimation*>(ret)->SetName(name);
@@ -152,9 +152,9 @@ CAnimation* CAnimDictionary::AddAnimation(CAnimation* animation, std::string nam
         ret = NULL;
         return found_animation;
     } else {
-        for (int i = 0; i < (int)m_animations.size(); i++) {
-            if (m_animations[i] == NULL) {
-                m_animations[i] = reinterpret_cast<CAnimation*>(ret);
+        for (int i = 0; i < (int)AS_ULONG_VECTOR_HACK(m_animations).size(); i++) {
+            if (AS_ULONG_VECTOR_HACK(m_animations)[i] == NULL) {
+                AS_ULONG_VECTOR_HACK(m_animations)[i] = ret;
                 return reinterpret_cast<CAnimation*>(ret);
             }
         }
@@ -337,7 +337,7 @@ void CAnimDictionary::RemoveAllAnimations() {
     CLEAR_VECTOR(m_animations);
 }
 
-// Equivalent
+// Equivalent: stack offsets, scheduling
 CDMorphAnimation* CAnimDictionary::AddDMorphAnimation(CDMorphAnimation* animation, std::string name) {
     unsigned long ret = reinterpret_cast<unsigned long>(animation);
     reinterpret_cast<CDMorphAnimation*>(ret)->SetName(name);
@@ -348,13 +348,13 @@ CDMorphAnimation* CAnimDictionary::AddDMorphAnimation(CDMorphAnimation* animatio
         ret = NULL;
         return found_animation;
     } else {
-        for (int i = 0; i < (int)m_animations.size(); i++) {
-            if (m_animations[i] == NULL) {
-                m_animations[i] = reinterpret_cast<CAnimation*>(ret);
+        for (int i = 0; i < (int)AS_ULONG_VECTOR_HACK(m_dmorph_animations).size(); i++) {
+            if (AS_ULONG_VECTOR_HACK(m_dmorph_animations)[i] == NULL) {
+                AS_ULONG_VECTOR_HACK(m_dmorph_animations)[i] = ret;
                 return reinterpret_cast<CDMorphAnimation*>(ret);
             }
         }
-        AS_ULONG_VECTOR_HACK(m_animations).push_back(ret);
+        AS_ULONG_VECTOR_HACK(m_dmorph_animations).push_back(ret);
         return reinterpret_cast<CDMorphAnimation*>(ret);
     }
 }
@@ -476,7 +476,7 @@ void CAnimDictionary::RemoveAllDMorphAnimations() {
     CLEAR_VECTOR(m_dmorph_animations);
 }
 
-// Equivalent
+// Equivalent: stack offsets, scheduling
 CMaterialAnimation* CAnimDictionary::AddMaterialAnimation(CMaterialAnimation* animation, std::string name) {
     unsigned long ret = reinterpret_cast<unsigned long>(animation);
     reinterpret_cast<CMaterialAnimation*>(ret)->SetName(name);
@@ -487,9 +487,9 @@ CMaterialAnimation* CAnimDictionary::AddMaterialAnimation(CMaterialAnimation* an
         ret = NULL;
         return found_animation;
     } else {
-        for (int i = 0; i < (int)m_material_animations.size(); i++) {
-            if (m_material_animations[i] == NULL) {
-                m_material_animations[i] = reinterpret_cast<CMaterialAnimation*>(ret);
+        for (int i = 0; i < (int)AS_ULONG_VECTOR_HACK(m_material_animations).size(); i++) {
+            if (AS_ULONG_VECTOR_HACK(m_material_animations)[i] == NULL) {
+                AS_ULONG_VECTOR_HACK(m_material_animations)[i] = ret;
                 return reinterpret_cast<CMaterialAnimation*>(ret);
             }
         }
@@ -764,7 +764,7 @@ void CAnimDictionary::RemoveAllMaterialAnimations() {
     CLEAR_VECTOR(m_material_animations);
 }
 
-// Equivalent
+// Equivalent: stack offsets, scheduling
 CEventAnimation* CAnimDictionary::AddEventAnimation(CEventAnimation* animation, std::string name) {
     unsigned long ret = reinterpret_cast<unsigned long>(animation);
     reinterpret_cast<CEventAnimation*>(ret)->SetName(name);
@@ -775,9 +775,9 @@ CEventAnimation* CAnimDictionary::AddEventAnimation(CEventAnimation* animation, 
         ret = NULL;
         return found_animation;
     } else {
-        for (int i = 0; i < (int)m_event_animations.size(); i++) {
-            if (m_event_animations[i] == NULL) {
-                m_event_animations[i] = reinterpret_cast<CEventAnimation*>(ret);
+        for (int i = 0; i < (int)AS_ULONG_VECTOR_HACK(m_event_animations).size(); i++) {
+            if (AS_ULONG_VECTOR_HACK(m_event_animations)[i] == NULL) {
+                AS_ULONG_VECTOR_HACK(m_event_animations)[i] = ret;
                 return reinterpret_cast<CEventAnimation*>(ret);
             }
         }
@@ -1026,7 +1026,6 @@ void CAnimDictionary::RemoveAllEventAnimations() {
     CLEAR_VECTOR(m_event_animations);
 }
 
-// Equivalent
 CController* CAnimDictionary::CreateController(std::string name, IClump* clump, int a3) {
     if (clump == NULL) {
         return NULL;
@@ -1036,9 +1035,9 @@ CController* CAnimDictionary::CreateController(std::string name, IClump* clump, 
     reinterpret_cast<CController*>(controller)->Create(clump, clump->GetHierarchy(), a3);
     reinterpret_cast<CController*>(controller)->SetName(name);
 
-    for (int i = 0; i < (int)m_controllers.size(); i++) {
-        if (m_controllers[i] == NULL) {
-            m_controllers[i] = reinterpret_cast<CController*>(controller);
+    for (int i = 0; i < (int)AS_ULONG_VECTOR_HACK(m_controllers).size(); i++) {
+        if (AS_ULONG_VECTOR_HACK(m_controllers)[i] == NULL) {
+            AS_ULONG_VECTOR_HACK(m_controllers)[i] = controller;
             return reinterpret_cast<CController*>(controller);
         }
     }
@@ -1121,15 +1120,14 @@ void CAnimDictionary::RemoveAllControllers() {
     CLEAR_VECTOR(m_controllers);
 }
 
-// Equivalent
 CAnimationStar* CAnimDictionary::CreateAnimationStar(std::string name) {
     unsigned long animation_star = reinterpret_cast<unsigned long>(new CAnimationStar);
     reinterpret_cast<CAnimationStar*>(animation_star)->SetAnimDictionary(this);
     reinterpret_cast<CAnimationStar*>(animation_star)->SetName(name);
 
-    for (int i = 0; i < (int)m_animation_stars.size(); i++) {
-        if (m_animation_stars[i] == NULL) {
-            m_animation_stars[i] = reinterpret_cast<CAnimationStar*>(animation_star);
+    for (int i = 0; i < (int)AS_ULONG_VECTOR_HACK(m_animation_stars).size(); i++) {
+        if (AS_ULONG_VECTOR_HACK(m_animation_stars)[i] == NULL) {
+            AS_ULONG_VECTOR_HACK(m_animation_stars)[i] = animation_star;
             return reinterpret_cast<CAnimationStar*>(animation_star);
         }
     }
@@ -1275,7 +1273,6 @@ void CAnimDictionary::RemoveAllAnimationStars() {
     CLEAR_VECTOR(m_animation_stars);
 }
 
-// Equivalent
 CAnimationStarController* CAnimDictionary::CreateAnimationStarController(std::string name, IAnimationStar* animation_star_, IController* controller_) {
     if (animation_star_ == NULL || controller_ == NULL) {
         return NULL;
@@ -1286,9 +1283,9 @@ CAnimationStarController* CAnimDictionary::CreateAnimationStarController(std::st
     reinterpret_cast<CAnimationStarController*>(animation_star_controller)->SetController(controller_);
     reinterpret_cast<CAnimationStarController*>(animation_star_controller)->SetName(name);
 
-    for (int i = 0; i < (int)m_animation_star_controllers.size(); i++) {
-        if (m_animation_star_controllers[i] == NULL) {
-            m_animation_star_controllers[i] = reinterpret_cast<CAnimationStarController*>(animation_star_controller);
+    for (int i = 0; i < (int)AS_ULONG_VECTOR_HACK(m_animation_star_controllers).size(); i++) {
+        if (AS_ULONG_VECTOR_HACK(m_animation_star_controllers)[i] == NULL) {
+            AS_ULONG_VECTOR_HACK(m_animation_star_controllers)[i] = animation_star_controller;
             return reinterpret_cast<CAnimationStarController*>(animation_star_controller);
         }
     }
