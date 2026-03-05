@@ -8,23 +8,37 @@ namespace DKDSP {
 
 class CEngine;
 
-// TODO
-struct SCLUMPENTRY {};
-struct SSPLINEENTRY {};
+struct SCLUMPENTRY {
+    CClump* clump;
+    std::string name;
+
+    SCLUMPENTRY() : name("") {
+
+    }
+};
+
+struct SSPLINEENTRY {
+    CSpline* spline;
+    std::string name;
+
+    SSPLINEENTRY() : name("") {
+
+    }
+};
 
 class CObjectDictionary : public IObjectDictionary {
 public:
     CEngine* m_engine;
     std::vector<SCLUMPENTRY> m_clump_entries;
     std::vector<SSPLINEENTRY> m_spline_entries;
-    std::vector<unsigned long> m_unk20;
+    std::vector<CParticleEmitterDefinition*> m_particle_emitter_definitions;
 
 public:
     CObjectDictionary() {
         m_engine = NULL;
         m_clump_entries.reserve(16);
         m_spline_entries.reserve(16);
-        m_unk20.reserve(16);
+        m_particle_emitter_definitions.reserve(16);
     }
     ~CObjectDictionary();
 
@@ -106,6 +120,10 @@ public:
     virtual U32 GetNumberOfLights();
     virtual void RemoveLight(std::string name);
     virtual void RemoveAllLights();
+
+    void AddClump(CClump* clump, std::string name);
+    void AddSpline(CSpline* spline, std::string name);
+    void AddParticleEmitterDefinition(CParticleEmitterDefinition* ped, std::string name);
 };
 REQUIRE_SIZE(CObjectDictionary, 0x2C);
 

@@ -8,6 +8,8 @@ namespace DKDSP {
 // TODO
 class ISpline {
 public:
+    ISpline();
+
     virtual int GetNumberOfControlPoints() = 0;
     virtual CDKW_V3d* GetControlPoint(int, CDKW_V3d*) = 0;
 };

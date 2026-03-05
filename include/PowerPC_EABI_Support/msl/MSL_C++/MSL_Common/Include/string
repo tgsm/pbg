@@ -97,6 +97,8 @@ struct basic_string {
         return find(s, pos, Traits::length(s));
     }
 
+    void reserve(size_type new_cap);
+
 #if 1
     void resize(size_type count, CharT ch);
 #else

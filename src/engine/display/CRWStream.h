@@ -4,6 +4,8 @@
 #include <rwsdk/plcore/bastream.h>
 #include "engine/display/CAnimation.h"
 #include "engine/display/IRWStream.h"
+#include "engine/wrap/DKW_Clump.h"
+#include "engine/wrap/DKW_Spline.h"
 
 class CDKW_Stream : public RwStream {};
 
@@ -33,10 +35,17 @@ public:
     virtual BOOL Skip(U32);
 
     void Release();
+
     CDKW_Animation* ReadAnimation();
     CDKW_Animation* ReadSmoothAnimation();
     RpDMorphAnimation* ReadDMorphAnimation();
     BOOL WriteAnimation(CDKW_Animation* animation);
+
+    CDKW_Clump* ReadClump();
+    BOOL WriteClump(CDKW_Clump* clump);
+
+    CDKW_Spline* ReadSpline();
+    BOOL WriteSpline(CDKW_Spline* spline);
 };
 
 }

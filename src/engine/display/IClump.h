@@ -17,7 +17,7 @@ public:
     virtual void func3() = 0;
     virtual void func4() = 0;
     virtual void func5() = 0;
-    virtual void func6() = 0;
+    virtual BOOL IsReoriented() = 0;
     virtual void func7() = 0;
     virtual int GetNumberOfAtomics() = 0;
     virtual CAtomic* GetAtomic(int id) = 0;
@@ -31,7 +31,7 @@ public:
     virtual int GetAtomicIndexFromNodeIndex(int node_index) = 0;
     virtual void func18() = 0;
     virtual void func19() = 0;
-    virtual void func20() = 0;
+    virtual U32 GetSize() = 0;
     virtual void func21() = 0;
     virtual void func22() = 0;
     virtual void func23() = 0;
