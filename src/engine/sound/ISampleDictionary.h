@@ -7,16 +7,17 @@
 namespace DKSND {
 
 class CSample;
+class CSampleBank;
 
 class ISampleDictionary {
 public:
     virtual ~ISampleDictionary();
 
-    virtual void func1() = 0;
-    virtual void func2() = 0;
-    virtual void func3() = 0;
+    virtual CSampleBank* LoadSampleBankFromFile(std::string* name, std::string* filename) = 0;
+    virtual CSampleBank* LoadStreamSampleBankFromFile(std::string* name, std::string* filename) = 0;
+    virtual CSampleBank* FindSampleBank(std::string* name) = 0;
     virtual void func4() = 0;
-    virtual void func5() = 0;
+    virtual void RemoveSampleBank(std::string* name) = 0;
     virtual void func6() = 0;
     virtual void func7() = 0;
     virtual void func8() = 0;

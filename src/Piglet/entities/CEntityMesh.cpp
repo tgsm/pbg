@@ -199,7 +199,7 @@ U32 CEntityMesh::Create(std::string mesh_filename) {
         return 0;
     }
 
-    m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(1, mesh_filename);
+    m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_CLUMP, mesh_filename);
     BOOL created = (m_clump = m_entity_manager->GetGame()->GetScene()->CloneClump(mesh_filename, NULL)) != NULL;
     return created != FALSE;
 }
@@ -214,16 +214,16 @@ void CEntityMesh::LoadAnimations(DkXmd::CChunkIterator iter) {
 
             if (strcmp(buf, "ANM") == 0) {
                 strcpy(buf, dest.GetStringValue());
-                m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(3, buf);
+                m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_ANIMATION, buf);
             } else if (strcmp(buf, "DMA") == 0) {
                 strcpy(buf, dest.GetStringValue());
-                m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(4, buf);
+                m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_DMORPH_ANIMATION, buf);
             } else if (strcmp(buf, "TAN") == 0) {
                 strcpy(buf, dest.GetStringValue());
-                m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(5, buf);
+                m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_MATERIAL_ANIMATION, buf);
             } else if (strcmp(buf, "EVN") == 0) {
                 strcpy(buf, dest.GetStringValue());
-                m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(8, buf);
+                m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_EVENT_ANIMATION, buf);
             }
 
             LoadAnimations(dest); // Interesting play...

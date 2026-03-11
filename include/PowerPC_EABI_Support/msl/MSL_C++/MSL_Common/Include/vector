@@ -72,6 +72,9 @@ public:
     // Is this right?
     void push_back(const T& value) { insert(data() + size(), 1, value); }
 
+    // FIXME: Takes and returns an iterator
+    T* erase(T* pos);
+
     T* begin() { return __vector_deleter::begin(); }
 };
 

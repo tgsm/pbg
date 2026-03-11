@@ -32,22 +32,22 @@ void CEntity3DSound::Parse(DkXmd::CChunkIterator iter) {
 
     if (iter.GetChunk("SndDict", dest)) {
         strcpy(buf, dest.GetStringValue());
-        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(10, buf);
+        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }
 
     if (m_entity_manager->GetGame()->m_unk4F5C == 1 && iter.GetChunk("SndDictTigger", dest)) {
         strcpy(buf, dest.GetStringValue());
-        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(10, buf);
+        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }
 
     if (m_entity_manager->GetGame()->m_unk4F5C == 2 && iter.GetChunk("SndDictWinnie", dest)) {
         strcpy(buf, dest.GetStringValue());
-        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(10, buf);
+        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }
 
     if (m_entity_manager->GetGame()->m_unk4F5C == 3 && iter.GetChunk("SndDictCatch", dest)) {
         strcpy(buf, dest.GetStringValue());
-        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(10, buf);
+        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }
 
     if (iter.GetFirstChildChunk(dest)) {

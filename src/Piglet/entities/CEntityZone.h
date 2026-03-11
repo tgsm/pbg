@@ -63,7 +63,7 @@ public:
 
         if (iter.GetChunk("TexDict", dest1)) {
             strcpy(buf1, dest1.GetStringValue());
-            m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(6, buf1);
+            m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_TEXTURE_DICTIONARY, buf1);
         }
 
         if (iter.GetFirstChildChunk(dest1) == TRUE) {
@@ -93,7 +93,7 @@ public:
 
         if (iter.GetChunk("TexDict", dest1)) {
             strcpy(buf1, dest1.GetStringValue());
-            m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(6, buf1);
+            m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_TEXTURE_DICTIONARY, buf1);
         }
 
         if (iter.GetFirstChildChunk(dest1) == TRUE) {

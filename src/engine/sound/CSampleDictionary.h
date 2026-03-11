@@ -9,11 +9,11 @@ class CSampleDictionary : public ISampleDictionary {
 public:
     virtual ~CSampleDictionary();
 
-    virtual void func1();
-    virtual void func2();
-    virtual void func3();
+    virtual CSampleBank* LoadSampleBankFromFile(std::string* name, std::string* filename);
+    virtual CSampleBank* LoadStreamSampleBankFromFile(std::string* name, std::string* filename);
+    virtual CSampleBank* FindSampleBank(std::string* name);
     virtual void func4();
-    virtual void func5();
+    virtual void RemoveSampleBank(std::string* name);
     virtual void func6();
     virtual void func7();
     virtual void func8();

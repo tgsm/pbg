@@ -118,7 +118,7 @@ BOOL CMission::LoadConfigFile(U32 a1) {
 
                 if (strcmp(buf, "TexDict") == 0) {
                     resource_factory = m_game->GetResourceFactory();
-                    resource_factory->LoadResource(6, dest1.GetStringValue());
+                    resource_factory->LoadResource(RESOURCE_TYPE_TEXTURE_DICTIONARY, dest1.GetStringValue());
                 }
             } while (dest1.GetNextSiblingChunk(dest1));
         }
@@ -130,27 +130,27 @@ BOOL CMission::LoadConfigFile(U32 a1) {
                 resource_factory = m_game->GetResourceFactory();
                 if (strcmp(buf, "Mesh") == 0) {
                     resource_factory = m_game->GetResourceFactory();
-                    resource_factory->LoadResource(1, dest1.GetStringValue());
+                    resource_factory->LoadResource(RESOURCE_TYPE_CLUMP, dest1.GetStringValue());
                 } else if (strcmp(buf, "ANM") == 0) {
                     resource_factory = m_game->GetResourceFactory();
-                    resource_factory->LoadResource(3, dest1.GetStringValue());
+                    resource_factory->LoadResource(RESOURCE_TYPE_ANIMATION, dest1.GetStringValue());
                 } else if (strcmp(buf, "DMA") == 0) {
                     resource_factory = m_game->GetResourceFactory();
-                    resource_factory->LoadResource(4, dest1.GetStringValue());
+                    resource_factory->LoadResource(RESOURCE_TYPE_DMORPH_ANIMATION, dest1.GetStringValue());
                 } else if (strcmp(buf, "TAN") == 0) {
                     resource_factory = m_game->GetResourceFactory();
-                    resource_factory->LoadResource(5, dest1.GetStringValue());
+                    resource_factory->LoadResource(RESOURCE_TYPE_MATERIAL_ANIMATION, dest1.GetStringValue());
                 } else if (strcmp(buf, "ParticleEmitterFile") == 0) {
                     if (dest1.GetStringValue() != NULL) {
                         resource_factory = m_game->GetResourceFactory();
-                        resource_factory->LoadResource(9, dest1.GetStringValue());
+                        resource_factory->LoadResource(RESOURCE_TYPE_PARTICLE_EMITTER_DEFINITION, dest1.GetStringValue());
                     }
                 } else if (strcmp(buf, "SndDict") == 0) {
                     resource_factory = m_game->GetResourceFactory();
-                    resource_factory->LoadResource(10, dest1.GetStringValue());
+                    resource_factory->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, dest1.GetStringValue());
                 } else if (strcmp(buf, "StreamDict") == 0) {
                     resource_factory = m_game->GetResourceFactory();
-                    resource_factory->LoadResource(12, dest1.GetStringValue());
+                    resource_factory->LoadResource(RESOURCE_TYPE_SAMPLE_BANK2, dest1.GetStringValue());
                 } else if (strcmp(buf, "GUI") == 0) {
                     m_game->m_gui_manager->LoadGui(&dest1, 1);
                 } else if (strcmp(buf, "Minimap") == 0) {

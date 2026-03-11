@@ -65,7 +65,7 @@ CDebugMenu::CDebugMenu(CGame* game, char* xmd_path)
                     } while (resolution_iter.GetNextSiblingChunk(resolution_iter));
                 }
             } else if (strcmp(iter.GetName(), "UsingTextureDictionary") == 0) {
-                m_game->GetResourceFactory()->LoadResource(6, iter.GetStringValue());
+                m_game->GetResourceFactory()->LoadResource(RESOURCE_TYPE_TEXTURE_DICTIONARY, iter.GetStringValue());
             } else if (strcmp(iter.GetName(), "Background") == 0) {
                 int x_, y_, width_, height_;
                 DkXmd::CChunkIterator background_iter;

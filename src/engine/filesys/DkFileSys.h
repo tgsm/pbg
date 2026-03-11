@@ -75,6 +75,11 @@ public:
 
     static void init(char* xmd, int, int unused);
     static void exit();
+    static void* fopen(const char* filename, const char* mode);
+    static int fclose(void* file);
+    static size_t fread(void* ptr, size_t size, size_t n, void* file);
+    static int fseek(void* file, long offset, int whence);
+    static long ftell(void* file);
 
     static BOOL loadfat(char* path, DkXmd::CXmdFile* xmd);
     static BOOL FindFileOnFatBegeningOn(DkXmd::CChunkIterator&, const char*, DkXmd::CChunkIterator&, DkFileSysInfoFromFat*);

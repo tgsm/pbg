@@ -72,6 +72,15 @@ public:
     virtual void func94();
     virtual void func98();
     virtual CTexture* FindTexture(char* name);
+    virtual void funcA0();
+    virtual void funcA4();
+    virtual void funcA8();
+    virtual void funcAC();
+    virtual void RemoveTexture(char* name);
+    virtual void funcB4();
+    virtual void funcB8();
+    virtual void funcBC();
+    virtual BOOL LoadTextureDictionaryFromFile(char* filename);
     // FIXME: There are more virtuals after this, but this is all I need for now
 
     void Init();

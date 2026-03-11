@@ -187,7 +187,7 @@ void CGamePartCredits::Parse(DkXmd::CChunkIterator iter) {
 
             if (tmp == "SndDict") {
                 CResourceFactory* resource_factory = m_game->GetResourceFactory();
-                resource_factory->LoadResource(10, dest.GetStringValue());
+                resource_factory->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, dest.GetStringValue());
             } else if (tmp == "SoundId") {
                 tmp = dest.GetStringValue();
                 m_unk4C = m_game->m_sound_engine->PlaySound2D(tmp, 0);

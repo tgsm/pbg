@@ -279,16 +279,16 @@ CGame::CGame(void* a1, U32 a2) {
 
     std::string car700 = "Models/700_FIGHT_PATH/CAR_700.txd";
     std::string car701 = "Models/700_FIGHT_PATH/CAR_701.txd";
-    m_resource_factory->LoadResource(6, car700);
-    m_resource_factory->LoadResource(6, car701);
+    m_resource_factory->LoadResource(RESOURCE_TYPE_TEXTURE_DICTIONARY, car700);
+    m_resource_factory->LoadResource(RESOURCE_TYPE_TEXTURE_DICTIONARY, car701);
     car700 = "Models/700_FIGHT_PATH/CAR_700.dff";
     car701 = "Models/700_FIGHT_PATH/CAR_701.dff";
-    m_resource_factory->LoadResource(1, car700);
-    m_resource_factory->LoadResource(1, car701);
+    m_resource_factory->LoadResource(RESOURCE_TYPE_CLUMP, car700);
+    m_resource_factory->LoadResource(RESOURCE_TYPE_CLUMP, car701);
 
-    m_resource_factory->LoadResource(9, "FX/FX_C340_03.xmd");
-    m_resource_factory->LoadResource(6, "WARPS/WRP_COMBAT/WARPCOMBAT.TXD");
-    m_resource_factory->LoadResource(1, "WARPS/WRP_COMBAT/WARPCOMBAT.DFF");
+    m_resource_factory->LoadResource(RESOURCE_TYPE_PARTICLE_EMITTER_DEFINITION, "FX/FX_C340_03.xmd");
+    m_resource_factory->LoadResource(RESOURCE_TYPE_TEXTURE_DICTIONARY, "WARPS/WRP_COMBAT/WARPCOMBAT.TXD");
+    m_resource_factory->LoadResource(RESOURCE_TYPE_CLUMP, "WARPS/WRP_COMBAT/WARPCOMBAT.DFF");
 
     m_resource_factory->m_unkC = rf_unkC;
     m_unk4F54 = 0;
@@ -1101,7 +1101,7 @@ BOOL CGame::LoadConfigFile(char* config_xmd_filename) {
             strcpy(buf, dest.GetName());
             if (strcmp(buf, "TexDict") == 0) {
                 CResourceFactory* resource_factory = m_resource_factory;
-                resource_factory->LoadResource(6, dest.GetStringValue());
+                resource_factory->LoadResource(RESOURCE_TYPE_TEXTURE_DICTIONARY, dest.GetStringValue());
             }
         } while (dest.GetNextSiblingChunk(dest));
     }
@@ -1110,29 +1110,29 @@ BOOL CGame::LoadConfigFile(char* config_xmd_filename) {
             strcpy(buf, dest.GetName());
             if (strcmp(buf, "Mesh") == 0) {
                 CResourceFactory* resource_factory = m_resource_factory;
-                resource_factory->LoadResource(1, dest.GetStringValue());
+                resource_factory->LoadResource(RESOURCE_TYPE_CLUMP, dest.GetStringValue());
             } else if (strcmp(buf, "ANM") == 0) {
                 CResourceFactory* resource_factory = m_resource_factory;
-                resource_factory->LoadResource(3, dest.GetStringValue());
+                resource_factory->LoadResource(RESOURCE_TYPE_ANIMATION, dest.GetStringValue());
             } else if (strcmp(buf, "DMA") == 0) {
                 CResourceFactory* resource_factory = m_resource_factory;
-                resource_factory->LoadResource(4, dest.GetStringValue());
+                resource_factory->LoadResource(RESOURCE_TYPE_DMORPH_ANIMATION, dest.GetStringValue());
             } else if (strcmp(buf, "TAN") == 0) {
                 CResourceFactory* resource_factory = m_resource_factory;
-                resource_factory->LoadResource(5, dest.GetStringValue());
+                resource_factory->LoadResource(RESOURCE_TYPE_MATERIAL_ANIMATION, dest.GetStringValue());
             } else if (strcmp(buf, "NoNPC") == 0) {
                 m_unk8 |= (1 << 0);
             } else if (strcmp(buf, "ParticleEmitterFile") == 0) {
                 if (dest.GetStringValue() != NULL) {
                     CResourceFactory* resource_factory = m_resource_factory;
-                    resource_factory->LoadResource(9, dest.GetStringValue());
+                    resource_factory->LoadResource(RESOURCE_TYPE_PARTICLE_EMITTER_DEFINITION, dest.GetStringValue());
                 }
             } else if (strcmp(buf, "SndDict") == 0) {
                 CResourceFactory* resource_factory = m_resource_factory;
-                resource_factory->LoadResource(10, dest.GetStringValue());
+                resource_factory->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, dest.GetStringValue());
             } else if (strcmp(buf, "StreamDict") == 0) {
                 CResourceFactory* resource_factory = m_resource_factory;
-                resource_factory->LoadResource(12, dest.GetStringValue());
+                resource_factory->LoadResource(RESOURCE_TYPE_SAMPLE_BANK2, dest.GetStringValue());
             } else if (strcmp(buf, "GUI") == 0) {
                 m_gui_manager->LoadGui(&dest, m_resource_factory->m_unkC);
             } else if (strcmp(buf, "RTCCamFight") == 0) {
@@ -1162,7 +1162,7 @@ void CGame::ParseRTCCamFight(DkXmd::CChunkIterator iter) {
     size_t anim = NULL;
 
     if (m_unk5060 == NULL) {
-        m_resource_factory->LoadResource(1, "MISSIONS\\RTCCamera.dff");
+        m_resource_factory->LoadResource(RESOURCE_TYPE_CLUMP, "MISSIONS\\RTCCamera.dff");
         if ((m_unk5060 = m_scene->CloneClump("MISSIONS\\RTCCamera.dff", NULL)) == NULL) {
             return;
         }
@@ -1173,7 +1173,7 @@ void CGame::ParseRTCCamFight(DkXmd::CChunkIterator iter) {
     }
 
     strcpy(buf, iter.GetStringValue());
-    m_resource_factory->LoadResource(3, buf);
+    m_resource_factory->LoadResource(RESOURCE_TYPE_ANIMATION, buf);
     anim = reinterpret_cast<size_t>(m_anim_dictionary->FindAnimation(buf));
     AS_ULONG_VECTOR_HACK(m_unk5064).push_back(anim);
 }

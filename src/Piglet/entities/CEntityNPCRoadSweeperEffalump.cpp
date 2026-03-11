@@ -243,7 +243,7 @@ void CEntityNPCRoadSweeperEffalump::ParseBehavior(DkXmd::CChunkIterator iter, CE
 }
 
 BOOL CEntityNPCRoadSweeperEffalump::ParseParticleEmitter(std::string filename, DKDSP::IParticleEmitter** emitter) {
-    m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(9, filename);
+    m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_PARTICLE_EMITTER_DEFINITION, filename);
 
     DKDSP::CParticleEmitterDefinition* definition = m_entity_manager->GetGame()->GetObjectDictionary()->FindParticleEmitterDefinition(filename);
     *emitter = m_entity_manager->GetGame()->GetScene()->CreateParticleEmitterFromDefinition(m_unk0, definition);

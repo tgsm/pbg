@@ -26,7 +26,7 @@ CEntityFX::~CEntityFX() {
 
 BOOL CEntityFX::ParseParticleEmitter(std::string filename) {
     DkXmd::CChunkIterator unused;
-    m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(9, filename);
+    m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_PARTICLE_EMITTER_DEFINITION, filename);
 
     m_particle_emitter = m_entity_manager->GetGame()->GetScene()->CreateParticleEmitterFromDefinition(m_unk0, m_entity_manager->GetGame()->GetObjectDictionary()->FindParticleEmitterDefinition(filename));
 
@@ -43,7 +43,7 @@ void CEntityFX::Parse(DkXmd::CChunkIterator iter) {
 
     if (iter.GetChunk("TexDict", dest)) {
         strcpy(buf10c, dest.GetStringValue());
-        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(6, buf10c);
+        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_TEXTURE_DICTIONARY, buf10c);
     }
 
     if (iter.GetFirstChildChunk(dest) == TRUE) {
