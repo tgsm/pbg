@@ -38,7 +38,7 @@ public:
 
     virtual void SetFrame(CDKW_Frame* frame);
     virtual void func2();
-    virtual void func3();
+    virtual BOOL LoadRenderStates(DkXmd::CChunkIterator* iter);
     virtual void func4();
     virtual void func5();
     virtual BOOL IsReoriented();
@@ -73,6 +73,10 @@ public:
     virtual void func34();
     virtual void func35();
     // TODO
+
+    CDKW_Clump* GetDkWrapClump() {
+        return m_wrap_clump;
+    }
 
     void Release();
 };

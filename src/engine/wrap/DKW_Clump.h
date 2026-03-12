@@ -3,8 +3,8 @@
 
 #include <rwsdk/plcore/bamemory.h>
 #include <rwsdk/world/baclump.h>
+#include "engine/wrap/DKW_Atomic.h"
 #include "engine/wrap/DKW_Node3d.h"
-#include "types.h"
 
 // TODO
 class CDKW_Clump : public CDKW_Node3d {
@@ -20,6 +20,9 @@ public:
     virtual RwFrame* GetRwFrame() {
         return (RwFrame*)m_rw_clump->object.parent;
     }
+
+    CDKW_Atomic* GetFirstAtomic();
+    CDKW_Atomic* GetNextAtomic();
 };
 // Unknown size
 

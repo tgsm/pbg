@@ -33,10 +33,10 @@ public:
     virtual U32 GetSaveSize() { return CEntity::GetSaveSize(); }
     virtual CDKW_V3d GetPosition() { return CDKW_V3d::ZERO; }
     virtual void SetPosition(CDKW_V3d& position) {}
-    virtual CDKW_V3d GetOrientation();
+    virtual CDKW_V3d GetOrientation() { return CDKW_V3d::ZERO; }
     virtual void SetOrientation(CDKW_V3d& orientation) {}
-    virtual F32 GetYOrientation();
-    virtual void SetYOrientation(F32 y);
+    virtual F32 GetYOrientation() { return 0.0f; }
+    virtual void SetYOrientation(F32 y) {}
     virtual CDKW_Matrix GetMatrix() { return CDKW_Matrix(CDKW_V3d::ZERO, CDKW_V3d::ZERO, CDKW_V3d::ZERO, CDKW_V3d::ZERO); }
     virtual void UpdateContacts();
     virtual void ResolveContact(const DkPh::Collider::Body&, int, int);

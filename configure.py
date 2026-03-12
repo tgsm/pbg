@@ -430,7 +430,7 @@ config.libs = [
             Object(NonMatching, "Piglet/entities/CEntityManager.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityMesh.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityWarp.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityWorld.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityWorld.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityZone.cpp"),
             Object(NonMatching, "Piglet/entities/CEntity.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagData.cpp"),

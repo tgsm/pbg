@@ -5,6 +5,7 @@
 #include "engine/display/CHierarchy.h"
 #include "engine/display/IFramableGeometry.h"
 #include "engine/display/IController.h"
+#include "engine/xmd/CChunkIterator.h"
 
 namespace DKDSP {
 
@@ -14,7 +15,7 @@ class IClump : public IFramableGeometry {
 private:
 public:
     virtual void func2() = 0;
-    virtual void func3() = 0;
+    virtual BOOL LoadRenderStates(DkXmd::CChunkIterator* iter) = 0;
     virtual void func4() = 0;
     virtual void func5() = 0;
     virtual BOOL IsReoriented() = 0;

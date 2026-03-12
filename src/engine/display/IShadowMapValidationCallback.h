@@ -2,8 +2,8 @@
 #define ENGINE_DISPLAY_ISHADOWMAPVALIDATIONCALLBACK_H
 
 #include "engine/display/ICamera.h"
+#include "engine/wrap/DKW_Atomic.h"
 
-class CDKW_Atomic;
 class CDKW_Sphere;
 
 namespace DKDSP {

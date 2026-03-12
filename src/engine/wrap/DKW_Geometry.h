@@ -22,6 +22,8 @@ public:
     int GetNumberOfMaterials() { return m_rw_geometry->matList.numMaterials; }
 
     RpMaterial* GetMaterial(int id) const { return m_rw_geometry->matList.materials[id]; }
+
+    static CDKW_Geometry* GetInstance(RpGeometry* rw_geometry);
 public:
     RpGeometry* m_rw_geometry;
 };

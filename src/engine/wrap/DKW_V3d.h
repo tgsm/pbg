@@ -72,6 +72,11 @@ public:
         }
     }
 
+    // FIXME: This may not have actually existed.
+    CDKW_V3d Negated() const {
+        return operator-();
+    }
+
     F32 SquareDistToPoint(CDKW_V3d& other);
 
     static CDKW_V3d ZERO;

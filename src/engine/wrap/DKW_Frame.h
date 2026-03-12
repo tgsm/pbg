@@ -21,6 +21,9 @@ public:
         RwEngineInstance->unk144(ms_pMemEntry, ptr);
     }
 
+    void Translate(CDKW_V3d& a1, int a2) {
+        RwFrameTranslate(m_rwframe, &a1, a2);
+    }
     void Rotate(CDKW_V3d* a1, const F32& degrees, int a3) {
         RwFrameRotate(m_rwframe, a1, degrees, a3);
     }
