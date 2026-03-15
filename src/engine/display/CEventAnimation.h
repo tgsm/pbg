@@ -20,6 +20,7 @@ public:
     virtual F32 GetDuration();
     virtual std::string* GetName();
     virtual U32 GetSize();
+    virtual U32 GetNumberOfEvents();
 
     void Release();
     void SetName(std::string name);

@@ -17,7 +17,10 @@ struct SEVENTANIMKEY {
 };
 
 class IEventAnimation : public IGenericAnimation {
+public:
+    IEventAnimation();
 
+    virtual U32 GetNumberOfEvents() = 0;
 };
 
 }
