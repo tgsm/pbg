@@ -30,6 +30,8 @@ public:
     CShadowZone(CGame* game);
     ~CShadowZone();
 
+    DKDSP::CImage* GetImage() { return m_image; }
+
     BOOL LoadShadowZone(DkXmd::CChunkIterator* iter);
     void UnloadShadowZone();
     CDKW_RGBA GetShadowZoneRGBA(const CDKW_V3d&, int, int);

@@ -12,6 +12,7 @@
 #include "engine/wrap/DKW_V3d.h"
 #include "entities/CEntityObject.h"
 #include "entities/CEntityLight.h"
+#include "CGame.h"
 
 class CEntityMeshShadowMapValidationCallback : public DKDSP::IShadowMapValidationCallback {
 public:
@@ -26,12 +27,35 @@ public:
 };
 
 struct SAttachedFX {
-    // TODO
+    DKDSP::CParticleEmitter* emitter;
+    int id;
+    int bone_link;
+    U32 follow_rotation;
+    F32 x;
+    F32 y;
+    F32 z;
+
+    SAttachedFX() {
+        bone_link = -1;
+        emitter = NULL;
+        id = -1;
+        follow_rotation = 0;
+        x = 0.0f;
+        y = 0.0f;
+        z = 0.0f;
+    }
 };
 
 struct SAttachedSND {
     int id;
-    U8 unk4[8];
+    DKSND::CSample* sample;
+    F32 pitch_variation;
+
+    SAttachedSND() {
+        sample = NULL;
+        id = -1;
+        pitch_variation = 0.0f;
+    }
 };
 
 class CEntityMesh : public CEntityObject {
@@ -50,16 +74,16 @@ public: // protected
     F32 m_unkBC;
     DKDSP::CController* m_controller;
     DKDSP::CAnimationStarController* m_animation_star_controller;
-    void* m_unkC8; // CAnimationStar*
-    F32 m_unkCC;
-    F32 m_unkD0;
-    F32 m_unkD4;
-    F32 m_unkD8;
+    DKDSP::CAnimationStar* m_animation_star;
+    F32 m_cone_angle;
+    F32 m_cone_distance;
+    F32 m_cone_mv_ratio;
+    F32 m_cone_offset;
     F32 m_unkDC;
     F32 m_unkE0;
     F32 m_unkE4;
     F32 m_unkE8;
-    BOOL m_unkEC;
+    BOOL m_look_at_cam;
     BOOL m_unkF0;
 
 public:
@@ -74,14 +98,17 @@ public:
     virtual void Render(F32 dt_maybe);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
-    virtual U32 GetSaveSize() { return CEntity::GetSaveSize(); }
     virtual CDKW_V3d GetPosition() { return CDKW_V3d(m_clump->GetFrame()->m_rwframe->modelling.pos); }
     virtual void SetPosition(CDKW_V3d& position);
     virtual CDKW_V3d GetOrientation();
     virtual void SetOrientation(CDKW_V3d& orientation);
     virtual F32 GetYOrientation();
     virtual void SetYOrientation(F32 y);
-    virtual CDKW_Matrix GetMatrix();
+    virtual CDKW_Matrix GetMatrix() {
+        CDKW_Frame* frame = m_clump->GetFrame();
+        return (CDKW_Matrix&)(frame->m_rwframe->modelling);
+    }
+    virtual U32 GetSaveSize() { return CEntity::GetSaveSize(); }
     virtual U32 Create(std::string mesh_filename);
     virtual void RenderAttachedFX(F32);
     virtual void BeginLighting();
@@ -91,12 +118,78 @@ public:
     virtual void UpdateAnimations(F32 dt);
     virtual void OrientToDirection(CDKW_V3d&, F32, F32);
 
+    void ParseAttachedFX(DkXmd::CChunkIterator iter) {
+        SAttachedFX fx;
+        DkXmd::CChunkIterator dest;
+
+        if (iter.GetChunk("BoneLink", dest)) {
+            fx.bone_link = dest.GetS32Value();
+        }
+
+        if (iter.GetChunk("FollowRotation", dest)) {
+            fx.follow_rotation = dest.GetS32Value();
+        }
+
+        if (iter.GetChunk("Id", dest)) {
+            fx.id = dest.GetS32Value();
+        }
+
+        if (iter.GetChunk("Offset", dest)) {
+            F32 x, y, z;
+            ParseXYZ(dest, &x, &y, &z);
+            fx.x = x;
+            fx.y = y;
+            fx.z = z;
+        }
+
+        if (iter.GetChunk("ParticleEmitterFile", dest)) {
+            if (dest.GetStringValue() != NULL) {
+                m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_PARTICLE_EMITTER_DEFINITION, dest.GetStringValue());
+                fx.emitter = m_entity_manager->GetGame()->GetScene()->CreateParticleEmitterFromDefinition("", m_entity_manager->GetGame()->GetObjectDictionary()->FindParticleEmitterDefinition(dest.GetStringValue()));
+            }
+            if (fx.emitter != NULL) {
+                fx.emitter->Stop();
+            }
+        }
+
+        m_attached_fxs.push_back(fx);
+    }
+
+    void ParseAttachedSND(DkXmd::CChunkIterator iter) {
+        SAttachedSND sound;
+        DkXmd::CChunkIterator dest;
+
+        if (m_sound_emitter == NULL) {
+            m_sound_emitter = m_entity_manager->GetGame()->m_sound_engine->CreateEmitter();
+            if (m_sound_emitter != NULL) {
+                m_sound_emitter->SetName(&m_unk0);
+            }
+        }
+
+        if (iter.GetChunk("Id", dest)) {
+            sound.id = dest.GetS32Value();
+        }
+
+        if (iter.GetChunk("SoundId", dest)) {
+            std::string str;
+            str = dest.GetStringValue();
+            sound.sample = m_entity_manager->GetGame()->m_sample_dictionary->FindSample(&str, 1);
+        }
+
+        if (iter.GetChunk("PitchVariation", dest)) {
+            sound.pitch_variation = dest.GetFloatValue();
+        }
+
+        m_attached_snds.push_back(sound);
+    }
+
     void PlayAnimAnm(DKDSP::IGenericAnimation* animation, F32);
     void PlayAnimEvn(DKDSP::IGenericAnimation* animation, F32);
     void PlayAnimDma(DKDSP::IGenericAnimation* animation, U32);
     void PlayAnimTan(DKDSP::IGenericAnimation* animation, U32);
     void LoadAnimations(DkXmd::CChunkIterator iter);
-    void ParseStar(std::string);
+    BOOL ParseStar(std::string);
+    BOOL ParseStar(DkXmd::CChunkIterator iter);
     BOOL IsViewedWithoutY(CDKW_V3d&, int);
     void StopAttachedFX(int id);
     void StartAttachedFX(int id);

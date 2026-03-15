@@ -44,7 +44,7 @@ public:
         return (CDKW_Matrix&)frame->m_rwframe->modelling;
     }
     virtual BOOL Create(std::string type);
-    virtual DKDSP::CLight* GetLight();
+    virtual DKDSP::CLight* GetLight() { return m_light4C; }
 };
 REQUIRE_SIZE(CEntityLight, 0x50);
 

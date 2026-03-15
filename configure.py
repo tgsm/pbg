@@ -428,7 +428,7 @@ config.libs = [
             Object(Equivalent, "Piglet/CGamePart.cpp"),
             Object(NonMatching, "Piglet/CResourceFactory.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityManager.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityMesh.cpp"),
+            Object(NonMatching, "Piglet/entities/CEntityMesh.cpp", extra_cflags=["-bool off"]),
             Object(Equivalent, "Piglet/entities/CEntityWarp.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityWorld.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityZone.cpp"),

@@ -169,6 +169,7 @@ public:
     CResourceFactory* GetResourceFactory() { return m_resource_factory; }
     CMailBox* GetMailbox() { return m_mailbox; }
     CGuiManager* GetGuiManager() { return m_gui_manager; }
+    CShadowZone* GetShadowZone() { return m_shadow_zone; }
     CGameBackup* GetGameBackup() { return m_game_backup; }
     DKBAK::CGCNBAKEngine* GetBackupEngine() { return m_backup_engine; }
 

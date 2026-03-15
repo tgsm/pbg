@@ -72,7 +72,7 @@ public:
     virtual void func50();
     virtual void func51();
     virtual void func52();
-    virtual void func53();
+    virtual void RemoveMirror(IMirror* mirror) = 0;
     virtual void func54();
     virtual void func55();
     virtual void EnableMirrorRendering(IMirror* mirror, BOOL enable) = 0;

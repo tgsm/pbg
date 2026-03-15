@@ -29,6 +29,7 @@ public:
     virtual void RemoveShadowMap(IShadowMap*);
     virtual void SetupClumpToReceiveShadowMap(IClump* clump, int);
     virtual CMirror* CreateMirror(U32 texture_width, U32 texture_height, U32 texture_depth_maybe);
+    virtual void RemoveMirror(IMirror* mirror);
     virtual void EnableMirrorRendering(IMirror* mirror, BOOL enable);
     virtual void AssociateClumpToMirror(IMirror* mirror, IClump* clump);
     virtual IWarp* CreateWarp();

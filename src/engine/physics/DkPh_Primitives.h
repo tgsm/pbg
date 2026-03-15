@@ -6,6 +6,8 @@
 
 namespace DkPh {
 
+struct RBody;
+
 class BVolume {
 public:
     virtual ~BVolume();
@@ -16,7 +18,7 @@ public:
 public:
     CDKW_V3d m_center;
     U8 m_unk10[0x1C - 0x10];
-    U32* m_unk1C; // Unknown type
+    RBody* m_unk1C;
 };
 REQUIRE_SIZE(BVolume, 0x20);
 

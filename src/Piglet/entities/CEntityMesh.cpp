@@ -17,14 +17,14 @@ CEntityMesh::CEntityMesh(CEntityManager* entity_manager, std::string name) : CEn
     m_mirror = NULL;
     m_unkF0 = FALSE;
     m_controller = NULL;
-    m_unkC8 = NULL;
+    m_animation_star = NULL;
     m_animation_star_controller = NULL;
     m_clump = NULL;
 
-    m_unkCC = 0.0f;
-    m_unkD0 = 0.0f;
-    m_unkD4 = 1.0f;
-    m_unkD8 = 0.0f;
+    m_cone_angle = 0.0f;
+    m_cone_distance = 0.0f;
+    m_cone_mv_ratio = 1.0f;
+    m_cone_offset = 0.0f;
 
     m_attached_fxs.clear();
     m_attached_fxs.reserve(4);
@@ -32,13 +32,49 @@ CEntityMesh::CEntityMesh(CEntityManager* entity_manager, std::string name) : CEn
     m_attached_snds.reserve(4);
 
     m_sound_emitter = NULL;
-    m_unkEC = FALSE;
+    m_look_at_cam = FALSE;
     m_entity_light_01 = NULL;
 }
 
-// TODO
+// Equivalent: std::vector
 CEntityMesh::~CEntityMesh() {
+    if (m_mirror != NULL) {
+        m_mirror->RemoveAllClumps();
+        m_entity_manager->GetGame()->GetScene()->RemoveMirror(m_mirror);
+        m_mirror = NULL;
+    }
 
+    if (m_controller != NULL) {
+        m_entity_manager->GetGame()->m_anim_dictionary->RemoveController(m_controller->GetName());
+        m_controller = NULL;
+    }
+
+    if (m_animation_star != NULL && *m_animation_star->GetName() == m_unk0) {
+        m_entity_manager->GetGame()->m_anim_dictionary->RemoveAnimationStar(*m_animation_star->GetName());
+        m_animation_star = NULL;
+    }
+
+    if (m_animation_star_controller != NULL) {
+        m_entity_manager->GetGame()->m_anim_dictionary->RemoveAnimationStarController(*m_animation_star_controller->GetName());
+        m_animation_star_controller = NULL;
+    }
+
+    if (m_clump != NULL) {
+        m_entity_manager->GetGame()->GetScene()->RemoveClump(m_clump);
+        m_clump = NULL;
+    }
+
+    if (m_sound_emitter != NULL) {
+        m_entity_manager->GetGame()->m_sound_engine->RemoveEmitter(m_sound_emitter);
+        m_sound_emitter = NULL;
+    }
+
+    for (int i = 0; i < (int)m_attached_fxs.size(); i++) {
+        if (m_attached_fxs[i].emitter != NULL) {
+            m_entity_manager->GetGame()->GetScene()->RemoveParticleEmitter(m_attached_fxs[i].emitter);
+            m_attached_fxs[i].emitter = NULL;
+        }
+    }
 }
 
 void CEntityMesh::Reset() {
@@ -51,6 +87,30 @@ void CEntityMesh::UpdateAnimations(F32 dt) {
     }
     if (m_controller != NULL) {
         m_controller->Update(dt);
+    }
+}
+
+void CEntityMesh::Update(F32 dt) {
+    CEntityObject::Update(dt);
+
+    if (m_look_at_cam == TRUE) {
+        CDKW_V3d camera_pos = m_entity_manager->GetGame()->GetCamera()->GetPosition();
+        m_clump->LookAtInline(camera_pos, CDKW_V3d::YAXIS);
+    }
+
+    if (IsFlagged(ENTITY_FLAG_ACTIVE) != FALSE && IsFlagged(ENTITY_FLAG_UNK7) != TRUE) {
+        UpdateAnimations(dt);
+        m_clump->Update(dt);
+        if (GetType() == ENTITY_ESCAPING_OBJECT) {
+            UpdateAttachedFX(dt, 0);
+        } else {
+            UpdateAttachedFX(dt, 1);
+        }
+
+        DKSND::CSoundEmitter* sound_emitter = m_sound_emitter;
+        if (sound_emitter != NULL) {
+            sound_emitter->SetPosition(GetPosition());
+        }
     }
 }
 
@@ -231,6 +291,163 @@ void CEntityMesh::LoadAnimations(DkXmd::CChunkIterator iter) {
     }
 }
 
+BOOL CEntityMesh::ParseStar(std::string str) {
+    DkXmd::CChunkIterator iter;
+
+    m_animation_star = m_entity_manager->GetGame()->m_anim_dictionary->FindAnimationStar(str);
+    if (m_animation_star != NULL) {
+        m_animation_star_controller = m_entity_manager->GetGame()->m_anim_dictionary->CreateAnimationStarController(m_unk0, m_animation_star, m_controller);
+        if (m_animation_star_controller == NULL) {
+            return FALSE;
+        }
+
+        return TRUE;
+    } else {
+        void* xmd_data = m_entity_manager->GetGame()->GetResourceFactory()->LoadPureFile(str, NULL);
+        if (xmd_data == NULL) {
+            return FALSE;
+        }
+
+        DkXmd::CXmdFile* xmd = new DkXmd::CXmdFile;
+        if (!xmd->Parse(xmd_data)) {
+            return FALSE;
+        }
+
+        iter = xmd->m_chunk_iterator;
+        LoadAnimations(iter);
+        delete xmd;
+        delete xmd_data;
+
+        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_ANIMATION_STAR, str);
+        m_animation_star = m_entity_manager->GetGame()->m_anim_dictionary->FindAnimationStar(str);
+        m_animation_star_controller = m_entity_manager->GetGame()->m_anim_dictionary->CreateAnimationStarController(m_unk0, m_animation_star, m_controller);
+        if (m_animation_star_controller == NULL) {
+            return FALSE;
+        }
+
+        return TRUE;
+    }
+}
+
+BOOL CEntityMesh::ParseStar(DkXmd::CChunkIterator iter) {
+    LoadAnimations(iter);
+
+    m_animation_star = m_entity_manager->GetGame()->m_anim_dictionary->LoadAnimationStarFromChunk(m_unk0, &iter);
+    if (m_animation_star == NULL) {
+        return FALSE;
+    }
+
+    m_animation_star_controller = m_entity_manager->GetGame()->m_anim_dictionary->CreateAnimationStarController(m_unk0, m_animation_star, m_controller);
+    if (m_animation_star_controller == NULL) {
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+void CEntityMesh::Parse(DkXmd::CChunkIterator iter) {
+    char buf[128];
+    DkXmd::CChunkIterator dest;
+
+    if (iter.GetChunk("TexDict", dest)) {
+        strcpy(buf, dest.GetStringValue());
+        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_TEXTURE_DICTIONARY, buf);
+    }
+
+    if (iter.GetChunk("SndDict", dest)) {
+        strcpy(buf, dest.GetStringValue());
+        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
+    }
+
+    if (m_entity_manager->GetGame()->m_unk4F5C == 1 && iter.GetChunk("SndDictTigger", dest)) {
+        strcpy(buf, dest.GetStringValue());
+        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
+    }
+
+    if (m_entity_manager->GetGame()->m_unk4F5C == 2 && iter.GetChunk("SndDictWinnie", dest)) {
+        strcpy(buf, dest.GetStringValue());
+        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
+    }
+
+    if (m_entity_manager->GetGame()->m_unk4F5C == 3 && iter.GetChunk("SndDictCatch", dest)) {
+        strcpy(buf, dest.GetStringValue());
+        m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
+    }
+
+    if (iter.GetChunk("Mesh", dest)) {
+        Create(dest.GetStringValue());
+        if (m_controller == NULL) {
+            m_controller = m_entity_manager->GetGame()->m_anim_dictionary->CreateController(m_unk0, m_clump, 4);
+            if (m_controller != NULL) {
+                m_controller->SetEventUserData(this);
+                m_clump->SetController(m_controller);
+                m_controller->Play(0.0f);
+            }
+        }
+    }
+
+    CEntityObject::Parse(iter);
+
+    if (iter.GetFirstChildChunk(dest) == TRUE) {
+        do {
+            strcpy(buf, dest.GetName());
+
+            if (strcmp(buf, "AtomicRenderStates") == 0) {
+                if (m_clump != NULL) {
+                    m_clump->LoadRenderStates(&dest);
+                    m_unkF0 = TRUE;
+                }
+            }
+
+            if (strcmp(buf, "AnimationStar") == 0 || strcmp(buf, "AnimationStarFile") == 0) {
+                if (dest.GetType() != 1) {
+                    ParseStar(dest.GetStringValue());
+                } else {
+                    ParseStar(dest);
+                }
+            }
+
+            if (strcmp(buf, "MirrorDefinition") == 0) {
+                ParseMirror(dest);
+            }
+
+            if (strcmp(buf, "ConeAngle") == 0) {
+                // Convert from degrees to radians
+                m_cone_angle = 3.1415927f * (dest.GetFloatValue() / 180.0f);
+            } else if (strcmp(buf, "ConeDistance") == 0) {
+                m_cone_distance = dest.GetFloatValue();
+            } else if (strcmp(buf, "ConeMvRatio") == 0) {
+                m_cone_mv_ratio = dest.GetFloatValue();
+            } else if (strcmp(buf, "ConeOffset") == 0) {
+                m_cone_offset = dest.GetFloatValue();
+            } else if (strcmp(buf, "AttachedFX") == 0) {
+                ParseAttachedFX(dest);
+            } else if (strcmp(buf, "AttachedSND") == 0) {
+                ParseAttachedSND(dest);
+            } else if (strcmp(buf, "LookAtCam") == 0) {
+                m_look_at_cam = TRUE;
+            }
+        } while (dest.GetNextSiblingChunk(dest) == TRUE);
+    }
+
+    for (std::vector<DkPh::BVolume*>::iterator iter = m_unk24.begin(); iter < m_unk24.end(); iter++) {
+        if (m_entity_manager->m_unk1C->GetBodyRef(*iter).unk28 == 1) {
+            DkPh::BVolume* volume = *iter;
+            m_unk90.unk0 = volume;
+            volume->m_unk1C = &m_unk90;
+            break;
+        }
+    }
+
+    m_unk90.unk8 = CDKW_V3d::ZERO;
+    m_unk90.unk14 = CDKW_V3d::ZERO;
+
+    UpdateAnimations(1.0f/30.0f);
+    if (m_clump != NULL) {
+        m_clump->Update(1.0f/30.0f);
+    }
+}
+
 void CEntityMesh::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior) {
     char buf[128];
     DkXmd::CChunkIterator dest;
@@ -247,6 +464,93 @@ void CEntityMesh::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavio
             }
         } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }
+}
+
+void CEntityMesh::RenderAttachedFX(F32 dt) {
+    for (int i = 0; i < (int)m_attached_fxs.size(); i++) {
+        if (m_attached_fxs[i].emitter != NULL) {
+            m_entity_manager->GetGame()->GetScene()->RenderParticleEmitter(m_attached_fxs[i].emitter, 1);
+        }
+    }
+}
+
+// Equivalent
+void CEntityMesh::StopAttachedFX(int id) {
+    for (int i = 0; i < (int)m_attached_fxs.size(); i++) {
+        if (id == m_attached_fxs[i].id) {
+            m_attached_fxs[i].emitter->Stop();
+            return;
+        }
+    }
+}
+
+// Equivalent
+void CEntityMesh::StartAttachedFX(int id) {
+    for (int i = 0; i < (int)m_attached_fxs.size(); i++) {
+        if (id == m_attached_fxs[i].id) {
+            m_attached_fxs[i].emitter->Start();
+            return;
+        }
+    }
+}
+
+void CEntityMesh::ResumeAllAttachedFX() {
+    for (int i = 0; i < (int)m_attached_fxs.size(); i++) {
+        if (m_attached_fxs[i].emitter != NULL) {
+            m_attached_fxs[i].emitter->Resume();
+        }
+    }
+}
+
+void CEntityMesh::PauseAllAttachedFX() {
+    for (int i = 0; i < (int)m_attached_fxs.size(); i++) {
+        if (m_attached_fxs[i].emitter != NULL) {
+            m_attached_fxs[i].emitter->Pause();
+        }
+    }
+}
+
+void CEntityMesh::StopAllAttachedFX() {
+    for (int i = 0; i < (int)m_attached_fxs.size(); i++) {
+        if (m_attached_fxs[i].emitter != NULL) {
+            m_attached_fxs[i].emitter->Stop();
+        }
+    }
+}
+
+// Equivalent
+DKSND::CSample* CEntityMesh::GetSampleById(int id) {
+    for (int i = 0; i < (int)m_attached_snds.size(); i++) {
+        if (id == m_attached_snds[i].id) {
+            return m_attached_snds[i].sample;
+        }
+    }
+
+    return NULL;
+}
+
+// Equivalent
+F32 CEntityMesh::GetPitchVariationById(int id) {
+    for (int i = 0; i < (int)m_attached_snds.size(); i++) {
+        if (id == m_attached_snds[i].id) {
+            return m_attached_snds[i].pitch_variation;
+        }
+    }
+
+    return 0.0f;
+}
+
+void CEntityMesh::EndLighting() {
+    if (m_entity_manager->GetGame()->GetShadowZone()->GetImage() == NULL) {
+        return;
+    }
+
+    m_entity_manager->GetGame()->GetScene()->SetAmbient(m_unk60.m_r, m_unk60.m_g, m_unk60.m_b);
+    if (m_entity_light_01 != NULL) {
+        m_entity_light_01->GetLight()->SetColor(m_unk70.m_r, m_unk70.m_g, m_unk70.m_b);
+    }
+
+    m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(TRUE);
 }
 
 BOOL CEntityMesh::ParseMirror(DkXmd::CChunkIterator iter) {

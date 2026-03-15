@@ -11,7 +11,7 @@
 
 class CEntityObject : public CEntity {
 protected:
-    std::vector<DkPh::BVolume> m_unk24;
+    std::vector<DkPh::BVolume*> m_unk24;
     F32 m_unk30;
     F32 m_unk34;
     F32 m_unk38;
