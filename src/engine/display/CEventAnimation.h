@@ -1,6 +1,7 @@
 #ifndef ENGINE_DISPLAY_CEVENTANIMATION_H
 #define ENGINE_DISPLAY_CEVENTANIMATION_H
 
+#include <string>
 #include "engine/display/IEventAnimation.h"
 #include "engine/xmd/CXmdFile.h"
 
@@ -8,9 +9,12 @@ namespace DKDSP {
 
 class CEventAnimation : public IEventAnimation {
 public:
-    U8 m_unk4[0x14 - 0x4];
+    std::string m_name;
+    SEVENTANIMKEY* m_key_table;
+    int m_nb_events;
+    F32 m_duration;
     void* m_unk14;
-    U8 m_unk18[4];
+    DkXmd::CXmdFile* m_xmd;
 
 public:
     CEventAnimation();
@@ -25,8 +29,14 @@ public:
     void Release();
     void SetName(std::string name);
     void SetDuration(F32 duration);
-    void Create(int, F32, DkXmd::CXmdFile*, int);
-    void SetKey(int, SEVENTANIMKEY& key);
+    BOOL Create(int nb_events, F32 duration, DkXmd::CXmdFile* xmd, int);
+    void SetKey(int key_no, SEVENTANIMKEY& key);
+    SEVENTANIMKEY* GetKeyTable();
+
+    void Started(void* data);
+    void Stopped(void* data);
+    void Paused(void* data);
+    void Resumed(void* data);
 };
 REQUIRE_SIZE(CEventAnimation, 0x1C);
 

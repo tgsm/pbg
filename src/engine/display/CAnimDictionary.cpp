@@ -921,9 +921,9 @@ CEventAnimation* CAnimDictionary::LoadEventAnimationFromChunk(std::string name, 
                         } else if (dkdsp_stricmp(dest3.GetName(), "EventType") == 0) {
                             int id = dest3.GetS32Value();
                             if (id < 0) {
-                                key.unk4 = m_engine->FindEvent(dest3.GetStringValue());
+                                key.id = m_engine->FindEvent(dest3.GetStringValue());
                             } else {
-                                key.unk4 = m_engine->FindEvent(id);
+                                key.id = m_engine->FindEvent(id);
                             }
                         } else if (dkdsp_stricmp(dest3.GetName(), "EventData") == 0) {
                             ParseEventData(dest3);

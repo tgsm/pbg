@@ -684,7 +684,7 @@ config.libs = [
             Object(NonMatching, "engine/display/ITextureCallback.cpp"),
             Object(Matching, "engine/display/IEventAnimation.cpp"),
             Object(NonMatching, "engine/display/CControllerEvent.cpp"),
-            Object(NonMatching, "engine/display/CEventAnimation.cpp"),
+            Object(Matching, "engine/display/CEventAnimation.cpp"),
             Object(Matching, "engine/display/IEventAnimationCallback.cpp"),
             Object(NonMatching, "engine/display/CParticleEmitterDefinition.cpp"),
             Object(Matching, "engine/display/IParticleEmitterDefinition.cpp"),
