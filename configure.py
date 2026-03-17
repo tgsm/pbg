@@ -259,6 +259,17 @@ cflags_engine_backup = [
     "-Cpp_exceptions on",
 ]
 
+cflags_engine_gui = [
+    *cflags_base,
+    "-i src/engine",
+    "-DGAMECUBE",
+    "-RTTI on",
+    "-opt nopeephole",
+    "-opt noschedule",
+    "-pool off",
+    "-Cpp_exceptions on",
+]
+
 cflags_engine_input = [
     *cflags_base,
     "-i src/engine",
@@ -542,6 +553,15 @@ config.libs = [
         ]
     ),
     DkEngineLib(
+        "DKGUI", cflags_engine_gui,
+        [
+            Object(Matching, "engine/gui/DkGUI.cpp"),
+            Object(NonMatching, "engine/gui/CGUIAnim.cpp"),
+            Object(NonMatching, "engine/gui/CGUIEngine.cpp"),
+            Object(NonMatching, "engine/gui/CGUIMenu.cpp"),
+        ]
+    ),
+    DkEngineLib(
         "DKI", cflags_engine_input,
         [
             Object(Matching, "engine/input/IInputEngine.cpp"),
@@ -695,10 +715,6 @@ config.libs = [
             Object(NonMatching, "engine/display/CDisplacementPipelineGCN.cpp"),
             Object(NonMatching, "engine/display/CShadowMapDenyCallback.cpp"),
             Object(NonMatching, "engine/GCNIcon.c"),
-            Object(Matching, "engine/gui/DkGUI.cpp", extra_cflags=["-Cpp_exceptions on"]),
-            Object(NonMatching, "engine/gui/CGUIAnim.cpp"),
-            Object(NonMatching, "engine/gui/CGUIEngine.cpp"),
-            Object(NonMatching, "engine/gui/CGUIMenu.cpp"),
             Object(NonMatching, "engine/physics/DkPhysics.cpp"),
             Object(NonMatching, "engine/physics/DkPh_Sweeper.cpp"),
             Object(NonMatching, "engine/physics/DkPh_Collider.cpp"),
