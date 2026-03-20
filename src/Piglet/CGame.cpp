@@ -62,7 +62,7 @@ CGame::CGame(void* a1, U32 a2) {
     m_batch5050 = NULL;
     m_unk5038 = 2;
     m_unk5054 = 0;
-    m_unk505C = NULL;
+    m_controller = NULL;
     m_unk5060 = NULL;
     m_unk5064.reserve(40);
     m_video_descs.clear();
@@ -867,9 +867,9 @@ BOOL CGame::NextFrame() {
             m_game_part = NULL;
         }
 
-        if (m_unk505C != NULL) {
-            m_anim_dictionary->RemoveController(m_unk505C);
-            m_unk505C = NULL;
+        if (m_controller != NULL) {
+            m_anim_dictionary->RemoveController(m_controller);
+            m_controller = NULL;
         }
 
         if (m_batch5050 != NULL) {
@@ -1167,9 +1167,9 @@ void CGame::ParseRTCCamFight(DkXmd::CChunkIterator iter) {
             return;
         }
     }
-    if (m_unk505C == NULL && m_unk5060 != NULL) {
-        m_unk505C = m_anim_dictionary->CreateController("RTCCamCtrl", m_unk5060, 6);
-        m_unk5060->SetController(m_unk505C);
+    if (m_controller == NULL && m_unk5060 != NULL) {
+        m_controller = m_anim_dictionary->CreateController("RTCCamCtrl", m_unk5060, 6);
+        m_unk5060->SetController(m_controller);
     }
 
     strcpy(buf, iter.GetStringValue());
@@ -1274,6 +1274,23 @@ BOOL CGame::IsGUIDisplayNotAdvised() {
     }
 
     return (((CGamePartIngame*)m_game_part)->m_game_room_manager->GetState() < 2) ? TRUE : FALSE;
+}
+
+void CGame::SetRTCCameraAnimationByIndex(U32 index) {
+    m_unk5054 = index;
+
+    DKDSP::IGenericAnimation* animation = reinterpret_cast<DKDSP::IGenericAnimation*>(AS_ULONG_VECTOR_HACK(m_unk5064).at(m_unk5054));
+
+    if (m_controller == NULL && m_unk5060 != NULL) {
+        m_controller = m_anim_dictionary->CreateController("RTCCamCtrl", m_unk5060, 6);
+        m_unk5060->SetController(m_controller);
+    }
+
+    m_controller->StopAllAnimations(DKDSP::ANIMATION_TYPE_4, 1);
+    m_controller->PlayAnimation(animation, -1, 0.0f);
+    m_controller->Play();
+
+    m_unk5058 = 0;
 }
 
 void CGame::RegisterVideo(int id, std::string filename) {

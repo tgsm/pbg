@@ -140,8 +140,8 @@ public:
     F32 m_unk504C;
     DKDSP::CIm2DBatch* m_batch5050;
     size_t m_unk5054;
-    U8 m_unk5058[0x505C - 0x5058];
-    DKDSP::CController* m_unk505C;
+    U32 m_unk5058;
+    DKDSP::CController* m_controller;
     DKDSP::CClump* m_unk5060;
     std::vector<DKDSP::CAnimation*> m_unk5064;
     U8 m_unk5070[0x508C - 0x5070];
@@ -263,6 +263,7 @@ public:
     int FadeOut(F32 a1);
     void RenderFade();
     BOOL IsGUIDisplayNotAdvised();
+    void SetRTCCameraAnimationByIndex(U32 index);
     void UpdateRTCCamera(F32 dt);
     void RegisterVideo(int id, std::string filename);
     void PlayVideo(int id);

@@ -54,6 +54,7 @@ public:
     T* erase(T* position);
 
     T& operator[](unsigned long n) { return *(data() + n); }
+    T& at(unsigned long n);
 };
 
 template <typename T, typename Allocator = allocator<T>, bool>
