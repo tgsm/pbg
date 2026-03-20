@@ -227,7 +227,7 @@ U32 CDebugMenu::UpdateAndDisplay() {
     }
 
     DKDSP::CScene* scene = m_game->GetScene();
-    scene->func80();
+    scene->GetNumberOfClumps();
     scene->SelectCamera(m_game->GetCamera());
     scene->Clear(1, 0.0f, 0.0f, 0.0f);
     if (scene->BeginRender()) {
