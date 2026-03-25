@@ -146,13 +146,13 @@ struct UnkFrameCBData {
     int unk4;
 };
 
-static int DefaultFrameCB(RwFrame* frame, void* data) {
+static RwFrame* DefaultFrameCB(RwFrame* frame, void* data) {
     UnkFrameCBData cbdata = *(UnkFrameCBData*)data;
     void* result = cbdata.callback(*(CDKW_Frame**)((int)frame + CDKW_Frame::m_LocalOffset), cbdata.unk4);
     if (result != NULL) {
-        return *(int*)((void*)((int)result + 4));
+        return *(RwFrame**)((void*)((int)result + 4));
     } else {
-        return 0;
+        return NULL;
     }
 }
 

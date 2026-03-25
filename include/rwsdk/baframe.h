@@ -2,34 +2,39 @@
 #define RWSDK_BAFRAME_H
 
 #include <rwsdk/plcore/bamatrix.h>
+#include <rwsdk/plcore/bamemory.h>
 #include <rwsdk/plcore/bastream.h>
+#include <rwsdk/batypehf.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 typedef struct RwFrame {
-    char unk0[0x10];
+    RwObject object;
+    RwLLLink inDirtyListLink;
     RwMatrix modelling;
     RwMatrix ltm;
-    char unk90[0x8];
-    RwFrame* child;
-    RwFrame* next;
-    RwFrame* root;
-} RwFrame; // size: 0xA4 (probably right size?)
+    RwLinkList objectList;
+    struct RwFrame* child;
+    struct RwFrame* next;
+    struct RwFrame* root;
+} RwFrame; // size: 0xA4
 
 typedef void (*RwFrameDataConstructorCB)(void*, int, int);
 typedef void* (*RwFrameDataDestructorCB)(void*, int, int);
 typedef void* (*RwFrameDataCopierCB)(void*, const void*, int, int);
-typedef RwFrame* (*RwFrameForAllChildrenCB)(RwFrame*, void*);
+typedef RwFrame* (*RwFrameCallBack)(RwFrame*, void*);
 
+int RwFrameDirty(RwFrame* frame);
 RwFrame* RwFrameCreate(void);
 int RwFrameDestroy(RwFrame* frame);
 RwFrame* RwFrameUpdateObjects(RwFrame* frame);
 RwMatrix* RwFrameGetLTM(RwFrame* frame);
-RwFrame* RwFrameAddChild(RwFrame*, RwFrame*);
+RwFrame* RwFrameAddChild(RwFrame* frame, RwFrame* child);
 RwFrame* RwFrameRemoveChild(RwFrame* frame);
-RwFrame* RwFrameForAllChildren(RwFrame* frame, void* callback, void*);
+RwFrame* RwFrameForAllChildren(RwFrame* frame, RwFrameCallBack callback, void*);
+int RwFrameCount(RwFrame* frame);
 RwFrame* RwFrameTranslate(RwFrame* frame, RwV3d*, int);
 RwFrame* RwFrameScale(RwFrame* frame, RwV3d*, int scale);
 RwFrame* RwFrameTransform(RwFrame* frame, RwMatrix*, int);

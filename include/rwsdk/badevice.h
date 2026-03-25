@@ -3,6 +3,7 @@
 
 #include <stdarg.h>
 #include <rwsdk/plcore/bafsys.h>
+#include <rwsdk/plcore/bamemory.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -55,7 +56,8 @@ typedef struct RwMemoryFunctions {
 } RwMemoryFunctions; // size: 0x10
 
 typedef struct RwGlobals {
-    char unk0[0xC4];
+    char unk0[0xBC];
+    RwLinkList dirtyFrameListMaybe;
     RwFileFunctions fileFuncs;
     RwStringFunctions stringFuncs;
     RwMemoryFunctions memoryFuncs;

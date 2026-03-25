@@ -21,7 +21,10 @@ typedef struct RwMatrixTag RwMatrix;
 
 void RwMatrixUpdate(RwMatrix* matrix);
 void RwMatrixMultiply(RwMatrix* dest, RwMatrix* a, RwMatrix* b);
+RwMatrix* RwMatrixRotate(RwMatrix* matrix, RwV3d*, float, int);
 void RwMatrixScale(RwMatrix* matrix, RwV3d*, int);
+RwMatrix* RwMatrixTranslate(RwMatrix* matrix, RwV3d*, int);
+RwMatrix* RwMatrixTransform(RwMatrix* matrix, RwMatrix*, int);
 int RwMatrixDestroy(RwMatrix* matrix);
 RwMatrix* RwMatrixCreate(void);
 
