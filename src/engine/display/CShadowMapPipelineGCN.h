@@ -20,6 +20,9 @@ public:
     virtual BOOL Create();
     virtual void Release();
     virtual void SetupClump(IClump* clump, int);
+
+    void SetupAtomic(IClump* clump, int, int);
+    void SetupAtomic(IAtomic* atomic, int);
 };
 REQUIRE_SIZE(CShadowMapPipelineGCN, 0x8);
 

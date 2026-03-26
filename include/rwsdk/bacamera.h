@@ -5,6 +5,7 @@
 extern "C" {
 #endif
 
+#include "rwsdk/baimage.h"
 #include "rwsdk/baraster.h"
 #include "rwsdk/batypehf.h"
 #include "rwsdk/plcore/bamatrix.h"
@@ -34,9 +35,10 @@ typedef struct RwCamera {
     char unk94[0x198 - 0x94];
 } RwCamera;
 
+RwCamera* RwCameraSetViewOffset(RwCamera* camera, RwV2d* viewOffset);
 RwCamera* RwCameraSetNearClipPlane(float nearPlane, RwCamera* camera);
 RwCamera* RwCameraSetFarClipPlane(float farPlane, RwCamera* camera);
-RwCamera* RwCameraSetViewOffset(RwCamera* camera, RwV2d* viewOffset);
+RwCamera* RwCameraClear(RwCamera* camera, RwRGBA* clear_color, int);
 RwCamera* RwCameraSetProjection(RwCamera* camera, RwCameraProjection projectionType);
 RwCamera* RwCameraSetViewWindow(RwCamera* camera, RwV2d* viewWindow);
 

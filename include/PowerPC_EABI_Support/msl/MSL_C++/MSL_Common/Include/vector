@@ -97,6 +97,15 @@ public:
 
     iterator begin() { return data(); }
     iterator end() { return data() + size(); }
+
+    void __unknown_reset_function() {
+        m_size = 0;
+        if (m_data != NULL) {
+            delete m_data;
+        }
+        m_data = NULL;
+        m_capacity = 0;
+    }
 };
 
 }

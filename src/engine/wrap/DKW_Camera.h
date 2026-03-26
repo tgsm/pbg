@@ -51,6 +51,7 @@ public:
     void SetFOV(F32, F32);
     F32 GetFOV();
     F32 GetAspectRatio();
+    void Show(int);
 };
 // Unknown size
 

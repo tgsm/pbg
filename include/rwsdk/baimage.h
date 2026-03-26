@@ -12,6 +12,13 @@ typedef struct RwRGBA {
     unsigned char alpha;
 } RwRGBA;
 
+typedef struct RwRGBAReal {
+    float red;
+    float green;
+    float blue;
+    float alpha;
+} RwRGBAReal;
+
 typedef struct RwImage {
     int flags;
     int width;

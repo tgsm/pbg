@@ -17,8 +17,8 @@ class ILight : public IFramable {
 public:
     virtual ELIGHTTYPE GetLightType() = 0;
     virtual void func14() = 0;
-    virtual void func18() = 0;
-    virtual void func1C() = 0;
+    virtual BOOL IsEnabled() = 0;
+    virtual void GetSettingsFromLight(ILight* light) = 0;
     virtual void SetColor(F32 red, F32 green, F32 blue) = 0;
     virtual F32 GetColorRed() = 0;
     virtual F32 GetColorGreen() = 0;

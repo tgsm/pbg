@@ -11,8 +11,7 @@
 #include "engine/display/ICamera.h"
 #include "engine/display/IIm2DBatch.h"
 #include "engine/display/IIm3DBatch.h"
-
-class CDKW_World;
+#include "engine/wrap/DKW_World.h"
 
 namespace DKDSP {
 

@@ -9,6 +9,8 @@ namespace DKDSP {
 // TODO
 class IAtomic : public IFramableGeometry {
 public:
+    IAtomic();
+
     virtual U32 GetSize() = 0;
     virtual CGeometry* GetGeometry() = 0;
     virtual int GetNumberOfMaterials() = 0;

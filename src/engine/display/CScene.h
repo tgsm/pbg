@@ -1,14 +1,60 @@
 #ifndef ENGINE_DISPLAY_CSCENE_H
 #define ENGINE_DISPLAY_CSCENE_H
 
+#include <vector>
 #include "engine/display/IScene.h"
+#include "engine/display/IShadowMapValidationCallback.h"
 #include "engine/display/IParticleEmitterDefinition.h"
+#include "engine/display/CObjectDictionary.h"
+#include "engine/wrap/DKW_RGBAReal.h"
 
 namespace DKDSP {
 
+class CEngine;
+
+// FIXME: This needs a home.
+class CShadowMapDenyCallback : public IShadowMapValidationCallback {
+public:
+    CShadowMapDenyCallback();
+    ~CShadowMapDenyCallback();
+
+    virtual BOOL ValidateDisplay(IShadowMap*, ICamera*, CDKW_Atomic*, CDKW_Sphere*);
+    virtual BOOL ValidateObjectDisplay(CDKW_Atomic*);
+};
+
+// TODO
+struct SBATCH3DENTRY {
+    U8 unk0[4];
+    CDKW_Matrix* matrix;
+    U8 unk8[4];
+};
+REQUIRE_SIZE(SBATCH3DENTRY, 0xC);
+
 class CScene : public IScene {
 public:
-    U8 m_unk4[0xD8 - 0x4];
+    CEngine* m_engine;
+    CDKW_World* m_world;
+    CDKW_World* m_collision_world;
+    CCamera* m_selected_camera;
+    CObjectDictionary* m_object_dictionary;
+    std::vector<void*> m_unk18;
+    std::vector<CLight*> m_lights;
+    std::vector<CCamera*> m_cameras;
+    std::vector<CShadowMap*> m_shadow_maps;
+    std::vector<void*> m_unk48;
+    std::vector<void*> m_unk54;
+    std::vector<void*> m_unk60;
+    std::vector<void*> m_unk6C;
+    std::vector<SBATCH3DENTRY> m_unk78;
+    std::vector<void*> m_unk84;
+    BOOL m_rendering;
+    BOOL m_unk94;
+    BOOL m_unk98;
+    CAtomic m_atomic9C;
+    CDKW_RGBAReal m_colorB0;
+    CDKW_RGBAReal m_colorC0;
+    CShadowMapDenyCallback m_shadow_map_deny_callback;
+    IShadowMapValidationCallback* m_unkD4;
 
 public:
     CScene();
@@ -38,8 +84,8 @@ public:
     virtual int GetNumberOfLights();
     virtual CLight* GetLight(int);
     virtual int GetLightIndex(ILight* light);
-    virtual void EnableLight(ILight* light, BOOL);
-    virtual void EnableLight(int id, BOOL);
+    virtual void EnableLight(ILight* light, BOOL enable);
+    virtual void EnableLight(int id, BOOL enable);
     virtual void RemoveLight(int id);
     virtual void RemoveLight(ILight* light);
     virtual void RemoveAllLights();
@@ -159,7 +205,25 @@ public:
     virtual void Flip(int);
     virtual void Screenshot(char*);
 
+    void AffectAllLightsZero() {
+        for (int i = 0; i < (int)m_lights.size(); i++) {
+            if (m_lights[i] != NULL) {
+                m_lights[i]->Affect(0);
+            }
+        }
+    }
+
+    void ReenableLightsIGuess() {
+        for (int i = 0; i < (int)m_lights.size(); i++) {
+            CLight* light = m_lights[i];
+            if (light != NULL) {
+                light->SetEnabled(light->IsEnabled());
+            }
+        }
+    }
+
     void Initialize(CObjectDictionary* object_dictionary, CEngine* engine);
+    int AddCamera(CCamera* camera);
 };
 REQUIRE_SIZE(CScene, 0xD8);
 
