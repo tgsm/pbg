@@ -130,7 +130,7 @@ public:
     virtual void RemoveAllParticleEmitters() = 0;
     virtual BOOL PickComputePixelRay(ICamera* camera, F32, F32, CDKW_V3d&, CDKW_V3d&) = 0;
     virtual CAtomic* PickAtomicOnLine(CDKW_V3d&, CDKW_V3d&) = 0;
-    virtual CAtomic* PickAtomicOnPixel(F32, F32) = 0;
+    virtual CAtomic* PickAtomicOnPixel(ICamera*, F32, F32) = 0;
     virtual void SetAmbient(F32 red, F32 green, F32 blue) = 0;
     virtual F32 GetAmbientRed() = 0;
     virtual F32 GetAmbientGreen() = 0;
