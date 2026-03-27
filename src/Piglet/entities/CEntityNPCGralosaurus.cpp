@@ -251,7 +251,7 @@ void CEntityNPCGralosaurus::ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhv
 
 void CEntityNPCGralosaurus::SetPosition(CDKW_V3d& position) {
     position.y = 0.13f;
-    UpdateModelPos(m_clump, position);
+    m_clump->UpdateModelPosRef(position);
 
     if (m_unk90.unk0 != NULL) {
         DkPh::Collider* collider = m_entity_manager->m_unk1C;
