@@ -32,13 +32,8 @@ public:
     virtual void AddFlag(U32 flag);
     virtual void SetPosition(CDKW_V3d& position) {
         m_position = position;
-        DKDSP::CParticleEmitter* pe = m_particle_emitter;
-        if (pe != NULL) {
-            RwFrame* frame = pe->GetFrame()->m_rwframe;
-            RwMatrix* model = &frame->modelling;
-            model->pos = m_position;
-            RwMatrixUpdate(model);
-            RwFrameUpdateObjects(pe->GetFrame()->m_rwframe);
+        if (m_particle_emitter != NULL) {
+            m_particle_emitter->UpdateModelPosRef(m_position);
         }
     }
 
