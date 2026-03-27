@@ -1141,7 +1141,7 @@ void CGameRoomManager::Victory() {
             F32 dVar14 = cos((21.991148f * m_unkE0) / 0.5f);
             dVar14 = 1.0f + (-0.9f * (0.5f * (1.0f + dVar14))) / (1.0f + 10.0f * m_unkE0);
 
-            dothething(m_clump160, CDKW_V3d::ZERO);
+            m_clump160->UpdateModelPosRef(CDKW_V3d::ZERO);
 
             m_unkA8 = 1.0f / m_unkA8;
             CDKW_V3d vec;
@@ -1219,13 +1219,12 @@ void CGameRoomManager::Victory() {
                 m_unkE0 = 0.0f;
                 m_unkA8 = 0.1f;
 
-                dothething(m_clump160, CDKW_V3d::ZERO);
-
+                m_clump160->UpdateModelPosRef(CDKW_V3d::ZERO);
                 dothescalething(m_clump160);
 
                 CDKW_V3d pos = m_hero->GetPosition();
                 pos.y += 0.05f;
-                dothething(m_clump160, pos.x, pos.y, pos.z);
+                m_clump160->UpdateModelPosRef(pos);
 
                 if (m_batch124 != NULL) {
                     m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch124);
@@ -1251,8 +1250,7 @@ void CGameRoomManager::Victory() {
 
             Create2ndPassVictoryCamParam(0);
             pos.y += 0.05f;
-
-            dothething(m_clump160, pos);
+            m_clump160->UpdateModelPosRef(pos);
 
             if (m_unkC8 >= 2.0f) {
                 m_camera_roll_angle = 0.0f;
@@ -1286,8 +1284,7 @@ void CGameRoomManager::Victory() {
 
             Create2ndPassVictoryCamParam(1);
             pos.y += 0.05f;
-
-            dothething(m_clump160, pos);
+            m_clump160->UpdateModelPosRef(pos);
 
             m_unkC = 5;
             break;
@@ -1302,7 +1299,7 @@ void CGameRoomManager::Victory() {
             Create2ndPassVictoryCamParam(1);
 
             pos.y += 0.05f;
-            dothething(m_clump160, pos);
+            m_clump160->UpdateModelPosRef(pos);
 
             if (m_unkC8 <= 0.0f) {
                 m_camera_roll_angle = m_camera_rollC0;
@@ -1332,8 +1329,7 @@ void CGameRoomManager::Victory() {
         case 6: {
             CDKW_V3d pos = m_hero->GetPosition();
             pos.y += 0.05f;
-
-            dothething(m_clump160, pos);
+            m_clump160->UpdateModelPosRef(pos);
 
             if (!m_game->FadeOut(m_delta_time)) {
                 m_hero->AddFlag(ENTITY_FLAG_VISIBLE);
@@ -1352,7 +1348,7 @@ void CGameRoomManager::Victory() {
             F32 dVar14 = cos((21.991148f * m_unkE0) / 0.5f);
             dVar14 = 0.1f + (0.9f * (0.5f * (1.0f + dVar14))) / (1.0f + 10.0f * m_unkE0);
 
-            dothething(m_clump160, CDKW_V3d::ZERO);
+            m_clump160->UpdateModelPosRef(CDKW_V3d::ZERO);
 
             m_unkA8 = 1.0f / m_unkA8;
             CDKW_V3d vec;

@@ -170,24 +170,7 @@ public:
         }
     }
 
-    void dothething(DKDSP::CClump* clump, const CDKW_V3d& vec) {
-        RwMatrix* model = &clump->GetFrame()->m_rwframe->modelling;
-        model->pos.x = vec.x;
-        model->pos.y = vec.y;
-        model->pos.z = vec.z;
-        RwMatrixUpdate(model);
-        RwFrameUpdateObjects(clump->GetFrame()->m_rwframe);
-    }
-
-    void dothething(DKDSP::CClump* clump, F32 x, F32 y, F32 z) {
-        RwMatrix* model = &clump->GetFrame()->m_rwframe->modelling;
-        model->pos.x = x;
-        model->pos.y = y;
-        model->pos.z = z;
-        RwMatrixUpdate(model);
-        RwFrameUpdateObjects(clump->GetFrame()->m_rwframe);
-    }
-
+    // FIXME: This likely belongs in CDKW_Frame.
     void dothescalething(DKDSP::CClump* clump) {
         CDKW_V3d vec(m_unkA8, m_unkA8, m_unkA8);
         RwFrameScale(clump->GetFrame()->m_rwframe, &vec, 2);
