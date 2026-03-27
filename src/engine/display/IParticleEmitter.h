@@ -13,14 +13,14 @@ public:
     virtual U32 GetSize() = 0;
     virtual std::string* GetName() = 0;
     virtual void Update(F32 dt) = 0;
-    virtual void Render(F32 dt) = 0;
+    virtual void Render() = 0;
     virtual void Start() = 0;
     virtual void Pause() = 0;
     virtual BOOL IsPaused() = 0;
     virtual void Resume() = 0;
     virtual void Stop() = 0;
     virtual BOOL IsStopped() = 0;
-    virtual int GetNumberOfActiveParticles() = 0;
+    virtual U32 GetNumberOfActiveParticles() = 0;
     virtual BOOL IsInert() = 0;
     virtual int Load(IRWStream*) = 0;
     virtual int Load(DkXmd::CChunkIterator*) = 0;

@@ -5,6 +5,8 @@
 #include "engine/display/IScene.h"
 #include "engine/display/IShadowMapValidationCallback.h"
 #include "engine/display/IParticleEmitterDefinition.h"
+#include "engine/display/CIm2DBatch.h"
+#include "engine/display/CIm3DBatch.h"
 #include "engine/display/CObjectDictionary.h"
 #include "engine/wrap/DKW_RGBAReal.h"
 
@@ -24,9 +26,9 @@ public:
 
 // TODO
 struct SBATCH3DENTRY {
-    U8 unk0[4];
+    CIm3DBatch* batch;
     CDKW_Matrix* matrix;
-    U8 unk8[4];
+    RwPrimitiveType prim_type;
 };
 REQUIRE_SIZE(SBATCH3DENTRY, 0xC);
 
@@ -37,21 +39,21 @@ public:
     CDKW_World* m_collision_world;
     CCamera* m_selected_camera;
     CObjectDictionary* m_object_dictionary;
-    std::vector<void*> m_unk18;
+    std::vector<CClump*> m_clumps;
     std::vector<CLight*> m_lights;
     std::vector<CCamera*> m_cameras;
     std::vector<CShadowMap*> m_shadow_maps;
-    std::vector<void*> m_unk48;
-    std::vector<void*> m_unk54;
-    std::vector<void*> m_unk60;
-    std::vector<void*> m_unk6C;
-    std::vector<SBATCH3DENTRY> m_unk78;
-    std::vector<void*> m_unk84;
+    std::vector<CMirror*> m_mirrors;
+    std::vector<CWarp*> m_warps;
+    std::vector<CParticleEmitter*> m_particle_emitters;
+    std::vector<CParticleEmitter*> m_unk6C;
+    std::vector<SBATCH3DENTRY> m_3d_batches;
+    std::vector<CIm2DBatch*> m_2d_batches;
     BOOL m_rendering;
     BOOL m_unk94;
     BOOL m_unk98;
     CAtomic m_atomic9C;
-    CDKW_RGBAReal m_colorB0;
+    CDKW_RGBAReal m_ambient_color;
     CDKW_RGBAReal m_colorC0;
     CShadowMapDenyCallback m_shadow_map_deny_callback;
     IShadowMapValidationCallback* m_unkD4;
@@ -78,9 +80,9 @@ public:
     virtual void RemoveCamera(int id);
     virtual void RemoveCamera(ICamera* camera);
     virtual void RemoveAllCamera();
-    virtual int CreateLightGetIndex(ELIGHTTYPE);
-    virtual CLight* CreateLight(ELIGHTTYPE);
-    virtual CLight* CopyLight(ILight*);
+    virtual int CreateLightGetIndex(ELIGHTTYPE type);
+    virtual CLight* CreateLight(ELIGHTTYPE type);
+    virtual CLight* CopyLight(ILight* light);
     virtual int GetNumberOfLights();
     virtual CLight* GetLight(int);
     virtual int GetLightIndex(ILight* light);
@@ -129,12 +131,12 @@ public:
     virtual CWarp* GetWarp(int id);
     virtual int GetWarpIndex(IWarp* warp);
     virtual void RemoveWarp(int id);
-    virtual void RemoveWarp(IWarp*);
+    virtual void RemoveWarp(IWarp* warp);
     virtual void RemoveAllWarps();
     virtual void EnableWarpRendering(int id, BOOL enable);
     virtual void EnableWarpRendering(IWarp* warp, BOOL enable);
     virtual void RenderWarp(int id);
-    virtual void RenderWarp(IWarp*);
+    virtual void RenderWarp(IWarp* warp);
     virtual void RenderWarps();
     virtual int CloneClumpGetIndex(std::string, IObjectDictionary*);
     virtual CClump* CloneClump(std::string, IObjectDictionary*);
@@ -146,19 +148,19 @@ public:
     virtual void RemoveClump(int id);
     virtual void RemoveClump(IClump* clump);
     virtual void RemoveAllClumps();
-    virtual int CloneAtomicGetIndex(std::string, IObjectDictionary*);
-    virtual CAtomic* CloneAtomic(std::string, IObjectDictionary*);
+    virtual int CloneAtomicGetIndex(std::string name, IObjectDictionary* object_dictionary);
+    virtual CAtomic* CloneAtomic(std::string name, IObjectDictionary* object_dictionary);
     virtual int GetNumberOfAtomics();
     virtual CAtomic* GetAtomic(int id);
     virtual int GetAtomicIndex(IAtomic* atomic);
     virtual void RemoveAtomic(int id);
     virtual void RemoveAtomic(IAtomic* atomic);
     virtual void RemoveAllAtomics();
-    virtual CParticleEmitter* CreateParticleEmitter(std::string, U32, U32);
-    virtual CParticleEmitter* CreateParticleEmitterFromDefinition(std::string, IParticleEmitterDefinition*);
-    virtual CParticleEmitter* LoadParticleEmitter(std::string, DkXmd::CChunkIterator*);
-    virtual CParticleEmitter* LoadParticleEmitter(std::string, IRWStream* stream);
-    virtual CParticleEmitter* LoadParticleEmitterFromFile(std::string, char* filename);
+    virtual CParticleEmitter* CreateParticleEmitter(std::string name, U32, U32);
+    virtual CParticleEmitter* CreateParticleEmitterFromDefinition(std::string name, IParticleEmitterDefinition* definition);
+    virtual CParticleEmitter* LoadParticleEmitter(std::string name, DkXmd::CChunkIterator* iter);
+    virtual CParticleEmitter* LoadParticleEmitter(std::string name, IRWStream* stream);
+    virtual CParticleEmitter* LoadParticleEmitterFromFile(std::string name, char* filename);
     virtual int GetNumberOfParticleEmitters();
     virtual CParticleEmitter* FindParticleEmitter(std::string name);
     virtual CParticleEmitter* GetParticleEmitter(int id);
@@ -184,13 +186,13 @@ public:
     virtual void RenderCollisionBSP();
     virtual void RenderAtomic(int id);
     virtual void RenderAtomic(IAtomic* atomic);
-    virtual void RenderAtomicRange(int, int);
+    virtual void RenderAtomicRange(int starting_id, int n);
     virtual void RenderClump(int id);
     virtual void RenderClump(IClump* clump);
     virtual void RenderClumpFast(int id);
     virtual void RenderClumpFast(IClump* clump);
-    virtual void RenderClumpRange(int, int);
-    virtual void RenderParticleEmitter(IParticleEmitter* emitter, int);
+    virtual void RenderClumpRange(int starting_id, int n);
+    virtual void RenderParticleEmitter(IParticleEmitter* emitter, BOOL);
     virtual void RenderBatch3D(IIm3DBatch* batch, RwPrimitiveType prim_type, CDKW_Matrix* matrix, int);
     virtual void RenderBatch2D(IIm2DBatch* batch, RwPrimitiveType prim_type, int);
     virtual void RenderCameraFrustum(ICamera* camera);
@@ -222,8 +224,24 @@ public:
         }
     }
 
+    int AddClumpGetIndex(CClump* clump) {
+        unsigned long clump_ul = reinterpret_cast<unsigned long>(clump);
+        m_world->AddClump(clump->m_wrap_clump);
+
+        for (int i = 0; i < (int)AS_ULONG_VECTOR_HACK(m_clumps).size(); i++) {
+            if (m_clumps[i] == NULL) {
+                AS_ULONG_VECTOR_HACK(m_clumps)[i] = clump_ul;
+                return i;
+            }
+        }
+
+        AS_ULONG_VECTOR_HACK(m_clumps).push_back(clump_ul);
+        return AS_ULONG_VECTOR_HACK(m_clumps).size() - 1;
+    }
+
     void Initialize(CObjectDictionary* object_dictionary, CEngine* engine);
     int AddCamera(CCamera* camera);
+    CParticleEmitter* AddParticleEmitter(std::string name);
 };
 REQUIRE_SIZE(CScene, 0xD8);
 

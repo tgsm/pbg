@@ -3,7 +3,7 @@
 
 #include <rwsdk/badevice.h>
 #include "engine/wrap/DKW_Camera.h"
-#include "types.h"
+#include "engine/wrap/DKW_RGBA.h"
 
 extern "C" {
 extern void DolphinInitMemorySystem(RwMemoryFunctions*);
@@ -76,6 +76,10 @@ public:
         RwEngineGetVideoModeInfo(video_mode, a2);
     }
 
+    static CDKW_RGBA GetBackgroundColor() {
+        return ms_BackgroundColor;
+    }
+
     static BOOL EventHandler(DKW_Event event, void* a1);
 
     static U32 ms_FrameCounter;
@@ -88,6 +92,7 @@ public:
     static BOOL ms_bAllowBufferization;
     static BOOL m_AllowPreclip;
     static BOOL ms_OrthoNormalizeCamera;
+    static CDKW_RGBA ms_BackgroundColor;
 };
 
 #endif

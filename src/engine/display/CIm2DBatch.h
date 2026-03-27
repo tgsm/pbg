@@ -8,6 +8,8 @@ namespace DKDSP {
 // TODO
 class CIm2DBatch : public IIm2DBatch {
 public:
+    U8 m_unk4[0x10];
+    RwPrimitiveType m_prim_type;
 };
 
 }

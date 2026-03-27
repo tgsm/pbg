@@ -67,7 +67,7 @@ public:
     virtual void Unprepare();
     virtual CCamera* GetCamera();
 
-    void Init(CEngine* engine, CScene* scene, ILight* light, U32, U32, U32);
+    void Init(CEngine* engine, CScene* scene, ILight* light, U32 width, U32 height, U32);
     void SetEnabled(BOOL enable);
     void Render();
 };

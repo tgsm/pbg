@@ -5,6 +5,8 @@
 #include "engine/wrap/DKW_Frame.h"
 #include "engine/wrap/DKW_Node3d.h"
 
+struct RwRect;
+
 // FIXME: This needs a home
 class CDKW_AlphaSortedAtomicList {
 public:
@@ -52,6 +54,7 @@ public:
     F32 GetFOV();
     F32 GetAspectRatio();
     void Show(int);
+    void Resize(RwRect* rect);
 };
 // Unknown size
 

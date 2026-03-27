@@ -7,6 +7,8 @@ namespace DKDSP {
 
 class IMirror {
 public:
+    IMirror();
+
     virtual void Release() = 0;
     virtual int AddClump(IClump* clump) = 0; // don't know the return type yet
     virtual void RemoveClump(IClump* clump) = 0;

@@ -24,6 +24,8 @@ public:
     virtual U32 GetSize();
     virtual CGeometry* GetGeometry();
     virtual int GetNumberOfMaterials();
+
+    void Render();
 };
 REQUIRE_SIZE(CAtomic, 0x14);
 

@@ -5,7 +5,13 @@
 
 namespace DKDSP {
 
+class CEngine;
+class CScene;
+
 class CWarp : public IWarp {
+public:
+    U8 m_unk4[0x24 - 0x4];
+
 public:
     CWarp();
 
@@ -28,7 +34,11 @@ public:
     virtual BOOL IsRenderStateEnable();
     virtual BOOL IsEnabled();
     virtual void Render();
+
+    void Init(CEngine* engine, CScene* scene);
+    void SetEnabled(BOOL enable);
 };
+REQUIRE_SIZE(CWarp, 0x24);
 
 }
 

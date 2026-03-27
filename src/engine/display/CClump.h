@@ -79,6 +79,9 @@ public:
     }
 
     void Release();
+    void Render();
+    void RenderFast();
+    CClump* Clone();
 };
 REQUIRE_SIZE(CClump, 0x64);
 

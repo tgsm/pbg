@@ -638,7 +638,7 @@ config.libs = [
             Object(Matching, "engine/display/IRaster.cpp"),
             Object(Matching, "engine/display/ITexture.cpp"),
             Object(Matching, "engine/display/IScene.cpp"),
-            Object(NonMatching, "engine/display/CScene.cpp"),
+            Object(NonMatching, "engine/display/CScene.cpp", extra_cflags=["-bool off"]),
             Object(Matching, "engine/display/ICamera.cpp"),
             Object(Matching, "engine/display/CCamera.cpp"),
             Object(NonMatching, "engine/display/ILight.cpp"),

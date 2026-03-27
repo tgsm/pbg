@@ -13,6 +13,8 @@ public:
     virtual BOOL Create();
 
     void Release();
+    void SetupAtomic(IClump* clump, int);
+    void SetupAtomic(IAtomic* atomic);
 };
 REQUIRE_SIZE(CMaterialAnimationPipelineGCN, 0x4);
 
