@@ -1364,7 +1364,7 @@ config.libs = [
             Object(NonMatching, "rwsdk/src/baframe.c"),
             Object(NonMatching, "rwsdk/src/baimage.c"),
             Object(NonMatching, "rwsdk/src/baimras.c"),
-            Object(NonMatching, "rwsdk/src/baraster.c"),
+            Object(Matching, "rwsdk/src/baraster.c", extra_cflags=["-inline deferred"]),
             Object(NonMatching, "rwsdk/src/baresamp.c"),
             Object(NonMatching, "rwsdk/src/basync.c"),
             Object(NonMatching, "rwsdk/src/batextur.c"),

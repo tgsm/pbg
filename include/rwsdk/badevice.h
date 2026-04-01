@@ -55,8 +55,24 @@ typedef struct RwMemoryFunctions {
     void* (*rwcalloc)(unsigned long n, unsigned long size);
 } RwMemoryFunctions; // size: 0x10
 
+typedef int (*RwStandardFunc)(void*, void*, int);
+
 typedef struct RwGlobals {
-    char unk0[0xBC];
+    char unk0[0x58];
+    RwStandardFunc unk58;
+    RwStandardFunc unk5C;
+    char unk60[0x84 - 0x60];
+    RwStandardFunc unk84;
+    RwStandardFunc unk88;
+    RwStandardFunc unk8C;
+    char unk90[4];
+    RwStandardFunc unk94;
+    RwStandardFunc unk98;
+    char unk9C[0xA4 - 0x9C];
+    RwStandardFunc unkA4;
+    RwStandardFunc unkA8;
+    char unkAC[0xB8 - 0xAC];
+    RwStandardFunc unkB8;
     RwLinkList dirtyFrameListMaybe;
     RwFileFunctions fileFuncs;
     RwStringFunctions stringFuncs;

@@ -6,7 +6,7 @@ extern "C" {
 #endif
 
 typedef struct RwRaster {
-    RwRaster* parent;
+    struct RwRaster* parent;
     unsigned char* cpPixels;
     unsigned char* palette;
     int width;
@@ -25,16 +25,17 @@ typedef struct RwRaster {
     int originalStride;
 } RwRaster;
 
-RwRaster* RwRasterUnlock(RwRaster* raster);
-RwRaster* RwRasterRenderFast(RwRaster* raster, int, int);
-RwRaster* RwRasterRender(RwRaster* raster, int, int);
-RwRaster* RwRasterUnlockPalette(RwRaster* raster);
-int RwRasterDestroy(RwRaster* raster);
-int RwRasterGetNumLevels(RwRaster* raster);
-int RwRasterLockPalette(RwRaster* raster, int);
-RwRaster* RwRasterShowRaster(RwRaster* raster, void*, unsigned int);
+void* RwRasterLock(RwRaster* raster, int, int);
 RwRaster* RwRasterCreate(int width, int height, int depth, int);
-int RwRasterLock(RwRaster* raster, int, int);
+RwRaster* RwRasterShowRaster(RwRaster* raster, void*, unsigned int);
+int RwRasterGetNumLevels(RwRaster* raster);
+void* RwRasterLockPalette(RwRaster* raster, int);
+int RwRasterRegisterPlugin(unsigned int size, unsigned int a1, void* a2, void* a3, void* a4); // FIXME: Stubbed param types
+int RwRasterDestroy(RwRaster* raster);
+RwRaster* RwRasterUnlockPalette(RwRaster* raster);
+RwRaster* RwRasterRender(RwRaster* raster, int, int);
+RwRaster* RwRasterRenderFast(RwRaster* raster, int, int);
+RwRaster* RwRasterUnlock(RwRaster* raster);
 
 #ifdef __cplusplus
 }
