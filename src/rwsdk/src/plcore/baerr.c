@@ -4,7 +4,7 @@
 #include <rwsdk/plcore/baerr.h>
 #include <stdarg.h>
 
-static volatile RwModuleInfo errorModule;
+static RwModuleInfo errorModule;
 
 void* _rwErrorOpen(void* unused, int offset) {
     errorModule.globalsOffset = offset;
