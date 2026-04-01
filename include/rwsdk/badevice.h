@@ -66,6 +66,11 @@ typedef struct RwGlobals {
     char unk148[0x154 - 0x148];
 } RwGlobals; // size: 0x154
 
+typedef struct RwModuleInfo {
+    int globalsOffset;
+    int numInstances;
+} RwModuleInfo;
+
 extern RwGlobals* RwEngineInstance;
 
 unsigned int RwEngineGetVersion(void);

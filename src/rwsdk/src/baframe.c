@@ -4,10 +4,7 @@
 #include <rwsdk/badevice.h>
 #include <rwsdk/baframe.h>
 
-static struct {
-    unsigned int offset;
-    int refCountMaybe;
-} frameModule;
+static RwModuleInfo frameModule;
 static int _rwFrameFreeListBlockSize = 50;
 static int _rwFrameFreeListPreallocBlocks = 1;
 
@@ -27,28 +24,28 @@ extern void _rwPluginRegistryDeInitObject(struct UnkRwPluginRegistryStruct*, voi
 extern void _rwFrameSyncHierarchyLTM(RwFrame*);
 
 // FIXME: Unknown return/param type
-void* _rwFrameOpen(void* a0, unsigned int offset) {
+void* _rwFrameOpen(void* a0, unsigned int globalsOffset) {
     static RwFreeList frameFreeList;
-    frameModule.offset = offset;
-    *(RwFreeList**)((int)RwEngineInstance + frameModule.offset) = RwFreeListCreateAndPreallocateSpace(frameTKList.unk0, _rwFrameFreeListBlockSize, 4, _rwFrameFreeListPreallocBlocks, &frameFreeList);
-    if (*(RwFreeList**)((int)RwEngineInstance + frameModule.offset) == NULL) {
+    frameModule.globalsOffset = globalsOffset;
+    *(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) = RwFreeListCreateAndPreallocateSpace(frameTKList.unk0, _rwFrameFreeListBlockSize, 4, _rwFrameFreeListPreallocBlocks, &frameFreeList);
+    if (*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) == NULL) {
         return NULL;
     }
 
     RwEngineInstance->dirtyFrameListMaybe.link.next = &RwEngineInstance->dirtyFrameListMaybe.link;
     RwEngineInstance->dirtyFrameListMaybe.link.prev = &RwEngineInstance->dirtyFrameListMaybe.link;
 
-    frameModule.refCountMaybe++;
+    frameModule.numInstances++;
     return a0;
 }
 
 void* _rwFrameClose(void* a0) {
-    if (*(RwFreeList**)((int)RwEngineInstance + frameModule.offset) != NULL) {
-        RwFreeListDestroy(*(RwFreeList**)((int)RwEngineInstance + frameModule.offset));
-        *(RwFreeList**)((int)RwEngineInstance + frameModule.offset) = NULL;
+    if (*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) != NULL) {
+        RwFreeListDestroy(*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset));
+        *(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) = NULL;
     }
 
-    frameModule.refCountMaybe--;
+    frameModule.numInstances--;
     return a0;
 }
 
@@ -110,7 +107,7 @@ void _rwFrameInit(RwFrame* frame) {
 }
 
 RwFrame* RwFrameCreate(void) {
-    RwFrame* frame = RwEngineInstance->unk140(*(RwFreeList**)((int)RwEngineInstance + frameModule.offset));
+    RwFrame* frame = RwEngineInstance->unk140(*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset));
     if (frame == NULL) {
         return NULL;
     }
@@ -138,7 +135,7 @@ int RwFrameDestroy(RwFrame* frame) {
         current->object.parent = NULL;
     }
 
-    list = *(RwFreeList**)((int)RwEngineInstance + frameModule.offset);
+    list = *(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset);
     RwEngineInstance->unk144(list, frame);
 
     return 1;
