@@ -313,6 +313,7 @@ cflags_rw = [
     "-DPNG_NO_PROGRESSIVE_READ",
 
     "-fp_contract off",
+    "-char signed",
 ]
 
 cflags_rwa = [
@@ -379,10 +380,10 @@ def ThpLib_2(objects: List[Object]) -> Dict[str, Any]:
 
 
 # Helper function for RenderWare libraries
-def RenderWareLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
+def RenderWareLib(lib_name: str, mw_version: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
-        "mw_version": "GC/1.3.2",
+        "mw_version": mw_version,
         "cflags": cflags_rw,
         "progress_category": "sdk",
         "objects": objects,
@@ -1080,7 +1081,7 @@ config.libs = [
         ]
     },
     RenderWareLib(
-        "rpcollis",
+        "rpcollis", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/plugin/collis/ctbuild.c"),
             Object(NonMatching, "rwsdk/plugin/collis/ctworld.c"),
@@ -1089,7 +1090,7 @@ config.libs = [
         ]
     ),
     RenderWareLib(
-        "rpdmorph",
+        "rpdmorph", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/plugin/dmorph/dmphanim.c"),
             Object(NonMatching, "rwsdk/plugin/dmorph/dmphgeom.c"),
@@ -1098,14 +1099,14 @@ config.libs = [
         ]
     ),
     RenderWareLib(
-        "rphanim",
+        "rphanim", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/plugin/hanim/stdkey.c"),
             Object(NonMatching, "rwsdk/plugin/hanim/rphanim.c"),
         ]
     ),
     RenderWareLib(
-        "rpmatfx",
+        "rpmatfx", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/plugin/matfx/rpmatfx.c"),
             Object(NonMatching, "rwsdk/plugin/matfx/gcn/effectPipesGcn.c"),
@@ -1117,13 +1118,13 @@ config.libs = [
         ]
     ),
     RenderWareLib(
-        "rpmipkl",
+        "rpmipkl", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/plugin/mipkl/rpmipkl.c"),
         ]
     ),
     RenderWareLib(
-        "rppatch",
+        "rppatch", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/plugin/patch/patchmesh.c"),
             Object(NonMatching, "rwsdk/plugin/patch/patchatomic.c"),
@@ -1139,7 +1140,7 @@ config.libs = [
         ]
     ),
     RenderWareLib(
-        "rpprtstd",
+        "rpprtstd", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/plugin/prtstd/eclass.c"),
             Object(NonMatching, "rwsdk/plugin/prtstd/emitter.c"),
@@ -1151,7 +1152,7 @@ config.libs = [
         ]
     ),
     RenderWareLib(
-        "rpptank",
+        "rpptank", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/plugin/ptank/rpptank.c"),
             Object(NonMatching, "rwsdk/plugin/ptank/gcn/ptankgcn.c"),
@@ -1171,13 +1172,13 @@ config.libs = [
         ]
     ),
     RenderWareLib(
-        "rprandom",
+        "rprandom", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/plugin/random/rprandom.c"),
         ]
     ),
     RenderWareLib(
-        "rpskinmatfx",
+        "rpskinmatfx", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/plugin/skin2/bsplit.c"),
             Object(NonMatching, "rwsdk/plugin/skin2/rpskin.c"),
@@ -1189,13 +1190,13 @@ config.libs = [
         ]
     ),
     RenderWareLib(
-        "rpspline",
+        "rpspline", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/plugin/spline/rpspline.c"),
         ]
     ),
     RenderWareLib(
-        "rpworld",
+        "rpworld", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/world/babinwor.c"),
             Object(NonMatching, "rwsdk/world/baclump.c"),
@@ -1221,7 +1222,7 @@ config.libs = [
         ]
     ),
     RenderWareLib(
-        "rt2d",
+        "rt2d", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/tool/2d/brush.c"),
             Object(NonMatching, "rwsdk/tool/2d/fill.c"),
@@ -1238,7 +1239,7 @@ config.libs = [
         ]
     ),
     RenderWareLib(
-        "rt2danim",
+        "rt2danim", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/tool/2d/anim/anim.c"),
             Object(NonMatching, "rwsdk/tool/2d/anim/keyframe.c"),
@@ -1255,45 +1256,45 @@ config.libs = [
         ]
     ),
     RenderWareLib(
-        "rtanim",
+        "rtanim", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/tool/anim/rtanim.c"),
         ]
     ),
     RenderWareLib(
-        "rtbezpat",
+        "rtbezpat", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/tool/bezpat/bezquad.c"),
             Object(NonMatching, "rwsdk/tool/bezpat/rtbezpat.c"),
         ]
     ),
     RenderWareLib(
-        "rtbmp",
+        "rtbmp", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/tool/bmp/rtbmp.c"),
         ]
     ),
     RenderWareLib(
-        "rtcharset",
+        "rtcharset", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/tool/charset/chrprint.c"),
             Object(NonMatching, "rwsdk/tool/charset/rtcharse.c"),
         ]
     ),
     RenderWareLib(
-        "rtintsec",
+        "rtintsec", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/tool/intsec/rtintsec.c"),
         ]
     ),
     RenderWareLib(
-        "rtpick",
+        "rtpick", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/tool/pick/rtpick.c"),
         ]
     ),
     RenderWareLib(
-        "rtpng",
+        "rtpng", "GC/1.3.2",
         [
             Object(Matching, "rwsdk/tool/png/zlib/adler32.c"),
             Object(Matching, "rwsdk/tool/png/zlib/deflate.c"),
@@ -1324,13 +1325,13 @@ config.libs = [
         ]
     ),
     RenderWareLib(
-        "rtquat",
+        "rtquat", "GC/1.3.2",
         [
             Object(NonMatching, "rwsdk/tool/quat/rtquat.c"),
         ]
     ),
     RenderWareLib(
-        "rwcore",
+        "rwplcore", "GC/1.3",
         [
             Object(NonMatching, "rwsdk/src/plcore/babinary.c"),
             Object(NonMatching, "rwsdk/src/plcore/babinmtx.c"),
@@ -1348,6 +1349,11 @@ config.libs = [
             Object(NonMatching, "rwsdk/src/plcore/bavector.c"),
             Object(NonMatching, "rwsdk/src/plcore/resmem.c"),
             Object(Equivalent, "rwsdk/src/plcore/rwstring.c"),
+        ]
+    ),
+    RenderWareLib(
+        "rwcore", "GC/1.3.2",
+        [
             Object(NonMatching, "rwsdk/os/gcn/osintf.c"),
             Object(Matching, "rwsdk/src/babbox.c", extra_cflags=["-inline deferred"]),
             Object(NonMatching, "rwsdk/src/babincam.c"),
