@@ -8,6 +8,10 @@
 #include "engine/wrap/DKW_V3d.h"
 #include "types.h"
 
+// Used for UnkTRTInline
+#pragma push
+#pragma supress_warnings on
+
 class CDKW_Frame : public CDKW_Node3d {
 public:
     CDKW_Frame();
@@ -21,14 +25,31 @@ public:
         RwEngineInstance->unk144(ms_pMemEntry, ptr);
     }
 
+    CDKW_V3d GetPosition() {
+        return (CDKW_V3d&)(m_rwframe->modelling.pos);
+    }
+    CDKW_V3d GetPosition2() {
+        return (CDKW_V3d&)(GetRwFrame()->modelling.pos);
+    }
+
     void Translate(CDKW_V3d& a1, int a2) {
         RwFrameTranslate(m_rwframe, &a1, a2);
+    }
+    void Translate2(CDKW_V3d& a1, int a2) {
+        RwFrameTranslate(GetRwFrame(), &a1, a2);
     }
     void Rotate(CDKW_V3d* a1, const F32& degrees, int a3) {
         RwFrameRotate(m_rwframe, a1, degrees, a3);
     }
     void Rotate2(CDKW_V3d* a1, const F32& degrees, int a3) {
         RwFrameRotate(GetRwFrame(), a1, degrees, a3);
+    }
+
+    void UnkTRTInline(CDKW_V3d* a1, const F32& rot, int a2) {
+        CDKW_V3d pos = GetPosition2();
+        Translate2(reinterpret_cast<CDKW_V3d&>(pos.Negated()), 2);
+        Rotate2(a1, rot, a2);
+        Translate2(pos, 2);
     }
 
     static CDKW_Frame* GetInstance(RwFrame* rw_frame);
@@ -55,5 +76,7 @@ public:
     static int ms_NbObject;
     static RwFreeList* ms_pMemEntry;
 }; // Unknown size
+
+#pragma pop
 
 #endif

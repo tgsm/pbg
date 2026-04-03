@@ -119,11 +119,7 @@ void CEntityTigger::SetMode(U32 mode) {
             break;
         case 8: {
             m_animation_star_controller->Play("DEAD_1", 1, 1);
-            CDKW_Frame* frame = m_clump->GetFrame();
-            CDKW_V3d position = CDKW_V3d(frame->GetRwFrame()->modelling.pos);
-            RwFrameTranslate(frame->GetRwFrame(), &(-position), 2);
-            frame->Rotate2(&CDKW_V3d::YAXIS, 180.0f, 2);
-            RwFrameTranslate(frame->GetRwFrame(), &position, 2);
+            m_clump->UnkTRTInline2(&CDKW_V3d::YAXIS, 180.0f, 2);
 
             m_unk1BC = -m_unk1BC;
             m_unk1C8 = m_speed_run;
@@ -206,7 +202,6 @@ void CEntityTigger::UpdateMoving(F32 dt) {
             break;
         case 2:
         case 3:
-        case 4:
         case 5:
         case 6:
             m_unk1C8 = 0.0f;

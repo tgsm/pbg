@@ -21,7 +21,11 @@ public:
     virtual void SetFrame(CDKW_Frame* frame) = 0;
 
     inline CDKW_V3d GetPosition() {
-        return (CDKW_V3d&)(GetFrame()->m_rwframe->modelling.pos);
+        return GetFrame()->GetPosition();
+    }
+
+    inline CDKW_V3d GetAt() {
+        return (CDKW_V3d&)(GetFrame()->m_rwframe->modelling.at);
     }
 
     inline void LookAtInline(CDKW_V3d vec1, CDKW_V3d vec2, CDKW_V3d vec3) {
@@ -53,6 +57,10 @@ public:
         GetFrame()->Translate(reinterpret_cast<CDKW_V3d&>(pos.Negated()), 2);
         GetFrame()->Rotate(a1, rot, a2);
         GetFrame()->Translate(pos, 2);
+    }
+
+    inline void UnkTRTInline2(CDKW_V3d* a1, const F32& rot, int a2) {
+        GetFrame()->UnkTRTInline(a1, rot, a2);
     }
 };
 

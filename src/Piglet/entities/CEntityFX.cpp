@@ -86,7 +86,7 @@ void CEntityFX::Init() {
         }
     }
 
-    m_unk44 = CDKW_V3d(m_particle_emitter->GetFrame()->m_rwframe->modelling.pos);
+    m_unk44 = m_particle_emitter->GetPosition();
 }
 
 void CEntityFX::ManageMessage(SDkMessage& message) {

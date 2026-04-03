@@ -348,9 +348,8 @@ void CEntityPiglet::SetMode(U32 mode) {
             DelFlag(ENTITY_FLAG_UNK4);
             SetMode(0);
             return;
-        case 1: {
-            CDKW_Frame* frame = m_clump->GetFrame();
-            m_unk260 = CDKW_V3d(frame->m_rwframe->modelling.at);
+        case 1:
+            m_unk260 = m_clump->GetAt();
 
             if (m_unk25C > 0) {
                 m_animation_star_controller->Play("TURN_BACK_LEFT", 1);
@@ -358,7 +357,6 @@ void CEntityPiglet::SetMode(U32 mode) {
                 m_animation_star_controller->Play("TURN_BACK_RIGHT", 1);
             }
             break;
-        }
         case 2:
             if (GetMode() == 16 || GetMode() == 17) {
                 ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->InterruptFightMode();
@@ -415,20 +413,14 @@ void CEntityPiglet::SetMode(U32 mode) {
         case 7:
             m_animation_star_controller->Play("DEAD_0", 1);
             break;
-        case 8: {
-            CDKW_V3d position;
+        case 8:
             m_animation_star_controller->Play("DEAD_1", 1, 1);
-            CDKW_Frame* frame = m_clump->GetFrame();
-            position = CDKW_V3d(frame->GetRwFrame()->modelling.pos);
-            RwFrameTranslate(frame->GetRwFrame(), &(-position), 2);
-            frame->Rotate2(&CDKW_V3d::YAXIS, 180.0f, 2);
-            RwFrameTranslate(frame->GetRwFrame(), &position, 2);
+            m_clump->UnkTRTInline2(&CDKW_V3d::YAXIS, 180.0f, 2);
 
             m_unk1BC = -m_unk1BC;
-            m_unk1C8 = m_speed_run;
+            m_unk1C8 = m_speed_run_panic;
             m_gravity = 0.0f;
             break;
-        }
     }
 
     CEntityHero::SetMode(mode);

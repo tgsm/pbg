@@ -200,7 +200,7 @@ void CMiniMap::RenderDarkenRooms(F32 dt) {
         return;
     }
 
-    position40 = CDKW_V3d(m_camera->GetFrame()->m_rwframe->modelling.pos);
+    position40 = m_camera->GetPosition();
     position40.z = -1.0f;
     m_icon40->SetPosition(position40);
     m_icon40->SetTexture(NULL);
@@ -241,7 +241,7 @@ void CMiniMap::RenderDarkenRooms(F32 dt) {
                     if (atomic_index >= 0) {
                         DKDSP::CAtomic* atomic = m_clump20->GetAtomic(atomic_index);
                         if (atomic != NULL) {
-                            position44 = CDKW_V3d(atomic->GetFrame()->m_rwframe->modelling.pos);
+                            position44 = atomic->GetPosition();
                             F32 z = position44.z;
                             position44.z = -position44.y;
                             position44.y = z;

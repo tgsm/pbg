@@ -195,32 +195,32 @@ void CLoadingCatchThemAll::UpdateObjects(F32 dt) {
 
         CDKW_V3d local_38;
         if (m_unk58 == 0) {
-            local_38 = CDKW_V3d(m_clump1C->GetFrame()->m_rwframe->modelling.pos);
+            local_38 = m_clump1C->GetPosition();
             local_38.x = InterpolValue(-9.0f, 9.0f, dt, 3.0f);
             m_clump1C->UpdateModelPosRef(local_38);
 
-            local_38 = CDKW_V3d(m_clump44->GetFrame()->m_rwframe->modelling.pos);
+            local_38 = m_clump44->GetPosition();
             local_38.x = InterpolValue(-6.0f, 12.0f, dt, 3.0f);
             F32 cos_ = fabsf((F32)cos(14.0f * dt));
             local_38.y = 0.6f * (F32)(F64)(cos_);
             m_clump44->UpdateModelPosRef(local_38);
         } else {
-            local_38 = CDKW_V3d(m_clump1C->GetFrame()->m_rwframe->modelling.pos);
+            local_38 = m_clump1C->GetPosition();
             local_38.x = InterpolValue(7.0f, -11.0f, dt, 3.0f);
             m_clump1C->UpdateModelPosRef(local_38);
 
-            local_38 = CDKW_V3d(m_clump44->GetFrame()->m_rwframe->modelling.pos);
+            local_38 = m_clump44->GetPosition();
             local_38.x = InterpolValue(9.0f, -9.0f, dt, 3.0f);
             F32 cos_ = fabsf((F32)cos(14.0f * dt));
             local_38.y = 0.6f * (F32)(F64)(cos_);
             m_clump44->UpdateModelPosRef(local_38);
         }
 
-        local_38 = CDKW_V3d(m_clump1C->GetFrame()->m_rwframe->modelling.pos);
+        local_38 = m_clump1C->GetPosition();
         local_38 += CDKW_V3d(23.7f, 38.8f, 12.0f);
         m_light2->UpdateModelPosRef(local_38);
 
-        local_38 = CDKW_V3d(m_clump1C->GetFrame()->m_rwframe->modelling.pos);
+        local_38 = m_clump1C->GetPosition();
         local_38 += 0.0f;
 
         m_light2->LookAtInline(local_38, CDKW_V3d::YAXIS);

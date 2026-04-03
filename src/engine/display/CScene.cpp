@@ -983,7 +983,6 @@ extern "C" {
 extern RwCamera* RwCameraCalcPixelRay(RwCamera* camera, void* a1, RwV2d*);
 }
 
-// Equivalent: CDKW_V3d's RwV3d constructor should not be inlined
 BOOL CScene::PickComputePixelRay(ICamera* camera_, F32 a2, F32 a3, CDKW_V3d& a4, CDKW_V3d& a5) {
     RwV3d RStack_3c;
     RwV3d RStack_48;

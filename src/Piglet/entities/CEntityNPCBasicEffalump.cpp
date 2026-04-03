@@ -28,8 +28,7 @@ void CEntityNPCBasicEffalump::UpdateDetectionBehaviour(F32 a1) {
             m_unk1A8 = 1;
 
             if (strcmp(m_animation_star_controller->GetTargetAnimationName()->c_str(), "DETECT_VISUAL") == 0) {
-                CDKW_V3d at = CDKW_V3d(m_clump->GetFrame()->m_rwframe->modelling.at);
-
+                CDKW_V3d at = m_clump->GetAt();
                 CDKW_V3d delta = GetPosDelta();
                 ComputeRotationAngle(at, delta);
                 RotateAccordingToGarbageVar(a1);
@@ -37,8 +36,7 @@ void CEntityNPCBasicEffalump::UpdateDetectionBehaviour(F32 a1) {
             break;
         case 1: {
             if (strcmp(m_animation_star_controller->GetTargetAnimationName()->c_str(), "DETECT_VISUAL") == 0) {
-                CDKW_V3d at = CDKW_V3d(m_clump->GetFrame()->m_rwframe->modelling.at);
-
+                CDKW_V3d at = m_clump->GetAt();
                 CDKW_V3d delta = GetPosDelta();
                 ComputeRotationAngle(at, delta);
                 RotateAccordingToGarbageVar(a1);

@@ -54,6 +54,7 @@ void CEntityWinnie::SetMode(U32 mode) {
             AddFlag(ENTITY_FLAG_UNK4);
             break;
         case 1:
+        case 4:
         case 12:
             CEntityHero::SetMode(0);
             return;
@@ -62,14 +63,10 @@ void CEntityWinnie::SetMode(U32 mode) {
             break;
         case 8: {
             m_animation_star_controller->Play("DEAD_1", 1, 1);
-            CDKW_Frame* frame = m_clump->GetFrame();
-            CDKW_V3d position = CDKW_V3d(frame->GetRwFrame()->modelling.pos);
-            RwFrameTranslate(frame->GetRwFrame(), &(-position), 2);
-            frame->Rotate2(&CDKW_V3d::YAXIS, 180.0f, 2);
-            RwFrameTranslate(frame->GetRwFrame(), &position, 2);
+            m_clump->UnkTRTInline2(&CDKW_V3d::YAXIS, 180.0f, 2);
 
             m_unk1BC = -m_unk1BC;
-            m_unk1C8 = m_speed_run;
+            m_unk1C8 = m_speed_walk;
             m_gravity = 0.0f;
             break;
         }

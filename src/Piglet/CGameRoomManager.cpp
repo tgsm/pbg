@@ -1526,12 +1526,12 @@ void CGameRoomManager::UpdateRTCCamFight() {
     m_game->UpdateRTCCamera(m_delta_time);
     DKDSP::CCamera* camera = m_game->GetCamera();
 
-    const CDKW_V3d& pos = CDKW_V3d(camera->GetFrame()->m_rwframe->modelling.pos);
+    const CDKW_V3d& pos = camera->GetPosition();
     m_unk84 = pos;
     m_unk6C = m_unk84;
     m_unk54 = m_unk6C;
-    const CDKW_V3d& at = CDKW_V3d(camera->GetFrame()->m_rwframe->modelling.at);
-    const CDKW_V3d& sum = CDKW_V3d(camera->GetFrame()->m_rwframe->modelling.pos) + at;
+    const CDKW_V3d& at = camera->GetAt();
+    const CDKW_V3d& sum = camera->GetPosition() + at;
     m_unk90 = sum;
     m_unk78 = m_unk90;
     m_unk60 = m_unk78;

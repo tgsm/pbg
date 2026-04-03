@@ -14,11 +14,7 @@ class CDKW_Matrix;
 class CDKW_V3d : public RwV3d {
 public:
     CDKW_V3d() {}
-    explicit CDKW_V3d(const RwV3d& rwvec) {
-        x = rwvec.x;
-        y = rwvec.y;
-        z = rwvec.z;
-    }
+    explicit CDKW_V3d(const RwV3d& rwvec);
     CDKW_V3d(F32 x, F32 y, F32 z);
     CDKW_V3d(const CDKW_V3d& other) {
         *this = other;
