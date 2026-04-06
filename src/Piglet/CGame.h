@@ -163,6 +163,7 @@ public:
     DKBAK::DKBAK_DATE& GetBackupDate() { return m_backup_date; }
     void SetBackupDate(DKBAK::DKBAK_DATE date) { m_backup_date = date; }
     DKGUI::CGUIEngine* GetGuiEngine() { return m_gui_engine; }
+    DKDSP::CEngine* GetDisplayEngine() { return m_display_engine; }
     DKDSP::CObjectDictionary* GetObjectDictionary() { return m_object_dictionary; }
     DKDSP::CScene* GetScene() { return m_scene; }
     DKDSP::CCamera* GetCamera() { return m_camera; }
@@ -172,6 +173,7 @@ public:
     CShadowZone* GetShadowZone() { return m_shadow_zone; }
     CGameBackup* GetGameBackup() { return m_game_backup; }
     DKBAK::CGCNBAKEngine* GetBackupEngine() { return m_backup_engine; }
+    CScreenEffect* GetScreenEffect() { return m_screen_effect; }
 
     U32& GetFlags() { return m_unk8; }
 

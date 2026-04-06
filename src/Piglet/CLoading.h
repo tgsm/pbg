@@ -41,7 +41,7 @@ public:
     CDKW_RGBA m_unk34;
     RwTexture* m_unk38;
     U32 m_unk3C;
-    U32 m_unk40;
+    BOOL m_unk40;
 
 public:
     CLoadingCallback(CGame* game);
@@ -59,9 +59,9 @@ REQUIRE_SIZE(CLoadingCallback, 0x44);
 class CInGameLoadingCallback : public CBaseLoadingCallback {
 public:
     CGame* m_game; // Overrides base m_game
-    U32 m_unkC;
+    DKDSP::CIm2DBatch* m_batch;
     F32 m_unk10;
-    U8 m_unk14[4];
+    F32 m_unk14;
 
 public:
     CInGameLoadingCallback(CGame* game);

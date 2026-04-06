@@ -3,6 +3,19 @@
 
 #include "engine/display/IImBatch.h"
 
+// FIXME
+typedef struct rwGameCube2DVertex {
+    float x;
+    float y;
+    float z;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+    float u;
+    float v;
+} RwIm2DVertex;
+
 namespace DKDSP {
 
 class IIm2DBatch : public IImBatch {
@@ -13,7 +26,7 @@ public:
     virtual void Render(RwPrimitiveType, CDKW_Matrix*) = 0;
     virtual void Render(RwPrimitiveType type) { Render(type, NULL); }
     virtual int GetSize() = 0;
-    virtual void* GetVerticeArray() = 0; // FIXME: what type is this?
+    virtual RwIm2DVertex* GetVerticeArray() = 0;
     virtual int GetNumberOfVertices() = 0;
     virtual void SetVertexPosition(int index, F32 x, F32 y, F32 z, F32 w_maybe) = 0;
     virtual void SetVertexRGBA(int index, int r, int g, int b, int a) = 0;
