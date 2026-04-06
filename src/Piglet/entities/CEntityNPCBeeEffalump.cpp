@@ -1,6 +1,7 @@
 #include "entities/CEntityNPCBeeEffalump.h"
 #include "CGame.h"
 #include "CGamePartIngame.h"
+#include <math.h>
 #include <iostream>
 
 CEntityNPCBeeEffalump::CEntityNPCBeeEffalump(CEntityManager* entity_manager, std::string name) : CEntityNPC(entity_manager, name) {
@@ -101,7 +102,6 @@ void CEntityNPCBeeEffalump::UpdateFightBehaviour(F32 a1) {
     }
 }
 
-// Very incomplete
 void CEntityNPCBeeEffalump::UpdateGrimaceBehaviour(F32 a1) {
     switch (m_unk1A8) {
         case 101:
@@ -109,23 +109,45 @@ void CEntityNPCBeeEffalump::UpdateGrimaceBehaviour(F32 a1) {
             m_pig_spline->SwapMovingDirection();
             m_unk2D4 = 0.0f;
             m_unk1A8 = 105;
+            if (m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_pathfinder_entity != NULL) {
+                m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_pathfinder_entity->m_unkF4 |= (1 << 4);
+            }
 
             break;
-        case 105:
+        case 105: {
+            F32 sin_, pow_;
+
             m_unk2D4 += a1;
-            break;
-        case 102:
-            if (m_animation_star_controller->IsPlayingAnimationLooped()) {
-                SetGenericBehaviour(GENERIC_BEHAVIOUR_4);
-                m_unk1A8 = 103;
+            F32 unk2D4 = m_unk2D4;
+            pow_ = pow(unk2D4, 3.0);
+            sin_ = sin(3.1415927f * unk2D4);
+            F32 fVar2 = 2.0f * ((sin_ / (1.0f + (20.0f * pow_))) / 0.539f);
+            if (fVar2 < 0.0f) {
+                fVar2 = 0.0f;
             }
-            break;
-        case 106:
-            m_unk2D4 += a1;
-            if (m_unk2D4 < 1.0f && m_animation_star_controller->IsPlayingAnimationLooped()) {
+
+            BOOL follow = (FollowSplinePath(a1, fVar2, 1) == FALSE);
+            if (follow) {
+                m_unk1A8 = 106;
+            } else if (m_unk2D4 > 1.0f || m_animation_star_controller->IsPlayingAnimationLooped()) {
                 m_pig_spline->SwapMovingDirection();
                 SetGenericBehaviour(GENERIC_BEHAVIOUR_4);
                 m_unk1A8 = 103;
+                if (m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_pathfinder_entity != NULL) {
+                    m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_pathfinder_entity->m_unkF4 &= ~(1 << 4);
+                }
+            }
+            break;
+        }
+        case 106:
+            m_unk2D4 += a1;
+            if (m_unk2D4 > 1.0f || m_animation_star_controller->IsPlayingAnimationLooped()) {
+                m_pig_spline->SwapMovingDirection();
+                SetGenericBehaviour(GENERIC_BEHAVIOUR_4);
+                m_unk1A8 = 103;
+                if (m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_pathfinder_entity != NULL) {
+                    m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_pathfinder_entity->m_unkF4 &= ~(1 << 4);
+                }
             }
             break;
     }
