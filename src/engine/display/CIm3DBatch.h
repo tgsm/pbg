@@ -10,7 +10,7 @@ public:
     virtual void GrabRenderstates();
     virtual void Render(RwPrimitiveType, CDKW_Matrix*);
     virtual int GetSize();
-    virtual void* GetVerticeArray(); // FIXME: what type is this?
+    virtual CDKW_Im3DVertex* GetVerticeArray();
     virtual int GetNumberOfVertices();
     virtual void SetVertexPosition(int, F32, F32, F32);
     virtual void SetVertexNormal(int, F32, F32, F32);

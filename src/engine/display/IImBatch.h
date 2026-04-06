@@ -3,7 +3,7 @@
 
 #include "engine/wrap/DKW_Matrix.h"
 
-// FIXME: Move this to a RW header.
+// FIXME: Move these to a RW header.
 enum RwPrimitiveType {
     rwPRIMTYPENAPRIMTYPE = 0,
     rwPRIMTYPELINELIST = 1,
@@ -14,6 +14,21 @@ enum RwPrimitiveType {
     rwPRIMTYPEPOINTLIST = 6,
     rwPRIMITIVETYPEFORCEENUMSIZEINT = 0x7FFFFFFF,
 };
+struct RxObjSpace3DVertex {
+    float x;
+    float y;
+    float z;
+    float nx;
+    float ny;
+    float nz;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+    float u;
+    float v;
+};
+typedef struct RxObjSpace3DVertex RwIm3DVertex;
 
 namespace DKDSP {
 

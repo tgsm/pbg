@@ -2,6 +2,7 @@
 #define ENGINE_DISPLAY_IIM3DBATCH_H
 
 #include "engine/display/IImBatch.h"
+#include "engine/wrap/DKW_Im3DVertex.h"
 
 namespace DKDSP {
 
@@ -13,7 +14,7 @@ public:
     virtual void Render(RwPrimitiveType, CDKW_Matrix*) = 0;
     virtual void Render(RwPrimitiveType type) { Render(type, NULL); }
     virtual int GetSize() = 0;
-    virtual void* GetVerticeArray() = 0; // FIXME: what type is this?
+    virtual CDKW_Im3DVertex* GetVerticeArray() = 0;
     virtual int GetNumberOfVertices() = 0;
     virtual void SetVertexPosition(int, F32, F32, F32) = 0;
     virtual void SetVertexNormal(int, F32, F32, F32) = 0;

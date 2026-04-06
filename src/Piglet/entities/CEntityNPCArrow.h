@@ -7,7 +7,7 @@
 
 class CEntityNPCArrow : public CEntityMesh {
 private:
-    U8 m_unkF4[0x100 - 0xF4];
+    CDKW_V3d m_unkF4;
     CDKW_V3d m_unk100;
     CDKW_V3d m_unk10C;
 

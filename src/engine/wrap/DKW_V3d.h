@@ -54,6 +54,8 @@ public:
     CDKW_V3d& operator*=(const CDKW_Matrix& matrix);
     CDKW_V3d& operator+=(const F32& scalar);
 
+    CDKW_V3d operator^(const CDKW_V3d& rhs) const;
+
     CDKW_V3d Normalized() const {
         CDKW_V3d normalized = *this;
         normalized.Normalize();
