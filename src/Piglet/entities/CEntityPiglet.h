@@ -45,8 +45,8 @@ public:
     virtual void Render(F32 dt_maybe);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual U32 GetSaveSize();
-    virtual void Save(void*);
-    virtual void Restore(void*);
+    virtual BOOL Save(void*);
+    virtual BOOL Restore(void*);
     virtual void ManageMessage(SDkMessage&);
     virtual void ResolveContact(const DkPh::Collider::Body&, int, int);
     virtual void UpdateAnimations(F32);

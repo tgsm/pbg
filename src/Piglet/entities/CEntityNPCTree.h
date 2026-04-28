@@ -15,12 +15,12 @@ public:
     virtual void Render(F32 dt_maybe);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
-    virtual void Restore(void*);
+    virtual BOOL Restore(void*);
     virtual void UpdateDetectionBehaviour(F32);
     virtual void UpdateFightBehaviour(F32);
     virtual void UpdateGrimaceBehaviour(F32);
     virtual void UpdateSpecialBehaviour(F32);
-    virtual void PlayWalkAnim(int);
+    virtual void PlayWalkAnim(BOOL);
     virtual void UpdateDeathBehaviour(F32);
 
     BOOL funny_check() {

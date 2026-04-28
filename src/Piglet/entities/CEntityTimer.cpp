@@ -99,9 +99,9 @@ void CEntityTimer::ManageMessage(SDkMessage& message) {
     }
 }
 
-void CEntityTimer::Save(void* unk) {
+BOOL CEntityTimer::Save(void* unk) {
     DelFlag(ENTITY_FLAG_ACTIVE);
     DelFlag(ENTITY_FLAG_VISIBLE);
 
-    CEntity::Save(unk);
+    return CEntity::Save(unk);
 }

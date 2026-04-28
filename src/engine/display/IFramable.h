@@ -20,13 +20,20 @@ public:
     virtual CDKW_Frame* GetFrame() = 0;
     virtual void SetFrame(CDKW_Frame* frame) = 0;
 
+    inline CDKW_V3d GetUp() {
+        return GetFrame()->GetUp();
+    }
+
+    inline CDKW_V3d GetAt() {
+        return GetFrame()->GetAt();
+    }
+
     inline CDKW_V3d GetPosition() {
         return GetFrame()->GetPosition();
     }
 
-    inline CDKW_V3d GetAt() {
-        return (CDKW_V3d&)(GetFrame()->m_rwframe->modelling.at);
-    }
+    CDKW_V3d GetRightVector();
+    CDKW_V3d GetUpVector();
 
     inline void LookAtInline(CDKW_V3d vec1, CDKW_V3d vec2, CDKW_V3d vec3) {
         ((CDKW_Matrix*)(&GetFrame()->m_rwframe->modelling))->LookAt(vec1, vec2, vec3);

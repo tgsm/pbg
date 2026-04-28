@@ -139,8 +139,8 @@ void CEntityNPCJackpotEffalump::Render(F32 dt) {
     }
 }
 
-void CEntityNPCJackpotEffalump::Restore(void* unk) {
-    CEntityNPC::Restore(unk);
+BOOL CEntityNPCJackpotEffalump::Restore(void* unk) {
+    return CEntityNPC::Restore(unk);
 }
 
 void CEntityNPCJackpotEffalump::Parse(DkXmd::CChunkIterator iter) {

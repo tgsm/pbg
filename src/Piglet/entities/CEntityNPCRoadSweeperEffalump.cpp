@@ -222,8 +222,8 @@ void CEntityNPCRoadSweeperEffalump::Render(F32 dt_maybe) {
     }
 }
 
-void CEntityNPCRoadSweeperEffalump::Restore(void* unk) {
-    CEntityNPC::Restore(unk);
+BOOL CEntityNPCRoadSweeperEffalump::Restore(void* unk) {
+    return CEntityNPC::Restore(unk);
 }
 
 void CEntityNPCRoadSweeperEffalump::Parse(DkXmd::CChunkIterator iter) {

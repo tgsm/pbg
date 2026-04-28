@@ -27,14 +27,14 @@ public:
     virtual void UpdateGrimaceBehaviour(F32);
     virtual void UpdateDeathBehaviour(F32);
     virtual void Render(F32 dt_maybe);
-    virtual void Restore(void*);
+    virtual BOOL Restore(void*);
     virtual CDKW_V3d GetPosition();
     virtual void SetPosition(CDKW_V3d& position);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
-    virtual void PlayWalkAnim(int);
+    virtual void PlayWalkAnim(BOOL);
     virtual void Idle();
-    virtual void UnIdle(int);
+    virtual void UnIdle(BOOL play_saved_anim);
 
     BOOL MoveAlongZ(F32);
 };

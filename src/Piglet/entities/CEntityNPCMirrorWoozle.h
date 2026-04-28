@@ -27,7 +27,7 @@ public:
     virtual void UpdateGrimaceBehaviour(F32);
     virtual void UpdateDeathBehaviour(F32);
     virtual void Render(F32);
-    virtual void Restore(void*);
+    virtual BOOL Restore(void*);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
 };

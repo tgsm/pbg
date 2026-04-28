@@ -91,8 +91,8 @@ public:
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual void UpdateBehavior(F32 dt_maybe);
     virtual U32 GetSaveSize();
-    virtual void Save(void*);
-    virtual void Restore(void*);
+    virtual BOOL Save(void*);
+    virtual BOOL Restore(void*);
     virtual void ManageMessage(SDkMessage& message);
 
     void ParseXYZ(DkXmd::CChunkIterator iter, F32* x, F32* y, F32* z);

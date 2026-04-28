@@ -116,8 +116,8 @@ void CEntityNPCBasicWoozle::Render(F32 dt_maybe) {
     }
 }
 
-void CEntityNPCBasicWoozle::Restore(void* unk) {
-    CEntityNPC::Restore(unk);
+BOOL CEntityNPCBasicWoozle::Restore(void* unk) {
+    return CEntityNPC::Restore(unk);
 }
 
 void CEntityNPCBasicWoozle::Parse(DkXmd::CChunkIterator iter) {

@@ -223,8 +223,8 @@ void CEntityNPCTubaEffalump::Render(F32 dt_maybe) {
     }
 }
 
-void CEntityNPCTubaEffalump::Restore(void* unk) {
-    CEntityNPC::Restore(unk);
+BOOL CEntityNPCTubaEffalump::Restore(void* unk) {
+    return CEntityNPC::Restore(unk);
 }
 
 void CEntityNPCTubaEffalump::Parse(DkXmd::CChunkIterator iter) {

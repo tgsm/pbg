@@ -1,13 +1,8 @@
 #ifndef ENGINE_WRAP_DKW_QUAT_H
 #define ENGINE_WRAP_DKW_QUAT_H
 
+#include <rwsdk/tool/quat/rtquat.h>
 #include "engine/wrap/DKW_V3d.h"
-
-// FIXME: Move this to its own header
-struct RtQuat {
-    RwV3d imag;
-    float real;
-};
 
 class CDKW_Quat : public RtQuat {
 public:

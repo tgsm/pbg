@@ -25,6 +25,14 @@ public:
         RwEngineInstance->unk144(ms_pMemEntry, ptr);
     }
 
+    CDKW_V3d GetUp() {
+        return (CDKW_V3d&)(m_rwframe->modelling.up);
+    }
+
+    CDKW_V3d GetAt() {
+        return (CDKW_V3d&)(m_rwframe->modelling.at);
+    }
+
     CDKW_V3d GetPosition() {
         return (CDKW_V3d&)(m_rwframe->modelling.pos);
     }

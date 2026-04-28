@@ -106,7 +106,7 @@ void CEntityNPCBeeEffalump::UpdateGrimaceBehaviour(F32 a1) {
     switch (m_unk1A8) {
         case 101:
             m_animation_star_controller->Play("IS_FRIGHTENED", 1, 1);
-            m_pig_spline->SwapMovingDirection();
+            m_path_finder_spline->SwapMovingDirection();
             m_unk2D4 = 0.0f;
             m_unk1A8 = 105;
             if (m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_pathfinder_entity != NULL) {
@@ -130,7 +130,7 @@ void CEntityNPCBeeEffalump::UpdateGrimaceBehaviour(F32 a1) {
             if (follow) {
                 m_unk1A8 = 106;
             } else if (m_unk2D4 > 1.0f || m_animation_star_controller->IsPlayingAnimationLooped()) {
-                m_pig_spline->SwapMovingDirection();
+                m_path_finder_spline->SwapMovingDirection();
                 SetGenericBehaviour(GENERIC_BEHAVIOUR_4);
                 m_unk1A8 = 103;
                 if (m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_pathfinder_entity != NULL) {
@@ -142,7 +142,7 @@ void CEntityNPCBeeEffalump::UpdateGrimaceBehaviour(F32 a1) {
         case 106:
             m_unk2D4 += a1;
             if (m_unk2D4 > 1.0f || m_animation_star_controller->IsPlayingAnimationLooped()) {
-                m_pig_spline->SwapMovingDirection();
+                m_path_finder_spline->SwapMovingDirection();
                 SetGenericBehaviour(GENERIC_BEHAVIOUR_4);
                 m_unk1A8 = 103;
                 if (m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_pathfinder_entity != NULL) {
@@ -163,8 +163,8 @@ void CEntityNPCBeeEffalump::Render(F32 dt) {
     }
 }
 
-void CEntityNPCBeeEffalump::Restore(void* unk) {
-    CEntityNPC::Restore(unk);
+BOOL CEntityNPCBeeEffalump::Restore(void* unk) {
+    return CEntityNPC::Restore(unk);
 }
 
 void CEntityNPCBeeEffalump::Parse(DkXmd::CChunkIterator iter) {

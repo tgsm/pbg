@@ -224,8 +224,8 @@ void CEntityNPCHnSWoozle::Render(F32 dt_maybe) {
     }
 }
 
-void CEntityNPCHnSWoozle::Restore(void* unk) {
-    CEntityNPC::Restore(unk);
+BOOL CEntityNPCHnSWoozle::Restore(void* unk) {
+    return CEntityNPC::Restore(unk);
 }
 
 void CEntityNPCHnSWoozle::Parse(DkXmd::CChunkIterator iter) {

@@ -94,7 +94,7 @@ void CEntityNPCTennisWoozle::UpdateFightBehaviour(F32 a1) {
                 m_unk1A8 = 105;
                 break;
             } else {
-                CDKW_V3d delta = GetPosDelta2();
+                CDKW_V3d delta = GetPosDeltaRef();
                 volatile CDKW_V3d unused_probably_fake = delta;
                 if (DistanceSquared(delta) > 12.0f) {
                     if (m_animation_star_controller->GetPlayingAnimationTime() / m_animation_star_controller->GetPlayingAnimationDuration() > 0.5f) {
@@ -163,8 +163,8 @@ void CEntityNPCTennisWoozle::Render(F32 dt_maybe) {
     }
 }
 
-void CEntityNPCTennisWoozle::Restore(void* unk) {
-    CEntityNPC::Restore(unk);
+BOOL CEntityNPCTennisWoozle::Restore(void* unk) {
+    return CEntityNPC::Restore(unk);
 }
 
 void CEntityNPCTennisWoozle::Parse(DkXmd::CChunkIterator iter) {

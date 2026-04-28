@@ -36,6 +36,7 @@
 #include "CMailBox.h"
 #include "CMiniMap.h"
 #include "CMission.h"
+#include "CPSplines.h"
 #include "CResourceFactory.h"
 #include "CShadowZone.h"
 
@@ -251,6 +252,7 @@ public:
     void ComputeDeltaTime();
     CGamePart* GetGamePartPointer();
     void SetCurrentRoomReturnType(ERoomReturnType return_type, int a2);
+    CPigSplineBank* GetCurrentRoomSplineBank();
     void ResetOpcodeBuffer();
     void PushOpcodeValue(int opcode);
     BOOL LoadConfigFile(char* filename);

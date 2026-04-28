@@ -127,8 +127,8 @@ void CEntityNPCTree::Render(F32 dt_maybe) {
     }
 }
 
-void CEntityNPCTree::Restore(void* unk) {
-    CEntityNPC::Restore(unk);
+BOOL CEntityNPCTree::Restore(void* unk) {
+    return CEntityNPC::Restore(unk);
 }
 
 void CEntityNPCTree::Parse(DkXmd::CChunkIterator iter) {

@@ -18,7 +18,7 @@ public:
     }
     virtual void Update(F32 dt_maybe);
     virtual void Parse(DkXmd::CChunkIterator iter);
-    virtual void Save(void*);
+    virtual BOOL Save(void*);
     virtual void ManageMessage(SDkMessage& message);
 };
 REQUIRE_SIZE(CEntityTimer, 0x2C);

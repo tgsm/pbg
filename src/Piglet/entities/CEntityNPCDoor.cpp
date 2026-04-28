@@ -137,8 +137,8 @@ void CEntityNPCDoor::Render(F32 dt_maybe) {
     }
 }
 
-void CEntityNPCDoor::Restore(void* unk) {
-    CEntityNPC::Restore(unk);
+BOOL CEntityNPCDoor::Restore(void* unk) {
+    return CEntityNPC::Restore(unk);
 }
 
 void CEntityNPCDoor::Parse(DkXmd::CChunkIterator iter) {

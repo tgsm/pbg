@@ -237,8 +237,8 @@ void CEntityNPCGralosaurus::Render(F32 dt_maybe) {
     }
 }
 
-void CEntityNPCGralosaurus::Restore(void* unk) {
-    CEntityNPC::Restore(unk);
+BOOL CEntityNPCGralosaurus::Restore(void* unk) {
+    return CEntityNPC::Restore(unk);
 }
 
 void CEntityNPCGralosaurus::Parse(DkXmd::CChunkIterator iter) {
@@ -274,9 +274,9 @@ void CEntityNPCGralosaurus::PlayWalkAnim(int unk) {
 
 void CEntityNPCGralosaurus::Idle() {
     if (!(m_unkF4 & (1 << 10))) {
-        m_unk2C4 = m_animation_star_controller->GetPlayingAnimationName();
-        if (m_unk2C4 != NULL) {
-            strcmp(m_unk2C4->c_str(), "SLEEP");
+        m_current_anim = m_animation_star_controller->GetPlayingAnimationName();
+        if (m_current_anim != NULL && strcmp(m_current_anim->c_str(), "SLEEP")) {
+
         }
         m_unkF4 |= (1 << 10);
     }
