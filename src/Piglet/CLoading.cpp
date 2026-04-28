@@ -556,6 +556,22 @@ void CBootUpLoadingCallback::Create() {
 
     m_game->m_timer->Reset();
     m_game->ComputeDeltaTime();
+#ifdef VERSION_GPLP9G
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+    m_game->ComputeDeltaTime();
+#endif
 
     while (m_unkC < 4.0f) {
         m_game->ComputeDeltaTime();
@@ -800,10 +816,16 @@ void CVideoLoadingCallback::Update() {
 
     m_game->GetGuiManager()->Update(1.0f/30.0f);
     if (m_game->GetDisplayEngine()->Update()) {
+#ifdef VERSION_GPLP9G
+        m_game->GetScene()->SelectCamera(m_game->GetCamera());
+#endif
         m_game->GetScene()->Clear(3, 0.0f, 0.0f, 0.0f);
         m_game->GetScene()->BeginRender();
         m_game->GetGuiManager()->Render(1.0f/30.0f);
         m_game->GetScene()->EndRender();
+#ifdef VERSION_GPLP9G
+        m_game->GetScene()->Flush();
+#endif
         m_game->GetScene()->Flip(0);
     }
 }
