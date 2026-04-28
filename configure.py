@@ -29,7 +29,8 @@ from tools.project import (
 # Game versions
 DEFAULT_VERSION = 0
 VERSIONS = [
-    "GPLE9G",  # 0
+    "GPLE9G",  # USA
+    "GPLP9G",  # PAL (English)
 ]
 
 parser = argparse.ArgumentParser()
@@ -421,6 +422,10 @@ Equivalent = config.non_matching  # Object should be linked when configured with
 def MatchingFor(*versions):
     return config.version in versions
 
+# Object is only equivalent for specific versions
+def EquivalentFor(*versions):
+    return config.non_matching and config.version in versions
+
 
 config.warn_missing_config = True
 config.warn_missing_source = False
@@ -431,7 +436,7 @@ config.libs = [
         "cflags": cflags_piglet,
         "progress_category": "game",
         "objects": [
-            Object(Equivalent, "Piglet/main.cpp"),
+            Object(EquivalentFor("GPLE9G"), "Piglet/main.cpp"),
             Object(NonMatching, "Piglet/CGame.cpp", extra_cflags=["-bool off"]),
             Object(NonMatching, "Piglet/CGamePartCredits.cpp"),
             Object(Equivalent, "Piglet/CGamePartFrontend.cpp"),
@@ -442,7 +447,7 @@ config.libs = [
             Object(NonMatching, "Piglet/entities/CEntityManager.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityMesh.cpp", extra_cflags=["-bool off"]),
             Object(Equivalent, "Piglet/entities/CEntityWarp.cpp"),
-            Object(Equivalent, "Piglet/entities/CEntityWorld.cpp"),
+            Object(EquivalentFor("GPLE9G"), "Piglet/entities/CEntityWorld.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityZone.cpp"),
             Object(NonMatching, "Piglet/entities/CEntity.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagData.cpp"),
@@ -528,8 +533,8 @@ config.libs = [
             Object(NonMatching, "Piglet/CFxManager.cpp"),
             Object(NonMatching, "Piglet/CShadowZone.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityNPCGralosaurus.cpp"),
-            Object(Equivalent, "Piglet/CGamePartScrapBook.cpp"),
-            Object(Equivalent, "Piglet/CGamePartMovieClips.cpp"),
+            Object(EquivalentFor("GPLE9G"), "Piglet/CGamePartScrapBook.cpp"),
+            Object(EquivalentFor("GPLE9G"), "Piglet/CGamePartMovieClips.cpp"),
             Object(Equivalent, "Piglet/CIcon.cpp"),
             Object(Equivalent, "Piglet/CGuiScrapBookEventHandler.cpp"),
             Object(Equivalent, "Piglet/CGuiMovieClipsEventHandler.cpp"),
@@ -537,7 +542,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CLoadingCatchThemAll.cpp", extra_cflags=["-bool off"]),
             Object(Equivalent, "Piglet/CloadingTigger.cpp", extra_cflags=["-bool off"]),
             Object(Equivalent, "Piglet/CloadingWinnie.cpp", extra_cflags=["-bool off"]),
-            Object(Equivalent, "Piglet/CGamePartStartScreen.cpp"),
+            Object(EquivalentFor("GPLE9G"), "Piglet/CGamePartStartScreen.cpp"),
             Object(Equivalent, "Piglet/CRTCVibrationEvent.cpp"),
             Object(Equivalent, "Piglet/CRTCMessageEvent.cpp"),
             Object(NonMatching, "Piglet/CFullScreenEffect.cpp"),
@@ -576,7 +581,7 @@ config.libs = [
     DkEngineLib(
         "DKSND", cflags_engine_sound,
         [
-            Object(Matching, "engine/sound/DkSound.cpp", extra_cflags=["-inline deferred"]),
+            Object(MatchingFor("GPLE9G"), "engine/sound/DkSound.cpp", extra_cflags=["-inline deferred"]),
             Object(NonMatching, "engine/sound/ISoundEngine.cpp"),
             Object(Matching, "engine/sound/ISample.cpp"),
             Object(Matching, "engine/sound/ISoundEmitter.cpp"),
@@ -591,7 +596,7 @@ config.libs = [
             Object(NonMatching, "engine/sound/CSoundEngine.cpp"),
             Object(NonMatching, "engine/sound/CSoundListener.cpp"),
             Object(NonMatching, "engine/sound/CSoundStreamed.cpp"),
-            Object(Equivalent, "engine/sound/CSample.cpp"),
+            Object(EquivalentFor("GPLE9G"), "engine/sound/CSample.cpp"),
             Object(NonMatching, "engine/sound/CSound3DRWA.cpp"),
             Object(NonMatching, "engine/sound/CSound2DRWA.cpp"),
             Object(NonMatching, "engine/sound/CSoundStreamedRWA.cpp"),
@@ -604,7 +609,7 @@ config.libs = [
     DkEngineLib(
         "DKVIDEO", cflags_engine_video, [
             Object(Matching, "engine/video/CVideoEngine.cpp"),
-            Object(Matching, "engine/video/CVideoEngineGCN.cpp"),
+            Object(MatchingFor("GPLE9G"), "engine/video/CVideoEngineGCN.cpp"),
             Object(Matching, "engine/video/DkVideo.cpp"),
         ]
     ),
@@ -619,7 +624,7 @@ config.libs = [
             Object(Matching, "engine/GCN_MW_Memory.cpp"),
             Object(NonMatching, "engine/filesys/DkFileSysDlfs.c"),
             Object(NonMatching, "engine/filesys/DkFileSys.cpp", extra_cflags=["-sym on"]),
-            Object(Equivalent, "engine/filesys/DkFileSysFat.cpp"),
+            Object(EquivalentFor("GPLE9G"), "engine/filesys/DkFileSysFat.cpp"),
             Object(NonMatching, "engine/filesys/DkFileSysUnCompress.cpp"),
             Object(NonMatching, "engine/display/DkDisplay.cpp"),
             Object(NonMatching, "engine/display/CEngine.cpp", extra_cflags=["-bool off"]),
@@ -974,6 +979,7 @@ config.libs = [
         "objects": [
             Object(NonMatching, "PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/abort_exit.c"),
             Object(NonMatching, "PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/alloc.c"),
+            Object(NonMatching, "PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/arith.c"),
             Object(NonMatching, "PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/errno.c"),
             Object(NonMatching, "PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Src/ansi_files.c"),
             Object(NonMatching, "PowerPC_EABI_Support/msl/MSL_C/MSL_Common_Embedded/Src/ansi_fp.c"),

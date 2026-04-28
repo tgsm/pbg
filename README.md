@@ -24,6 +24,7 @@ This repository does **not** contain any game assets or assembly whatsoever. An 
 Supported versions:
 
 - `GPLE9G`: USA
+- `GPLP9G`: PAL (English)
 
 Dependencies
 ============
