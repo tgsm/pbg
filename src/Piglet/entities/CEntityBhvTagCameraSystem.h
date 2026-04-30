@@ -37,7 +37,7 @@ public:
             if (mission != NULL) {
                 zones = camera->GetZoneList();
                 for (int i = 0; i < (int)zones.size(); i++) {
-                    mission->m_unk7C[unk4F58].unk0[i] = zones[i]->GetActiveSystemIndex();
+                    mission->m_unk7C.unk[unk4F58].unk0[i] = zones[i]->GetActiveSystemIndex();
                 }
             }
         }

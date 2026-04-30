@@ -2430,12 +2430,12 @@ void CGuiDreamSelectEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
                         m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetUnkC());
                         m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).m_unk10);
 
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartPosition().x);
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartPosition().y);
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartPosition().z);
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRotation().x);
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRotation().y);
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRotation().z);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomPosition().x);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomPosition().y);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomPosition().z);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomRotation().x);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomRotation().y);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomRotation().z);
 
                         m_game->PushOpcodeValue(0);
                         if (m_game->GetMission(m_unk10 - 1).m_unk34 == 0) {
@@ -2448,12 +2448,12 @@ void CGuiDreamSelectEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
                         m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetUnkC());
                         m_game->PushOpcodeValue(3);
 
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartPosition().x);
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartPosition().y);
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartPosition().z);
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRotation().x);
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRotation().y);
-                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRotation().z);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomPosition().x);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomPosition().y);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomPosition().z);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomRotation().x);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomRotation().y);
+                        m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomRotation().z);
 
                         m_game->PushOpcodeValue(0);
 

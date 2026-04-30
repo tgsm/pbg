@@ -11,6 +11,22 @@ struct CMission_UnkSubstruct {
     int unk20[8];
 };
 
+struct CMission_UnkSubstructArray {
+    CMission_UnkSubstruct unk[16];
+};
+
+struct CMission_Rooms {
+    U32 rooms[16];
+};
+
+struct CMission_Unk48C {
+    S8 unk48C[3][16];
+};
+
+struct CMission_Unk4C4 {
+    U32 unk[4];
+};
+
 class CMission {
 public:
     CGame* m_game;
@@ -24,16 +40,16 @@ public:
     int m_unk30;
     int m_unk34;
     int m_num_rooms;
-    U32 m_rooms[16];
-    CMission_UnkSubstruct m_unk7C[16];
+    CMission_Rooms m_rooms;
+    CMission_UnkSubstructArray m_unk7C;
     std::string m_start_mission_fmv;
     std::string m_end_mission_fmv;
     std::string m_mission_fight_warp_model;
     std::string m_start_rtc;
-    S8 m_unk48C[3][16];
+    CMission_Unk48C m_unk48C;
     U32 m_num_total_cookies;
     U32 m_num_current_cookies;
-    U32 m_unk4C4[4];
+    CMission_Unk4C4 m_unk4C4;
 
     static U32 m_MaxNbCookies;
 
@@ -85,8 +101,18 @@ public:
     BOOL IsSecondPassCompleted();
 
     U32 GetUnkC() { return m_unkC; }
-    CDKW_V3d GetStartPosition() { return m_start_position; }
-    CDKW_V3d GetStartRotation() { return m_start_rotation; }
+    CDKW_V3d GetStartRoomPosition() {
+#ifdef VERSION_GPLP9G
+        DONT_INLINE_HACK();
+#endif
+        return m_start_position;
+    }
+    CDKW_V3d GetStartRoomRotation() {
+#ifdef VERSION_GPLP9G
+        DONT_INLINE_HACK();
+#endif
+        return m_start_rotation;
+    }
     BOOL Unk30Check() { return m_unk30; }
     int& GetUnk34() { return m_unk34; }
 };

@@ -26,7 +26,7 @@ public:
 
         if (m_unkC == "TXDPATCH") {
             for (int i = 3; i < 11; i++) {
-                entity->m_entity_manager->GetGame()->m_unk210[3].m_rooms[i] |= (1 << 3);
+                entity->m_entity_manager->GetGame()->m_unk210[3].m_rooms.rooms[i] |= (1 << 3);
             }
         } else if (m_unkC == "Vibration") {
             if (m_unk10 > 0.5f) {

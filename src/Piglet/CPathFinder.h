@@ -11,13 +11,30 @@ public:
 
     };
 
-    U8 m_unk0[0x4B6C - 0x0];
+    struct Link {
+
+    };
+
+    struct Node {
+
+    };
+
+    std::vector<Node> m_nodes;
+    std::vector<Link> m_links;
+    U8 m_unk18[0x24 - 0x18];
+    U32 m_unk24;
+    U8 m_unk28[0x4B64 - 0x28];
+    U32 m_unk4B64;
+    U8 m_unk4B68[4];
     std::vector<SDynamicBodies> m_unk4B6C;
-    U8 m_unk4B78[0x4F78 - 0x4B78];
 
 public:
+    CPathFinder() : m_unk24(0) {
+        m_unk4B64 = 0;
+    }
+
     void Update(F32 dt);
 };
-REQUIRE_SIZE(CPathFinder, 0x4F78);
+REQUIRE_SIZE(CPathFinder, 0x4B78);
 
 #endif

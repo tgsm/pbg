@@ -10,6 +10,7 @@ public:
 
 public:
     static void Create();
+    static void Destroy();
     static void PrintText(int, int, char* text);
 };
 

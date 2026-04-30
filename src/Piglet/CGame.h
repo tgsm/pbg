@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <dolphin/dvd.h>
 #include "engine/backup/CGCNBAKEngine.h"
 #include "engine/backup/IBAKEngine.h"
 #include "engine/display/CAnimDictionary.h"
@@ -147,6 +148,9 @@ public:
     std::vector<DKDSP::CAnimation*> m_unk5064;
     U8 m_unk5070[0x508C - 0x5070];
     DKI::IInput* m_unk508C;
+#ifdef VERSION_GPLP9G
+    DVDFileInfo m_dvd_file;
+#endif
     U32 m_unk5090;
 
     static CGuiManager* gs_CurrentGuiManager;
@@ -185,17 +189,6 @@ public:
     U32 GetUnk4F58() { return m_unk4F58; }
 
     CGamePartIngame* GetIngameGamePart() { return (CGamePartIngame*)GetGamePartPointer(); }
-
-    BOOL HasEntityOfType(U32 type) {
-        BOOL result = FALSE;
-        for (U32 i = 0; i < m_entity_manager->GetEntityCount(); i++) {
-            if (m_entity_manager->GetEntity(i)->GetType() == type) {
-                result = TRUE;
-                break;
-            }
-        }
-        return result;
-    }
 
     F32 FadeRelatedInline() {
         F32 fVar1;
@@ -245,6 +238,34 @@ public:
         return ret;
     }
 
+    void DestroyFadeBatchs() {
+#ifdef VERSION_GPLP9G
+        DONT_INLINE_HACK();
+#endif
+        if (m_batch5050 != NULL) {
+            m_display_engine->GetImmediate()->RemoveBatch2D(m_batch5050);
+        }
+        m_batch5050 = NULL;
+    }
+
+    void SetCurrentRoomStartPosition(CDKW_V3d position) {
+#ifdef VERSION_GPLP9G
+        DONT_INLINE_HACK();
+#endif
+        m_unk4F60 = position.x;
+        m_unk4F64 = position.y;
+        m_unk4F68 = position.z;
+    }
+
+    void SetCurrentRoomStartRotation(CDKW_V3d rotation) {
+#ifdef VERSION_GPLP9G
+        DONT_INLINE_HACK();
+#endif
+        m_unk4F6C = rotation.x;
+        m_unk4F70 = rotation.y;
+        m_unk4F74 = rotation.z;
+    }
+
     F32 GetUnk502C() { return m_unk502C; }
     F32 GetFadeDuration() { return m_fade_duration; }
 
@@ -255,24 +276,31 @@ public:
     CPigSplineBank* GetCurrentRoomSplineBank();
     void ResetOpcodeBuffer();
     void PushOpcodeValue(int opcode);
+    void SetCurrentMission(U32 mission);
     BOOL LoadConfigFile(char* filename);
     CDKW_V2d GetScreenOffset();
     void SetScreenOffset(CDKW_V2d offset);
     void ParseRTCCamFight(DkXmd::CChunkIterator iter);
     void PlayNarratorLine(std::string line_id);
     void StopNarratorLine();
+    void StopNarratorLine(U32 id);
     void FadeInit(F32 duration, ERommFadeType fade_type, U8 red, U8 green, U8 blue, F32 a6);
     int FadeUpdate(F32);
     int FadeIn(F32 a1);
     int FadeOut(F32 a1);
     void RenderFade();
     BOOL IsGUIDisplayNotAdvised();
+    void DestroyRTCCameraControler();
     void SetRTCCameraAnimationByIndex(U32 index);
     void UpdateRTCCamera(F32 dt);
     void RegisterVideo(int id, std::string filename);
     void PlayVideo(int id);
     CDKW_RGBA ComputeGameFadeColor();
 };
+#ifdef VERSION_GPLP9G
+REQUIRE_SIZE(CGame, 0x50D4);
+#else
 REQUIRE_SIZE(CGame, 0x5098);
+#endif
 
 #endif

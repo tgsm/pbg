@@ -139,7 +139,7 @@ void CGameRoomManager::Init() {
 
     m_game->m_entity_manager->m_path_finder->m_unk4B6C.clear();
 
-    if (m_game->GetCurrentMission()->m_rooms[m_game->m_unk4F58] & (1 << 2)) {
+    if (m_game->GetCurrentMission()->m_rooms.rooms[m_game->m_unk4F58] & (1 << 2)) {
         m_flags |= (1 << 16);
         m_flags &= ~(1 << 17);
     }
@@ -209,7 +209,7 @@ void CGameRoomManager::Update(F32 dt) {
                     m_unkC = 0;
                 }
 
-                if (m_game->GetCurrentMission()->m_rooms[m_game->m_unk4F58] & (1 << 2)) {
+                if (m_game->GetCurrentMission()->m_rooms.rooms[m_game->m_unk4F58] & (1 << 2)) {
                     m_flags |= (1 << 25);
                 }
 
@@ -773,7 +773,7 @@ void CGameRoomManager::OnPlayNormal() {
     CheckIfHeroIsPushing();
 
     if (!(m_flags & (1 << 25))) {
-        if (m_game->GetCurrentMission()->m_rooms[m_game->m_unk4F58] & (1 << 2)) {
+        if (m_game->GetCurrentMission()->m_rooms.rooms[m_game->m_unk4F58] & (1 << 2)) {
             if (m_flags & (1 << 16)) {
                 m_flags &= ~(1 << 17);
             } else {
@@ -939,7 +939,7 @@ void CGameRoomManager::SecondPass() {
         OnPlayRTCInit();
         return;
     } else if (!(m_flags & (1 << 25))) {
-        if (m_game->GetCurrentMission()->m_rooms[m_game->m_unk4F58] & (1 << 2)) {
+        if (m_game->GetCurrentMission()->m_rooms.rooms[m_game->m_unk4F58] & (1 << 2)) {
             if (m_flags & (1 << 16)) {
                 m_flags &= ~(1 << 17);
             } else {
@@ -992,7 +992,7 @@ void CGameRoomManager::SecondPass() {
                 }
 
                 if (m_unk120 <= 0) {
-                    m_game->GetCurrentMission()->m_rooms[m_game->GetUnk4F58()] |= (1 << 1);
+                    m_game->GetCurrentMission()->m_rooms.rooms[m_game->GetUnk4F58()] |= (1 << 1);
                     m_unkC = 4;
                     m_hero->SetMode(0);
                 } else {
@@ -1682,7 +1682,7 @@ void CGameRoomManager::DisplayTicTac() {
         m_unk14 = 4;
         m_room_state10 = ROOM_STATE_10;
 
-        m_game->GetCurrentMission()->m_rooms[m_game->GetUnk4F58()] |= (1 << 1);
+        m_game->GetCurrentMission()->m_rooms.rooms[m_game->GetUnk4F58()] |= (1 << 1);
 
         if (m_sound100 != NULL) {
             m_sound100->Stop();

@@ -3,6 +3,10 @@
 
 #include "engine/sound/ISoundEngine.h"
 
+struct RwaObjHandle {
+    void* unk0;
+};
+
 namespace DKSND {
 
 class CSoundEngine : public ISoundEngine {
@@ -76,7 +80,7 @@ public:
     virtual void RWASetCurrentStreamPosition(F32);
 
     void AddLayer(int);
-    void* RWAGetOSOutputHandle(); // TODO: return type
+    RwaObjHandle* RWAGetOSOutputHandle();
 };
 REQUIRE_SIZE(CSoundEngine, 0x2D0);
 

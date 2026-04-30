@@ -178,8 +178,8 @@ void CMiniMap::ShowFriendNPC(int a1, int a2, int a3) {
         return;
     }
 
-    m_game->GetCurrentMission()->m_unk4C4[(a1 - 1) / 4] |= (a2 & 0xF) << (4 + ((a1 - 1) % 4) * 8);
-    m_game->GetCurrentMission()->m_unk4C4[(a1 - 1) / 4] |= (a3 & 0xF) << (0 + ((a1 - 1) % 4) * 8);
+    m_game->GetCurrentMission()->m_unk4C4.unk[(a1 - 1) / 4] |= (a2 & 0xF) << (4 + ((a1 - 1) % 4) * 8);
+    m_game->GetCurrentMission()->m_unk4C4.unk[(a1 - 1) / 4] |= (a3 & 0xF) << (0 + ((a1 - 1) % 4) * 8);
 }
 
 void CMiniMap::HideFriendNPC(int a1) {
@@ -187,7 +187,7 @@ void CMiniMap::HideFriendNPC(int a1) {
         return;
     }
 
-    m_game->GetCurrentMission()->m_unk4C4[(a1 - 1) / 4] &= 0xFF << (((a1 - 1) % 4) * 8) ^ 0xFFFFFFFF;
+    m_game->GetCurrentMission()->m_unk4C4.unk[(a1 - 1) / 4] &= 0xFF << (((a1 - 1) % 4) * 8) ^ 0xFFFFFFFF;
 }
 
 // Equivalent: stack offsets

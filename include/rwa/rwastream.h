@@ -5,6 +5,8 @@
 extern "C" {
 #endif
 
+struct RwaObjHandle;
+
 typedef struct RwaUnkMedia {
     char* filename;
     int unk4;
@@ -22,7 +24,7 @@ typedef struct RwaStream {
     char unk;
 } RwaStream;
 
-RwaStream* RwaStreamCreate(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int); // TODO: params
+RwaStream* RwaStreamCreate(void*, unsigned int, unsigned int, unsigned int, unsigned int); // TODO: params
 
 void _rwaStreamSetMedia(RwaStream* stream, RwaUnkMedia* media);
 int _rwaStreamGetStatus(RwaStream* stream);

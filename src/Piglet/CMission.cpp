@@ -52,7 +52,7 @@ BOOL CMission::LoadConfigFile(U32 a1) {
         }
         if (file_chunk.GetChunk("StartRoom", dest1)) {
             m_unkC = dest1.GetS32Value();
-            m_rooms[m_unkC] |= (1 << 0);
+            m_rooms.rooms[m_unkC] |= (1 << 0);
         }
         if (file_chunk.GetChunk("StartMode", dest1)) {
             m_unk10 = dest1.GetS32Value();
@@ -105,7 +105,7 @@ BOOL CMission::LoadConfigFile(U32 a1) {
             do {
                 char* name = dest1.GetName();
                 if (name != NULL && strcmp(name, "Room") == 0) {
-                    m_rooms[dest1.GetS32Value()] |= (1 << 1);
+                    m_rooms.rooms[dest1.GetS32Value()] |= (1 << 1);
                 } else {
                     break;
                 }
@@ -164,7 +164,7 @@ BOOL CMission::LoadConfigFile(U32 a1) {
             do {
                 strcpy(buf, dest1.GetName());
                 if (strcmp(buf, "Room") == 0) {
-                    m_rooms[dest1.GetS32Value()] |= (1 << 1);
+                    m_rooms.rooms[dest1.GetS32Value()] |= (1 << 1);
                 } else {
                     break;
                 }
@@ -196,7 +196,7 @@ void CMission::Save(void* data) {
     offset += 4;
 
     for (i = 0; i < 4u; i++) {
-        m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_unk4C4[i], (S8*)((int)data + offset));
+        m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_unk4C4.unk[i], (S8*)((int)data + offset));
         offset += 4;
     }
 
@@ -208,20 +208,20 @@ void CMission::Save(void* data) {
     offset += 4;
 
     for (i = 0; i < 16; i++) {
-        m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_rooms[i], (S8*)((int)data + offset));
+        m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_rooms.rooms[i], (S8*)((int)data + offset));
         offset += 4;
     }
 
     for (i = 0; i < 16; i++) {
         for (int j = 0; j < 8; j++) {
-            m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_unk7C[i].unk0[j], (S8*)((int)data + offset));
+            m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_unk7C.unk[i].unk0[j], (S8*)((int)data + offset));
             offset += 4;
         }
     }
 
     for (i = 0; i < 3; i++) {
         for (int j = 0; j < 16; j++) {
-            m_game->m_game_backup->GetCurrentContainer()->StoreS8(m_unk48C[i][j], (S8*)((int)data + offset));
+            m_game->m_game_backup->GetCurrentContainer()->StoreS8(m_unk48C.unk48C[i][j], (S8*)((int)data + offset));
             offset += 1;
         }
     }
@@ -239,7 +239,7 @@ void CMission::Restore(void* data) {
     offset += 4;
 
     for (i = 0; i < 4u; i++) {
-        m_unk4C4[i] = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
+        m_unk4C4.unk[i] = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
         offset += 4;
     }
 
@@ -251,22 +251,22 @@ void CMission::Restore(void* data) {
     offset += 4;
 
     for (i = 0; i < 16; i++) {
-        m_rooms[i] = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
+        m_rooms.rooms[i] = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
         offset += 4;
     }
 
     for (i = 0; i < 16; i++) {
         for (int j = 0; j < 8; j++) {
-            m_unk7C[i].unk0[j] = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
+            m_unk7C.unk[i].unk0[j] = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
             offset += 4;
         }
     }
 
     for (i = 0; i < 3; i++) {
-        strcpy((char*)m_unk48C[i], "              ");
-        m_unk48C[i][15] = '\0';
+        strcpy((char*)m_unk48C.unk48C[i], "              ");
+        m_unk48C.unk48C[i][15] = '\0';
         for (int j = 0; j < 16; j++) {
-            m_unk48C[i][j] = m_game->m_game_backup->GetCurrentContainer()->GetS8((S8*)((int)data + offset));
+            m_unk48C.unk48C[i][j] = m_game->m_game_backup->GetCurrentContainer()->GetS8((S8*)((int)data + offset));
             offset += 1;
         }
     }
@@ -301,9 +301,9 @@ void CMission::Initialize() {
     m_unk2C = 0;
     m_unk30 = 0;
 
-    strcpy((char*)m_unk48C[0], "NULL");
-    strcpy((char*)m_unk48C[1], "NULL");
-    strcpy((char*)m_unk48C[2], "NULL");
+    strcpy((char*)m_unk48C.unk48C[0], "NULL");
+    strcpy((char*)m_unk48C.unk48C[1], "NULL");
+    strcpy((char*)m_unk48C.unk48C[2], "NULL");
 
     m_num_total_cookies = 0;
     m_num_current_cookies = 0;
@@ -312,18 +312,18 @@ void CMission::Initialize() {
 
     m_unk34 = 0;
 
-    m_unk4C4[0] = 0;
-    m_unk4C4[1] = 0;
-    m_unk4C4[2] = 0;
-    m_unk4C4[3] = 0;
+    m_unk4C4.unk[0] = 0;
+    m_unk4C4.unk[1] = 0;
+    m_unk4C4.unk[2] = 0;
+    m_unk4C4.unk[3] = 0;
 
     for (int i = 0; i < 16; i++) {
-        m_rooms[i] = 0;
+        m_rooms.rooms[i] = 0;
     }
 
     for (int i = 0; i < 16; i++) {
         for (int j = 0; j < 8; j++) {
-            m_unk7C[i].unk0[j] = -1;
+            m_unk7C.unk[i].unk0[j] = -1;
         }
     }
 }
@@ -333,20 +333,20 @@ int CMission::AddItem(S8* str_) {
 
     char* str = (char*)str_;
 
-    if (strcmp(str, (char*)m_unk48C[0]) == 0) {
+    if (strcmp(str, (char*)m_unk48C.unk48C[0]) == 0) {
         ret = 0;
-    } else if (strcmp(str, (char*)m_unk48C[1]) == 0) {
+    } else if (strcmp(str, (char*)m_unk48C.unk48C[1]) == 0) {
         ret = 1;
-    } else if (strcmp(str, (char*)m_unk48C[2]) == 0) {
+    } else if (strcmp(str, (char*)m_unk48C.unk48C[2]) == 0) {
         ret = 2;
-    } else if (strcmp("NULL", (char*)m_unk48C[0]) == 0) {
-        strcpy((char*)m_unk48C[0], str);
+    } else if (strcmp("NULL", (char*)m_unk48C.unk48C[0]) == 0) {
+        strcpy((char*)m_unk48C.unk48C[0], str);
         ret = 0;
-    } else if (strcmp("NULL", (char*)m_unk48C[1]) == 0) {
-        strcpy((char*)m_unk48C[1], str);
+    } else if (strcmp("NULL", (char*)m_unk48C.unk48C[1]) == 0) {
+        strcpy((char*)m_unk48C.unk48C[1], str);
         ret = 1;
-    } else if (strcmp("NULL", (char*)m_unk48C[2]) == 0) {
-        strcpy((char*)m_unk48C[2], str);
+    } else if (strcmp("NULL", (char*)m_unk48C.unk48C[2]) == 0) {
+        strcpy((char*)m_unk48C.unk48C[2], str);
         ret = 2;
     } else {
         ret = -1;
@@ -358,24 +358,24 @@ int CMission::AddItem(S8* str_) {
 void CMission::RemoveItem(S8* str_) {
     char* str = (char*)str_;
 
-    if (strcmp(str, (char*)m_unk48C[0]) == 0) {
-        strcpy((char*)m_unk48C[0], "NULL");
-    } else if (strcmp(str, (char*)m_unk48C[1]) == 0) {
-        strcpy((char*)m_unk48C[1], "NULL");
-    } else if (strcmp(str, (char*)m_unk48C[2]) == 0) {
-        strcpy((char*)m_unk48C[2], "NULL");
+    if (strcmp(str, (char*)m_unk48C.unk48C[0]) == 0) {
+        strcpy((char*)m_unk48C.unk48C[0], "NULL");
+    } else if (strcmp(str, (char*)m_unk48C.unk48C[1]) == 0) {
+        strcpy((char*)m_unk48C.unk48C[1], "NULL");
+    } else if (strcmp(str, (char*)m_unk48C.unk48C[2]) == 0) {
+        strcpy((char*)m_unk48C.unk48C[2], "NULL");
     }
 }
 
 void CMission::RemoveItem(int item_no) {
-    strcpy((char*)m_unk48C[item_no], "NULL");
+    strcpy((char*)m_unk48C.unk48C[item_no], "NULL");
 }
 
 char* CMission::GetItem(int item_no) {
-    if (strcmp("NULL", (char*)m_unk48C[item_no]) == 0) {
+    if (strcmp("NULL", (char*)m_unk48C.unk48C[item_no]) == 0) {
         return NULL;
     }
-    return (char*)m_unk48C[item_no];
+    return (char*)m_unk48C.unk48C[item_no];
 }
 
 U32 CMission::GetNbTotalCookies() {
@@ -391,11 +391,11 @@ U32 CMission::GetMaxCollectedNbCookies() {
 }
 
 BOOL CMission::IsRoomCompleted(U32 room_no) {
-    return (m_rooms[room_no] & 2) != 0;
+    return (m_rooms.rooms[room_no] & 2) != 0;
 }
 
 BOOL CMission::IsRoomOpened(U32 room_no) {
-    return (m_rooms[room_no] & 1) != 0;
+    return (m_rooms.rooms[room_no] & 1) != 0;
 }
 
 BOOL CMission::IsSecondPassCompleted() {

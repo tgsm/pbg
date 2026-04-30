@@ -7,6 +7,7 @@
 #include "engine/display/IImBatch.h"
 #include "engine/filesys/DkFileSys.h"
 #include "engine/gui/DkGUI.h"
+#include "engine/physics/DkPh_Collider.h"
 #include "engine/sound/DkSound.h"
 #include "engine/video/DkVideo.h"
 #include "CGame.h"
@@ -38,8 +39,15 @@ extern "C" void Rt2dFontSetPath(char*);
 extern "C" void Rt2dAnimOpen();
 extern "C" void RwResourcesSetArenaSize(U32);
 
-// *Very* incomplete
+// Incomplete (USA)
+// Equivalent (PAL): std::vector dtor
 CGame::CGame(void* a1, U32 a2) {
+    U32 rf_unkC;
+    void* data;
+    CEntityManager* entity_manager;
+    int i;
+    RwaStream* stream;
+
     m_unk8 = a2;
     m_game_part = NULL;
     m_display_engine = NULL;
@@ -64,7 +72,7 @@ CGame::CGame(void* a1, U32 a2) {
     m_unk5054 = 0;
     m_controller = NULL;
     m_unk5060 = NULL;
-    m_unk5064.reserve(40);
+    AS_ULONG_VECTOR_HACK(m_unk5064).reserve(40);
     m_video_descs.clear();
     m_video_descs.reserve(16);
     m_unk5004 = "";
@@ -81,9 +89,13 @@ CGame::CGame(void* a1, U32 a2) {
     m_video_engine = DkVideoGetEngine();
 
     if (m_display_engine != NULL) {
-        void* data = m_display_engine->Open();
+        data = m_display_engine->Open();
 
+#ifdef VERSION_GPLP9G
+        m_display_engine->SetGCNVideoMode(&GXPal528IntDf);
+#else
         m_display_engine->SetGCNVideoMode(&GXNtsc480IntDf);
+#endif
         m_display_engine->Setup(0, 0);
         m_display_engine->Start();
 
@@ -199,16 +211,14 @@ CGame::CGame(void* a1, U32 a2) {
 
     std::string rws_filename = "GCNStereo.rws";
 
-    // ...
-
-    for (int i = 0; i < 5; i++) {
+    for (i = 0; i < 5; i++) {
         m_sound_engine->BeginUpdate();
         m_sound_engine->EndUpdate();
 
         VIWaitForRetrace();
     }
 
-    RwaStream* stream = RwaStreamCreate(NULL, 0, 0, 0, 0);
+    stream = RwaStreamCreate(m_sound_engine->RWAGetOSOutputHandle()->unk0, 0, 0, 0, 0);
     static char tmpString[255];
     strcpy(tmpString, "GCNStereo.rws");
 
@@ -230,8 +240,6 @@ CGame::CGame(void* a1, U32 a2) {
         VIWaitForRetrace();
     } while (_rwaStreamGetStatus(stream) == 2);
 
-    // ...
-
     m_backup_engine->Initialize();
     m_backup_engine->SetGameTitle("Piglet's BIG GAME");
     m_backup_engine->SetIconFile("PIGLET.ICO");
@@ -248,7 +256,7 @@ CGame::CGame(void* a1, U32 a2) {
     m_texture_dictionary->RegisterTextureCallback(m_resource_factory);
     m_entity_manager->SetModelFile("Models/Models.XMD");
 
-    U32 rf_unkC = m_resource_factory->m_unkC;
+    rf_unkC = m_resource_factory->m_unkC;
     m_resource_factory->m_unkC = 2;
 
     m_display_engine->SetImagePath("Data/NoTextures/");
@@ -264,7 +272,9 @@ CGame::CGame(void* a1, U32 a2) {
     m_current_loading_callback->Create();
     CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
 
-    // ...
+    entity_manager = m_entity_manager;
+    entity_manager->m_unk1C = new DkPh::Collider;
+    entity_manager->m_path_finder = new CPathFinder;
 
     m_entity_manager->CreateEntity("Piglet", "PigletEntity", "100_PIGLET");
     m_entity_manager->DestroyEntity("Piglet");
@@ -274,6 +284,17 @@ CGame::CGame(void* a1, U32 a2) {
 
     m_entity_manager->CreateEntity("COOKIE", ENTITY_COOKIE, "CAR_600");
     m_entity_manager->DestroyEntity("COOKIE");
+
+    entity_manager = m_entity_manager;
+    if (entity_manager->m_unk1C != NULL) {
+        delete entity_manager->m_unk1C;
+        entity_manager->m_unk1C = NULL;
+    }
+
+    if (entity_manager->m_path_finder != NULL) {
+        delete entity_manager->m_path_finder;
+        entity_manager->m_path_finder = NULL;
+    }
 
     // ...
 
@@ -294,7 +315,7 @@ CGame::CGame(void* a1, U32 a2) {
     m_unk4F54 = 0;
     m_unk5090 = 1;
 
-    for (int i = 0; i < 8; i++) {
+    for (U32 i = 0; i < 8; i++) {
         m_unk210[i].Initialize();
         m_unk210[i].m_game = this;
         m_unk210[i].m_mission_no = i + 1;
@@ -302,8 +323,140 @@ CGame::CGame(void* a1, U32 a2) {
 
         m_unk28B0[i].m_game = m_unk210[i].m_game;
         m_unk28B0[i].m_mission_name.assign(m_unk210[i].m_mission_name, 0);
-        m_unk28B0[i] = m_unk210[i];
+        m_unk28B0[i].m_mission_no = m_unk210[i].m_mission_no;
+        m_unk28B0[i].m_unkC = m_unk210[i].m_unkC;
+        m_unk28B0[i].m_unk10 = m_unk210[i].m_unk10;
+        m_unk28B0[i].m_start_position = m_unk210[i].m_start_position;
+        m_unk28B0[i].m_start_rotation = m_unk210[i].m_start_rotation;
+        m_unk28B0[i].m_unk2C = m_unk210[i].m_unk2C;
+        m_unk28B0[i].m_unk30 = m_unk210[i].m_unk30;
+        m_unk28B0[i].m_unk34 = m_unk210[i].m_unk34;
+        m_unk28B0[i].m_num_rooms = m_unk210[i].m_num_rooms;
+        m_unk28B0[i].m_rooms = m_unk210[i].m_rooms;
+        m_unk28B0[i].m_unk7C = m_unk210[i].m_unk7C;
+        m_unk28B0[i].m_start_mission_fmv.assign(m_unk210[i].m_start_mission_fmv, 0);
+        m_unk28B0[i].m_end_mission_fmv.assign(m_unk210[i].m_end_mission_fmv, 0);
+        m_unk28B0[i].m_mission_fight_warp_model.assign(m_unk210[i].m_mission_fight_warp_model, 0);
+        m_unk28B0[i].m_start_rtc.assign(m_unk210[i].m_start_rtc, 0);
+        m_unk28B0[i].m_unk48C = m_unk210[i].m_unk48C;
+        m_unk28B0[i].m_num_total_cookies = m_unk210[i].m_num_total_cookies;
+        m_unk28B0[i].m_num_current_cookies = m_unk210[i].m_num_current_cookies;
+        m_unk28B0[i].m_unk4C4 = m_unk210[i].m_unk4C4;
     }
+
+    m_game_backup->CreateNewGame();
+    m_unk4F54 = 0;
+    SetCurrentMission(0);
+    m_unk4F58 = 1;
+    m_unk4F5C = 0;
+
+    CGCNFont::Destroy();
+    m_current_loading_callback->Destroy();
+    m_current_loading_callback = NULL;
+    m_delta_time = 0.0f;
+
+    CDkFileSys::UnSetCallBackOnLoad();
+
+    if (m_unk8 & (1 << 3)) {
+        U32 rf_unkC = m_resource_factory->m_unkC;
+        m_resource_factory->m_unkC = 0;
+        m_game_part = new CGamePartDMRoomLauncher(this);
+        m_resource_factory->m_unkC = rf_unkC;
+
+        m_game_backup->CreateNewGame();
+        m_game_backup->GetFromGameData(1);
+        m_game_backup->Backup();
+    } else {
+#ifdef VERSION_GPLP9G
+        PlayVideo(0);
+        PlayVideo(1);
+        PlayVideo(32);
+#else
+        CBaseLoadingCallback* callback = NULL;
+        if (m_current_loading_callback != m_video_loading_callback) {
+            callback = m_current_loading_callback;
+        }
+        if (callback != NULL) {
+            callback->Destroy();
+        }
+        m_current_loading_callback = m_video_loading_callback;
+        CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+
+        if (m_video_descs.size() != 0) {
+            for (int i = 0; i < m_video_descs.size(); i++) {
+                if (m_video_descs[i].id == 0) {
+                    if (RWFileInterface.rwfexist(m_video_descs[i].filename.c_str()) != 0) {
+                        m_video_engine->SetCallBack(ReplayVideoCallback);
+                        m_sound_engine->DeleteAllSounds();
+                        m_video_engine->DoneRender();
+                        m_video_engine->Play((char*)m_video_descs[i].filename.c_str());
+                    }
+
+                    m_gui_manager->Reset();
+                    m_gui_manager->Update(1.0f/30.0f);
+                    if (callback != NULL) {
+                        m_current_loading_callback = callback;
+                        callback->Update();
+                        CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+                    }
+                    break;
+                }
+            }
+        } else {
+            m_gui_manager->Reset();
+            m_gui_manager->Update(1.0f/30.0f);
+            if (callback != NULL) {
+                m_current_loading_callback = callback;
+                callback->Update();
+                CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+            }
+        }
+
+
+        if (m_video_descs.size() != 0) {
+            for (int i = 0; i < m_video_descs.size(); i++) {
+                SVideoDesc& desc = m_video_descs[i];
+                if (desc.id == 0) {
+                    if (RWFileInterface.rwfexist(desc.filename.c_str()) != 0) {
+                        m_video_engine->SetCallBack(ReplayVideoCallback);
+                        m_video_engine->SetVolume(m_sound_engine->GetGlobalVolume());
+                        m_video_engine->Play((char*)desc.filename.c_str());
+                    }
+
+                    m_gui_manager->Reset();
+                    m_gui_manager->Update(1.0f/30.0f);
+                    if (callback != NULL) {
+                        m_current_loading_callback = callback;
+                        callback->Update();
+                        CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+                    }
+                    break;
+                }
+            }
+        } else {
+            m_gui_manager->Reset();
+            m_gui_manager->Update(1.0f/30.0f);
+            if (callback != NULL) {
+                m_current_loading_callback = callback;
+                callback->Create();
+                CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
+            }
+        }
+#endif
+
+        m_game_part = NULL;
+
+        m_opcode_buffer_size = 0;
+        m_opcode_buffer[0] = -1;
+
+        m_opcode_buffer[m_opcode_buffer_size] = 11;
+        m_opcode_buffer_size++;
+        m_opcode_buffer[m_opcode_buffer_size] = -1;
+    }
+
+#ifdef VERSION_GPLP9G
+    DVDOpen("./PIGGCN.XMD", &m_dvd_file);
+#endif
 }
 
 extern "C" void Rt2dAnimClose();
@@ -311,6 +464,10 @@ extern "C" void Rt2dClose();
 
 // Equivalent?: std::vector
 CGame::~CGame() {
+#ifdef VERSION_GPLP9G
+    DVDClose(&m_dvd_file);
+#endif
+
     if (m_unk508C != NULL) {
         DKI::IInputEngine::DestroyInput(m_unk508C);
         m_unk508C = NULL;
@@ -464,7 +621,8 @@ CGame::~CGame() {
 
 extern "C" void RwFreeListPurgeAllFreeLists(void);
 
-// Incomplete
+// Equivalent? (USA)
+// Incomplete (PAL)
 BOOL CGame::NextFrame() {
     int iVar12;
 
@@ -487,24 +645,26 @@ BOOL CGame::NextFrame() {
         iVar12 = 0;
     }
 
-    if (m_game_part == NULL || iVar12 != m_game_part->m_unk0 || m_game_part == NULL) {
+    if ((m_game_part != NULL && iVar12 != m_game_part->m_unk0) || m_game_part == NULL) {
         if (m_current_loading_callback != NULL) {
             m_current_loading_callback->Destroy();
             CDkFileSys::UnSetCallBackOnLoad();
         }
 
-        m_unk5004 = "";
-        m_unk5008 = NULL;
-        m_sound_engine->StopStreamedSound();
-
+#ifdef VERSION_GPLP9G
+        StopNarratorLine(0);
+#else
+        StopNarratorLine();
+#endif
         m_gui_manager->Reset();
-
         DKI::IInputEngine::GetDevice(0)->StopVibration();
 
         if (iVar12 != 10) {
-            int command;
-            // Probably wrong
-            for (int i = 0; i < m_opcode_buffer_size, command = m_opcode_buffer[i], command != -1;) {
+            for (int i = 0; i < m_opcode_buffer_size;) {
+                int command = m_opcode_buffer[i];
+                if (command == -1) {
+                    break;
+                }
                 i++;
                 switch (command) {
                     case 1: {
@@ -539,7 +699,7 @@ BOOL CGame::NextFrame() {
                             bVar8 = TRUE;
                         }
 
-                        GetMission(m_unk4F54 - 1).m_rooms[unk4F58] |= (1 << 0);
+                        GetMission(m_unk4F54 - 1).m_rooms.rooms[unk4F58] |= (1 << 0);
 
                         m_game_backup->GetFromGameData(1);
                         m_game_backup->Backup();
@@ -554,8 +714,8 @@ BOOL CGame::NextFrame() {
                             m_game_part = NULL;
                         }
 
-                        U32 fortnite = m_opcode_buffer[i++];
-                        if (GetMission(fortnite - 1).m_unk2C != 0) {
+                        U32 mission_no = m_opcode_buffer[i++] - 1;
+                        if (GetMission(mission_no).m_unk2C != 0) {
                             m_current_loading_callback = (CBaseLoadingCallback*)m_loading_catch_them_all;
                         } else {
                             m_current_loading_callback = (CBaseLoadingCallback*)m_loading_adventure;
@@ -563,16 +723,7 @@ BOOL CGame::NextFrame() {
                         m_current_loading_callback->Create();
                         CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
 
-                        if (fortnite != m_unk4F54) {
-                            U32 lol = m_unk4F54;
-                            if (lol != 0) {
-                                GetMission(lol - 1).UnloadConfigFile();
-                            }
-                            if (lol != 0) {
-                                GetMission(lol - 1).LoadConfigFile(0);
-                            }
-                        }
-                        m_unk4F54 = fortnite;
+                        SetCurrentMission(mission_no);
                         m_current_loading_callback->Destroy();
                         CDkFileSys::UnSetCallBackOnLoad();
                         iVar12 = 7;
@@ -648,7 +799,7 @@ BOOL CGame::NextFrame() {
                             m_unk4F70 = 0.0f;
                             m_unk4F74 = 0.0f;
                             m_unk5090 = 1;
-                            GetCurrentMission()->m_rooms[3] |= (1 << 0);
+                            GetCurrentMission()->m_rooms.rooms[3] |= (1 << 0);
                             m_game_backup->GetFromGameData(1);
                             iVar12 = 7;
                         }
@@ -675,25 +826,19 @@ BOOL CGame::NextFrame() {
                             }
 
                             if (m_unk4F5C == 0) {
+                                CDKW_V3d start_pos, start_rot;
                                 CMission* mission = GetCurrentMission();
-                                F32 start_pos_x = mission->m_start_position.x;
-                                F32 start_pos_y = mission->m_start_position.y;
-                                F32 start_pos_z = mission->m_start_position.z;
-                                F32 start_rot_x = mission->m_start_rotation.x;
-                                F32 start_rot_y = mission->m_start_rotation.y;
-                                F32 start_rot_z = mission->m_start_rotation.z;
+                                start_pos = GetCurrentMission()->GetStartRoomPosition();
+                                start_rot = GetCurrentMission()->GetStartRoomRotation();
 
                                 m_unk4F58 = mission->m_unkC;
                                 m_unk4F5C = GetCurrentMission()->m_unk10;
-                                m_unk4F60 = start_pos_x;
-                                m_unk4F64 = start_pos_y;
-                                m_unk4F68 = start_pos_z;
-                                m_unk4F6C = start_rot_x;
-                                m_unk4F70 = start_rot_y;
-                                m_unk4F74 = start_rot_z;
+                                SetCurrentRoomStartPosition(start_pos);
+                                SetCurrentRoomStartRotation(start_rot);
+
                                 m_unk5090 = 0;
 
-                                GetMission(m_unk4F54 - 1).m_rooms[GetMission(m_unk4F54 - 1).m_unkC] |= (1 << 0);
+                                GetMission(m_unk4F54 - 1).m_rooms.rooms[GetMission(m_unk4F54 - 1).m_unkC] |= (1 << 0);
 
                                 m_game_backup->GetFromGameData(1);
                                 iVar12 = 7;
@@ -715,7 +860,7 @@ BOOL CGame::NextFrame() {
                                 m_unk4F74 = 0.0f;
                                 m_unk5090 = 1;
 
-                                GetMission(m_unk4F54 - 1).m_rooms[m_unk4F58] |= (1 << 0);
+                                GetMission(m_unk4F54 - 1).m_rooms.rooms[m_unk4F58] |= (1 << 0);
 
                                 m_game_backup->GetFromGameData(1);
                                 iVar12 = 7;
@@ -737,7 +882,7 @@ BOOL CGame::NextFrame() {
                                 m_unk4F74 = 0.0f;
                                 m_unk5090 = 1;
 
-                                GetMission(m_unk4F54 - 1).m_rooms[m_unk4F58] |= (1 << 0);
+                                GetMission(m_unk4F54 - 1).m_rooms.rooms[m_unk4F58] |= (1 << 0);
 
                                 m_game_backup->GetFromGameData(1);
                                 iVar12 = 7;
@@ -756,14 +901,8 @@ BOOL CGame::NextFrame() {
                                 m_game_part = NULL;
                             }
 
-                            if (m_unk4F54 != 8) {
-                                if (m_unk4F54 != 0) {
-                                    GetCurrentMission()->UnloadConfigFile();
-                                }
-                                GetMission(7).LoadConfigFile(0);
-                            }
+                            SetCurrentMission(8);
 
-                            m_unk4F54 = 8;
                             m_unk4F58 = 3;
                             m_unk4F5C = 0;
                             m_unk4F60 = 0.0f;
@@ -774,7 +913,7 @@ BOOL CGame::NextFrame() {
                             m_unk4F74 = 0.0f;
                             m_unk5090 = 1;
 
-                            GetCurrentMission()->m_rooms[3] |= (1 << 0);
+                            GetCurrentMission()->m_rooms.rooms[3] |= (1 << 0);
 
                             m_game_backup->GetFromGameData(1);
                             iVar12 = 7;
@@ -867,15 +1006,8 @@ BOOL CGame::NextFrame() {
             m_game_part = NULL;
         }
 
-        if (m_controller != NULL) {
-            m_anim_dictionary->RemoveController(m_controller);
-            m_controller = NULL;
-        }
-
-        if (m_batch5050 != NULL) {
-            m_display_engine->GetImmediate()->RemoveBatch2D(m_batch5050);
-        }
-        m_batch5050 = NULL;
+        DestroyRTCCameraControler();
+        DestroyFadeBatchs();
 
         RwFreeListPurgeAllFreeLists();
 
@@ -986,8 +1118,15 @@ BOOL CGame::NextFrame() {
                 ((CGamePartIngame*)m_game_part)->m_game_room_manager->m_unk154 = (fade_color.red << 0) | (fade_color.green << 8) | (fade_color.blue << 16) | (0x80 << 24);
                 m_current_loading_callback->Destroy();
 
-                if (!HasEntityOfType(ENTITY_SEARCHABLE_ZONE)) {
-                    GetCurrentMission()->m_rooms[m_unk4F58] |= (1 << 2);
+                U32 has_searchable_zone = FALSE;
+                for (U32 i = 0; i < m_entity_manager->GetEntityCount(); i++) {
+                    if (m_entity_manager->GetEntity(i)->GetType() == ENTITY_SEARCHABLE_ZONE) {
+                        has_searchable_zone = TRUE;
+                        break;
+                    }
+                }
+                if (!has_searchable_zone) {
+                    GetCurrentMission()->m_rooms.rooms[m_unk4F58] |= (1 << 2);
                 }
 
                 CDkFileSys::UnSetCallBackOnLoad();
@@ -1018,14 +1157,14 @@ BOOL CGame::NextFrame() {
                 if (bVar9) {
                     m_unk8 |= m_unk8 | (1 << 7);
                 }
+#ifdef VERSION_GPLP9G
+                m_unk8 &= ~(1 << 8);
+#endif
 
                 break;
             }
             case 9: {
-                if (m_unk4F54 != 0 && m_unk4F54 != 0) {
-                    GetCurrentMission()->UnloadConfigFile();
-                }
-                m_unk4F54 = 0;
+                SetCurrentMission(0);
 
                 U32 rf_unkC = m_resource_factory->m_unkC;
                 m_resource_factory->m_unkC = 0;
@@ -1078,6 +1217,21 @@ void CGame::PushOpcodeValue(int opcode) {
     m_opcode_buffer[m_opcode_buffer_size] = opcode;
     m_opcode_buffer_size++;
     m_opcode_buffer[m_opcode_buffer_size] = -1;
+}
+
+void CGame::SetCurrentMission(U32 mission) {
+#ifdef VERSION_GPLP9G
+    DONT_INLINE_HACK();
+#endif
+    if (mission != m_unk4F54) {
+        if (m_unk4F54 != 0) {
+            GetMission(m_unk4F54 - 1).UnloadConfigFile();
+        }
+        if (mission != 0) {
+            GetMission(mission - 1).LoadConfigFile(0);
+        }
+    }
+    m_unk4F54 = mission;
 }
 
 // Incomplete
@@ -1180,10 +1334,24 @@ void CGame::ParseRTCCamFight(DkXmd::CChunkIterator iter) {
 
 // Equivalent: std::string operator!=
 void CGame::PlayNarratorLine(std::string narrator_line) {
+#ifdef VERSION_GPLP9G
+    CDkFileSysErrorCallBack* error_callback;
+    CDkFileSysLoadCallBack* load_callback;
+    error_callback = m_error_callback;
+    load_callback = m_current_loading_callback;
+    CDkFileSys::UnSetCallBackOnLoad();
+    CDkFileSys::UnSetErrorCallBack();
+#endif
+
+    DKSND::CSound2D* narrator_sound;
     if (m_unk5004 != narrator_line) {
+#ifdef VERSION_GPLP9G
+        StopNarratorLine(0);
+#else
         StopNarratorLine();
+#endif
         m_unk5004.assign(narrator_line, 0);
-        DKSND::CSound2D* narrator_sound = m_sound_engine->PlayStreamedSound(&narrator_line, 0);
+        narrator_sound = m_sound_engine->PlayStreamedSound(&narrator_line, 0);
         if (narrator_sound != NULL) {
             narrator_sound->SetVolume(1.0f);
             narrator_sound->SetLayer(1);
@@ -1191,9 +1359,13 @@ void CGame::PlayNarratorLine(std::string narrator_line) {
         }
         m_unk5008 = narrator_sound;
     } else if (m_unk5008 != NULL && m_unk5008->IsFinished()) {
+#ifdef VERSION_GPLP9G
+        StopNarratorLine(0);
+#else
         StopNarratorLine();
+#endif
         m_unk5004.assign(narrator_line, 0);
-        DKSND::CSound2D* narrator_sound = m_sound_engine->PlayStreamedSound(&narrator_line, 0);
+        narrator_sound = m_sound_engine->PlayStreamedSound(&narrator_line, 0);
         if (narrator_sound != NULL) {
             narrator_sound->SetVolume(1.0f);
             narrator_sound->SetLayer(1);
@@ -1201,6 +1373,11 @@ void CGame::PlayNarratorLine(std::string narrator_line) {
         }
         m_unk5008 = narrator_sound;
     }
+
+#ifdef VERSION_GPLP9G
+    CDkFileSys::SetErrorCallBack(error_callback);
+    CDkFileSys::SetCallBackOnLoad(load_callback, 1);
+#endif
 }
 
 void CGame::StopNarratorLine() {
@@ -1276,6 +1453,16 @@ BOOL CGame::IsGUIDisplayNotAdvised() {
     return (((CGamePartIngame*)m_game_part)->m_game_room_manager->GetState() < 2) ? TRUE : FALSE;
 }
 
+void CGame::DestroyRTCCameraControler() {
+#ifdef VERSION_GPLP9G
+    DONT_INLINE_HACK();
+#endif
+    if (m_controller != NULL) {
+        m_anim_dictionary->RemoveController(m_controller);
+        m_controller = NULL;
+    }
+}
+
 void CGame::SetRTCCameraAnimationByIndex(U32 index) {
     m_unk5054 = index;
 
@@ -1318,7 +1505,7 @@ void CGame::PlayVideo(int id) {
     m_current_loading_callback = m_video_loading_callback;
     CDkFileSys::SetCallBackOnLoad(m_current_loading_callback, 1);
 
-    for (U32 i = 0; i < m_video_descs.size(); i++) {
+    for (U32 i = 0; (int)i < (int)m_video_descs.size(); i++) {
         SVideoDesc& desc = m_video_descs[i];
         if (id != m_video_descs[i].id) {
             continue;
@@ -1326,8 +1513,15 @@ void CGame::PlayVideo(int id) {
             if (RWFileInterface.rwfexist(m_video_descs[i].filename.c_str())) {
                 m_video_engine->SetCallBack(ReplayVideoCallback);
                 m_video_engine->SetVolume(m_sound_engine->GetGlobalVolume());
+#ifdef VERSION_GPLP9G
+                m_unk8 |= m_unk8 | (1 << 8);
+#endif
                 m_video_engine->Play((char*)m_video_descs[i].filename.c_str());
             }
+
+#ifdef VERSION_GPLP9G
+            m_unk8 &= ~(1 << 8);
+#endif
 
             m_gui_manager->Reset();
             m_gui_manager->Update(1.0f/30.0f);
@@ -1434,6 +1628,7 @@ void CGame::ManageReset() {
         } while (status.err == PAD_ERR_NO_CONTROLLER);
     }
 
+#ifndef VERSION_GPLP9G
     if (DkSoundGetEngine() != NULL) {
         DkSoundGetEngine()->StopStreamedSound();
     }
@@ -1452,13 +1647,33 @@ void CGame::ManageReset() {
             scene->Flip(1);
         }
     }
+#endif
 
     GXDrawDone();
     VISetBlack(TRUE);
     VIFlush();
     VIWaitForRetrace();
 
+#ifdef VERSION_GPLP9G
+    VISetBlack(TRUE);
+    VIFlush();
+    VIWaitForRetrace();
+    s_bResetButtonPushed = FALSE;
+
+    if (DVDGetDriveStatus() == DVD_STATE_WRONG_DISK) {
+        OSResetSystem(TRUE, 0, FALSE);
+        return;
+    }
+
+    if (DVDCheckDisk()) {
+        OSResetSystem(FALSE, 0, FALSE);
+        return;
+    }
+
+    OSResetSystem(TRUE, 0, FALSE);
+#else
     OSResetSystem(FALSE, 0, FALSE);
+#endif
 }
 
 void CMemoryCardSaveEventCallback::OnSave() {
