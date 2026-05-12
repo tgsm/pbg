@@ -52,27 +52,27 @@ void CIcon::BeginRender(DKDSP::IEngine* engine, DKDSP::ICamera* camera, DKDSP::I
     RwRenderStateGet(10, &m_backupSrcBlend);
     RwRenderStateGet(11, &m_backupDestBlend);
 
-    ms_pEngine->SetRenderState((RwRenderState)12, (void*)1);
-    ms_pEngine->SetRenderState((RwRenderState)6, (void*)0);
-    ms_pEngine->SetRenderState((RwRenderState)20, (void*)1);
-    ms_pEngine->SetRenderState((RwRenderState)10, (void*)5);
-    ms_pEngine->SetRenderState((RwRenderState)11, (void*)6);
+    ms_pEngine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
+    ms_pEngine->SetRenderState(rwRENDERSTATEZTESTENABLE, (void*)FALSE);
+    ms_pEngine->SetRenderState(rwRENDERSTATECULLMODE, (void*)rwCULLMODECULLNONE);
+    ms_pEngine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+    ms_pEngine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
 }
 
 void CIcon::EndRender() {
-    ms_pEngine->SetRenderState((RwRenderState)12, m_backupVertexAlpha);
-    ms_pEngine->SetRenderState((RwRenderState)8, m_backupZWrite);
-    ms_pEngine->SetRenderState((RwRenderState)6, m_backupZTest);
-    ms_pEngine->SetRenderState((RwRenderState)20, m_backupCullMode);
-    ms_pEngine->SetRenderState((RwRenderState)10, m_backupSrcBlend);
-    ms_pEngine->SetRenderState((RwRenderState)11, m_backupDestBlend);
+    ms_pEngine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, m_backupVertexAlpha);
+    ms_pEngine->SetRenderState(rwRENDERSTATEZWRITEENABLE, m_backupZWrite);
+    ms_pEngine->SetRenderState(rwRENDERSTATEZTESTENABLE, m_backupZTest);
+    ms_pEngine->SetRenderState(rwRENDERSTATECULLMODE, m_backupCullMode);
+    ms_pEngine->SetRenderState(rwRENDERSTATESRCBLEND, m_backupSrcBlend);
+    ms_pEngine->SetRenderState(rwRENDERSTATEDESTBLEND, m_backupDestBlend);
 }
 
 void CIcon::Render(DKDSP::IIm2DBatch* batch, int a2) {
     if (m_texture != NULL) {
-        ms_pEngine->SetRenderState((RwRenderState)1, m_texture->GetRaster());
+        ms_pEngine->SetRenderState(rwRENDERSTATETEXTURERASTER, m_texture->GetRaster());
     } else {
-        ms_pEngine->SetRenderState((RwRenderState)1, NULL);
+        ms_pEngine->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
     }
 
     F32 z_near = ms_pCamera->GetZNear();

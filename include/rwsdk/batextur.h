@@ -7,6 +7,17 @@
 extern "C" {
 #endif
 
+typedef enum RwTextureFilterMode {
+    rwFILTERNAFILTERMODE = 0,
+    rwFILTERNEAREST = 1,
+    rwFILTERLINEAR = 2,
+    rwFILTERMIPNEAREST = 3,
+    rwFILTERMIPLINEAR = 4,
+    rwFILTERLINEARMIPNEAREST = 5,
+    rwFILTERLINEARMIPLINEAR = 6,
+    rwTEXTUREFILTERMODEFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwTextureFilterMode;
+
 typedef struct RwTexture {
     RwRaster* raster;
     char unk4[0xC];

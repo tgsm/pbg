@@ -601,7 +601,7 @@ extern int RwRenderStateSet(RwRenderState, void*);
 BOOL CEngine::SetRaster(IRaster* raster_) {
     CRaster* raster = (CRaster*)raster_;
     if (raster == NULL) {
-        this->SetRenderState((RwRenderState)1, NULL);
+        this->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
     } else if (!m_rendering) {
         return FALSE;
     } else {
@@ -609,7 +609,7 @@ BOOL CEngine::SetRaster(IRaster* raster_) {
         if (raster != NULL) {
             raster_ptr = raster->m_wrap_raster;
         }
-        return RwRenderStateSet((RwRenderState)1, raster_ptr);
+        return RwRenderStateSet(rwRENDERSTATETEXTURERASTER, raster_ptr);
     }
 
     return TRUE;

@@ -329,52 +329,52 @@ void CGameRoomManager::Render() {
             texture = m_game->m_texture_dictionary->FindTexture("BMP_101");
         }
 
-        display_engine->SetRenderState((RwRenderState)12, (void*)1);
-        display_engine->SetRenderState((RwRenderState)10, (void*)5);
-        display_engine->SetRenderState((RwRenderState)11, (void*)6);
+        display_engine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
+        display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+        display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
         if (texture != NULL) {
-            display_engine->SetRenderState((RwRenderState)1, (void*)texture->GetRaster());
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
         } else {
-            display_engine->SetRenderState((RwRenderState)1, (void*)NULL);
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
         }
 
         m_batch124->Render(rwPRIMTYPETRIFAN);
     }
 
     if (m_batch130 != NULL && !IsPlayingRTC()) {
-        display_engine->SetRenderState((RwRenderState)12, (void*)1);
-        display_engine->SetRenderState((RwRenderState)10, (void*)5);
-        display_engine->SetRenderState((RwRenderState)11, (void*)6);
+        display_engine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
+        display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+        display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
 
         DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_306");
         if (texture != NULL) {
-            display_engine->SetRenderState((RwRenderState)1, (void*)texture->GetRaster());
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
         } else {
-            display_engine->SetRenderState((RwRenderState)1, (void*)NULL);
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
         }
         m_batch130->Render(rwPRIMTYPETRIFAN);
 
         texture = m_game->m_texture_dictionary->FindTexture("BMP_305");
         if (texture != NULL) {
-            display_engine->SetRenderState((RwRenderState)1, (void*)texture->GetRaster());
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
         } else {
-            display_engine->SetRenderState((RwRenderState)1, (void*)NULL);
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
         }
         m_batch134->Render(rwPRIMTYPETRIFAN);
 
         texture = m_game->m_texture_dictionary->FindTexture("BMP_304");
         if (texture != NULL) {
-            display_engine->SetRenderState((RwRenderState)1, (void*)texture->GetRaster());
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
         } else {
-            display_engine->SetRenderState((RwRenderState)1, (void*)NULL);
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
         }
         m_batch138->Render(rwPRIMTYPETRIFAN);
 
         texture = m_game->m_texture_dictionary->FindTexture("BMP_303");
         if (texture != NULL) {
-            display_engine->SetRenderState((RwRenderState)1, (void*)texture->GetRaster());
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
         } else {
-            display_engine->SetRenderState((RwRenderState)1, (void*)NULL);
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
         }
         m_batch13C->Render(rwPRIMTYPETRIFAN);
     }
@@ -386,25 +386,25 @@ void CGameRoomManager::Render() {
     if (!IsPlayingRTC()) {
         if (m_batch44 != NULL) {
             DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_301");
-            display_engine->SetRenderState((RwRenderState)12, (void*)1);
-            display_engine->SetRenderState((RwRenderState)10, (void*)5);
-            display_engine->SetRenderState((RwRenderState)11, (void*)6);
+            display_engine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
+            display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+            display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
             if (texture != NULL) {
-                display_engine->SetRenderState((RwRenderState)1, (void*)texture->GetRaster());
+                display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
             } else {
-                display_engine->SetRenderState((RwRenderState)1, (void*)NULL);
+                display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
             }
             m_batch44->Render(rwPRIMTYPETRIFAN);
         }
         if (m_batch48 != NULL) {
             DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_302");
-            display_engine->SetRenderState((RwRenderState)12, (void*)1);
-            display_engine->SetRenderState((RwRenderState)10, (void*)5);
-            display_engine->SetRenderState((RwRenderState)11, (void*)6);
+            display_engine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
+            display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+            display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
             if (texture != NULL) {
-                display_engine->SetRenderState((RwRenderState)1, (void*)texture->GetRaster());
+                display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
             } else {
-                display_engine->SetRenderState((RwRenderState)1, (void*)NULL);
+                display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
             }
             m_batch48->Render(rwPRIMTYPETRIFAN);
         }
@@ -415,14 +415,14 @@ void CGameRoomManager::Render() {
     }
 
     if (m_batch148 != NULL) {
-        display_engine->SetRenderState((RwRenderState)12, (void*)1);
-        display_engine->SetRenderState((RwRenderState)10, (void*)5);
-        display_engine->SetRenderState((RwRenderState)11, (void*)6);
-        display_engine->SetRenderState((RwRenderState)1, (void*)NULL);
-        display_engine->SetRenderState((RwRenderState)8, (void*)0);
+        display_engine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
+        display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+        display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
+        display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
+        display_engine->SetRenderState(rwRENDERSTATEZWRITEENABLE, (void*)FALSE);
         display_engine->AlphaEnable();
         m_batch148->Render(rwPRIMTYPETRIFAN);
-        display_engine->SetRenderState((RwRenderState)8, (void*)1);
+        display_engine->SetRenderState(rwRENDERSTATEZWRITEENABLE, (void*)TRUE);
     }
 
     U32 state = GetState();
@@ -520,7 +520,7 @@ void CGameRoomManager::RenderFadeWarpForFight(DKDSP::IEngine* display_engine) {
             phial->Render(m_delta_time);
             phial->DelFlag(ENTITY_FLAG_VISIBLE);
         } else {
-            display_engine->SetRenderState((RwRenderState)8, (void*)1);
+            display_engine->SetRenderState(rwRENDERSTATEZWRITEENABLE, (void*)TRUE);
             m_unk4C->AddFlag(ENTITY_FLAG_VISIBLE);
             m_unk4C->Render(m_delta_time);
             m_unk4C->DelFlag(ENTITY_FLAG_VISIBLE);

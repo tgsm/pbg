@@ -520,13 +520,13 @@ void CInGameLoadingCallback::Update() {
         vertices[3].a = 0xFF;
 
         DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_310");
-        m_game->GetDisplayEngine()->SetRenderState((RwRenderState)12, (void*)1);
-        m_game->GetDisplayEngine()->SetRenderState((RwRenderState)10, (void*)5);
-        m_game->GetDisplayEngine()->SetRenderState((RwRenderState)11, (void*)6);
+        m_game->GetDisplayEngine()->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
+        m_game->GetDisplayEngine()->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+        m_game->GetDisplayEngine()->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
         if (texture != NULL) {
-            m_game->GetDisplayEngine()->SetRenderState((RwRenderState)1, (void*)texture->GetRaster());
+            m_game->GetDisplayEngine()->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
         } else {
-            m_game->GetDisplayEngine()->SetRenderState((RwRenderState)1, NULL);
+            m_game->GetDisplayEngine()->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
         }
         m_batch->Render(rwPRIMTYPETRIFAN);
     }

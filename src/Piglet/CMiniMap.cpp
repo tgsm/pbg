@@ -204,8 +204,8 @@ void CMiniMap::RenderDarkenRooms(F32 dt) {
     position40.z = -1.0f;
     m_icon40->SetPosition(position40);
     m_icon40->SetTexture(NULL);
-    m_game->m_display_engine->SetRenderState((RwRenderState)10, (void*)5);
-    m_game->m_display_engine->SetRenderState((RwRenderState)11, (void*)6);
+    m_game->m_display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+    m_game->m_display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
     m_icon40->SetRGBA(0, 0, 0, 0.7f * (255.0f * m_unk94));
     m_icon40->Render(m_scene);
 
@@ -219,8 +219,8 @@ void CMiniMap::RenderDarkenRooms(F32 dt) {
             m_scene->RenderClump(m_clump20);
         }
     }
-    m_game->m_display_engine->SetRenderState((RwRenderState)10, (void*)5);
-    m_game->m_display_engine->SetRenderState((RwRenderState)11, (void*)6);
+    m_game->m_display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+    m_game->m_display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
 
     if (m_unk94 >= 1.0f) {
         DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_209");
@@ -253,8 +253,8 @@ void CMiniMap::RenderDarkenRooms(F32 dt) {
             }
         }
     }
-    m_game->m_display_engine->SetRenderState((RwRenderState)10, (void*)5);
-    m_game->m_display_engine->SetRenderState((RwRenderState)11, (void*)6);
+    m_game->m_display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+    m_game->m_display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
 }
 
 void CMiniMap::RenderHeroIcon(F32 dt) {

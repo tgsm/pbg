@@ -1434,15 +1434,15 @@ void CGame::RenderFade() {
         return;
     }
 
-    m_display_engine->SetRenderState((RwRenderState)12, (void*)1);
-    m_display_engine->SetRenderState((RwRenderState)10, (void*)5);
-    m_display_engine->SetRenderState((RwRenderState)11, (void*)6);
-    m_display_engine->SetRenderState((RwRenderState)1, (void*)0);
+    m_display_engine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
+    m_display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+    m_display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
+    m_display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
 
-    m_display_engine->SetRenderState((RwRenderState)8, (void*)0);
+    m_display_engine->SetRenderState(rwRENDERSTATEZWRITEENABLE, (void*)FALSE);
     m_display_engine->AlphaEnable();
     m_batch5050->Render(rwPRIMTYPETRIFAN);
-    m_display_engine->SetRenderState((RwRenderState)8, (void*)1);
+    m_display_engine->SetRenderState(rwRENDERSTATEZWRITEENABLE, (void*)TRUE);
 }
 
 BOOL CGame::IsGUIDisplayNotAdvised() {

@@ -75,8 +75,8 @@ void CEntityNPCArrow::Render(F32 dt) {
         vertices[17].SetPosition(local_2c + (yeah * 0.75f) + (cross * 0.5f));
         vertices[17].SetRGBA(0xFF, 0x00, 0x00, 0xFF);
 
-        m_entity_manager->GetGame()->GetDisplayEngine()->SetRenderState((RwRenderState)20, (void*)1);
-        m_entity_manager->GetGame()->GetDisplayEngine()->SetRenderState((RwRenderState)1, (void*)0);
+        m_entity_manager->GetGame()->GetDisplayEngine()->SetRenderState(rwRENDERSTATECULLMODE, (void*)rwCULLMODECULLNONE);
+        m_entity_manager->GetGame()->GetDisplayEngine()->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
         batch->Render(rwPRIMTYPETRILIST);
         m_entity_manager->GetGame()->GetDisplayEngine()->GetImmediate()->RemoveBatch3D(batch);
     }

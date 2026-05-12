@@ -1,6 +1,7 @@
 #ifndef ENGINE_DISPLAY_IENGINE_H
 #define ENGINE_DISPLAY_IENGINE_H
 
+#include <rwsdk/plcore/baimmedi.h>
 #include "engine/display/CAnimDictionary.h"
 #include "engine/display/CCharset.h"
 #include "engine/display/CDkWrapEngine.h"
@@ -18,9 +19,6 @@ public:
     void* m_file;
     U32 m_unk4;
 };
-
-// FIXME: Put this in a RW header.
-enum RwRenderState {};
 
 namespace DKDSP {
 

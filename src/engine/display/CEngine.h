@@ -74,7 +74,7 @@ public:
         m_gcn_video_mode = NULL;
 
         for (int i = 0; i < 29; i++) {
-            m_render_states[i].state = (RwRenderState)0;
+            m_render_states[i].state = rwRENDERSTATENARENDERSTATE;
             m_render_states[i].unk4 = 0;
         }
 

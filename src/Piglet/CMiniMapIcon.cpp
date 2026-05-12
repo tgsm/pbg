@@ -181,9 +181,9 @@ void CMiniMapIcon::Render(DKDSP::IScene* scene) {
     DKDSP::CEngine* display_engine = DkDisplayGetEngine();
     if (display_engine != NULL) {
         if (m_texture != NULL) {
-            display_engine->SetRenderState((RwRenderState)1, m_texture->GetRaster());
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, m_texture->GetRaster());
         } else {
-            display_engine->SetRenderState((RwRenderState)1, NULL);
+            display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, NULL);
         }
     }
 

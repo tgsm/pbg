@@ -231,14 +231,14 @@ U32 CDebugMenu::UpdateAndDisplay() {
     scene->SelectCamera(m_game->GetCamera());
     scene->Clear(1, 0.0f, 0.0f, 0.0f);
     if (scene->BeginRender()) {
-        m_display_engine->SetRenderState((RwRenderState)6, (void*)0);
-        m_display_engine->SetRenderState((RwRenderState)8, (void*)0);
-        m_display_engine->SetRenderState((RwRenderState)20, (void*)1);
-        m_display_engine->SetRenderState((RwRenderState)7, (void*)2);
-        m_display_engine->SetRenderState((RwRenderState)10, (void*)5);
-        m_display_engine->SetRenderState((RwRenderState)11, (void*)6);
-        m_display_engine->SetRenderState((RwRenderState)12, (void*)1);
-        m_display_engine->SetRenderState((RwRenderState)9, (void*)2);
+        m_display_engine->SetRenderState(rwRENDERSTATEZTESTENABLE, (void*)FALSE);
+        m_display_engine->SetRenderState(rwRENDERSTATEZWRITEENABLE, (void*)FALSE);
+        m_display_engine->SetRenderState(rwRENDERSTATECULLMODE, (void*)rwCULLMODECULLNONE);
+        m_display_engine->SetRenderState(rwRENDERSTATESHADEMODE, (void*)rwSHADEMODEGOURAUD);
+        m_display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+        m_display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
+        m_display_engine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
+        m_display_engine->SetRenderState(rwRENDERSTATETEXTUREFILTER, (void*)rwFILTERLINEAR);
 
         if (m_texture != NULL) {
             m_path->Fill(m_brush);
@@ -248,9 +248,9 @@ U32 CDebugMenu::UpdateAndDisplay() {
             m_controls[i]->Render(i == m_current_control_no);
         }
 
-        m_display_engine->SetRenderState((RwRenderState)6, (void*)1);
-        m_display_engine->SetRenderState((RwRenderState)8, (void*)1);
-        m_display_engine->SetRenderState((RwRenderState)20, (void*)2);
+        m_display_engine->SetRenderState(rwRENDERSTATEZTESTENABLE, (void*)TRUE);
+        m_display_engine->SetRenderState(rwRENDERSTATEZWRITEENABLE, (void*)TRUE);
+        m_display_engine->SetRenderState(rwRENDERSTATECULLMODE, (void*)rwCULLMODECULLBACK);
 
         scene->EndRender();
     }
