@@ -1065,7 +1065,7 @@ void CGameRoomManager::SecondPass() {
                     npc->SetGenericBehaviour(GENERIC_BEHAVIOUR_6);
                     npc->m_unk1A8 = 9;
                     if (npc->m_phial != NULL) {
-                        npc->m_phial->m_unkF4 = 6;
+                        npc->m_phial->m_state = 6;
                     }
                 }
             }

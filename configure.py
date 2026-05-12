@@ -514,7 +514,7 @@ config.libs = [
             Object(NonMatching, "Piglet/entities/CEntityEscapingObject.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityBhvTagCameraSystem.cpp"),
             Object(NonMatching, "Piglet/CLoading.cpp", extra_cflags=["-bool off"]),
-            Object(NonMatching, "Piglet/entities/CEntityPhial.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityPhial.cpp"),
             Object(NonMatching, "Piglet/CEventAnimationHandlers.cpp"),
             Object(NonMatching, "Piglet/entities/CEntityPathFinder.cpp"),
             Object(NonMatching, "Piglet/CGuiManager.cpp"),
