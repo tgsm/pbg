@@ -143,34 +143,34 @@ BOOL CEntityZone::ParseParticleEmitter(std::string filename, SFX* fx) {
 void CEntityZone::ManageMessage(SDkMessage& message) {
     CEntity::ManageMessage(message);
 
-    if (strcmp(message.unk0, "Piglet") == 0 || strcmp(message.unk0, "Tigger") == 0 || strcmp(message.unk0, "Winnie") == 0) {
-        if (strcmp(message.unk20, "ENTER") == 0) {
+    if (strcmp(message.from, "Piglet") == 0 || strcmp(message.from, "Tigger") == 0 || strcmp(message.from, "Winnie") == 0) {
+        if (strcmp(message.type, "ENTER") == 0) {
             if (m_unk170.emitter != NULL) {
                 m_unk170.emitter->Start();
             }
             m_unk1B4 = 0.0f;
-        } else if (strcmp(message.unk20, "EXIT") == 0) {
+        } else if (strcmp(message.type, "EXIT") == 0) {
             if (m_unk170.emitter != NULL) {
                 m_unk170.emitter->Stop();
             }
         }
     }
 
-    if (strcmp(message.unk20, "START_FX_IN") == 0) {
+    if (strcmp(message.type, "START_FX_IN") == 0) {
         m_unk170.emitter->Start();
-    } else if (strcmp(message.unk20, "STOP_FX_IN") == 0) {
+    } else if (strcmp(message.type, "STOP_FX_IN") == 0) {
         m_unk170.emitter->Stop();
-    } else if (strcmp(message.unk20, "PAUSE_FX_IN") == 0) {
+    } else if (strcmp(message.type, "PAUSE_FX_IN") == 0) {
         m_unk170.emitter->Pause();
-    } else if (strcmp(message.unk20, "RESUME_FX_IN") == 0) {
+    } else if (strcmp(message.type, "RESUME_FX_IN") == 0) {
         m_unk170.emitter->Resume();
-    } else if (strcmp(message.unk20, "START_FX_OUT") == 0) {
+    } else if (strcmp(message.type, "START_FX_OUT") == 0) {
         m_unk188.emitter->Start();
-    } else if (strcmp(message.unk20, "STOP_FX_OUT") == 0) {
+    } else if (strcmp(message.type, "STOP_FX_OUT") == 0) {
         m_unk188.emitter->Stop();
-    } else if (strcmp(message.unk20, "PAUSE_FX_OUT") == 0) {
+    } else if (strcmp(message.type, "PAUSE_FX_OUT") == 0) {
         m_unk188.emitter->Pause();
-    } else if (strcmp(message.unk20, "RESUME_FX_OUT") == 0) {
+    } else if (strcmp(message.type, "RESUME_FX_OUT") == 0) {
         m_unk188.emitter->Resume();
     }
 }

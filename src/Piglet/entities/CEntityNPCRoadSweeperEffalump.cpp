@@ -70,7 +70,7 @@ void CEntityNPCRoadSweeperEffalump::UpdateFightBehaviour(F32 a1) {
     if (m_unk1A8 == 106 || m_unk1A8 == 102 || m_unk1A8 == 106 || m_unk1A8 == 103) {
         ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->UnblockFightMode();
 
-        if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.unk20, "START_FIGHT") == 0) {
+        if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.type, "START_FIGHT") == 0) {
             m_unk2DC = TRUE;
         }
     }
@@ -83,7 +83,7 @@ void CEntityNPCRoadSweeperEffalump::UpdateFightBehaviour(F32 a1) {
             m_unk2D8 = TRUE;
             m_unk2DC = FALSE;
 
-            if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.unk20, "START_FIGHT") == 0) {
+            if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.type, "START_FIGHT") == 0) {
                 m_unk2DC = TRUE;
             }
 

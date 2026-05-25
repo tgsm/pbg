@@ -25,8 +25,8 @@ void CEntityTigger::ReInit() {
 }
 
 void CEntityTigger::ManageMessage(SDkMessage& message) {
-    if (strcmp(message.unk20, "EXIT") == 0) {
-        CEntity* entity = m_entity_manager->GetEntity(message.unk0);
+    if (strcmp(message.type, "EXIT") == 0) {
+        CEntity* entity = m_entity_manager->GetEntity(message.from);
         if (entity != NULL) {
             int type = entity->GetType();
             if (type > ENTITY_UNK5 && type < ENTITY_UNK9) {
@@ -36,12 +36,12 @@ void CEntityTigger::ManageMessage(SDkMessage& message) {
         }
     }
 
-    if (strcmp(message.unk20, "HERO_DETECT") == 0) {
+    if (strcmp(message.type, "HERO_DETECT") == 0) {
         m_unk264++;
         if (m_unk264 == TRUE) {
             Detected();
         }
-    } else if (strcmp(message.unk20, "HERO_UNDETECT") == 0) {
+    } else if (strcmp(message.type, "HERO_UNDETECT") == 0) {
         m_unk264--;
         if (m_unk264 == FALSE) {
             m_unk260 = 0.0f;

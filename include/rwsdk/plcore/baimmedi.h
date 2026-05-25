@@ -1,0 +1,58 @@
+#ifndef RWSDK_PLCORE_BAIMMEDI_H
+#define RWSDK_PLCORE_BAIMMEDI_H
+
+#include <rwsdk/batextur.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef enum RwRenderState {
+    rwRENDERSTATENARENDERSTATE = 0,
+    rwRENDERSTATETEXTURERASTER = 1,
+    rwRENDERSTATEZTESTENABLE = 6,
+    rwRENDERSTATESHADEMODE = 7,
+    rwRENDERSTATEZWRITEENABLE = 8,
+    rwRENDERSTATETEXTUREFILTER = 9,
+    rwRENDERSTATESRCBLEND = 10,
+    rwRENDERSTATEDESTBLEND = 11,
+    rwRENDERSTATEVERTEXALPHAENABLE = 12,
+    rwRENDERSTATECULLMODE = 20,
+    rwRENDERSTATEFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwRenderState;
+
+// Is there a home for these?
+typedef enum RwShadeMode {
+    rwSHADEMODENASHADEMODE = 0,
+    rwSHADEMODEFLAT = 1,
+    rwSHADEMODEGOURAUD = 2,
+    rwSHADEMODEFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwShadeMode;
+typedef enum RwBlendFunction {
+    rwBLENDNABLEND = 0,
+    rwBLENDZERO = 1,
+    rwBLENDONE = 2,
+    rwBLENDSRCCOLOR = 3,
+    rwBLENDINVSRCCOLOR = 4,
+    rwBLENDSRCALPHA = 5,
+    rwBLENDINVSRCALPHA = 6,
+    rwBLENDDESTALPHA = 7,
+    rwBLENDINVDESTALPHA = 8,
+    rwBLENDDESTCOLOR = 9,
+    rwBLENDINVDESTCOLOR = 10,
+    rwBLENDSRCALPHASAT = 11,
+    rwBLENDFUNCTIONFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwBlendFunction;
+typedef enum RwCullMode {
+    rwCULLMODENACULLMODE = 0,
+    rwCULLMODECULLNONE = 1,
+    rwCULLMODECULLBACK = 2,
+    rwCULLMODECULLFRONT = 3,
+    rwCULLMODEFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwCullMode;
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

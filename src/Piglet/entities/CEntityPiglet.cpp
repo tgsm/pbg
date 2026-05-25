@@ -127,12 +127,12 @@ void CEntityPiglet::PushStop(CEntityPushingBox* box) {
 }
 
 void CEntityPiglet::ManageMessage(SDkMessage& message) {
-    if (strcmp(message.unk20, "ENTER") == 0) {
+    if (strcmp(message.type, "ENTER") == 0) {
         SetMode(14);
     }
 
-    if (strcmp(message.unk20, "EXIT") == 0) {
-        CEntity* entity = m_entity_manager->GetEntity(message.unk0);
+    if (strcmp(message.type, "EXIT") == 0) {
+        CEntity* entity = m_entity_manager->GetEntity(message.from);
         if (entity != NULL) {
             int type = entity->GetType();
             if (type > ENTITY_UNK5 && type < ENTITY_UNK9) {
@@ -142,29 +142,29 @@ void CEntityPiglet::ManageMessage(SDkMessage& message) {
         }
     }
 
-    if (strcmp(message.unk20, "PUSH_START") == 0) {
-        PushStart((CEntityPushingBox*)m_entity_manager->GetEntity(message.unk0));
-    } else if (strcmp(message.unk20, "PUSH_PUSH") == 0) {
-        PushPush((CEntityPushingBox*)m_entity_manager->GetEntity(message.unk0));
-    } else if (strcmp(message.unk20, "PUSH_BLOC") == 0) {
-        PushBloc((CEntityPushingBox*)m_entity_manager->GetEntity(message.unk0));
-    } else if (RwEngineInstance->stringFuncs.rwstrcmp(message.unk20, "PUSH_STOP") == 0) {
-        PushStop((CEntityPushingBox*)m_entity_manager->GetEntity(message.unk0));
+    if (strcmp(message.type, "PUSH_START") == 0) {
+        PushStart((CEntityPushingBox*)m_entity_manager->GetEntity(message.from));
+    } else if (strcmp(message.type, "PUSH_PUSH") == 0) {
+        PushPush((CEntityPushingBox*)m_entity_manager->GetEntity(message.from));
+    } else if (strcmp(message.type, "PUSH_BLOC") == 0) {
+        PushBloc((CEntityPushingBox*)m_entity_manager->GetEntity(message.from));
+    } else if (RwEngineInstance->stringFuncs.rwstrcmp(message.type, "PUSH_STOP") == 0) {
+        PushStop((CEntityPushingBox*)m_entity_manager->GetEntity(message.from));
     }
 
     if (GetMode() != 2) {
         char buf[32];
-        if (strcmp(message.unk20, "GIVE_FULL_LIFE") == 0) {
+        if (strcmp(message.type, "GIVE_FULL_LIFE") == 0) {
             m_state = 0;
             m_unk13C = 3;
             SetStateEnvironement();
-        } else if (strncmp(message.unk20, "DEL", RwEngineInstance->stringFuncs.rwstrlen("DEL")) == 0) {
+        } else if (strncmp(message.type, "DEL", RwEngineInstance->stringFuncs.rwstrlen("DEL")) == 0) {
             int name_index = RwEngineInstance->stringFuncs.rwstrlen("DEL");
-            strncpy(buf, &message.unk20[name_index], RwEngineInstance->stringFuncs.rwstrlen(message.unk20) - name_index + 1);
+            strncpy(buf, &message.type[name_index], RwEngineInstance->stringFuncs.rwstrlen(message.type) - name_index + 1);
             RemoveItem(buf);
-        } else if (strncmp(message.unk20, "ADD", RwEngineInstance->stringFuncs.rwstrlen("ADD")) == 0) {
+        } else if (strncmp(message.type, "ADD", RwEngineInstance->stringFuncs.rwstrlen("ADD")) == 0) {
             int index = RwEngineInstance->stringFuncs.rwstrlen("ADD");
-            strncpy(buf, &message.unk20[index], RwEngineInstance->stringFuncs.rwstrlen(message.unk20) - index + 1);
+            strncpy(buf, &message.type[index], RwEngineInstance->stringFuncs.rwstrlen(message.type) - index + 1);
             AddItem(buf);
 
             int name_index = RwEngineInstance->stringFuncs.rwstrlen("ITEM_") - 1;
@@ -172,26 +172,26 @@ void CEntityPiglet::ManageMessage(SDkMessage& message) {
             m_unk2B4[0] = 'O';
         }
     } else {
-        if (strncmp(message.unk20, "GRIMACE", RwEngineInstance->stringFuncs.rwstrlen("GRIMACE")) == 0) {
-            if (strcmp(message.unk20, "GRIMACE01") == 0) {
+        if (strncmp(message.type, "GRIMACE", RwEngineInstance->stringFuncs.rwstrlen("GRIMACE")) == 0) {
+            if (strcmp(message.type, "GRIMACE01") == 0) {
                 SetGrimace(1);
-            } else if (strcmp(message.unk20, "GRIMACE02") == 0) {
+            } else if (strcmp(message.type, "GRIMACE02") == 0) {
                 SetGrimace(2);
-            } else if (strcmp(message.unk20, "GRIMACE03") == 0) {
+            } else if (strcmp(message.type, "GRIMACE03") == 0) {
                 SetGrimace(3);
-            } else if (strcmp(message.unk20, "GRIMACE04") == 0) {
+            } else if (strcmp(message.type, "GRIMACE04") == 0) {
                 SetGrimace(4);
-            } else if (strcmp(message.unk20, "GRIMACE05") == 0) {
+            } else if (strcmp(message.type, "GRIMACE05") == 0) {
                 SetGrimace(5);
-            } else if (strcmp(message.unk20, "GRIMACE06") == 0) {
+            } else if (strcmp(message.type, "GRIMACE06") == 0) {
                 SetGrimace(6);
-            } else if (strcmp(message.unk20, "GRIMACE08") == 0) {
+            } else if (strcmp(message.type, "GRIMACE08") == 0) {
                 SetGrimace(7);
-            } else if (strcmp(message.unk20, "GRIMACE09") == 0) {
+            } else if (strcmp(message.type, "GRIMACE09") == 0) {
                 SetGrimace(8);
-            } else if (strcmp(message.unk20, "GRIMACE10") == 0) {
+            } else if (strcmp(message.type, "GRIMACE10") == 0) {
                 SetGrimace(9);
-            } else if (strcmp(message.unk20, "GRIMACE11") == 0) {
+            } else if (strcmp(message.type, "GRIMACE11") == 0) {
                 SetGrimace(10);
             }
 

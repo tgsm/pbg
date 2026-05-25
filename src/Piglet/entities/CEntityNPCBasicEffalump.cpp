@@ -68,7 +68,7 @@ void CEntityNPCBasicEffalump::UpdateFightBehaviour(F32 a1) {
 
             SDkMessage message;
             if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1)) {
-                if (strcmp(message.unk20, "START_FIGHT") == 0) {
+                if (strcmp(message.type, "START_FIGHT") == 0) {
                     PlayWalkAnim(0);
                     m_animation_speed = m_animation_star_controller->GetPlayingAnimationSpeed();
                     m_unk1A8 = 103;

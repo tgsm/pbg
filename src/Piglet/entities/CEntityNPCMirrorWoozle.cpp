@@ -60,7 +60,7 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
 
         SDkMessage message;
         if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1)) {
-            if (strcmp(message.unk20, "START_FIGHT") == 0) {
+            if (strcmp(message.type, "START_FIGHT") == 0) {
                 m_unk2EC = TRUE;
             }
         }

@@ -17,8 +17,8 @@ CEntityWinnie::~CEntityWinnie() {
 }
 
 void CEntityWinnie::ManageMessage(SDkMessage& message) {
-    if (strcmp(message.unk20, "EXIT") == 0) {
-        CEntity* entity = m_entity_manager->GetEntity(message.unk0);
+    if (strcmp(message.type, "EXIT") == 0) {
+        CEntity* entity = m_entity_manager->GetEntity(message.from);
         if (entity != NULL) {
             int type = entity->GetType();
             if (type > ENTITY_UNK5 && type < ENTITY_UNK9) {

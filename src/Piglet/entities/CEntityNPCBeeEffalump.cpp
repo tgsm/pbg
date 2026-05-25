@@ -65,7 +65,7 @@ void CEntityNPCBeeEffalump::UpdateFightBehaviour(F32 a1) {
             ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->UnblockFightMode();
 
             SDkMessage message;
-            if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.unk20, "START_FIGHT") == 0) {
+            if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.type, "START_FIGHT") == 0) {
                 PlayWalkAnim(0);
                 UpdateAnimations(0.001f);
                 m_unk1A8 = 103;

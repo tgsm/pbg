@@ -113,8 +113,8 @@ void CEntity::ProcessMessages() {
             for (CEntityBhvTagBehavior* bhv = (CEntityBhvTagBehavior*)behavior->m_unk4; bhv != NULL; bhv = (CEntityBhvTagBehavior*)bhv->m_unk0) {
                 if (bhv->GetType() == BEHAVIOR_TAG_MESSAGE) {
                     CEntityBhvTagMessage* bhv_message = ((CEntityBhvTagMessage*)bhv);
-                    if (bhv_message->m_unkC == message.unk0 || (message.unk0 == "" && m_unk0 == bhv_message->m_unkC)) {
-                        if (bhv_message->m_unk10 == message.unk20) {
+                    if (bhv_message->m_unkC == message.from || (message.from == "" && m_unk0 == bhv_message->m_unkC)) {
+                        if (bhv_message->m_unk10 == message.type) {
                             bhv_message->Set(this);
                         }
                     }
@@ -130,31 +130,31 @@ void CEntity::ProcessMessages() {
 }
 
 void CEntity::ManageMessage(SDkMessage& message) {
-    if (strcmp(message.unk20, "VISIBILITY") == 0) {
-        if (!message.unk30) {
+    if (strcmp(message.type, "VISIBILITY") == 0) {
+        if (!message.param) {
             DelFlag(ENTITY_FLAG_VISIBLE);
         } else {
             AddFlag(ENTITY_FLAG_VISIBLE);
         }
-    } else if (strcmp(message.unk20, "ACTIVATION") == 0) {
-        if (!message.unk30) {
+    } else if (strcmp(message.type, "ACTIVATION") == 0) {
+        if (!message.param) {
             DelFlag(ENTITY_FLAG_ACTIVE);
         } else {
             AddFlag(ENTITY_FLAG_ACTIVE);
         }
-    } else if (strcmp(message.unk20, "COLLISION") == 0) {
-        if (!message.unk30) {
+    } else if (strcmp(message.type, "COLLISION") == 0) {
+        if (!message.param) {
             DelFlag(ENTITY_FLAG_HAS_COLLISION);
         } else {
             AddFlag(ENTITY_FLAG_HAS_COLLISION);
         }
-    } else if (strcmp(message.unk20, "SET_BEHAVIOR") == 0) {
-        m_unk14 = message.unk30;
-    } else if (strcmp(message.unk20, "SAVE_BEHAVIOR") == 0) {
-        m_unkC = message.unk30;
-    } else if (strcmp(message.unk20, "FIX_BEHAVIOR") == 0) {
-        m_unk14 = message.unk30;
-        m_unkC = message.unk30;
+    } else if (strcmp(message.type, "SET_BEHAVIOR") == 0) {
+        m_unk14 = message.param;
+    } else if (strcmp(message.type, "SAVE_BEHAVIOR") == 0) {
+        m_unkC = message.param;
+    } else if (strcmp(message.type, "FIX_BEHAVIOR") == 0) {
+        m_unk14 = message.param;
+        m_unkC = message.param;
     }
 }
 

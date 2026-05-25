@@ -119,7 +119,7 @@ void CEntityNPCGralosaurus::UpdateDetectionBehaviour(F32) {
 
 void CEntityNPCGralosaurus::UpdateFightBehaviour(F32 unk) {
     SDkMessage message;
-    if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.unk20, "START_FIGHT") == 0) {
+    if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.type, "START_FIGHT") == 0) {
         m_unk2FC = 1;
     }
 

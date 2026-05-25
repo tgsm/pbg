@@ -76,7 +76,7 @@ void CEntityPhial::Update(F32 dt) {
                     break;
                 case 2: {
                     SDkMessage message;
-                    strcpy(message.unk20, "PHIAL_CANFALL");
+                    strcpy(message.type, "PHIAL_CANFALL");
                     if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1)) {
                         m_state = 3;
                     }

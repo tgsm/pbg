@@ -48,7 +48,7 @@ void CEntityScaryFaceBox::ManageMessage(SDkMessage& message) {
 
     if (IsFlagged(ENTITY_FLAG_ACTIVE)) {
         // We've already checked if this is active, but we'll check again for good measure :^)
-        if (strcmp(message.unk0, "Piglet") == 0 && strcmp(message.unk20, "ACTION") == 0 && IsFlagged(ENTITY_FLAG_ACTIVE)) {
+        if (strcmp(message.from, "Piglet") == 0 && strcmp(message.type, "ACTION") == 0 && IsFlagged(ENTITY_FLAG_ACTIVE)) {
             HandleAction();
         }
     }

@@ -486,7 +486,7 @@ config.libs = [
             Object(NonMatching, "Piglet/entities/CRTCPlayerEntity.cpp"),
             Object(NonMatching, "Piglet/CRTCSequencer.cpp"),
             Object(Equivalent, "Piglet/CRTCAddColorEvent.cpp"),
-            Object(NonMatching, "Piglet/CMailBox.cpp"),
+            Object(NonMatching, "Piglet/CMailBox.cpp", extra_cflags=["-bool off"]),
             Object(Equivalent, "Piglet/entities/CEntityNPCBeeEffalump.cpp", extra_cflags=["-bool off"]),
             Object(Equivalent, "Piglet/entities/CEntityNPCHnSWoozle.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityNPCJackpotEffalump.cpp"),

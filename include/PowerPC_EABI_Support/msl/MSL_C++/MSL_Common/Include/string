@@ -36,6 +36,9 @@ struct basic_string {
         assign(s, strlen(s));
     }
 
+    CharT& at(unsigned long pos);
+    const CharT& at(unsigned long pos) const;
+
     int compare(size_type pos1, size_type count1, const CharT* s, size_type count2) const;
     int compare(const basic_string& other) const {
         return compare(0, size(), other.begin(), other.size());

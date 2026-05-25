@@ -92,23 +92,23 @@ void CEntityFX::Init() {
 void CEntityFX::ManageMessage(SDkMessage& message) {
     CEntity::ManageMessage(message);
 
-    if (strcmp(message.unk20, "START") == 0) {
+    if (strcmp(message.type, "START") == 0) {
         if (m_particle_emitter != NULL) {
             m_particle_emitter->Start();
             m_particle_emitter->Resume();
             CEntityObject::AddFlag(ENTITY_FLAG_ACTIVE);
         }
-    } else if (strcmp(message.unk20, "STOP") == 0) {
+    } else if (strcmp(message.type, "STOP") == 0) {
         if (m_particle_emitter != NULL) {
             m_particle_emitter->Stop();
             m_unk60 = 0.0f;
             CEntityObject::DelFlag(ENTITY_FLAG_ACTIVE);
         }
-    } else if (strcmp(message.unk20, "PAUSE") == 0) {
+    } else if (strcmp(message.type, "PAUSE") == 0) {
         if (m_particle_emitter != NULL) {
             m_particle_emitter->Pause();
         }
-    } else if (strcmp(message.unk20, "RESUME") == 0) {
+    } else if (strcmp(message.type, "RESUME") == 0) {
         if (m_particle_emitter != NULL) {
             m_particle_emitter->Resume();
         }

@@ -78,7 +78,7 @@ void CEntityTimer::Parse(DkXmd::CChunkIterator iter) {
 }
 
 void CEntityTimer::ManageMessage(SDkMessage& message) {
-    if (strcmp(message.unk20, "STOP") == 0) {
+    if (strcmp(message.type, "STOP") == 0) {
         if (IsFlagged(ENTITY_FLAG_ACTIVE)) {
             DelFlag(ENTITY_FLAG_ACTIVE);
             DelFlag(ENTITY_FLAG_VISIBLE);
@@ -86,7 +86,7 @@ void CEntityTimer::ManageMessage(SDkMessage& message) {
 
             ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->StopTimer();
         }
-    } else if (strcmp(message.unk20, "START") == 0) {
+    } else if (strcmp(message.type, "START") == 0) {
         if (!IsFlagged(ENTITY_FLAG_ACTIVE)) {
             AddFlag(ENTITY_FLAG_ACTIVE);
             AddFlag(ENTITY_FLAG_VISIBLE);
@@ -94,8 +94,8 @@ void CEntityTimer::ManageMessage(SDkMessage& message) {
 
             ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->InitTimer(m_duration);
         }
-    } else if (strcmp(message.unk20, "SET_BEHAVIOR") == 0) {
-        m_unk14 = message.unk30;
+    } else if (strcmp(message.type, "SET_BEHAVIOR") == 0) {
+        m_unk14 = message.param;
     }
 }
 
