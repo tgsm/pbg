@@ -1,6 +1,7 @@
 #ifndef ENGINE_SOUND_CSOUNDENGINE_H
 #define ENGINE_SOUND_CSOUNDENGINE_H
 
+#include <rwa/rwavirtualvoice.h>
 #include "engine/sound/ISoundEngine.h"
 
 struct RwaObjHandle {
@@ -81,6 +82,8 @@ public:
 
     void AddLayer(int);
     RwaObjHandle* RWAGetOSOutputHandle();
+    RwaVirtualVoice* RWAGetFreeVirtualVoice(); // FIXME: Actually returns RwaAXVoiceHandle?
+    void RWAFreeVirtualVoice(RwaVirtualVoice* virtual_voice);
 };
 REQUIRE_SIZE(CSoundEngine, 0x2D0);
 

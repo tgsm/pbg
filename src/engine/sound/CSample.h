@@ -2,6 +2,7 @@
 #define ENGINE_SOUND_CSAMPLE_H
 
 #include <string>
+#include <rwa/rwawave.h>
 #include "engine/sound/CSampleDictionary.h"
 #include "engine/sound/ISample.h"
 
@@ -43,6 +44,7 @@ public:
     void ReleaseSpecific();
     void Invalidate();
     BOOL LoadSpecific(U8*);
+    RwaWave* RWAGetOSWave();
 };
 REQUIRE_SIZE(CSample, 0x50);
 
