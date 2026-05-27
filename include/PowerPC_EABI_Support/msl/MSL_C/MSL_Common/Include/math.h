@@ -11,6 +11,7 @@ double pow(double x, double y);
 double floor(double x);
 double sin(double x);
 double cos(double x);
+inline float cosf(float x) { return cos(x); }
 double atan2(double y, double x);
 
 #ifdef __cplusplus

@@ -1007,10 +1007,6 @@ BOOL CScene::PickComputePixelRay(ICamera* camera_, F32 a2, F32 a3, CDKW_V3d& a4,
     return TRUE;
 }
 
-extern "C" {
-extern RpLight* RpLightSetColor(RpLight* light, RwRGBAReal* color);
-}
-
 void CScene::SetAmbient(F32 red, F32 green, F32 blue) {
     if (m_world != NULL) {
         // FIXME: Make CDKW_RGBAReal inherit RwRGBAReal

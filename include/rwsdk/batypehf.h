@@ -1,6 +1,8 @@
 #ifndef RWSDK_BATYPEHF_H
 #define RWSDK_BATYPEHF_H
 
+#include <rwsdk/plcore/bamemory.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -14,11 +16,13 @@ typedef struct RwObject {
     void* parent;
 } RwObject;
 
-// TODO
 typedef struct RwObjectHasFrame {
     RwObject object;
-    char unk8[0x14 - 0x8];
+    RwLLLink lFrame;
+    struct RwObjectHasFrame* (*sync)(struct RwObjectHasFrame*);
 } RwObjectHasFrame;
+
+void _rwObjectHasFrameReleaseFrame(RwObjectHasFrame* object);
 
 #ifdef __cplusplus
 }

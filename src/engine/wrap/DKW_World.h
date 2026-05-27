@@ -2,13 +2,12 @@
 #define ENGINE_WRAP_DKW_WORLD_H
 
 #include <rwsdk/plcore/bamemory.h>
+#include <rwsdk/world/balight.h>
 #include "engine/wrap/DKW_Clump.h"
 #include "engine/wrap/DKW_Camera.h"
 #include "engine/wrap/DKW_ObjPlg.h"
 
 class CDKW_Light;
-
-struct RpLight;
 
 class CDKW_World : public CDKW_ObjPlg {
 public:

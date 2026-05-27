@@ -58,7 +58,10 @@ typedef struct RwMemoryFunctions {
 typedef int (*RwStandardFunc)(void*, void*, int);
 
 typedef struct RwGlobals {
-    char unk0[0x58];
+    char unk0[0xA];
+    unsigned short lightFrame;
+    unsigned short pad[2];
+    char unk10[0x58 - 0x10];
     RwStandardFunc unk58;
     RwStandardFunc unk5C;
     char unk60[0x84 - 0x60];
