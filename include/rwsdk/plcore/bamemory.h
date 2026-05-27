@@ -24,6 +24,8 @@ typedef struct RwFreeList {
     RwLLLink link;
 } RwFreeList; // size: 0x24
 
+typedef void (*RwFreeListCallBack)(void*, void*);
+
 RwFreeList* RwFreeListCreate(int a0, int a1, int a2);
 RwFreeList* RwFreeListCreateAndPreallocateSpace(int, unsigned int entriesPerBlock, unsigned int alignment, int preallocBlocks, RwFreeList*);
 int RwFreeListDestroy(RwFreeList* list);
