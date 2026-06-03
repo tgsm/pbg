@@ -12,6 +12,9 @@ typedef struct RwError {
 
 typedef enum RwErrorCodeCommon {
     E_RW_NOERROR = 0x80000000,
+    E_RW_INVIMAGEDEPTH = 0x80000008,
+    E_RW_INVRASTERDEPTH = 0x8000000C,
+    E_RW_INVRASTERFORMAT = 0x8000000D,
 } RwErrorCodeCommon;
 
 // Unofficial names
