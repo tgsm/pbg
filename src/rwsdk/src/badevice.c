@@ -23,7 +23,7 @@ struct UnkRwPluginRegistryStruct {
     int unk4;
     char unk8[0x10];
 };
-struct UnkRwPluginRegistryStruct engineTKList = {
+static struct UnkRwPluginRegistryStruct engineTKList = {
     sizeof(RwGlobals),
     sizeof(RwGlobals),
 };
