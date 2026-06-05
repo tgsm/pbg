@@ -3,6 +3,7 @@
 
 #include <stdarg.h>
 #include <rwsdk/plcore/bafsys.h>
+#include <rwsdk/plcore/baimmedi.h>
 #include <rwsdk/plcore/bamemory.h>
 
 #ifdef __cplusplus
@@ -18,9 +19,9 @@ typedef struct RwEngineOpenParams {
     int unkC;
 } RwEngineOpenParams;
 
-typedef struct RwSubSystem {
-    char unk0[0x50];
-} RwSubSystem;
+typedef struct RwSubSystemInfo {
+    char name[0x50];
+} RwSubSystemInfo;
 
 typedef struct RwVideoMode {
     unsigned int unk0;
@@ -48,20 +49,80 @@ typedef struct RwStringFunctions {
     int (*rwsscanf)(const char* str, const char* format, ...);
 } RwStringFunctions; // size: 0x40
 
-typedef struct RwMemoryFunctions {
-    void* (*rwmalloc)(unsigned long size); // 0x130
-    void (*rwfree)(void* ptr);
-    void* (*rwrealloc)(void* ptr, unsigned long size);
-    void* (*rwcalloc)(unsigned long n, unsigned long size);
-} RwMemoryFunctions; // size: 0x10
+typedef enum RwPrimitiveType {
+    rwPRIMTYPENAPRIMTYPE = 0,
+    rwPRIMTYPELINELIST = 1,
+    rwPRIMTYPEPOLYLINE = 2,
+    rwPRIMTYPETRILIST = 3,
+    rwPRIMTYPETRISTRIP = 4,
+    rwPRIMTYPETRIFAN = 5,
+    rwPRIMTYPEPOINTLIST = 6,
+    rwPRIMITIVETYPEFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwPrimitiveType;
+
+typedef struct rwGameCube2DVertex rwGameCube2DVertex;
+
+typedef struct RwDevice {
+    float gammaCorrection;
+    int (*fpSystem)(int, void*, void*, int);
+    float zBufferNear;
+    float zBufferFar;
+    int (*fpRenderStateSet)(RwRenderState, void*);
+    int (*fpRenderStateGet)(RwRenderState, void*);
+    int (*fpIm2DRenderLine)(rwGameCube2DVertex*, int, int, int);
+    int (*fpIm2DRenderTriangle)(rwGameCube2DVertex*, int, int, int, int);
+    int (*fpIm2DRenderPrimitive)(RwPrimitiveType, rwGameCube2DVertex*, int);
+    int (*fpIm2DRenderIndexedPrimitive)(RwPrimitiveType, rwGameCube2DVertex*, int, unsigned short*, int);
+    int (*fpIm3DRenderLine)(int, int);
+    int (*fpIm3DRenderTriangle)(int, int, int);
+    int (*fpIm3DRenderPrimitive)(RwPrimitiveType);
+    int (*fpIm3DRenderIndexedPrimitive)(RwPrimitiveType, unsigned short*, int);
+} RwDevice; // size: 0x38
+
+typedef enum RwCoreDeviceSystemFn {
+    rwDEVICESYSTEMOPEN = 0,
+    rwDEVICESYSTEMCLOSE = 1,
+    rwDEVICESYSTEMSTART = 2,
+    rwDEVICESYSTEMSTOP = 3,
+    rwDEVICESYSTEMREGISTER = 4,
+    rwDEVICESYSTEMGETNUMMODES = 5,
+    rwDEVICESYSTEMGETMODEINFO = 6,
+    rwDEVICESYSTEMUSEMODE = 7,
+    rwDEVICESYSTEMGETMODE = 10,
+    rwDEVICESYSTEMSTANDARDS = 11,
+    rwDEVICESYSTEMGETTEXMEMSIZE = 12,
+    rwDEVICESYSTEMGETNUMSUBSYSTEMS = 13,
+    rwDEVICESYSTEMGETSUBSYSTEMINFO = 14,
+    rwDEVICESYSTEMGETCURRENTSUBSYSTEM = 15,
+    rwDEVICESYSTEMSETSUBSYSTEM = 16,
+    rwDEVICESYSTEMFINALIZESTART = 17,
+    rwDEVICESYSTEMINITIATESTOP = 18,
+    rwDEVICESYSTEMGETMAXTEXTURESIZE = 19,
+    rwCOREDEVICESYSTEMFNFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwCoreDeviceSystemFn;
 
 typedef int (*RwStandardFunc)(void*, void*, int);
+
+typedef enum RwEngineStatus {
+    rwENGINESTATUSIDLE = 0,
+    rwENGINESTATUSINITED = 1,
+    rwENGINESTATUSOPENED = 2,
+    rwENGINESTATUSSTARTED = 3,
+    rwENGINESTATUSFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwEngineStatus;
+
+typedef enum RwEngineInitFlag {
+    rwENGINEINITFREELISTS = 0,
+    rwENGINEINITNOFREELISTS = (1 << 0),
+    rwENGINEINITFLAGFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwEngineInitFlag;
 
 typedef struct RwGlobals {
     char unk0[0xA];
     unsigned short lightFrame;
     unsigned short pad[2];
-    char unk10[0x58 - 0x10];
+    RwDevice dOpenDevice;
+    char unk48[0x58 - 0x48];
     RwStandardFunc unk58;
     RwStandardFunc unk5C;
     char unk60[0x84 - 0x60];
@@ -80,9 +141,11 @@ typedef struct RwGlobals {
     RwFileFunctions fileFuncs;
     RwStringFunctions stringFuncs;
     RwMemoryFunctions memoryFuncs;
-    void* (*unk140)(void*);
-    void* (*unk144)(void*, void*);
-    char unk148[0x154 - 0x148];
+    void* (*memoryAlloc)(RwFreeList*);
+    RwFreeList* (*memoryFree)(RwFreeList*, void*);
+    char unk148[4];
+    RwEngineStatus engineStatus;
+    unsigned int resArenaInitSize;
 } RwGlobals; // size: 0x154
 
 typedef struct RwModuleInfo {
@@ -90,19 +153,27 @@ typedef struct RwModuleInfo {
     int numInstances;
 } RwModuleInfo;
 
+// FIXME: DWARFs say this is a void*
 extern RwGlobals* RwEngineInstance;
 
+int _rwDeviceSystemRequest(RwDevice* device, int systemFn, void* dest, void*, int);
+int _rwGetNumEngineInstances(void);
 unsigned int RwEngineGetVersion(void);
+int RwEngineRegisterPlugin(int, int pluginID, void* openFunc, void* closeFunc); // FIXME: RwPluginObjectConstructor and RwPluginObjectDestructor?
 unsigned int RwEngineGetNumSubSystems(void);
-RwSubSystem* RwEngineGetSubSystemInfo(RwSubSystem* subsystem, int);
+RwSubSystemInfo* RwEngineGetSubSystemInfo(RwSubSystemInfo* subSystem, int);
 int RwEngineGetCurrentSubSystem(void);
 int RwEngineSetSubSystem(int);
 unsigned int RwEngineGetNumVideoModes(void);
 RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* videoMode, int);
 int RwEngineGetCurrentVideoMode(void);
 int RwEngineSetVideoMode(int);
-unsigned int RwEngineGetTextureMemorySize(void);
-unsigned int RwEngineGetMaxTextureSize(void);
+int RwEngineGetTextureMemorySize(void);
+int RwEngineGetMaxTextureSize(void);
+int RwEngineStop(void);
+int RwEngineStart(void);
+int RwEngineClose(void);
+int RwEngineOpen(void*);
 
 #ifdef __cplusplus
 }

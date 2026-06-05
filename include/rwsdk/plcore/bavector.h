@@ -16,6 +16,8 @@ typedef struct RwV3d {
     float z;
 } RwV3d;
 
+void* _rwVectorOpen(void*, int offset);
+void* _rwVectorClose(void*);
 float RwV3dNormalize(RwV3d*, RwV3d*);
 float RwV3dLength(RwV3d* vec);
 float _rwSqrt(float x);

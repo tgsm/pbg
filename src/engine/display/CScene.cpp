@@ -25,7 +25,7 @@ CScene::~CScene() {
 
 void CScene::Initialize(CObjectDictionary* object_dictionary, CEngine* engine) {
     if (m_world == NULL) {
-        m_world = new (RwEngineInstance->unk140(CDKW_World::ms_pMemEntry)) CDKW_World(1000.0f);
+        m_world = new (RwEngineInstance->memoryAlloc(CDKW_World::ms_pMemEntry)) CDKW_World(1000.0f);
     }
     m_object_dictionary = object_dictionary;
     m_engine = engine;

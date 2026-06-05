@@ -22,7 +22,7 @@ public:
 
     void operator delete(void* ptr) {
         ms_NbObject--;
-        RwEngineInstance->unk144(ms_pMemEntry, ptr);
+        RwEngineInstance->memoryFree(ms_pMemEntry, ptr);
     }
 
     CDKW_V3d GetUp() {

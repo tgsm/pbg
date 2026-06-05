@@ -24,7 +24,7 @@ extern void _rwPluginRegistryDeInitObject(struct UnkRwPluginRegistryStruct*, voi
 extern void _rwFrameSyncHierarchyLTM(RwFrame*);
 
 // FIXME: Unknown return/param type
-void* _rwFrameOpen(void* a0, unsigned int globalsOffset) {
+void* _rwFrameOpen(void* a0, int globalsOffset) {
     static RwFreeList frameFreeList;
     frameModule.globalsOffset = globalsOffset;
     *(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) = RwFreeListCreateAndPreallocateSpace(frameTKList.unk0, _rwFrameFreeListBlockSize, 4, _rwFrameFreeListPreallocBlocks, &frameFreeList);
@@ -107,7 +107,7 @@ void _rwFrameInit(RwFrame* frame) {
 }
 
 RwFrame* RwFrameCreate(void) {
-    RwFrame* frame = RwEngineInstance->unk140(*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset));
+    RwFrame* frame = RwEngineInstance->memoryAlloc(*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset));
     if (frame == NULL) {
         return NULL;
     }
@@ -136,7 +136,7 @@ int RwFrameDestroy(RwFrame* frame) {
     }
 
     list = *(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset);
-    RwEngineInstance->unk144(list, frame);
+    RwEngineInstance->memoryFree(list, frame);
 
     return 1;
 }

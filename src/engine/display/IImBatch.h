@@ -1,19 +1,9 @@
 #ifndef ENGINE_DISPLAY_IIMBATCH_H
 #define ENGINE_DISPLAY_IIMBATCH_H
 
+#include <rwsdk/badevice.h>
 #include "engine/wrap/DKW_Matrix.h"
 
-// FIXME: Move these to a RW header.
-enum RwPrimitiveType {
-    rwPRIMTYPENAPRIMTYPE = 0,
-    rwPRIMTYPELINELIST = 1,
-    rwPRIMTYPEPOLYLINE = 2,
-    rwPRIMTYPETRILIST = 3,
-    rwPRIMTYPETRISTRIP = 4,
-    rwPRIMTYPETRIFAN = 5,
-    rwPRIMTYPEPOINTLIST = 6,
-    rwPRIMITIVETYPEFORCEENUMSIZEINT = 0x7FFFFFFF,
-};
 struct RxObjSpace3DVertex {
     float x;
     float y;

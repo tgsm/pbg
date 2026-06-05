@@ -27,6 +27,8 @@ typedef struct RwTexture {
     int refCount;
 } RwTexture; // size: 0x58
 
+void* _rwTextureOpen(void*, int offset);
+void* _rwTextureClose(void*);
 int RwTextureSetMipmapping(int);
 int RwTextureSetAutoMipmapping(int);
 RwTexture* RwTextureSetRaster(RwTexture* texture, RwRaster* raster);

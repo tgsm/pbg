@@ -19,7 +19,7 @@ void CCamera::Construct(CDKW_Camera* wrap_camera) {
     m_wrap_camera = wrap_camera;
     if (m_wrap_camera == NULL) {
         CDKW_Camera::ms_NbObject++;
-        CDKW_Camera* camera_ptr = (CDKW_Camera*)RwEngineInstance->unk140(CDKW_Camera::ms_pMemEntry);
+        CDKW_Camera* camera_ptr = (CDKW_Camera*)RwEngineInstance->memoryAlloc(CDKW_Camera::ms_pMemEntry);
         m_wrap_camera = new (camera_ptr) CDKW_Camera();
     }
     m_buffer.SetDkWrapRaster((CDKW_Raster*)m_wrap_camera->m_rw_camera->frameBuffer, 0);

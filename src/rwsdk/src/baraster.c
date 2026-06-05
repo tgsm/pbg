@@ -72,7 +72,7 @@ void* RwRasterLock(RwRaster* raster, int a1, int a3) {
 
 RwRaster* RwRasterCreate(int width, int height, int depth, int a3) {
     int (*unk58)(void*, void*, int);
-    RwRaster* raster = RwEngineInstance->unk140(((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList);
+    RwRaster* raster = RwEngineInstance->memoryAlloc(((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList);
     if (raster != NULL) {
         unk58 = RwEngineInstance->unk58;
         raster->privateFlags = 0;
@@ -86,7 +86,7 @@ RwRaster* RwRasterCreate(int width, int height, int depth, int a3) {
         raster->cpPixels = NULL;
         raster->palette = NULL;
         if (unk58(NULL, raster, a3) == 0) {
-            RwEngineInstance->unk144(((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList, raster);
+            RwEngineInstance->memoryFree(((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList, raster);
             return NULL;
         } else {
             _rwPluginRegistryInitObject(&rasterTKList, raster);
@@ -139,7 +139,7 @@ int RwRasterRegisterPlugin(unsigned int size, unsigned int a1, void* a2, void* a
 int RwRasterDestroy(RwRaster* raster) {
     _rwPluginRegistryDeInitObject(&rasterTKList, raster);
     RwEngineInstance->unk5C(NULL, raster, 0);
-    RwEngineInstance->unk144(((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList, raster);
+    RwEngineInstance->memoryFree(((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList, raster);
 
     return 1;
 }

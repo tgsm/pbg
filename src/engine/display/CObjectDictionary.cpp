@@ -214,7 +214,7 @@ CClump* CObjectDictionary::CopyClump(std::string, std::string) {
 
 CClump* CObjectDictionary::CreateClump(std::string name) {
     CDKW_Clump::ms_NbObject++;
-    CDKW_Clump* wrap_clump = new (RwEngineInstance->unk140(CDKW_Clump::ms_pMemEntry)) CDKW_Clump();
+    CDKW_Clump* wrap_clump = new (RwEngineInstance->memoryAlloc(CDKW_Clump::ms_pMemEntry)) CDKW_Clump();
 
     CClump* clump = new CClump(wrap_clump);
     AddClump(clump, name);
@@ -452,7 +452,7 @@ CSpline* CObjectDictionary::CopySpline(std::string, std::string) {
 }
 
 CSpline* CObjectDictionary::CreateSpline(std::string name, U32 a2) {
-    CDKW_Spline* wrap_spline = new (RwEngineInstance->unk140(CDKW_Spline::ms_pMemEntry)) CDKW_Spline(a2);
+    CDKW_Spline* wrap_spline = new (RwEngineInstance->memoryAlloc(CDKW_Spline::ms_pMemEntry)) CDKW_Spline(a2);
 
     CSpline* spline = new CSpline(wrap_spline);
     AddSpline(spline, name);

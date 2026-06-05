@@ -10,12 +10,12 @@ extern "C" {
 #include "rwsdk/batypehf.h"
 #include "rwsdk/plcore/bamatrix.h"
 
-enum RwCameraProjection {
+typedef enum RwCameraProjection {
     rwNACAMERAPROJECTION = 0,
     rwPERSPECTIVE = 1,
     rwPARALLEL = 2,
     rwCAMERAPROJECTIONFORCEENUMSIZEINT = 0x7FFFFFFF,
-};
+} RwCameraProjection;
 
 typedef struct RwCamera {
     RwObjectHasFrame object;
@@ -35,6 +35,8 @@ typedef struct RwCamera {
     char unk94[0x198 - 0x94];
 } RwCamera;
 
+extern void* _rwCameraOpen(void*, int offset);
+extern void* _rwCameraClose(void*);
 RwCamera* RwCameraSetViewOffset(RwCamera* camera, RwV2d* viewOffset);
 RwCamera* RwCameraSetNearClipPlane(float nearPlane, RwCamera* camera);
 RwCamera* RwCameraSetFarClipPlane(float farPlane, RwCamera* camera);

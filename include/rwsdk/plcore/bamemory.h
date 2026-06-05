@@ -26,9 +26,22 @@ typedef struct RwFreeList {
 
 typedef void (*RwFreeListCallBack)(void*, void*);
 
-RwFreeList* RwFreeListCreate(int a0, int a1, int a2);
-RwFreeList* RwFreeListCreateAndPreallocateSpace(int, unsigned int entriesPerBlock, unsigned int alignment, int preallocBlocks, RwFreeList*);
+typedef struct RwMemoryFunctions {
+    void* (*rwmalloc)(unsigned long size); // 0x130
+    void (*rwfree)(void* ptr);
+    void* (*rwrealloc)(void* ptr, unsigned long size);
+    void* (*rwcalloc)(unsigned long n, unsigned long size);
+} RwMemoryFunctions; // size: 0x10
+
+int _rwMemoryOpen(RwMemoryFunctions* memoryFuncs);
+void _rwMemoryClose(void);
+void _rwFreeListEnable(int);
+void* _rwFreeListAllocReal(RwFreeList* freeList);
+RwFreeList* _rwFreeListFreeReal(RwFreeList* freeList, void* ptr);
+RwFreeList* RwFreeListCreate(unsigned int, unsigned int entriesPerBlock, unsigned int alignment);
+RwFreeList* RwFreeListCreateAndPreallocateSpace(unsigned int, unsigned int entriesPerBlock, unsigned int alignment, unsigned int preallocBlocks, RwFreeList*);
 int RwFreeListDestroy(RwFreeList* list);
+RwFreeList* RwFreeListForAllUsed(RwFreeList* freeList, RwFreeListCallBack callback, void*);
 
 #ifdef __cplusplus
 }

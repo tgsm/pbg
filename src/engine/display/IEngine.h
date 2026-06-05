@@ -27,7 +27,7 @@ class IShadowMapValidationCallback;
 class IWarningCollector;
 
 struct SRWAdapterInfo {
-    RwSubSystem subsystem;
+    RwSubSystemInfo subsystem;
 };
 
 struct SRWVideoModeInfo {

@@ -71,13 +71,13 @@ void RpLightRegisterPlugin(unsigned int size, unsigned int a1, void* a2, void* a
 int RpLightDestroy(RpLight* light) {
     _rwPluginRegistryDeInitObject(&lightTKList, light);
     _rwObjectHasFrameReleaseFrame(&light->object);
-    RwEngineInstance->unk144(*(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset), light);
+    RwEngineInstance->memoryFree(*(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset), light);
 
     return 1;
 }
 
 RpLight* RpLightCreate(RpLightType type) {
-    RpLight* light = RwEngineInstance->unk140(*(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset));
+    RpLight* light = RwEngineInstance->memoryAlloc(*(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset));
     if (light == NULL) {
         return NULL;
     }

@@ -69,6 +69,8 @@ typedef struct RwRaster {
     int originalStride;
 } RwRaster;
 
+void* _rwRasterOpen(void*, int offset);
+void* _rwRasterClose(void*);
 void* RwRasterLock(RwRaster* raster, int, int);
 RwRaster* RwRasterCreate(int width, int height, int depth, int);
 RwRaster* RwRasterShowRaster(RwRaster* raster, void*, unsigned int);

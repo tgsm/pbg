@@ -1366,7 +1366,7 @@ config.libs = [
             Object(NonMatching, "rwsdk/src/babinfrm.c"),
             Object(NonMatching, "rwsdk/src/babintex.c"),
             Object(NonMatching, "rwsdk/src/bacamera.c"),
-            Object(NonMatching, "rwsdk/src/badevice.c"),
+            Object(Matching, "rwsdk/src/badevice.c", extra_cflags=["-lang c++", "-bool off"]),
             Object(NonMatching, "rwsdk/src/baframe.c"),
             Object(NonMatching, "rwsdk/src/baimage.c"),
             Object(NonMatching, "rwsdk/src/baimras.c"),

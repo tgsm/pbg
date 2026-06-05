@@ -388,10 +388,10 @@ int CEngine::GetCurrentAdapter() {
 
 void CEngine::GetAdapterInfo(int a1, SRWAdapterInfo* adapter_info) {
     if (m_wrap_engine != NULL && adapter_info != NULL) {
-        RwSubSystem subsystem;
+        RwSubSystemInfo subsystem;
         RwEngineGetSubSystemInfo(&subsystem, a1);
         for (int i = 0; i < 0x50; i++) {
-            adapter_info->subsystem.unk0[i] = subsystem.unk0[i];
+            adapter_info->subsystem.name[i] = subsystem.name[i];
         }
     }
 }

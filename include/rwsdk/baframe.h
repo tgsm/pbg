@@ -26,6 +26,8 @@ typedef void* (*RwFrameDataDestructorCB)(void*, int, int);
 typedef void* (*RwFrameDataCopierCB)(void*, const void*, int, int);
 typedef RwFrame* (*RwFrameCallBack)(RwFrame*, void*);
 
+void* _rwFrameOpen(void*, int offset);
+void* _rwFrameClose(void*);
 int RwFrameDirty(RwFrame* frame);
 RwFrame* RwFrameCreate(void);
 int RwFrameDestroy(RwFrame* frame);
