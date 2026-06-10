@@ -32,8 +32,8 @@ typedef struct RwCamera {
     float fogPlane;
     float zScale;
     float zShift;
-    char unk94[0x198 - 0x94];
-} RwCamera;
+    char unk94[0x188 - 0x94];
+} RwCamera; // size: 0x188
 
 extern void* _rwCameraOpen(void*, int offset);
 extern void* _rwCameraClose(void*);

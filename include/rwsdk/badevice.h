@@ -60,7 +60,17 @@ typedef enum RwPrimitiveType {
     rwPRIMITIVETYPEFORCEENUMSIZEINT = 0x7FFFFFFF,
 } RwPrimitiveType;
 
-typedef struct rwGameCube2DVertex rwGameCube2DVertex;
+typedef struct rwGameCube2DVertex {
+    float x;
+    float y;
+    float z;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+    float u;
+    float v;
+} RwIm2DVertex;
 
 typedef struct RwDevice {
     float gammaCorrection;
@@ -69,10 +79,10 @@ typedef struct RwDevice {
     float zBufferFar;
     int (*fpRenderStateSet)(RwRenderState, void*);
     int (*fpRenderStateGet)(RwRenderState, void*);
-    int (*fpIm2DRenderLine)(rwGameCube2DVertex*, int, int, int);
-    int (*fpIm2DRenderTriangle)(rwGameCube2DVertex*, int, int, int, int);
-    int (*fpIm2DRenderPrimitive)(RwPrimitiveType, rwGameCube2DVertex*, int);
-    int (*fpIm2DRenderIndexedPrimitive)(RwPrimitiveType, rwGameCube2DVertex*, int, unsigned short*, int);
+    int (*fpIm2DRenderLine)(RwIm2DVertex*, int, int, int);
+    int (*fpIm2DRenderTriangle)(RwIm2DVertex*, int, int, int, int);
+    int (*fpIm2DRenderPrimitive)(RwPrimitiveType, RwIm2DVertex*, int);
+    int (*fpIm2DRenderIndexedPrimitive)(RwPrimitiveType, RwIm2DVertex*, int, unsigned short*, int);
     int (*fpIm3DRenderLine)(int, int);
     int (*fpIm3DRenderTriangle)(int, int, int);
     int (*fpIm3DRenderPrimitive)(RwPrimitiveType);
@@ -118,7 +128,8 @@ typedef enum RwEngineInitFlag {
 } RwEngineInitFlag;
 
 typedef struct RwGlobals {
-    char unk0[0xA];
+    void* curCamera;
+    char unk4[0x6];
     unsigned short lightFrame;
     unsigned short pad[2];
     RwDevice dOpenDevice;

@@ -3,19 +3,6 @@
 
 #include "engine/display/IImBatch.h"
 
-// FIXME
-typedef struct rwGameCube2DVertex {
-    float x;
-    float y;
-    float z;
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
-    unsigned char a;
-    float u;
-    float v;
-} RwIm2DVertex;
-
 namespace DKDSP {
 
 class IIm2DBatch : public IImBatch {
