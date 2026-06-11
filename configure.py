@@ -350,7 +350,7 @@ def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
         "lib": lib_name,
         "mw_version": "GC/1.2.5n",
         "cflags": cflags_base,
-        "progress_category": "sdk",
+        "progress_category": ["sdk", "dolphin"],
         "objects": objects,
     }
 
@@ -367,7 +367,7 @@ def ThpLib_1(objects: List[Object]) -> Dict[str, Any]:
             "-opt noschedule",
             "-opt nopeephole"
         ],
-        "progress_category": "sdk",
+        "progress_category": ["sdk", "dolphin"],
         "objects": objects,
     }
 def ThpLib_2(objects: List[Object]) -> Dict[str, Any]:
@@ -375,7 +375,7 @@ def ThpLib_2(objects: List[Object]) -> Dict[str, Any]:
         "lib": "THP2",
         "mw_version": "GC/1.2.5n",
         "cflags": cflags_base,
-        "progress_category": "sdk",
+        "progress_category": ["sdk", "dolphin"],
         "objects": objects,
     }
 
@@ -386,7 +386,7 @@ def RenderWareLib(lib_name: str, mw_version: str, objects: List[Object]) -> Dict
         "lib": lib_name,
         "mw_version": mw_version,
         "cflags": cflags_rw,
-        "progress_category": "sdk",
+        "progress_category": ["sdk", "rw"],
         "objects": objects,
     }
 
@@ -397,7 +397,7 @@ def RwaLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
         "lib": lib_name,
         "mw_version": "GC/1.3.2",
         "cflags": cflags_rwa,
-        "progress_category": "sdk",
+        "progress_category": ["sdk", "rwa"],
         "objects": objects,
     }
 
@@ -1506,6 +1506,9 @@ config.progress_categories = [
     ProgressCategory("game", "Game Code"),
     ProgressCategory("engine", "Engine Code"),
     ProgressCategory("sdk", "SDK Code"),
+    ProgressCategory("dolphin", "Dolphin SDK"),
+    ProgressCategory("rw", "Renderware SDK"),
+    ProgressCategory("rwa", "RWA SDK"),
 ]
 config.progress_each_module = args.verbose
 # Optional extra arguments to `objdiff-cli report generate`
