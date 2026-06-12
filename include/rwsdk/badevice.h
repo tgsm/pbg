@@ -23,11 +23,16 @@ typedef struct RwSubSystemInfo {
     char name[0x50];
 } RwSubSystemInfo;
 
+typedef enum RwVideoModeFlag {
+    rwVIDEOMODEEXCLUSIVE = (1 << 0),
+    rwVIDEOMODEFLAGFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwVideoModeFlag;
+
 typedef struct RwVideoMode {
-    unsigned int unk0;
-    unsigned int unk4;
-    unsigned int unk8;
-    unsigned int unkC;
+    unsigned int width;
+    unsigned int height;
+    unsigned int depth;
+    RwVideoModeFlag flags;
 } RwVideoMode;
 
 typedef struct RwStringFunctions {
@@ -98,6 +103,8 @@ typedef enum RwCoreDeviceSystemFn {
     rwDEVICESYSTEMGETNUMMODES = 5,
     rwDEVICESYSTEMGETMODEINFO = 6,
     rwDEVICESYSTEMUSEMODE = 7,
+    rwDEVICESYSTEMFOCUS = 8,
+    rwDEVICESYSTEMINITPIPELINE = 9,
     rwDEVICESYSTEMGETMODE = 10,
     rwDEVICESYSTEMSTANDARDS = 11,
     rwDEVICESYSTEMGETTEXMEMSIZE = 12,
