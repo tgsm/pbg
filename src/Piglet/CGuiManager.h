@@ -14,6 +14,8 @@ class CGuiBaseEventHandler;
 struct PlaceholderGUIStruct {
     U8 filler[8];
     DKGUI::CGUIMenu* menu;
+    U8 filler2[4];
+    int unkC;
 };
 
 // TODO

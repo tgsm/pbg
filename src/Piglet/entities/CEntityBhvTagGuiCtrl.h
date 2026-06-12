@@ -32,6 +32,11 @@ public:
             entity->m_entity_manager->GetGame()->m_gui_manager->SetActive("SAVE_SAVE_READY", 1);
             entity->m_entity_manager->GetGame()->m_gui_manager->SetVisible("SAVE_SAVE_READY", 1);
         } else {
+#ifdef VERSION_GPLP9G
+            if (entity->m_entity_manager->GetGame()->m_gui_manager->GetGuiPtr(m_name)->unkC != 0) {
+                entity->m_entity_manager->GetGame()->StopNarratorLine(0);
+            }
+#endif
             entity->m_entity_manager->GetGame()->m_gui_manager->GetGuiPtr(m_name)->menu->Reset();
             entity->m_entity_manager->GetGame()->m_gui_manager->SetActive(m_name, m_active);
             entity->m_entity_manager->GetGame()->m_gui_manager->SetVisible(m_name, m_visible);
