@@ -152,7 +152,7 @@ void RwV3dTransformVectors(RwV3d* a0, RwV3d* a1, int a2, RwMatrix* a3) {
     ((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->transformVectors(a0, a1, a2, a3);
 }
 
-void* _rwVectorClose(void* a0) {
+void* _rwVectorClose(void* a0, int, int) {
     if (((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->unk4 != NULL) {
         RwEngineInstance->memoryFuncs.rwfree(((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->unk4);
         ((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->unk4 = NULL;
@@ -167,7 +167,7 @@ void* _rwVectorClose(void* a0) {
     return a0;
 }
 
-void* _rwVectorOpen(void* a0, int offset) {
+void* _rwVectorOpen(void* a0, int offset, int) {
     vectorModule.globalsOffset = offset;
     ((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->transformPoints = VectorMultPoint;
     ((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->transformVectors = VectorMultVector;

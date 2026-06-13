@@ -19,8 +19,8 @@ struct RwMatrixTag {
 };
 typedef struct RwMatrixTag RwMatrix;
 
-void* _rwMatrixOpen(void*, int offset);
-void* _rwMatrixClose(void*);
+void* _rwMatrixOpen(void*, int offset, int);
+void* _rwMatrixClose(void*, int, int);
 void RwMatrixUpdate(RwMatrix* matrix);
 void RwMatrixMultiply(RwMatrix* dest, RwMatrix* a, RwMatrix* b);
 RwMatrix* RwMatrixRotate(RwMatrix* matrix, RwV3d*, float, int);

@@ -1,9 +1,9 @@
 #include <string.h>
 #include <rwsdk/plcore/baerr.h>
 #include <rwsdk/plcore/bafsys.h>
+#include <rwsdk/plcore/bamatrix.h>
 #include <rwsdk/plcore/bamemory.h>
 #include <rwsdk/plcore/bavector.h>
-#include <rwsdk/plcore/bamatrix.h>
 #include <rwsdk/plcore/rwstring.h>
 #include <rwsdk/bacamera.h>
 #include <rwsdk/badevice.h>
@@ -17,22 +17,14 @@
 extern "C" {
 #endif
 
-// TODO
-struct UnkRwPluginRegistryStruct {
-    int unk0;
-    int unk4;
-    char unk8[0x10];
-};
-static struct UnkRwPluginRegistryStruct engineTKList = {
+static struct RwPluginRegistry engineTKList = {
     sizeof(RwGlobals),
     sizeof(RwGlobals),
+    0,
+    0,
+    NULL,
+    NULL,
 };
-extern struct UnkRwPluginRegistryStruct* _rwPluginRegistryInitObject(struct UnkRwPluginRegistryStruct*, void* object);
-extern void _rwPluginRegistryDeInitObject(struct UnkRwPluginRegistryStruct*, void* object);
-extern int _rwPluginRegistryAddPlugin(struct UnkRwPluginRegistryStruct*, int, int pluginID, void* openFunc, void* closeFunc, void*);
-extern unsigned int _rwPluginRegistryGetPluginOffset(struct UnkRwPluginRegistryStruct*, int pluginID);
-extern int _rwPluginRegistryOpen(void);
-extern void _rwPluginRegistryClose(void);
 
 unsigned char _rwMsbBit[] = {
     0, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4,
@@ -57,16 +49,16 @@ static RwGlobals staticGlobals;
 static int engineInstancesOpened;
 RwGlobals* RwEngineInstance;
 
-extern void* _rwColorOpen(void*, int offset);
-extern void* _rwColorClose(void*);
-extern void* _rwStreamModuleOpen(void*, int offset);
-extern void* _rwStreamModuleClose(void*);
-extern void* _rwRenderPipelineOpen(void*, int offset);
-extern void* _rwRenderPipelineClose(void*);
-extern void* _rwIm3DOpen(void*, int offset);
-extern void* _rwIm3DClose(void*);
-extern void* _rwResourcesOpen(void*, int offset);
-extern void* _rwResourcesClose(void*);
+extern void* _rwColorOpen(void*, int offset, int);
+extern void* _rwColorClose(void*, int, int);
+extern void* _rwStreamModuleOpen(void*, int offset, int);
+extern void* _rwStreamModuleClose(void*, int, int);
+extern void* _rwRenderPipelineOpen(void*, int offset, int);
+extern void* _rwRenderPipelineClose(void*, int, int);
+extern void* _rwIm3DOpen(void*, int offset, int);
+extern void* _rwIm3DClose(void*, int, int);
+extern void* _rwResourcesOpen(void*, int offset, int);
+extern void* _rwResourcesClose(void*, int, int);
 extern int _rwPipeAttach(void);
 extern int _rwDeviceRegisterPlugin(void);
 
@@ -106,7 +98,7 @@ static RwFreeList* FreeWrapper(RwFreeList* freeListMaybe, void* ptr) {
 static int EngineOpen(RwDevice* device, void* a1) {
     void* globals;
     DONT_INLINE_HACK();
-    RwEngineInstance = (RwGlobals*)RwEngineInstance->memoryFuncs.rwmalloc(engineTKList.unk0);
+    RwEngineInstance = (RwGlobals*)RwEngineInstance->memoryFuncs.rwmalloc(engineTKList.sizeOfStruct);
     globals = RwEngineInstance;
     if (globals != NULL) {
         memcpy(globals, &staticGlobals, sizeof(RwGlobals));
@@ -124,7 +116,7 @@ static int EngineOpen(RwDevice* device, void* a1) {
         }
     }
 
-    RwThrowErrorParams(1, E_RW_NOMEM, engineTKList.unk0);
+    RwThrowErrorParams(1, E_RW_NOMEM, engineTKList.sizeOfStruct);
     return 0;
 }
 
@@ -165,7 +157,7 @@ int _rwDeviceSystemRequest(RwDevice* device, int systemFn, void* dest, void* a3,
     return ret;
 }
 
-int _rwGetNumEngineInstances(void) {
+unsigned int _rwGetNumEngineInstances(void) {
     return engineInstancesOpened;
 }
 
@@ -173,8 +165,8 @@ unsigned int RwEngineGetVersion() {
     return 0x34003; // version 3.4.0.3
 }
 
-int RwEngineRegisterPlugin(int a0, int pluginID, void* openFunc, void* closeFunc) {
-    return _rwPluginRegistryAddPlugin(&engineTKList, a0, pluginID, openFunc, closeFunc, NULL);
+int RwEngineRegisterPlugin(int size, int pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB) {
+    return _rwPluginRegistryAddPlugin(&engineTKList, size, pluginID, constructCB, destructCB, NULL);
 }
 
 unsigned int RwEngineGetPluginOffset(int pluginID) {

@@ -8,18 +8,14 @@ static RwModuleInfo rasterModule;
 static int _rwRasterFreeListBlockSize = 128;
 static int _rwRasterFreeListPreallocBlocks = 1;
 
-// TODO
-struct UnkRwPluginRegistryStruct {
-    int unk0;
-    int unk4;
-    char unk8[0x10];
-};
-struct UnkRwPluginRegistryStruct rasterTKList = {
+struct RwPluginRegistry rasterTKList = {
     sizeof(RwRaster),
     sizeof(RwRaster),
+    0,
+    0,
+    NULL,
+    NULL,
 };
-extern void _rwPluginRegistryInitObject(struct UnkRwPluginRegistryStruct*, void* object);
-extern void _rwPluginRegistryDeInitObject(struct UnkRwPluginRegistryStruct*, void* object);
 
 typedef struct UnkRasterStruct {
     RwRaster* rasterPtrMaybe;
@@ -29,7 +25,7 @@ typedef struct UnkRasterStruct {
     RwFreeList* rasterFreeList;
 } UnkRasterStruct; // size: 0x64
 
-void* _rwRasterOpen(void* a0, int offset) {
+void* _rwRasterOpen(void* a0, int offset, int) {
     rasterModule.globalsOffset = offset;
 
     memset(&((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->raster, 0, sizeof(RwRaster));
@@ -43,7 +39,7 @@ void* _rwRasterOpen(void* a0, int offset) {
     ((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->unk28 = 0;
     ((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterPtrMaybe = &((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->raster;
 
-    ((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList = RwFreeListCreateAndPreallocateSpace(rasterTKList.unk0, _rwRasterFreeListBlockSize, 4, _rwRasterFreeListPreallocBlocks, &_rwRasterFreeList);
+    ((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList = RwFreeListCreateAndPreallocateSpace(rasterTKList.sizeOfStruct, _rwRasterFreeListBlockSize, 4, _rwRasterFreeListPreallocBlocks, &_rwRasterFreeList);
     if (((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList == NULL) {
         return NULL;
     } else {
@@ -52,7 +48,7 @@ void* _rwRasterOpen(void* a0, int offset) {
     return a0;
 }
 
-void* _rwRasterClose(void* a0) {
+void* _rwRasterClose(void* a0, int, int) {
     if (((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList != NULL) {
         RwFreeListDestroy(((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList);
         ((UnkRasterStruct*)((int)RwEngineInstance + rasterModule.globalsOffset))->rasterFreeList = NULL;
@@ -129,11 +125,8 @@ void* RwRasterLockPalette(RwRaster* raster, int a1) {
     return NULL;
 }
 
-// FIXME: Stubbed param types
-extern int _rwPluginRegistryAddPlugin(struct UnkRwPluginRegistryStruct*, unsigned int size, unsigned int, void*, void*, void*);
-
-int RwRasterRegisterPlugin(unsigned int size, unsigned int a1, void* a2, void* a3, void* a4) {
-    return _rwPluginRegistryAddPlugin(&rasterTKList, size, a1, a2, a3, a4);
+int RwRasterRegisterPlugin(int size, int pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
+    return _rwPluginRegistryAddPlugin(&rasterTKList, size, pluginID, constructCB, destructCB, copyCB);
 }
 
 int RwRasterDestroy(RwRaster* raster) {

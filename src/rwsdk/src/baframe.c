@@ -8,26 +8,22 @@ static RwModuleInfo frameModule;
 static int _rwFrameFreeListBlockSize = 50;
 static int _rwFrameFreeListPreallocBlocks = 1;
 
-// TODO
-struct UnkRwPluginRegistryStruct {
-    int unk0;
-    int unk4;
-    char unk8[0x10];
-};
-struct UnkRwPluginRegistryStruct frameTKList = {
+struct RwPluginRegistry frameTKList = {
     sizeof(RwFrame),
     sizeof(RwFrame),
+    0,
+    0,
+    NULL,
+    NULL,
 };
-extern void _rwPluginRegistryInitObject(struct UnkRwPluginRegistryStruct*, void* object);
-extern void _rwPluginRegistryDeInitObject(struct UnkRwPluginRegistryStruct*, void* object);
 
 extern void _rwFrameSyncHierarchyLTM(RwFrame*);
 
 // FIXME: Unknown return/param type
-void* _rwFrameOpen(void* a0, int globalsOffset) {
+void* _rwFrameOpen(void* a0, int globalsOffset, int) {
     static RwFreeList frameFreeList;
     frameModule.globalsOffset = globalsOffset;
-    *(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) = RwFreeListCreateAndPreallocateSpace(frameTKList.unk0, _rwFrameFreeListBlockSize, 4, _rwFrameFreeListPreallocBlocks, &frameFreeList);
+    *(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) = RwFreeListCreateAndPreallocateSpace(frameTKList.sizeOfStruct, _rwFrameFreeListBlockSize, 4, _rwFrameFreeListPreallocBlocks, &frameFreeList);
     if (*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) == NULL) {
         return NULL;
     }
@@ -39,7 +35,7 @@ void* _rwFrameOpen(void* a0, int globalsOffset) {
     return a0;
 }
 
-void* _rwFrameClose(void* a0) {
+void* _rwFrameClose(void* a0, int, int) {
     if (*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) != NULL) {
         RwFreeListDestroy(*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset));
         *(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) = NULL;

@@ -18,6 +18,7 @@ typedef enum RwErrorCodeCommon {
     E_RW_INVRASTERFORMAT = 0x8000000D,
     E_RW_NOMEM = 0x80000013,
     E_RW_NULLP = 0x80000016,
+    E_RW_PLUGININIT = 0x80000017,
 } RwErrorCodeCommon;
 
 // Unofficial names
@@ -36,8 +37,8 @@ typedef enum RwErrorCodeCommon {
         RwErrorSet(&error); \
     }
 
-void* _rwErrorOpen(void* unused, int offset);
-void* _rwErrorClose(void*);
+void* _rwErrorOpen(void* unused, int offset, int);
+void* _rwErrorClose(void*, int, int);
 RwError* RwErrorSet(RwError* error);
 int _rwerror(int errorCode, ...);
 

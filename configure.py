@@ -1351,7 +1351,7 @@ config.libs = [
             Object(NonMatching, "rwsdk/src/plcore/baresour.c"),
             Object(NonMatching, "rwsdk/src/plcore/bastream.c"),
             Object(NonMatching, "rwsdk/src/plcore/batkbin.c"),
-            Object(NonMatching, "rwsdk/src/plcore/batkreg.c"),
+            Object(Matching, "rwsdk/src/plcore/batkreg.c", extra_cflags=["-lang c++"]),
             Object(NonMatching, "rwsdk/src/plcore/bavector.c"),
             Object(NonMatching, "rwsdk/src/plcore/resmem.c"),
             Object(Equivalent, "rwsdk/src/plcore/rwstring.c"),

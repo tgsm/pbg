@@ -1,6 +1,8 @@
 #ifndef RWSDK_BARASTER_H
 #define RWSDK_BARASTER_H
 
+#include <rwsdk/plcore/batkreg.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -69,14 +71,14 @@ typedef struct RwRaster {
     int originalStride;
 } RwRaster;
 
-void* _rwRasterOpen(void*, int offset);
-void* _rwRasterClose(void*);
+void* _rwRasterOpen(void*, int offset, int);
+void* _rwRasterClose(void*, int, int);
 void* RwRasterLock(RwRaster* raster, int, int);
 RwRaster* RwRasterCreate(int width, int height, int depth, int);
 RwRaster* RwRasterShowRaster(RwRaster* raster, void*, unsigned int);
 int RwRasterGetNumLevels(RwRaster* raster);
 void* RwRasterLockPalette(RwRaster* raster, int);
-int RwRasterRegisterPlugin(unsigned int size, unsigned int a1, void* a2, void* a3, void* a4); // FIXME: Stubbed param types
+int RwRasterRegisterPlugin(int size, int a1, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB);
 int RwRasterDestroy(RwRaster* raster);
 RwRaster* RwRasterUnlockPalette(RwRaster* raster);
 RwRaster* RwRasterRender(RwRaster* raster, int, int);

@@ -10,28 +10,21 @@ static RwModuleInfo lightModule;
 static int _rpLightFreeListBlockSize = 32;
 static int _rpLightFreeListPreallocBlocks = 1;
 
-// TODO
-struct UnkRwPluginRegistryStruct {
-    int unk0;
-    int unk4;
-    char unk8[0x10];
-};
-struct UnkRwPluginRegistryStruct lightTKList = {
+struct RwPluginRegistry lightTKList = {
     sizeof(RpLight),
     sizeof(RpLight),
+    0,
+    0,
+    NULL,
+    NULL,
 };
-extern void _rwPluginRegistryInitObject(struct UnkRwPluginRegistryStruct*, void* object);
-extern void _rwPluginRegistryDeInitObject(struct UnkRwPluginRegistryStruct*, void* object);
-
-// FIXME: Stubbed param types
-extern int _rwPluginRegistryAddPlugin(struct UnkRwPluginRegistryStruct*, unsigned int size, unsigned int, void*, void*, void*);
 
 static void LightTidyDestroyLight(RpLight* light) {
     RpLightDestroy(light);
 }
 
-static RwObjectHasFrame* LightSync(RwObjectHasFrame*) {
-    // UB: Does not return anything
+static RwObjectHasFrame* LightSync(RwObjectHasFrame* a0) {
+    return a0;
 }
 
 RpLight* RpLightSetRadius(RpLight* light, float radius) {
@@ -118,7 +111,7 @@ void* _rpLightClose(void* a0) {
 // FIXME: Unknown return/param type
 void* _rpLightOpen(void* a0, unsigned int globalsOffset) {
     lightModule.globalsOffset = globalsOffset;
-    *(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset) = RwFreeListCreateAndPreallocateSpace(lightTKList.unk0, _rpLightFreeListBlockSize, 4, _rpLightFreeListPreallocBlocks, &_rpLightFreeList);
+    *(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset) = RwFreeListCreateAndPreallocateSpace(lightTKList.sizeOfStruct, _rpLightFreeListBlockSize, 4, _rpLightFreeListPreallocBlocks, &_rpLightFreeList);
     if (*(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset) != NULL) {
         lightModule.numInstances++;
         return a0;

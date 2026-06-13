@@ -6,7 +6,7 @@
 
 static RwModuleInfo errorModule;
 
-void* _rwErrorOpen(void* unused, int offset) {
+void* _rwErrorOpen(void* unused, int offset, int) {
     errorModule.globalsOffset = offset;
     errorModule.numInstances++;
     (*(RwError*)((int)RwEngineInstance + errorModule.globalsOffset)).pluginID = 0;
@@ -15,7 +15,7 @@ void* _rwErrorOpen(void* unused, int offset) {
     return unused;
 }
 
-void* _rwErrorClose(void* a0) {
+void* _rwErrorClose(void* a0, int, int) {
     errorModule.numInstances--;
     return a0;
 }

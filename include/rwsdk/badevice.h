@@ -175,9 +175,9 @@ typedef struct RwModuleInfo {
 extern RwGlobals* RwEngineInstance;
 
 int _rwDeviceSystemRequest(RwDevice* device, int systemFn, void* dest, void*, int);
-int _rwGetNumEngineInstances(void);
+unsigned int _rwGetNumEngineInstances(void);
 unsigned int RwEngineGetVersion(void);
-int RwEngineRegisterPlugin(int, int pluginID, void* openFunc, void* closeFunc); // FIXME: RwPluginObjectConstructor and RwPluginObjectDestructor?
+int RwEngineRegisterPlugin(int, int pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB);
 unsigned int RwEngineGetNumSubSystems(void);
 RwSubSystemInfo* RwEngineGetSubSystemInfo(RwSubSystemInfo* subSystem, int);
 int RwEngineGetCurrentSubSystem(void);
