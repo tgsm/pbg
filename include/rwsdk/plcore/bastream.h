@@ -5,59 +5,69 @@
 extern "C" {
 #endif
 
-enum RwStreamType {
+typedef enum RwStreamType {
     rwNASTREAM = 0,
     rwSTREAMFILE = 1,
     rwSTREAMFILENAME = 2,
     rwSTREAMMEMORY = 3,
     rwSTREAMCUSTOM = 4,
     rwSTREAMTYPEFORCEENUMSIZEINT = 0x7FFFFFFF,
-};
+} RwStreamType;
 
-enum RwStreamAccessType {
+typedef enum RwStreamAccessType {
     rwNASTREAMACCESS = 0,
     rwSTREAMREAD = 1,
     rwSTREAMWRITE = 2,
     rwSTREAMAPPEND = 3,
     rwSTREAMACCESSTYPEFORCEENUMSIZEINT = 0x7FFFFFFF,
-};
+} RwStreamAccessType;
 
 typedef struct RwStreamMemory {
-    // TODO
-    char unk0;
-} RwStreamMemory;
+    unsigned int position;
+    unsigned int nSize;
+    unsigned char* memBlock;
+} RwStreamMemory; // size: 0xC
 
-typedef struct RwStreamFile {
-    // TODO
-    char unk0;
+typedef union RwStreamFile {
+    void* fpFile;
+    const void* constfpFile;
 } RwStreamFile;
 
 typedef struct RwStreamCustom {
     int (*sfnclose)(void*);
     unsigned int (*sfnread)(void*, void*, unsigned int);
-    int (*sfnwrite)(void*, void*, unsigned int);
+    int (*sfnwrite)(void*, const void*, unsigned int);
     int (*sfnskip)(void*, unsigned int);
     void* data;
-} RwStreamCustom;
+} RwStreamCustom; // size: 0x14
 
-union RwStreamUnion {
+typedef union RwStreamUnion {
     RwStreamMemory memory;
     RwStreamFile file;
     RwStreamCustom custom;
-};
+} RwStreamUnion;
 
 typedef struct RwStream {
     enum RwStreamType type;
     enum RwStreamAccessType accessType;
     int position;
-    union RwStreamUnion Type;
+    RwStreamUnion Type;
     int rwOwned;
 } RwStream; // size: 0x24
 
+typedef struct RwMemory {
+    unsigned char* start;
+    unsigned int length;
+} RwMemory; // size: 0x8
+
+void* _rwStreamModuleOpen(void* a0, int offset, int);
+void* _rwStreamModuleClose(void* a0, int, int);
+RwStream* _rwStreamInitialize(RwStream* stream, int rwOwned, RwStreamType type, RwStreamAccessType accessType, void* data);
 unsigned int RwStreamRead(RwStream* stream, void* dest, unsigned int size);
-unsigned int RwStreamWrite(RwStream* stream, void* src, unsigned int size);
-RwStream* RwStreamOpen(enum RwStreamType type, enum RwStreamAccessType accessType, void* a2);
-int RwStreamClose(RwStream* stream, void* a1);
+RwStream* RwStreamWrite(RwStream* stream, const void* src, unsigned int size);
+RwStream* RwStreamSkip(RwStream* stream, unsigned int size);
+int RwStreamClose(RwStream* stream, void* data);
+RwStream* RwStreamOpen(enum RwStreamType type, enum RwStreamAccessType accessType, void* data);
 
 #ifdef __cplusplus
 }

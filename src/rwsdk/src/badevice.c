@@ -3,6 +3,7 @@
 #include <rwsdk/plcore/bafsys.h>
 #include <rwsdk/plcore/bamatrix.h>
 #include <rwsdk/plcore/bamemory.h>
+#include <rwsdk/plcore/bastream.h>
 #include <rwsdk/plcore/bavector.h>
 #include <rwsdk/plcore/rwstring.h>
 #include <rwsdk/bacamera.h>
@@ -51,8 +52,6 @@ RwGlobals* RwEngineInstance;
 
 extern void* _rwColorOpen(void*, int offset, int);
 extern void* _rwColorClose(void*, int, int);
-extern void* _rwStreamModuleOpen(void*, int offset, int);
-extern void* _rwStreamModuleClose(void*, int, int);
 extern void* _rwRenderPipelineOpen(void*, int offset, int);
 extern void* _rwRenderPipelineClose(void*, int, int);
 extern void* _rwIm3DOpen(void*, int offset, int);
