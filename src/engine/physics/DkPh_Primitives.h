@@ -67,6 +67,8 @@ struct RBody {
 
     ~RBody();
 
+    CDKW_V3d GetUnk8() { return unk8; }
+
     BVolume* unk0;
     Dynamics* dynamics;
     CDKW_V3d unk8;

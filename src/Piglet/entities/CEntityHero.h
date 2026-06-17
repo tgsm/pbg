@@ -27,7 +27,7 @@ protected:
     F32 m_pad_timer;
     U32 m_unk134;
     F32 m_unk138;
-    int m_unk13C;
+    int m_life;
     DkPh::Dynamics m_dynamics;
     U8 m_unk1B8[0x1BC - 0x1B8];
     CDKW_V3d m_unk1BC;
@@ -98,7 +98,11 @@ public:
     virtual CDKW_V3d GetDirection();
     virtual U32 GetMode() { return m_mode; }
     virtual U32 GetState() { return m_state; }
-    virtual F32 GetSpeed();
+    virtual F32 GetSpeed() {
+        CDKW_V3d vec = m_unk90.GetUnk8();
+        vec.y = 0.0f;
+        return RwV3dLength(&vec);
+    }
     virtual F32 GetMaxSpeed() { return (m_speed_walk >= m_speed_run) ? m_speed_walk : m_speed_run; }
     virtual void SetMode(U32 mode) = 0;
     virtual void DicreaseLife(int) = 0;

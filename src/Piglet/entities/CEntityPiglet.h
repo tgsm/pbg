@@ -8,10 +8,20 @@
 #include "entities/CEntityPushingBox.h"
 
 struct ItemsMission {
-    ItemsMission();
-    ~ItemsMission();
+    ItemsMission() {
+        unk0.__unknown_reset_function();
+        AS_ULONG_VECTOR_HACK(unk0).reserve(6);
+    }
+    ~ItemsMission() {
+        for (std::vector<std::string*>::iterator iter = unk0.end() - 1; iter >= unk0.begin(); iter--) {
+            delete *iter;
+            AS_ULONG_VECTOR_HACK(unk0).erase(reinterpret_cast<unsigned long*>(iter));
+        }
 
-    U8 unk0[12];
+        unk0.__unknown_reset_function();
+    }
+
+    std::vector<std::string*> unk0;
 };
 
 class CEntityPiglet : public CEntityHero {
@@ -26,10 +36,10 @@ public:
     int m_unk284;
     DKDSP::CIm2DBatch* m_batches[6];
     U32 m_unk2A0;
-    U8 m_unk2A4[4];
+    U32 m_unk2A4;
     int m_unk2A8;
     U32 m_unk2AC;
-    U8 m_unk2B0[0x2B4 - 0x2B0];
+    U32 m_unk2B0;
     char m_unk2B4[32];
     DKSND::CSound2D* m_unk2D4;
     ItemsMission m_items_missions[7];

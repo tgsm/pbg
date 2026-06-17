@@ -3,7 +3,7 @@
 #include <iostream>
 
 CEntityWinnie::CEntityWinnie(CEntityManager* entity_manager, std::string name) : CEntityHero(entity_manager, name) {
-    m_unk13C = 1;
+    m_life = 1;
     m_unk244 = 1.0f;
     m_unk248 = 4.0f;
     m_unk24C = 1.0f;
@@ -36,9 +36,9 @@ void CEntityWinnie::ResolveContact(const DkPh::Collider::Body& body, int unk1, i
 }
 
 void CEntityWinnie::DicreaseLife(int life) {
-    m_unk13C -= life;
+    m_life -= life;
 
-    if (m_unk13C <= 0) {
+    if (m_life <= 0) {
         SetMode(7);
     }
 }

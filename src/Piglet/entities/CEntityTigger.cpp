@@ -11,7 +11,7 @@ CEntityTigger::~CEntityTigger() {
 }
 
 void CEntityTigger::ReInit() {
-    m_unk13C = 1;
+    m_life = 1;
     m_unk260 = -1.0f;
     m_unk244 = 1.0f;
     m_unk248 = 2.0f;
@@ -88,9 +88,9 @@ void CEntityTigger::UnDetected() {
 }
 
 void CEntityTigger::DicreaseLife(int life) {
-    m_unk13C -= life;
+    m_life -= life;
 
-    if (m_unk13C <= 0) {
+    if (m_life <= 0) {
         m_animation_star_controller->Play("AFFRAIDED");
         m_state = 1;
         SetMode(7);

@@ -9,11 +9,140 @@
 #include <math.h>
 #include <iostream>
 
+// Equivalent
+CEntityPiglet::CEntityPiglet(CEntityManager* entity_manager, std::string name) : CEntityHero(entity_manager, name) {
+    AS_ULONG_VECTOR_HACK(m_items_missions[0].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_100_01")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[0].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_100_02")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[0].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_100_03")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[0].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_100_04")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[0].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_100_05")));
+
+    AS_ULONG_VECTOR_HACK(m_items_missions[1].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_200_01")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[1].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_200_02")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[1].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_200_03")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[1].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_200_04")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[1].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_200_05")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[1].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_200_06")));
+
+    AS_ULONG_VECTOR_HACK(m_items_missions[2].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_300_01")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[2].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_300_02")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[2].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_300_03")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[2].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_300_04")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[2].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_300_05")));
+
+    AS_ULONG_VECTOR_HACK(m_items_missions[3].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_400_01")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[3].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_400_02")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[3].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_400_03")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[3].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_400_04")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[3].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_400_05")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[3].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_400_06")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[3].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_400_07")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[3].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_400_08")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[3].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_400_09")));
+
+    AS_ULONG_VECTOR_HACK(m_items_missions[4].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_500_01")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[4].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_500_02")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[4].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_500_03")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[4].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_500_04")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[4].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_500_05")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[4].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_500_06")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[4].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_500_07")));
+
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_01")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_02")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_03")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_04")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_05")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_06")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_07")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_08")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_09")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_10")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_11")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_12")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_13")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[5].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_600_14")));
+
+    AS_ULONG_VECTOR_HACK(m_items_missions[6].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_700_01")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[6].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_700_02")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[6].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_700_03")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[6].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_700_04")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[6].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_700_05")));
+    AS_ULONG_VECTOR_HACK(m_items_missions[6].unk0).push_back(reinterpret_cast<unsigned long>(new std::string("ITEM_700_06")));
+
+    m_life = 3;
+    m_unk260 = CDKW_V3d::ZERO;
+    m_unk26C = 0;
+    m_unk270 = 0;
+    m_pushing_box = NULL;
+    m_unk278 = 0.0f;
+    m_grimace_level = 1;
+    m_unk280 = 0.0f;
+    m_unk284 = 0;
+    m_unk2A0 = 0;
+    m_unk2A4 = 0;
+    m_unk2B0 = 0;
+    m_unk2D4 = NULL;
+    m_unk2A8 = 0;
+    m_unk2AC = 0;
+    RwEngineInstance->stringFuncs.rwsprintf(m_unk2B4, "");
+
+    for (int i = 0; i < 6; i++) {
+        m_batches[i] = m_entity_manager->GetGame()->GetDisplayEngine()->GetImmediate()->CreateBatch2D(4, 0);
+    }
+
+    m_unk244 = 0.8f;
+    m_unk248 = 2.0f;
+    m_unk24C = 5.6f;
+    m_unk250 = 0.8f;
+    m_unk254 = 2.4f;
+    m_unk258 = 6.8f;
+}
+
 CEntityPiglet::~CEntityPiglet() {
     for (int i = 0; i < 6; i++) {
-        m_entity_manager->GetGame()->m_display_engine->GetImmediate()->RemoveBatch2D(m_batches[i]);
+        m_entity_manager->GetGame()->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batches[i]);
         m_batches[i] = NULL;
     }
+}
+
+BOOL CEntityPiglet::Save(void* data) {
+    U32 offset = 0;
+
+    U32 save_size = GetSaveSize() << 16;
+    m_entity_manager->GetGame()->GetGameBackup()->GetCurrentContainer()->StoreS32(save_size, (S8*)((int)data + offset));
+    offset += sizeof(U32);
+    m_entity_manager->GetGame()->GetGameBackup()->GetCurrentContainer()->StoreS32(m_state, (S8*)((int)data + offset));
+    offset += sizeof(U32);
+    m_entity_manager->GetGame()->GetGameBackup()->GetCurrentContainer()->StoreS32(m_life, (S8*)((int)data + offset));
+    offset += sizeof(U32);
+    m_entity_manager->GetGame()->GetGameBackup()->GetCurrentContainer()->StoreS32(m_grimace_level, (S8*)((int)data + offset));
+
+    m_entity_manager->GetGame()->m_loading_adventure->SetHeroState(m_state);
+
+    return TRUE;
+}
+
+BOOL CEntityPiglet::Restore(void* data) {
+    CGame* game = m_entity_manager->GetGame();
+    CSlotContainer* container = game->GetGameBackup()->GetCurrentContainer();
+
+    // unused
+    container->GetS32((S8*)data);
+
+    if (game->m_unk4F5C == 3 || game->m_unk4F54 == 8 || (game->m_unk4F54 == 7 && game->GetUnk4F58() == 1)) {
+        m_state = 0;
+        m_life = 3;
+    } else {
+        m_state = container->GetS32((S8*)((int)data + 4));
+        m_life = container->GetS32((S8*)((int)data + 8));
+    }
+
+    m_grimace_level = container->GetS32((S8*)((int)data + 12));
+    game->m_loading_adventure->SetHeroState(m_state);
+    SetStateEnvironement();
+
+    return TRUE;
 }
 
 U32 CEntityPiglet::GetSaveSize() {
@@ -25,13 +154,13 @@ void CEntityPiglet::SetStateEnvironement() {
 
     switch (m_state) {
         case 0:
-            m_entity_manager->GetGame()->m_screen_effect->SetSequenceByIndex(0);
+            m_entity_manager->GetGame()->GetScreenEffect()->SetSequenceByIndex(0);
             break;
         case 1:
-            m_entity_manager->GetGame()->m_screen_effect->SetSequenceByIndex(1);
+            m_entity_manager->GetGame()->GetScreenEffect()->SetSequenceByIndex(1);
             break;
         case 2:
-            m_entity_manager->GetGame()->m_screen_effect->SetSequenceByIndex(2);
+            m_entity_manager->GetGame()->GetScreenEffect()->SetSequenceByIndex(2);
             break;
     }
 }
@@ -43,7 +172,7 @@ void CEntityPiglet::AddFlag(U32 flag) {
             m_unk280 = 0.0f;
             break;
         case ENTITY_FLAG_UNK4:
-            ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->UnblockFightMode();
+            m_entity_manager->GetGame()->GetIngameGamePart()->UnblockFightMode();
             break;
     }
 
@@ -156,7 +285,7 @@ void CEntityPiglet::ManageMessage(SDkMessage& message) {
         char buf[32];
         if (strcmp(message.type, "GIVE_FULL_LIFE") == 0) {
             m_state = 0;
-            m_unk13C = 3;
+            m_life = 3;
             SetStateEnvironement();
         } else if (strncmp(message.type, "DEL", RwEngineInstance->stringFuncs.rwstrlen("DEL")) == 0) {
             int name_index = RwEngineInstance->stringFuncs.rwstrlen("DEL");
@@ -310,7 +439,7 @@ void CEntityPiglet::SetGrimace(int grimace) {
 }
 
 void CEntityPiglet::DicreaseLife(int life) {
-    m_unk13C -= life;
+    m_life -= life;
 
     if (life == 0) {
         SetMode(5);
@@ -319,14 +448,14 @@ void CEntityPiglet::DicreaseLife(int life) {
 
     SetMode(4);
 
-    if (m_unk13C <= 0) {
+    if (m_life <= 0) {
         m_state = 2;
         SetMode(7);
-    } else if (m_unk13C <= 1) {
+    } else if (m_life <= 1) {
         m_animation_star_controller->Play("WORRIED_TO_PANIC", 1);
         m_state = 2;
         SetStateEnvironement();
-    } else if (m_unk13C <= 2) {
+    } else if (m_life <= 2) {
         m_animation_star_controller->Play("BASE_TO_WORRIED", 1);
         m_state = 1;
         SetStateEnvironement();
@@ -359,7 +488,7 @@ void CEntityPiglet::SetMode(U32 mode) {
             break;
         case 2:
             if (GetMode() == 16 || GetMode() == 17) {
-                ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->InterruptFightMode();
+                m_entity_manager->GetGame()->GetIngameGamePart()->InterruptFightMode();
                 return;
             }
 
@@ -369,8 +498,7 @@ void CEntityPiglet::SetMode(U32 mode) {
         case 14:
             m_animation_star_controller->Play("START_FIGHT", 1);
             break;
-        case 15: {
-            // TODO
+        case 15:
             if (!IsFlagged(ENTITY_FLAG_ACTIVE)) {
                 SetMode(2);
             }
@@ -378,10 +506,9 @@ void CEntityPiglet::SetMode(U32 mode) {
             m_animation_star_controller->Play("TURN_FIGHT", 1);
             m_unk260 = m_unk1BC.Normalized();
             break;
-        }
         case 16:
         case 17:
-            ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->InterruptFightMode();
+            m_entity_manager->GetGame()->GetIngameGamePart()->InterruptFightMode();
             m_unk1BC = m_pushing_box->GetDirection();
             m_unk90.unk8 = CDKW_V3d::ZERO;
             m_unk90.unk14 = CDKW_V3d::ZERO;
@@ -673,20 +800,6 @@ void CEntityPiglet::UpdateMoving(F32 dt) {
     Move(params, dt);
 }
 
-void CEntityPiglet::Update(F32 dt) {
-    m_unk2A8 = 0;
-    m_unk2AC = 0;
-
-    CEntityHero::Update(dt);
-
-    UpdateOSD_Impl(dt);
-}
-
-void CEntityPiglet::Render(F32 dt_maybe) {
-    CEntityHero::Render(dt_maybe);
-    CEntityPiglet::RenderOSD();
-}
-
 void CEntityPiglet::UpdateActions() {
     if ((GetMode() == 0 || GetMode() == 1) && (int)m_entity_manager->GetGame()->m_unk4F54 != 8) {
         if (m_unk124 & (1 << 1)) {
@@ -703,7 +816,7 @@ void CEntityPiglet::UpdateActions() {
 
     if (GetMode() == 0 || GetMode() == 1) {
         if (m_unk124 & (1 << 0)) {
-            if (((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->HeroAskForFightModeLaunch() != TRUE) {
+            if (m_entity_manager->GetGame()->GetIngameGamePart()->HeroAskForFightModeLaunch() != TRUE) {
                 if (m_unk2A8 == 0) {
                     SetMode(19);
                 }
@@ -730,6 +843,20 @@ void CEntityPiglet::Parse(DkXmd::CChunkIterator iter) {
             }
         } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }
+}
+
+void CEntityPiglet::Update(F32 dt) {
+    m_unk2A8 = 0;
+    m_unk2AC = 0;
+
+    CEntityHero::Update(dt);
+
+    UpdateOSD_Impl(dt);
+}
+
+void CEntityPiglet::Render(F32 dt_maybe) {
+    CEntityHero::Render(dt_maybe);
+    CEntityPiglet::RenderOSD();
 }
 
 void CEntityPiglet::PlayOSDSound(std::string name, int a2) {
@@ -833,7 +960,7 @@ void CEntityPiglet::RenderOSD() {
     }
 
     CGame* game = m_entity_manager->GetGame();
-    CIcon::BeginRender(game->m_display_engine, game->GetCamera(), game->GetScene());
+    CIcon::BeginRender(game->GetDisplayEngine(), game->GetCamera(), game->GetScene());
 
     CIcon icon1, icon2;
     F32 dVar9 = 0.0f;
@@ -861,9 +988,9 @@ void CEntityPiglet::RenderOSD() {
 
         F32 offset;
         if (i == m_unk2A0) {
-            offset = 0.01875f * (F32)sin(3.1415927f * dVar9 * 6.0f);
+            offset = 3.0f/160.0f * sinf(3.1415927f * dVar9 * 6.0f);
         } else {
-            offset = 0.00625f * (F32)sin(3.1415927f * dVar9 * 3.0f);
+            offset = 1.0f/160.0f * sinf(3.1415927f * dVar9 * 3.0f);
         }
         icon1.m_width += offset;
         icon1.m_height += offset;
