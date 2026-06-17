@@ -321,7 +321,7 @@ cflags_rwa = [
     *cflags_base,
 
     "-opt noschedule",
-    "-opt nopeephole",
+    # "-opt nopeephole",
 ]
 
 # Debug flags
@@ -1411,14 +1411,14 @@ config.libs = [
             Object(NonMatching, "rwa/rwaobjinterface.c"),
             Object(NonMatching, "rwa/rwaparam.c"),
             Object(NonMatching, "rwa/rwasymboltable.c"),
-            Object(Matching, "rwa/rwamemory.c"),
+            Object(Matching, "rwa/rwamemory.c", extra_cflags=["-opt nopeephole"]),
             Object(NonMatching, "rwa/rwafile.c"),
             Object(NonMatching, "rwa/rwabase.c"),
             Object(NonMatching, "rwa/rwawavedict.c"),
             Object(NonMatching, "rwa/rwawaveconv.c"),
             Object(NonMatching, "rwa/rwawavedef.c"),
             Object(NonMatching, "rwa/rwawave.c"),
-            Object(NonMatching, "rwa/rwauuid.c"),
+            Object(Matching, "rwa/rwauuid.c"),
             Object(NonMatching, "rwa/rwavoicemanager.c"),
             Object(NonMatching, "rwa/rwathread.c"),
             Object(NonMatching, "rwa/rwafreelist.c"),
