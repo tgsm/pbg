@@ -1,11 +1,11 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
-#include "rwsdk/badevice.h"
+#include <rwsdk/badevice.h>
 
-static int StrICmp(const char* a, const char* b) {
+static RwInt32 StrICmp(const RwChar* a, const RwChar* b) {
     if (a != NULL && b != NULL) {
-        char a_, b_;
+        RwChar a_, b_;
         do {
             a_ = *a;
             b_ = *b;
@@ -33,10 +33,10 @@ static int StrICmp(const char* a, const char* b) {
     return 0;
 }
 
-static char* StrUpr(char* str) {
+static RwChar* StrUpr(RwChar* str) {
     if (str != NULL) {
-        char c;
-        char* str_ = str;
+        RwChar c;
+        RwChar* str_ = str;
         for (; c = *str_, c != '\0'; str_++) {
             if (c >= 'a' && c <= 'z') {
                 *str_ = c - 0x20;
@@ -46,10 +46,10 @@ static char* StrUpr(char* str) {
     return str;
 }
 
-static char* StrLwr(char* str) {
+static RwChar* StrLwr(RwChar* str) {
     if (str != NULL) {
-        char c;
-        char* str_ = str;
+        RwChar c;
+        RwChar* str_ = str;
         for (; c = *str_, c != '\0'; str_++) {
             if (c >= 'A' && c <= 'Z') {
                 *str_ = c + 0x20;
@@ -60,13 +60,13 @@ static char* StrLwr(char* str) {
 }
 
 // Equivalent: regalloc
-static char* StrChr(const char* str, int c) {
-    char* ret = NULL;
-    char ch;
+static RwChar* StrChr(const RwChar* str, RwInt32 c) {
+    RwChar* ret = NULL;
+    RwChar ch;
     do {
         ch = *str;
-        if (ch == (char)c) {
-            ret = (char*)str;
+        if (ch == (RwChar)c) {
+            ret = (RwChar*)str;
             break;
         }
         str++;
@@ -75,20 +75,20 @@ static char* StrChr(const char* str, int c) {
 }
 
 // Equivalent: regalloc
-static char* StrRChr(const char* str, int c) {
-    char* ret = NULL;
-    char current;
+static RwChar* StrRChr(const RwChar* str, RwInt32 c) {
+    RwChar* ret = NULL;
+    RwChar current;
     do {
         current = *str;
-        if (current == (char)c) {
-            ret = (char*)str;
+        if (current == (RwChar)c) {
+            ret = (RwChar*)str;
         }
         str++;
     } while (current != '\0');
     return ret;
 }
 
-int _rwStringOpen() {
+RwBool _rwStringOpen() {
     RwEngineInstance->stringFuncs.rwsprintf = sprintf;
     RwEngineInstance->stringFuncs.rwvsprintf = vsprintf;
     RwEngineInstance->stringFuncs.rwstrcpy = strcpy;
@@ -105,7 +105,7 @@ int _rwStringOpen() {
     RwEngineInstance->stringFuncs.rwstrlwr = StrLwr;
     RwEngineInstance->stringFuncs.rwstrtok = strtok;
     RwEngineInstance->stringFuncs.rwsscanf = sscanf;
-    return 1;
+    return TRUE;
 }
 
 void _rwStringClose() {

@@ -21,27 +21,27 @@ typedef struct RwFrame {
     struct RwFrame* root;
 } RwFrame; // size: 0xA4
 
-typedef void (*RwFrameDataConstructorCB)(void*, int, int);
-typedef void* (*RwFrameDataDestructorCB)(void*, int, int);
-typedef void* (*RwFrameDataCopierCB)(void*, const void*, int, int);
+typedef void (*RwFrameDataConstructorCB)(void*, RwInt32, RwInt32);
+typedef void* (*RwFrameDataDestructorCB)(void*, RwInt32, RwInt32);
+typedef void* (*RwFrameDataCopierCB)(void*, const void*, RwInt32, RwInt32);
 typedef RwFrame* (*RwFrameCallBack)(RwFrame*, void*);
 
-void* _rwFrameOpen(void*, int offset, int);
-void* _rwFrameClose(void*, int, int);
-int RwFrameDirty(RwFrame* frame);
+void* _rwFrameOpen(void*, RwInt32 offset, RwInt32);
+void* _rwFrameClose(void*, RwInt32, RwInt32);
+RwBool RwFrameDirty(RwFrame* frame);
 RwFrame* RwFrameCreate(void);
-int RwFrameDestroy(RwFrame* frame);
+RwBool RwFrameDestroy(RwFrame* frame);
 RwFrame* RwFrameUpdateObjects(RwFrame* frame);
 RwMatrix* RwFrameGetLTM(RwFrame* frame);
 RwFrame* RwFrameAddChild(RwFrame* frame, RwFrame* child);
 RwFrame* RwFrameRemoveChild(RwFrame* frame);
 RwFrame* RwFrameForAllChildren(RwFrame* frame, RwFrameCallBack callback, void*);
-int RwFrameCount(RwFrame* frame);
-RwFrame* RwFrameTranslate(RwFrame* frame, RwV3d*, int);
-RwFrame* RwFrameScale(RwFrame* frame, RwV3d*, int scale);
-RwFrame* RwFrameTransform(RwFrame* frame, RwMatrix*, int);
-RwFrame* RwFrameRotate(RwFrame* frame, RwV3d*, float, int);
-int RwFrameRegisterPlugin(int a0, int a1, RwFrameDataConstructorCB constructorCB, RwFrameDataDestructorCB destructorCB, RwFrameDataCopierCB copierCB);
+RwInt32 RwFrameCount(RwFrame* frame);
+RwFrame* RwFrameTranslate(RwFrame* frame, RwV3d*, RwInt32);
+RwFrame* RwFrameScale(RwFrame* frame, RwV3d*, RwInt32 scale);
+RwFrame* RwFrameTransform(RwFrame* frame, RwMatrix*, RwInt32);
+RwFrame* RwFrameRotate(RwFrame* frame, RwV3d*, float, RwInt32);
+RwInt32 RwFrameRegisterPlugin(RwInt32 a0, RwInt32 a1, RwFrameDataConstructorCB constructorCB, RwFrameDataDestructorCB destructorCB, RwFrameDataCopierCB copierCB);
 
 #ifdef __cplusplus
 }

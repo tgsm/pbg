@@ -7,8 +7,8 @@
 
 static RwFreeList _rpLightFreeList;
 static RwModuleInfo lightModule;
-static int _rpLightFreeListBlockSize = 32;
-static int _rpLightFreeListPreallocBlocks = 1;
+static RwInt32 _rpLightFreeListBlockSize = 32;
+static RwInt32 _rpLightFreeListPreallocBlocks = 1;
 
 struct RwPluginRegistry lightTKList = {
     sizeof(RpLight),
@@ -57,20 +57,20 @@ RpLight* RpLightSetConeAngle(RpLight* light, float coneAngle) {
     return light;
 }
 
-void RpLightRegisterPlugin(unsigned int size, unsigned int a1, void* a2, void* a3, void* a4) {
+void RpLightRegisterPlugin(RwUInt32 size, RwUInt32 a1, void* a2, void* a3, void* a4) {
     _rwPluginRegistryAddPlugin(&lightTKList, size, a1, a2, a3, a4);
 }
 
-int RpLightDestroy(RpLight* light) {
+RwBool RpLightDestroy(RpLight* light) {
     _rwPluginRegistryDeInitObject(&lightTKList, light);
     _rwObjectHasFrameReleaseFrame(&light->object);
-    RwEngineInstance->memoryFree(*(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset), light);
+    RwEngineInstance->memoryFree(*(RwFreeList**)((RwInt32)RwEngineInstance + lightModule.globalsOffset), light);
 
-    return 1;
+    return TRUE;
 }
 
 RpLight* RpLightCreate(RpLightType type) {
-    RpLight* light = RwEngineInstance->memoryAlloc(*(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset));
+    RpLight* light = RwEngineInstance->memoryAlloc(*(RwFreeList**)((RwInt32)RwEngineInstance + lightModule.globalsOffset));
     if (light == NULL) {
         return NULL;
     }
@@ -100,19 +100,19 @@ RpLight* RpLightCreate(RpLightType type) {
 }
 
 void* _rpLightClose(void* a0) {
-    RwFreeListForAllUsed(*(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset), (RwFreeListCallBack)LightTidyDestroyLight, NULL);
-    RwFreeListDestroy(*(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset));
-    *(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset) = NULL;
+    RwFreeListForAllUsed(*(RwFreeList**)((RwInt32)RwEngineInstance + lightModule.globalsOffset), (RwFreeListCallBack)LightTidyDestroyLight, NULL);
+    RwFreeListDestroy(*(RwFreeList**)((RwInt32)RwEngineInstance + lightModule.globalsOffset));
+    *(RwFreeList**)((RwInt32)RwEngineInstance + lightModule.globalsOffset) = NULL;
 
     lightModule.numInstances--;
     return a0;
 }
 
 // FIXME: Unknown return/param type
-void* _rpLightOpen(void* a0, unsigned int globalsOffset) {
+void* _rpLightOpen(void* a0, RwUInt32 globalsOffset) {
     lightModule.globalsOffset = globalsOffset;
-    *(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset) = RwFreeListCreateAndPreallocateSpace(lightTKList.sizeOfStruct, _rpLightFreeListBlockSize, 4, _rpLightFreeListPreallocBlocks, &_rpLightFreeList);
-    if (*(RwFreeList**)((int)RwEngineInstance + lightModule.globalsOffset) != NULL) {
+    *(RwFreeList**)((RwInt32)RwEngineInstance + lightModule.globalsOffset) = RwFreeListCreateAndPreallocateSpace(lightTKList.sizeOfStruct, _rpLightFreeListBlockSize, 4, _rpLightFreeListPreallocBlocks, &_rpLightFreeList);
+    if (*(RwFreeList**)((RwInt32)RwEngineInstance + lightModule.globalsOffset) != NULL) {
         lightModule.numInstances++;
         return a0;
     }

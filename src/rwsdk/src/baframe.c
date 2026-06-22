@@ -5,8 +5,8 @@
 #include <rwsdk/baframe.h>
 
 static RwModuleInfo frameModule;
-static int _rwFrameFreeListBlockSize = 50;
-static int _rwFrameFreeListPreallocBlocks = 1;
+static RwInt32 _rwFrameFreeListBlockSize = 50;
+static RwInt32 _rwFrameFreeListPreallocBlocks = 1;
 
 struct RwPluginRegistry frameTKList = {
     sizeof(RwFrame),
@@ -20,11 +20,11 @@ struct RwPluginRegistry frameTKList = {
 extern void _rwFrameSyncHierarchyLTM(RwFrame*);
 
 // FIXME: Unknown return/param type
-void* _rwFrameOpen(void* a0, int globalsOffset, int) {
+void* _rwFrameOpen(void* a0, RwInt32 globalsOffset, RwInt32) {
     static RwFreeList frameFreeList;
     frameModule.globalsOffset = globalsOffset;
-    *(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) = RwFreeListCreateAndPreallocateSpace(frameTKList.sizeOfStruct, _rwFrameFreeListBlockSize, 4, _rwFrameFreeListPreallocBlocks, &frameFreeList);
-    if (*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) == NULL) {
+    *(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset) = RwFreeListCreateAndPreallocateSpace(frameTKList.sizeOfStruct, _rwFrameFreeListBlockSize, 4, _rwFrameFreeListPreallocBlocks, &frameFreeList);
+    if (*(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset) == NULL) {
         return NULL;
     }
 
@@ -35,10 +35,10 @@ void* _rwFrameOpen(void* a0, int globalsOffset, int) {
     return a0;
 }
 
-void* _rwFrameClose(void* a0, int, int) {
-    if (*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) != NULL) {
-        RwFreeListDestroy(*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset));
-        *(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset) = NULL;
+void* _rwFrameClose(void* a0, RwInt32, RwInt32) {
+    if (*(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset) != NULL) {
+        RwFreeListDestroy(*(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset));
+        *(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset) = NULL;
     }
 
     frameModule.numInstances--;
@@ -55,7 +55,7 @@ static void rwSetHierarchyRoot(RwFrame* frame, RwFrame* root) {
     }
 }
 
-int RwFrameDirty(RwFrame* frame) {
+RwBool RwFrameDirty(RwFrame* frame) {
     return frame->root->object.privateFlags & ((1 << 1) | (1 << 0));
 }
 
@@ -103,7 +103,7 @@ void _rwFrameInit(RwFrame* frame) {
 }
 
 RwFrame* RwFrameCreate(void) {
-    RwFrame* frame = RwEngineInstance->memoryAlloc(*(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset));
+    RwFrame* frame = RwEngineInstance->memoryAlloc(*(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset));
     if (frame == NULL) {
         return NULL;
     }
@@ -112,7 +112,7 @@ RwFrame* RwFrameCreate(void) {
     return frame;
 }
 
-int RwFrameDestroy(RwFrame* frame) {
+RwBool RwFrameDestroy(RwFrame* frame) {
     RwFrame* current;
     RwFreeList* list;
 
@@ -131,14 +131,14 @@ int RwFrameDestroy(RwFrame* frame) {
         current->object.parent = NULL;
     }
 
-    list = *(RwFreeList**)((int)RwEngineInstance + frameModule.globalsOffset);
+    list = *(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset);
     RwEngineInstance->memoryFree(list, frame);
 
-    return 1;
+    return TRUE;
 }
 
 RwFrame* RwFrameUpdateObjects(RwFrame* frame) {
-    unsigned char privateFlags = frame->root->object.privateFlags;
+    RwUInt8 privateFlags = frame->root->object.privateFlags;
     if (!(privateFlags & ((1 << 1) | (1 << 0)))) {
         frame->root->inDirtyListLink.next = RwEngineInstance->dirtyFrameListMaybe.link.next;
         frame->root->inDirtyListLink.prev = &RwEngineInstance->dirtyFrameListMaybe.link;
@@ -161,7 +161,7 @@ RwMatrix* RwFrameGetLTM(RwFrame* frame) {
 extern void rwSetHierarchyRoot(RwFrame*, RwFrame*);
 
 RwFrame* RwFrameAddChild(RwFrame* frame, RwFrame* child) {
-    unsigned char flags;
+    RwUInt8 flags;
 
     if (child->object.parent != NULL) {
         RwFrameRemoveChild(child);
@@ -216,9 +216,9 @@ RwFrame* RwFrameForAllChildren(RwFrame* frame, RwFrameCallBack callback, void* d
 }
 
 // Equivalent: regalloc
-int RwFrameCount(RwFrame* frame) {
+RwInt32 RwFrameCount(RwFrame* frame) {
     RwFrame* current;
-    int count;
+    RwInt32 count;
 
     count = 1;
     for (current = frame->child; current != NULL; current = current->next) {
@@ -227,25 +227,25 @@ int RwFrameCount(RwFrame* frame) {
     return count;
 }
 
-RwFrame* RwFrameTranslate(RwFrame* frame, RwV3d* a1, int a2) {
+RwFrame* RwFrameTranslate(RwFrame* frame, RwV3d* a1, RwInt32 a2) {
     RwMatrixTranslate(&frame->modelling, a1, a2);
     RwFrameUpdateObjects(frame);
     return frame;
 }
 
-RwFrame* RwFrameScale(RwFrame* frame, RwV3d* a1, int a2) {
+RwFrame* RwFrameScale(RwFrame* frame, RwV3d* a1, RwInt32 a2) {
     RwMatrixScale(&frame->modelling, a1, a2);
     RwFrameUpdateObjects(frame);
     return frame;
 }
 
-RwFrame* RwFrameTransform(RwFrame* frame, RwMatrix* a1, int a2) {
+RwFrame* RwFrameTransform(RwFrame* frame, RwMatrix* a1, RwInt32 a2) {
     RwMatrixTransform(&frame->modelling, a1, a2);
     RwFrameUpdateObjects(frame);
     return frame;
 }
 
-RwFrame* RwFrameRotate(RwFrame* frame, RwV3d* a1, float a2, int a3) {
+RwFrame* RwFrameRotate(RwFrame* frame, RwV3d* a1, RwReal a2, RwInt32 a3) {
     RwMatrixRotate(&frame->modelling, a1, a2, a3);
     RwFrameUpdateObjects(frame);
     return frame;

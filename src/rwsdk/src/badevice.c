@@ -27,7 +27,7 @@ static struct RwPluginRegistry engineTKList = {
     NULL,
 };
 
-unsigned char _rwMsbBit[] = {
+RwUInt8 _rwMsbBit[] = {
     0, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4,
     5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
     6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
@@ -47,22 +47,22 @@ unsigned char _rwMsbBit[] = {
 };
 
 static RwGlobals staticGlobals;
-static int engineInstancesOpened;
+static RwInt32 engineInstancesOpened;
 RwGlobals* RwEngineInstance;
 
-extern void* _rwColorOpen(void*, int offset, int);
-extern void* _rwColorClose(void*, int, int);
-extern void* _rwRenderPipelineOpen(void*, int offset, int);
-extern void* _rwRenderPipelineClose(void*, int, int);
-extern void* _rwIm3DOpen(void*, int offset, int);
-extern void* _rwIm3DClose(void*, int, int);
-extern void* _rwResourcesOpen(void*, int offset, int);
-extern void* _rwResourcesClose(void*, int, int);
-extern int _rwPipeAttach(void);
-extern int _rwDeviceRegisterPlugin(void);
+extern void* _rwColorOpen(void*, RwInt32 offset, RwInt32);
+extern void* _rwColorClose(void*, RwInt32, RwInt32);
+extern void* _rwRenderPipelineOpen(void*, RwInt32 offset, RwInt32);
+extern void* _rwRenderPipelineClose(void*, RwInt32, RwInt32);
+extern void* _rwIm3DOpen(void*, RwInt32 offset, RwInt32);
+extern void* _rwIm3DClose(void*, RwInt32, RwInt32);
+extern void* _rwResourcesOpen(void*, RwInt32 offset, RwInt32);
+extern void* _rwResourcesClose(void*, RwInt32, RwInt32);
+extern RwBool _rwPipeAttach(void);
+extern RwBool _rwDeviceRegisterPlugin(void);
 
-static int CorePluginAttach(void) {
-    int ret = 0;
+static RwBool CorePluginAttach(void) {
+    RwInt32 ret = 0;
     DONT_INLINE_HACK();
     ret |= RwEngineRegisterPlugin(8, 0x40F, _rwErrorOpen, _rwErrorClose);
     ret |= RwEngineRegisterPlugin(16, 0x401, _rwVectorOpen, _rwVectorClose);
@@ -79,10 +79,10 @@ static int CorePluginAttach(void) {
     ret |= RwEngineRegisterPlugin(116, 0x40A, _rwIm3DOpen, _rwIm3DClose);
     ret |= RwEngineRegisterPlugin(40, 0x40B, _rwResourcesOpen, _rwResourcesClose);
     if (ret >= 0) {
-        return 1;
+        return TRUE;
     }
 
-    return 0;
+    return FALSE;
 }
 
 static void* MallocWrapper(RwFreeList* freeListMaybe) {
@@ -94,7 +94,7 @@ static RwFreeList* FreeWrapper(RwFreeList* freeListMaybe, void* ptr) {
     return freeListMaybe;
 }
 
-static int EngineOpen(RwDevice* device, void* a1) {
+static RwBool EngineOpen(RwDevice* device, void* a1) {
     void* globals;
     DONT_INLINE_HACK();
     RwEngineInstance = (RwGlobals*)RwMalloc(engineTKList.sizeOfStruct);
@@ -104,44 +104,44 @@ static int EngineOpen(RwDevice* device, void* a1) {
         _rwDeviceSystemRequest(device, rwDEVICESYSTEMREGISTER, &RwEngineInstance->dOpenDevice, &RwEngineInstance->memoryFuncs, 0);
 
         if (_rwDeviceSystemRequest(device, rwDEVICESYSTEMOPEN, NULL, a1, 0)) {
-            _rwDeviceSystemRequest(device, rwDEVICESYSTEMSTANDARDS, &RwEngineInstance->unk48, NULL, 29);
+            _rwDeviceSystemRequest(device, rwDEVICESYSTEMSTANDARDS, &RwEngineInstance->stdFunc, NULL, 29);
             engineInstancesOpened++;
-            return 1;
+            return TRUE;
         } else {
             RwEngineInstance = &staticGlobals;
             memcpy(&staticGlobals, globals, sizeof(RwGlobals));
             RwFree(globals);
-            return 0;
+            return FALSE;
         }
     }
 
     RwThrowErrorParams(1, E_RW_NOMEM, engineTKList.sizeOfStruct);
-    return 0;
+    return FALSE;
 }
 
-int _rwDeviceSystemRequest(RwDevice* device, int systemFn, void* dest, void* a3, int a4) {
-    int ret = device->fpSystem(systemFn, dest, a3, a4);
+RwBool _rwDeviceSystemRequest(RwDevice* device, RwInt32 systemFn, void* dest, void* a3, RwInt32 a4) {
+    RwBool ret = device->fpSystem(systemFn, dest, a3, a4);
     DONT_INLINE_HACK();
-    if (ret == 0) {
+    if (!ret) {
         switch (systemFn) {
             case rwDEVICESYSTEMFINALIZESTART:
             case rwDEVICESYSTEMINITIATESTOP:
-                ret = 1;
+                ret = TRUE;
                 break;
             case rwDEVICESYSTEMGETNUMSUBSYSTEMS:
-                *((int*)dest) = 1;
-                ret = 1;
+                *((RwInt32*)dest) = 1;
+                ret = TRUE;
                 break;
             case rwDEVICESYSTEMGETSUBSYSTEMINFO:
                 ret = (a4 == 0);
-                if (ret != 0) {
-                    RwEngineInstance->stringFuncs.rwstrcpy((char*)dest, "Only rendering sub system");
+                if (ret) {
+                    RwEngineInstance->stringFuncs.rwstrcpy((RwChar*)dest, "Only rendering sub system");
                     break;
                 }
                 break;
             case rwDEVICESYSTEMGETCURRENTSUBSYSTEM:
-                *((int*)dest) = 0;
-                ret = 1;
+                *((RwInt32*)dest) = 0;
+                ret = TRUE;
                 break;
             case rwDEVICESYSTEMSETSUBSYSTEM:
                 ret = (a4 == 0);
@@ -149,130 +149,130 @@ int _rwDeviceSystemRequest(RwDevice* device, int systemFn, void* dest, void* a3,
         }
     }
 
-    if (ret == 0) {
+    if (!ret) {
         RwThrowErrorParams(1, 24, systemFn);
     }
 
     return ret;
 }
 
-unsigned int _rwGetNumEngineInstances(void) {
+RwUInt32 _rwGetNumEngineInstances(void) {
     return engineInstancesOpened;
 }
 
-unsigned int RwEngineGetVersion() {
+RwUInt32 RwEngineGetVersion() {
     return 0x34003; // version 3.4.0.3
 }
 
-int RwEngineRegisterPlugin(int size, int pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB) {
+RwInt32 RwEngineRegisterPlugin(RwInt32 size, RwInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB) {
     return _rwPluginRegistryAddPlugin(&engineTKList, size, pluginID, constructCB, destructCB, NULL);
 }
 
-unsigned int RwEngineGetPluginOffset(int pluginID) {
+RwUInt32 RwEngineGetPluginOffset(RwInt32 pluginID) {
     return _rwPluginRegistryGetPluginOffset(&engineTKList, pluginID);
 }
 
-unsigned int RwEngineGetNumSubSystems(void) {
-    int subSystems = 1;
+RwUInt32 RwEngineGetNumSubSystems(void) {
+    RwInt32 subSystems = 1;
     _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETNUMSUBSYSTEMS, &subSystems, NULL, 0);
     return subSystems;
 }
 
-RwSubSystemInfo* RwEngineGetSubSystemInfo(RwSubSystemInfo* subSystemInfo, int subSystem) {
-    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETSUBSYSTEMINFO, subSystemInfo, NULL, subSystem) == 0) {
+RwSubSystemInfo* RwEngineGetSubSystemInfo(RwSubSystemInfo* subSystemInfo, RwInt32 subSystem) {
+    if (!_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETSUBSYSTEMINFO, subSystemInfo, NULL, subSystem)) {
         subSystemInfo = NULL;
     }
     return subSystemInfo;
 }
 
-int RwEngineGetCurrentSubSystem(void) {
-    int subSystem;
-    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETCURRENTSUBSYSTEM, &subSystem, NULL, 0) != 0) {
+RwInt32 RwEngineGetCurrentSubSystem(void) {
+    RwInt32 subSystem;
+    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETCURRENTSUBSYSTEM, &subSystem, NULL, 0)) {
         return subSystem;
     }
     return -1;
 }
 
-int RwEngineSetSubSystem(int subSystem) {
-    return _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMSETSUBSYSTEM, NULL, NULL, subSystem) != 0;
+RwBool RwEngineSetSubSystem(RwInt32 subSystem) {
+    return _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMSETSUBSYSTEM, NULL, NULL, subSystem) != FALSE;
 }
 
-unsigned int RwEngineGetNumVideoModes(void) {
-    int videoModes;
-    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETNUMMODES, &videoModes, NULL, 0) != 0) {
+RwUInt32 RwEngineGetNumVideoModes(void) {
+    RwInt32 videoModes;
+    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETNUMMODES, &videoModes, NULL, 0)) {
         return videoModes;
     }
     return -1;
 }
 
-RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* videoModeInfo, int videoMode) {
-    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETMODEINFO, videoModeInfo, NULL, videoMode) == 0) {
+RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* videoModeInfo, RwInt32 videoMode) {
+    if (!_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETMODEINFO, videoModeInfo, NULL, videoMode)) {
         videoModeInfo = NULL;
     }
     return videoModeInfo;
 }
 
-int RwEngineGetCurrentVideoMode(void) {
-    int videoMode;
-    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETMODE, &videoMode, NULL, 0) != 0) {
+RwInt32 RwEngineGetCurrentVideoMode(void) {
+    RwInt32 videoMode;
+    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETMODE, &videoMode, NULL, 0)) {
         return videoMode;
     }
     return -1;
 }
 
-int RwEngineSetVideoMode(int subsystem) {
-    return _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMUSEMODE, NULL, NULL, subsystem) != 0;
+RwBool RwEngineSetVideoMode(RwInt32 subsystem) {
+    return _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMUSEMODE, NULL, NULL, subsystem) != FALSE;
 }
 
-int RwEngineGetTextureMemorySize(void) {
-    int size;
-    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETTEXMEMSIZE, &size, NULL, 0) != 0) {
+RwInt32 RwEngineGetTextureMemorySize(void) {
+    RwInt32 size;
+    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETTEXMEMSIZE, &size, NULL, 0)) {
         return size;
     }
     return -1;
 }
 
-int RwEngineGetMaxTextureSize(void) {
-    int size;
-    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETMAXTEXTURESIZE, &size, NULL, 0) != 0) {
+RwInt32 RwEngineGetMaxTextureSize(void) {
+    RwInt32 size;
+    if (_rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETMAXTEXTURESIZE, &size, NULL, 0)) {
         return size;
     }
     return -1;
 }
 
-int RwEngineStop(void) {
-    int ret;
+RwBool RwEngineStop(void) {
+    RwBool ret;
     RwDevice* device = &RwEngineInstance->dOpenDevice;
 
     _rwDeviceSystemRequest(device, rwDEVICESYSTEMINITIATESTOP, NULL, NULL, 0);
     _rwPluginRegistryDeInitObject(&engineTKList, RwEngineInstance);
     ret = _rwDeviceSystemRequest(device, rwDEVICESYSTEMSTOP, NULL, NULL, 0);
-    if (ret != 0) {
+    if (ret) {
         RwEngineInstance->engineStatus = rwENGINESTATUSOPENED;
     }
     return ret;
 }
 
-int RwEngineStart(void) {
+RwBool RwEngineStart(void) {
     RwDevice* device = &RwEngineInstance->dOpenDevice;
 
-    if (_rwDeviceSystemRequest(device, rwDEVICESYSTEMSTART, NULL, NULL, 0) != 0) {
+    if (_rwDeviceSystemRequest(device, rwDEVICESYSTEMSTART, NULL, NULL, 0)) {
         if (_rwPluginRegistryInitObject(&engineTKList, RwEngineInstance)) {
             RwImageSetGamma(RwEngineInstance->dOpenDevice.gammaCorrection);
             _rwDeviceSystemRequest(device, rwDEVICESYSTEMFINALIZESTART, NULL, NULL, 0);
             RwEngineInstance->engineStatus = rwENGINESTATUSSTARTED;
-            return 1;
+            return TRUE;
         }
 
         _rwDeviceSystemRequest(device, rwDEVICESYSTEMSTOP, NULL, NULL, 0);
     }
 
-    return 0;
+    return FALSE;
 }
 
-int RwEngineClose(void) {
-    int ret = _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMCLOSE, NULL, NULL, 0);
-    if (ret != 0) {
+RwBool RwEngineClose(void) {
+    RwBool ret = _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMCLOSE, NULL, NULL, 0);
+    if (ret) {
         void* globals = RwEngineInstance;
         RwEngineInstance = &staticGlobals;
         memcpy(&staticGlobals, globals, sizeof(RwGlobals));
@@ -285,22 +285,22 @@ int RwEngineClose(void) {
 
 extern RwDevice* _rwDeviceGetHandle(void);
 
-int RwEngineOpen(void* a0) {
-    int ret;
+RwBool RwEngineOpen(void* a0) {
+    RwBool ret;
 
     if (RwEngineInstance == NULL) {
         RwEngineInstance = &staticGlobals;
     }
 
     ret = (RwEngineInstance->engineStatus == rwENGINESTATUSINITED);
-    if (ret != 0) {
+    if (ret) {
         ret = (a0 != NULL);
-        if (ret != 0) {
+        if (ret) {
             RwDevice* device = _rwDeviceGetHandle();
             ret = (device != NULL);
-            if (ret != 0) {
+            if (ret) {
                 ret = EngineOpen(device, a0);
-                if (ret != 0) {
+                if (ret) {
                     RwEngineInstance->engineStatus = rwENGINESTATUSOPENED;
                 }
             }
@@ -314,9 +314,9 @@ int RwEngineOpen(void* a0) {
     return ret;
 }
 
-int RwEngineTerm(void) {
-    int ret = (engineInstancesOpened == 0);
-    if (ret != 0) {
+RwBool RwEngineTerm(void) {
+    RwBool ret = (engineInstancesOpened == 0);
+    if (ret) {
         _rwPluginRegistryClose();
         _rwFileSystemClose();
         _rwMemoryClose();
@@ -325,18 +325,18 @@ int RwEngineTerm(void) {
     return ret;
 }
 
-int RwEngineInit(RwMemoryFunctions* memoryFuncs, RwEngineInitFlag initFlags, unsigned int arenaSize) {
-    int ret = 0;
+RwBool RwEngineInit(RwMemoryFunctions* memoryFuncs, RwEngineInitFlag initFlags, RwUInt32 arenaSize) {
+    RwBool ret = FALSE;
     RwEngineInstance = &staticGlobals;
 
     if (initFlags & rwENGINEINITNOFREELISTS) {
         RwEngineInstance->memoryAlloc = MallocWrapper;
         RwEngineInstance->memoryFree = FreeWrapper;
-        _rwFreeListEnable(0);
+        _rwFreeListEnable(FALSE);
     } else {
         RwEngineInstance->memoryAlloc = _rwFreeListAllocReal;
         RwEngineInstance->memoryFree = _rwFreeListFreeReal;
-        _rwFreeListEnable(1);
+        _rwFreeListEnable(TRUE);
     }
 
     RwEngineInstance->resArenaInitSize = arenaSize;

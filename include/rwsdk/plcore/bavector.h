@@ -1,27 +1,29 @@
 #ifndef RWSDK_BAVECTOR_H
 #define RWSDK_BAVECTOR_H
 
+#include <rwsdk/rwtypes.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 typedef struct RwV2d {
-    float x;
-    float y;
+    RwReal x;
+    RwReal y;
 } RwV2d;
 
 typedef struct RwV3d {
-    float x;
-    float y;
-    float z;
+    RwReal x;
+    RwReal y;
+    RwReal z;
 } RwV3d;
 
-void* _rwVectorOpen(void*, int offset, int);
-void* _rwVectorClose(void*, int, int);
-float RwV3dNormalize(RwV3d*, RwV3d*);
-float RwV3dLength(RwV3d* vec);
-float _rwSqrt(float x);
-float _rwInvSqrt(float x);
+void* _rwVectorOpen(void*, RwInt32 offset, RwInt32);
+void* _rwVectorClose(void*, RwInt32, RwInt32);
+RwReal RwV3dNormalize(RwV3d*, RwV3d*);
+RwReal RwV3dLength(RwV3d* vec);
+RwReal _rwSqrt(RwReal x);
+RwReal _rwInvSqrt(RwReal x);
 
 #ifdef __cplusplus
 }

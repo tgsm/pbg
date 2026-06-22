@@ -32,24 +32,24 @@ typedef enum rpLightPrivateFlag {
 
 typedef struct RpLight {
     RwObjectHasFrame object;
-    float radius;
+    RwReal radius;
     RwRGBAReal color;
-    float minusCosAngle;
+    RwReal minusCosAngle;
     RwLinkList WorldSectorsInLight;
     RwLLLink inWorld;
-    unsigned short lightFrame;
-    unsigned short pad;
+    RwUInt16 lightFrame;
+    RwUInt16 pad;
 } RpLight; // size: 0x40
 
-RpLight* RpLightSetRadius(RpLight* light, float radius);
+RpLight* RpLightSetRadius(RpLight* light, RwReal radius);
 RpLight* RpLightSetColor(RpLight* light, RwRGBAReal* color);
-float RpLightGetConeAngle(RpLight* light);
-RpLight* RpLightSetConeAngle(RpLight* light, float coneAngle);
-void RpLightRegisterPlugin(unsigned int size, unsigned int a1, void* a2, void* a3, void* a4);
-int RpLightDestroy(RpLight* light);
+RwReal RpLightGetConeAngle(RpLight* light);
+RpLight* RpLightSetConeAngle(RpLight* light, RwReal coneAngle);
+void RpLightRegisterPlugin(RwUInt32 size, RwUInt32 a1, void* a2, void* a3, void* a4);
+RwBool RpLightDestroy(RpLight* light);
 RpLight* RpLightCreate(RpLightType type);
 void* _rpLightClose(void* a0);
-void* _rpLightOpen(void* a0, unsigned int globalsOffset);
+void* _rpLightOpen(void* a0, RwUInt32 globalsOffset);
 
 #ifdef __cplusplus
 }

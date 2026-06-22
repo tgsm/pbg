@@ -1,6 +1,8 @@
 #ifndef RWSDK_PLCORE_BAMEMORY_H
 #define RWSDK_PLCORE_BAMEMORY_H
 
+#include <rwsdk/rwtypes.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -15,12 +17,12 @@ typedef struct RwLinkList {
 } RwLinkList;
 
 typedef struct RwFreeList {
-    unsigned int entrySize;
-    unsigned int entriesPerBlock;
-    unsigned int heapSize;
-    unsigned int alignment;
+    RwUInt32 entrySize;
+    RwUInt32 entriesPerBlock;
+    RwUInt32 heapSize;
+    RwUInt32 alignment;
     RwLinkList blockList;
-    unsigned int flags;
+    RwUInt32 flags;
     RwLLLink link;
 } RwFreeList; // size: 0x24
 
@@ -38,14 +40,14 @@ typedef struct RwMemoryFunctions {
 #define RwRealloc(ptr, size) RwEngineInstance->memoryFuncs.rwrealloc(ptr, size)
 #define RwCalloc(n, size) RwEngineInstance->memoryFuncs.rwcalloc(n, size)
 
-int _rwMemoryOpen(RwMemoryFunctions* memoryFuncs);
+RwBool _rwMemoryOpen(RwMemoryFunctions* memoryFuncs);
 void _rwMemoryClose(void);
-void _rwFreeListEnable(int);
+void _rwFreeListEnable(RwBool);
 void* _rwFreeListAllocReal(RwFreeList* freeList);
 RwFreeList* _rwFreeListFreeReal(RwFreeList* freeList, void* ptr);
-RwFreeList* RwFreeListCreate(unsigned int, unsigned int entriesPerBlock, unsigned int alignment);
-RwFreeList* RwFreeListCreateAndPreallocateSpace(unsigned int, unsigned int entriesPerBlock, unsigned int alignment, unsigned int preallocBlocks, RwFreeList*);
-int RwFreeListDestroy(RwFreeList* list);
+RwFreeList* RwFreeListCreate(RwUInt32, RwUInt32 entriesPerBlock, RwUInt32 alignment);
+RwFreeList* RwFreeListCreateAndPreallocateSpace(RwUInt32, RwUInt32 entriesPerBlock, RwUInt32 alignment, RwUInt32 preallocBlocks, RwFreeList*);
+RwBool RwFreeListDestroy(RwFreeList* list);
 RwFreeList* RwFreeListForAllUsed(RwFreeList* freeList, RwFreeListCallBack callback, void*);
 
 #ifdef __cplusplus

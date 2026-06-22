@@ -20,23 +20,23 @@ typedef enum RwTextureFilterMode {
 
 typedef struct RwTexture {
     RwRaster* raster;
-    char unk4[0xC];
-    char name[32];
-    char mask[32];
-    unsigned int filterAddressing;
-    int refCount;
+    RwUInt8 unk4[0xC];
+    RwChar name[32];
+    RwChar mask[32];
+    RwUInt32 filterAddressing;
+    RwInt32 refCount;
 } RwTexture; // size: 0x58
 
-void* _rwTextureOpen(void*, int offset, int);
-void* _rwTextureClose(void*, int, int);
-int RwTextureSetMipmapping(int);
-int RwTextureSetAutoMipmapping(int);
+void* _rwTextureOpen(void*, RwInt32 offset, RwInt32);
+void* _rwTextureClose(void*, RwInt32, RwInt32);
+RwBool RwTextureSetMipmapping(RwBool);
+RwBool RwTextureSetAutoMipmapping(RwBool);
 RwTexture* RwTextureSetRaster(RwTexture* texture, RwRaster* raster);
 RwTexture* RwTextureCreate(RwRaster* raster);
-int RwTextureDestroy(RwTexture* texture);
-RwTexture* RwTextureSetName(RwTexture* texture, char* name);
-RwTexture* RwTextureSetMaskName(RwTexture* texture, char* mask);
-int RwTextureRasterGenerateMipmaps(RwRaster* raster, int a1);
+RwBool RwTextureDestroy(RwTexture* texture);
+RwTexture* RwTextureSetName(RwTexture* texture, RwChar* name);
+RwTexture* RwTextureSetMaskName(RwTexture* texture, RwChar* mask);
+RwBool RwTextureRasterGenerateMipmaps(RwRaster* raster, RwInt32 a1);
 
 #ifdef __cplusplus
 }

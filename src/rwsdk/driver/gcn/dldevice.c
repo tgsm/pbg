@@ -23,35 +23,35 @@ static RwVideoMode _RwDlVideoModes[4] = {
 // FIXME: `swap` and `gxInit` static variables are placed incorrectly.
 // FIXME: Whole .sbss section is reversed. Compile with `-lang c++` to fix this.
 // **However**, before you do, please see _rwDlSystem.
-int _RwDlFSAATop = 1;
-int _RwDlFifoSize = 0x40000;
-static int _RwDlFirstFrame = 1;
-static int _RwDlCopyClear;
-int _RwDlPixelFormat;
-int _RwDlCurPixelFormat;
-int _RwGameCubeVideoMode;
-int _RwDlFSAA;
+RwBool _RwDlFSAATop = TRUE;
+RwInt32 _RwDlFifoSize = 0x40000;
+static RwBool _RwDlFirstFrame = TRUE;
+static RwBool _RwDlCopyClear;
+RwInt32 _RwDlPixelFormat;
+RwInt32 _RwDlCurPixelFormat;
+RwInt32 _RwGameCubeVideoMode;
+RwBool _RwDlFSAA;
 static void* _RwDl_FIFO_XFB;
 static void* _RwGCXFB1;
 static void* _RwGCXFB2;
 static void* _RwGCXFBCopy;
 static void* _RwGCXFBDisp;
-volatile static int _RwDlFrameCurrent;
-volatile static int _RwDlFrameNew;
-volatile static int _RwDlFrameTokenNew;
-volatile static int _RwDlFrameTokenCurrent;
-static int _RwDlBreakPointEnabled;
-volatile static int _RwDlFrameReadyOnToken;
-static int _RwDlFrameWait;
-static int _RwDlFrameGo;
+volatile static RwInt32 _RwDlFrameCurrent;
+volatile static RwInt32 _RwDlFrameNew;
+volatile static RwInt32 _RwDlFrameTokenNew;
+volatile static RwInt32 _RwDlFrameTokenCurrent;
+static RwBool _RwDlBreakPointEnabled;
+volatile static RwBool _RwDlFrameReadyOnToken;
+static RwBool _RwDlFrameWait;
+static RwBool _RwDlFrameGo;
 static OSThreadQueue _RwDlWaitingDoneRender;
-static unsigned short _RwDlFrameSwap[3]; // struct?
+static RwUInt16 _RwDlFrameSwap[3]; // struct?
 static void* _RwDlDefaultFifo;
 static GXFifoObj* _RwDlDefaultFifoObj;
-int _RwDlHalfHeight;
+RwInt32 _RwDlHalfHeight;
 
 struct UnkRwStandardFnLoad {
-    int id;
+    RwInt32 id;
     RwStandardFunc func;
 };
 
@@ -63,15 +63,15 @@ static struct UnkRwGCFrameQueueSub _RwGCFrameQueue[3];
 static GXRenderModeObj _RwGameCubeRenderModeObj;
 
 static void _rwDlBreakNext(void) {
-    static int swap;
-    unsigned int currentFrame;
+    static RwBool swap;
+    RwUInt32 currentFrame;
 
     DONT_INLINE_HACK();
 
     currentFrame = (_RwDlFrameCurrent + 1) % 3;
     if (currentFrame == _RwDlFrameNew) {
         GXDisableBreakPt();
-        _RwDlBreakPointEnabled = 0;
+        _RwDlBreakPointEnabled = FALSE;
     } else {
         GXEnableBreakPt(_RwGCFrameQueue[currentFrame].breakpoint);
     }
@@ -79,13 +79,13 @@ static void _rwDlBreakNext(void) {
 
     OSWakeupThread(&_RwDlWaitingDoneRender);
 
-    if (_RwDlFSAA == 0) {
-        _RwDlFrameReadyOnToken = 1;
-    } else if (swap == 1) {
-        _RwDlFrameReadyOnToken = 1;
-        swap = 0;
+    if (!_RwDlFSAA) {
+        _RwDlFrameReadyOnToken = TRUE;
+    } else if (swap == TRUE) {
+        _RwDlFrameReadyOnToken = TRUE;
+        swap = FALSE;
     } else {
-        swap = 1;
+        swap = TRUE;
     }
 }
 
@@ -93,49 +93,49 @@ static void _rwDlBreakPtCallback(void) {
     if (_RwGCFrameQueue[_RwDlFrameCurrent].unkXfb != _RwGCXFBDisp) {
         _rwDlBreakNext();
     } else {
-        _RwDlFrameWait = 1;
+        _RwDlFrameWait = TRUE;
     }
 }
 
-extern int _rwDlTokenQueryDone(unsigned short);
+extern int _rwDlTokenQueryDone(RwUInt16);
 GXRenderModeObj* _RwDlRenderMode;
 
 // Equivalent: _RwGCXFBDisp reload
 static void _rwDlVIPreRetraceCallback(u32 retraceCount) {
-    short token = _RwDlFrameSwap[_RwDlFrameTokenCurrent];
-    if (_RwDlFrameReadyOnToken == 1 && _rwDlTokenQueryDone(token)) {
+    RwInt16 token = _RwDlFrameSwap[_RwDlFrameTokenCurrent];
+    if (_RwDlFrameReadyOnToken == TRUE && _rwDlTokenQueryDone(token)) {
         _RwGCXFBDisp = (_RwGCXFBDisp == _RwGCXFB1) ? _RwGCXFB2 : _RwGCXFB1;
         VISetNextFrameBuffer(_RwGCXFBDisp);
 
         if (_RwDlFirstFrame) {
-            VISetBlack(0);
-            _RwDlFirstFrame = 0;
+            VISetBlack(FALSE);
+            _RwDlFirstFrame = FALSE;
         }
 
         VIFlush();
 
         _RwDlFrameTokenCurrent = (_RwDlFrameTokenCurrent + 1) % 3;
-        _RwDlFrameReadyOnToken = 0;
-        _RwDlFrameGo = 1;
+        _RwDlFrameReadyOnToken = FALSE;
+        _RwDlFrameGo = TRUE;
     }
 }
 
 static void _rwDlVIPostRetraceCallback(u32 retraceCount) {
     if (_RwDlFrameWait && _RwDlFrameGo) {
         _rwDlBreakNext();
-        _RwDlFrameWait = 0;
+        _RwDlFrameWait = FALSE;
     }
-    _RwDlFrameGo = 0;
+    _RwDlFrameGo = FALSE;
 }
 
-static int _rwDlNullStandard(void*, void*, int) {
-    return 0;
+static RwBool _rwDlNullStandard(void*, void*, RwInt32) {
+    return FALSE;
 }
 
 // Equivalent?: _RwGameCubeRenderModeObj copy scheduling
-void _rwDlRenderModeSelect(GXRenderModeObj* renderMode, int pixelFormat) {
+void _rwDlRenderModeSelect(GXRenderModeObj* renderMode, RwInt32 pixelFormat) {
     if (renderMode != NULL) {
-        int pf;
+        RwInt32 pf;
         _RwGameCubeRenderModeObj = *renderMode;
         _RwDlRenderMode = &_RwGameCubeRenderModeObj;
         _RwGameCubeVideoMode = 42;
@@ -182,7 +182,7 @@ void _rwDlRenderModeSelect(GXRenderModeObj* renderMode, int pixelFormat) {
     }
 }
 
-void _rwDlRenderModeInit(GXRenderModeObj* renderMode, int pixelFormat) {
+void _rwDlRenderModeInit(GXRenderModeObj* renderMode, RwInt32 pixelFormat) {
     DONT_INLINE_HACK();
 
     VIConfigure(renderMode);
@@ -204,17 +204,17 @@ void _rwDlRenderModeInit(GXRenderModeObj* renderMode, int pixelFormat) {
     if (renderMode->aa && renderMode->xfbHeight == renderMode->viHeight) {
         GXSetDispCopyYScale(1.0f);
         _RwDlHalfHeight = renderMode->xfbHeight / 2;
-        _RwDlFSAA = 1;
-        _RwDlFSAATop = 1;
+        _RwDlFSAA = TRUE;
+        _RwDlFSAATop = TRUE;
     } else {
         GXSetDispCopyYScale((f32)renderMode->xfbHeight / (f32)renderMode->efbHeight);
-        _RwDlFSAA = 0;
+        _RwDlFSAA = FALSE;
     }
 
     GXSetFieldMode(renderMode->field_rendering, renderMode->xfbHeight < renderMode->viHeight);
     GXSetPixelFmt(pixelFormat, GX_ZC_LINEAR);
 
-    _RwDlFirstFrame = 1;
+    _RwDlFirstFrame = TRUE;
 }
 
 struct {
@@ -223,26 +223,26 @@ struct {
 } dgGGlobals;
 struct UnkRenderModeStruct {
     GXRenderModeObj* gxobj;
-    int pixelformat;
-    int fifosize;
+    RwInt32 pixelformat;
+    RwInt32 fifosize;
 };
 extern void _rwDlRenderStateOpen(void);
 extern void _rwDlRenderStateClose(void);
 extern void vectorASMMultPoint();
 extern void vectorASMMultVector();
 extern void _rwVectorSetMultFn(void*, void*);
-extern volatile unsigned short _RwDlTokenLastSeen;
+extern volatile RwUInt16 _RwDlTokenLastSeen;
 
 // Equivalent: regalloc
 // This function is affected by `-lang c` vs. `-lang c++`, the _RwDlVideoModes copies
 // and the dgGGlobals write produce different codegen patterns.
-int _rwDlSystem(int fn, void* dest, void* a2, int param) {
+RwBool _rwDlSystem(RwInt32 fn, void* dest, void* a2, RwInt32 param) {
     switch (fn) {
         case rwDEVICESYSTEMUSEMODE:
             return (param < 1);
         case rwDEVICESYSTEMGETNUMMODES:
-            *(int*)dest = 1;
-            return 1;
+            *(RwInt32*)dest = 1;
+            return TRUE;
         case rwDEVICESYSTEMGETMODEINFO:
             if (param < 1) {
                 switch (_RwGameCubeVideoMode) {
@@ -260,22 +260,22 @@ int _rwDlSystem(int fn, void* dest, void* a2, int param) {
                         *(RwVideoMode*)dest = _RwDlVideoModes[3];
                         break;
                 }
-                return 1;
+                return TRUE;
             } else {
-                return 0;
+                return FALSE;
             }
             break;
         case rwDEVICESYSTEMGETMODE:
-            *(int*)dest = 0;
-            return 1;
+            *(RwInt32*)dest = 0;
+            return TRUE;
         case rwDEVICESYSTEMFOCUS:
-            return 1;
+            return TRUE;
         case rwDEVICESYSTEMREGISTER:
             *(RwDevice*)dest = *_rwDeviceGetHandle();
             dgGGlobals.unk4 = a2;
-            return 1;
+            return TRUE;
         case rwDEVICESYSTEMOPEN: {
-            int iVar15;
+            RwInt32 iVar15;
             struct UnkRenderModeStruct* unk = *(struct UnkRenderModeStruct**)a2;
             if (unk != NULL) {
                 _rwDlRenderModeSelect(unk->gxobj, unk->pixelformat);
@@ -286,14 +286,14 @@ int _rwDlSystem(int fn, void* dest, void* a2, int param) {
 
             iVar15 = ((_RwDlRenderMode->fbWidth + 0xF) & 0xFFF0) * _RwDlRenderMode->xfbHeight * 2;
             _RwDl_FIFO_XFB = RwMalloc(_RwDlFifoSize + iVar15 * 2 + 0x1F);
-            _RwDlDefaultFifo = (void*)(((int)_RwDl_FIFO_XFB + 0x1F) & ~0x1F);
+            _RwDlDefaultFifo = (void*)(((RwInt32)_RwDl_FIFO_XFB + 0x1F) & ~0x1F);
             DCInvalidateRange(_RwDlDefaultFifo, _RwDlFifoSize);
-            _RwGCXFBDisp = (void*)((int)_RwDlDefaultFifo + _RwDlFifoSize);
+            _RwGCXFBDisp = (void*)((RwInt32)_RwDlDefaultFifo + _RwDlFifoSize);
             _RwGCXFB1 = _RwGCXFBDisp;
-            _RwGCXFB2 = (void*)((int)_RwGCXFB1 + iVar15);
+            _RwGCXFB2 = (void*)((RwInt32)_RwGCXFB1 + iVar15);
             _RwGCXFBCopy = _RwGCXFB2;
 
-            return 1;
+            return TRUE;
         }
         case rwDEVICESYSTEMCLOSE:
             GXFlush();
@@ -305,12 +305,12 @@ int _rwDlSystem(int fn, void* dest, void* a2, int param) {
             _RwGCXFBCopy = NULL;
             _RwDlDefaultFifo = NULL;
             _RwDl_FIFO_XFB = NULL;
-            return 1;
+            return TRUE;
         case rwDEVICESYSTEMSTART: {
-            static int gxInit;
+            static RwBool gxInit;
             if (!gxInit) {
                 _RwDlDefaultFifoObj = GXInit(_RwDlDefaultFifo, _RwDlFifoSize);
-                gxInit = 1;
+                gxInit = TRUE;
             } else {
                 GXFifoObj fifoobj;
                 GXInitFifoBase(&fifoobj, _RwDlDefaultFifo, _RwDlFifoSize);
@@ -339,22 +339,22 @@ int _rwDlSystem(int fn, void* dest, void* a2, int param) {
             GXSetBreakPtCallback(_rwDlBreakPtCallback);
             OSInitThreadQueue(&_RwDlWaitingDoneRender);
 
-            return 1;
+            return TRUE;
         }
         case rwDEVICESYSTEMFINALIZESTART:
             _rwVectorSetMultFn(vectorASMMultPoint, vectorASMMultVector);
             _rwDlRenderStateOpen();
-            return 1;
+            return TRUE;
         case rwDEVICESYSTEMINITIATESTOP:
             _rwDlRenderStateClose();
-            return 1;
+            return TRUE;
         case rwDEVICESYSTEMSTOP:
-            return 1;
+            return TRUE;
         case rwDEVICESYSTEMINITPIPELINE:
-            return 1;
+            return TRUE;
         case rwDEVICESYSTEMSTANDARDS: {
 #define EXTERNFUNC(name) \
-    extern int name(void*, void*, int)
+    extern RwBool name(void*, void*, RwInt32)
 
             EXTERNFUNC(_rwDlCameraBeginUpdate);
             EXTERNFUNC(_rwDlCameraEndUpdate);
@@ -414,8 +414,8 @@ int _rwDlSystem(int fn, void* dest, void* a2, int param) {
                 { 28, _rwDlRasterGetNumMipLevels },
             };
 
-            int i;
-            int n = 27;
+            RwInt32 i;
+            RwInt32 n = 27;
 
             for (i = 0; i < param; i++) {
                 ((RwStandardFunc*)dest)[i] = _rwDlNullStandard;
@@ -427,33 +427,33 @@ int _rwDlSystem(int fn, void* dest, void* a2, int param) {
                 }
             }
 
-            return 1;
+            return TRUE;
         }
         case rwDEVICESYSTEMGETMAXTEXTURESIZE:
-            *(int*)dest = 1024;
-            return 1;
+            *(RwInt32*)dest = 1024;
+            return TRUE;
         default:
-            return 0;
+            return FALSE;
     }
 }
 
-extern unsigned short _RwDlTokenCurrent; // initialized to 1
+extern RwUInt16 _RwDlTokenCurrent; // initialized to 1
 // Incomplete
-int _rwDlRasterShowRaster(void) {
+RwBool _rwDlRasterShowRaster(void*, void*, RwInt32) {
     void* auStack_10[4]; // is this actually 4?
     void* breakpoint;
-    int oldIntr;
-    volatile int shouldSleep;
+    RwBool oldIntr;
+    volatile RwBool shouldSleep;
 
     oldIntr = OSDisableInterrupts();
-    shouldSleep = (_RwDlFrameNew - _RwDlFrameCurrent == -1 || _RwDlFrameNew - _RwDlFrameCurrent == 2) != 0;
+    shouldSleep = (_RwDlFrameNew - _RwDlFrameCurrent == -1 || _RwDlFrameNew - _RwDlFrameCurrent == 2) != FALSE;
     OSRestoreInterrupts(oldIntr);
 
-    if (shouldSleep == 1) {
+    if (shouldSleep == TRUE) {
         OSSleepThread(&_RwDlWaitingDoneRender);
     }
 
-    if (_RwDlFSAA == 0) {
+    if (!_RwDlFSAA) {
         GXFlush();
         GXGetFifoPtrs(GXGetCPUFifo(), auStack_10, &breakpoint);
 
@@ -468,8 +468,8 @@ int _rwDlRasterShowRaster(void) {
         _RwDlFrameTokenNew = (_RwDlFrameTokenNew + 1) % 3;
         OSRestoreInterrupts(oldIntr);
 
-        if (_RwDlBreakPointEnabled == 0) {
-            _RwDlBreakPointEnabled = 1;
+        if (!_RwDlBreakPointEnabled) {
+            _RwDlBreakPointEnabled = TRUE;
             GXEnableBreakPt(breakpoint);
         }
 
@@ -479,7 +479,7 @@ int _rwDlRasterShowRaster(void) {
         GXFlush();
 
         _RwGCXFBCopy = (_RwGCXFBCopy == _RwGCXFB1) ? _RwGCXFB2 : _RwGCXFB1;
-    } else if (_RwDlFSAATop != 0) {
+    } else if (_RwDlFSAATop) {
         GXFlush();
         GXGetFifoPtrs(GXGetCPUFifo(), auStack_10, &breakpoint);
         oldIntr = OSDisableInterrupts();
@@ -490,8 +490,8 @@ int _rwDlRasterShowRaster(void) {
         _RwDlFrameNew = (_RwDlFrameNew + 1) % 3;
 
         OSRestoreInterrupts(oldIntr);
-        if (_RwDlBreakPointEnabled == 0) {
-            _RwDlBreakPointEnabled = 1;
+        if (!_RwDlBreakPointEnabled) {
+            _RwDlBreakPointEnabled = TRUE;
             GXEnableBreakPt(breakpoint);
         }
         GXCopyDisp(_RwGCXFBCopy, _RwDlCopyClear);
@@ -499,7 +499,7 @@ int _rwDlRasterShowRaster(void) {
         _RwDlTokenCurrent = (_RwDlTokenCurrent + 1) % 0xE000;
         GXFlush();
 
-        _RwDlFSAATop = 0;
+        _RwDlFSAATop = FALSE;
     } else {
         GXFlush();
         GXGetFifoPtrs(GXGetCPUFifo(), auStack_10, &breakpoint);
@@ -515,8 +515,8 @@ int _rwDlRasterShowRaster(void) {
         _RwDlFrameTokenNew = (_RwDlFrameTokenNew + 1) % 3;
         OSRestoreInterrupts(oldIntr);
 
-        if (_RwDlBreakPointEnabled == 0) {
-            _RwDlBreakPointEnabled = 1;
+        if (!_RwDlBreakPointEnabled) {
+            _RwDlBreakPointEnabled = TRUE;
             GXEnableBreakPt(breakpoint);
         }
         GXSetCopyClamp(GX_CLAMP_BOTTOM);
@@ -529,14 +529,14 @@ int _rwDlRasterShowRaster(void) {
         GXFlush();
 
         _RwGCXFBCopy = (_RwGCXFBCopy == _RwGCXFB1) ? _RwGCXFB2 : _RwGCXFB1;
-        _RwDlFSAATop = 1;
+        _RwDlFSAATop = TRUE;
     }
 
-    return 1;
+    return TRUE;
 }
 
-extern int _rwDlSetRenderState(RwRenderState, void*);
-extern int _rwDlGetRenderState(RwRenderState, void*);
+extern RwBool _rwDlSetRenderState(RwRenderState, void*);
+extern RwBool _rwDlGetRenderState(RwRenderState, void*);
 
 RwDevice* _rwDeviceGetHandle(void) {
     static RwDevice rwDlDriverDevice = {

@@ -1,7 +1,7 @@
 #ifndef RWSDK_BABBOX_H
 #define RWSDK_BABBOX_H
 
-#include "rwsdk/plcore/bavector.h"
+#include <rwsdk/plcore/bavector.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -14,7 +14,7 @@ typedef struct RwBBox {
 
 RwBBox* RwBBoxAddPoint(RwBBox* bbox, RwV3d* point);
 RwBBox* RwBBoxInitialize(RwBBox* bbox, RwV3d* point);
-RwBBox* RwBBoxCalculate(RwBBox* bbox, RwV3d* points, int num_points);
+RwBBox* RwBBoxCalculate(RwBBox* bbox, RwV3d* points, RwInt32 numPoints);
 
 #ifdef __cplusplus
 }

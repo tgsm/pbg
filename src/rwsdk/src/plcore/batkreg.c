@@ -10,19 +10,19 @@ extern "C" {
 
 static RwPluginRegistry** toolkitNonFLRegList;
 static RwFreeList toolkitRegEntriesSpace;
-static unsigned int numRegToolkits;
+static RwUInt32 numRegToolkits;
 static RwFreeList* toolkitRegEntries;
-static int _rwPluginRegFreeListBlockSize = 64;
-static int _rwPluginRegListPreallocBlocks = 1;
+static RwInt32 _rwPluginRegFreeListBlockSize = 64;
+static RwInt32 _rwPluginRegListPreallocBlocks = 1;
 
-int _rwPluginRegistryOpen(void) {
+RwBool _rwPluginRegistryOpen(void) {
     toolkitRegEntries = RwFreeListCreateAndPreallocateSpace(sizeof(RwPluginRegEntry), _rwPluginRegFreeListBlockSize, 4, _rwPluginRegListPreallocBlocks, &toolkitRegEntriesSpace);
     if (toolkitRegEntries == NULL) {
-        return 0;
+        return FALSE;
     }
 
     numRegToolkits = 0;
-    return 1;
+    return TRUE;
 }
 
 static void rwDestroyEntry(void* entry_, void* freeList_) {
@@ -37,9 +37,9 @@ static void rwDestroyEntry(void* entry_, void* freeList_) {
     RwEngineInstance->memoryFree(freeList, entry);
 }
 
-int _rwPluginRegistryClose(void) {
+RwBool _rwPluginRegistryClose(void) {
     if (toolkitRegEntries != NULL) {
-        int i;
+        RwInt32 i;
         RwFreeListForAllUsed(toolkitRegEntries, rwDestroyEntry, toolkitRegEntries);
 
         if (RwEngineInstance->memoryAlloc != _rwFreeListAllocReal) {
@@ -74,22 +74,22 @@ int _rwPluginRegistryClose(void) {
         toolkitRegEntries = 0;
     }
 
-    return 1;
+    return TRUE;
 }
 
-static void* PluginDefaultConstructor(void* a0, int, int) {
+static void* PluginDefaultConstructor(void* a0, RwInt32, RwInt32) {
     return a0;
 }
 
-static void* PluginDefaultDestructor(void* a0, int, int) {
+static void* PluginDefaultDestructor(void* a0, RwInt32, RwInt32) {
     return a0;
 }
 
-static void* PluginDefaultCopy(void* a0, const void*, int, int) {
+static void* PluginDefaultCopy(void* a0, const void*, RwInt32, RwInt32) {
     return a0;
 }
 
-int _rwPluginRegistryGetPluginOffset(RwPluginRegistry* registry, unsigned int pluginID) {
+RwInt32 _rwPluginRegistryGetPluginOffset(RwPluginRegistry* registry, RwUInt32 pluginID) {
     RwPluginRegEntry* entry;
     for (entry = registry->firstRegEntry; entry != NULL; entry = entry->nextRegEntry) {
         if (entry->pluginID == pluginID) {
@@ -100,9 +100,9 @@ int _rwPluginRegistryGetPluginOffset(RwPluginRegistry* registry, unsigned int pl
     return -1;
 }
 
-int _rwPluginRegistryAddPlugin(RwPluginRegistry* registry, int size, unsigned int pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
+RwInt32 _rwPluginRegistryAddPlugin(RwPluginRegistry* registry, RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
     RwPluginRegEntry* entry;
-    int sizeAligned;
+    RwInt32 sizeAligned;
 
     if (toolkitRegEntries == NULL) {
         return -1;
@@ -114,7 +114,7 @@ int _rwPluginRegistryAddPlugin(RwPluginRegistry* registry, int size, unsigned in
     }
 
     if (RwEngineInstance->memoryAlloc != _rwFreeListAllocReal) {
-        int i;
+        RwInt32 i;
         for (i = 0; i < numRegToolkits; i++) {
             if (registry == toolkitNonFLRegList[i]) {
                 break;
@@ -123,7 +123,7 @@ int _rwPluginRegistryAddPlugin(RwPluginRegistry* registry, int size, unsigned in
 
         if (numRegToolkits == i) {
             RwPluginRegistry** registries = (RwPluginRegistry**)RwMalloc((numRegToolkits + 1) * sizeof(RwPluginRegistry*));
-            int j = 0;
+            RwInt32 j = 0;
             if (toolkitNonFLRegList != NULL) {
                 for (; j < numRegToolkits; j++) {
                     registries[j] = toolkitNonFLRegList[j];

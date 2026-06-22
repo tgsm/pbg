@@ -1,18 +1,18 @@
 #ifndef RWSDK_TOOL_QUAT_RTQUAT_H
 #define RWSDK_TOOL_QUAT_RTQUAT_H
 
-#include "rwsdk/plcore/bavector.h"
+#include <rwsdk/plcore/bavector.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-struct RtQuat {
+typedef struct RtQuat {
     RwV3d imag;
-    float real;
-};
+    RwReal real;
+} RtQuat;
 
-RtQuat* RtQuatRotate(RtQuat*, RwV3d*, float, int);
+RtQuat* RtQuatRotate(RtQuat*, RwV3d*, RwReal, RwInt32);
 
 #ifdef __cplusplus
 }

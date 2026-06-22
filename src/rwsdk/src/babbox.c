@@ -1,5 +1,5 @@
-#include "rwsdk/babbox.h"
-#include "rwsdk/plcore/bavector.h"
+#include <rwsdk/babbox.h>
+#include <rwsdk/plcore/bavector.h>
 
 RwBBox* RwBBoxAddPoint(RwBBox* bbox, RwV3d* point) {
     if (bbox->inf.x > point->x) {
@@ -30,11 +30,11 @@ RwBBox* RwBBoxInitialize(RwBBox* bbox, RwV3d* point) {
     return bbox;
 }
 
-RwBBox* RwBBoxCalculate(RwBBox* bbox, RwV3d* points, int num_points) {
-    int i;
+RwBBox* RwBBoxCalculate(RwBBox* bbox, RwV3d* points, RwInt32 numPoints) {
+    RwInt32 i;
 
     RwBBoxInitialize(bbox, points++);
-    for (i = num_points - 1; i != 0; i--, points++) {
+    for (i = numPoints - 1; i != 0; i--, points++) {
         RwBBoxAddPoint(bbox, points);
     }
 

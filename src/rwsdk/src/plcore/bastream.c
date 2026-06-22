@@ -7,14 +7,14 @@
 
 static RwFreeList _rwStreamFreeList;
 static RwModuleInfo streamModule;
-static int _rwStreamFreeListBlockSize = 16;
-static int _rwStreamFreeListPreallocBlocks = 1;
+static RwInt32 _rwStreamFreeListBlockSize = 16;
+static RwInt32 _rwStreamFreeListPreallocBlocks = 1;
 
 // Unknown name
 #define GET_MODULE_FREELIST(module) \
-    *(RwFreeList**)((int)RwEngineInstance + (module).globalsOffset)
+    *(RwFreeList**)((RwInt32)RwEngineInstance + (module).globalsOffset)
 
-void* _rwStreamModuleOpen(void* a0, int offset, int) {
+void* _rwStreamModuleOpen(void* a0, RwInt32 offset, RwInt32) {
     streamModule.globalsOffset = offset;
     GET_MODULE_FREELIST(streamModule) = RwFreeListCreateAndPreallocateSpace(sizeof(RwStream), _rwStreamFreeListBlockSize, 4, _rwStreamFreeListPreallocBlocks, &_rwStreamFreeList);
     if (GET_MODULE_FREELIST(streamModule) == NULL) {
@@ -25,7 +25,7 @@ void* _rwStreamModuleOpen(void* a0, int offset, int) {
     return a0;
 }
 
-void* _rwStreamModuleClose(void* a0, int, int) {
+void* _rwStreamModuleClose(void* a0, RwInt32, RwInt32) {
     if (GET_MODULE_FREELIST(streamModule) != NULL) {
         RwFreeListDestroy(GET_MODULE_FREELIST(streamModule));
     }
@@ -33,7 +33,7 @@ void* _rwStreamModuleClose(void* a0, int, int) {
     return a0;
 }
 
-static RwStream* StreamFileNameInitialize(RwStream* stream, RwStreamAccessType accessType, char* fileName) {
+static RwStream* StreamFileNameInitialize(RwStream* stream, RwStreamAccessType accessType, RwChar* fileName) {
     RwStream* ret = NULL;
     void* file = NULL;
 
@@ -92,7 +92,7 @@ static RwStream* StreamMemoryInitialize(RwStream* stream, RwStreamAccessType acc
     return ret;
 }
 
-RwStream* _rwStreamInitialize(RwStream* stream, int rwOwned, RwStreamType type, RwStreamAccessType accessType, void* data) {
+RwStream* _rwStreamInitialize(RwStream* stream, RwBool rwOwned, RwStreamType type, RwStreamAccessType accessType, void* data) {
     RwStream* ret = NULL;
 
     if (stream == NULL) {
@@ -116,7 +116,7 @@ RwStream* _rwStreamInitialize(RwStream* stream, int rwOwned, RwStreamType type, 
             break;
         }
         case rwSTREAMFILENAME:
-            ret = StreamFileNameInitialize(stream, accessType, (char*)data);
+            ret = StreamFileNameInitialize(stream, accessType, (RwChar*)data);
             break;
         case rwSTREAMMEMORY:
             ret = StreamMemoryInitialize(stream, accessType, (RwMemory*)data);
@@ -133,12 +133,12 @@ RwStream* _rwStreamInitialize(RwStream* stream, int rwOwned, RwStreamType type, 
     return ret;
 }
 
-unsigned int RwStreamRead(RwStream* stream, void* dest, unsigned int size) {
+RwUInt32 RwStreamRead(RwStream* stream, void* dest, RwUInt32 size) {
     switch (stream->type) {
         case rwSTREAMFILE:
         case rwSTREAMFILENAME: {
             void* file = stream->Type.file.fpFile;
-            unsigned int nRead = RwEngineInstance->fileFuncs.rwfread(dest, 1, size, file);
+            RwUInt32 nRead = RwEngineInstance->fileFuncs.rwfread(dest, 1, size, file);
             if (nRead != size) {
                 if (RwEngineInstance->fileFuncs.rwfeof(file)) {
                     RwThrowError(1, E_RW_ENDOFSTREAM);
@@ -166,12 +166,12 @@ unsigned int RwStreamRead(RwStream* stream, void* dest, unsigned int size) {
     }
 }
 
-RwStream* RwStreamWrite(RwStream* stream, const void* src, unsigned int size) {
+RwStream* RwStreamWrite(RwStream* stream, const void* src, RwUInt32 size) {
     switch (stream->type) {
         case rwSTREAMFILE:
         case rwSTREAMFILENAME: {
             void* file = stream->Type.file.fpFile;
-            unsigned int nWrote = RwEngineInstance->fileFuncs.rwfwrite(src, 1, size, file);
+            RwUInt32 nWrote = RwEngineInstance->fileFuncs.rwfwrite(src, 1, size, file);
             if (nWrote != size) {
                 RwThrowError(1, E_RW_WRITE);
                 return NULL;
@@ -191,7 +191,7 @@ RwStream* RwStreamWrite(RwStream* stream, const void* src, unsigned int size) {
 
             if (stream->Type.memory.nSize - stream->Type.memory.position < size) {
                 void* newPtr;
-                int newSize = size + stream->Type.memory.nSize;
+                RwInt32 newSize = size + stream->Type.memory.nSize;
                 if (size < 512) {
                     newSize = stream->Type.memory.nSize + 512;
                 }
@@ -220,7 +220,7 @@ RwStream* RwStreamWrite(RwStream* stream, const void* src, unsigned int size) {
     }
 }
 
-RwStream* RwStreamSkip(RwStream* stream, unsigned int size) {
+RwStream* RwStreamSkip(RwStream* stream, RwUInt32 size) {
     if (size == 0) {
         return stream;
     }
@@ -258,12 +258,12 @@ RwStream* RwStreamSkip(RwStream* stream, unsigned int size) {
     }
 }
 
-int RwStreamClose(RwStream* stream, void* data) {
-    int ret;
+RwBool RwStreamClose(RwStream* stream, void* data) {
+    RwBool ret;
 
     switch (stream->type) {
         case rwSTREAMFILE:
-            ret = 1;
+            ret = TRUE;
             break;
         case rwSTREAMFILENAME:
             ret = RwEngineInstance->fileFuncs.rwfclose(stream->Type.file.fpFile) == 0 ? 1 : 0;
@@ -273,17 +273,17 @@ int RwStreamClose(RwStream* stream, void* data) {
                 ((RwMemory*)data)->start = stream->Type.memory.memBlock;
                 ((RwMemory*)data)->length = stream->Type.memory.position;
             }
-            ret = 1;
+            ret = TRUE;
             break;
         case rwSTREAMCUSTOM:
             if (stream->Type.custom.sfnclose != NULL) {
                 stream->Type.custom.sfnclose(stream->Type.custom.data);
             }
-            ret = 1;
+            ret = TRUE;
             break;
         default:
             RwThrowError(1, E_RW_INVSTREAMTYPE);
-            return 0;
+            return FALSE;
     }
 
     if (stream->rwOwned) {
@@ -295,7 +295,7 @@ int RwStreamClose(RwStream* stream, void* data) {
 
 RwStream* RwStreamOpen(RwStreamType type, RwStreamAccessType accessType, void* data) {
     RwStream* stream = RwEngineInstance->memoryAlloc(GET_MODULE_FREELIST(streamModule));
-    if (!_rwStreamInitialize(stream, 1, type, accessType, data)) {
+    if (!_rwStreamInitialize(stream, TRUE, type, accessType, data)) {
         RwEngineInstance->memoryFree(GET_MODULE_FREELIST(streamModule), stream);
         stream = NULL;
     }

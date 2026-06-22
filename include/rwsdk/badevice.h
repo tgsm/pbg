@@ -15,12 +15,12 @@ typedef struct RwEngineOpenParams {
 
     // These may be unique to PBG, they're not present in BfBB DWARF
     void* unk4;
-    int unk8;
-    int unkC;
+    RwInt32 unk8;
+    RwInt32 unkC;
 } RwEngineOpenParams;
 
 typedef struct RwSubSystemInfo {
-    char name[0x50];
+    RwChar name[0x50];
 } RwSubSystemInfo;
 
 typedef enum RwVideoModeFlag {
@@ -29,9 +29,9 @@ typedef enum RwVideoModeFlag {
 } RwVideoModeFlag;
 
 typedef struct RwVideoMode {
-    unsigned int width;
-    unsigned int height;
-    unsigned int depth;
+    RwUInt32 width;
+    RwUInt32 height;
+    RwUInt32 depth;
     RwVideoModeFlag flags;
 } RwVideoMode;
 
@@ -66,32 +66,32 @@ typedef enum RwPrimitiveType {
 } RwPrimitiveType;
 
 typedef struct rwGameCube2DVertex {
-    float x;
-    float y;
-    float z;
-    unsigned char r;
-    unsigned char g;
-    unsigned char b;
-    unsigned char a;
-    float u;
-    float v;
+    RwReal x;
+    RwReal y;
+    RwReal z;
+    RwUInt8 r;
+    RwUInt8 g;
+    RwUInt8 b;
+    RwUInt8 a;
+    RwReal u;
+    RwReal v;
 } RwIm2DVertex;
 
 typedef struct RwDevice {
-    float gammaCorrection;
-    int (*fpSystem)(int, void*, void*, int);
-    float zBufferNear;
-    float zBufferFar;
-    int (*fpRenderStateSet)(RwRenderState, void*);
-    int (*fpRenderStateGet)(RwRenderState, void*);
-    int (*fpIm2DRenderLine)(RwIm2DVertex*, int, int, int);
-    int (*fpIm2DRenderTriangle)(RwIm2DVertex*, int, int, int, int);
-    int (*fpIm2DRenderPrimitive)(RwPrimitiveType, RwIm2DVertex*, int);
-    int (*fpIm2DRenderIndexedPrimitive)(RwPrimitiveType, RwIm2DVertex*, int, unsigned short*, int);
-    int (*fpIm3DRenderLine)(int, int);
-    int (*fpIm3DRenderTriangle)(int, int, int);
-    int (*fpIm3DRenderPrimitive)(RwPrimitiveType);
-    int (*fpIm3DRenderIndexedPrimitive)(RwPrimitiveType, unsigned short*, int);
+    RwReal gammaCorrection;
+    RwBool (*fpSystem)(RwInt32, void*, void*, RwInt32);
+    RwReal zBufferNear;
+    RwReal zBufferFar;
+    RwBool (*fpRenderStateSet)(RwRenderState, void*);
+    RwBool (*fpRenderStateGet)(RwRenderState, void*);
+    RwBool (*fpIm2DRenderLine)(RwIm2DVertex*, RwInt32, RwInt32, RwInt32);
+    RwBool (*fpIm2DRenderTriangle)(RwIm2DVertex*, RwInt32, RwInt32, RwInt32, RwInt32);
+    RwBool (*fpIm2DRenderPrimitive)(RwPrimitiveType, RwIm2DVertex*, RwInt32);
+    RwBool (*fpIm2DRenderIndexedPrimitive)(RwPrimitiveType, RwIm2DVertex*, RwInt32, RwUInt16*, RwInt32);
+    RwBool (*fpIm3DRenderLine)(RwInt32, RwInt32);
+    RwBool (*fpIm3DRenderTriangle)(RwInt32, RwInt32, RwInt32);
+    RwBool (*fpIm3DRenderPrimitive)(RwPrimitiveType);
+    RwBool (*fpIm3DRenderIndexedPrimitive)(RwPrimitiveType, RwUInt16*, RwInt32);
 } RwDevice; // size: 0x38
 
 typedef enum RwCoreDeviceSystemFn {
@@ -118,7 +118,7 @@ typedef enum RwCoreDeviceSystemFn {
     rwCOREDEVICESYSTEMFNFORCEENUMSIZEINT = 0x7FFFFFFF,
 } RwCoreDeviceSystemFn;
 
-typedef int (*RwStandardFunc)(void*, void*, int);
+typedef RwBool (*RwStandardFunc)(void*, void*, RwInt32);
 
 typedef enum RwEngineStatus {
     rwENGINESTATUSIDLE = 0,
@@ -136,62 +136,48 @@ typedef enum RwEngineInitFlag {
 
 typedef struct RwGlobals {
     void* curCamera;
-    char unk4[0x6];
-    unsigned short lightFrame;
-    unsigned short pad[2];
+    RwUInt8 unk4[0x6];
+    RwUInt16 lightFrame;
+    RwUInt16 pad[2];
     RwDevice dOpenDevice;
-    char unk48[0x58 - 0x48];
-    RwStandardFunc unk58;
-    RwStandardFunc unk5C;
-    char unk60[0x84 - 0x60];
-    RwStandardFunc unk84;
-    RwStandardFunc unk88;
-    RwStandardFunc unk8C;
-    char unk90[4];
-    RwStandardFunc unk94;
-    RwStandardFunc unk98;
-    char unk9C[0xA4 - 0x9C];
-    RwStandardFunc unkA4;
-    RwStandardFunc unkA8;
-    char unkAC[0xB8 - 0xAC];
-    RwStandardFunc unkB8;
+    RwStandardFunc stdFunc[29];
     RwLinkList dirtyFrameListMaybe;
     RwFileFunctions fileFuncs;
     RwStringFunctions stringFuncs;
     RwMemoryFunctions memoryFuncs;
     void* (*memoryAlloc)(RwFreeList*);
     RwFreeList* (*memoryFree)(RwFreeList*, void*);
-    char unk148[4];
+    RwUInt8 unk148[4]; // likely RwMetrics*, unused in PBG
     RwEngineStatus engineStatus;
-    unsigned int resArenaInitSize;
+    RwUInt32 resArenaInitSize;
 } RwGlobals; // size: 0x154
 
 typedef struct RwModuleInfo {
-    int globalsOffset;
-    int numInstances;
+    RwInt32 globalsOffset;
+    RwInt32 numInstances;
 } RwModuleInfo;
 
 // FIXME: DWARFs say this is a void*
 extern RwGlobals* RwEngineInstance;
 
-int _rwDeviceSystemRequest(RwDevice* device, int systemFn, void* dest, void*, int);
-unsigned int _rwGetNumEngineInstances(void);
-unsigned int RwEngineGetVersion(void);
-int RwEngineRegisterPlugin(int, int pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB);
-unsigned int RwEngineGetNumSubSystems(void);
-RwSubSystemInfo* RwEngineGetSubSystemInfo(RwSubSystemInfo* subSystem, int);
-int RwEngineGetCurrentSubSystem(void);
-int RwEngineSetSubSystem(int);
-unsigned int RwEngineGetNumVideoModes(void);
-RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* videoMode, int);
-int RwEngineGetCurrentVideoMode(void);
-int RwEngineSetVideoMode(int);
-int RwEngineGetTextureMemorySize(void);
-int RwEngineGetMaxTextureSize(void);
-int RwEngineStop(void);
-int RwEngineStart(void);
-int RwEngineClose(void);
-int RwEngineOpen(void*);
+RwBool _rwDeviceSystemRequest(RwDevice* device, RwInt32 systemFn, void* dest, void*, RwInt32);
+RwUInt32 _rwGetNumEngineInstances(void);
+RwUInt32 RwEngineGetVersion(void);
+RwInt32 RwEngineRegisterPlugin(RwInt32, RwInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB);
+RwUInt32 RwEngineGetNumSubSystems(void);
+RwSubSystemInfo* RwEngineGetSubSystemInfo(RwSubSystemInfo* subSystem, RwInt32);
+RwInt32 RwEngineGetCurrentSubSystem(void);
+RwBool RwEngineSetSubSystem(RwInt32);
+RwUInt32 RwEngineGetNumVideoModes(void);
+RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* videoMode, RwInt32);
+RwInt32 RwEngineGetCurrentVideoMode(void);
+RwBool RwEngineSetVideoMode(RwInt32);
+RwInt32 RwEngineGetTextureMemorySize(void);
+RwInt32 RwEngineGetMaxTextureSize(void);
+RwBool RwEngineStop(void);
+RwBool RwEngineStart(void);
+RwBool RwEngineClose(void);
+RwBool RwEngineOpen(void*);
 
 #ifdef __cplusplus
 }

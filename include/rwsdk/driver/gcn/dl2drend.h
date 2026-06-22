@@ -7,10 +7,10 @@
 extern "C" {
 #endif
 
-extern int _rwDlIm2DRenderLine(struct rwGameCube2DVertex* vertices, int, int a2, int a3);
-extern int _rwDlIm2DRenderTriangle(struct rwGameCube2DVertex* vertices, int, int a2, int a3, int a4);
-extern int _rwDlIm2DRenderPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* vertices, int numVertices);
-extern int _rwDlIm2DRenderIndexedPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* vertices, int numVertices, unsigned short* indices, int numIndices);
+extern RwBool _rwDlIm2DRenderLine(struct rwGameCube2DVertex* vertices, RwInt32, RwInt32 a2, RwInt32 a3);
+extern RwBool _rwDlIm2DRenderTriangle(struct rwGameCube2DVertex* vertices, RwInt32, RwInt32 a2, RwInt32 a3, RwInt32 a4);
+extern RwBool _rwDlIm2DRenderPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* vertices, RwInt32 numVertices);
+extern RwBool _rwDlIm2DRenderIndexedPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* vertices, RwInt32 numVertices, RwUInt16* indices, RwInt32 numIndices);
 
 #ifdef __cplusplus
 }

@@ -1,15 +1,14 @@
-#include <cstddef>
 #include "dont_inline_hack.h"
 #include <rwsdk/baimage.h>
 #include <rwsdk/baraster.h>
 #include <rwsdk/driver/common/palquant.h>
 #include <rwsdk/plcore/baerr.h>
 
-typedef void (*UnconvertFn)(RwRGBA* x, unsigned int y);
-typedef unsigned int (*ConvertFn)(RwRGBA* x);
+typedef void (*UnconvertFn)(RwRGBA* x, RwUInt32 y);
+typedef RwUInt32 (*ConvertFn)(RwRGBA* x);
 
-unsigned int _rwDlFindMSB(int x) {
-    unsigned int msb = -1;
+RwUInt32 _rwDlFindMSB(int x) {
+    RwUInt32 msb = -1;
     while (x != 0) {
         x >>= 1;
         msb++;
@@ -17,15 +16,15 @@ unsigned int _rwDlFindMSB(int x) {
     return msb;
 }
 
-unsigned int _rwDlConv8888To555(RwRGBA* x) {
+RwUInt32 _rwDlConv8888To555(RwRGBA* x) {
     return (((x->red & 0xF8) << 7) | 0x8000) | ((x->green & 0xF8) << 2) | ((x->blue >> 3) & 0x1F);
 }
 
-unsigned int _rwDlConv8888To565(RwRGBA* x) {
+RwUInt32 _rwDlConv8888To565(RwRGBA* x) {
     return ((x->red & 0xF8) << 8) | ((x->green & 0xFC) << 3) | ((x->blue >> 3) & 0x1F);
 }
 
-unsigned int _rwDlConv8888To555or3444(RwRGBA* x) {
+RwUInt32 _rwDlConv8888To555or3444(RwRGBA* x) {
     if (x->alpha != 0xFF) {
         return ((x->alpha & 0xE0) << 7) | ((x->red & 0xF0) << 4) | (x->green & 0xF0) | ((x->blue >> 4) & 0xF);
     } else {
@@ -33,16 +32,16 @@ unsigned int _rwDlConv8888To555or3444(RwRGBA* x) {
     }
 }
 
-unsigned int _rwDlConv8888ToDl888(RwRGBA* x) {
+RwUInt32 _rwDlConv8888ToDl888(RwRGBA* x) {
     return 0xFF000000 | (x->red << 16) | (x->green << 8) | x->blue;
 }
 
-unsigned int _rwDlConv8888ToDl8888(RwRGBA* x) {
+RwUInt32 _rwDlConv8888ToDl8888(RwRGBA* x) {
     return (x->alpha << 24) | (x->red << 16) | (x->green << 8) | x->blue;
 }
 
-int _rwDlRGBToPixel(unsigned int* a0, RwRGBA* a1, RwRasterFormat rasterFormat) {
-    unsigned int ret;
+RwBool _rwDlRGBToPixel(RwUInt32* a0, RwRGBA* a1, RwRasterFormat rasterFormat) {
+    RwUInt32 ret;
     DONT_INLINE_HACK();
 
     switch (rasterFormat & rwRASTERFORMATPIXELFORMATMASK) {
@@ -76,24 +75,24 @@ int _rwDlRGBToPixel(unsigned int* a0, RwRGBA* a1, RwRasterFormat rasterFormat) {
     }
 
     *a0 = ret;
-    return 1;
+    return TRUE;
 }
 
-void _rwDlConv555To8888(RwRGBA* x, unsigned int y) {
+void _rwDlConv555To8888(RwRGBA* x, RwUInt32 y) {
     x->red = (y >> 7) & 0xF8;
     x->green = (y >> 2) & 0xF8;
     x->blue = (y << 3);
     x->alpha = 0xFF;
 }
 
-void _rwDlConv565To8888(RwRGBA* x, unsigned int y) {
+void _rwDlConv565To8888(RwRGBA* x, RwUInt32 y) {
     x->red = (y >> 8) & 0xF8;
     x->green = (y >> 3) & 0xFC;
     x->blue = (y << 3);
     x->alpha = 0xFF;
 }
 
-void _rwDlConv1555To8888(RwRGBA* x, unsigned int y) {
+void _rwDlConv1555To8888(RwRGBA* x, RwUInt32 y) {
     if (y & (1 << 15)) {
         _rwDlConv555To8888(x, y);
     } else {
@@ -104,7 +103,7 @@ void _rwDlConv1555To8888(RwRGBA* x, unsigned int y) {
     }
 }
 
-void _rwDlConv4444To8888(RwRGBA* x, unsigned int y) {
+void _rwDlConv4444To8888(RwRGBA* x, RwUInt32 y) {
     if (y & (1 << 15)) {
         _rwDlConv555To8888(x, y);
     } else {
@@ -115,22 +114,22 @@ void _rwDlConv4444To8888(RwRGBA* x, unsigned int y) {
     }
 }
 
-void _rwDlConvDl888To8888(RwRGBA* x, unsigned int y) {
+void _rwDlConvDl888To8888(RwRGBA* x, RwUInt32 y) {
     x->alpha = 0xFF;
     x->red = (y >> 16) & 0xFF;
     x->green = (y >> 8) & 0xFF;
     x->blue = y & 0xFF;
 }
 
-void _rwDlConvDl8888To8888(RwRGBA* x, unsigned int y) {
+void _rwDlConvDl8888To8888(RwRGBA* x, RwUInt32 y) {
     x->alpha = (y >> 24) & 0xFF;
     x->red = (y >> 16) & 0xFF;
     x->green = (y >> 8) & 0xFF;
     x->blue = y & 0xFF;
 }
 
-int _rwDlPixelToRGB(RwRGBA* a0, unsigned int* a1, RwRasterFormat rasterFormat) {
-    int a1_ = *a1;
+RwBool _rwDlPixelToRGB(RwRGBA* a0, RwUInt32* a1, RwRasterFormat rasterFormat) {
+    RwUInt32 a1_ = *a1;
     DONT_INLINE_HACK();
 
     switch (rasterFormat & rwRASTERFORMATPIXELFORMATMASK) {
@@ -165,7 +164,7 @@ int _rwDlPixelToRGB(RwRGBA* a0, unsigned int* a1, RwRasterFormat rasterFormat) {
         }
     }
 
-    return 1;
+    return TRUE;
 }
 
 UnconvertFn _rwDlSelectUnconvertFn(RwRasterFormat rasterFormat) {
@@ -209,13 +208,13 @@ void _rwDlImage4GetFromRaster(RwImage* image, RwRaster* raster) {
 
     switch (raster->depth) {
         case 4: {
-            int i, j;
+            RwInt32 i, j;
             for (i = 0; i < 16; i++) {
-                fn(&image->palette[i], ((unsigned short*)raster->palette)[i]);
+                fn(&image->palette[i], ((RwUInt16*)raster->palette)[i]);
             }
             for (i = 0; i < raster->height; i++) {
-                unsigned char* imageBuf = image->cpPixels + image->stride * i;
-                unsigned char* rasterBuf = raster->cpPixels + raster->stride * i;
+                RwUInt8* imageBuf = image->cpPixels + image->stride * i;
+                RwUInt8* rasterBuf = raster->cpPixels + raster->stride * i;
                 // This feels fake
                 for (j = 0; j < raster->width; j += 2) {
                     imageBuf[0] = (rasterBuf[0] >> 4) & 0xF;
@@ -245,13 +244,13 @@ void _rwDlImage8GetFromRaster(RwImage* image, RwRaster* raster) {
 
     switch (raster->depth) {
         case 4: {
-            int i, j;
+            RwInt32 i, j;
             for (i = 0; i < 16; i++) {
-                fn(&image->palette[i], ((unsigned short*)raster->palette)[i]);
+                fn(&image->palette[i], ((RwUInt16*)raster->palette)[i]);
             }
             for (i = 0; i < raster->height; i++) {
-                unsigned char* imageBuf = image->cpPixels + image->stride * i;
-                unsigned char* rasterBuf = raster->cpPixels + raster->stride * i;
+                RwUInt8* imageBuf = image->cpPixels + image->stride * i;
+                RwUInt8* rasterBuf = raster->cpPixels + raster->stride * i;
                 for (j = 0; j < raster->width; j += 2) {
                     imageBuf[0] = (rasterBuf[0] >> 4) & 0xF;
                     imageBuf[1] = rasterBuf[0] & 0xF;
@@ -262,13 +261,13 @@ void _rwDlImage8GetFromRaster(RwImage* image, RwRaster* raster) {
             break;
         }
         case 8: {
-            int i, j;
+            RwInt32 i, j;
             for (i = 0; i < 256; i++) {
-                fn(&image->palette[i], ((unsigned short*)raster->palette)[i]);
+                fn(&image->palette[i], ((RwUInt16*)raster->palette)[i]);
             }
             for (i = 0; i < raster->height; i++) {
-                unsigned char* rasterBuf = raster->cpPixels + raster->stride * i;
-                unsigned char* imageBuf = image->cpPixels + image->stride * i;
+                RwUInt8* rasterBuf = raster->cpPixels + raster->stride * i;
+                RwUInt8* imageBuf = image->cpPixels + image->stride * i;
                 for (j = 0; j < raster->width; j++) {
                     *imageBuf = *rasterBuf;
                     imageBuf += 1;
@@ -296,13 +295,13 @@ void _rwDlImage32GetFromRaster(RwImage* image, RwRaster* raster) {
     switch (raster->depth) {
         case 4: {
             RwRGBA buf[16];
-            int i, j;
+            RwInt32 i, j;
             for (i = 0; i < 16; i++) {
-                fn(&buf[i], ((unsigned short*)raster->palette)[i]);
+                fn(&buf[i], ((RwUInt16*)raster->palette)[i]);
             }
             for (i = 0; i < raster->height; i++) {
                 RwRGBA* imageBuf = (RwRGBA*)(image->cpPixels + image->stride * i);
-                unsigned char* rasterBuf = (raster->cpPixels + raster->stride * i);
+                RwUInt8* rasterBuf = (raster->cpPixels + raster->stride * i);
                 for (j = 0; j < raster->width; j += 2) {
                     *(imageBuf++) = buf[(*rasterBuf >> 4) & 0xF];
                     *(imageBuf++) = buf[*(rasterBuf++) & 0xF];
@@ -312,12 +311,12 @@ void _rwDlImage32GetFromRaster(RwImage* image, RwRaster* raster) {
         }
         case 8: {
             RwRGBA buf[256];
-            int i, j;
+            RwInt32 i, j;
             for (i = 0; i < 256; i++) {
-                fn(&buf[i], ((unsigned short*)raster->palette)[i]);
+                fn(&buf[i], ((RwUInt16*)raster->palette)[i]);
             }
             for (i = 0; i < raster->height; i++) {
-                unsigned char* rasterBuf = (raster->cpPixels + raster->stride * i);
+                RwUInt8* rasterBuf = (raster->cpPixels + raster->stride * i);
                 RwRGBA* imageBuf = (RwRGBA*)(image->cpPixels + image->stride * i);
                 for (j = 0; j < raster->width; rasterBuf++, j++) {
                     *(imageBuf++) = buf[*(rasterBuf)];
@@ -326,9 +325,9 @@ void _rwDlImage32GetFromRaster(RwImage* image, RwRaster* raster) {
             break;
         }
         case 16: {
-            int i, j;
+            RwInt32 i, j;
             for (i = 0; i < raster->height; i++) {
-                unsigned short* rasterBuf = (unsigned short*)(raster->cpPixels + raster->stride * i);
+                RwUInt16* rasterBuf = (RwUInt16*)(raster->cpPixels + raster->stride * i);
                 RwRGBA* imageBuf = (RwRGBA*)(image->cpPixels + image->stride * i);
                 for (j = 0; j < raster->width; j++) {
                     fn(imageBuf, *rasterBuf);
@@ -343,9 +342,9 @@ void _rwDlImage32GetFromRaster(RwImage* image, RwRaster* raster) {
             break;
         }
         case 32: {
-            int i, j;
+            RwInt32 i, j;
             for (i = 0; i < raster->height; i++) {
-                unsigned int* rasterBuf = (unsigned int*)(raster->cpPixels + raster->stride * i);
+                RwUInt32* rasterBuf = (RwUInt32*)(raster->cpPixels + raster->stride * i);
                 RwRGBA* imageBuf = (RwRGBA*)(image->cpPixels + image->stride * i);
                 for (j = 0; j < raster->width; j++) {
                     fn(imageBuf, *rasterBuf);
@@ -362,20 +361,20 @@ void _rwDlImage32GetFromRaster(RwImage* image, RwRaster* raster) {
     }
 }
 
-int _rwDlImageGetFromRaster(void* imagePtr, void* rasterPtr) {
+RwBool _rwDlImageGetFromRaster(void* imagePtr, void* rasterPtr) {
     RwImage* image = imagePtr;
     RwRaster* raster = rasterPtr;
-    int lockedRaster = 0;
-    int lockedPalette = 0;
+    RwBool lockedRaster = FALSE;
+    RwBool lockedPalette = FALSE;
 
     if (!(raster->privateFlags & rwRASTERPIXELLOCKEDREAD)) {
         RwRasterLock(raster, 0, 2);
-        lockedRaster = 1;
+        lockedRaster = TRUE;
     }
 
     if (((raster->cFormat & 0x60) << 8) && !(raster->privateFlags & rwRASTERPALETTELOCKEDREAD)) {
         RwRasterLockPalette(raster, 2);
-        lockedPalette = 1;
+        lockedPalette = TRUE;
     }
 
     switch (image->depth) {
@@ -394,14 +393,14 @@ int _rwDlImageGetFromRaster(void* imagePtr, void* rasterPtr) {
         }
     }
 
-    if (lockedPalette == 1) {
+    if (lockedPalette == TRUE) {
         RwRasterUnlockPalette(raster);
     }
-    if (lockedRaster == 1) {
+    if (lockedRaster == TRUE) {
         RwRasterUnlock(raster);
     }
 
-    return 1;
+    return TRUE;
 }
 
 ConvertFn _rwDlSelectConvertFn(RwRaster* raster) {
@@ -438,23 +437,23 @@ ConvertFn _rwDlSelectConvertFn(RwRaster* raster) {
     return fn;
 }
 
-extern int _RwGameCubeRasterExtOffset;
+extern RwInt32 _RwGameCubeRasterExtOffset;
 // Equivalent?
 void _rwDlRasterPalletized4SetFromImage(RwRaster* raster, RwImage* image) {
-    int offset = _RwGameCubeRasterExtOffset;
-    unsigned char* unkPtr = (unsigned char*)(raster->parent) + offset;
+    RwInt32 offset = _RwGameCubeRasterExtOffset;
+    RwUInt8* unkPtr = (RwUInt8*)(raster->parent) + offset;
     ConvertFn fn = _rwDlSelectConvertFn(raster);
 
     switch (image->depth) {
         case 4: {
-            int i;
-            unsigned short* rPalette;
-            int j;
+            RwInt32 i;
+            RwUInt16* rPalette;
+            RwInt32 j;
             for (i = 0; i < raster->height; i++) {
-                unsigned char* imageBuf = (unsigned char*)(image->cpPixels + image->stride * i);
-                unsigned char* rasterBuf = (unsigned char*)(raster->cpPixels + raster->stride * i);
+                RwUInt8* imageBuf = (RwUInt8*)(image->cpPixels + image->stride * i);
+                RwUInt8* rasterBuf = (RwUInt8*)(raster->cpPixels + raster->stride * i);
                 for (j = 0; j < raster->width; j += 2) {
-                    int value = (*(imageBuf++) & 0xF) << 4;
+                    RwInt32 value = (*(imageBuf++) & 0xF) << 4;
                     value |= *(imageBuf++) & 0xF;
                     *(rasterBuf++) = value;
                 }
@@ -464,7 +463,7 @@ void _rwDlRasterPalletized4SetFromImage(RwRaster* raster, RwImage* image) {
                 return;
             }
 
-            rPalette = (unsigned short*)raster->palette;
+            rPalette = (RwUInt16*)raster->palette;
             for (i = 0; i < 16; i++) {
                 (rPalette[i]) = fn(&image->palette[i]);
             }
@@ -472,7 +471,7 @@ void _rwDlRasterPalletized4SetFromImage(RwRaster* raster, RwImage* image) {
         }
         case 8:
         case 32: {
-            int depth = raster->depth;
+            RwInt32 depth = raster->depth;
             RwImage* temp = RwImageCreate(image->width, image->height, depth);
             if (temp == NULL) {
                 temp = NULL;
@@ -510,14 +509,14 @@ void _rwDlRasterPalletized8SetFromImage(RwRaster* raster, RwImage* image) {
     switch (image->depth) {
         case 4:
         case 8: {
-            int i;
-            int offset = _RwGameCubeRasterExtOffset;
-            unsigned char* unkPtr = (unsigned char*)(raster->parent) + offset;
-            int j;
-            unsigned short* rPalette;
+            RwInt32 i;
+            RwInt32 offset = _RwGameCubeRasterExtOffset;
+            RwUInt8* unkPtr = (RwUInt8*)(raster->parent) + offset;
+            RwInt32 j;
+            RwUInt16* rPalette;
             for (i = 0; i < raster->height; i++) {
-                unsigned char* imageBuf = (unsigned char*)(image->cpPixels + image->stride * i);
-                unsigned char* rasterBuf = (unsigned char*)(raster->cpPixels + raster->stride * i);
+                RwUInt8* imageBuf = (RwUInt8*)(image->cpPixels + image->stride * i);
+                RwUInt8* rasterBuf = (RwUInt8*)(raster->cpPixels + raster->stride * i);
                 for (j = 0; j < raster->width; j++) {
                     *rasterBuf = *imageBuf;
                     rasterBuf++;
@@ -529,14 +528,14 @@ void _rwDlRasterPalletized8SetFromImage(RwRaster* raster, RwImage* image) {
                 return;
             }
 
-            rPalette = (unsigned short*)raster->palette;
+            rPalette = (RwUInt16*)raster->palette;
             for (i = 0; i < 1 << image->depth; i++) {
                 (rPalette[i]) = fn(&image->palette[i]);
             }
             break;
         }
         case 32: {
-            int depth = raster->depth;
+            RwInt32 depth = raster->depth;
             RwImage* temp = RwImageCreate(image->width, image->height, depth);
             if (temp == NULL) {
                 temp = NULL;
@@ -573,14 +572,14 @@ void _rwDlRaster16SetFromImage(RwRaster* raster, RwImage* image) {
     switch (image->depth) {
         case 4:
         case 8: {
-            unsigned short buf[256];
-            int i, j;
+            RwUInt16 buf[256];
+            RwInt32 i, j;
             for (i = 0; i < 1 << image->depth; i++) {
                 (buf[i]) = fn(&image->palette[i]);
             }
             for (i = 0; i < raster->height; i++) {
-                unsigned char* imageBuf = (unsigned char*)(image->cpPixels + image->stride * i);
-                unsigned short* rasterBuf = (unsigned short*)(raster->cpPixels + raster->stride * i);
+                RwUInt8* imageBuf = (RwUInt8*)(image->cpPixels + image->stride * i);
+                RwUInt16* rasterBuf = (RwUInt16*)(raster->cpPixels + raster->stride * i);
                 for (j = 0; j < raster->width; j++) {
                     *rasterBuf = buf[*imageBuf];
                     imageBuf++;
@@ -591,10 +590,10 @@ void _rwDlRaster16SetFromImage(RwRaster* raster, RwImage* image) {
             break;
         }
         case 32: {
-            int i, j;
+            RwInt32 i, j;
             for (i = 0; i < raster->height; i++) {
                 RwRGBA* imageBuf = (RwRGBA*)(image->cpPixels + image->stride * i);
-                unsigned short* rasterBuf = (unsigned short*)(raster->cpPixels + raster->stride * i);
+                RwUInt16* rasterBuf = (RwUInt16*)(raster->cpPixels + raster->stride * i);
                 for (j = 0; j < raster->width; j++) {
                     *rasterBuf = fn(imageBuf);
                     rasterBuf++;
@@ -618,14 +617,14 @@ void _rwDlRaster32SetFromImage(RwRaster* raster, RwImage* image) {
     switch (image->depth) {
         case 4:
         case 8: {
-            unsigned int buf[256];
-            int i, j;
+            RwUInt32 buf[256];
+            RwInt32 i, j;
             for (i = 0; i < 1 << image->depth; i++) {
                 (buf[i]) = fn(&image->palette[i]);
             }
             for (i = 0; i < raster->height; i++) {
-                unsigned char* imageBuf = (unsigned char*)(image->cpPixels + image->stride * i);
-                unsigned int* rasterBuf = (unsigned int*)(raster->cpPixels + raster->stride * i);
+                RwUInt8* imageBuf = (RwUInt8*)(image->cpPixels + image->stride * i);
+                RwUInt32* rasterBuf = (RwUInt32*)(raster->cpPixels + raster->stride * i);
                 for (j = 0; j < raster->width; j++) {
                     *rasterBuf = buf[*imageBuf];
                     imageBuf++;
@@ -636,10 +635,10 @@ void _rwDlRaster32SetFromImage(RwRaster* raster, RwImage* image) {
             break;
         }
         case 32: {
-            int i, j;
+            RwInt32 i, j;
             for (i = 0; i < raster->height; i++) {
                 RwRGBA* imageBuf = (RwRGBA*)(image->cpPixels + image->stride * i);
-                unsigned int* rasterBuf = (unsigned int*)(raster->cpPixels + raster->stride * i);
+                RwUInt32* rasterBuf = (RwUInt32*)(raster->cpPixels + raster->stride * i);
                 for (j = 0; j < raster->width; j++) {
                     *rasterBuf = fn(imageBuf);
                     rasterBuf++;
@@ -657,25 +656,25 @@ void _rwDlRaster32SetFromImage(RwRaster* raster, RwImage* image) {
 }
 
 // Incomplete
-int _rwDlRasterSetFromImage(void* rasterPtr, void* imagePtr) {
+RwBool _rwDlRasterSetFromImage(void* rasterPtr, void* imagePtr) {
     RwImage* image = imagePtr;
     RwRaster* raster = rasterPtr;
-    int lockedPalette = 0;
-    int lockedRaster = 0;
-    int cFormat = (raster->cFormat & 0xFF) << 8;
-    int cFormatPal;
+    RwBool lockedPalette = FALSE;
+    RwBool lockedRaster = FALSE;
+    RwInt32 cFormat = (raster->cFormat & 0xFF) << 8;
+    RwInt32 cFormatPal;
 
     lockedRaster = (raster->privateFlags & rwRASTERPIXELLOCKEDWRITE);
     if (!lockedRaster) {
         if (!RwRasterLock(raster, 0, 5)) {
-            return 0;
+            return FALSE;
         }
     } else {
         cFormatPal = cFormat & (rwRASTERFORMATPAL4 | rwRASTERFORMATPAL8);
         lockedPalette = (raster->privateFlags & rwRASTERPALETTELOCKEDWRITE);
         if (!(cFormatPal) || lockedPalette) {
             if (!RwRasterLockPalette(raster, 5)) {
-                return 0;
+                return FALSE;
             }
         }
     }
@@ -710,24 +709,24 @@ int _rwDlRasterSetFromImage(void* rasterPtr, void* imagePtr) {
         RwRasterUnlock(raster);
     }
 
-    return 1;
+    return TRUE;
 }
 
 // Equivalent?
 RwRasterFormat _rwDlImageFindFormat(RwImage* image) {
     RwRasterFormat format;
-    int bVar2 = 0;
+    RwBool bVar2 = FALSE;
     if (image->depth == 4 || image->depth == 8) {
         int width = image->width;
         int height = image->height;
-        unsigned char* pixels = image->cpPixels;
+        RwUInt8* pixels = image->cpPixels;
         RwRGBA* palette = image->palette;
-        int i, j;
+        RwInt32 i, j;
         for (i = 0; i < height; i++) {
             for (j = 0; j < width; j++, pixels++) {
-                unsigned char alpha = palette[*pixels].alpha;
+                RwUInt8 alpha = palette[*pixels].alpha;
                 if (alpha != 0xFF) {
-                    bVar2 = 1;
+                    bVar2 = TRUE;
                     if (alpha > 0xF) {
                         format = rwRASTERFORMAT4444;
                         if (image->depth == 4) {
@@ -742,13 +741,13 @@ RwRasterFormat _rwDlImageFindFormat(RwImage* image) {
             pixels += image->stride;
         }
     } else {
-        int width = image->width;
-        int height = image->height;
-        unsigned char* pixels = image->cpPixels;
-        int i, j;
+        RwInt32 width = image->width;
+        RwInt32 height = image->height;
+        RwUInt8* pixels = image->cpPixels;
+        RwInt32 i, j;
         for (i = 0; i < height; i++) {
             for (j = 0; j < width; j++) {
-                unsigned char alpha = pixels[3];
+                RwUInt8 alpha = pixels[3];
                 if (alpha != 0xFF) {
                     bVar2 = 1;
                     if (alpha > 0xF) {
@@ -775,7 +774,7 @@ RwRasterFormat _rwDlImageFindFormat(RwImage* image) {
     return format;
 }
 
-int _rwDlImageFindRasterFormat(void* rasterPtr, void* imagePtr, int a2) {
+RwBool _rwDlImageFindRasterFormat(void* rasterPtr, void* imagePtr, RwInt32 a2) {
     RwRaster* raster = rasterPtr;
     RwImage* image = imagePtr;
 
@@ -785,7 +784,7 @@ int _rwDlImageFindRasterFormat(void* rasterPtr, void* imagePtr, int a2) {
         case rwRASTERTYPENORMAL:
         case rwRASTERTYPETEXTURE:
         case rwRASTERTYPECAMERATEXTURE: {
-            int format;
+            RwInt32 format;
             raster->width = (image->width <= 1024) ? image->width : 1024;
             raster->height = (image->height <= 1024) ? image->height : 1024;
 
@@ -796,18 +795,18 @@ int _rwDlImageFindRasterFormat(void* rasterPtr, void* imagePtr, int a2) {
 
             format = _rwDlImageFindFormat(image);
             raster->cFormat = (format | (a2 & 0x9000)) >> 8;
-            return 1;
+            return TRUE;
         }
         case rwRASTERTYPEZBUFFER:
         case rwRASTERTYPECAMERA:
             raster->cFormat = 0;
             raster->width = image->width;
             raster->height = image->height;
-            return 1;
+            return TRUE;
         default:
         case rwRASTERTYPEUNK3: {
             RwThrowError(1, E_RW_INVRASTERFORMAT);
-            return 0;
+            return FALSE;
         }
     }
 }

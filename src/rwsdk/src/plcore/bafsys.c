@@ -16,7 +16,7 @@ static int rwfexist(const char* path) {
     return result;
 }
 
-int _rwFileSystemOpen(void) {
+RwBool _rwFileSystemOpen(void) {
     RwEngineInstance->fileFuncs.rwfexist = rwfexist;
     RwEngineInstance->fileFuncs.rwfopen = fopen;
     RwEngineInstance->fileFuncs.rwfclose = fclose;
@@ -28,7 +28,7 @@ int _rwFileSystemOpen(void) {
     RwEngineInstance->fileFuncs.rwfseek = fseek;
     RwEngineInstance->fileFuncs.rwfflush = fflush;
     RwEngineInstance->fileFuncs.rwftell = ftell;
-    return 1;
+    return TRUE;
 }
 
 void _rwFileSystemClose() {

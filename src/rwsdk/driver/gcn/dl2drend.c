@@ -9,11 +9,11 @@
 
 extern RwTexture* _RwDlTexture;
 extern GXRenderModeObj* _RwDlRenderMode;
-extern int _RwDlFSAA;
-extern int _RwDlFSAATop;
-extern int _RwDlHalfHeight;
+extern RwBool _RwDlFSAA;
+extern RwBool _RwDlFSAATop;
+extern RwInt32 _RwDlHalfHeight;
 
-static float _rwDlProjectionMatrix[7];
+static RwReal _rwDlProjectionMatrix[7];
 
 static GXPrimitive _rwDlPrimConvTbl[] = {
     0,
@@ -28,12 +28,12 @@ static GXPrimitive _rwDlPrimConvTbl[] = {
 extern void _rwDlTextureRasterFlush(void);
 
 void _rw2DRenderPrimitiveInit(void) {
-    static float posMatrix[3][4] = {
+    static RwReal posMatrix[3][4] = {
          1.0f,  0.0f,  0.0f, 0.0f,
          0.0f,  1.0f,  0.0f, 0.0f,
          0.0f,  0.0f, -1.0f, 0.0f,
     };
-    float ortho[4][4];
+    RwReal ortho[4][4];
 
     GXClearVtxDesc();
     GXSetVtxDesc(GX_VA_POS, GX_DIRECT);
@@ -125,7 +125,7 @@ static void _rw2DRenderPrimativeTerm(void) {
 }
 
 // Equivalent: regalloc
-int _rwDlIm2DRenderTriangle(struct rwGameCube2DVertex* vertices, int, int a2, int a3, int a4) {
+RwBool _rwDlIm2DRenderTriangle(struct rwGameCube2DVertex* vertices, RwInt32, RwInt32 a2, RwInt32 a3, RwInt32 a4) {
     struct rwGameCube2DVertex* v1 = &vertices[a2];
     struct rwGameCube2DVertex* v2 = &vertices[a3];
     struct rwGameCube2DVertex* v3 = &vertices[a4];
@@ -157,11 +157,11 @@ int _rwDlIm2DRenderTriangle(struct rwGameCube2DVertex* vertices, int, int a2, in
     }
 
     _rw2DRenderPrimativeTerm();
-    return 1;
+    return TRUE;
 }
 
 // Equivalent: regalloc
-int _rwDlIm2DRenderLine(struct rwGameCube2DVertex* vertices, int, int a2, int a3) {
+RwBool _rwDlIm2DRenderLine(struct rwGameCube2DVertex* vertices, RwInt32, RwInt32 a2, RwInt32 a3) {
     struct rwGameCube2DVertex* v1 = &vertices[a2];
     struct rwGameCube2DVertex* v2 = &vertices[a3];
 
@@ -185,11 +185,11 @@ int _rwDlIm2DRenderLine(struct rwGameCube2DVertex* vertices, int, int a2, int a3
     }
 
     _rw2DRenderPrimativeTerm();
-    return 1;
+    return TRUE;
 }
 
 // Incomplete
-int _rwDlIm2DRenderPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* vertices, int numVertices) {
+RwBool _rwDlIm2DRenderPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* vertices, RwInt32 numVertices) {
     _rw2DRenderPrimitiveInit();
     GXBegin(_rwDlPrimConvTbl[type], 0, numVertices);
 
@@ -198,14 +198,14 @@ int _rwDlIm2DRenderPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* ve
         case rwPRIMTYPETRISTRIP:
         case rwPRIMTYPETRIFAN: {
             if (_RwDlTexture->raster != NULL) {
-                int i;
+                RwInt32 i;
                 for (i = 0; i != numVertices; i++) {
                     GXPosition3f32(vertices[i].x, vertices[i].y, vertices[i].z);
                     GXColor4u8(vertices[i].r, vertices[i].g, vertices[i].b, vertices[i].a);
                     GXTexCoord2f32(vertices[i].u, vertices[i].v);
                 }
             } else {
-                int i;
+                RwInt32 i;
                 for (i = 0; i != numVertices; i++) {
                     GXPosition3f32(vertices[i].x, vertices[i].y, vertices[i].z);
                     GXColor4u8(vertices[i].r, vertices[i].g, vertices[i].b, vertices[i].a);
@@ -215,7 +215,7 @@ int _rwDlIm2DRenderPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* ve
         }
         case rwPRIMTYPELINELIST: {
             if (_RwDlTexture->raster != NULL) {
-                int i;
+                RwInt32 i;
                 struct rwGameCube2DVertex* vertex = vertices;
                 for (i = 0; i < numVertices; i += 2) {
                     struct rwGameCube2DVertex* vertex = &vertices[i];
@@ -228,7 +228,7 @@ int _rwDlIm2DRenderPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* ve
                     GXTexCoord2f32(vertex->u, vertex->v);
                 }
             } else {
-                int i;
+                RwInt32 i;
                 for (i = 0; i < numVertices; i += 2) {
                     struct rwGameCube2DVertex* vertex = &vertices[i];
                     GXPosition3f32(vertex->x, vertex->y, vertex->z);
@@ -241,9 +241,9 @@ int _rwDlIm2DRenderPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* ve
             break;
         }
         case rwPRIMTYPETRILIST: {
-            int unk = numVertices / 3;
+            RwInt32 unk = numVertices / 3;
             if (_RwDlTexture->raster != NULL) {
-                int i;
+                RwInt32 i;
                 for (i = 0; i < numVertices; i += 3) {
                     GXPosition3f32(vertices[i].x, vertices[i].y, vertices[i].z);
                     GXColor4u8(vertices[i].r, vertices[i].g, vertices[i].b, vertices[i].a);
@@ -258,7 +258,7 @@ int _rwDlIm2DRenderPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* ve
                     GXTexCoord2f32(vertices[i + 2].u, vertices[i + 2].v);
                 }
             } else {
-                int i;
+                RwInt32 i;
                 for (i = 0; i < numVertices; i += 3) {
                     GXPosition3f32(vertices[i].x, vertices[i].y, vertices[i].z);
                     GXColor4u8(vertices[i].r, vertices[i].g, vertices[i].b, vertices[i].a);
@@ -278,20 +278,20 @@ int _rwDlIm2DRenderPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* ve
     }
 
     _rw2DRenderPrimativeTerm();
-    return 1;
+    return TRUE;
 }
 
 // Incomplete
-int _rwDlIm2DRenderIndexedPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* vertices, int numVertices, unsigned short* indices, int numIndices) {
+RwBool _rwDlIm2DRenderIndexedPrimitive(RwPrimitiveType type, struct rwGameCube2DVertex* vertices, RwInt32 numVertices, RwUInt16* indices, RwInt32 numIndices) {
     _rw2DRenderPrimitiveInit();
-    GXBegin(_rwDlPrimConvTbl[type], 0, numIndices);
+    GXBegin(_rwDlPrimConvTbl[type], GX_VTXFMT0, numIndices);
 
     switch (type) {
         case rwPRIMTYPEPOLYLINE:
         case rwPRIMTYPETRISTRIP:
         case rwPRIMTYPETRIFAN: {
             if (_RwDlTexture->raster != NULL) {
-                int i;
+                RwInt32 i;
                 for (i = 0; i != numIndices; i++) {
                     struct rwGameCube2DVertex* vertex = &vertices[indices[i]];
                     GXPosition3f32(vertex->x, vertex->y, vertex->z);
@@ -299,7 +299,7 @@ int _rwDlIm2DRenderIndexedPrimitive(RwPrimitiveType type, struct rwGameCube2DVer
                     GXTexCoord2f32(vertex->u, vertex->v);
                 }
             } else {
-                int i;
+                RwInt32 i;
                 for (i = 0; i != numIndices; i++) {
                     struct rwGameCube2DVertex* vertex = &vertices[indices[i]];
                     GXPosition3f32(vertex->x, vertex->y, vertex->z);
@@ -310,7 +310,7 @@ int _rwDlIm2DRenderIndexedPrimitive(RwPrimitiveType type, struct rwGameCube2DVer
         }
         case rwPRIMTYPELINELIST: {
             if (_RwDlTexture->raster != NULL) {
-                int i;
+                RwInt32 i;
                 for (i = 0; i < numIndices; i += 2) {
                     struct rwGameCube2DVertex* vertex = &vertices[indices[i]];
                     GXPosition3f32(vertex->x, vertex->y, vertex->z);
@@ -322,7 +322,7 @@ int _rwDlIm2DRenderIndexedPrimitive(RwPrimitiveType type, struct rwGameCube2DVer
                     GXTexCoord2f32(vertex->u, vertex->v);
                 }
             } else {
-                int i;
+                RwInt32 i;
                 for (i = 0; i < numIndices; i += 2) {
                     struct rwGameCube2DVertex* vertex = &vertices[indices[i]];
                     GXPosition3f32(vertex->x, vertex->y, vertex->z);
@@ -335,9 +335,9 @@ int _rwDlIm2DRenderIndexedPrimitive(RwPrimitiveType type, struct rwGameCube2DVer
             break;
         }
         case rwPRIMTYPETRILIST: {
-            int unk = numVertices / 3;
+            RwInt32 unk = numVertices / 3;
             if (_RwDlTexture->raster != NULL) {
-                int i;
+                RwInt32 i;
                 for (i = 0; i < unk; i += 3) {
                     struct rwGameCube2DVertex* vertex = &vertices[indices[i]];
                     GXPosition3f32(vertex->x, vertex->y, vertex->z);
@@ -353,7 +353,7 @@ int _rwDlIm2DRenderIndexedPrimitive(RwPrimitiveType type, struct rwGameCube2DVer
                     GXTexCoord2f32(vertex->u, vertex->v);
                 }
             } else {
-                int i;
+                RwInt32 i;
                 for (i = 0; i < unk; i += 3) {
                     struct rwGameCube2DVertex* vertex = &vertices[indices[i]];
                     GXPosition3f32(vertex->x, vertex->y, vertex->z);
@@ -374,5 +374,5 @@ int _rwDlIm2DRenderIndexedPrimitive(RwPrimitiveType type, struct rwGameCube2DVer
     }
 
     _rw2DRenderPrimativeTerm();
-    return 1;
+    return TRUE;
 }

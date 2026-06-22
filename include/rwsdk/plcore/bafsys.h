@@ -1,6 +1,8 @@
 #ifndef RWSDK_PLCORE_BAFSYS_H
 #define RWSDK_PLCORE_BAFSYS_H
 
+#include <rwsdk/rwtypes.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -20,7 +22,7 @@ typedef struct RwFileFunctions {
 } RwFileFunctions; // size: 0x2C
 
 RwFileFunctions* RwOsGetFileInterface(void);
-int _rwFileSystemOpen(void);
+RwBool _rwFileSystemOpen(void);
 void _rwFileSystemClose(void);
 
 #ifdef __cplusplus

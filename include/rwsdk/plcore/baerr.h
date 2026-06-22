@@ -1,13 +1,15 @@
 #ifndef RWSDK_PLCORE_BAERR_H
 #define RWSDK_PLCORE_BAERR_H
 
+#include <rwsdk/rwtypes.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 typedef struct RwError {
-    int pluginID; // RwCorePluginID?
-    int errorCode;
+    RwInt32 pluginID; // RwCorePluginID?
+    RwInt32 errorCode;
 } RwError;
 
 typedef enum RwErrorCodeCommon {
@@ -47,10 +49,10 @@ typedef enum RwErrorCodePlugin_errcore {
         RwErrorSet(&error); \
     }
 
-void* _rwErrorOpen(void* unused, int offset, int);
-void* _rwErrorClose(void*, int, int);
+void* _rwErrorOpen(void* unused, RwInt32 offset, RwInt32);
+void* _rwErrorClose(void*, RwInt32, RwInt32);
 RwError* RwErrorSet(RwError* error);
-int _rwerror(int errorCode, ...);
+RwInt32 _rwerror(RwInt32 errorCode, ...);
 
 #ifdef __cplusplus
 }

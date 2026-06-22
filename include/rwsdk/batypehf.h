@@ -9,10 +9,10 @@ extern "C" {
 
 // Not sure where to put this yet
 typedef struct RwObject {
-    unsigned char type;
-    unsigned char subType;
-    unsigned char flags;
-    unsigned char privateFlags;
+    RwUInt8 type;
+    RwUInt8 subType;
+    RwUInt8 flags;
+    RwUInt8 privateFlags;
     void* parent;
 } RwObject;
 

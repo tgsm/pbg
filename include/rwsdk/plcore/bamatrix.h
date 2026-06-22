@@ -9,25 +9,25 @@ extern "C" {
 
 struct RwMatrixTag {
     RwV3d right;
-    unsigned int flags;
+    RwUInt32 flags;
     RwV3d up;
-    unsigned int pad1;
+    RwUInt32 pad1;
     RwV3d at;
-    unsigned int pad2;
+    RwUInt32 pad2;
     RwV3d pos;
-    unsigned int pad3;
+    RwUInt32 pad3;
 };
 typedef struct RwMatrixTag RwMatrix;
 
-void* _rwMatrixOpen(void*, int offset, int);
-void* _rwMatrixClose(void*, int, int);
+void* _rwMatrixOpen(void*, RwInt32 offset, RwInt32);
+void* _rwMatrixClose(void*, RwInt32, RwInt32);
 void RwMatrixUpdate(RwMatrix* matrix);
 void RwMatrixMultiply(RwMatrix* dest, RwMatrix* a, RwMatrix* b);
-RwMatrix* RwMatrixRotate(RwMatrix* matrix, RwV3d*, float, int);
-void RwMatrixScale(RwMatrix* matrix, RwV3d*, int);
-RwMatrix* RwMatrixTranslate(RwMatrix* matrix, RwV3d*, int);
-RwMatrix* RwMatrixTransform(RwMatrix* matrix, RwMatrix*, int);
-int RwMatrixDestroy(RwMatrix* matrix);
+RwMatrix* RwMatrixRotate(RwMatrix* matrix, RwV3d*, RwReal, RwInt32);
+void RwMatrixScale(RwMatrix* matrix, RwV3d*, RwInt32);
+RwMatrix* RwMatrixTranslate(RwMatrix* matrix, RwV3d*, RwInt32);
+RwMatrix* RwMatrixTransform(RwMatrix* matrix, RwMatrix*, RwInt32);
+RwBool RwMatrixDestroy(RwMatrix* matrix);
 RwMatrix* RwMatrixCreate(void);
 
 #ifdef __cplusplus

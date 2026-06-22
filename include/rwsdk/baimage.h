@@ -1,44 +1,46 @@
 #ifndef RWSDK_BAIMAGE_H
 #define RWSDK_BAIMAGE_H
 
+#include <rwsdk/rwtypes.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 typedef struct RwRGBA {
-    unsigned char red;
-    unsigned char green;
-    unsigned char blue;
-    unsigned char alpha;
+    RwUInt8 red;
+    RwUInt8 green;
+    RwUInt8 blue;
+    RwUInt8 alpha;
 } RwRGBA;
 
 typedef struct RwRGBAReal {
-    float red;
-    float green;
-    float blue;
-    float alpha;
+    RwReal red;
+    RwReal green;
+    RwReal blue;
+    RwReal alpha;
 } RwRGBAReal;
 
 typedef struct RwImage {
-    int flags;
-    int width;
-    int height;
-    int depth;
-    int stride;
-    unsigned char* cpPixels;
+    RwInt32 flags;
+    RwInt32 width;
+    RwInt32 height;
+    RwInt32 depth;
+    RwInt32 stride;
+    RwUInt8* cpPixels;
     RwRGBA* palette;
 } RwImage;
 
-void* _rwImageOpen(void*, int offset, int);
-void* _rwImageClose(void*, int, int);
-RwImage* RwImageCreate(int width, int height, int depth);
-int RwImageDestroy(RwImage* image);
+void* _rwImageOpen(void*, RwInt32 offset, RwInt32);
+void* _rwImageClose(void*, RwInt32, RwInt32);
+RwImage* RwImageCreate(RwInt32 width, RwInt32 height, RwInt32 depth);
+RwBool RwImageDestroy(RwImage* image);
 RwImage* RwImageAllocatePixels(RwImage* image);
 RwImage* RwImageFreePixels(RwImage* image);
-void RwImageSetPath(char* path);
+void RwImageSetPath(RwChar* path);
 RwImage* RwImageGammaCorrect(RwImage* image);
-float RwImageGetGamma(void);
-void RwImageSetGamma(float gamma);
+RwReal RwImageGetGamma(void);
+void RwImageSetGamma(RwReal gamma);
 
 #ifdef __cplusplus
 }

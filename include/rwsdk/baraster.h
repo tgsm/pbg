@@ -53,36 +53,36 @@ typedef enum RwRasterPrivateFlag {
 
 typedef struct RwRaster {
     struct RwRaster* parent;
-    unsigned char* cpPixels;
-    unsigned char* palette;
-    int width;
-    int height;
-    int depth;
-    int stride;
-    short nOffsetX;
-    short nOffsetY;
-    unsigned char cType;
-    unsigned char cFlags;
-    unsigned char privateFlags;
-    unsigned char cFormat;
-    unsigned char* originalPixels;
-    int originalWidth;
-    int originalHeight;
-    int originalStride;
+    RwUInt8* cpPixels;
+    RwUInt8* palette;
+    RwInt32 width;
+    RwInt32 height;
+    RwInt32 depth;
+    RwInt32 stride;
+    RwInt16 nOffsetX;
+    RwInt16 nOffsetY;
+    RwUInt8 cType;
+    RwUInt8 cFlags;
+    RwUInt8 privateFlags;
+    RwUInt8 cFormat;
+    RwUInt8* originalPixels;
+    RwInt32 originalWidth;
+    RwInt32 originalHeight;
+    RwInt32 originalStride;
 } RwRaster;
 
-void* _rwRasterOpen(void*, int offset, int);
-void* _rwRasterClose(void*, int, int);
-void* RwRasterLock(RwRaster* raster, int, int);
-RwRaster* RwRasterCreate(int width, int height, int depth, int);
-RwRaster* RwRasterShowRaster(RwRaster* raster, void*, unsigned int);
-int RwRasterGetNumLevels(RwRaster* raster);
-void* RwRasterLockPalette(RwRaster* raster, int);
-int RwRasterRegisterPlugin(int size, int a1, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB);
-int RwRasterDestroy(RwRaster* raster);
+void* _rwRasterOpen(void*, RwInt32 offset, RwInt32);
+void* _rwRasterClose(void*, RwInt32, RwInt32);
+void* RwRasterLock(RwRaster* raster, RwInt32, RwInt32);
+RwRaster* RwRasterCreate(RwInt32 width, RwInt32 height, RwInt32 depth, RwInt32);
+RwRaster* RwRasterShowRaster(RwRaster* raster, void*, RwUInt32);
+RwInt32 RwRasterGetNumLevels(RwRaster* raster);
+void* RwRasterLockPalette(RwRaster* raster, RwInt32);
+RwInt32 RwRasterRegisterPlugin(RwInt32 size, RwInt32 a1, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB);
+RwBool RwRasterDestroy(RwRaster* raster);
 RwRaster* RwRasterUnlockPalette(RwRaster* raster);
-RwRaster* RwRasterRender(RwRaster* raster, int, int);
-RwRaster* RwRasterRenderFast(RwRaster* raster, int, int);
+RwRaster* RwRasterRender(RwRaster* raster, RwInt32, RwInt32);
+RwRaster* RwRasterRenderFast(RwRaster* raster, RwInt32, RwInt32);
 RwRaster* RwRasterUnlock(RwRaster* raster);
 
 #ifdef __cplusplus
