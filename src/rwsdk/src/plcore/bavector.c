@@ -154,12 +154,12 @@ void RwV3dTransformVectors(RwV3d* a0, RwV3d* a1, int a2, RwMatrix* a3) {
 
 void* _rwVectorClose(void* a0, int, int) {
     if (((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->unk4 != NULL) {
-        RwEngineInstance->memoryFuncs.rwfree(((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->unk4);
+        RwFree(((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->unk4);
         ((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->unk4 = NULL;
     }
 
     if (((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->unk0 != NULL) {
-        RwEngineInstance->memoryFuncs.rwfree(((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->unk0);
+        RwFree(((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->unk0);
         ((UnkVectorStruct*)((int)RwEngineInstance + vectorModule.globalsOffset))->unk0 = NULL;
     }
 

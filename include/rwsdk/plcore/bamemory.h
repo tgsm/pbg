@@ -33,6 +33,11 @@ typedef struct RwMemoryFunctions {
     void* (*rwcalloc)(unsigned long n, unsigned long size);
 } RwMemoryFunctions; // size: 0x10
 
+#define RwMalloc(size) RwEngineInstance->memoryFuncs.rwmalloc(size)
+#define RwFree(ptr) RwEngineInstance->memoryFuncs.rwfree(ptr)
+#define RwRealloc(ptr, size) RwEngineInstance->memoryFuncs.rwrealloc(ptr, size)
+#define RwCalloc(n, size) RwEngineInstance->memoryFuncs.rwcalloc(n, size)
+
 int _rwMemoryOpen(RwMemoryFunctions* memoryFuncs);
 void _rwMemoryClose(void);
 void _rwFreeListEnable(int);

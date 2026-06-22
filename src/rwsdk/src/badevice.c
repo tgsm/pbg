@@ -86,18 +86,18 @@ static int CorePluginAttach(void) {
 }
 
 static void* MallocWrapper(RwFreeList* freeListMaybe) {
-    return RwEngineInstance->memoryFuncs.rwmalloc(freeListMaybe->entrySize);
+    return RwMalloc(freeListMaybe->entrySize);
 }
 
 static RwFreeList* FreeWrapper(RwFreeList* freeListMaybe, void* ptr) {
-    RwEngineInstance->memoryFuncs.rwfree(ptr);
+    RwFree(ptr);
     return freeListMaybe;
 }
 
 static int EngineOpen(RwDevice* device, void* a1) {
     void* globals;
     DONT_INLINE_HACK();
-    RwEngineInstance = (RwGlobals*)RwEngineInstance->memoryFuncs.rwmalloc(engineTKList.sizeOfStruct);
+    RwEngineInstance = (RwGlobals*)RwMalloc(engineTKList.sizeOfStruct);
     globals = RwEngineInstance;
     if (globals != NULL) {
         memcpy(globals, &staticGlobals, sizeof(RwGlobals));
@@ -110,7 +110,7 @@ static int EngineOpen(RwDevice* device, void* a1) {
         } else {
             RwEngineInstance = &staticGlobals;
             memcpy(&staticGlobals, globals, sizeof(RwGlobals));
-            RwEngineInstance->memoryFuncs.rwfree(globals);
+            RwFree(globals);
             return 0;
         }
     }
@@ -276,7 +276,7 @@ int RwEngineClose(void) {
         void* globals = RwEngineInstance;
         RwEngineInstance = &staticGlobals;
         memcpy(&staticGlobals, globals, sizeof(RwGlobals));
-        RwEngineInstance->memoryFuncs.rwfree(globals);
+        RwFree(globals);
         engineInstancesOpened--;
         RwEngineInstance->engineStatus = rwENGINESTATUSINITED;
     }

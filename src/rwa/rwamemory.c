@@ -3,12 +3,12 @@
 #include "rwa/rwamemory.h"
 
 void* _rwaMalloc(size_t size) {
-    return RwEngineInstance->memoryFuncs.rwmalloc(size);
+    return RwMalloc(size);
 }
 
 void* _rwaMallocAligned(size_t size) {
     void* aligned;
-    void* ptr = RwEngineInstance->memoryFuncs.rwmalloc(size + 32);
+    void* ptr = RwMalloc(size + 32);
     if (ptr != NULL) {
         aligned = (void*)(((int)ptr + 32) & ~0x1F);
         ((int*)aligned)[-1] = (int)ptr;
@@ -24,18 +24,18 @@ void _rwaFreeAligned(void* ptr) {
 }
 
 void _rwaFree(void* ptr) {
-    RwEngineInstance->memoryFuncs.rwfree(ptr);
+    RwFree(ptr);
 }
 
 void* _rwaCalloc(size_t n, size_t size) {
-    return RwEngineInstance->memoryFuncs.rwcalloc(n, size);
+    return RwCalloc(n, size);
 }
 
 // FIXME: hack
 #pragma peephole on
 
 static void* FakeCalloc(size_t n, size_t size) {
-    void* ptr = RwEngineInstance->memoryFuncs.rwmalloc(n * size);
+    void* ptr = RwMalloc(n * size);
     if (ptr != NULL) {
         memset(ptr, 0, n * size);
     }

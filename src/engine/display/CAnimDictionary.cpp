@@ -518,7 +518,7 @@ CMaterialAnimation* CAnimDictionary::LoadMaterialAnimation(std::string name, IRW
     xmd_data = NULL;
     offset = 0;
     do {
-        xmd_data = RwEngineInstance->memoryFuncs.rwrealloc(xmd_data, offset + 0x400);
+        xmd_data = RwRealloc(xmd_data, offset + 0x400);
         if (xmd_data == NULL) {
             return NULL;
         }
@@ -531,7 +531,7 @@ CMaterialAnimation* CAnimDictionary::LoadMaterialAnimation(std::string name, IRW
     xmd.Parse(xmd_data);
 
     ret = LoadMaterialAnimationFromChunk(name, &xmd.m_chunk_iterator);
-    RwEngineInstance->memoryFuncs.rwfree(xmd_data);
+    RwFree(xmd_data);
     return ret;
 }
 
@@ -806,7 +806,7 @@ CEventAnimation* CAnimDictionary::LoadEventAnimation(std::string name, IRWStream
     xmd_data = NULL;
     offset = 0;
     do {
-        xmd_data = RwEngineInstance->memoryFuncs.rwrealloc(xmd_data, offset + 0x400);
+        xmd_data = RwRealloc(xmd_data, offset + 0x400);
         if (xmd_data == NULL) {
             return NULL;
         }
@@ -817,14 +817,14 @@ CEventAnimation* CAnimDictionary::LoadEventAnimation(std::string name, IRWStream
 
     DkXmd::CXmdFile* xmd = new DkXmd::CXmdFile;
     if (xmd == NULL) {
-        RwEngineInstance->memoryFuncs.rwfree(xmd_data);
+        RwFree(xmd_data);
         return NULL;
     }
     xmd->Parse(xmd_data);
 
     ret = LoadEventAnimationFromChunk(name, &xmd->m_chunk_iterator, xmd, xmd_data);
     if (ret == NULL) {
-        RwEngineInstance->memoryFuncs.rwfree(xmd_data);
+        RwFree(xmd_data);
     }
     return ret;
 }

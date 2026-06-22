@@ -181,7 +181,7 @@ RwStream* RwStreamWrite(RwStream* stream, const void* src, unsigned int size) {
         }
         case rwSTREAMMEMORY:
             if (stream->Type.memory.memBlock == NULL) {
-                stream->Type.memory.memBlock = RwEngineInstance->memoryFuncs.rwmalloc(512);
+                stream->Type.memory.memBlock = RwMalloc(512);
                 if (stream->Type.memory.memBlock == NULL) {
                     RwThrowErrorParams(1, E_RW_NOMEM, 512);
                     return NULL;
@@ -196,7 +196,7 @@ RwStream* RwStreamWrite(RwStream* stream, const void* src, unsigned int size) {
                     newSize = stream->Type.memory.nSize + 512;
                 }
 
-                newPtr = RwEngineInstance->memoryFuncs.rwrealloc(stream->Type.memory.memBlock, newSize);
+                newPtr = RwRealloc(stream->Type.memory.memBlock, newSize);
                 if (newPtr == NULL) {
                     RwThrowErrorParams(1, E_RW_NOMEM, newSize - stream->Type.memory.nSize);
                     return NULL;

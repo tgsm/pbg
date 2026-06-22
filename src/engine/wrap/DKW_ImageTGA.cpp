@@ -251,7 +251,7 @@ CDKW_Image* CDKW_ImageTGA::ReadFromStream(const CDKW_Stream* stream) {
         case 2:
             switch (tgaHeader.image_pixel_depth) {
                 case 16: {
-                    U16* array = (U16*)RwEngineInstance->memoryFuncs.rwmalloc(tgaHeader.image_width * sizeof(U16));
+                    U16* array = (U16*)RwMalloc(tgaHeader.image_width * sizeof(U16));
                     if (tgaHeader.image_descriptor & 0x20) {
                         for (U32 i = 0; i < tgaHeader.image_height; i++) {
                             RwStreamRead((CDKW_Stream*)stream, array, tgaHeader.image_width * sizeof(U16));
@@ -280,12 +280,12 @@ CDKW_Image* CDKW_ImageTGA::ReadFromStream(const CDKW_Stream* stream) {
                             }
                         }
                     }
-                    RwEngineInstance->memoryFuncs.rwfree(array);
+                    RwFree(array);
                     break;
                 }
                 case 24: {
                     typedef U8 funnycolor[3];
-                    funnycolor* array = (funnycolor*)RwEngineInstance->memoryFuncs.rwmalloc(tgaHeader.image_width * sizeof(funnycolor));
+                    funnycolor* array = (funnycolor*)RwMalloc(tgaHeader.image_width * sizeof(funnycolor));
                     if (tgaHeader.image_descriptor & 0x20) {
                         for (int i = 0; i < tgaHeader.image_height; i++) {
                             RwStreamRead((CDKW_Stream*)stream, array, tgaHeader.image_width * sizeof(funnycolor));
@@ -310,12 +310,12 @@ CDKW_Image* CDKW_ImageTGA::ReadFromStream(const CDKW_Stream* stream) {
                             }
                         }
                     }
-                    RwEngineInstance->memoryFuncs.rwfree(array);
+                    RwFree(array);
                     break;
                 }
                 case 32: {
                     typedef U8 funnycolor[4];
-                    funnycolor* array = (funnycolor*)RwEngineInstance->memoryFuncs.rwmalloc(tgaHeader.image_width * sizeof(funnycolor));
+                    funnycolor* array = (funnycolor*)RwMalloc(tgaHeader.image_width * sizeof(funnycolor));
                     if (tgaHeader.image_descriptor & 0x20) {
                         for (U32 i = 0; i < tgaHeader.image_height; i++) {
                             RwStreamRead((CDKW_Stream*)stream, array, tgaHeader.image_width * sizeof(funnycolor));
@@ -340,7 +340,7 @@ CDKW_Image* CDKW_ImageTGA::ReadFromStream(const CDKW_Stream* stream) {
                             }
                         }
                     }
-                    RwEngineInstance->memoryFuncs.rwfree(array);
+                    RwFree(array);
                     break;
                 }
                 default:
@@ -396,13 +396,13 @@ CDKW_Image* CDKW_ImageTGA::ReadFromStream(const CDKW_Stream* stream) {
             }
 
             if (!(tgaHeader.image_descriptor & 0x20)) {
-                U8* pvVar6 = (U8*)RwEngineInstance->memoryFuncs.rwmalloc(tgaHeader.image_width);
+                U8* pvVar6 = (U8*)RwMalloc(tgaHeader.image_width);
                 for (int i = 0; i < tgaHeader.image_height / 2; i++) {
                     memcpy(pvVar6, pixels + i * tgaHeader.image_width, tgaHeader.image_width);
                     memcpy(pixels + i * tgaHeader.image_width, pixels + (tgaHeader.image_height - i - 1) * tgaHeader.image_width, tgaHeader.image_width);
                     memcpy(pixels + (tgaHeader.image_height - i - 1) * tgaHeader.image_width, pvVar6, tgaHeader.image_width);
                 }
-                RwEngineInstance->memoryFuncs.rwfree(pvVar6);
+                RwFree(pvVar6);
             }
             break;
         }
@@ -506,13 +506,13 @@ CDKW_Image* CDKW_ImageTGA::ReadFromStream(const CDKW_Stream* stream) {
             }
 
             if (!(tgaHeader.image_descriptor & 0x20)) {
-                U8* pvVar6 = (U8*)RwEngineInstance->memoryFuncs.rwmalloc(tgaHeader.image_width * 4);
+                U8* pvVar6 = (U8*)RwMalloc(tgaHeader.image_width * 4);
                 for (int i = 0; i < tgaHeader.image_height / 2; i++) {
                     memcpy(pvVar6, pixels + i * tgaHeader.image_width * 4, tgaHeader.image_width * 4);
                     memcpy(pixels + i * tgaHeader.image_width * 4, pixels + (tgaHeader.image_height - i - 1) * tgaHeader.image_width * 4, tgaHeader.image_width * 4);
                     memcpy(pixels + (tgaHeader.image_height - i - 1) * tgaHeader.image_width * 4, pvVar6, tgaHeader.image_width * 4);
                 }
-                RwEngineInstance->memoryFuncs.rwfree(pvVar6);
+                RwFree(pvVar6);
             }
 
             break;
@@ -586,7 +586,7 @@ CDKW_Image* CDKW_ImageTGA::Write(CDKW_Image* image, const char* path) {
     }
 
     pixels = image->cpPixels;
-    array = (U8*)RwEngineInstance->memoryFuncs.rwmalloc(image->width * image->height * 3);
+    array = (U8*)RwMalloc(image->width * image->height * 3);
     int height = image->height - 1;
     int iVar3 = height;
     int width = image->width;

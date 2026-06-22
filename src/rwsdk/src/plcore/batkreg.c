@@ -65,7 +65,7 @@ int _rwPluginRegistryClose(void) {
             }
 
             if (toolkitNonFLRegList != NULL) {
-                RwEngineInstance->memoryFuncs.rwfree(toolkitNonFLRegList);
+                RwFree(toolkitNonFLRegList);
                 toolkitNonFLRegList = NULL;
             }
         }
@@ -122,13 +122,13 @@ int _rwPluginRegistryAddPlugin(RwPluginRegistry* registry, int size, unsigned in
         }
 
         if (numRegToolkits == i) {
-            RwPluginRegistry** registries = (RwPluginRegistry**)RwEngineInstance->memoryFuncs.rwmalloc((numRegToolkits + 1) * sizeof(RwPluginRegistry*));
+            RwPluginRegistry** registries = (RwPluginRegistry**)RwMalloc((numRegToolkits + 1) * sizeof(RwPluginRegistry*));
             int j = 0;
             if (toolkitNonFLRegList != NULL) {
                 for (; j < numRegToolkits; j++) {
                     registries[j] = toolkitNonFLRegList[j];
                 }
-                RwEngineInstance->memoryFuncs.rwfree(toolkitNonFLRegList);
+                RwFree(toolkitNonFLRegList);
                 toolkitNonFLRegList = NULL;
             }
             registries[j] = registry;

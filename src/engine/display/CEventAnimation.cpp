@@ -26,7 +26,7 @@ void CEventAnimation::Release() {
     m_key_table = NULL;
 
     if (m_unk14 != NULL) {
-        RwEngineInstance->memoryFuncs.rwfree(m_unk14);
+        RwFree(m_unk14);
     }
     m_unk14 = NULL;
 

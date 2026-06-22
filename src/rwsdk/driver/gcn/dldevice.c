@@ -285,7 +285,7 @@ int _rwDlSystem(int fn, void* dest, void* a2, int param) {
             }
 
             iVar15 = ((_RwDlRenderMode->fbWidth + 0xF) & 0xFFF0) * _RwDlRenderMode->xfbHeight * 2;
-            _RwDl_FIFO_XFB = RwEngineInstance->memoryFuncs.rwmalloc(_RwDlFifoSize + iVar15 * 2 + 0x1F);
+            _RwDl_FIFO_XFB = RwMalloc(_RwDlFifoSize + iVar15 * 2 + 0x1F);
             _RwDlDefaultFifo = (void*)(((int)_RwDl_FIFO_XFB + 0x1F) & ~0x1F);
             DCInvalidateRange(_RwDlDefaultFifo, _RwDlFifoSize);
             _RwGCXFBDisp = (void*)((int)_RwDlDefaultFifo + _RwDlFifoSize);
@@ -297,7 +297,7 @@ int _rwDlSystem(int fn, void* dest, void* a2, int param) {
         }
         case rwDEVICESYSTEMCLOSE:
             GXFlush();
-            RwEngineInstance->memoryFuncs.rwfree(_RwDl_FIFO_XFB);
+            RwFree(_RwDl_FIFO_XFB);
             _RwGCXFBDisp = NULL;
             _RwDlDefaultFifoObj = NULL;
             _RwGCXFB1 = NULL;
