@@ -142,7 +142,7 @@ F32 CCamera::GetViewYOffset() {
 
 void CCamera::SetZNear(F32 near) {
     if (m_wrap_camera != NULL && near > 0.0f) {
-        RwCameraSetNearClipPlane(near, m_wrap_camera->m_rw_camera);
+        RwCameraSetNearClipPlane(m_wrap_camera->m_rw_camera, near);
     }
 }
 
@@ -156,7 +156,7 @@ F32 CCamera::GetZNear() {
 
 void CCamera::SetZFar(F32 far) {
     if (m_wrap_camera != NULL && far > 0.0f) {
-        RwCameraSetFarClipPlane(far, m_wrap_camera->m_rw_camera);
+        RwCameraSetFarClipPlane(m_wrap_camera->m_rw_camera, far);
     }
 }
 

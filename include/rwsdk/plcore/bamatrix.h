@@ -21,6 +21,7 @@ typedef struct RwMatrixTag RwMatrix;
 
 void* _rwMatrixOpen(void*, RwInt32 offset, RwInt32);
 void* _rwMatrixClose(void*, RwInt32, RwInt32);
+void RwMatrixOptimize(RwMatrix* matrix, RwReal* unk);
 void RwMatrixUpdate(RwMatrix* matrix);
 void RwMatrixMultiply(RwMatrix* dest, RwMatrix* a, RwMatrix* b);
 RwMatrix* RwMatrixRotate(RwMatrix* matrix, RwV3d*, RwReal, RwInt32);

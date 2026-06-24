@@ -21,6 +21,13 @@ typedef struct RwRGBAReal {
     RwReal alpha;
 } RwRGBAReal;
 
+typedef enum RwImageFlag {
+    rwNAIMAGEFLAG = 0,
+    rwIMAGEALLOCATED = 1,
+    rwIMAGEGAMMACORRECTED = 2,
+    rwIMAGEFLAGFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwImageFlag;
+
 typedef struct RwImage {
     RwInt32 flags;
     RwInt32 width;
@@ -37,7 +44,7 @@ RwImage* RwImageCreate(RwInt32 width, RwInt32 height, RwInt32 depth);
 RwBool RwImageDestroy(RwImage* image);
 RwImage* RwImageAllocatePixels(RwImage* image);
 RwImage* RwImageFreePixels(RwImage* image);
-void RwImageSetPath(RwChar* path);
+RwChar* RwImageSetPath(RwChar* path);
 RwImage* RwImageGammaCorrect(RwImage* image);
 RwReal RwImageGetGamma(void);
 void RwImageSetGamma(RwReal gamma);

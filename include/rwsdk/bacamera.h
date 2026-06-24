@@ -1,6 +1,7 @@
 #ifndef RWSDK_BACAMERA_H
 #define RWSDK_BACAMERA_H
 
+#include <rwsdk/babbox.h>
 #include <rwsdk/baimage.h>
 #include <rwsdk/baraster.h>
 #include <rwsdk/batypehf.h>
@@ -17,10 +18,33 @@ typedef enum RwCameraProjection {
     rwCAMERAPROJECTIONFORCEENUMSIZEINT = 0x7FFFFFFF,
 } RwCameraProjection;
 
+typedef struct RwCamera* (* RwCameraBeginUpdateFunc)(struct RwCamera*);
+typedef struct RwCamera* (* RwCameraEndUpdateFunc)(struct RwCamera*);
+
+typedef struct RwPlane {
+    RwV3d normal;
+    RwReal distance;
+} RwPlane;
+
+typedef struct RwFrustumPlane {
+    RwPlane plane;
+    RwUInt8 closestX;
+    RwUInt8 closestY;
+    RwUInt8 closestZ;
+    RwUInt8 pad;
+} RwFrustumPlane;
+
+// FIXME: Find a home for this.
+typedef struct RwSphere {
+    RwV3d center;
+    RwReal radius;
+} RwSphere;
+
 typedef struct RwCamera {
     RwObjectHasFrame object;
     RwCameraProjection projectionType;
-    RwUInt8 unk18[0x20 - 0x18];
+    RwCameraBeginUpdateFunc beginUpdate;
+    RwCameraEndUpdateFunc endUpdate;
     RwMatrix viewMatrix;
     RwRaster* frameBuffer;
     RwRaster* zBuffer;
@@ -32,14 +56,17 @@ typedef struct RwCamera {
     RwReal fogPlane;
     RwReal zScale;
     RwReal zShift;
-    RwUInt8 unk94[0x188 - 0x94];
+    RwUInt8 unk94[4];
+    RwFrustumPlane frustumPlanes[6];
+    RwBBox frustumBoundBox;
+    RwV3d frustumCorners[8];
 } RwCamera; // size: 0x188
 
 void* _rwCameraOpen(void*, RwInt32 offset, RwInt32);
 void* _rwCameraClose(void*, RwInt32, RwInt32);
 RwCamera* RwCameraSetViewOffset(RwCamera* camera, RwV2d* viewOffset);
-RwCamera* RwCameraSetNearClipPlane(RwReal nearPlane, RwCamera* camera);
-RwCamera* RwCameraSetFarClipPlane(RwReal farPlane, RwCamera* camera);
+RwCamera* RwCameraSetNearClipPlane(RwCamera* camera, RwReal nearPlane);
+RwCamera* RwCameraSetFarClipPlane(RwCamera* camera, RwReal farPlane);
 RwCamera* RwCameraClear(RwCamera* camera, RwRGBA* clear_color, RwInt32);
 RwCamera* RwCameraSetProjection(RwCamera* camera, RwCameraProjection projectionType);
 RwCamera* RwCameraSetViewWindow(RwCamera* camera, RwV2d* viewWindow);
