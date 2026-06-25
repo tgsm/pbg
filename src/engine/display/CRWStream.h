@@ -2,14 +2,13 @@
 #define ENGINE_DISPLAY_CRWSTREAM_H
 
 #include <rwsdk/plcore/bastream.h>
+#include <rwsdk/plugin/dmorph/dmphanim.h>
 #include "engine/display/CAnimation.h"
 #include "engine/display/IRWStream.h"
 #include "engine/wrap/DKW_Clump.h"
 #include "engine/wrap/DKW_Spline.h"
 
 class CDKW_Stream : public RwStream {};
-
-struct RpDMorphAnimation;
 
 namespace DKDSP {
 

@@ -1098,7 +1098,7 @@ config.libs = [
     RenderWareLib(
         "rpdmorph", "GC/1.3.2",
         [
-            Object(NonMatching, "rwsdk/plugin/dmorph/dmphanim.c"),
+            Object(Equivalent, "rwsdk/plugin/dmorph/dmphanim.c"),
             Object(NonMatching, "rwsdk/plugin/dmorph/dmphgeom.c"),
             Object(NonMatching, "rwsdk/plugin/dmorph/dmphintp.c"),
             Object(NonMatching, "rwsdk/plugin/dmorph/rpdmorph.c"),
