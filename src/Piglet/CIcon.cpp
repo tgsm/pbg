@@ -37,20 +37,17 @@ CIcon::~CIcon() {
 
 }
 
-extern "C" void RwRenderStateGet(int, void*);
-extern "C" void RwRenderStateSet(int, int);
-
 void CIcon::BeginRender(DKDSP::IEngine* engine, DKDSP::ICamera* camera, DKDSP::IScene* scene) {
     ms_pCamera = (DKDSP::CCamera*)camera;
     ms_pEngine = (DKDSP::CEngine*)engine;
     ms_pScene = (DKDSP::CScene*)scene;
 
-    RwRenderStateGet(12, &m_backupVertexAlpha);
-    RwRenderStateGet(8, &m_backupZWrite);
-    RwRenderStateGet(6, &m_backupZTest);
-    RwRenderStateGet(20, &m_backupCullMode);
-    RwRenderStateGet(10, &m_backupSrcBlend);
-    RwRenderStateGet(11, &m_backupDestBlend);
+    RwRenderStateGet(rwRENDERSTATEVERTEXALPHAENABLE, &m_backupVertexAlpha);
+    RwRenderStateGet(rwRENDERSTATEZWRITEENABLE, &m_backupZWrite);
+    RwRenderStateGet(rwRENDERSTATEZTESTENABLE, &m_backupZTest);
+    RwRenderStateGet(rwRENDERSTATECULLMODE, &m_backupCullMode);
+    RwRenderStateGet(rwRENDERSTATESRCBLEND, &m_backupSrcBlend);
+    RwRenderStateGet(rwRENDERSTATEDESTBLEND, &m_backupDestBlend);
 
     ms_pEngine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
     ms_pEngine->SetRenderState(rwRENDERSTATEZTESTENABLE, (void*)FALSE);

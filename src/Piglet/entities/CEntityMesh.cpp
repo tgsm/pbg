@@ -149,7 +149,6 @@ void CEntityMesh::DelFlag(U32 flag) {
 }
 
 extern "C" {
-extern void RwRenderStateSet(int, int);
 extern void _rwDlRenderStateSetAlphaComp(int);
 }
 
@@ -172,8 +171,8 @@ void CEntityMesh::Render(f32 dt) {
     m_entity_manager->GetGame()->m_display_engine->RegisterShadowMapValidationCallback(&m_smv_callback);
 
     if (m_mirror != NULL) {
-        RwRenderStateSet(10, 2);
-        RwRenderStateSet(11, 1);
+        RwRenderStateSet(rwRENDERSTATESRCBLEND, (void*)rwBLENDONE);
+        RwRenderStateSet(rwRENDERSTATEDESTBLEND, (void*)rwBLENDZERO);
         _rwDlRenderStateSetAlphaComp(3);
         GXSetAlphaCompare(GX_ALWAYS, 0, GX_AOP_AND, GX_ALWAYS, 0);
         m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(FALSE);
@@ -184,8 +183,8 @@ void CEntityMesh::Render(f32 dt) {
         m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(TRUE);
         _rwDlRenderStateSetAlphaComp(2);
         _rwDlRenderStateSetAlphaComp(3);
-        RwRenderStateSet(10, 5);
-        RwRenderStateSet(11, 6);
+        RwRenderStateSet(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
+        RwRenderStateSet(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
     }
 
     m_entity_manager->GetGame()->m_display_engine->RegisterShadowMapValidationCallback(NULL);

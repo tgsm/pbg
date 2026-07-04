@@ -59,7 +59,7 @@ REQUIRE_SIZE(CLoadingCallback, 0x44);
 class CInGameLoadingCallback : public CBaseLoadingCallback {
 public:
     CGame* m_game; // Overrides base m_game
-    DKDSP::CIm2DBatch* m_batch;
+    DKDSP::IIm2DBatch* m_batch;
     F32 m_unk10;
     F32 m_unk14;
 

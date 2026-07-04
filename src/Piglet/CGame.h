@@ -140,7 +140,7 @@ public:
     F32 m_unk5044;
     F32 m_unk5048;
     F32 m_unk504C;
-    DKDSP::CIm2DBatch* m_batch5050;
+    DKDSP::IIm2DBatch* m_batch5050;
     size_t m_unk5054;
     U32 m_unk5058;
     DKDSP::CController* m_controller;

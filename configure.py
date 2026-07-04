@@ -704,7 +704,7 @@ config.libs = [
             Object(Matching, "engine/display/IImBatch.cpp"),
             Object(Matching, "engine/display/IIm2DBatch.cpp"),
             Object(NonMatching, "engine/display/CIm3DBatch.cpp"),
-            Object(NonMatching, "engine/display/CIm2DBatch.cpp"),
+            Object(Equivalent, "engine/display/CIm2DBatch.cpp"),
             Object(NonMatching, "engine/display/CParticleEmitter.cpp"),
             Object(NonMatching, "engine/display/IParticleEmitter.cpp"),
             Object(NonMatching, "engine/display/ITextureCallback.cpp"),

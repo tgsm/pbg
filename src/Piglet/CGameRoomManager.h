@@ -43,8 +43,8 @@ public:
     CDKW_V3d m_camera_target;
     U8 m_unk3C[0x40 - 0x3C];
     F32 m_unk40;
-    DKDSP::CIm2DBatch* m_batch44;
-    DKDSP::CIm2DBatch* m_batch48;
+    DKDSP::IIm2DBatch* m_batch44;
+    DKDSP::IIm2DBatch* m_batch48;
     CEntityNPC* m_unk4C;
     CEntitySeqKey* m_key_sequence_entity;
     CDKW_V3d m_unk54;
@@ -83,17 +83,17 @@ public:
     F32 m_unk118;
     F32 m_unk11C;
     int m_unk120;
-    DKDSP::CIm2DBatch* m_batch124;
+    DKDSP::IIm2DBatch* m_batch124;
     F32 m_unk128;
     F32 m_unk12C;
-    DKDSP::CIm2DBatch* m_batch130;
-    DKDSP::CIm2DBatch* m_batch134;
-    DKDSP::CIm2DBatch* m_batch138;
-    DKDSP::CIm2DBatch* m_batch13C;
+    DKDSP::IIm2DBatch* m_batch130;
+    DKDSP::IIm2DBatch* m_batch134;
+    DKDSP::IIm2DBatch* m_batch138;
+    DKDSP::IIm2DBatch* m_batch13C;
     F32 m_unk140;
     S8 m_unk144;
     // 3 padding bytes
-    DKDSP::CIm2DBatch* m_batch148;
+    DKDSP::IIm2DBatch* m_batch148;
     U8 m_unk14C[0x154 - 0x14C];
     U32 m_unk154; // color?
     F32 m_timer;

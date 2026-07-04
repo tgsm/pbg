@@ -594,10 +594,6 @@ CTimerGCN* CEngine::CreateTimer() {
     return reinterpret_cast<CTimerGCN*>(timer);
 }
 
-extern "C" {
-extern int RwRenderStateSet(RwRenderState, void*);
-}
-
 BOOL CEngine::SetRaster(IRaster* raster_) {
     CRaster* raster = (CRaster*)raster_;
     if (raster == NULL) {
