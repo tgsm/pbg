@@ -71,15 +71,13 @@ BOOL CImage::SetPixels(U8* pixels) {
     return (image == NULL) ? FALSE : TRUE;
 }
 
-// FIXME: Make CDKW_RGBA inherit RwRGBA
-
 CDKW_RGBA* CImage::GetPalette() {
     return (CDKW_RGBA*)m_wrap_image->palette;
 }
 
 BOOL CImage::SetPalette(CDKW_RGBA* palette) {
     CDKW_Image* image = m_wrap_image;
-    image->palette = (RwRGBA*)palette;
+    image->palette = palette;
     return (image == NULL) ? FALSE : TRUE;
 }
 
