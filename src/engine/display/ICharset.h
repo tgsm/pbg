@@ -2,11 +2,7 @@
 #define ENGINE_DISPLAY_ICHARSET_H
 
 #include "engine/wrap/DKW_RGBA.h"
-
-// TODO
-enum DKW_PrintPos {
-
-};
+#include "engine/wrap/DKW_Charset.h"
 
 namespace DKDSP {
 

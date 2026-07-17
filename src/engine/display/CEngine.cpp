@@ -16,7 +16,7 @@ U32 CEngine::ms_nUniquenessCounter;
 
 // Equivalent: std::vector
 CEngine::~CEngine() {
-    m_charset.SetDkWrapCharset(NULL, 0);
+    m_charset.SetDkWrapCharset(NULL, FALSE);
     Release();
 }
 
@@ -52,7 +52,7 @@ void* CEngine::Init(void* a1, void* a2, U32 screen_width, U32 screen_height) {
 
     m_wrap_engine->EngineInit(0, NULL);
 
-    m_charset.SetDkWrapCharset(CDKW_Engine::GetCharset(), 0);
+    m_charset.SetDkWrapCharset(CDKW_Engine::GetCharset(), FALSE);
     m_texture_dictionary.m_engine = this;
     m_anim_dictionary.m_engine = this;
     m_object_dictionary.m_engine = this;
@@ -106,7 +106,7 @@ void CEngine::Setup(int a1, int a2) {
 void CEngine::Start() {
     if (m_wrap_engine != NULL) {
         m_wrap_engine->PostInit();
-        m_charset.SetDkWrapCharset(CDKW_Engine::GetCharset(), 0);
+        m_charset.SetDkWrapCharset(CDKW_Engine::GetCharset(), FALSE);
         m_texture_dictionary.m_engine = this;
         m_anim_dictionary.m_engine = this;
         m_object_dictionary.m_engine = this;

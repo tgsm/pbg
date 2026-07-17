@@ -1,19 +1,32 @@
 #ifndef _MSL_STDARG_H
 #define _MSL_STDARG_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #ifdef __MWERKS__
-typedef struct {
+#ifdef __cplusplus
+namespace std {
+struct __tag_va_List {
+  char gpr;
+  char fpr;
+  char reserved[2];
+  char* input_arg_area;
+  char* reg_save_area;
+};
+}
+typedef std::__tag_va_List __va_list;
+#else
+typedef struct __va_list_struct {
   char gpr;
   char fpr;
   char reserved[2];
   char* input_arg_area;
   char* reg_save_area;
 } __va_list[1];
+#endif
 typedef __va_list va_list;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifndef __MWERKS__
 extern void __builtin_va_info(va_list*);

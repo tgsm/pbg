@@ -76,6 +76,9 @@ public:
         RwEngineGetVideoModeInfo(video_mode, a2);
     }
 
+    static CDKW_RGBA GetForegroundColor() {
+        return ms_ForegroundColor;
+    }
     static CDKW_RGBA GetBackgroundColor() {
         return ms_BackgroundColor;
     }
@@ -92,6 +95,7 @@ public:
     static BOOL ms_bAllowBufferization;
     static BOOL m_AllowPreclip;
     static BOOL ms_OrthoNormalizeCamera;
+    static CDKW_RGBA ms_ForegroundColor;
     static CDKW_RGBA ms_BackgroundColor;
 };
 
