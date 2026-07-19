@@ -14,12 +14,14 @@ CDKW_Frame* CDKW_Frame::GetInstance(RwFrame* rw_frame) {
     return *(CDKW_Frame**)((int)rw_frame + m_LocalOffset);
 }
 
-void CDKW_Frame::DataConstructor(void* a0, int a1, int a2) {
+void* CDKW_Frame::DataConstructor(void* a0, int a1, int a2) {
     RwFrame* frame = (RwFrame*)a0;
     if (CDKW_Frame::m_LocalOffset > 0) {
         *(CDKW_Frame**)((int)frame + m_LocalOffset) = NULL;
         *(U32*)((int)frame + m_LocalOffset + 4) = 0; // ?
     }
+
+    return frame;
 }
 
 void* CDKW_Frame::DataDestructor(void* a0, int a1, int a2) {

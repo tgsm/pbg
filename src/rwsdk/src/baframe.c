@@ -19,10 +19,9 @@ struct RwPluginRegistry frameTKList = {
 
 extern void _rwFrameSyncHierarchyLTM(RwFrame*);
 
-// FIXME: Unknown return/param type
-void* _rwFrameOpen(void* a0, RwInt32 globalsOffset, RwInt32) {
+void* _rwFrameOpen(void* object, RwInt32 offset, RwInt32) {
     static RwFreeList frameFreeList;
-    frameModule.globalsOffset = globalsOffset;
+    frameModule.globalsOffset = offset;
     *(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset) = RwFreeListCreateAndPreallocateSpace(frameTKList.sizeOfStruct, _rwFrameFreeListBlockSize, 4, _rwFrameFreeListPreallocBlocks, &frameFreeList);
     if (*(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset) == NULL) {
         return NULL;
@@ -32,17 +31,17 @@ void* _rwFrameOpen(void* a0, RwInt32 globalsOffset, RwInt32) {
     RwEngineInstance->dirtyFrameListMaybe.link.prev = &RwEngineInstance->dirtyFrameListMaybe.link;
 
     frameModule.numInstances++;
-    return a0;
+    return object;
 }
 
-void* _rwFrameClose(void* a0, RwInt32, RwInt32) {
+void* _rwFrameClose(void* object, RwInt32, RwInt32) {
     if (*(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset) != NULL) {
         RwFreeListDestroy(*(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset));
         *(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset) = NULL;
     }
 
     frameModule.numInstances--;
-    return a0;
+    return object;
 }
 
 // Equivalent: regalloc
@@ -53,6 +52,67 @@ static void rwSetHierarchyRoot(RwFrame* frame, RwFrame* root) {
     for (current = frame->child; current != NULL; current = current->next) {
         rwSetHierarchyRoot(current, root);
     }
+}
+
+static RwFrame* rwFrameCloneRecurse(RwFrame* frame, RwFrame* parent) {
+    RwFrame* clone = RwEngineInstance->memoryAlloc(*(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset));
+    RwFrame* child;
+    if (clone == NULL) {
+        return NULL;
+    }
+
+    if (parent == NULL) {
+        parent = clone;
+    }
+    clone->object.type = frame->object.type;
+    clone->object.subType = frame->object.subType;
+    clone->object.flags = frame->object.flags;
+    clone->object.privateFlags = frame->object.privateFlags;
+    clone->object.parent = NULL;
+    clone->objectList.link.next = &clone->objectList.link;
+    clone->objectList.link.prev = &clone->objectList.link;
+    clone->object.parent = NULL;
+    clone->modelling = frame->modelling;
+    clone->child = NULL;
+    clone->next = NULL;
+    clone->root = parent;
+    frame->root = clone;
+
+    for (child = frame->child; child != NULL; child = child->next) {
+        RwFrame* childClone = rwFrameCloneRecurse(child, parent);
+        if (childClone == NULL) {
+            RwFrameDestroyHierarchy(clone);
+            return NULL;
+        }
+
+        childClone->next = clone->child;
+        clone->child = childClone;
+        childClone->object.parent = clone;
+    }
+
+    _rwPluginRegistryInitObject(&frameTKList, clone);
+    _rwPluginRegistryCopyObject(&frameTKList, clone, frame);
+
+    return clone;
+}
+
+RwFrame* _rwFrameCloneAndLinkClones(RwFrame* frame) {
+    RwFrame* clone = rwFrameCloneRecurse(frame, NULL);
+    if (clone != NULL) {
+        clone->object.privateFlags &= ~((1 << 1) | (1 << 0));
+        RwFrameUpdateObjects(clone);
+    }
+    return clone;
+}
+
+RwFrame* _rwFramePurgeClone(RwFrame* frame) {
+    RwFrame* parent = (RwFrame*)frame->object.parent;
+    if (parent != NULL) {
+        rwSetHierarchyRoot(frame, parent->root);
+    } else {
+        rwSetHierarchyRoot(frame, frame);
+    }
+    return frame;
 }
 
 RwBool RwFrameDirty(RwFrame* frame) {
@@ -134,6 +194,36 @@ RwBool RwFrameDestroy(RwFrame* frame) {
     list = *(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset);
     RwEngineInstance->memoryFree(list, frame);
 
+    return TRUE;
+}
+
+static void FrameDestroyRecurseDeInitLeaf(RwFrame* frame) {
+    _rwPluginRegistryDeInitObject(&frameTKList, frame);
+    if (frame->object.privateFlags & ((1 << 1) | (1 << 0))) {
+        frame->inDirtyListLink.prev->next = frame->inDirtyListLink.next;
+        frame->inDirtyListLink.next->prev = frame->inDirtyListLink.prev;
+    }
+}
+
+static void rwFrameDestroyRecurseDestroyLeaf(RwFrame* frame) {
+    FrameDestroyRecurseDeInitLeaf(frame);
+    RwEngineInstance->memoryFree(*(RwFreeList**)((RwInt32)RwEngineInstance + frameModule.globalsOffset), frame);
+}
+
+static void rwFrameDestroyRecurse(RwFrame* frame) {
+    if (frame != NULL) {
+        RwFrame* child = frame->child;
+        while (child != NULL) {
+            RwFrame* next = child->next;
+            rwFrameDestroyRecurse(child);
+            child = next;
+        }
+        rwFrameDestroyRecurseDestroyLeaf(frame);
+    }
+}
+
+RwBool RwFrameDestroyHierarchy(RwFrame* frame) {
+    rwFrameDestroyRecurse(frame);
     return TRUE;
 }
 
@@ -249,4 +339,8 @@ RwFrame* RwFrameRotate(RwFrame* frame, RwV3d* a1, RwReal a2, RwInt32 a3) {
     RwMatrixRotate(&frame->modelling, a1, a2, a3);
     RwFrameUpdateObjects(frame);
     return frame;
+}
+
+RwInt32 RwFrameRegisterPlugin(RwInt32 size, RwInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
+    return _rwPluginRegistryAddPlugin(&frameTKList, size, pluginID, constructCB, destructCB, copyCB);
 }

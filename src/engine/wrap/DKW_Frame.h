@@ -68,7 +68,7 @@ public:
     typedef CDKW_Frame* (*FrameCallback)(CDKW_Frame*, void*);
     void ManageForAllChildren(FrameCallback callback, void*);
 
-    static void DataConstructor(void*, int, int);
+    static void* DataConstructor(void*, int, int);
     static void* DataDestructor(void*, int, int);
     static void* DataCopier(void*, const void*, int, int);
     static RwStream* DataReadStream(RwStream*, int, void*, int, int);
