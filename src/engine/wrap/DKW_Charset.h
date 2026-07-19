@@ -1,19 +1,15 @@
 #ifndef ENGINE_WRAP_DKW_CHARSET_H
 #define ENGINE_WRAP_DKW_CHARSET_H
 
-#include <rwsdk/baimage.h>
-#include <rwsdk/baraster.h>
+#include <rwsdk/tool/charset/rtcharse.h>
 #include <stdarg.h>
-
-// FIXME: This needs a home.
-extern "C" {
-typedef RwRaster RtCharset;
-RtCharset* RtCharsetCreate(RwRGBA*, RwRGBA*);
-}
 
 // TODO
 enum DKW_PrintPos {
-
+    PRINT_POS_UNK0 = (1 << 0),
+    PRINT_POS_UNK1 = (1 << 1),
+    PRINT_POS_UNK2 = (1 << 2),
+    PRINT_POS_UNK3 = (1 << 3),
 };
 
 class CDKW_Charset {
@@ -21,10 +17,10 @@ public:
     CDKW_Charset();
     ~CDKW_Charset();
 
-    void PrintAbsolute(int, int, char*);
-    void Print(int, int, DKW_PrintPos, char*, ...);
-    void Print(int, int, DKW_PrintPos, int, char*, va_list* args);
-    void PrintAbsolute(int, int, int, char*, va_list* args);
+    int PrintAbsolute(int, int, char*);
+    int Print(int, int, DKW_PrintPos, char*, ...);
+    int Print(int, int, DKW_PrintPos, int, char*, va_list* args);
+    int PrintAbsolute(int, int, int, char*, va_list* args);
 
 public:
     RtCharset* m_rw_charset;

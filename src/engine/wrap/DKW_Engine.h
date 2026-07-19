@@ -76,6 +76,8 @@ public:
         RwEngineGetVideoModeInfo(video_mode, a2);
     }
 
+    static RwVideoMode GetVideoMode();
+
     static CDKW_RGBA GetForegroundColor() {
         return ms_ForegroundColor;
     }
