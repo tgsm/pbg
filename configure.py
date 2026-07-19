@@ -609,7 +609,7 @@ config.libs = [
     DkEngineLib(
         "DKVIDEO", cflags_engine_video, [
             Object(Matching, "engine/video/CVideoEngine.cpp"),
-            Object(MatchingFor("GPLE9G"), "engine/video/CVideoEngineGCN.cpp"),
+            Object(Matching, "engine/video/CVideoEngineGCN.cpp"),
             Object(Matching, "engine/video/DkVideo.cpp"),
         ]
     ),

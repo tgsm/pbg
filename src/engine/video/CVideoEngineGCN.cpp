@@ -23,11 +23,18 @@ extern "C" void RwaCoreResume(void);
 void CVideoEngineGCN::Play(char* filename) {
     RwaCoreSuspend();
 
+#ifndef VERSION_GPLP9G
     u8* data = NULL;
+#endif
+
     THPVideoInfo video_info;
     THPAudioInfo audio_info;
 
+#ifdef VERSION_GPLP9G
+    m_render_mode_obj = &GXPal528IntDf;
+#else
     m_render_mode_obj = &GXNtsc480IntDf;
+#endif
     Init(m_render_mode_obj);
     InitGX();
     InitVI();
@@ -42,7 +49,11 @@ void CVideoEngineGCN::Play(char* filename) {
     while (!m_stopped) {
         BeforeRender();
         if (playing) {
+#ifdef VERSION_GPLP9G
+            THPPlayerDrawCurrentFrame(m_render_mode_obj, 0, 0, m_render_mode_obj->fbWidth, m_render_mode_obj->efbHeight);
+#else
             THPPlayerDrawCurrentFrame(m_render_mode_obj, x, y, video_info.mXSize, video_info.mYSize);
+#endif
         }
         THPPlayerDrawDone();
         DoneRender();
@@ -54,10 +65,16 @@ void CVideoEngineGCN::Play(char* filename) {
             break;
         }
 
-        if (bVar1 && playing && data != NULL) {
+        if (bVar1 && playing
+#ifndef VERSION_GPLP9G
+            && data != NULL
+#endif
+        ) {
             THPPlayerStop();
             THPPlayerClose();
+#ifndef VERSION_GPLP9G
             OSFree(data);
+#endif
             playing = FALSE;
         }
 
@@ -74,11 +91,17 @@ void CVideoEngineGCN::Play(char* filename) {
             x = (m_render_mode_obj->fbWidth - video_info.mXSize) / 2;
             y = (m_render_mode_obj->efbHeight - video_info.mYSize) / 2;
 
+#ifdef VERSION_GPLP9G
+            if (!THPPlayerCalcNeedMemoryAndSetFragmentedBuffer()) {
+                break;
+            }
+#else
             data = (u8*)OSAlloc(THPPlayerCalcNeedMemory());
             if (data == NULL) {
                 break;
             }
             THPPlayerSetBuffer(data);
+#endif
 
             int audio_track;
             if (audio_info.mSndNumTracks != 1) {
@@ -101,12 +124,16 @@ void CVideoEngineGCN::Play(char* filename) {
         }
     }
 
+#ifndef VERSION_GPLP9G
     if (data != NULL) {
         THPPlayerStop();
         THPPlayerClose();
         OSFree(data);
     }
-
+#else
+    THPPlayerStop();
+    THPPlayerClose();
+#endif
     THPPlayerQuit();
     VIWaitForRetrace();
 

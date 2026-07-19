@@ -64,6 +64,7 @@ BOOL THPPlayerPrepare(int offset, u8 flag, int audioTrack);
 BOOL THPPlayerSetBuffer(u8* data);
 
 u32 THPPlayerCalcNeedMemory();
+u32 THPPlayerCalcNeedMemoryAndSetFragmentedBuffer();
 
 BOOL THPPlayerGetVideoInfo(void* dst);
 BOOL THPPlayerGetAudioInfo(void* dst);
