@@ -466,7 +466,7 @@ config.libs = [
             Object(Equivalent, "Piglet/entities/CEntityBhvTagActivation.cpp"),
             Object(Equivalent, "Piglet/CMenuControl.cpp"),
             Object(Equivalent, "Piglet/CControlValue.cpp"),
-            Object(NonMatching, "Piglet/entities/CEntityPiglet.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityPiglet.cpp"),
             Object(Equivalent, "Piglet/CDebugMenu.cpp", extra_cflags=["-bool off"]),
             Object(NonMatching, "Piglet/entities/CEntityObject.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagOrientation.cpp"),
@@ -519,7 +519,7 @@ config.libs = [
             Object(NonMatching, "Piglet/entities/CEntityPathFinder.cpp"),
             Object(NonMatching, "Piglet/CGuiManager.cpp"),
             Object(NonMatching, "Piglet/CEventGuiHandlers.cpp", extra_cflags=["-bool off"]),
-            Object(NonMatching, "Piglet/entities/CEntityBhvTagGuiCtrl.cpp"),
+            Object(Equivalent, "Piglet/entities/CEntityBhvTagGuiCtrl.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityBhvTagSettings.cpp"),
             Object(Equivalent, "Piglet/entities/CEntityNPCDoor.cpp"),
             Object(NonMatching, "Piglet/CGameBackup.cpp"),
@@ -592,11 +592,11 @@ config.libs = [
             Object(NonMatching, "engine/sound/CSampleDictionary.cpp"),
             Object(NonMatching, "engine/sound/CSound2D.cpp", extra_cflags=["-inline noauto"]),
             Object(NonMatching, "engine/sound/CSound3D.cpp"),
-            Object(NonMatching, "engine/sound/CSoundEmitter.cpp"), # need matching extab, extabindex
+            Object(Equivalent, "engine/sound/CSoundEmitter.cpp"), # need matching extab, extabindex
             Object(NonMatching, "engine/sound/CSoundEngine.cpp"),
             Object(NonMatching, "engine/sound/CSoundListener.cpp"),
             Object(NonMatching, "engine/sound/CSoundStreamed.cpp"),
-            Object(EquivalentFor("GPLE9G"), "engine/sound/CSample.cpp"),
+            Object(Equivalent, "engine/sound/CSample.cpp"),
             Object(NonMatching, "engine/sound/CSound3DRWA.cpp"),
             Object(NonMatching, "engine/sound/CSound2DRWA.cpp"),
             Object(NonMatching, "engine/sound/CSoundStreamedRWA.cpp"),
@@ -1467,7 +1467,7 @@ config.libs = [
     ThpLib_1(
         [
             Object(NonMatching, "thp/THPAudioDecode.c"),
-            Object(NonMatching, "thp/THPDraw.c"),
+            Object(Equivalent, "thp/THPDraw.c"),
             Object(NonMatching, "thp/THPPlayer.c"),
             Object(NonMatching, "thp/THPRead.c"),
             Object(NonMatching, "thp/THPVideoDecode.c"),
