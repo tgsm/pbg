@@ -30,7 +30,7 @@ int CDKW_Charset::Print(int a1, int a2, DKW_PrintPos a3, int a4, char* text, va_
 
     if (strlen(text) > 256 - 1) {
         char error[32];
-        RwEngineInstance->stringFuncs.rwsprintf(error, "Number of caracters > %d", 256 - 1);
+        RwSprintf(error, "Number of caracters > %d", 256 - 1);
         return -1;
     }
 
@@ -40,7 +40,7 @@ int CDKW_Charset::Print(int a1, int a2, DKW_PrintPos a3, int a4, char* text, va_
     int display_height = CDKW_Engine::GetVideoMode().height;
     RtCharsetGetDesc(m_rw_charset, &desc);
 
-    int len = RwEngineInstance->stringFuncs.rwstrlen(buf);
+    int len = RwStrlen(buf);
     a1 *= desc.width;
     a2 *= desc.height;
 
@@ -76,7 +76,7 @@ int CDKW_Charset::PrintAbsolute(int a1, int a2, int a3, char* text, va_list* arg
 
     if (strlen(text) > 256 - 1) {
         char error[32];
-        RwEngineInstance->stringFuncs.rwsprintf(error, "Number of caracters > %d", 256 - 1);
+        RwSprintf(error, "Number of caracters > %d", 256 - 1);
         return -1;
     }
 
@@ -126,7 +126,7 @@ void MakeFormat(char* dest, char* src, va_list* args) {
                 case 'd': {
                     int arg = va_arg(args, int);
                     sstringtemp[0] = '\0';
-                    RwEngineInstance->stringFuncs.rwsprintf(sstringtemp, "%d", arg);
+                    RwSprintf(sstringtemp, "%d", arg);
                     got_format_tag = FALSE;
                     is_flag_character_maybe = FALSE;
                     break;
@@ -134,7 +134,7 @@ void MakeFormat(char* dest, char* src, va_list* args) {
                 case 's': {
                     sstringtemp[0] = '\0';
                     char* arg = va_arg(args, char*);
-                    RwEngineInstance->stringFuncs.rwstrcat(dest, arg);
+                    RwStrcat(dest, arg);
                     dest += strlen(arg);
                     got_format_tag = FALSE;
                     break;
@@ -142,16 +142,16 @@ void MakeFormat(char* dest, char* src, va_list* args) {
                 case 'f': {
                     double arg = va_arg(args, double);
                     sstringtemp[0] = '\0';
-                    RwEngineInstance->stringFuncs.rwsprintf(sstringtemp, "%f", (float)arg);
-                    RwEngineInstance->stringFuncs.rwstrcpy(dest, sstringtemp);
+                    RwSprintf(sstringtemp, "%f", (float)arg);
+                    RwStrcpy(dest, sstringtemp);
                     got_format_tag = FALSE;
                     break;
                 }
                 case 'x': {
                     int arg = va_arg(args, int);
                     sstringtemp[0] = '\0';
-                    RwEngineInstance->stringFuncs.rwsprintf(sstringtemp, "%x", arg);
-                    RwEngineInstance->stringFuncs.rwstrcpy(dest, sstringtemp);
+                    RwSprintf(sstringtemp, "%x", arg);
+                    RwStrcpy(dest, sstringtemp);
                     got_format_tag = FALSE;
                     break;
                 }
@@ -180,7 +180,7 @@ void MakeFormat(char* dest, char* src, va_list* args) {
             }
 
             if (!left_align && sstringtemp[0] != '\0') {
-                int len = RwEngineInstance->stringFuncs.rwstrlen(sstringtemp);
+                int len = RwStrlen(sstringtemp);
                 if (len < padding_length) {
                     while (len < padding_length) {
                         *(dest++) = ' ';
@@ -203,7 +203,7 @@ void MakeFormat(char* dest, char* src, va_list* args) {
             }
 
             if (left_align && sstringtemp[0] != '\0') {
-                int len = RwEngineInstance->stringFuncs.rwstrlen(sstringtemp);
+                int len = RwStrlen(sstringtemp);
                 if (len < padding_length) {
                     while (len < padding_length) {
                         *(dest++) = ' ';

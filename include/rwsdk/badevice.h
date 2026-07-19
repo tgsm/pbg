@@ -54,6 +54,24 @@ typedef struct RwStringFunctions {
     int (*rwsscanf)(const char* str, const char* format, ...);
 } RwStringFunctions; // size: 0x40
 
+// Unofficial macros?
+#define RwSprintf(str, format, ...) RwEngineInstance->stringFuncs.rwsprintf(str, format, ##__VA_ARGS__)
+#define RwVsprintf(str, format, ap) RwEngineInstance->stringFuncs.rwvsprintf(str, format, ap)
+#define RwStrcpy(dst, src) RwEngineInstance->stringFuncs.rwstrcpy(dst, src)
+#define RwStrncpy(dst, src, len) RwEngineInstance->stringFuncs.rwstrncpy(dst, src, len)
+#define RwStrcat(dst, src) RwEngineInstance->stringFuncs.rwstrcat(dst, src)
+#define RwStrncat(dst, src, len) RwEngineInstance->stringFuncs.rwstrncat(dst, src, len)
+#define RwStrrchr(str, c) RwEngineInstance->stringFuncs.rwstrrchr(str, c)
+#define RwStrchr(str, c) RwEngineInstance->stringFuncs.rwstrchr(str, c)
+#define RwStrstr(haystack, needle) RwEngineInstance->stringFuncs.rwstrstr(haystack, needle)
+#define RwStrcmp(a, b) RwEngineInstance->stringFuncs.rwstrcmp(a, b)
+#define RwStricmp(a, b) RwEngineInstance->stringFuncs.rwstricmp(a, b)
+#define RwStrlen(str) RwEngineInstance->stringFuncs.rwstrlen(str)
+#define RwStrupr(str) RwEngineInstance->stringFuncs.rwstrupr(str)
+#define RwStrlwr(str) RwEngineInstance->stringFuncs.rwstrlwr(str)
+#define RwStrtok(str, delim) RwEngineInstance->stringFuncs.rwstrtok(str, delim)
+#define RwSscanf(str, format, ...) RwEngineInstance->stringFuncs.rwsscanf(str, format, __VA_ARGS__)
+
 typedef enum RwPrimitiveType {
     rwPRIMTYPENAPRIMTYPE = 0,
     rwPRIMTYPELINELIST = 1,

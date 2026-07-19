@@ -144,7 +144,7 @@ void CGamePartMovieClips::RenderBackGround(F32 dt) {
     icon.m_y = 0.5f;
 
     char name[256] = {};
-    RwEngineInstance->stringFuncs.rwsprintf(name, "BMP_520");
+    RwEngineInstance->stringFuncs.rwsprintf(name, "BMP_520"); // FIXME: Use RwSprintf
     icon.m_texture = m_game->m_texture_dictionary->FindTexture(name);
 
     icon.Render(m_batches[0], 0);
@@ -215,9 +215,9 @@ void CGamePartMovieClips::RenderIcons(F32 dt) {
         int unk_batch_no = ((CGuiMovieClipsEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiMovieClipsEventHandler"))->GetUnk10();
 
         if (IsVideoOpen(i)) {
-            RwEngineInstance->stringFuncs.rwsprintf(name, "%s%d%d", "BMP_5", (i == unk_batch_no) ? 0 : 1, i + 1);
+            RwSprintf(name, "%s%d%d", "BMP_5", (i == unk_batch_no) ? 0 : 1, i + 1);
         } else {
-            RwEngineInstance->stringFuncs.rwsprintf(name, "BMP_500");
+            RwEngineInstance->stringFuncs.rwsprintf(name, "BMP_500"); // FIXME: Use RwSprintf
         }
 
         icon.m_texture = m_game->m_texture_dictionary->FindTexture(name);

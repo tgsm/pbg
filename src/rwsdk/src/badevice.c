@@ -135,7 +135,7 @@ RwBool _rwDeviceSystemRequest(RwDevice* device, RwInt32 systemFn, void* dest, vo
             case rwDEVICESYSTEMGETSUBSYSTEMINFO:
                 ret = (a4 == 0);
                 if (ret) {
-                    RwEngineInstance->stringFuncs.rwstrcpy((RwChar*)dest, "Only rendering sub system");
+                    RwStrcpy((RwChar*)dest, "Only rendering sub system");
                     break;
                 }
                 break;

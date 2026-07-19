@@ -85,7 +85,7 @@ CEntityPiglet::CEntityPiglet(CEntityManager* entity_manager, std::string name) :
     m_unk2D4 = NULL;
     m_unk2A8 = 0;
     m_unk2AC = 0;
-    RwEngineInstance->stringFuncs.rwsprintf(m_unk2B4, "");
+    RwEngineInstance->stringFuncs.rwsprintf(m_unk2B4, ""); // FIXME: Use RwSprintf
 
     for (int i = 0; i < 6; i++) {
         m_batches[i] = m_entity_manager->GetGame()->GetDisplayEngine()->GetImmediate()->CreateBatch2D(4, 0);
@@ -195,7 +195,7 @@ void CEntityPiglet::AddItem(char* item) {
     // Don't add the item if we're already carrying it.
     for (int i = 0; i < 3; i++) {
         char* current_item = m_entity_manager->GetGame()->GetCurrentMission()->GetItem(i);
-        if (current_item != NULL && RwEngineInstance->stringFuncs.rwstrcmp(item, current_item) == 0) {
+        if (current_item != NULL && RwStrcmp(item, current_item) == 0) {
             return;
         }
     }
@@ -277,7 +277,7 @@ void CEntityPiglet::ManageMessage(SDkMessage& message) {
         PushPush((CEntityPushingBox*)m_entity_manager->GetEntity(message.from));
     } else if (strcmp(message.type, "PUSH_BLOC") == 0) {
         PushBloc((CEntityPushingBox*)m_entity_manager->GetEntity(message.from));
-    } else if (RwEngineInstance->stringFuncs.rwstrcmp(message.type, "PUSH_STOP") == 0) {
+    } else if (RwStrcmp(message.type, "PUSH_STOP") == 0) {
         PushStop((CEntityPushingBox*)m_entity_manager->GetEntity(message.from));
     }
 
@@ -287,21 +287,21 @@ void CEntityPiglet::ManageMessage(SDkMessage& message) {
             m_state = 0;
             m_life = 3;
             SetStateEnvironement();
-        } else if (strncmp(message.type, "DEL", RwEngineInstance->stringFuncs.rwstrlen("DEL")) == 0) {
-            int name_index = RwEngineInstance->stringFuncs.rwstrlen("DEL");
-            strncpy(buf, &message.type[name_index], RwEngineInstance->stringFuncs.rwstrlen(message.type) - name_index + 1);
+        } else if (strncmp(message.type, "DEL", RwStrlen("DEL")) == 0) {
+            int name_index = RwStrlen("DEL");
+            strncpy(buf, &message.type[name_index], RwStrlen(message.type) - name_index + 1);
             RemoveItem(buf);
-        } else if (strncmp(message.type, "ADD", RwEngineInstance->stringFuncs.rwstrlen("ADD")) == 0) {
-            int index = RwEngineInstance->stringFuncs.rwstrlen("ADD");
-            strncpy(buf, &message.type[index], RwEngineInstance->stringFuncs.rwstrlen(message.type) - index + 1);
+        } else if (strncmp(message.type, "ADD", RwStrlen("ADD")) == 0) {
+            int index = RwStrlen("ADD");
+                strncpy(buf, &message.type[index], RwStrlen(message.type) - index + 1);
             AddItem(buf);
 
-            int name_index = RwEngineInstance->stringFuncs.rwstrlen("ITEM_") - 1;
-            strncpy(m_unk2B4, &buf[name_index], RwEngineInstance->stringFuncs.rwstrlen(buf) - name_index + 1);
+            int name_index = RwStrlen("ITEM_") - 1;
+            strncpy(m_unk2B4, &buf[name_index], RwStrlen(buf) - name_index + 1);
             m_unk2B4[0] = 'O';
         }
     } else {
-        if (strncmp(message.type, "GRIMACE", RwEngineInstance->stringFuncs.rwstrlen("GRIMACE")) == 0) {
+        if (strncmp(message.type, "GRIMACE", RwStrlen("GRIMACE")) == 0) {
             if (strcmp(message.type, "GRIMACE01") == 0) {
                 SetGrimace(1);
             } else if (strcmp(message.type, "GRIMACE02") == 0) {
@@ -387,7 +387,7 @@ void CEntityPiglet::ResolveContact(const DkPh::Collider::Body& body, int a2, int
                 m_unk26C = 1;
 
                 char buf[32];
-                RwEngineInstance->stringFuncs.rwsprintf(buf, "%s%s", "USE", item);
+                RwSprintf(buf, "%s%s", "USE", item);
 
                 if (item != NULL) {
                     m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, entity->m_unk0, buf, 0);
@@ -647,10 +647,10 @@ void CEntityPiglet::UpdateAnimations(F32 dt) {
                 if (item != NULL) {
                     char buf[32];
 
-                    int name_index = RwEngineInstance->stringFuncs.rwstrlen("ITEM_") - 1;
-                    strncpy(buf, &item[name_index], RwEngineInstance->stringFuncs.rwstrlen(item) - name_index + 1);
+                    int name_index = RwStrlen("ITEM_") - 1;
+                    strncpy(buf, &item[name_index], RwStrlen(item) - name_index + 1);
                     buf[0] = 'O';
-                    strcpy(&buf[RwEngineInstance->stringFuncs.rwstrlen(buf)], "B");
+                    strcpy(&buf[RwStrlen(buf)], "B");
 
                     m_entity_manager->GetGame()->PlayNarratorLine(buf);
                 }
@@ -930,9 +930,9 @@ void CEntityPiglet::UpdateOSD(F32 dt) {
             }
             break;
         case 2:
-            if ((U32)RwEngineInstance->stringFuncs.rwstrlen(m_unk2B4) != 0) {
+            if ((U32)RwStrlen(m_unk2B4) != 0) {
                 m_entity_manager->GetGame()->PlayNarratorLine(m_unk2B4);
-                RwEngineInstance->stringFuncs.rwsprintf(m_unk2B4, "");
+                RwEngineInstance->stringFuncs.rwsprintf(m_unk2B4, ""); // FIXME: Use RwSprintf
             }
             if (m_unk280 >= 2.2f) {
                 m_unk284 = 3;
@@ -1042,7 +1042,7 @@ void CEntityPiglet::RenderOSD() {
         }
 
         char buf[32];
-        RwEngineInstance->stringFuncs.rwsprintf(buf, "ITEM_000_0%d", num + 1);
+        RwSprintf(buf, "ITEM_000_0%d", num + 1);
         icon2.m_texture = m_entity_manager->GetGame()->m_texture_dictionary->FindTexture(buf);
         icon2.Render(m_batches[i * 2 + 0], 1);
 

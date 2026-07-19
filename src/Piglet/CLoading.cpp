@@ -197,7 +197,7 @@ void CLoadingCallback::Update() {
             dVar15 = height - 86.0f;
             loading_char[1] = '\0';
             dVar16 = 0.0f;
-            int len = RwEngineInstance->stringFuncs.rwstrlen(loading_text);
+            int len = RwStrlen(loading_text);
             for (i = 0; i < len; i++) {
                 *loading_char = loading_text[i];
                 if (*loading_char == '\0') {

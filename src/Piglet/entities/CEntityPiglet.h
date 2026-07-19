@@ -91,9 +91,9 @@ public:
                 }
                 break;
             case 2:
-                if ((U32)RwEngineInstance->stringFuncs.rwstrlen(m_unk2B4) != 0) {
+                if ((U32)RwStrlen(m_unk2B4) != 0) {
                     m_entity_manager->GetGame()->PlayNarratorLine(m_unk2B4);
-                    RwEngineInstance->stringFuncs.rwsprintf(m_unk2B4, "");
+                    RwEngineInstance->stringFuncs.rwsprintf(m_unk2B4, ""); // FIXME: Use RwSprintf
                 }
                 if (m_unk280 >= 2.2f) {
                     m_unk284 = 3;
