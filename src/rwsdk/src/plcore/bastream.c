@@ -39,13 +39,13 @@ static RwStream* StreamFileNameInitialize(RwStream* stream, RwStreamAccessType a
 
     switch (accessType) {
         case rwSTREAMREAD:
-            file = RwEngineInstance->fileFuncs.rwfopen(fileName, "rb");
+            file = RwFopen(fileName, "rb");
             break;
         case rwSTREAMWRITE:
-            file = RwEngineInstance->fileFuncs.rwfopen(fileName, "wb");
+            file = RwFopen(fileName, "wb");
             break;
         case rwSTREAMAPPEND:
-            file = RwEngineInstance->fileFuncs.rwfopen(fileName, "ab");
+            file = RwFopen(fileName, "ab");
             break;
         default:
             RwThrowError(1, E_RW_INVSTREAMACCESSTYPE);
@@ -106,7 +106,7 @@ RwStream* _rwStreamInitialize(RwStream* stream, RwBool rwOwned, RwStreamType typ
     switch (type) {
         case rwSTREAMFILE: {
             RwStream* retret;
-            if (RwEngineInstance->fileFuncs.rwftell(data) == -1) {
+            if (RwFtell(data) == -1) {
                 retret = NULL;
             } else {
                 stream->Type.file.fpFile = data;
@@ -138,9 +138,9 @@ RwUInt32 RwStreamRead(RwStream* stream, void* dest, RwUInt32 size) {
         case rwSTREAMFILE:
         case rwSTREAMFILENAME: {
             void* file = stream->Type.file.fpFile;
-            RwUInt32 nRead = RwEngineInstance->fileFuncs.rwfread(dest, 1, size, file);
+            RwUInt32 nRead = RwFread(dest, 1, size, file);
             if (nRead != size) {
-                if (RwEngineInstance->fileFuncs.rwfeof(file)) {
+                if (RwFeof(file)) {
                     RwThrowError(1, E_RW_ENDOFSTREAM);
                 } else {
                     RwThrowError(1, E_RW_READ);
@@ -171,7 +171,7 @@ RwStream* RwStreamWrite(RwStream* stream, const void* src, RwUInt32 size) {
         case rwSTREAMFILE:
         case rwSTREAMFILENAME: {
             void* file = stream->Type.file.fpFile;
-            RwUInt32 nWrote = RwEngineInstance->fileFuncs.rwfwrite(src, 1, size, file);
+            RwUInt32 nWrote = RwFwrite(src, 1, size, file);
             if (nWrote != size) {
                 RwThrowError(1, E_RW_WRITE);
                 return NULL;
@@ -229,8 +229,8 @@ RwStream* RwStreamSkip(RwStream* stream, RwUInt32 size) {
         case rwSTREAMFILE:
         case rwSTREAMFILENAME: {
             void* file = stream->Type.file.fpFile;
-            if (RwEngineInstance->fileFuncs.rwfseek(file, size, 1) != 0) {
-                if (RwEngineInstance->fileFuncs.rwfeof(file)) {
+            if (RwFseek(file, size, 1) != 0) {
+                if (RwFeof(file)) {
                     RwThrowError(1, E_RW_ENDOFSTREAM);
                 }
                 return NULL;
@@ -266,7 +266,7 @@ RwBool RwStreamClose(RwStream* stream, void* data) {
             ret = TRUE;
             break;
         case rwSTREAMFILENAME:
-            ret = RwEngineInstance->fileFuncs.rwfclose(stream->Type.file.fpFile) == 0 ? 1 : 0;
+            ret = RwFclose(stream->Type.file.fpFile) == 0 ? TRUE : FALSE;
             break;
         case rwSTREAMMEMORY:
             if (stream->accessType != rwSTREAMREAD && (RwMemory*)data != NULL) {

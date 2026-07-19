@@ -8,10 +8,10 @@ RwFileFunctions* RwOsGetFileInterface(void) {
 }
 
 static int rwfexist(const char* path) {
-    void* file = RwEngineInstance->fileFuncs.rwfopen(path, "rb");
+    void* file = RwFopen(path, "rb");
     int result = file != NULL;
     if (file != NULL) {
-        RwEngineInstance->fileFuncs.rwfclose(file);
+        RwFclose(file);
     }
     return result;
 }

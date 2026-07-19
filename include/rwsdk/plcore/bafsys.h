@@ -21,6 +21,18 @@ typedef struct RwFileFunctions {
     long (*rwftell)(void* stream);
 } RwFileFunctions; // size: 0x2C
 
+#define RwFexist(path) RwEngineInstance->fileFuncs.rwfexist(path)
+#define RwFopen(path, mode) RwEngineInstance->fileFuncs.rwfopen(path, mode)
+#define RwFclose(stream) RwEngineInstance->fileFuncs.rwfclose(stream)
+#define RwFread(ptr, size, n, stream) RwEngineInstance->fileFuncs.rwfread(ptr, size, n, stream)
+#define RwFwrite(ptr, size, n, stream) RwEngineInstance->fileFuncs.rwfwrite(ptr, size, n, stream)
+#define RwFgets(s, size, stream) RwEngineInstance->fileFuncs.rwfgets(s, size, stream)
+#define RwFputs(s, stream) RwEngineInstance->fileFuncs.rwfputs(s, stream)
+#define RwFeof(stream) RwEngineInstance->fileFuncs.rwfeof(stream)
+#define RwFseek(stream, offset, whence) RwEngineInstance->fileFuncs.rwfseek(stream, offset, whence)
+#define RwFflush(stream) RwEngineInstance->fileFuncs.rwfflush(stream)
+#define RwFtell(stream) RwEngineInstance->fileFuncs.rwftell(stream)
+
 RwFileFunctions* RwOsGetFileInterface(void);
 RwBool _rwFileSystemOpen(void);
 void _rwFileSystemClose(void);
