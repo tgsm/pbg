@@ -119,9 +119,13 @@ void CGamePartScrapBook::Render(F32 dt) {
     m_game->GetScene()->BeginRender();
 
     m_game->GetGuiManager()->Render(dt);
+#ifndef VERSION_GPLP9G
     if (DKI::IInputEngine::GetDevice(0)->IsConnected() == TRUE) {
         RenderIcons(dt);
     }
+#else
+    RenderIcons(dt);
+#endif
     m_game->m_fx_manager->Render();
     m_game->GetScene()->Flush();
     m_game->RenderFade();
