@@ -542,7 +542,7 @@ config.libs = [
             Object(NonMatching, "Piglet/CLoadingCatchThemAll.cpp", extra_cflags=["-bool off"]),
             Object(Equivalent, "Piglet/CloadingTigger.cpp", extra_cflags=["-bool off"]),
             Object(Equivalent, "Piglet/CloadingWinnie.cpp", extra_cflags=["-bool off"]),
-            Object(EquivalentFor("GPLE9G"), "Piglet/CGamePartStartScreen.cpp"),
+            Object(Equivalent, "Piglet/CGamePartStartScreen.cpp"),
             Object(Equivalent, "Piglet/CRTCVibrationEvent.cpp"),
             Object(Equivalent, "Piglet/CRTCMessageEvent.cpp"),
             Object(NonMatching, "Piglet/CFullScreenEffect.cpp"),

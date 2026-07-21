@@ -8,7 +8,7 @@ class CGame;
 class CGamePartStartScreen : public CGamePart {
 private:
     CGame* m_game;
-    F32 m_unk10;
+    F32 m_time;
     U32 m_unk14;
 
 public:
