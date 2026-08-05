@@ -7,6 +7,11 @@
 extern "C" {
 #endif
 
+typedef enum RwMatrixFlag {
+    rwMATRIXINTERNALIDENTITY = (1 << 17),
+    rwMATRIXFLAGFORCEENUMSIZEINT = 0x7FFFFFFF,
+} RwMatrixFlag;
+
 struct RwMatrixTag {
     RwV3d right;
     RwUInt32 flags;

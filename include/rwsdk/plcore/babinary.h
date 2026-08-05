@@ -16,12 +16,14 @@ typedef struct RwChunkHeaderInfo {
 } RwChunkHeaderInfo; // size: 0x14
 
 RwBool _rwStreamReadChunkHeader(RwStream* stream, RwUInt32* type, RwUInt32* length, RwUInt32* version, RwUInt32* buildNum);
-void _rwStreamWriteVersionedChunkHeader(RwStream* stream, RwUInt32 type, RwUInt32 length, RwUInt32 version, RwUInt32 buildNum);
+RwStream* _rwStreamWriteVersionedChunkHeader(RwStream* stream, RwUInt32 type, RwUInt32 length, RwUInt32 version, RwUInt32 buildNum);
 RwBool RwStreamFindChunk(RwStream* stream, RwUInt32 type, RwUInt32* length, RwUInt32* version);
 RwUInt32* RwMemLittleEndian32(RwUInt32* data, RwUInt32 size);
 RwUInt16* RwMemLittleEndian16(RwUInt16* data, RwUInt32 size);
 RwUInt32* RwMemNative32(RwUInt32* data, RwUInt32 size);
 RwUInt16* RwMemNative16(RwUInt16* data, RwUInt32 size);
+RwReal* RwMemRealToFloat32(RwReal* data, RwUInt32 size);
+RwReal* RwMemFloat32ToReal(RwReal* data, RwUInt32 size);
 RwStream* RwStreamWriteInt32(RwStream* stream, RwUInt32* data, RwUInt32 size);
 RwStream* RwStreamWriteInt16(RwStream* stream, RwUInt16* data, RwUInt32 size);
 RwStream* RwStreamReadInt16(RwStream* stream, RwUInt16* data, RwUInt32 size);

@@ -1363,7 +1363,7 @@ config.libs = [
             Object(NonMatching, "rwsdk/os/gcn/osintf.c"),
             Object(Matching, "rwsdk/src/babbox.c", extra_cflags=["-inline deferred"]),
             Object(NonMatching, "rwsdk/src/babincam.c"),
-            Object(NonMatching, "rwsdk/src/babinfrm.c"),
+            Object(Matching, "rwsdk/src/babinfrm.c"),
             Object(NonMatching, "rwsdk/src/babintex.c"),
             Object(NonMatching, "rwsdk/src/bacamera.c"),
             Object(Matching, "rwsdk/src/badevice.c", extra_cflags=["-lang c++", "-bool off"]),

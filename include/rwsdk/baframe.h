@@ -24,6 +24,8 @@ typedef struct RwFrame {
 
 typedef RwFrame* (*RwFrameCallBack)(RwFrame*, void*);
 
+extern RwPluginRegistry frameTKList;
+
 void* _rwFrameOpen(void*, RwInt32 offset, RwInt32);
 void* _rwFrameClose(void*, RwInt32, RwInt32);
 RwFrame* _rwFrameCloneAndLinkClones(RwFrame* frame);

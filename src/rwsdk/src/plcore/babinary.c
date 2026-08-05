@@ -89,14 +89,14 @@ RwBool _rwStreamReadChunkHeader(RwStream* stream, RwUInt32* type, RwUInt32* leng
     return TRUE;
 }
 
-void _rwStreamWriteVersionedChunkHeader(RwStream* stream, RwUInt32 type, RwUInt32 length, RwUInt32 version, RwUInt32 buildNum) {
+RwStream* _rwStreamWriteVersionedChunkHeader(RwStream* stream, RwUInt32 type, RwUInt32 length, RwUInt32 version, RwUInt32 buildNum) {
     UnkRwChunkHeader header;
     header.type = type;
     header.length = length;
     header.version = ((version - 0x30000) << 14) & 0xFFC00000 | (version & 0x3F) << 16 | buildNum & 0xFFFF;
 
     RwMemLittleEndian32((RwUInt32*)&header, sizeof(header));
-    RwStreamWrite(stream, &header, sizeof(header));
+    return RwStreamWrite(stream, &header, sizeof(header));
 }
 
 RwBool RwStreamFindChunk(RwStream* stream, RwUInt32 type, RwUInt32* length, RwUInt32* version) {
