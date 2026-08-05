@@ -196,6 +196,9 @@ RwBool RwEngineStop(void);
 RwBool RwEngineStart(void);
 RwBool RwEngineClose(void);
 RwBool RwEngineOpen(void*);
+RwBool RwEngineTerm(void);
+RwBool RwEngineInit(RwMemoryFunctions* memoryFuncs, RwEngineInitFlag initFlags, RwUInt32 arenaSize);
+
 
 #ifdef __cplusplus
 }

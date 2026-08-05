@@ -38,6 +38,9 @@ typedef struct RwImage {
     RwRGBA* palette;
 } RwImage;
 
+typedef RwImage* (*RwImageCallBackRead)(const char* filename);
+typedef RwImage* (*RwImageCallBackWrite)(RwImage* image, const char* filename);
+
 void* _rwImageOpen(void*, RwInt32 offset, RwInt32);
 void* _rwImageClose(void*, RwInt32, RwInt32);
 RwImage* RwImageCreate(RwInt32 width, RwInt32 height, RwInt32 depth);

@@ -15,11 +15,11 @@ private:
 public:
     CDKW_GCNEngine(RwEngineOpenParams* params, U32 a1) : CDKW_Engine(params, a1) {}
 
-    virtual S32 Timer();
-    virtual F32 GetTimer();
-    virtual F32 GetDeltaTimer();
+    virtual U32 Timer();
+    virtual F64 GetTimer();
+    virtual F64 GetDeltaTimer();
     virtual void SaveTimer();
-    virtual F32 GetDeltaTimerSinceSaved();
+    virtual F64 GetDeltaTimerSinceSaved();
     virtual BOOL PS_Init();
     virtual RwMemoryFunctions* MemorySetting();
     virtual void InstallDebugMessage();

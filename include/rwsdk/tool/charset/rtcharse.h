@@ -24,6 +24,7 @@ RtCharset* RtCharsetCreate(RwRGBA*, RwRGBA*);
 RwBool RtCharsetDestroy(RtCharset*);
 RtCharset* RtCharsetPrintBuffered(RtCharset*, char*, int, int, int);
 RtCharset* RtCharsetGetDesc(RtCharset*, RtCharsetDesc*);
+RwBool RtCharsetOpen(void);
 
 #ifdef __cplusplus
 }

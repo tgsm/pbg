@@ -64,27 +64,27 @@ S64 CDKW_GCNEngine::OSGetTime() {
     return ::OSGetTime() - ms_InitialTime;
 }
 
-S32 CDKW_GCNEngine::Timer() {
+U32 CDKW_GCNEngine::Timer() {
     return OSGetTime() / (OS_TIMER_CLOCK / 1000);
 }
 
-F32 CDKW_GCNEngine::GetTimer() {
-    return (F32)(OSGetTime()) / OS_TIMER_CLOCK;
+F64 CDKW_GCNEngine::GetTimer() {
+    return (F32)OSGetTime() / OS_TIMER_CLOCK;
 }
 
-F32 CDKW_GCNEngine::GetDeltaTimer() {
+F64 CDKW_GCNEngine::GetDeltaTimer() {
     static S64 oldtime;
     S64 currenttime = OSGetTime();
     S64 delta = currenttime - oldtime;
     oldtime = currenttime;
-    return (F32)(delta) / OS_TIMER_CLOCK;
+    return (F32)delta / OS_TIMER_CLOCK;
 }
 
 void CDKW_GCNEngine::SaveTimer() {
     m_saved_time = ::OSGetTime() - ms_InitialTime;
 }
 
-F32 CDKW_GCNEngine::GetDeltaTimerSinceSaved() {
+F64 CDKW_GCNEngine::GetDeltaTimerSinceSaved() {
     return (F32)(OSGetTime() - m_saved_time) / OS_TIMER_CLOCK;
 }
 

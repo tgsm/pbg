@@ -16,28 +16,39 @@ struct RwRect {
 }
 
 enum DKW_Event {
-    DKW_EVENT_18 = 18,
+    DKW_EVENT_RESIZE = 0,
+    DKW_EVENT_18 = 18, // update?
+    DKW_EVENT_21 = 21,
+    DKW_EVENT_PLAY_VIDEO = 30,
+};
+
+// Unknown name
+struct DKW_DeviceSetting {
+    U32 video_mode;
+    U32 sub_system;
 };
 
 class CDKW_Charset;
 
 class CDKW_Engine {
-private:
-    U8 m_unk0[0xC];
+public:
+    void* m_DisplayID;
+    BOOL m_unk4; // initialized?
+    U32 m_ArenaSize;
 
     static S64 ms_InitialTime;
 public:
-    CDKW_Engine(RwEngineOpenParams* params, U32);
+    CDKW_Engine(RwEngineOpenParams* params, U32 arena_size);
     ~CDKW_Engine();
 
-    virtual S32 Timer();
-    virtual F32 GetTimer();
-    virtual F32 GetDeltaTimer();
+    virtual U32 Timer();
+    virtual F64 GetTimer();
+    virtual F64 GetDeltaTimer();
     virtual void SaveTimer();
-    virtual F32 GetDeltaTimerSinceSaved();
+    virtual F64 GetDeltaTimerSinceSaved();
     virtual BOOL PS_Init();
     virtual RwMemoryFunctions* MemorySetting();
-    virtual void* DeviceSetting();
+    virtual DKW_DeviceSetting DeviceSetting();
     virtual void InstallDebugMessage();
     virtual BOOL NativeTextureSupport();
     virtual void InstallFileSystem();
@@ -49,9 +60,9 @@ public:
     virtual BOOL OnTerm();
 
     void Stop();
-    void EngineInit(int argc, char** argv);
-    void PreInit(RwEngineOpenParams*);
-    void PostInit();
+    BOOL EngineInit(int argc, char** argv);
+    BOOL PreInit(RwEngineOpenParams* params);
+    BOOL PostInit();
     S64 OSGetTime();
 
     static U32 GetFPS() {
@@ -87,18 +98,21 @@ public:
 
     static BOOL EventHandler(DKW_Event event, void* a1);
 
+    static RwVideoMode ms_VideoMode;
+    static CDKW_Engine* ms_CurrentEngine;
     static U32 ms_FrameCounter;
     static U32 ms_FramesPerSecond;
     static F32 ms_DeltaTime;
+    static F32 ms_Time;
     static CDKW_Charset* ms_pCharset;
-    static BOOL ms_bAllowCharset;
+    static CDKW_RGBA ms_ForegroundColor;
+    static CDKW_RGBA ms_BackgroundColor;
     static BOOL m_AllowEscape;
     static CDKW_Camera* ms_pCurrentCamera;
     static BOOL ms_bAllowBufferization;
     static BOOL m_AllowPreclip;
     static BOOL ms_OrthoNormalizeCamera;
-    static CDKW_RGBA ms_ForegroundColor;
-    static CDKW_RGBA ms_BackgroundColor;
+    static BOOL ms_bAllowCharset;
 };
 
 #endif
