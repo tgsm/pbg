@@ -1589,21 +1589,6 @@ CDKW_RGBA CGame::ComputeGameFadeColor() {
     return CDKW_RGBA(color);
 }
 
-static inline void UpdateResetButton() {
-    if (OSGetResetButtonState() != FALSE) {
-        s_bResetButtonPushed = TRUE;
-        return;
-    } else if (!s_bResetButtonPushed) {
-        return;
-    }
-
-    if (OSGetResetButtonState() != FALSE) {
-        s_bResetButtonPushed = TRUE;
-        return;
-    }
-}
-
-// Equivalent: stack length, reset button stuff may be inlined?
 void CGame::ManageReset() {
     if (OSGetResetButtonState() != FALSE) {
         s_bResetButtonPushed = TRUE;
@@ -1621,11 +1606,11 @@ void CGame::ManageReset() {
     DKI::IInputEngine::Update(1.0f/30.0f);
 
     while (!PADRecalibrate(PAD_CHAN0_BIT)) {
-        PADStatus status;
+        PADStatus status[4];
         do {
             PADReset(PAD_CHAN0_BIT);
-            PADRead(&status);
-        } while (status.err == PAD_ERR_NO_CONTROLLER);
+            PADRead(&status[0]);
+        } while (status[0].err == PAD_ERR_NO_CONTROLLER);
     }
 
 #ifndef VERSION_GPLP9G
@@ -1677,5 +1662,15 @@ void CGame::ManageReset() {
 }
 
 void CMemoryCardSaveEventCallback::OnSave() {
-    UpdateResetButton();
+    if (OSGetResetButtonState() != FALSE) {
+        s_bResetButtonPushed = TRUE;
+        return;
+    } else if (!s_bResetButtonPushed) {
+        return;
+    }
+
+    if (OSGetResetButtonState() != FALSE) {
+        s_bResetButtonPushed = TRUE;
+        return;
+    }
 }
