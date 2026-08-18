@@ -18,7 +18,7 @@ CEntity3DSound::CEntity3DSound(CEntityManager* entity_manager, std::string name)
 // Equivalent?: std::vector dtor
 CEntity3DSound::~CEntity3DSound() {
     if (m_sound_emitter != NULL) {
-        m_entity_manager->GetGame()->m_sound_engine->RemoveEmitter(m_sound_emitter);
+        m_entity_manager->GetGame()->GetSoundEngine()->RemoveEmitter(m_sound_emitter);
         m_sound_emitter = NULL;
     }
 }
@@ -35,17 +35,17 @@ void CEntity3DSound::Parse(DkXmd::CChunkIterator iter) {
         m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }
 
-    if (m_entity_manager->GetGame()->m_unk4F5C == 1 && iter.GetChunk("SndDictTigger", dest)) {
+    if (m_entity_manager->GetGame()->GetCurrentHeroId() == HERO_TIGGER && iter.GetChunk("SndDictTigger", dest)) {
         strcpy(buf, dest.GetStringValue());
         m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }
 
-    if (m_entity_manager->GetGame()->m_unk4F5C == 2 && iter.GetChunk("SndDictWinnie", dest)) {
+    if (m_entity_manager->GetGame()->GetCurrentHeroId() == HERO_WINNIE && iter.GetChunk("SndDictWinnie", dest)) {
         strcpy(buf, dest.GetStringValue());
         m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }
 
-    if (m_entity_manager->GetGame()->m_unk4F5C == 3 && iter.GetChunk("SndDictCatch", dest)) {
+    if (m_entity_manager->GetGame()->GetCurrentHeroId() == HERO_CATCH_THEM_ALL && iter.GetChunk("SndDictCatch", dest)) {
         strcpy(buf, dest.GetStringValue());
         m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }

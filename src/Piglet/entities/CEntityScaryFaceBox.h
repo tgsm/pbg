@@ -113,7 +113,7 @@ public:
             m_unk1DC = 0;
         }
 
-        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, str, "START", 0);
+        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, str, "START", 0);
     }
 };
 REQUIRE_SIZE(CEntityScaryFaceBox, 0x1E0);

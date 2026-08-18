@@ -41,7 +41,7 @@ CEntityWorld::~CEntityWorld() {
     }
 
     if (m_controller != NULL) {
-        m_entity_manager->GetGame()->m_anim_dictionary->RemoveController(m_controller->GetName());
+        m_entity_manager->GetGame()->GetAnimDictionary()->RemoveController(m_controller->GetName());
     }
 
     m_clump = NULL;
@@ -79,11 +79,11 @@ void CEntityWorld::Render(F32 dt) {
                 atomic = wrap_clump->GetNextAtomic();
             }
 
-            m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(FALSE);
-            m_entity_manager->GetGame()->m_display_engine->DisableAlphaTest();
-            m_entity_manager->GetGame()->m_display_engine->RegisterShadowMapValidationCallback(&ShadowMapValidationCallback);
+            m_entity_manager->GetGame()->GetDisplayEngine()->AlphaAtomicBufferization(FALSE);
+            m_entity_manager->GetGame()->GetDisplayEngine()->DisableAlphaTest();
+            m_entity_manager->GetGame()->GetDisplayEngine()->RegisterShadowMapValidationCallback(&ShadowMapValidationCallback);
         } else {
-            m_entity_manager->GetGame()->m_display_engine->RegisterShadowMapValidationCallback(NULL);
+            m_entity_manager->GetGame()->GetDisplayEngine()->RegisterShadowMapValidationCallback(NULL);
         }
 
         bAllowShadow = TRUE;
@@ -94,14 +94,14 @@ void CEntityWorld::Render(F32 dt) {
         if (m_unk48 == TRUE) {
             bAllowShadow = FALSE;
             bAllowDisableAlpha = FALSE;
-            m_entity_manager->GetGame()->m_display_engine->PrepareAlphaTest();
+            m_entity_manager->GetGame()->GetDisplayEngine()->PrepareAlphaTest();
 
             for (int i = 0; i < 4; i++) {
                 if (i == 3) {
                     bAllowShadow = TRUE;
                 }
 
-                m_entity_manager->GetGame()->m_display_engine->SetAlphaTest(nAlphaRefValues[i + 1]);
+                m_entity_manager->GetGame()->GetDisplayEngine()->SetAlphaTest(nAlphaRefValues[i + 1]);
 
                 CDKW_Clump* wrap_clump = m_clump->GetDkWrapClump();
                 CDKW_Atomic* atomic = wrap_clump->GetFirstAtomic();
@@ -119,13 +119,13 @@ void CEntityWorld::Render(F32 dt) {
                 m_entity_manager->GetGame()->GetScene()->RenderClump(m_clump);
             }
 
-            m_entity_manager->GetGame()->m_display_engine->RestoreAlphaTest();
-            m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(TRUE);
+            m_entity_manager->GetGame()->GetDisplayEngine()->RestoreAlphaTest();
+            m_entity_manager->GetGame()->GetDisplayEngine()->AlphaAtomicBufferization(TRUE);
             m_clump->Update(0.0f);
         }
 
         bAllowShadow = TRUE;
-        m_entity_manager->GetGame()->m_display_engine->RegisterShadowMapValidationCallback(NULL);
+        m_entity_manager->GetGame()->GetDisplayEngine()->RegisterShadowMapValidationCallback(NULL);
     }
 }
 
@@ -152,7 +152,7 @@ void CEntityWorld::Parse(DkXmd::CChunkIterator iter) {
         m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_CLUMP, buf2);
         m_clump = m_entity_manager->GetGame()->GetScene()->CloneClump(buf2, NULL);
         if (m_clump != NULL) {
-            m_controller = m_entity_manager->GetGame()->m_anim_dictionary->CreateController(m_unk0, m_clump, iVar11 + 1);
+            m_controller = m_entity_manager->GetGame()->GetAnimDictionary()->CreateController(m_name, m_clump, iVar11 + 1);
             m_controller->SetEventUserData(this);
             m_clump->SetController(m_controller);
             m_entity_manager->GetGame()->GetScene()->SetupClumpToReceiveShadowMap(m_clump, 0);
@@ -178,7 +178,7 @@ void CEntityWorld::Parse(DkXmd::CChunkIterator iter) {
                 m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_ANIMATION, buf2);
 
                 if (m_controller != NULL) {
-                    m_controller->PlayAnimation(m_entity_manager->GetGame()->m_anim_dictionary->FindAnimation(buf2), -1, 0.0f, 0.0f, 0.0f, 0.0f);
+                    m_controller->PlayAnimation(m_entity_manager->GetGame()->GetAnimDictionary()->FindAnimation(buf2), -1, 0.0f, 0.0f, 0.0f, 0.0f);
                     m_controller->Play(0.0f);
                 }
             } else if (strcmp(buf1, "Animation") == 0) {
@@ -198,15 +198,15 @@ void CEntityWorld::Parse(DkXmd::CChunkIterator iter) {
                         } else if (strcmp(buf1, "TAN") == 0) {
                             strcpy(buf2, dest2.GetStringValue());
                             m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_MATERIAL_ANIMATION, buf2);
-                            material_anim = m_entity_manager->GetGame()->m_anim_dictionary->FindMaterialAnimation(buf2);
+                            material_anim = m_entity_manager->GetGame()->GetAnimDictionary()->FindMaterialAnimation(buf2);
                         } else if (strcmp(buf1, "DMA") == 0) {
                             strcpy(buf2, dest2.GetStringValue());
                             m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_DMORPH_ANIMATION, buf2);
-                            dmorph_anim = m_entity_manager->GetGame()->m_anim_dictionary->FindDMorphAnimation(buf2);
+                            dmorph_anim = m_entity_manager->GetGame()->GetAnimDictionary()->FindDMorphAnimation(buf2);
                         } else if (strcmp(buf1, "ANM") == 0) {
                             strcpy(buf2, dest2.GetStringValue());
                             m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_ANIMATION, buf2);
-                            anim = m_entity_manager->GetGame()->m_anim_dictionary->FindAnimation(buf2);
+                            anim = m_entity_manager->GetGame()->GetAnimDictionary()->FindAnimation(buf2);
                         } else if (strcmp(buf1, "Node") == 0) {
                             node = dest2.GetS32Value();
                         }

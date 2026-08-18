@@ -30,7 +30,7 @@ protected:
         if (str.find("playsound") >= 0) {
             std::string str2;
             str2 = &command[strlen("playsound ")];
-            DKSND::CSound2D* sound = m_game->m_sound_engine->PlaySound2D(str2, 1);
+            DKSND::CSound2D* sound = m_game->GetSoundEngine()->PlaySound2D(str2, 1);
             if (sound != NULL) {
                 sound->SetVolume(1.0f);
                 sound->SetLayer(2);

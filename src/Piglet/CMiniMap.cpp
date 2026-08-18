@@ -196,9 +196,9 @@ BOOL CMiniMap::Create() {
 
 // Equivalent: stack offsets, regalloc
 void CMiniMap::Show() {
-    U32 mission_nb = m_game->GetUnk4F54();
-    U32 mission_and_room = mission_nb * 100 + m_game->GetUnk4F58();
-    if ((mission_nb == 7 || mission_nb == 8) || (mission_nb == 2 && mission_and_room == 209) || (mission_nb == 4 && mission_and_room == 411) || (mission_nb == 6 && mission_and_room == 613) || m_game->GetIngameGamePart()->GetGameRoomManager()->IsOnFight() || (m_game->GetUnk4F5C() == 1 || m_game->GetUnk4F5C() == 2)) {
+    U32 mission_nb = m_game->GetCurrentMissionId();
+    U32 mission_and_room = mission_nb * 100 + m_game->GetCurrentRoomId();
+    if ((mission_nb == MISSION_FINAL || mission_nb == MISSION_MENUS) || (mission_nb == MISSION_ROO && mission_and_room == 209) || (mission_nb == MISSION_EEYORE && mission_and_room == 411) || (mission_nb == MISSION_TIGGER && mission_and_room == 613) || m_game->GetIngameGamePart()->GetGameRoomManager()->IsOnFight() || (m_game->GetCurrentHeroId() == HERO_TIGGER || m_game->GetCurrentHeroId() == HERO_WINNIE)) {
         std::string name = "SND_012_2D";
         m_unkAC = DkSoundGetEngine()->PlaySound2D(&name, 1);
         if (m_unkAC != NULL) {
@@ -336,14 +336,14 @@ void CMiniMap::Render(F32 dt) {
         RenderHeroIcon(dt);
 
         if (!(m_unk94 < 1.0f)) {
-            U32 m4F54 = m_game->GetUnk4F54();
+            U32 mission_id = m_game->GetCurrentMissionId();
             mission = m_game->GetCurrentMission();
             if (mission != NULL) {
                 i = 1;
-                U32 mission_and_room = m4F54 * 100 + 1;
+                U32 mission_and_room = mission_id * 100 + 1;
                 for (; i < mission->m_num_rooms + 1; i++) {
                     if (mission->IsRoomOpened(i)) {
-                        if (i == m_game->GetUnk4F58()) {
+                        if (i == m_game->GetCurrentRoomId()) {
                             m_scene->SetAmbient(1.0f, 1.0f, 1.0f);
                         } else {
                             m_scene->SetAmbient(0.6f, 0.6f, 0.6f);
@@ -425,7 +425,7 @@ void CMiniMap::RenderDarkenRooms(F32 dt) {
     m_game->GetDisplayEngine()->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
 
     if (m_unk94 >= 1.0f) {
-        DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_209");
+        DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_209");
         if (texture != NULL) {
             m_icon44->SetTexture(texture);
         } else {
@@ -435,7 +435,7 @@ void CMiniMap::RenderDarkenRooms(F32 dt) {
 
         CMission* mission = m_game->GetCurrentMission();
         if (mission != NULL) {
-            int iVar1 = m_game->GetUnk4F54() * 100;
+            int iVar1 = m_game->GetCurrentMissionId() * 100;
             for (U32 i = 1; i < mission->m_num_rooms + 1; i++) {
                 int id = iVar1 + i;
                 if (!mission->IsRoomOpened(i) && m_clump20 != NULL) {
@@ -485,28 +485,28 @@ void CMiniMap::RenderHeroIcon(F32 dt) {
 
     spline->GetNumberOfControlPoints(); // unused
     CDKW_V3d vec;
-    spline->GetControlPoint(m_game->GetUnk4F58() - 1, &vec);
+    spline->GetControlPoint(m_game->GetCurrentRoomId() - 1, &vec);
     m_hero_icon->SetSize(10.0f + cosf(1.5f * dVar5) - 1.0f);
     m_hero_icon->SetPosition(vec);
 
-    switch (m_game->m_unk4F5C) {
-        case 0:
-        case 3: {
-            DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_205");
+    switch (m_game->GetCurrentHeroId()) {
+        case HERO_PIGLET:
+        case HERO_CATCH_THEM_ALL: {
+            DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_205");
             if (texture != NULL) {
                 m_hero_icon->SetTexture(texture);
             }
             break;
         }
-        case 1: {
-            DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_207");
+        case HERO_TIGGER: {
+            DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_207");
             if (texture != NULL) {
                 m_hero_icon->SetTexture(texture);
             }
             break;
         }
-        case 2: {
-            DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_206");
+        case HERO_WINNIE: {
+            DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_206");
             if (texture != NULL) {
                 m_hero_icon->SetTexture(texture);
             }
@@ -531,7 +531,7 @@ void CMiniMap::RenderIcons(F32 dt) {
                     CDKW_V3d control_point;
                     cookie_spline->GetControlPoint(i - 1, &control_point);
                     m_icon38->SetPosition(control_point);
-                    DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_201");
+                    DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_201");
                     if (texture != NULL) {
                         m_icon38->SetTexture(texture);
                     }
@@ -540,7 +540,7 @@ void CMiniMap::RenderIcons(F32 dt) {
                     CDKW_V3d control_point;
                     cookie_spline->GetControlPoint(i - 1, &control_point);
                     m_icon38->SetPosition(control_point);
-                    DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_202");
+                    DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_202");
                     if (texture != NULL) {
                         m_icon38->SetTexture(texture);
                     }
@@ -549,7 +549,7 @@ void CMiniMap::RenderIcons(F32 dt) {
             }
         }
 
-        if (m_game->GetUnk4F5C() == 3) {
+        if (m_game->GetCurrentHeroId() == HERO_CATCH_THEM_ALL) {
             DKDSP::CSpline* npc_spline = m_spline_manager->GetSpline("NPCSPLINE")->GetSpline();
             if (npc_spline != NULL) {
                 for (U32 i = 1; i < m_game->GetCurrentMission()->m_num_rooms + 1; i++) {
@@ -558,12 +558,12 @@ void CMiniMap::RenderIcons(F32 dt) {
                     m_icon38->SetPosition(control_point);
 
                     if (m_game->GetCurrentMission()->IsRoomCompleted(i)) {
-                        DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_204");
+                        DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_204");
                         if (texture != NULL) {
                             m_icon38->SetTexture(texture);
                         }
                     } else {
-                        DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_203");
+                        DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_203");
                         if (texture != NULL) {
                             m_icon38->SetTexture(texture);
                         }
@@ -587,7 +587,7 @@ void CMiniMap::RenderIcons(F32 dt) {
                             spline->GetControlPoint(i, &control_point);
                             m_icon38->SetPosition(control_point);
 
-                            DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture(MINIMAP_TEX_FRIEND_NPC[uVar9]);
+                            DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture(MINIMAP_TEX_FRIEND_NPC[uVar9]);
                             if (texture != NULL) {
                                 m_icon38->SetTexture(texture);
                             }
@@ -609,7 +609,7 @@ void CMiniMap::RenderCookiesNbIcon(F32 dt) {
     icon2.m_height = 0.18f;
     icon2.m_x = 0.195f;
     icon2.m_y = 0.13f;
-    icon2.m_texture = m_game->m_texture_dictionary->FindTexture("BMP_208");
+    icon2.m_texture = m_game->GetTextureDictionary()->FindTexture("BMP_208");
     icon2.Render(m_batch4C, 0);
 
     char nb_cookies_str[10] = {};
@@ -633,7 +633,7 @@ void CMiniMap::RenderCookiesNbIcon(F32 dt) {
     icon1.m_height = 0.1f;
     icon1.m_x = float1;
     icon1.m_y = 0.12f;
-    icon1.m_texture = m_game->m_texture_dictionary->FindTexture("BMP_201");
+    icon1.m_texture = m_game->GetTextureDictionary()->FindTexture("BMP_201");
     icon1.Render(m_batch48, 0);
 
     CIcon::EndRender();
@@ -646,9 +646,9 @@ BOOL CMiniMap::IsVisible() {
 }
 
 void CMiniMap::ComputeMinimapBBox() {
-    U32 mission_nb = m_game->GetUnk4F54();
-    U32 mission_and_room = mission_nb * 100 + m_game->GetUnk4F58();
-    if ((mission_nb == 7 || mission_nb == 8) || (mission_nb == 2 && mission_and_room == 209) || (mission_nb == 4 && mission_and_room == 411) || (mission_nb == 6 && mission_and_room == 613)) {
+    U32 mission_nb = m_game->GetCurrentMissionId();
+    U32 mission_and_room = mission_nb * 100 + m_game->GetCurrentRoomId();
+    if ((mission_nb == MISSION_FINAL || mission_nb == MISSION_MENUS) || (mission_nb == MISSION_ROO && mission_and_room == 209) || (mission_nb == MISSION_EEYORE && mission_and_room == 411) || (mission_nb == MISSION_TIGGER && mission_and_room == 613)) {
         return;
     }
 
@@ -662,7 +662,7 @@ void CMiniMap::ComputeMinimapBBox() {
     CMission* mission = m_game->GetCurrentMission();
     if (mission != NULL) {
         U32 i = 1;
-        mission_and_room = m_game->GetUnk4F54() * 100 + 1;
+        mission_and_room = m_game->GetCurrentMissionId() * 100 + 1;
         for (; i < mission->m_num_rooms + 1u; i++) {
             if (m_clump20 != NULL) {
                 int id = m_clump20->GetAtomicIndexFromID(mission_and_room);

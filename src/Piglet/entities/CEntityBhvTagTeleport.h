@@ -27,56 +27,51 @@ public:
     void Parse(DkXmd::CChunkIterator iter);
 
     virtual void Set(CEntity* entity) {
-        entity->m_entity_manager->GetGame()->ResetOpcodeBuffer();
+        entity->GetManager()->GetGame()->ResetOpcodeBuffer();
         if (m_room > 0) {
-            entity->m_entity_manager->GetGame()->PushOpcodeValue(1);
-            entity->m_entity_manager->GetGame()->PushOpcodeValue(m_room);
-            if (entity->m_entity_manager->GetGame()->m_unk4F5C == 3) {
-                entity->m_entity_manager->GetGame()->PushOpcodeValue(3);
+            entity->GetManager()->GetGame()->PushOpcodeValue(1);
+            entity->GetManager()->GetGame()->PushOpcodeValue(m_room);
+            if (entity->GetManager()->GetGame()->GetCurrentHeroId() == HERO_CATCH_THEM_ALL) {
+                entity->GetManager()->GetGame()->PushOpcodeValue(HERO_CATCH_THEM_ALL);
             } else {
-                entity->m_entity_manager->GetGame()->PushOpcodeValue(m_hero);
+                entity->GetManager()->GetGame()->PushOpcodeValue(m_hero);
             }
-            entity->m_entity_manager->GetGame()->PushOpcodeValue(m_hero_pos_x);
-            entity->m_entity_manager->GetGame()->PushOpcodeValue(m_hero_pos_y);
-            entity->m_entity_manager->GetGame()->PushOpcodeValue(m_hero_pos_z);
-            entity->m_entity_manager->GetGame()->PushOpcodeValue(m_hero_rot_x);
-            entity->m_entity_manager->GetGame()->PushOpcodeValue(m_hero_rot_y);
-            entity->m_entity_manager->GetGame()->PushOpcodeValue(m_hero_rot_z);
-            entity->m_entity_manager->GetGame()->PushOpcodeValue(0);
+            entity->GetManager()->GetGame()->PushOpcodeValue(m_hero_pos_x);
+            entity->GetManager()->GetGame()->PushOpcodeValue(m_hero_pos_y);
+            entity->GetManager()->GetGame()->PushOpcodeValue(m_hero_pos_z);
+            entity->GetManager()->GetGame()->PushOpcodeValue(m_hero_rot_x);
+            entity->GetManager()->GetGame()->PushOpcodeValue(m_hero_rot_y);
+            entity->GetManager()->GetGame()->PushOpcodeValue(m_hero_rot_z);
+            entity->GetManager()->GetGame()->PushOpcodeValue(0);
         } else {
             if (m_room == -1) {
-                entity->m_entity_manager->GetGame()->PushOpcodeValue(8);
+                entity->GetManager()->GetGame()->PushOpcodeValue(8);
             } else if (m_room == -2) {
-                entity->m_entity_manager->GetGame()->PushOpcodeValue(9);
+                entity->GetManager()->GetGame()->PushOpcodeValue(9);
             } else if (m_room == -3) {
-                entity->m_entity_manager->GetGame()->PushOpcodeValue(7);
+                entity->GetManager()->GetGame()->PushOpcodeValue(7);
             } else if (m_room == -4) {
-                entity->m_entity_manager->GetGame()->PushOpcodeValue(5);
+                entity->GetManager()->GetGame()->PushOpcodeValue(5);
             } else if (m_room == -5) {
-                entity->m_entity_manager->GetGame()->PushOpcodeValue(4);
+                entity->GetManager()->GetGame()->PushOpcodeValue(4);
             }
         }
-        CGamePartIngame* game_part = (CGamePartIngame*)entity->m_entity_manager->GetGame()->GetGamePartPointer();
-        game_part->m_unk4 = 0;
-
-        entity->m_entity_manager->GetGame()->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
+        entity->GetManager()->GetGame()->GetIngameGamePart()->m_unk4 = 0;
+        entity->GetManager()->GetGame()->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
 
         if (!m_no_fade) {
-            CDKW_RGBA fade_color = entity->m_entity_manager->GetGame()->ComputeGameFadeColor();
-            entity->m_entity_manager->GetGame()->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-            entity->m_entity_manager->GetGame()->m_unk503C &= ~(1 << 3); // bitfield?
+            CDKW_RGBA fade_color = entity->GetManager()->GetGame()->ComputeGameFadeColor();
+            entity->GetManager()->GetGame()->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
+            entity->GetManager()->GetGame()->m_unk503C &= ~(1 << 3); // bitfield?
+            entity->GetManager()->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
+            entity->GetManager()->GetGame()->FadeIn(-1.0f);
 
-            CGamePartIngame* game_part = (CGamePartIngame*)entity->m_entity_manager->GetGame()->GetGamePartPointer();
-            game_part->m_game_room_manager->m_flags |= (1 << 5);
-
-            entity->m_entity_manager->GetGame()->FadeIn(-1.0f);
-
-            CEntityHero* hero = entity->m_entity_manager->GetHero();
+            CEntityHero* hero = entity->GetManager()->GetHero();
             if (hero != NULL) {
-                entity->m_entity_manager->GetGame()->GetMailbox()->SendMessage(entity->m_unk0, hero->m_unk0, "EXIT", 0);
+                entity->GetManager()->GetGame()->GetMailbox()->SendMessage(entity->GetName(), hero->GetName(), "EXIT", 0);
             }
         } else {
-            CGame* game = entity->m_entity_manager->GetGame();
+            CGame* game = entity->GetManager()->GetGame();
             game->m_unk502C = game->m_fade_duration + game->m_unk5048;
         }
     }

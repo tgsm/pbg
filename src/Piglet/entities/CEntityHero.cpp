@@ -126,7 +126,7 @@ void CEntityHero::ManageMessage(SDkMessage& message) {
 void CEntityHero::ResolveContact(const DkPh::Collider::Body& body, int, int) {
     CEntity* entity4 = body.entity4;
     if (m_unk124 & (1 << 0)) {
-        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, entity4->m_unk0, "ACTION", 0);
+        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, entity4->GetName(), "ACTION", 0);
     }
 }
 
@@ -288,7 +288,7 @@ void CEntityHero::Parse(DkXmd::CChunkIterator iter) {
         } while (dest.GetNextSiblingChunk(dest) == TRUE);
     }
 
-    if (m_entity_manager->GetGame()->m_unk4F5C == 3) {
+    if (m_entity_manager->GetGame()->GetCurrentHeroId() == HERO_CATCH_THEM_ALL) {
         SetMode(11);
     } else {
         SetMode(0);

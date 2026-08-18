@@ -130,7 +130,7 @@ BOOL CEntityPiglet::Restore(void* data) {
     // unused
     container->GetS32((S8*)data);
 
-    if (game->m_unk4F5C == 3 || game->m_unk4F54 == 8 || (game->m_unk4F54 == 7 && game->GetUnk4F58() == 1)) {
+    if (game->GetCurrentHeroId() == HERO_CATCH_THEM_ALL || game->GetCurrentMissionId() == MISSION_MENUS || (game->GetCurrentMissionId() == MISSION_FINAL && game->GetCurrentRoomId() == 1)) {
         m_state = 0;
         m_life = 3;
     } else {
@@ -350,12 +350,12 @@ void CEntityPiglet::ResolveContact(const DkPh::Collider::Body& body, int a2, int
                 if (m_unk26C == 0) {
                     if (m_animation_star_controller->IsPlayingAnimation("SEARCH") == TRUE) {
                         if (time > 0.35f) {
-                            m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, entity->m_unk0, "ACTION", 0);
+                            m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, entity->GetName(), "ACTION", 0);
                             m_unk26C = 1;
                         }
                     } else if (m_animation_star_controller->IsPlayingAnimation("SEARCH_RUN") == TRUE) {
                         if (time > 0.18f) {
-                            m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, entity->m_unk0, "ACTION", 0);
+                            m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, entity->GetName(), "ACTION", 0);
                             m_unk26C = 1;
                         }
                     }
@@ -372,7 +372,7 @@ void CEntityPiglet::ResolveContact(const DkPh::Collider::Body& body, int a2, int
 
                 if (GetMode() == 0 || GetMode() == 1) {
                     if (m_unk124 & (1 << 0)) {
-                        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, entity->m_unk0, "ACTION", 0);
+                        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, entity->GetName(), "ACTION", 0);
                     }
                 }
                 break;
@@ -390,7 +390,7 @@ void CEntityPiglet::ResolveContact(const DkPh::Collider::Body& body, int a2, int
                 RwSprintf(buf, "%s%s", "USE", item);
 
                 if (item != NULL) {
-                    m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, entity->m_unk0, buf, 0);
+                    m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, entity->GetName(), buf, 0);
 
                     std::string name = "SND_206_2D";
                     DKSND::CSound2D* sound = DkSoundGetEngine()->PlaySound2D(&name, 1);
@@ -573,7 +573,7 @@ void CEntityPiglet::UpdateAnimations(F32 dt) {
         case 14:
             if (m_animation_star_controller->IsPlayingAnimation("START_FIGHT") == TRUE && m_animation_star_controller->IsPlayingAnimationLooped()) {
                 UpdateAnimations_AdventureMode(dt);
-                if (m_entity_manager->GetGame()->m_unk4F5C == 3) {
+                if (m_entity_manager->GetGame()->GetCurrentHeroId() == HERO_CATCH_THEM_ALL) {
                     SetMode(0);
                 } else {
                     SetMode(2);
@@ -630,7 +630,7 @@ void CEntityPiglet::UpdateAnimations(F32 dt) {
                     break;
                 case 2:
                     if (m_animation_star_controller->IsPlayingAnimation("PUSH_START") == TRUE && m_animation_star_controller->IsPlayingAnimationLooped()) {
-                        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_pushing_box->m_unk0, "START", 0);
+                        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, m_pushing_box->GetName(), "START", 0);
 
                         if (GetMode() == 16) {
                             m_animation_star_controller->Play("PUSH_LOOP", 1);
@@ -801,7 +801,7 @@ void CEntityPiglet::UpdateMoving(F32 dt) {
 }
 
 void CEntityPiglet::UpdateActions() {
-    if ((GetMode() == 0 || GetMode() == 1) && (int)m_entity_manager->GetGame()->m_unk4F54 != 8) {
+    if ((GetMode() == 0 || GetMode() == 1) && (int)m_entity_manager->GetGame()->GetCurrentMissionId() != MISSION_MENUS) {
         if (m_unk124 & (1 << 1)) {
             m_unk2A0 = 0;
             SetMode(18);
@@ -854,8 +854,8 @@ void CEntityPiglet::Update(F32 dt) {
     UpdateOSD_Impl(dt);
 }
 
-void CEntityPiglet::Render(F32 dt_maybe) {
-    CEntityHero::Render(dt_maybe);
+void CEntityPiglet::Render(F32 dt) {
+    CEntityHero::Render(dt);
     CEntityPiglet::RenderOSD();
 }
 
@@ -1043,7 +1043,7 @@ void CEntityPiglet::RenderOSD() {
 
         char buf[32];
         RwSprintf(buf, "ITEM_000_0%d", num + 1);
-        icon2.m_texture = m_entity_manager->GetGame()->m_texture_dictionary->FindTexture(buf);
+        icon2.m_texture = m_entity_manager->GetGame()->GetTextureDictionary()->FindTexture(buf);
         icon2.Render(m_batches[i * 2 + 0], 1);
 
         char* item = m_entity_manager->GetGame()->GetCurrentMission()->GetItem(i);
@@ -1051,7 +1051,7 @@ void CEntityPiglet::RenderOSD() {
             if (i == m_unk2A0) {
                 icon1.m_alpha = 0xFF;
             }
-            icon1.m_texture = m_entity_manager->GetGame()->m_texture_dictionary->FindTexture(item);
+            icon1.m_texture = m_entity_manager->GetGame()->GetTextureDictionary()->FindTexture(item);
             icon1.Render(m_batches[i * 2 + 1], 1);
         }
     }

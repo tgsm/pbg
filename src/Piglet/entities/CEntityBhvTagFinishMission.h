@@ -21,22 +21,21 @@ public:
             return;
         }
 
-        entity->m_entity_manager->GetGame()->ResetOpcodeBuffer();
-        entity->m_entity_manager->GetGame()->PushOpcodeValue(3);
-        entity->m_entity_manager->GetGame()->PushOpcodeValue(14);
-        CGamePartIngame* game_part = (CGamePartIngame*)entity->m_entity_manager->GetGame()->GetGamePartPointer();
-        game_part->m_unk4 = 0;
-        entity->m_entity_manager->GetGame()->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
+        entity->GetManager()->GetGame()->ResetOpcodeBuffer();
+        entity->GetManager()->GetGame()->PushOpcodeValue(3);
+        entity->GetManager()->GetGame()->PushOpcodeValue(14);
+        entity->GetManager()->GetGame()->GetIngameGamePart()->m_unk4 = 0;
+        entity->GetManager()->GetGame()->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
 
-        CGame* game = entity->m_entity_manager->GetGame();
+        CGame* game = entity->GetManager()->GetGame();
         game->m_unk502C = game->m_fade_duration + game->m_unk5048;
 
-        if (entity->m_entity_manager->GetGame()->m_unk4F54 == 7) {
-            CDKW_RGBA fade_color = entity->m_entity_manager->GetGame()->ComputeGameFadeColor();
-            entity->m_entity_manager->GetGame()->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-            entity->m_entity_manager->GetGame()->m_unk503C &= ~(1 << 3);
-            ((CGamePartIngame*)entity->m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
-            entity->m_entity_manager->GetGame()->FadeIn(-1.0f);
+        if (entity->GetManager()->GetGame()->GetCurrentMissionId() == MISSION_FINAL) {
+            CDKW_RGBA fade_color = entity->GetManager()->GetGame()->ComputeGameFadeColor();
+            entity->GetManager()->GetGame()->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
+            entity->GetManager()->GetGame()->m_unk503C &= ~(1 << 3);
+            entity->GetManager()->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
+            entity->GetManager()->GetGame()->FadeIn(-1.0f);
         }
     }
 

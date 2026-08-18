@@ -22,7 +22,7 @@ BOOL CGamePartIngame::HeroAskForFightModeLaunch() {
         return FALSE;
     }
 
-    if (m_game->m_unk4F5C != 0 || m_game_room_manager->IsOnFight() || m_game_room_manager->GetState() != 2) {
+    if (m_game->GetCurrentHeroId() != HERO_PIGLET || m_game_room_manager->IsOnFight() || m_game_room_manager->GetState() != 2) {
         return FALSE;
     }
 
@@ -90,9 +90,9 @@ void CGamePartIngame::StartRTCMode(CRTCPlayerEntity* player, int a2) {
 }
 
 BOOL CGamePartIngame::IsAllCookiesCollected() {
-    U32 count = m_game->m_entity_manager->GetEntityTypeCount(ENTITY_SEARCHABLE_ZONE);
+    U32 count = m_game->GetEntityManager()->GetEntityTypeCount(ENTITY_SEARCHABLE_ZONE);
     for (U32 i = 0; i < count; i++) {
-        CEntitySearchableZone* zone = (CEntitySearchableZone*)m_game->m_entity_manager->GetEntityType(ENTITY_SEARCHABLE_ZONE, i);
+        CEntitySearchableZone* zone = (CEntitySearchableZone*)m_game->GetEntityManager()->GetEntityType(ENTITY_SEARCHABLE_ZONE, i);
         if (zone != NULL && zone->m_unk21C != zone->m_generated_entity_number) {
             return FALSE;
         }
@@ -121,42 +121,42 @@ BOOL CGamePartIngame::UnblockFightMode() {
 void CGamePartIngame::SetupSoundsLayer(U32 a1, U32 a2) {
     switch (a1) {
         case 1:
-            m_game->m_sound_engine->ResumeLayer(1);
+            m_game->GetSoundEngine()->ResumeLayer(1);
             break;
         case 4:
             if (a2) {
-                m_game->m_sound_engine->ResumeLayer(1);
+                m_game->GetSoundEngine()->ResumeLayer(1);
             } else {
-                m_game->m_sound_engine->PauseLayer(1);
+                m_game->GetSoundEngine()->PauseLayer(1);
             }
             break;
         case 2:
             if (a2) {
                 if (m_game_room_manager->IsOnFight()) {
-                    m_game->m_sound_engine->ResumeLayer(4);
+                    m_game->GetSoundEngine()->ResumeLayer(4);
                 } else {
-                    m_game->m_sound_engine->ResumeLayer(1);
+                    m_game->GetSoundEngine()->ResumeLayer(1);
                 }
             } else {
                 if (m_game_room_manager->IsOnFight()) {
-                    m_game->m_sound_engine->PauseLayer(4);
+                    m_game->GetSoundEngine()->PauseLayer(4);
                 } else {
-                    m_game->m_sound_engine->PauseLayer(1);
+                    m_game->GetSoundEngine()->PauseLayer(1);
                 }
             }
             break;
         case 3:
             if (a2) {
-                m_game->m_sound_engine->ResumeLayer(1);
+                m_game->GetSoundEngine()->ResumeLayer(1);
             } else {
-                m_game->m_sound_engine->PauseLayer(1);
+                m_game->GetSoundEngine()->PauseLayer(1);
             }
             break;
         case 5:
             if (a2) {
-                m_game->m_sound_engine->ResumeLayer(1);
+                m_game->GetSoundEngine()->ResumeLayer(1);
             } else {
-                m_game->m_sound_engine->PauseLayer(1);
+                m_game->GetSoundEngine()->PauseLayer(1);
             }
             break;
     }

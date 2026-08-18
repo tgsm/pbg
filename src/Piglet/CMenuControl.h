@@ -40,7 +40,6 @@ public:
     void Render(BOOL active);
 
     void SetValue(int val) { m_value = val; }
-    void SetValueMinus1(int val) { m_value = val - 1; }
 };
 REQUIRE_SIZE(CMenuControl, 0x54);
 

@@ -66,7 +66,7 @@ public:
     virtual void func28();
     virtual void func29();
     virtual void func30();
-    virtual void Update(F32 dt_maybe);
+    virtual void Update(F32 dt);
     virtual void func31();
     virtual void SetAnimation(IAnimation*);
     virtual void func33();

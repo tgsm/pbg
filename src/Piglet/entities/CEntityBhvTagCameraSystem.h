@@ -23,21 +23,21 @@ public:
     // Equivalent: regalloc, STL functions shouldn't be inlined here
     virtual void Set(CEntity* entity) {
         std::vector<CCAZone*> zones;
-        CCACamera* camera = ((CGamePartIngame*)entity->m_entity_manager->GetGame()->GetGamePartPointer())->m_camera;
-        CGame* game = entity->m_entity_manager->GetGame();
-        CMission* mission = &game->m_unk210[game->m_unk4F54 - 1];
+        CCACamera* camera = entity->GetManager()->GetGame()->GetIngameGamePart()->m_camera;
+        CGame* game = entity->GetManager()->GetGame();
+        CMission* mission = game->GetCurrentMission();
 
-        int unk4F58 = game->m_unk4F58;
+        int room_id = game->GetCurrentRoomId();
         if (m_room == -1) {
-            m_room = unk4F58;
+            m_room = room_id;
         }
 
-        if (unk4F58 == m_room && camera != NULL) {
+        if (room_id == m_room && camera != NULL) {
             camera->SetActiveSystemForAZone((char*)m_cam_zone.data(), (char*)m_cam_system.data());
             if (mission != NULL) {
                 zones = camera->GetZoneList();
                 for (int i = 0; i < (int)zones.size(); i++) {
-                    mission->m_unk7C.unk[unk4F58].unk0[i] = zones[i]->GetActiveSystemIndex();
+                    mission->m_unk7C.unk[room_id].unk0[i] = zones[i]->GetActiveSystemIndex();
                 }
             }
         }

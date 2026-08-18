@@ -24,13 +24,13 @@ void CLoadingTigger::Create() {
         }
 
         if (m_controller == NULL) {
-            BOOL failed = (m_controller = m_game->m_anim_dictionary->CreateController("Models/120_TIGGER/CAR_120.dff", m_clump1C, 6)) == NULL;
+            BOOL failed = (m_controller = m_game->GetAnimDictionary()->CreateController("Models/120_TIGGER/CAR_120.dff", m_clump1C, 6)) == NULL;
             if (failed) {
                 return;
             }
         }
 
-        m_game->m_screen_effect->SetSequenceByIndex(4);
+        m_game->GetScreenEffect()->SetSequenceByIndex(4);
 
         CDKW_RGBA color;
         F32 scalar = 1.1086956f;
@@ -89,7 +89,7 @@ void CLoadingTigger::Create() {
 
         m_clump1C->UpdateModelPos(CDKW_V3d::ZERO);
 
-        DKDSP::CAnimation* anim = m_game->m_anim_dictionary->FindAnimation("Models/120_TIGGER/ANM_120_090.anm");
+        DKDSP::CAnimation* anim = m_game->GetAnimDictionary()->FindAnimation("Models/120_TIGGER/ANM_120_090.anm");
 
         m_controller->StopAllAnimations(DKDSP::ANIMATION_TYPE_ANM, 0);
         m_controller->StopAllAnimations(DKDSP::ANIMATION_TYPE_DMA, 0);

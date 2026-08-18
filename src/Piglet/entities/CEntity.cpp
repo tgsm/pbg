@@ -5,8 +5,8 @@
 #include <iostream>
 
 CEntity::CEntity(CEntityManager* entity_manager, std::string name) {
-    m_unk0.assign(name, 0);
-    m_flags = 3;
+    m_name.assign(name, 0);
+    m_flags = ENTITY_FLAG_ACTIVE | ENTITY_FLAG_VISIBLE;
     m_unk10 = 0;
     m_unk14 = 0;
     m_unkC = 0;
@@ -30,11 +30,11 @@ void CEntity::Reset() {
 
 }
 
-void CEntity::Update(F32 dt_maybe) {
+void CEntity::Update(F32 dt) {
     ProcessMessages();
 }
 
-void CEntity::Render(F32 dt_maybe) {
+void CEntity::Render(F32 dt) {
 
 }
 
@@ -107,13 +107,14 @@ void CEntity::ProcessMessages() {
     CMailBox* mailbox = m_entity_manager->GetGame()->GetMailbox();
 
     SDkMessage message;
-    while (mailbox->GetMessage(&message, m_unk0, 1) != 0) {
+    while (mailbox->GetMessage(&message, m_name, 1) != 0) {
         CEntityBhvTagBehavior* behavior = m_unk18->GetBehavior(m_unk10);
         if (behavior != NULL) {
             for (CEntityBhvTagBehavior* bhv = (CEntityBhvTagBehavior*)behavior->m_unk4; bhv != NULL; bhv = (CEntityBhvTagBehavior*)bhv->m_unk0) {
                 if (bhv->GetType() == BEHAVIOR_TAG_MESSAGE) {
                     CEntityBhvTagMessage* bhv_message = ((CEntityBhvTagMessage*)bhv);
-                    if (bhv_message->m_unkC == message.from || (message.from == "" && m_unk0 == bhv_message->m_unkC)) {
+                    // BUG: Improper check if a string is empty.
+                    if (bhv_message->m_unkC == message.from || (message.from == "" && m_name == bhv_message->m_unkC)) {
                         if (bhv_message->m_unk10 == message.type) {
                             bhv_message->Set(this);
                         }
@@ -158,6 +159,6 @@ void CEntity::ManageMessage(SDkMessage& message) {
     }
 }
 
-void CEntity::UpdateBehavior(F32 dt_maybe) {
+void CEntity::UpdateBehavior(F32 dt) {
 
 }

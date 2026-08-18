@@ -29,7 +29,7 @@ void CLoadingCatchThemAll::Create() {
         }
 
         if (m_controller == NULL) {
-            BOOL failed = (m_controller = m_game->m_anim_dictionary->CreateController("Models/100_PIGLET/CAR_100.dff", m_clump1C, 6)) == NULL;
+            BOOL failed = (m_controller = m_game->GetAnimDictionary()->CreateController("Models/100_PIGLET/CAR_100.dff", m_clump1C, 6)) == NULL;
             if (failed) {
                 return;
             }
@@ -42,7 +42,7 @@ void CLoadingCatchThemAll::Create() {
             }
         }
 
-        m_game->m_screen_effect->SetSequenceByIndex(0);
+        m_game->GetScreenEffect()->SetSequenceByIndex(0);
 
         CDKW_RGBA color;
         F32 scalar = 1.1086956f;
@@ -102,10 +102,10 @@ void CLoadingCatchThemAll::Create() {
 
         m_clump1C->UpdateModelPos(CDKW_V3d::ZERO);
 
-        m_anims48[0] = m_game->m_anim_dictionary->FindAnimation("Models/100_PIGLET/ANM_100_240.anm");
-        m_anims48[1] = m_game->m_anim_dictionary->FindAnimation("Models/100_PIGLET/ANM_100_280.anm");
-        m_anims50[0] = m_game->m_anim_dictionary->FindDMorphAnimation("Models/100_PIGLET/ANM_100_020_1.dma");
-        m_anims50[1] = m_game->m_anim_dictionary->FindDMorphAnimation("Models/100_PIGLET/ANM_100_080_1.dma");
+        m_anims48[0] = m_game->GetAnimDictionary()->FindAnimation("Models/100_PIGLET/ANM_100_240.anm");
+        m_anims48[1] = m_game->GetAnimDictionary()->FindAnimation("Models/100_PIGLET/ANM_100_280.anm");
+        m_anims50[0] = m_game->GetAnimDictionary()->FindDMorphAnimation("Models/100_PIGLET/ANM_100_020_1.dma");
+        m_anims50[1] = m_game->GetAnimDictionary()->FindDMorphAnimation("Models/100_PIGLET/ANM_100_080_1.dma");
 
         m_clump1C->GetFrame()->Rotate(&CDKW_V3d::YAXIS, 90.0f, 0);
 
@@ -118,7 +118,7 @@ void CLoadingCatchThemAll::Create() {
         m_clump1C->SetController(m_controller);
         m_controller->Play(0.0f);
 
-        m_clump1C->SetAnimation(m_game->m_anim_dictionary->FindAnimation("Models/650_FIOLE/CAR_650.anm"));
+        m_clump1C->SetAnimation(m_game->GetAnimDictionary()->FindAnimation("Models/650_FIOLE/CAR_650.anm"));
         m_clump1C->UpdateModelPos(CDKW_V3d(0.0f, 0.0f, 0.0f));
 
         CDKW_V3d local_e4_(23.7f, 38.8f, 12.0f);

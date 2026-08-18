@@ -15,7 +15,7 @@ public:
     virtual void AddFlag(U32 flag);
     virtual void DelFlag(U32 flag);
     virtual U32 GetType() { return ENTITY_TIGGER; }
-    virtual void Update(F32 dt_maybe);
+    virtual void Update(F32 dt);
     virtual void ManageMessage(SDkMessage&);
     virtual void ResolveContact(const DkPh::Collider::Body&, int, int);
     virtual void UpdateAnimations(F32);

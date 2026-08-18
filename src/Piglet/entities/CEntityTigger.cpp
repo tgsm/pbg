@@ -228,13 +228,13 @@ void CEntityTigger::UpdateActions() {
 
 }
 
-void CEntityTigger::Update(F32 dt_maybe) {
+void CEntityTigger::Update(F32 dt) {
     if (m_unk260 != -1.0f) {
-        m_unk260 += dt_maybe;
+        m_unk260 += dt;
         if (m_unk260 >= 2.0f) {
             UnDetected();
         }
     }
 
-    CEntityHero::Update(dt_maybe);
+    CEntityHero::Update(dt);
 }

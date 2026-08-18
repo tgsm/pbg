@@ -18,10 +18,10 @@ public:
 
     virtual U32 NextFrame();
     virtual U32 NextFrameExit();
-    virtual void Update(F32 dt_maybe);
-    virtual void Render(F32 dt_maybe);
-    virtual void RenderIcons(F32 dt_maybe);
-    virtual void RenderBackGround(F32 dt_maybe);
+    virtual void Update(F32 dt);
+    virtual void Render(F32 dt);
+    virtual void RenderIcons(F32 dt);
+    virtual void RenderBackGround(F32 dt);
     virtual BOOL IsVideoOpen(int);
 };
 REQUIRE_SIZE(CGamePartScrapBook, 0x2C);

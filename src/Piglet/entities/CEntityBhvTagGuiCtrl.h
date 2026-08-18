@@ -25,21 +25,21 @@ public:
         // FIXME: Can't we just use ==?
         // Also this operator function ends up being emitted in the wrong place.
         if (std::operator==(m_name, "AUTOSAVE")) {
-            CGame* game = entity->m_entity_manager->GetGame();
-            game->m_unk8 |= (game->m_unk8 | (1 << 7));
+            CGame* game = entity->GetManager()->GetGame();
+            game->AddFlags(game->GetFlags() | (1 << 7));
         } else if (std::operator==(m_name, "SAVE_CHECK_MMC")) {
-            entity->m_entity_manager->GetGame()->m_gui_manager->GetGuiPtr("SAVE_SAVE_READY")->menu->Reset();
-            entity->m_entity_manager->GetGame()->m_gui_manager->SetActive("SAVE_SAVE_READY", 1);
-            entity->m_entity_manager->GetGame()->m_gui_manager->SetVisible("SAVE_SAVE_READY", 1);
+            entity->GetManager()->GetGame()->GetGuiManager()->GetGuiPtr("SAVE_SAVE_READY")->menu->Reset();
+            entity->GetManager()->GetGame()->GetGuiManager()->SetActive("SAVE_SAVE_READY", 1);
+            entity->GetManager()->GetGame()->GetGuiManager()->SetVisible("SAVE_SAVE_READY", 1);
         } else {
 #ifdef VERSION_GPLP9G
-            if (entity->m_entity_manager->GetGame()->m_gui_manager->GetGuiPtr(m_name)->unkC != 0) {
-                entity->m_entity_manager->GetGame()->StopNarratorLine(0);
+            if (entity->GetManager()->GetGame()->GetGuiManager()->GetGuiPtr(m_name)->unkC != 0) {
+                entity->GetManager()->GetGame()->StopNarratorLine(0);
             }
 #endif
-            entity->m_entity_manager->GetGame()->m_gui_manager->GetGuiPtr(m_name)->menu->Reset();
-            entity->m_entity_manager->GetGame()->m_gui_manager->SetActive(m_name, m_active);
-            entity->m_entity_manager->GetGame()->m_gui_manager->SetVisible(m_name, m_visible);
+            entity->GetManager()->GetGame()->GetGuiManager()->GetGuiPtr(m_name)->menu->Reset();
+            entity->GetManager()->GetGame()->GetGuiManager()->SetActive(m_name, m_active);
+            entity->GetManager()->GetGame()->GetGuiManager()->SetVisible(m_name, m_visible);
         }
     }
     virtual U32 GetType() { return BEHAVIOR_TAG_GUI_CONTROL; }

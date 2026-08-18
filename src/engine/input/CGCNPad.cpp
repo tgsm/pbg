@@ -47,7 +47,7 @@ void CGCNPad::Update() {
     PADClamp(&ms_Datas[0]);
 }
 
-void CGCNPad::Update(const F32& dt_maybe) {
+void CGCNPad::Update(const F32& dt) {
     if (m_not_connected) {
         switch (m_pad_no) {
             case 0:
@@ -83,25 +83,25 @@ void CGCNPad::Update(const F32& dt_maybe) {
         }
     }
 
-    m_unk4.unk8 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_UP) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_UP)) ? m_unk4.unk8 + dt_maybe : 0.0f;
-    m_unk4.unkC = ((ms_Datas[m_pad_no].button & PAD_BUTTON_DOWN) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_DOWN)) ? m_unk4.unkC + dt_maybe : 0.0f;
-    m_unk4.unk4 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_LEFT) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_LEFT)) ? m_unk4.unk4 + dt_maybe : 0.0f;
-    m_unk4.unk0 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_RIGHT) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_RIGHT)) ? m_unk4.unk0 + dt_maybe : 0.0f;
-    m_unk28 = ((ms_Datas[m_pad_no].button & PAD_TRIGGER_Z) == (ms_LastDatas[m_pad_no].button & PAD_TRIGGER_Z)) ? m_unk28 + dt_maybe : 0.0f;
-    m_unk2C = ((ms_Datas[m_pad_no].button & PAD_BUTTON_A) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_A)) ? m_unk2C + dt_maybe : 0.0f;
-    m_unk30 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_B) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_B)) ? m_unk30 + dt_maybe : 0.0f;
-    m_unk34 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_X) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_X)) ? m_unk34 + dt_maybe : 0.0f;
-    m_unk38 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_Y) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_Y)) ? m_unk38 + dt_maybe : 0.0f;
-    m_unk14 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_START) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_START)) ? m_unk14 + dt_maybe : 0.0f;
-    m_unk3C = ((ms_Datas[m_pad_no].triggerLeft) == (ms_LastDatas[m_pad_no].triggerLeft)) ? m_unk3C + dt_maybe : 0.0f;
-    m_unk18 = ((ms_Datas[m_pad_no].stickX) == (ms_LastDatas[m_pad_no].stickX)) ? m_unk18 + dt_maybe : 0.0f;
-    m_unk1C = ((ms_Datas[m_pad_no].stickY) == (ms_LastDatas[m_pad_no].stickY)) ? m_unk1C + dt_maybe : 0.0f;
-    m_unk40 = ((ms_Datas[m_pad_no].triggerRight) == (ms_LastDatas[m_pad_no].triggerRight)) ? m_unk40 + dt_maybe : 0.0f;
-    m_unk20 = ((ms_Datas[m_pad_no].substickX) == (ms_LastDatas[m_pad_no].substickX)) ? m_unk20 + dt_maybe : 0.0f;
-    m_unk24 = ((ms_Datas[m_pad_no].substickY) == (ms_LastDatas[m_pad_no].substickY)) ? m_unk24 + dt_maybe : 0.0f;
+    m_unk4.unk8 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_UP) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_UP)) ? m_unk4.unk8 + dt : 0.0f;
+    m_unk4.unkC = ((ms_Datas[m_pad_no].button & PAD_BUTTON_DOWN) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_DOWN)) ? m_unk4.unkC + dt : 0.0f;
+    m_unk4.unk4 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_LEFT) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_LEFT)) ? m_unk4.unk4 + dt : 0.0f;
+    m_unk4.unk0 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_RIGHT) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_RIGHT)) ? m_unk4.unk0 + dt : 0.0f;
+    m_unk28 = ((ms_Datas[m_pad_no].button & PAD_TRIGGER_Z) == (ms_LastDatas[m_pad_no].button & PAD_TRIGGER_Z)) ? m_unk28 + dt : 0.0f;
+    m_unk2C = ((ms_Datas[m_pad_no].button & PAD_BUTTON_A) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_A)) ? m_unk2C + dt : 0.0f;
+    m_unk30 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_B) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_B)) ? m_unk30 + dt : 0.0f;
+    m_unk34 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_X) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_X)) ? m_unk34 + dt : 0.0f;
+    m_unk38 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_Y) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_Y)) ? m_unk38 + dt : 0.0f;
+    m_unk14 = ((ms_Datas[m_pad_no].button & PAD_BUTTON_START) == (ms_LastDatas[m_pad_no].button & PAD_BUTTON_START)) ? m_unk14 + dt : 0.0f;
+    m_unk3C = ((ms_Datas[m_pad_no].triggerLeft) == (ms_LastDatas[m_pad_no].triggerLeft)) ? m_unk3C + dt : 0.0f;
+    m_unk18 = ((ms_Datas[m_pad_no].stickX) == (ms_LastDatas[m_pad_no].stickX)) ? m_unk18 + dt : 0.0f;
+    m_unk1C = ((ms_Datas[m_pad_no].stickY) == (ms_LastDatas[m_pad_no].stickY)) ? m_unk1C + dt : 0.0f;
+    m_unk40 = ((ms_Datas[m_pad_no].triggerRight) == (ms_LastDatas[m_pad_no].triggerRight)) ? m_unk40 + dt : 0.0f;
+    m_unk20 = ((ms_Datas[m_pad_no].substickX) == (ms_LastDatas[m_pad_no].substickX)) ? m_unk20 + dt : 0.0f;
+    m_unk24 = ((ms_Datas[m_pad_no].substickY) == (ms_LastDatas[m_pad_no].substickY)) ? m_unk24 + dt : 0.0f;
 
     if (m_vibration_mode == 3) {
-        int unk = m_unk54 * (1.0f - dt_maybe);
+        int unk = m_unk54 * (1.0f - dt);
         if (unk <= 0) {
             m_unk54 = 0;
             m_vibration_mode = 1;

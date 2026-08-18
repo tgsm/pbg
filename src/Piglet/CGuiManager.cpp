@@ -23,11 +23,11 @@ CGuiManager::CGuiManager(CGame* game) {
     m_unk58 = 0;
 
     m_unk1C = DKI::IInputEngine::CreateInput("GUISTART", 0, 12);
-    m_game->m_gui_engine->SetButtonStartAction(m_unk1C);
+    m_game->GetGuiEngine()->SetButtonStartAction(m_unk1C);
     m_unk50 = DKI::IInputEngine::CreateInput("GUIOK", 0, 19);
-    m_game->m_gui_engine->SetButtonOkAction(m_unk50);
+    m_game->GetGuiEngine()->SetButtonOkAction(m_unk50);
     m_unk54 = DKI::IInputEngine::CreateInput("GUICANCEL", 0, 20);
-    m_game->m_gui_engine->SetButtonCancelAction(m_unk54);
+    m_game->GetGuiEngine()->SetButtonCancelAction(m_unk54);
 
     m_unk20 = DKI::IInputEngine::CreateInput("GUIUP", 0, 2);
     m_unk24 = DKI::IInputEngine::CreateInput("GUIDOWN", 0, 3);
@@ -42,10 +42,10 @@ CGuiManager::CGuiManager(CGame* game) {
     m_unk44 = DKI::IInputEngine::CreateCombo("GUIDOWNCOMBO", "GUIDOWN", "GUIDOWNAXE", 1);
     m_unk48 = DKI::IInputEngine::CreateCombo("GUILEFTCOMBO", "GUILEFT", "GUILEFTAXE", 1);
     m_unk4C = DKI::IInputEngine::CreateCombo("GUIRIGHTCOMBO", "GUIRIGHT", "GUIRIGHTAXE", 1);
-    m_game->m_gui_engine->SetButtonDownAction(m_unk44);
-    m_game->m_gui_engine->SetButtonUpAction(m_unk40);
-    m_game->m_gui_engine->SetButtonLeftAction(m_unk48);
-    m_game->m_gui_engine->SetButtonRightAction(m_unk4C);
+    m_game->GetGuiEngine()->SetButtonDownAction(m_unk44);
+    m_game->GetGuiEngine()->SetButtonUpAction(m_unk40);
+    m_game->GetGuiEngine()->SetButtonLeftAction(m_unk48);
+    m_game->GetGuiEngine()->SetButtonRightAction(m_unk4C);
 
     size_t event_as_size = 0;
 

@@ -96,7 +96,7 @@ void CEntityNPCGralosaurus::UpdatePursuitBehaviour(F32 unk) {
                 UpdateAnimations(0.001f);
                 m_unkF4 &= ~(1 << 8);
 
-                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_entity_manager->GetHero()->m_unk0, "HERO_UNDETECT", 0);
+                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, m_entity_manager->GetHero()->GetName(), "HERO_UNDETECT", 0);
             }
             break;
         case 0:
@@ -107,7 +107,7 @@ void CEntityNPCGralosaurus::UpdatePursuitBehaviour(F32 unk) {
                 UpdateAnimations(0.001f);
             }
             if (!MoveAlongZ(unk) || (m_unkF4 & (1 << 8))) {
-                ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->StartFightMode(this, 1);
+                m_entity_manager->GetGame()->GetIngameGamePart()->StartFightMode(this, 1);
             }
             break;
     }
@@ -119,14 +119,14 @@ void CEntityNPCGralosaurus::UpdateDetectionBehaviour(F32) {
 
 void CEntityNPCGralosaurus::UpdateFightBehaviour(F32 unk) {
     SDkMessage message;
-    if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.type, "START_FIGHT") == 0) {
+    if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_name, 1) && strcmp(message.type, "START_FIGHT") == 0) {
         m_unk2FC = 1;
     }
 
     switch (m_unk1A8) {
         case 101:
             if (m_animation_star_controller->IsPlayingAnimationLooped()) {
-                ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->UnblockFightMode();
+                m_entity_manager->GetGame()->GetIngameGamePart()->UnblockFightMode();
                 if (strcmp(m_animation_star_controller->GetPlayingAnimationName()->c_str(), "WALK_NORMAL") != 0 &&
                     strcmp(m_animation_star_controller->GetPlayingAnimationName()->c_str(), "WALK_WORRIED") != 0 &&
                     strcmp(m_animation_star_controller->GetPlayingAnimationName()->c_str(), "WALK_FRIGHTENED") != 0) {
@@ -173,22 +173,22 @@ void CEntityNPCGralosaurus::UpdateFightBehaviour(F32 unk) {
         case 103:
             if (!MoveAlongZ(unk) || (m_unkF4 & (1 << 8))) {
                 m_unk1A8 = 104;
-                ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->StartFightMode(this, 1);
+                m_entity_manager->GetGame()->GetIngameGamePart()->StartFightMode(this, 1);
             } else {
                 std::string* unused = m_animation_star_controller->GetPlayingAnimationName();
             }
             break;
         case 105: {
             if (m_animation_star_controller->IsPlayingAnimationLooped()) {
-                CGamePartIngame* game_part = (CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer();
-                CEntityHero* hero = game_part->m_game_room_manager->GetCurrentHero();
-                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, hero->m_unk0, "FRITTEN_PIGLET", 0);
+                CGamePartIngame* game_part = m_entity_manager->GetGame()->GetIngameGamePart();
+                CEntityHero* hero = game_part->GetGameRoomManager()->GetCurrentHero();
+                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, hero->GetName(), "FRITTEN_PIGLET", 0);
                 MakeNPCLaughing();
             }
             break;
         }
         case 100:
-            ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->StartFightMode(this, 1);
+            m_entity_manager->GetGame()->GetIngameGamePart()->StartFightMode(this, 1);
             m_animation_star_controller->Play("FRIGHTEN_PIGLET", 0.0f, 1, 1);
             UpdateAnimations(0.001f);
             m_unk1A8 = 105;
@@ -231,9 +231,9 @@ void CEntityNPCGralosaurus::UpdateDeathBehaviour(F32) {
 
 }
 
-void CEntityNPCGralosaurus::Render(F32 dt_maybe) {
+void CEntityNPCGralosaurus::Render(F32 dt) {
     if (IsFlagged(ENTITY_FLAG_VISIBLE) == TRUE) {
-        CEntityNPC::Render(dt_maybe);
+        CEntityNPC::Render(dt);
     }
 }
 

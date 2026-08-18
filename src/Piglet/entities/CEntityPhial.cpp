@@ -43,7 +43,7 @@ void CEntityPhial::Update(F32 dt) {
             m_unk104 += dt;
             if (m_unk104 >= 10000.0f) {
                 CDKW_V3d position = GetPosition();
-                m_unk108 = m_entity_manager->GetGame()->m_fx_manager->AddFx("FX/FX_002.xmd", 10000.0f, position, 1);
+                m_unk108 = m_entity_manager->GetGame()->GetFxManager()->AddFx("FX/FX_002.xmd", 10000.0f, position, 1);
                 m_unk104 = 0.0f;
             }
         }
@@ -58,8 +58,8 @@ void CEntityPhial::Update(F32 dt) {
                     DelFlag(ENTITY_FLAG_VISIBLE);
                     CDKW_V3d position = GetPosition();
                     position.y += 2.5f;
-                    m_entity_manager->GetGame()->m_fx_manager->AddFx("FX/FX_DNPC_01.xmd", 1.0f, position, 1);
-                    m_entity_manager->GetGame()->m_fx_manager->AddFx("FX/FX_DNPC_02.xmd", 1.0f, position, 1);
+                    m_entity_manager->GetGame()->GetFxManager()->AddFx("FX/FX_DNPC_01.xmd", 1.0f, position, 1);
+                    m_entity_manager->GetGame()->GetFxManager()->AddFx("FX/FX_DNPC_02.xmd", 1.0f, position, 1);
                     m_unk100 = 0.1f;
                     break;
                 }
@@ -67,7 +67,7 @@ void CEntityPhial::Update(F32 dt) {
                     m_unk100 -= dt;
                     if (m_unk100 <= 0.0f) {
                         if (m_unkF8 != NULL) {
-                            m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_unkF8->m_unk0, "PHIAL_APEARED", 0);
+                            m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, m_unkF8->GetName(), "PHIAL_APEARED", 0);
                         }
                         AddFlag(ENTITY_FLAG_VISIBLE);
                         m_unk100 = 0.0f;
@@ -77,7 +77,7 @@ void CEntityPhial::Update(F32 dt) {
                 case 2: {
                     SDkMessage message;
                     strcpy(message.type, "PHIAL_CANFALL");
-                    if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1)) {
+                    if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_name, 1)) {
                         m_state = 3;
                     }
                     break;
@@ -96,7 +96,7 @@ void CEntityPhial::Update(F32 dt) {
                     m_unk100 += dt;
                     if (m_unk100 > 0.5f && m_unk108 == NULL) {
                         CDKW_V3d position = GetPosition();
-                        m_unk108 = m_entity_manager->GetGame()->m_fx_manager->AddFx("FX/FX_002.xmd", 10000.0f, position, 1);
+                        m_unk108 = m_entity_manager->GetGame()->GetFxManager()->AddFx("FX/FX_002.xmd", 10000.0f, position, 1);
                         m_unk104 = 0.0f;
                         m_unkFC |= (1 << 1);
                     } else if (m_animation_star_controller->IsPlayingAnimationLooped()) {
@@ -112,7 +112,7 @@ void CEntityPhial::Update(F32 dt) {
                         int grm_state = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->GetState();
                         if (grm_state != 6 && grm_state != 7 && grm_state != 8) {
                             CDKW_V3d position = GetPosition();
-                            m_unk108 = m_entity_manager->GetGame()->m_fx_manager->AddFx("FX/FX_002.xmd", 10000.0f, position, 1);
+                            m_unk108 = m_entity_manager->GetGame()->GetFxManager()->AddFx("FX/FX_002.xmd", 10000.0f, position, 1);
                             m_unk104 = 0.0f;
                             m_unkFC |= (1 << 1);
                         }
@@ -171,13 +171,13 @@ void CEntityPhial::ResolveContact(const DkPh::Collider::Body& body, int, int) {
     m_state = 6;
 
     if (m_unkF8 != NULL) {
-        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_unkF8->m_unk0, "PHIAL_COLLECT", 0);
+        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, m_unkF8->GetName(), "PHIAL_COLLECT", 0);
     }
 
     m_unkFC |= (1 << 0);
 
     CDKW_V3d position = GetPosition();
-    m_entity_manager->GetGame()->m_fx_manager->AddFx("FX/FX_003.xmd", 1.0f, position, 1);
+    m_entity_manager->GetGame()->GetFxManager()->AddFx("FX/FX_003.xmd", 1.0f, position, 1);
 
     std::string name = "SCAR_650_01_3D";
     DKSND::CSound3D* sound = DkSoundGetEngine()->PlaySound3D(&name, GetPosition(), 1);

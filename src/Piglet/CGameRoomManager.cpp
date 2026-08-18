@@ -34,50 +34,50 @@ CGameRoomManager::~CGameRoomManager() {
     }
 
     if (m_batch148 != NULL) {
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch148);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch148);
         m_batch148 = NULL;
     }
     if (m_batch44 != NULL) {
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch44);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch44);
         m_batch44 = NULL;
     }
     if (m_batch48 != NULL) {
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch48);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch48);
         m_batch48 = NULL;
     }
     if (m_batch124 != NULL) {
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch124);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch124);
         m_batch124 = NULL;
     }
     if (m_batch130 != NULL) {
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch130);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch130);
         m_batch130 = NULL;
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch134);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch134);
         m_batch134 = NULL;
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch138);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch138);
         m_batch138 = NULL;
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch13C);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch13C);
         m_batch13C = NULL;
     }
 
     if (m_soundFC != NULL) {
         m_soundFC->Stop();
-        m_game->m_sound_engine->RemoveSound(m_soundFC);
+        m_game->GetSoundEngine()->RemoveSound(m_soundFC);
         m_soundFC = NULL;
     }
     if (m_sound104 != NULL) {
         m_sound104->Stop();
-        m_game->m_sound_engine->RemoveSound(m_sound104);
+        m_game->GetSoundEngine()->RemoveSound(m_sound104);
         m_sound104 = NULL;
     }
     if (m_soundF8 != NULL) {
         m_soundF8->Stop();
-        m_game->m_sound_engine->RemoveSound(m_soundF8);
+        m_game->GetSoundEngine()->RemoveSound(m_soundF8);
         m_soundF8 = NULL;
     }
     if (m_sound100 != NULL) {
         m_sound100->Stop();
-        m_game->m_sound_engine->RemoveSound(m_sound100);
+        m_game->GetSoundEngine()->RemoveSound(m_sound100);
         m_sound100 = NULL;
     }
 
@@ -91,7 +91,7 @@ CGameRoomManager::~CGameRoomManager() {
         m_light = NULL;
     }
 
-    m_game->m_sound_engine->SetGlobalVolume(m_game->m_unk504C);
+    m_game->GetSoundEngine()->SetGlobalVolume(m_game->m_unk504C);
 }
 
 void CGameRoomManager::Init() {
@@ -137,9 +137,9 @@ void CGameRoomManager::Init() {
     m_light = NULL;
     m_unk170 = 0.0f;
 
-    m_game->m_entity_manager->m_path_finder->m_unk4B6C.clear();
+    m_game->GetEntityManager()->m_path_finder->m_unk4B6C.clear();
 
-    if (m_game->GetCurrentMission()->m_rooms.rooms[m_game->m_unk4F58] & (1 << 2)) {
+    if (m_game->GetCurrentRoomFlagsMaybe() & (1 << 2)) {
         m_flags |= (1 << 16);
         m_flags &= ~(1 << 17);
     }
@@ -180,13 +180,13 @@ void CGameRoomManager::Update(F32 dt) {
         }
     } else {
         m_delta_time = dt;
-        m_game->m_unk8 &= ~(1 << 6);
+        m_game->DelFlags(1 << 6);
 
         switch (GetState()) {
             case 0:
                 GetCurrentHero();
 
-                m_game->m_unk504C = m_game->m_sound_engine->GetGlobalVolume();
+                m_game->m_unk504C = m_game->GetSoundEngine()->GetGlobalVolume();
                 m_delta_time = 0.0f;
                 m_game->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
 
@@ -209,7 +209,7 @@ void CGameRoomManager::Update(F32 dt) {
                     m_unkC = 0;
                 }
 
-                if (m_game->GetCurrentMission()->m_rooms.rooms[m_game->m_unk4F58] & (1 << 2)) {
+                if (m_game->GetCurrentRoomFlagsMaybe() & (1 << 2)) {
                     m_flags |= (1 << 25);
                 }
 
@@ -218,7 +218,7 @@ void CGameRoomManager::Update(F32 dt) {
                 FadeInRoom();
                 break;
             case 2:
-                m_game->m_entity_manager->m_path_finder->Update(m_delta_time);
+                m_game->GetEntityManager()->m_path_finder->Update(m_delta_time);
                 OnPlayNormal();
                 break;
             case 3:
@@ -262,8 +262,8 @@ void CGameRoomManager::Update(F32 dt) {
                 SecondPass();
                 break;
             case 11:
-                for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
-                    CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+                for (U32 i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
+                    CEntity* entity = m_game->GetEntityManager()->GetEntity(i);
                     if (entity != NULL) {
                         U32 type = entity->GetType();
                         // unused
@@ -289,14 +289,14 @@ void CGameRoomManager::Update(F32 dt) {
                 break;
         }
 
-        if (m_game->m_unk5038 != 2 && !(m_game->m_unk8 & (1 << 6))) {
+        if (m_game->m_unk5038 != 2 && !(m_game->GetFlags() & (1 << 6))) {
             m_game->FadeUpdate(m_delta_time);
         }
     }
 }
 
 void CGameRoomManager::Render() {
-    DKDSP::CEngine* display_engine = m_game->m_display_engine;
+    DKDSP::CEngine* display_engine = m_game->GetDisplayEngine();
 
     if (IsPlayingRTC() && m_unk170 > 0.5f) {
         m_unk170 = 0.5f;
@@ -322,11 +322,11 @@ void CGameRoomManager::Render() {
     if (m_batch124 != NULL) {
         DKDSP::CTexture* texture;
         if (m_flags & (1 << 17)) {
-            texture = m_game->m_texture_dictionary->FindTexture("BMP_202");
+            texture = m_game->GetTextureDictionary()->FindTexture("BMP_202");
         } else if (m_flags & (1 << 18)) {
-            texture = m_game->m_texture_dictionary->FindTexture("BMP_204");
+            texture = m_game->GetTextureDictionary()->FindTexture("BMP_204");
         } else {
-            texture = m_game->m_texture_dictionary->FindTexture("BMP_101");
+            texture = m_game->GetTextureDictionary()->FindTexture("BMP_101");
         }
 
         display_engine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
@@ -346,7 +346,7 @@ void CGameRoomManager::Render() {
         display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
         display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
 
-        DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_306");
+        DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_306");
         if (texture != NULL) {
             display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
         } else {
@@ -354,7 +354,7 @@ void CGameRoomManager::Render() {
         }
         m_batch130->Render(rwPRIMTYPETRIFAN);
 
-        texture = m_game->m_texture_dictionary->FindTexture("BMP_305");
+        texture = m_game->GetTextureDictionary()->FindTexture("BMP_305");
         if (texture != NULL) {
             display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
         } else {
@@ -362,7 +362,7 @@ void CGameRoomManager::Render() {
         }
         m_batch134->Render(rwPRIMTYPETRIFAN);
 
-        texture = m_game->m_texture_dictionary->FindTexture("BMP_304");
+        texture = m_game->GetTextureDictionary()->FindTexture("BMP_304");
         if (texture != NULL) {
             display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
         } else {
@@ -370,7 +370,7 @@ void CGameRoomManager::Render() {
         }
         m_batch138->Render(rwPRIMTYPETRIFAN);
 
-        texture = m_game->m_texture_dictionary->FindTexture("BMP_303");
+        texture = m_game->GetTextureDictionary()->FindTexture("BMP_303");
         if (texture != NULL) {
             display_engine->SetRenderState(rwRENDERSTATETEXTURERASTER, texture->GetRaster());
         } else {
@@ -385,7 +385,7 @@ void CGameRoomManager::Render() {
 
     if (!IsPlayingRTC()) {
         if (m_batch44 != NULL) {
-            DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_301");
+            DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_301");
             display_engine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
             display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
             display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
@@ -397,7 +397,7 @@ void CGameRoomManager::Render() {
             m_batch44->Render(rwPRIMTYPETRIFAN);
         }
         if (m_batch48 != NULL) {
-            DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_302");
+            DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_302");
             display_engine->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
             display_engine->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
             display_engine->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
@@ -470,7 +470,7 @@ void CGameRoomManager::RenderFadeWarpForFight(DKDSP::IEngine* display_engine) {
     DKDSP::CWarp* warp;
     int i;
 
-    F32 new_ambient = m_game->m_unk502C / m_game->m_fade_duration;
+    F32 new_ambient = m_game->m_unk502C / m_game->GetFadeDuration();
     if (GetState() == 8 || (m_flags & (1 << 14))) {
         new_ambient = 1.0f - new_ambient;
     }
@@ -480,7 +480,7 @@ void CGameRoomManager::RenderFadeWarpForFight(DKDSP::IEngine* display_engine) {
     ambient.m_b = m_game->GetScene()->GetAmbientBlue();
     scene->SetAmbient(new_ambient, new_ambient, new_ambient);
 
-    nb_warps = m_game->m_entity_manager->GetEntityTypeCount(ENTITY_WARP);
+    nb_warps = m_game->GetEntityManager()->GetEntityTypeCount(ENTITY_WARP);
 
     scene->Flush();
     nb_lights = scene->GetNumberOfLights();
@@ -492,8 +492,8 @@ void CGameRoomManager::RenderFadeWarpForFight(DKDSP::IEngine* display_engine) {
     }
 
     for (i = 0; i < nb_warps; i++) {
-        warp_entity = (CEntityWarp*)m_game->m_entity_manager->GetEntityType(ENTITY_WARP, i);
-        if (warp_entity != NULL && warp_entity->m_unk0 == "FIGHTWARP") {
+        warp_entity = (CEntityWarp*)m_game->GetEntityManager()->GetEntityType(ENTITY_WARP, i);
+        if (warp_entity != NULL && warp_entity->GetName() == "FIGHTWARP") {
             warp = warp_entity->GetWarp();
             nb_clumps = warp->GetNumberOfClumps();
             for (j = 0; j < nb_clumps; j++) {
@@ -744,13 +744,13 @@ void CGameRoomManager::OnPlayNormal() {
             DisplayExclamation();
         } else {
             if (m_batch130 != NULL) {
-                m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch130);
+                m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch130);
                 m_batch130 = NULL;
-                m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch134);
+                m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch134);
                 m_batch134 = NULL;
-                m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch138);
+                m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch138);
                 m_batch138 = NULL;
-                m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch13C);
+                m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch13C);
                 m_batch13C = NULL;
             }
         }
@@ -758,13 +758,13 @@ void CGameRoomManager::OnPlayNormal() {
         m_unk144 = -1;
         m_unk140 = 0.0f;
         if (m_batch130 != NULL) {
-            m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch130);
+            m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch130);
             m_batch130 = NULL;
-            m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch134);
+            m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch134);
             m_batch134 = NULL;
-            m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch138);
+            m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch138);
             m_batch138 = NULL;
-            m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch13C);
+            m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch13C);
             m_batch13C = NULL;
         }
     }
@@ -773,7 +773,7 @@ void CGameRoomManager::OnPlayNormal() {
     CheckIfHeroIsPushing();
 
     if (!(m_flags & (1 << 25))) {
-        if (m_game->GetCurrentMission()->m_rooms.rooms[m_game->m_unk4F58] & (1 << 2)) {
+        if (m_game->GetCurrentRoomFlagsMaybe() & (1 << 2)) {
             if (m_flags & (1 << 16)) {
                 m_flags &= ~(1 << 17);
             } else {
@@ -795,15 +795,15 @@ void CGameRoomManager::OnPlayRTCInit() {
     switch (m_unkC) {
         case 0:
             if (m_batch124 != NULL) {
-                m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch124);
+                m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch124);
                 m_batch124 = NULL;
             }
 
             if (m_batch130 != NULL) {
-                m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch130);
-                m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch134);
-                m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch138);
-                m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch13C);
+                m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch130);
+                m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch134);
+                m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch138);
+                m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch13C);
                 m_batch130 = NULL;
                 m_batch134 = NULL;
                 m_batch138 = NULL;
@@ -812,17 +812,17 @@ void CGameRoomManager::OnPlayRTCInit() {
 
             if (m_sound100 != NULL) {
                 m_sound100->Stop();
-                m_game->m_sound_engine->RemoveSound(m_sound100);
+                m_game->GetSoundEngine()->RemoveSound(m_sound100);
                 m_sound100 = NULL;
             }
             if (m_soundFC != NULL) {
                 m_soundFC->Stop();
-                m_game->m_sound_engine->RemoveSound(m_soundFC);
+                m_game->GetSoundEngine()->RemoveSound(m_soundFC);
                 m_soundFC = NULL;
             }
             if (m_sound104 != NULL) {
                 m_sound104->Stop();
-                m_game->m_sound_engine->RemoveSound(m_sound104);
+                m_game->GetSoundEngine()->RemoveSound(m_sound104);
                 DKI::IInputEngine::GetDevice(0)->StopVibration();
                 m_sound104 = NULL;
             }
@@ -847,9 +847,9 @@ void CGameRoomManager::OnPlayRTCInit() {
             m_unkC = 2;
             // fallthrough
         case 2:
-            if (m_game->m_unk4F54 != 7) {
-                CEntityManager* manager = m_game->m_entity_manager;
-                for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
+            if (m_game->GetCurrentMissionId() != MISSION_FINAL) {
+                CEntityManager* manager = m_game->GetEntityManager();
+                for (U32 i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
                     CEntity* entity = manager->GetEntity(i);
                     if (entity == NULL) {
                         continue;
@@ -888,9 +888,9 @@ void CGameRoomManager::OnPlayRTCUpdate() {
                 m_flags &= ~(1 << 20);
                 m_unkC = 1;
 
-                if (m_game->m_unk4F54 != 7) {
-                    CEntityManager* manager = m_game->m_entity_manager;
-                    for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
+                if (m_game->GetCurrentMissionId() != MISSION_FINAL) {
+                    CEntityManager* manager = m_game->GetEntityManager();
+                    for (U32 i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
                         CEntity* entity = manager->GetEntity(i);
                         if (entity == NULL) {
                             continue;
@@ -939,7 +939,8 @@ void CGameRoomManager::SecondPass() {
         OnPlayRTCInit();
         return;
     } else if (!(m_flags & (1 << 25))) {
-        if (m_game->GetCurrentMission()->m_rooms.rooms[m_game->m_unk4F58] & (1 << 2)) {
+        // FIXME: GetCurrentRoomFlagsMaybe()? GetCurrentRoomId()?
+        if (m_game->GetCurrentMission()->m_rooms.rooms[m_game->m_current_room_id] & (1 << 2)) {
             if (m_flags & (1 << 16)) {
                 m_flags &= ~(1 << 17);
             } else {
@@ -957,9 +958,9 @@ void CGameRoomManager::SecondPass() {
         case 0:
             m_game->m_unk503C &= ~(1 << 0);
 
-            if (!m_game->GetCurrentMission()->IsRoomCompleted(m_game->GetUnk4F58())) {
-                for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
-                    CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+            if (!m_game->GetCurrentMission()->IsRoomCompleted(m_game->GetCurrentRoomId())) {
+                for (U32 i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
+                    CEntity* entity = m_game->GetEntityManager()->GetEntity(i);
                     U32 type = entity->GetType();
                     if (type >= ENTITY_NPC23 && type <= ENTITY_UNK36) {
                         CEntityNPC* npc = (CEntityNPC*)entity;
@@ -970,7 +971,7 @@ void CGameRoomManager::SecondPass() {
                             npc->DelFlag(ENTITY_FLAG_ACTIVE);
                             npc->DelFlag(ENTITY_FLAG_HAS_COLLISION);
                         } else {
-                            DkPh::Collider::Body& body = npc->m_entity_manager->m_unk1C->GetBodyRef(npc->m_unk90.unk0);
+                            DkPh::Collider::Body& body = npc->GetManager()->m_unk1C->GetBodyRef(npc->m_unk90.unk0);
                             body.unk34 = -1;
                             npc->m_unkF4 |= (1 << 12);
                             npc->m_unk1B0 = npc->m_flags;
@@ -987,12 +988,12 @@ void CGameRoomManager::SecondPass() {
 
                 if (m_sound100 != NULL) {
                     m_sound100->Stop();
-                    m_game->m_sound_engine->RemoveSound(m_sound100);
+                    m_game->GetSoundEngine()->RemoveSound(m_sound100);
                     m_sound100 = NULL;
                 }
 
                 if (m_unk120 <= 0) {
-                    m_game->GetCurrentMission()->m_rooms.rooms[m_game->GetUnk4F58()] |= (1 << 1);
+                    m_game->GetCurrentMission()->m_rooms.rooms[m_game->GetCurrentRoomId()] |= (1 << 1);
                     m_unkC = 4;
                     m_hero->SetMode(0);
                 } else {
@@ -1000,8 +1001,8 @@ void CGameRoomManager::SecondPass() {
                     m_unkE0 = 1.5f;
                 }
             } else {
-                for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
-                    CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+                for (U32 i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
+                    CEntity* entity = m_game->GetEntityManager()->GetEntity(i);
                     U32 type = entity->GetType();
                     if (type >= ENTITY_NPC23 && type <= ENTITY_UNK36) {
                         CEntityNPC* npc = (CEntityNPC*)entity;
@@ -1057,8 +1058,8 @@ void CGameRoomManager::SecondPass() {
             UpdateAdventureCam();
             break;
         case 5:
-            for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
-                CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+            for (U32 i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
+                CEntity* entity = m_game->GetEntityManager()->GetEntity(i);
                 U32 type = entity->GetType();
                 if (type >= ENTITY_NPC23 && type <= ENTITY_UNK36) {
                     CEntityNPC* npc = (CEntityNPC*)entity;
@@ -1123,8 +1124,8 @@ void CGameRoomManager::Victory() {
             m_fov = m_game->GetCamera()->GetFOV();
             m_unkBC = m_fov;
 
-            for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
-                CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+            for (U32 i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
+                CEntity* entity = m_game->GetEntityManager()->GetEntity(i);
                 U32 type = entity->GetType();
                 if (type >= ENTITY_NPC23 && type <= ENTITY_UNK36) {
                     CEntityNPC* npc = (CEntityNPC*)entity;
@@ -1196,8 +1197,8 @@ void CGameRoomManager::Victory() {
         }
         case 2: {
             if (!m_game->FadeIn(m_delta_time)) {
-                for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
-                    CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+                for (U32 i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
+                    CEntity* entity = m_game->GetEntityManager()->GetEntity(i);
                     U32 type = entity->GetType();
                     entity->AddFlag(ENTITY_FLAG_UNK7);
                     entity->AddFlag(ENTITY_FLAG_UNK8);
@@ -1227,7 +1228,7 @@ void CGameRoomManager::Victory() {
                 m_clump160->UpdateModelPosRef(pos);
 
                 if (m_batch124 != NULL) {
-                    m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch124);
+                    m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch124);
                     m_batch124 = NULL;
                 }
 
@@ -1378,8 +1379,8 @@ void CGameRoomManager::Victory() {
                 m_flags |= (1 << 22);
                 m_hero->DelFlag(ENTITY_FLAG_VISIBLE);
 
-                for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
-                    CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+                for (U32 i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
+                    CEntity* entity = m_game->GetEntityManager()->GetEntity(i);
                     entity->DelFlag(ENTITY_FLAG_UNK7);
                     entity->DelFlag(ENTITY_FLAG_UNK8);
                 }
@@ -1395,8 +1396,8 @@ void CGameRoomManager::Victory() {
             break;
         }
         case 8:
-            for (U32 i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
-                CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+            for (U32 i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
+                CEntity* entity = m_game->GetEntityManager()->GetEntity(i);
                 U32 type = entity->GetType();
                 if (type >= ENTITY_NPC23 && type <= ENTITY_UNK36) {
                     CEntityNPC* npc = (CEntityNPC*)entity;
@@ -1408,7 +1409,7 @@ void CGameRoomManager::Victory() {
             m_game->m_unk503C &= ~(1 << 3);
 
             if (m_batch124 != NULL) {
-                m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch124);
+                m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch124);
                 m_batch124 = NULL;
             }
 
@@ -1428,7 +1429,7 @@ void CGameRoomManager::Victory() {
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
                 m_game->GetGuiManager()->SetVisible("SAVE_CHECK_MMC", 1);
-                m_game->m_unk8 &= ~(1 << 7);
+                m_game->DelFlags(1 << 7);
 
                 CGuiSaveCheckingMemorycardEventHandler* handler = (CGuiSaveCheckingMemorycardEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiSaveCheckingMemorycardEventHandler");
                 if (handler != NULL) {
@@ -1447,18 +1448,18 @@ void CGameRoomManager::Victory() {
 
 CEntityHero* CGameRoomManager::GetCurrentHero() {
     if (m_hero == NULL) {
-        switch (m_game->m_unk4F5C) {
-            case 0:
-                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Piglet");
+        switch (m_game->GetCurrentHeroId()) {
+            case HERO_PIGLET:
+                m_hero = (CEntityHero*)m_game->GetEntityManager()->GetEntity("Piglet");
                 break;
-            case 1:
-                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Tigger");
+            case HERO_TIGGER:
+                m_hero = (CEntityHero*)m_game->GetEntityManager()->GetEntity("Tigger");
                 break;
-            case 2:
-                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Winnie");
+            case HERO_WINNIE:
+                m_hero = (CEntityHero*)m_game->GetEntityManager()->GetEntity("Winnie");
                 break;
-            case 3:
-                m_hero = (CEntityHero*)m_game->m_entity_manager->GetEntity("Piglet");
+            case HERO_CATCH_THEM_ALL:
+                m_hero = (CEntityHero*)m_game->GetEntityManager()->GetEntity("Piglet");
                 break;
         }
     }
@@ -1484,34 +1485,34 @@ void CGameRoomManager::LaunchCurrentGrimace() {
 
     switch (m_unkB0) {
         case 1:
-            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE01", 0);
+            mailbox->SendMessage(m_unk4C->GetName(), m_hero->GetName(), "GRIMACE01", 0);
             break;
         case 2:
-            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE02", 0);
+            mailbox->SendMessage(m_unk4C->GetName(), m_hero->GetName(), "GRIMACE02", 0);
             break;
         case 3:
-            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE03", 0);
+            mailbox->SendMessage(m_unk4C->GetName(), m_hero->GetName(), "GRIMACE03", 0);
             break;
         case 4:
-            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE04", 0);
+            mailbox->SendMessage(m_unk4C->GetName(), m_hero->GetName(), "GRIMACE04", 0);
             break;
         case 5:
-            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE05", 0);
+            mailbox->SendMessage(m_unk4C->GetName(), m_hero->GetName(), "GRIMACE05", 0);
             break;
         case 6:
-            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE06", 0);
+            mailbox->SendMessage(m_unk4C->GetName(), m_hero->GetName(), "GRIMACE06", 0);
             break;
         case 7:
-            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE08", 0);
+            mailbox->SendMessage(m_unk4C->GetName(), m_hero->GetName(), "GRIMACE08", 0);
             break;
         case 8:
-            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE09", 0);
+            mailbox->SendMessage(m_unk4C->GetName(), m_hero->GetName(), "GRIMACE09", 0);
             break;
         case 9:
-            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE10", 0);
+            mailbox->SendMessage(m_unk4C->GetName(), m_hero->GetName(), "GRIMACE10", 0);
             break;
         case 10:
-            mailbox->SendMessage(m_unk4C->m_unk0, m_hero->m_unk0, "GRIMACE11", 0);
+            mailbox->SendMessage(m_unk4C->GetName(), m_hero->GetName(), "GRIMACE11", 0);
             break;
     }
 }
@@ -1548,8 +1549,8 @@ BOOL CGameRoomManager::CheckIfHeroIsPushing() {
         if (GetState() != 2 || (hero_mode != 16 && hero_mode != 17)) {
             m_flags &= ~(1 << 7);
 
-            for (i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
-                CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+            for (i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
+                CEntity* entity = m_game->GetEntityManager()->GetEntity(i);
                 U32 type = entity->GetType();
                 if (type > ENTITY_NPC23 && type < ENTITY_UNK36) {
                     CEntityNPC* npc = (CEntityNPC*)entity;
@@ -1564,8 +1565,8 @@ BOOL CGameRoomManager::CheckIfHeroIsPushing() {
         if (GetState() == 2 && (hero_mode == 16 || hero_mode == 17)) {
             m_flags |= (1 << 7);
 
-            for (i = 0; i < m_game->m_entity_manager->GetEntityCount(); i++) {
-                CEntity* entity = m_game->m_entity_manager->GetEntity(i);
+            for (i = 0; i < m_game->GetEntityManager()->GetEntityCount(); i++) {
+                CEntity* entity = m_game->GetEntityManager()->GetEntity(i);
                 U32 type = entity->GetType();
                 if (type > ENTITY_NPC23 && type < ENTITY_UNK36) {
                     CEntityNPC* npc = (CEntityNPC*)entity;
@@ -1584,13 +1585,13 @@ void CGameRoomManager::InitTimer(F32 duration) {
     m_unkE0 = 0.0f;
 
     if (m_batch44 != NULL) {
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch44);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch44);
     }
     if (m_batch48 != NULL) {
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch48);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch48);
     }
-    m_batch44 = m_game->m_display_engine->GetImmediate()->CreateBatch2D(4, 0);
-    m_batch48 = m_game->m_display_engine->GetImmediate()->CreateBatch2D(4, 0);
+    m_batch44 = m_game->GetDisplayEngine()->GetImmediate()->CreateBatch2D(4, 0);
+    m_batch48 = m_game->GetDisplayEngine()->GetImmediate()->CreateBatch2D(4, 0);
 
     m_unk40 = 0.0f;
     m_flags &= ~(1 << 27);
@@ -1608,7 +1609,7 @@ void CGameRoomManager::UpdateTimer(F32 dt) {
 
         if (m_sound104 != NULL) {
             m_sound104->Stop();
-            m_game->m_sound_engine->RemoveSound(m_sound104);
+            m_game->GetSoundEngine()->RemoveSound(m_sound104);
             m_sound104 = NULL;
 
             DKI::IInputEngine::GetDevice(0)->StopVibration();
@@ -1620,17 +1621,17 @@ void CGameRoomManager::StopTimer() {
     m_timer = 0.0f;
 
     if (m_batch44 != NULL) {
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch44);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch44);
         m_batch44 = NULL;
     }
     if (m_batch48 != NULL) {
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch48);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch48);
         m_batch48 = NULL;
     }
 
     if (m_sound104 != NULL) {
         m_sound104->Stop();
-        m_game->m_sound_engine->RemoveSound(m_sound104);
+        m_game->GetSoundEngine()->RemoveSound(m_sound104);
         m_sound104 = NULL;
 
         DKI::IInputEngine::GetDevice(0)->StopVibration();
@@ -1654,7 +1655,7 @@ void CGameRoomManager::DisplayTicTac() {
     if (m_timer <= 0.0f) {
         if (m_sound104 != NULL) {
             m_sound104->Stop();
-            m_game->m_sound_engine->RemoveSound(m_sound104);
+            m_game->GetSoundEngine()->RemoveSound(m_sound104);
             m_sound104 = NULL;
 
             DKI::IInputEngine::GetDevice(0)->StopVibration();
@@ -1662,7 +1663,7 @@ void CGameRoomManager::DisplayTicTac() {
         m_unkC = 5;
         if (m_sound100 != NULL) {
             m_sound100->Stop();
-            m_game->m_sound_engine->RemoveSound(m_sound100);
+            m_game->GetSoundEngine()->RemoveSound(m_sound100);
             m_sound100 = NULL;
         }
         return;
@@ -1670,11 +1671,11 @@ void CGameRoomManager::DisplayTicTac() {
 
     if (m_unk120 <= 0) {
         if (m_batch44 != NULL) {
-            m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch44);
+            m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch44);
             m_batch44 = NULL;
         }
         if (m_batch48 != NULL) {
-            m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batch48);
+            m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batch48);
             m_batch48 = NULL;
         }
 
@@ -1682,16 +1683,16 @@ void CGameRoomManager::DisplayTicTac() {
         m_unk14 = 4;
         m_room_state10 = ROOM_STATE_10;
 
-        m_game->GetCurrentMission()->m_rooms.rooms[m_game->GetUnk4F58()] |= (1 << 1);
+        m_game->GetCurrentMission()->m_rooms.rooms[m_game->GetCurrentRoomId()] |= (1 << 1);
 
         if (m_sound100 != NULL) {
             m_sound100->Stop();
-            m_game->m_sound_engine->RemoveSound(m_sound100);
+            m_game->GetSoundEngine()->RemoveSound(m_sound100);
             m_sound100 = NULL;
         }
         if (m_sound104 != NULL) {
             m_sound104->Stop();
-            m_game->m_sound_engine->RemoveSound(m_sound104);
+            m_game->GetSoundEngine()->RemoveSound(m_sound104);
             m_sound104 = NULL;
 
             DKI::IInputEngine::GetDevice(0)->StopVibration();

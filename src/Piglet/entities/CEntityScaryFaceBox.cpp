@@ -94,7 +94,7 @@ void CEntityScaryFaceBox::Init() {
 void CEntityScaryFaceBox::RenderCookiesNbIcon(F32 dt) {
     CIcon icon1, icon2;
     CGame* game = m_entity_manager->GetGame();
-    CGameRoomManager* manager = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager;
+    CGameRoomManager* manager = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager();
 
     if (!manager->IsPlayingRTC() || (manager->GetState() == 3 && (manager->m_unkC == 0 || manager->m_unkC == 1))) {
         return;
@@ -106,7 +106,7 @@ void CEntityScaryFaceBox::RenderCookiesNbIcon(F32 dt) {
         return;
     }
 
-    if (((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->IsPlayingRTC() || m_unk1D8 < 0.1f) {
+    if (m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->IsPlayingRTC() || m_unk1D8 < 0.1f) {
         m_unk1D8 += dt;
     } else {
         m_unk1D8 = 500000.0f;
@@ -164,13 +164,13 @@ void CEntityScaryFaceBox::RenderCookiesNbIconDirect(CGame* game, int a1, F32 x, 
     CIcon icon1, icon2;
 
     if (m_pImediatePolyBack == NULL) {
-        m_pImediatePolyBack = game->m_display_engine->GetImmediate()->CreateBatch2D(4, 0);
+        m_pImediatePolyBack = game->GetDisplayEngine()->GetImmediate()->CreateBatch2D(4, 0);
     }
     if (m_pImediatePolyIcon == NULL) {
-        m_pImediatePolyIcon = game->m_display_engine->GetImmediate()->CreateBatch2D(4, 0);
+        m_pImediatePolyIcon = game->GetDisplayEngine()->GetImmediate()->CreateBatch2D(4, 0);
     }
 
-    CIcon::BeginRender(game->m_display_engine, game->GetCamera(), game->GetScene());
+    CIcon::BeginRender(game->GetDisplayEngine(), game->GetCamera(), game->GetScene());
     icon2.m_width = width;
     icon2.m_height = height;
     alpha_ = a4;

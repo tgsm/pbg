@@ -17,7 +17,7 @@ CRTCMessageEvent::~CRTCMessageEvent() {
 
 void CRTCMessageEvent::Activate() {
     CRTCSeqKey::Activate();
-    m_player_entity->m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_emitter, m_receiver, m_message_type, m_param);
+    m_player_entity->GetManager()->GetGame()->GetMailbox()->SendMessage(m_emitter, m_receiver, m_message_type, m_param);
 }
 
 // Equivalent: regalloc

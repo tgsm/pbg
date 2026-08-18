@@ -26,7 +26,7 @@ public:
     virtual void UpdateFightBehaviour(F32);
     virtual void UpdateGrimaceBehaviour(F32);
     virtual void UpdateDeathBehaviour(F32);
-    virtual void Render(F32 dt_maybe);
+    virtual void Render(F32 dt);
     virtual BOOL Restore(void*);
     virtual CDKW_V3d GetPosition();
     virtual void SetPosition(CDKW_V3d& position);

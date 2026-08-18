@@ -16,8 +16,8 @@ public:
     virtual ~CEntityNPCArrow();
 
     virtual void Reset();
-    virtual void Update(F32 dt_maybe);
-    virtual void Render(F32 dt_maybe);
+    virtual void Update(F32 dt);
+    virtual void Render(F32 dt);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual void SetPosition(CDKW_V3d& position);

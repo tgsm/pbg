@@ -68,9 +68,9 @@ void CEntityNPCRoadSweeperEffalump::UpdateFightBehaviour(F32 a1) {
 
     // BUG: Checks for 106 twice.
     if (m_unk1A8 == 106 || m_unk1A8 == 102 || m_unk1A8 == 106 || m_unk1A8 == 103) {
-        ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->UnblockFightMode();
+        m_entity_manager->GetGame()->GetIngameGamePart()->UnblockFightMode();
 
-        if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.type, "START_FIGHT") == 0) {
+        if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_name, 1) && strcmp(message.type, "START_FIGHT") == 0) {
             m_unk2DC = TRUE;
         }
     }
@@ -83,7 +83,7 @@ void CEntityNPCRoadSweeperEffalump::UpdateFightBehaviour(F32 a1) {
             m_unk2D8 = TRUE;
             m_unk2DC = FALSE;
 
-            if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.type, "START_FIGHT") == 0) {
+            if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_name, 1) && strcmp(message.type, "START_FIGHT") == 0) {
                 m_unk2DC = TRUE;
             }
 
@@ -91,7 +91,7 @@ void CEntityNPCRoadSweeperEffalump::UpdateFightBehaviour(F32 a1) {
             break;
         }
         case 103: {
-            CEntitySeqKey* key_sequence = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_key_sequence_entity;
+            CEntitySeqKey* key_sequence = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_key_sequence_entity;
             if (key_sequence != NULL && key_sequence->m_unk148E8 == 1) {
                 m_animation_star_controller->Play("ROADSWEEPER");
                 UpdateAnimations(0.001f);
@@ -111,7 +111,7 @@ void CEntityNPCRoadSweeperEffalump::UpdateFightBehaviour(F32 a1) {
         case 104:
             m_animation_star_controller->SetPlayingAnimationSpeed(m_animation_speed);
             if (!FollowSplinePath(a1, 1.0f, 1) || m_unkF4 & (1 << 8)) {
-                ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->StartFightMode(this, 1);
+                m_entity_manager->GetGame()->GetIngameGamePart()->StartFightMode(this, 1);
                 m_unk1A8 = 105;
             } else {
                 if (m_animation_star_controller->IsPlayingAnimation("WALK_NORMAL") ||
@@ -124,7 +124,7 @@ void CEntityNPCRoadSweeperEffalump::UpdateFightBehaviour(F32 a1) {
                             UpdateAnimations(0.001f);
                             m_unk1A8 = 106;
 
-                            CEntitySeqKey* key_sequence = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_key_sequence_entity;
+                            CEntitySeqKey* key_sequence = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_key_sequence_entity;
                             if (key_sequence != NULL) {
                                 key_sequence->CreateRoadSweeperArrivingFX(this, m_arriving_particle_emitter);
                                 key_sequence->m_unk148E4 = 0.0f;
@@ -136,7 +136,7 @@ void CEntityNPCRoadSweeperEffalump::UpdateFightBehaviour(F32 a1) {
             }
             break;
         case 106: {
-            CEntitySeqKey* key_sequence = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_key_sequence_entity;
+            CEntitySeqKey* key_sequence = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_key_sequence_entity;
             if (key_sequence != NULL) {
                 F32 unk2EC = m_unk2EC;
                 m_unk2EC += a1;
@@ -147,7 +147,7 @@ void CEntityNPCRoadSweeperEffalump::UpdateFightBehaviour(F32 a1) {
 
             if (m_animation_star_controller->IsPlayingAnimation("ROADSWEEPER")) {
                 if (m_animation_star_controller->IsPlayingAnimationLooped()) {
-                    ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer()); // unused
+                    m_entity_manager->GetGame()->GetIngameGamePart(); // unused
 
                     if (m_unk2D8 == TRUE) {
                         m_unk2D8 = FALSE;
@@ -167,14 +167,14 @@ void CEntityNPCRoadSweeperEffalump::UpdateFightBehaviour(F32 a1) {
         }
         case 107:
             if (m_animation_star_controller->IsPlayingAnimationLooped()) {
-                CEntityHero* hero = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->GetCurrentHero();
-                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, hero->m_unk0, "FRITTEN_PIGLET", 0);
+                CEntityHero* hero = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->GetCurrentHero();
+                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, hero->GetName(), "FRITTEN_PIGLET", 0);
 
                 MakeNPCLaughing();
             }
             break;
         case 100:
-            ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->StartFightMode(this, 1);
+            m_entity_manager->GetGame()->GetIngameGamePart()->StartFightMode(this, 1);
             m_animation_star_controller->Play("FRIGHTEN_PIGLET", 1, 1);
             UpdateAnimations(0.001f);
             m_unk1A8 = 107;
@@ -188,7 +188,7 @@ void CEntityNPCRoadSweeperEffalump::UpdateGrimaceBehaviour(F32 a1) {
             m_animation_star_controller->Play("IS_FRIGHTENED", 1, 1);
             UpdateAnimations(0.001f);
             m_unk1A8 = 102;
-            CEntitySeqKey* key_sequence = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_key_sequence_entity;
+            CEntitySeqKey* key_sequence = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_key_sequence_entity;
             if (key_sequence != NULL) {
                 key_sequence->StopRoadSweeperFX();
             }
@@ -216,9 +216,9 @@ void CEntityNPCRoadSweeperEffalump::UpdateDeathBehaviour(F32) {
 
 }
 
-void CEntityNPCRoadSweeperEffalump::Render(F32 dt_maybe) {
+void CEntityNPCRoadSweeperEffalump::Render(F32 dt) {
     if (IsFlagged(ENTITY_FLAG_VISIBLE) == TRUE) {
-        CEntityNPC::Render(dt_maybe);
+        CEntityNPC::Render(dt);
     }
 }
 
@@ -245,7 +245,7 @@ BOOL CEntityNPCRoadSweeperEffalump::ParseParticleEmitter(std::string filename, D
     m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_PARTICLE_EMITTER_DEFINITION, filename);
 
     DKDSP::CParticleEmitterDefinition* definition = m_entity_manager->GetGame()->GetObjectDictionary()->FindParticleEmitterDefinition(filename);
-    *emitter = m_entity_manager->GetGame()->GetScene()->CreateParticleEmitterFromDefinition(m_unk0, definition);
+    *emitter = m_entity_manager->GetGame()->GetScene()->CreateParticleEmitterFromDefinition(m_name, definition);
 
     return TRUE;
 }

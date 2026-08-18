@@ -4,6 +4,18 @@
 #include <string>
 #include "engine/wrap/DKW_V3d.h"
 
+#define NUM_MISSIONS 8
+
+#define MISSION_NONE   0
+#define MISSION_WINNIE 1
+#define MISSION_ROO    2
+#define MISSION_OWL    3
+#define MISSION_EEYORE 4
+#define MISSION_RABBIT 5
+#define MISSION_TIGGER 6
+#define MISSION_FINAL  7
+#define MISSION_MENUS  8
+
 class CGame;
 
 struct CMission_UnkSubstruct {

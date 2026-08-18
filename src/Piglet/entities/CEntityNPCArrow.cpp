@@ -14,7 +14,7 @@ void CEntityNPCArrow::Reset() {
     CEntityMesh::Reset();
 }
 
-void CEntityNPCArrow::Update(F32 dt_maybe) {
+void CEntityNPCArrow::Update(F32 dt) {
     BOOL active = IsFlagged(ENTITY_FLAG_ACTIVE);
 }
 

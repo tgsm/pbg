@@ -15,7 +15,7 @@ void CRTCFadeEvent::Activate() {
     CRTCSeqKey::Activate();
 
     if (!m_player_entity->IsInFade()) {
-        m_player_entity->m_entity_manager->GetGame()->FadeInit(m_fade.m_duration / 1000.0f, CGame::FADE_TYPE_0, 0, 0, 0, 0.0f);
+        m_player_entity->GetManager()->GetGame()->FadeInit(m_fade.m_duration / 1000.0f, CGame::FADE_TYPE_0, 0, 0, 0, 0.0f);
         m_player_entity->StartFade(m_fade.m_type);
     }
 }

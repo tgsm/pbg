@@ -22,16 +22,16 @@ CRTCGrimaceEvent::~CRTCGrimaceEvent() {
 void CRTCGrimaceEvent::Activate() {
     CRTCSeqKey::Activate();
 
-    U32 grimace_level = ((CEntityPiglet*)m_player_entity->m_entity_manager->GetHero())->m_grimace_level;
+    U32 grimace_level = ((CEntityPiglet*)m_player_entity->GetManager()->GetHero())->m_grimace_level;
 
-    m_player_entity->m_entity_manager->GetHero()->SetPosition(m_position);
-    m_player_entity->m_entity_manager->GetHero()->SetOrientation(m_orientation);
-    m_player_entity->m_entity_manager->GetHero()->m_controller->StopAllAnimations(DKDSP::ANIMATION_TYPE_4, 1);
+    m_player_entity->GetManager()->GetHero()->SetPosition(m_position);
+    m_player_entity->GetManager()->GetHero()->SetOrientation(m_orientation);
+    m_player_entity->GetManager()->GetHero()->m_controller->StopAllAnimations(DKDSP::ANIMATION_TYPE_4, 1);
 
-    ((CEntityPiglet*)m_player_entity->m_entity_manager->GetHero())->SetGrimace(grimace_level);
+    ((CEntityPiglet*)m_player_entity->GetManager()->GetHero())->SetGrimace(grimace_level);
 
-    m_player_entity->m_entity_manager->GetHero()->m_animation_star_controller->Update(0.1f);
-    m_player_entity->m_entity_manager->GetHero()->m_animation_star_controller->Pause();
+    m_player_entity->GetManager()->GetHero()->m_animation_star_controller->Update(0.1f);
+    m_player_entity->GetManager()->GetHero()->m_animation_star_controller->Pause();
 
     // what?
     F32 duration = m_duration;

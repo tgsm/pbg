@@ -41,14 +41,14 @@ extern "C" void RwResourcesSetArenaSize(U32);
 
 // Incomplete (USA)
 // Equivalent (PAL): std::vector dtor
-CGame::CGame(void* a1, U32 a2) {
+CGame::CGame(void* a1, U32 flags) {
     U32 rf_unkC;
     void* data;
     CEntityManager* entity_manager;
     int i;
     RwaStream* stream;
 
-    m_unk8 = a2;
+    m_flags = flags;
     m_game_part = NULL;
     m_display_engine = NULL;
     m_texture_dictionary = NULL;
@@ -312,7 +312,7 @@ CGame::CGame(void* a1, U32 a2) {
     m_resource_factory->LoadResource(RESOURCE_TYPE_CLUMP, "WARPS/WRP_COMBAT/WARPCOMBAT.DFF");
 
     m_resource_factory->m_unkC = rf_unkC;
-    m_unk4F54 = 0;
+    m_current_mission_id = MISSION_NONE;
     m_unk5090 = 1;
 
     for (U32 i = 0; i < 8; i++) {
@@ -345,10 +345,10 @@ CGame::CGame(void* a1, U32 a2) {
     }
 
     m_game_backup->CreateNewGame();
-    m_unk4F54 = 0;
+    m_current_mission_id = MISSION_NONE;
     SetCurrentMission(0);
-    m_unk4F58 = 1;
-    m_unk4F5C = 0;
+    m_current_room_id = 1;
+    m_current_hero_id = HERO_PIGLET;
 
     CGCNFont::Destroy();
     m_current_loading_callback->Destroy();
@@ -357,7 +357,7 @@ CGame::CGame(void* a1, U32 a2) {
 
     CDkFileSys::UnSetCallBackOnLoad();
 
-    if (m_unk8 & (1 << 3)) {
+    if (m_flags & (1 << 3)) {
         U32 rf_unkC = m_resource_factory->m_unkC;
         m_resource_factory->m_unkC = 0;
         m_game_part = new CGamePartDMRoomLauncher(this);
@@ -668,27 +668,27 @@ BOOL CGame::NextFrame() {
                 i++;
                 switch (command) {
                     case 1: {
-                        U32 unk4F58 = m_opcode_buffer[i++];
-                        int unk4F5C = m_opcode_buffer[i++];
-                        int unk4F60 = m_opcode_buffer[i++];
-                        int unk4F64 = m_opcode_buffer[i++];
-                        int unk4F68 = m_opcode_buffer[i++];
-                        int unk4F6C = m_opcode_buffer[i++];
-                        int unk4F70 = m_opcode_buffer[i++];
-                        int unk4F74 = m_opcode_buffer[i++];
+                        U32 current_room_id = m_opcode_buffer[i++];
+                        int current_hero_id = m_opcode_buffer[i++];
+                        int start_position_x = m_opcode_buffer[i++];
+                        int start_position_y = m_opcode_buffer[i++];
+                        int start_position_z = m_opcode_buffer[i++];
+                        int start_rotation_x = m_opcode_buffer[i++];
+                        int start_rotation_y = m_opcode_buffer[i++];
+                        int start_rotation_z = m_opcode_buffer[i++];
                         int unk5090 = m_opcode_buffer[i++];
 
-                        m_unk4F58 = unk4F58;
-                        m_unk4F5C = unk4F5C;
-                        m_unk4F60 = unk4F60;
-                        m_unk4F64 = unk4F64;
-                        m_unk4F68 = unk4F68;
-                        m_unk4F6C = unk4F6C;
-                        m_unk4F70 = unk4F70;
-                        m_unk4F74 = unk4F74;
+                        m_current_room_id = current_room_id;
+                        m_current_hero_id = current_hero_id;
+                        m_current_room_start_position.x = start_position_x;
+                        m_current_room_start_position.y = start_position_y;
+                        m_current_room_start_position.z = start_position_z;
+                        m_current_room_start_rotation.x = start_rotation_x;
+                        m_current_room_start_rotation.y = start_rotation_y;
+                        m_current_room_start_rotation.z = start_rotation_z;
                         m_unk5090 = unk5090;
 
-                        if (unk4F58 == 1 && m_unk4F54 == 8) {
+                        if (current_room_id == 1 && m_current_mission_id == MISSION_MENUS) {
                             m_game_backup->CreateNewGame();
                             for (U32 j = 0; j < 8; j++) {
                                 m_unk210[j].Initialize();
@@ -699,7 +699,7 @@ BOOL CGame::NextFrame() {
                             bVar8 = TRUE;
                         }
 
-                        GetMission(m_unk4F54 - 1).m_rooms.rooms[unk4F58] |= (1 << 0);
+                        GetMission(m_current_mission_id - 1).m_rooms.rooms[current_room_id] |= (1 << 0);
 
                         m_game_backup->GetFromGameData(1);
                         m_game_backup->Backup();
@@ -740,64 +740,64 @@ BOOL CGame::NextFrame() {
                         }
 
                         GetCurrentMission()->UnloadConfigFile();
-                        switch (m_unk4F54) {
-                            case 1:
+                        switch (m_current_mission_id) {
+                            case MISSION_WINNIE:
                                 PlayVideo(16);
-                                if (GetMission(1).m_unk2C != 0) {
+                                if (GetMission(MISSION_ROO - 1).m_unk2C != 0) {
                                     PlayVideo(19);
                                 }
                                 break;
-                            case 2:
+                            case MISSION_ROO:
                                 PlayVideo(18);
-                                if (GetMission(0).m_unk2C != 0) {
+                                if (GetMission(MISSION_WINNIE - 1).m_unk2C != 0) {
                                     PlayVideo(19);
                                 }
                                 break;
-                            case 3:
+                            case MISSION_OWL:
                                 PlayVideo(21);
-                                if (GetMission(3).m_unk2C != 0) {
+                                if (GetMission(MISSION_EEYORE - 1).m_unk2C != 0) {
                                     PlayVideo(24);
                                 }
                                 break;
-                            case 4:
+                            case MISSION_EEYORE:
                                 PlayVideo(23);
-                                if (GetMission(2).m_unk2C != 0) {
+                                if (GetMission(MISSION_OWL - 1).m_unk2C != 0) {
                                     PlayVideo(24);
                                 }
                                 break;
-                            case 5:
+                            case MISSION_RABBIT:
                                 PlayVideo(26);
-                                if (GetMission(5).m_unk2C != 0) {
+                                if (GetMission(MISSION_TIGGER - 1).m_unk2C != 0) {
                                     PlayVideo(29);
                                 }
                                 break;
-                            case 6:
+                            case MISSION_TIGGER:
                                 PlayVideo(28);
-                                if (GetMission(4).m_unk2C != 0) {
+                                if (GetMission(MISSION_RABBIT - 1).m_unk2C != 0) {
                                     PlayVideo(29);
                                 }
                                 break;
-                            case 7:
+                            case MISSION_FINAL:
                                 PlayVideo(30);
                                 iVar24 = 1;
                                 break;
                         }
 
-                        if (m_unk8 & (1 << 3)) {
+                        if (m_flags & (1 << 3)) {
                             iVar12 = 9;
                         } else if (iVar24 != 0) {
                             iVar12 = 1;
                         } else {
-                            m_unk210[7].LoadConfigFile(0);
-                            m_unk4F54 = 8;
-                            m_unk4F58 = 3;
-                            m_unk4F5C = 0;
-                            m_unk4F60 = 0.0f;
-                            m_unk4F64 = 0.0f;
-                            m_unk4F68 = 0.0f;
-                            m_unk4F6C = 0.0f;
-                            m_unk4F70 = 0.0f;
-                            m_unk4F74 = 0.0f;
+                            m_unk210[MISSION_MENUS - 1].LoadConfigFile(0);
+                            m_current_mission_id = MISSION_MENUS;
+                            m_current_room_id = 3;
+                            m_current_hero_id = HERO_PIGLET;
+                            m_current_room_start_position.x = 0.0f;
+                            m_current_room_start_position.y = 0.0f;
+                            m_current_room_start_position.z = 0.0f;
+                            m_current_room_start_rotation.x = 0.0f;
+                            m_current_room_start_rotation.y = 0.0f;
+                            m_current_room_start_rotation.z = 0.0f;
                             m_unk5090 = 1;
                             GetCurrentMission()->m_rooms.rooms[3] |= (1 << 0);
                             m_game_backup->GetFromGameData(1);
@@ -809,7 +809,7 @@ BOOL CGame::NextFrame() {
                     case 4:
                         m_game_backup->GetFromGameData(1);
 
-                        if (m_unk8 & (1 << 3)) {
+                        if (m_flags & (1 << 3)) {
                             iVar12 = 9;
                         } else {
                             if (m_game_part != NULL) {
@@ -817,72 +817,72 @@ BOOL CGame::NextFrame() {
                                 m_game_part = NULL;
                             }
 
-                            if (m_unk4F54 == 7) {
-                                m_unk210[6].Initialize();
-                                m_unk210[6].m_game = this;
-                                m_unk210[6].m_mission_no = 7;
-                                m_unk210[6].LoadConfigFile(1);
+                            if (m_current_mission_id == MISSION_FINAL) {
+                                m_unk210[MISSION_FINAL - 1].Initialize();
+                                m_unk210[MISSION_FINAL - 1].m_game = this;
+                                m_unk210[MISSION_FINAL - 1].m_mission_no = MISSION_FINAL;
+                                m_unk210[MISSION_FINAL - 1].LoadConfigFile(1);
                                 bVar8 = TRUE;
                             }
 
-                            if (m_unk4F5C == 0) {
+                            if (m_current_hero_id == HERO_PIGLET) {
                                 CDKW_V3d start_pos, start_rot;
                                 CMission* mission = GetCurrentMission();
                                 start_pos = GetCurrentMission()->GetStartRoomPosition();
                                 start_rot = GetCurrentMission()->GetStartRoomRotation();
 
-                                m_unk4F58 = mission->m_unkC;
-                                m_unk4F5C = GetCurrentMission()->m_unk10;
+                                m_current_room_id = mission->m_unkC;
+                                m_current_hero_id = GetCurrentMission()->m_unk10;
                                 SetCurrentRoomStartPosition(start_pos);
                                 SetCurrentRoomStartRotation(start_rot);
 
                                 m_unk5090 = 0;
 
-                                GetMission(m_unk4F54 - 1).m_rooms.rooms[GetMission(m_unk4F54 - 1).m_unkC] |= (1 << 0);
+                                GetMission(m_current_mission_id - 1).m_rooms.rooms[GetMission(m_current_mission_id - 1).m_unkC] |= (1 << 0);
 
                                 m_game_backup->GetFromGameData(1);
                                 iVar12 = 7;
-                            } else if (m_unk4F5C == 1) {
-                                if (m_unk4F54 == 2) {
-                                    m_unk4F58 = 4;
+                            } else if (m_current_hero_id == HERO_TIGGER) {
+                                if (m_current_mission_id == MISSION_ROO) {
+                                    m_current_room_id = 4;
                                     m_mailbox->SendMessage("Tigger", "RTC_204_02_B", "START", 1);
-                                } else if (m_unk4F54 == 5) {
-                                    m_unk4F58 = 9;
+                                } else if (m_current_mission_id == MISSION_RABBIT) {
+                                    m_current_room_id = 9;
                                     m_mailbox->SendMessage("Tigger", "RTC_509_09", "START", 1);
                                 }
 
-                                m_unk4F5C = 1;
-                                m_unk4F60 = 0.0f;
-                                m_unk4F64 = 0.0f;
-                                m_unk4F68 = 0.0f;
-                                m_unk4F6C = 0.0f;
-                                m_unk4F70 = 0.0f;
-                                m_unk4F74 = 0.0f;
+                                m_current_hero_id = HERO_TIGGER;
+                                m_current_room_start_position.x = 0.0f;
+                                m_current_room_start_position.y = 0.0f;
+                                m_current_room_start_position.z = 0.0f;
+                                m_current_room_start_rotation.x = 0.0f;
+                                m_current_room_start_rotation.y = 0.0f;
+                                m_current_room_start_rotation.z = 0.0f;
                                 m_unk5090 = 1;
 
-                                GetMission(m_unk4F54 - 1).m_rooms.rooms[m_unk4F58] |= (1 << 0);
+                                GetMission(m_current_mission_id - 1).m_rooms.rooms[m_current_room_id] |= (1 << 0);
 
                                 m_game_backup->GetFromGameData(1);
                                 iVar12 = 7;
-                            } else if (m_unk4F5C == 2) {
-                                if (m_unk4F54 == 3) {
-                                    m_unk4F58 = 3;
+                            } else if (m_current_hero_id == HERO_WINNIE) {
+                                if (m_current_mission_id == MISSION_OWL) {
+                                    m_current_room_id = 3;
                                     m_mailbox->SendMessage("Winnie", "RTC_303_03_B", "START", 1);
-                                } else if (m_unk4F54 == 6) {
-                                    m_unk4F58 = 9;
+                                } else if (m_current_mission_id == MISSION_TIGGER) {
+                                    m_current_room_id = 9;
                                     m_mailbox->SendMessage("Winnie", "RTC_609_03", "START", 1);
                                 }
 
-                                m_unk4F5C = 2;
-                                m_unk4F60 = 0.0f;
-                                m_unk4F64 = 0.0f;
-                                m_unk4F68 = 0.0f;
-                                m_unk4F6C = 0.0f;
-                                m_unk4F70 = 0.0f;
-                                m_unk4F74 = 0.0f;
+                                m_current_hero_id = HERO_WINNIE;
+                                m_current_room_start_position.x = 0.0f;
+                                m_current_room_start_position.y = 0.0f;
+                                m_current_room_start_position.z = 0.0f;
+                                m_current_room_start_rotation.x = 0.0f;
+                                m_current_room_start_rotation.y = 0.0f;
+                                m_current_room_start_rotation.z = 0.0f;
                                 m_unk5090 = 1;
 
-                                GetMission(m_unk4F54 - 1).m_rooms.rooms[m_unk4F58] |= (1 << 0);
+                                GetMission(m_current_mission_id - 1).m_rooms.rooms[m_current_room_id] |= (1 << 0);
 
                                 m_game_backup->GetFromGameData(1);
                                 iVar12 = 7;
@@ -893,7 +893,7 @@ BOOL CGame::NextFrame() {
                     case 5:
                         m_game_backup->GetFromGameData(1);
 
-                        if (m_unk8 & (1 << 3)) {
+                        if (m_flags & (1 << 3)) {
                             iVar12 = 9;
                         } else {
                             if (m_game_part != NULL) {
@@ -903,14 +903,14 @@ BOOL CGame::NextFrame() {
 
                             SetCurrentMission(8);
 
-                            m_unk4F58 = 3;
-                            m_unk4F5C = 0;
-                            m_unk4F60 = 0.0f;
-                            m_unk4F64 = 0.0f;
-                            m_unk4F68 = 0.0f;
-                            m_unk4F6C = 0.0f;
-                            m_unk4F70 = 0.0f;
-                            m_unk4F74 = 0.0f;
+                            m_current_room_id = 3;
+                            m_current_hero_id = HERO_PIGLET;
+                            m_current_room_start_position.x = 0.0f;
+                            m_current_room_start_position.y = 0.0f;
+                            m_current_room_start_position.z = 0.0f;
+                            m_current_room_start_rotation.x = 0.0f;
+                            m_current_room_start_rotation.y = 0.0f;
+                            m_current_room_start_rotation.z = 0.0f;
                             m_unk5090 = 1;
 
                             GetCurrentMission()->m_rooms.rooms[3] |= (1 << 0);
@@ -1089,16 +1089,16 @@ BOOL CGame::NextFrame() {
                 m_game_part = new CGamePartFrontend(this);
                 break;
             case 7: {
-                switch (m_unk4F5C) {
-                    case 1:
+                switch (m_current_hero_id) {
+                    case HERO_TIGGER:
                         m_current_loading_callback = (CBaseLoadingCallback*)m_loading_tigger;
                         m_screen_effect->SetSequenceByIndex(4);
                         break;
-                    case 2:
+                    case HERO_WINNIE:
                         m_current_loading_callback = (CBaseLoadingCallback*)m_loading_winnie;
                         m_screen_effect->SetSequenceByIndex(3);
                         break;
-                    case 3:
+                    case HERO_CATCH_THEM_ALL:
                         m_current_loading_callback = (CBaseLoadingCallback*)m_loading_catch_them_all;
                         break;
                     default:
@@ -1115,7 +1115,7 @@ BOOL CGame::NextFrame() {
                 m_game_backup->ApplyToGameData();
 
                 fade_color = ComputeGameFadeColor();
-                ((CGamePartIngame*)m_game_part)->m_game_room_manager->m_unk154 = (fade_color.red << 0) | (fade_color.green << 8) | (fade_color.blue << 16) | (0x80 << 24);
+                ((CGamePartIngame*)m_game_part)->GetGameRoomManager()->m_unk154 = (fade_color.red << 0) | (fade_color.green << 8) | (fade_color.blue << 16) | (0x80 << 24);
                 m_current_loading_callback->Destroy();
 
                 U32 has_searchable_zone = FALSE;
@@ -1126,7 +1126,7 @@ BOOL CGame::NextFrame() {
                     }
                 }
                 if (!has_searchable_zone) {
-                    GetCurrentMission()->m_rooms.rooms[m_unk4F58] |= (1 << 2);
+                    GetCurrentMission()->m_rooms.rooms[m_current_room_id] |= (1 << 2);
                 }
 
                 CDkFileSys::UnSetCallBackOnLoad();
@@ -1137,7 +1137,7 @@ BOOL CGame::NextFrame() {
                 m_timer->Reset();
                 ComputeDeltaTime();
 
-                if (bVar8 && m_unk4F54 != 8 && GetCurrentMission()->GetUnk34() == 0) {
+                if (bVar8 && m_current_mission_id != MISSION_MENUS && GetCurrentMission()->GetUnk34() == 0) {
                     GetCurrentMission()->GetUnk34() = 1;
 
                     m_sound_engine->SetGlobalVolume(volume);
@@ -1150,15 +1150,15 @@ BOOL CGame::NextFrame() {
                     if (GetCurrentMission()->GetStartRTC() != "") {
                         m_mailbox->SendMessage("Piglet", GetCurrentMission()->GetStartRTC(), "START", 0);
                     }
-                } else if (bVar8 && m_unk4F54 == 8 && m_unk4F58 == 1) {
+                } else if (bVar8 && m_current_mission_id == MISSION_MENUS && m_current_room_id == 1) {
                     m_mailbox->SendMessage("Piglet", "RTC_801_01", "START", 0);
                 }
 
                 if (bVar9) {
-                    m_unk8 |= m_unk8 | (1 << 7);
+                    m_flags |= m_flags | (1 << 7);
                 }
 #ifdef VERSION_GPLP9G
-                m_unk8 &= ~(1 << 8);
+                m_flags &= ~(1 << 8);
 #endif
 
                 break;
@@ -1223,15 +1223,15 @@ void CGame::SetCurrentMission(U32 mission) {
 #ifdef VERSION_GPLP9G
     DONT_INLINE_HACK();
 #endif
-    if (mission != m_unk4F54) {
-        if (m_unk4F54 != 0) {
-            GetMission(m_unk4F54 - 1).UnloadConfigFile();
+    if (mission != m_current_mission_id) {
+        if (m_current_mission_id != MISSION_NONE) {
+            GetMission(m_current_mission_id - 1).UnloadConfigFile();
         }
-        if (mission != 0) {
+        if (mission != MISSION_NONE) {
             GetMission(mission - 1).LoadConfigFile(0);
         }
     }
-    m_unk4F54 = mission;
+    m_current_mission_id = mission;
 }
 
 // Incomplete
@@ -1275,7 +1275,7 @@ BOOL CGame::LoadConfigFile(char* config_xmd_filename) {
                 CResourceFactory* resource_factory = m_resource_factory;
                 resource_factory->LoadResource(RESOURCE_TYPE_MATERIAL_ANIMATION, dest.GetStringValue());
             } else if (strcmp(buf, "NoNPC") == 0) {
-                m_unk8 |= (1 << 0);
+                m_flags |= (1 << 0);
             } else if (strcmp(buf, "ParticleEmitterFile") == 0) {
                 if (dest.GetStringValue() != NULL) {
                     CResourceFactory* resource_factory = m_resource_factory;
@@ -1450,7 +1450,7 @@ BOOL CGame::IsGUIDisplayNotAdvised() {
         return TRUE;
     }
 
-    return (((CGamePartIngame*)m_game_part)->m_game_room_manager->GetState() < 2) ? TRUE : FALSE;
+    return (((CGamePartIngame*)m_game_part)->GetGameRoomManager()->GetState() < 2) ? TRUE : FALSE;
 }
 
 void CGame::DestroyRTCCameraControler() {
@@ -1514,13 +1514,13 @@ void CGame::PlayVideo(int id) {
                 m_video_engine->SetCallBack(ReplayVideoCallback);
                 m_video_engine->SetVolume(m_sound_engine->GetGlobalVolume());
 #ifdef VERSION_GPLP9G
-                m_unk8 |= m_unk8 | (1 << 8);
+                m_flags |= m_flags | (1 << 8);
 #endif
                 m_video_engine->Play((char*)m_video_descs[i].filename.c_str());
             }
 
 #ifdef VERSION_GPLP9G
-            m_unk8 &= ~(1 << 8);
+            m_flags &= ~(1 << 8);
 #endif
 
             m_gui_manager->Reset();
@@ -1576,7 +1576,7 @@ CDKW_RGBA CGame::ComputeGameFadeColor() {
                     break;
             }
 
-            if (m_unk4F5C == 3) {
+            if (m_current_hero_id == HERO_CATCH_THEM_ALL) {
                 color = CDKW_RGBA(78, 83, 149, 0xFF);
             }
         } else if (hero != NULL && hero->GetType() == ENTITY_TIGGER) {

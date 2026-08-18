@@ -31,7 +31,7 @@ CLoadingCallback::~CLoadingCallback() {
 extern "C" void Rt2dDeviceSetCamera(RwCamera*);
 
 void CLoadingCallback::Create() {
-    m_game->m_unk8 |= (1 << 8);
+    m_game->AddFlags(1 << 8);
     m_game->GetGuiManager()->Reset();
 
     if (m_scene == NULL) {
@@ -80,7 +80,7 @@ void CLoadingCallback::Destroy() {
     int i;
     int j;
 
-    m_game->m_unk8 &= ~(1 << 8);
+    m_game->DelFlags(1 << 8);
     Rt2dDeviceSetCamera(m_game->GetCamera()->m_wrap_camera->m_rw_camera);
 
     m_game->GetGuiManager()->Update(1.0f/30.0f);
@@ -132,7 +132,7 @@ void CLoadingCallback::Destroy() {
     }
 
     if (m_controller != NULL) {
-        m_game->m_anim_dictionary->RemoveController(m_controller->GetName());
+        m_game->GetAnimDictionary()->RemoveController(m_controller->GetName());
         m_controller = NULL;
     }
 
@@ -229,8 +229,8 @@ void CLoadingCallback::Update() {
                 m_game->GetGuiEngine()->AddText(dVar17 / width, dVar15 / height, loading_char, dVar9 / height, NULL, 0.0f);
             }
 
-            if (m_game->m_error_callback != NULL) {
-                if (m_game->m_error_callback->m_unk8 == 1) {
+            if (m_game->GetErrorCallback() != NULL) {
+                if (m_game->GetErrorCallback()->m_unk8 == 1) {
                     if (!m_game->GetGuiManager()->IsActive("NO_DISC_COVER_NO_DISC_COVER")) {
                         m_game->GetGuiManager()->SetActive("NO_PIGLET_DISC_NO_PIGLET_DISC", 0);
                         m_game->GetGuiManager()->SetVisible("NO_PIGLET_DISC_NO_PIGLET_DISC", 0);
@@ -242,7 +242,7 @@ void CLoadingCallback::Update() {
                         m_game->GetGuiManager()->SetActive("NO_DISC_COVER_NO_DISC_COVER", 1);
                         m_game->GetGuiManager()->SetVisible("NO_DISC_COVER_NO_DISC_COVER", 1);
                     }
-                } else if (m_game->m_error_callback->m_unk8 == 3 || m_game->m_error_callback->m_unk8 == 4) {
+                } else if (m_game->GetErrorCallback()->m_unk8 == 3 || m_game->GetErrorCallback()->m_unk8 == 4) {
                     if (!m_game->GetGuiManager()->IsActive("NO_PIGLET_DISC_NO_PIGLET_DISC")) {
                         m_game->GetGuiManager()->SetActive("NO_DISC_COVER_NO_DISC_COVER", 0);
                         m_game->GetGuiManager()->SetVisible("NO_DISC_COVER_NO_DISC_COVER", 0);
@@ -302,7 +302,7 @@ void CLoadingCallback::Update() {
 }
 
 F32 CLoadingCallback::UpdateTimer() {
-    F32 dt = m_game->m_timer->GetDeltaTime();
+    F32 dt = m_game->GetTimer()->GetDeltaTime();
     m_time += dt;
     if (m_time < 1.0f/30.0f) {
         return 0.0f;
@@ -387,8 +387,8 @@ void CInGameLoadingCallback::Update() {
     width = m_game->GetCamera()->GetBuffer()->GetWidth();
     height = m_game->GetCamera()->GetBuffer()->GetHeight();
 
-    if (m_game->m_error_callback != NULL) {
-        if (m_game->m_error_callback->m_unk8 == 1) {
+    if (m_game->GetErrorCallback() != NULL) {
+        if (m_game->GetErrorCallback()->m_unk8 == 1) {
             if (!m_game->GetGuiManager()->IsActive("NO_DISC_COVER_NO_DISC_COVER")) {
                 m_game->GetGuiManager()->SetActive("NO_PIGLET_DISC_NO_PIGLET_DISC", 0);
                 m_game->GetGuiManager()->SetVisible("NO_PIGLET_DISC_NO_PIGLET_DISC", 0);
@@ -400,7 +400,7 @@ void CInGameLoadingCallback::Update() {
                 m_game->GetGuiManager()->SetActive("NO_DISC_COVER_NO_DISC_COVER", 1);
                 m_game->GetGuiManager()->SetVisible("NO_DISC_COVER_NO_DISC_COVER", 1);
             }
-        } else if (m_game->m_error_callback->m_unk8 == 3 || m_game->m_error_callback->m_unk8 == 4) {
+        } else if (m_game->GetErrorCallback()->m_unk8 == 3 || m_game->GetErrorCallback()->m_unk8 == 4) {
             if (!m_game->GetGuiManager()->IsActive("NO_PIGLET_DISC_NO_PIGLET_DISC")) {
                 m_game->GetGuiManager()->SetActive("NO_DISC_COVER_NO_DISC_COVER", 0);
                 m_game->GetGuiManager()->SetVisible("NO_DISC_COVER_NO_DISC_COVER", 0);
@@ -435,12 +435,12 @@ void CInGameLoadingCallback::Update() {
         }
     }
 
-    if (m_game->GetScreenEffect() != NULL && m_game->m_unk4F54 < 7) {
+    if (m_game->GetScreenEffect() != NULL && m_game->GetCurrentMissionId() < MISSION_FINAL) {
         m_game->GetScreenEffect()->Update(m_game->GetDeltaTime());
     }
 
-    m_game->m_sound_engine->BeginUpdate();
-    m_game->m_sound_engine->EndUpdate();
+    m_game->GetSoundEngine()->BeginUpdate();
+    m_game->GetSoundEngine()->EndUpdate();
 
     m_game->GetGuiManager()->Update(m_game->GetDeltaTime());
 
@@ -448,7 +448,7 @@ void CInGameLoadingCallback::Update() {
     m_game->GetScene()->Clear(3, fade_color.red / 255.0f, fade_color.green / 255.0f, fade_color.blue / 255.0f);
     m_game->GetScene()->BeginRender();
 
-    F32 time = (F32)m_game->m_timer->GetTime();
+    F32 time = (F32)m_game->GetTimer()->GetTime();
     F32 dVar11 = time - m_unk10;
     m_unk10 = time;
     m_unk14 += 180.0f * (dVar11);
@@ -519,7 +519,7 @@ void CInGameLoadingCallback::Update() {
         vertices[3].b = 0xFF;
         vertices[3].a = 0xFF;
 
-        DKDSP::CTexture* texture = m_game->m_texture_dictionary->FindTexture("BMP_310");
+        DKDSP::CTexture* texture = m_game->GetTextureDictionary()->FindTexture("BMP_310");
         m_game->GetDisplayEngine()->SetRenderState(rwRENDERSTATEVERTEXALPHAENABLE, (void*)TRUE);
         m_game->GetDisplayEngine()->SetRenderState(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
         m_game->GetDisplayEngine()->SetRenderState(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
@@ -531,7 +531,7 @@ void CInGameLoadingCallback::Update() {
         m_batch->Render(rwPRIMTYPETRIFAN);
     }
 
-    if (m_game->GetScreenEffect() != NULL && m_game->m_unk4F54 < 7) {
+    if (m_game->GetScreenEffect() != NULL && m_game->GetCurrentMissionId() < MISSION_FINAL) {
         m_game->GetScreenEffect()->Render(NULL);
     }
 
@@ -551,10 +551,10 @@ CBootUpLoadingCallback::~CBootUpLoadingCallback() {
 }
 
 void CBootUpLoadingCallback::Create() {
-    m_game->m_unk8 |= (1 << 8);
+    m_game->AddFlags(1 << 8);
     m_unkC = 0.0f;
 
-    m_game->m_timer->Reset();
+    m_game->GetTimer()->Reset();
     m_game->ComputeDeltaTime();
 #ifdef VERSION_GPLP9G
     m_game->ComputeDeltaTime();
@@ -603,7 +603,7 @@ void CBootUpLoadingCallback::Create() {
 }
 
 void CBootUpLoadingCallback::Destroy() {
-    m_game->m_unk8 &= ~(1 << 8);
+    m_game->DelFlags(1 << 8);
     m_unkC = 0.0f;
 }
 
@@ -617,7 +617,7 @@ void CBootUpLoadingCallback::Update() {
 
     BOOL disc_cover_open;
     if (CGCNFont::m_pImage != NULL) {
-        if (m_game->m_error_callback != NULL && m_game->m_error_callback->m_unk8 != 0) {
+        if (m_game->GetErrorCallback() != NULL && m_game->GetErrorCallback()->m_unk8 != 0) {
             disc_cover_open = FALSE;
             if (m_game->GetScene() != NULL) {
                 m_game->GetScene()->SelectCamera(m_game->GetCamera());
@@ -626,13 +626,13 @@ void CBootUpLoadingCallback::Update() {
                 m_game->GetScene()->BeginRender();
             }
 
-            if (m_game->m_error_callback->m_unk8 == 1) {
+            if (m_game->GetErrorCallback()->m_unk8 == 1) {
                 CGCNFont::PrintText(0, 220, "The Disc Cover is open.");
                 CGCNFont::PrintText(0, 250, "If you want to continue the game,");
                 CGCNFont::PrintText(0, 280, "please close the Disc Cover.");
                 disc_cover_open = TRUE;
             }
-            if (m_game->m_error_callback->m_unk8 == 3 || m_game->m_error_callback->m_unk8 == 4) {
+            if (m_game->GetErrorCallback()->m_unk8 == 3 || m_game->GetErrorCallback()->m_unk8 == 4) {
                 CGCNFont::PrintText(0, 220, " ");
                 CGCNFont::PrintText(0, 250, "Please insert the Piglet's BIG GAME Game Disc.");
                 CGCNFont::PrintText(0, 280, " ");
@@ -722,7 +722,7 @@ void CPreBootUpLoadingCallback::Update() {
     CGame::ManageReset();
 
     if (CGCNFont::m_pImage != NULL) {
-        if (m_game->m_error_callback != NULL) {
+        if (m_game->GetErrorCallback() != NULL) {
             if (m_game->GetScene() != NULL) {
                 m_game->GetScene()->SelectCamera(m_game->GetCamera());
                 DkDisplayGetEngine()->Update();
@@ -730,12 +730,12 @@ void CPreBootUpLoadingCallback::Update() {
                 m_game->GetScene()->BeginRender();
             }
 
-            if (m_game->m_error_callback->m_unk8 == 1) {
+            if (m_game->GetErrorCallback()->m_unk8 == 1) {
                 CGCNFont::PrintText(0, 220, "The Disc Cover is open.");
                 CGCNFont::PrintText(0, 250, "If you want to continue the game,");
                 CGCNFont::PrintText(0, 280, "please close the Disc Cover.");
             }
-            if (m_game->m_error_callback->m_unk8 == 3 || m_game->m_error_callback->m_unk8 == 4) {
+            if (m_game->GetErrorCallback()->m_unk8 == 3 || m_game->GetErrorCallback()->m_unk8 == 4) {
                 CGCNFont::PrintText(0, 220, " ");
                 CGCNFont::PrintText(0, 250, "Please insert the Piglet's BIG GAME Game Disc.");
                 CGCNFont::PrintText(0, 280, " ");
@@ -764,8 +764,8 @@ void CVideoLoadingCallback::Destroy() {
 void CVideoLoadingCallback::Update() {
     CGame::ManageReset();
 
-    if (m_game->m_error_callback != NULL) {
-        if (m_game->m_error_callback->m_unk8 == 1) {
+    if (m_game->GetErrorCallback() != NULL) {
+        if (m_game->GetErrorCallback()->m_unk8 == 1) {
             if (!m_game->GetGuiManager()->IsActive("NO_DISC_COVER_NO_DISC_COVER")) {
                 m_game->GetGuiManager()->SetActive("NO_PIGLET_DISC_NO_PIGLET_DISC", 0);
                 m_game->GetGuiManager()->SetVisible("NO_PIGLET_DISC_NO_PIGLET_DISC", 0);
@@ -778,7 +778,7 @@ void CVideoLoadingCallback::Update() {
                 m_game->GetGuiManager()->SetActive("NO_DISC_COVER_NO_DISC_COVER", 1);
                 m_game->GetGuiManager()->SetVisible("NO_DISC_COVER_NO_DISC_COVER", 1);
             }
-        } else if (m_game->m_error_callback->m_unk8 == 3 || m_game->m_error_callback->m_unk8 == 4) {
+        } else if (m_game->GetErrorCallback()->m_unk8 == 3 || m_game->GetErrorCallback()->m_unk8 == 4) {
             if (!m_game->GetGuiManager()->IsActive("NO_PIGLET_DISC_NO_PIGLET_DISC")) {
                 m_game->GetGuiManager()->SetActive("NO_DISC_COVER_NO_DISC_COVER", 0);
                 m_game->GetGuiManager()->SetVisible("NO_DISC_COVER_NO_DISC_COVER", 0);

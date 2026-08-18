@@ -51,8 +51,8 @@ public:
     virtual void AddFlag(U32 flag);
     virtual void DelFlag(U32 flag);
     virtual U32 GetType() { return ENTITY_PIGLET; }
-    virtual void Update(F32 dt_maybe);
-    virtual void Render(F32 dt_maybe);
+    virtual void Update(F32 dt);
+    virtual void Render(F32 dt);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual U32 GetSaveSize();
     virtual BOOL Save(void*);

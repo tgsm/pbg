@@ -24,7 +24,7 @@ CGamePartStartScreen::CGamePartStartScreen(CGame* game) {
 #ifdef VERSION_GPLP9G
     m_time = 0.0f;
 
-    m_game->m_timer->Reset();
+    m_game->GetTimer()->Reset();
     m_game->ComputeDeltaTime();
     m_game->ComputeDeltaTime();
     m_game->ComputeDeltaTime();
@@ -125,8 +125,8 @@ CGamePartStartScreen::CGamePartStartScreen(CGame* game) {
 }
 
 CGamePartStartScreen::~CGamePartStartScreen() {
-    m_game->m_fx_manager->Clear();
-    m_game->m_sound_engine->DeleteAllSounds();
+    m_game->GetFxManager()->Clear();
+    m_game->GetSoundEngine()->DeleteAllSounds();
     m_game->GetGuiManager()->UnLoadLevel(0);
     m_game->GetResourceFactory()->UnloadResources(0);
 }
@@ -135,7 +135,7 @@ U32 CGamePartStartScreen::NextFrame() {
     m_game->GetDisplayEngine()->Update();
 
     if (m_time == 0.0f) {
-        m_game->m_timer->Reset();
+        m_game->GetTimer()->Reset();
 
         m_game->ComputeDeltaTime();
         m_game->ComputeDeltaTime();
@@ -173,8 +173,8 @@ U32 CGamePartStartScreen::NextFrame() {
 void CGamePartStartScreen::Update(F32 dt) {
     m_time += dt;
 
-    m_game->m_sound_engine->BeginUpdate();
-    m_game->m_sound_engine->EndUpdate();
+    m_game->GetSoundEngine()->BeginUpdate();
+    m_game->GetSoundEngine()->EndUpdate();
 
     m_game->GetGuiManager()->Update(dt);
 }
@@ -186,7 +186,7 @@ void CGamePartStartScreen::Render(F32 dt) {
 
     m_game->GetScene()->BeginRender();
     m_game->GetGuiManager()->Render(dt);
-    m_game->m_fx_manager->Render();
+    m_game->GetFxManager()->Render();
     m_game->GetScene()->Flush();
     m_game->RenderFade();
     m_game->GetScene()->EndRender();

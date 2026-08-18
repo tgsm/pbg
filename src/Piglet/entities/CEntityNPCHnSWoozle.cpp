@@ -76,10 +76,10 @@ void CEntityNPCHnSWoozle::UpdateFightBehaviour(F32 a1) {
             m_unk1A8 = 102;
             break;
         case 102: {
-            ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->UnblockFightMode();
+            m_entity_manager->GetGame()->GetIngameGamePart()->UnblockFightMode();
 
             SDkMessage message;
-            if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1) && strcmp(message.type, "START_FIGHT") == 0) {
+            if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_name, 1) && strcmp(message.type, "START_FIGHT") == 0) {
                 m_unk1A8 = 103;
             }
 
@@ -93,7 +93,7 @@ void CEntityNPCHnSWoozle::UpdateFightBehaviour(F32 a1) {
             break;
         case 104:
             if (!FollowSplinePath(a1, 1.0f, 1) || m_unkF4 & (1 << 8)) {
-                ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->StartFightMode(this, 1);
+                m_entity_manager->GetGame()->GetIngameGamePart()->StartFightMode(this, 1);
                 m_unk1A8 = 108;
                 break;
             }
@@ -128,15 +128,15 @@ void CEntityNPCHnSWoozle::UpdateFightBehaviour(F32 a1) {
             }
             break;
         case 100:
-            ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->StartFightMode(this, 1);
+            m_entity_manager->GetGame()->GetIngameGamePart()->StartFightMode(this, 1);
             m_animation_star_controller->Play("FRIGHTEN_PIGLET", 1, 1);
             UpdateAnimations(0.001f);
             m_unk1A8 = 109;
             break;
         case 109:
             if (m_animation_star_controller->IsPlayingAnimationLooped()) {
-                CEntityHero* hero = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->GetCurrentHero();
-                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, hero->m_unk0, "FRITTEN_PIGLET", 0);
+                CEntityHero* hero = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->GetCurrentHero();
+                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, hero->GetName(), "FRITTEN_PIGLET", 0);
                 MakeNPCLaughing();
             }
             break;
@@ -218,9 +218,9 @@ void CEntityNPCHnSWoozle::UpdateDeathBehaviour(F32) {
 
 }
 
-void CEntityNPCHnSWoozle::Render(F32 dt_maybe) {
+void CEntityNPCHnSWoozle::Render(F32 dt) {
     if (IsFlagged(ENTITY_FLAG_VISIBLE) == TRUE) {
-        CEntityNPC::Render(dt_maybe);
+        CEntityNPC::Render(dt);
     }
 }
 

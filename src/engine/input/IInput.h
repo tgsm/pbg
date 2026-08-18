@@ -12,7 +12,7 @@ public:
     virtual ~IDevice() {}
 
     virtual BOOL Init(DkXmd::CChunkIterator* iter) = 0;
-    virtual void Update(const F32& dt_maybe) = 0;
+    virtual void Update(const F32& dt) = 0;
     virtual CState GetState(const int&) = 0;
     virtual BOOL IsConnected() = 0;
     virtual U32 GetType() = 0;

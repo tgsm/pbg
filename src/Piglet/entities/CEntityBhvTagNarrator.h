@@ -19,7 +19,7 @@ public:
 
     virtual void Set(CEntity* entity) {
         if (entity != NULL) {
-            entity->m_entity_manager->GetGame()->PlayNarratorLine(m_narrator_line_id);
+            entity->GetManager()->GetGame()->PlayNarratorLine(m_narrator_line_id);
         }
     }
 

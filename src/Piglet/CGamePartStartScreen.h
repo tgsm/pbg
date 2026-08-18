@@ -17,8 +17,8 @@ public:
 
     virtual U32 NextFrame();
     virtual U32 NextFrameExit();
-    virtual void Update(F32 dt_maybe);
-    virtual void Render(F32 dt_maybe);
+    virtual void Update(F32 dt);
+    virtual void Render(F32 dt);
 };
 REQUIRE_SIZE(CGamePartStartScreen, 0x18);
 

@@ -26,7 +26,7 @@ public:
 
         if (m_unkC == "TXDPATCH") {
             for (int i = 3; i < 11; i++) {
-                entity->m_entity_manager->GetGame()->m_unk210[3].m_rooms.rooms[i] |= (1 << 3);
+                entity->GetManager()->GetGame()->GetMission(3).m_rooms.rooms[i] |= (1 << 3);
             }
         } else if (m_unkC == "Vibration") {
             if (m_unk10 > 0.5f) {
@@ -37,24 +37,24 @@ public:
             }
         } else if (m_unkC == "SoundVolume") {
             if (m_unk10 >= 0.0f && m_unk10 <= 1.0f) {
-                entity->m_entity_manager->GetGame()->m_sound_engine->SetGlobalVolume(m_unk10);
-                entity->m_entity_manager->GetGame()->m_unk504C = m_unk10;
+                entity->GetManager()->GetGame()->GetSoundEngine()->SetGlobalVolume(m_unk10);
+                entity->GetManager()->GetGame()->m_unk504C = m_unk10;
             }
         } else if (m_unkC == "Stereo") {
             if (m_unk10 > 0.5f) {
-                entity->m_entity_manager->GetGame()->m_sound_engine->SetStereoMode(OS_SOUND_MODE_STEREO);
+                entity->GetManager()->GetGame()->GetSoundEngine()->SetStereoMode(OS_SOUND_MODE_STEREO);
                 OSSetSoundMode(OS_SOUND_MODE_STEREO);
             } else {
-                entity->m_entity_manager->GetGame()->m_sound_engine->SetStereoMode(OS_SOUND_MODE_MONO);
+                entity->GetManager()->GetGame()->GetSoundEngine()->SetStereoMode(OS_SOUND_MODE_MONO);
                 OSSetSoundMode(OS_SOUND_MODE_MONO);
             }
         } else if (m_unkC == "ShowMinimap") {
-            CMiniMap* minimap = entity->m_entity_manager->GetGame()->m_minimap;
+            CMiniMap* minimap = entity->GetManager()->GetGame()->GetMiniMap();
             if (minimap != NULL) {
                 minimap->ShowFriendNPC(m_unk14 >> 16, m_unk10, m_unk14 & 0xFFFF);
             }
         } else if (m_unkC == "HideMinimap") {
-            CMiniMap* minimap = entity->m_entity_manager->GetGame()->m_minimap;
+            CMiniMap* minimap = entity->GetManager()->GetGame()->GetMiniMap();
             if (minimap != NULL) {
                 minimap->HideFriendNPC(m_unk14 >> 16);
             }

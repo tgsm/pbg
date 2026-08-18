@@ -152,9 +152,9 @@ BOOL CMission::LoadConfigFile(U32 a1) {
                     resource_factory = m_game->GetResourceFactory();
                     resource_factory->LoadResource(RESOURCE_TYPE_SAMPLE_BANK2, dest1.GetStringValue());
                 } else if (strcmp(buf, "GUI") == 0) {
-                    m_game->m_gui_manager->LoadGui(&dest1, 1);
+                    m_game->GetGuiManager()->LoadGui(&dest1, 1);
                 } else if (strcmp(buf, "Minimap") == 0) {
-                    m_game->m_minimap->Load(&dest1);
+                    m_game->GetMiniMap()->Load(&dest1);
                 }
             } while (dest1.GetNextSiblingChunk(dest1));
         }
@@ -178,9 +178,9 @@ BOOL CMission::LoadConfigFile(U32 a1) {
 }
 
 void CMission::UnloadConfigFile() {
-    m_game->m_gui_manager->UnLoadLevel(1);
+    m_game->GetGuiManager()->UnLoadLevel(1);
     m_game->GetResourceFactory()->UnloadResources(1);
-    m_game->m_minimap->Unload();
+    m_game->GetMiniMap()->Unload();
 }
 
 U32 CMission::GetSaveSize() {
@@ -192,43 +192,43 @@ void CMission::Save(void* data) {
     int i, j;
     U32 offset = 0;
 
-    m_game->m_game_backup->GetCurrentContainer()->StoreS32(0x02980000, (S8*)((int)data + offset));
+    m_game->GetGameBackup()->GetCurrentContainer()->StoreS32(0x02980000, (S8*)((int)data + offset));
     offset += 4;
 
     for (i = 0; i < 4u; i++) {
-        m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_unk4C4.unk[i], (S8*)((int)data + offset));
+        m_game->GetGameBackup()->GetCurrentContainer()->StoreS32(m_unk4C4.unk[i], (S8*)((int)data + offset));
         offset += 4;
     }
 
-    m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_unk30, (S8*)((int)data + offset));
+    m_game->GetGameBackup()->GetCurrentContainer()->StoreS32(m_unk30, (S8*)((int)data + offset));
     offset += 4;
-    m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_unk2C, (S8*)((int)data + offset));
+    m_game->GetGameBackup()->GetCurrentContainer()->StoreS32(m_unk2C, (S8*)((int)data + offset));
     offset += 4;
-    m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_unk34, (S8*)((int)data + offset));
+    m_game->GetGameBackup()->GetCurrentContainer()->StoreS32(m_unk34, (S8*)((int)data + offset));
     offset += 4;
 
     for (i = 0; i < 16; i++) {
-        m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_rooms.rooms[i], (S8*)((int)data + offset));
+        m_game->GetGameBackup()->GetCurrentContainer()->StoreS32(m_rooms.rooms[i], (S8*)((int)data + offset));
         offset += 4;
     }
 
     for (i = 0; i < 16; i++) {
         for (int j = 0; j < 8; j++) {
-            m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_unk7C.unk[i].unk0[j], (S8*)((int)data + offset));
+            m_game->GetGameBackup()->GetCurrentContainer()->StoreS32(m_unk7C.unk[i].unk0[j], (S8*)((int)data + offset));
             offset += 4;
         }
     }
 
     for (i = 0; i < 3; i++) {
         for (int j = 0; j < 16; j++) {
-            m_game->m_game_backup->GetCurrentContainer()->StoreS8(m_unk48C.unk48C[i][j], (S8*)((int)data + offset));
+            m_game->GetGameBackup()->GetCurrentContainer()->StoreS8(m_unk48C.unk48C[i][j], (S8*)((int)data + offset));
             offset += 1;
         }
     }
 
-    m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_num_current_cookies, (S8*)((int)data + offset));
+    m_game->GetGameBackup()->GetCurrentContainer()->StoreS32(m_num_current_cookies, (S8*)((int)data + offset));
     offset += 4;
-    m_game->m_game_backup->GetCurrentContainer()->StoreS32(m_MaxNbCookies, (S8*)((int)data + offset));
+    m_game->GetGameBackup()->GetCurrentContainer()->StoreS32(m_MaxNbCookies, (S8*)((int)data + offset));
     offset += 4;
 }
 
@@ -239,25 +239,25 @@ void CMission::Restore(void* data) {
     offset += 4;
 
     for (i = 0; i < 4u; i++) {
-        m_unk4C4.unk[i] = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
+        m_unk4C4.unk[i] = m_game->GetGameBackup()->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
         offset += 4;
     }
 
-    m_unk30 = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
+    m_unk30 = m_game->GetGameBackup()->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
     offset += 4;
-    m_unk2C = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
+    m_unk2C = m_game->GetGameBackup()->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
     offset += 4;
-    m_unk34 = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
+    m_unk34 = m_game->GetGameBackup()->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
     offset += 4;
 
     for (i = 0; i < 16; i++) {
-        m_rooms.rooms[i] = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
+        m_rooms.rooms[i] = m_game->GetGameBackup()->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
         offset += 4;
     }
 
     for (i = 0; i < 16; i++) {
         for (int j = 0; j < 8; j++) {
-            m_unk7C.unk[i].unk0[j] = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
+            m_unk7C.unk[i].unk0[j] = m_game->GetGameBackup()->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
             offset += 4;
         }
     }
@@ -266,14 +266,14 @@ void CMission::Restore(void* data) {
         strcpy((char*)m_unk48C.unk48C[i], "              ");
         m_unk48C.unk48C[i][15] = '\0';
         for (int j = 0; j < 16; j++) {
-            m_unk48C.unk48C[i][j] = m_game->m_game_backup->GetCurrentContainer()->GetS8((S8*)((int)data + offset));
+            m_unk48C.unk48C[i][j] = m_game->GetGameBackup()->GetCurrentContainer()->GetS8((S8*)((int)data + offset));
             offset += 1;
         }
     }
 
-    m_num_current_cookies = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
+    m_num_current_cookies = m_game->GetGameBackup()->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
     offset += 4;
-    m_MaxNbCookies = m_game->m_game_backup->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
+    m_MaxNbCookies = m_game->GetGameBackup()->GetCurrentContainer()->GetS32((S8*)((int)data + offset));
     offset += 4;
 }
 

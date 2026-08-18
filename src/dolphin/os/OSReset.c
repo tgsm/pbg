@@ -189,7 +189,7 @@ void __OSShutdownDevices(BOOL doRecal) {
 }
 
 // Incomplete, I'll finish this some other time
-void OSResetSystem(BOOL reset, u32 resetCode, BOOL forceMenu) {
+void OSResetSystem(int reset, u32 resetCode, BOOL forceMenu) {
     OSSram* sram;
 
     OSDisableScheduler();

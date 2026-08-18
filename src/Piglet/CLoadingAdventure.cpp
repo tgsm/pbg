@@ -24,7 +24,7 @@ void CLoadingAdventure::Create() {
         }
 
         if (m_controller == NULL) {
-            BOOL failed = (m_controller = m_game->m_anim_dictionary->CreateController("Models/100_PIGLET/CAR_100.dff", m_clump1C, 6)) == NULL;
+            BOOL failed = (m_controller = m_game->GetAnimDictionary()->CreateController("Models/100_PIGLET/CAR_100.dff", m_clump1C, 6)) == NULL;
             if (failed) {
                 return;
             }
@@ -34,26 +34,26 @@ void CLoadingAdventure::Create() {
         CDKW_RGBA tmp_color;
 
         int hero_state = m_hero_state;
-        if (m_game->m_unk4F5C == 3 || m_game->m_unk4F54 == 8) {
+        if (m_game->GetCurrentHeroId() == HERO_CATCH_THEM_ALL || m_game->GetCurrentMissionId() == MISSION_MENUS) {
             hero_state = 0;
         }
         switch (hero_state) {
             case 2:
                 anm_filename = "Models/100_PIGLET/ANM_100_280.anm";
                 dma_filename = "Models/100_PIGLET/ANM_100_070_1.dma";
-                m_game->m_screen_effect->SetSequenceByIndex(2);
+                m_game->GetScreenEffect()->SetSequenceByIndex(2);
                 tmp_color = CDKW_RGBA(0, 0, 0, 0xFF);
                 break;
             case 1:
                 anm_filename = "Models/100_PIGLET/ANM_100_210.anm";
                 dma_filename = "Models/100_PIGLET/ANM_100_040_1.dma";
-                m_game->m_screen_effect->SetSequenceByIndex(1);
+                m_game->GetScreenEffect()->SetSequenceByIndex(1);
                 tmp_color = CDKW_RGBA(26, 26, 67, 0xFF);
                 break;
             default:
                 anm_filename = "Models/100_PIGLET/ANM_100_220.anm";
                 dma_filename = "Models/100_PIGLET/ANM_100_010_2.dma";
-                m_game->m_screen_effect->SetSequenceByIndex(0);
+                m_game->GetScreenEffect()->SetSequenceByIndex(0);
                 tmp_color = CDKW_RGBA(199, 226, 222, 0xFF);
                 break;
         }
@@ -114,8 +114,8 @@ void CLoadingAdventure::Create() {
 
         m_clump1C->UpdateModelPos(CDKW_V3d::ZERO);
 
-        DKDSP::CAnimation* anim = m_game->m_anim_dictionary->FindAnimation(anm_filename);
-        DKDSP::CDMorphAnimation* anim2 = m_game->m_anim_dictionary->FindDMorphAnimation(dma_filename);
+        DKDSP::CAnimation* anim = m_game->GetAnimDictionary()->FindAnimation(anm_filename);
+        DKDSP::CDMorphAnimation* anim2 = m_game->GetAnimDictionary()->FindDMorphAnimation(dma_filename);
 
         m_controller->StopAllAnimations(DKDSP::ANIMATION_TYPE_ANM, 0);
         m_controller->StopAllAnimations(DKDSP::ANIMATION_TYPE_DMA, 0);

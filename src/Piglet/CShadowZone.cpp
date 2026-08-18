@@ -48,7 +48,7 @@ BOOL CShadowZone::LoadShadowZone(DkXmd::CChunkIterator* iter) {
                         return FALSE;
                     }
 
-                    display_engine = m_game->m_display_engine;
+                    display_engine = m_game->GetDisplayEngine();
                     if (display_engine == NULL) {
                         return FALSE;
                     }
@@ -61,7 +61,7 @@ BOOL CShadowZone::LoadShadowZone(DkXmd::CChunkIterator* iter) {
                         return FALSE;
                     }
 
-                    texture_dictionary = m_game->m_texture_dictionary;
+                    texture_dictionary = m_game->GetTextureDictionary();
                     if (texture_dictionary == NULL) {
                         return FALSE;
                     }
@@ -115,8 +115,8 @@ void CShadowZone::UnloadShadowZone() {
         return;
     }
 
-    if (m_game->m_texture_dictionary != NULL) {
-        m_game->m_texture_dictionary->RemoveImage(m_image);
+    if (m_game->GetTextureDictionary() != NULL) {
+        m_game->GetTextureDictionary()->RemoveImage(m_image);
         m_image = NULL;
     }
 }

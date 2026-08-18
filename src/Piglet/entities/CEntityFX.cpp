@@ -28,7 +28,7 @@ BOOL CEntityFX::ParseParticleEmitter(std::string filename) {
     DkXmd::CChunkIterator unused;
     m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_PARTICLE_EMITTER_DEFINITION, filename);
 
-    m_particle_emitter = m_entity_manager->GetGame()->GetScene()->CreateParticleEmitterFromDefinition(m_unk0, m_entity_manager->GetGame()->GetObjectDictionary()->FindParticleEmitterDefinition(filename));
+    m_particle_emitter = m_entity_manager->GetGame()->GetScene()->CreateParticleEmitterFromDefinition(m_name, m_entity_manager->GetGame()->GetObjectDictionary()->FindParticleEmitterDefinition(filename));
 
     return TRUE;
 }
@@ -156,8 +156,8 @@ void CEntityFX::Render(F32 dt) {
 
     CEntityObject::Render(dt);
 
-    CGamePartIngame* game_part = (CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer();
-    if (m_particle_emitter != NULL && !game_part->m_game_room_manager->IsOnFight()) {
+    CGamePartIngame* game_part = m_entity_manager->GetGame()->GetIngameGamePart();
+    if (m_particle_emitter != NULL && !game_part->GetGameRoomManager()->IsOnFight()) {
         m_entity_manager->GetGame()->GetScene()->RenderParticleEmitter(m_particle_emitter, 1);
     }
 }

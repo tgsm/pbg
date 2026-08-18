@@ -43,7 +43,7 @@ public:
     virtual void func28() = 0;
     virtual void func29() = 0;
     virtual void func30() = 0;
-    virtual void Update(F32 dt_maybe) = 0;
+    virtual void Update(F32 dt) = 0;
     virtual void func31() = 0;
     virtual void SetAnimation(IAnimation*) = 0;
     virtual void func33() = 0;

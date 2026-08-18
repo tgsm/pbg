@@ -56,10 +56,10 @@ void CEntityNPCMirrorWoozle::UpdateDetectionBehaviour(F32 a1) {
 
 void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
     if (m_unk1A8 == 102 || m_unk1A8 == 106 || m_unk1A8 == 107 || m_unk1A8 == 108 || m_unk1A8 == 103) {
-        ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->UnblockFightMode();
+        m_entity_manager->GetGame()->GetIngameGamePart()->UnblockFightMode();
 
         SDkMessage message;
-        if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_unk0, 1)) {
+        if (m_entity_manager->GetGame()->GetMailbox()->GetMessage(&message, m_name, 1)) {
             if (strcmp(message.type, "START_FIGHT") == 0) {
                 m_unk2EC = TRUE;
             }
@@ -68,14 +68,14 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
 
     switch (m_unk1A8) {
         case 101:
-            srand((int)m_entity_manager->GetGame()->m_timer->GetTime());
+            srand((int)m_entity_manager->GetGame()->GetTimer()->GetTime());
             m_unk2E4 = 0.0f;
             m_unk2EC = FALSE;
             m_unk2E8 = 1;
             m_unk1A8 = 102;
             break;
         case 102: {
-            CEntitySeqKey* key_sequence_entity = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_key_sequence_entity;
+            CEntitySeqKey* key_sequence_entity = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_key_sequence_entity;
             if (key_sequence_entity == NULL) {
                 break;
             }
@@ -99,7 +99,7 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
             break;
         }
         case 103: {
-            CEntitySeqKey* key_sequence_entity = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_key_sequence_entity;
+            CEntitySeqKey* key_sequence_entity = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_key_sequence_entity;
             if (key_sequence_entity != NULL) {
                 key_sequence_entity->AddFlag(ENTITY_FLAG_ACTIVE);
             }
@@ -113,7 +113,7 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
             break;
         }
         case 104: {
-            CEntitySeqKey* key_sequence_entity = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_key_sequence_entity;
+            CEntitySeqKey* key_sequence_entity = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_key_sequence_entity;
             if (key_sequence_entity != NULL) {
                 // Weird double negation
                 F32 thing = -m_unk2E4;
@@ -124,7 +124,7 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
             m_animation_star_controller->SetPlayingAnimationSpeed(m_unk2D4);
 
             if (!FollowSplinePath(a1, 1.0f, 1) || m_unkF4 & (1 << 8)) {
-                ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->StartFightMode(this, 1);
+                m_entity_manager->GetGame()->GetIngameGamePart()->StartFightMode(this, 1);
                 m_unk1A8 = 105;
                 break;
             } else if (!m_animation_star_controller->IsPlayingAnimationLooped()) {
@@ -175,9 +175,9 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
             }
 
             angle += m_unk2E4;
-            ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->SetCamRollAngle(angle);
+            m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->SetCamRollAngle(angle);
 
-            CEntitySeqKey* sequence_key_entity = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_key_sequence_entity;
+            CEntitySeqKey* sequence_key_entity = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_key_sequence_entity;
             if (sequence_key_entity != NULL) {
                 sequence_key_entity->m_unk54 = angle;
             }
@@ -196,19 +196,19 @@ void CEntityNPCMirrorWoozle::UpdateFightBehaviour(F32 a1) {
                     m_unk2E8 = 0;
                 }
 
-                m_unk2E4 = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->GetCamRollAngle();
+                m_unk2E4 = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->GetCamRollAngle();
             }
             break;
         case 100:
-            ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->StartFightMode(this, 1);
+            m_entity_manager->GetGame()->GetIngameGamePart()->StartFightMode(this, 1);
             m_animation_star_controller->Play("FRIGHTEN_PIGLET", 1, 1);
             UpdateAnimations(0.001f);
             m_unk1A8 = 109;
             break;
         case 109:
             if (m_animation_star_controller->IsPlayingAnimationLooped()) {
-                CEntityHero* hero = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->GetCurrentHero();
-                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, hero->m_unk0, "FRITTEN_PIGLET", 0);
+                CEntityHero* hero = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->GetCurrentHero();
+                m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, hero->GetName(), "FRITTEN_PIGLET", 0);
                 MakeNPCLaughing();
             }
             break;
@@ -221,9 +221,9 @@ void CEntityNPCMirrorWoozle::UpdateGrimaceBehaviour(F32) {
             m_unk2E4 = 0.0f;
             m_unk2E8 = 1;
 
-            ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->SetCamRollAngle(m_unk2E4);
+            m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->SetCamRollAngle(m_unk2E4);
 
-            CEntitySeqKey* key_sequence_entity = ((CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer())->m_game_room_manager->m_key_sequence_entity;
+            CEntitySeqKey* key_sequence_entity = m_entity_manager->GetGame()->GetIngameGamePart()->GetGameRoomManager()->m_key_sequence_entity;
             if (key_sequence_entity != NULL) {
                 key_sequence_entity->m_unk54 = -m_unk2E4;
             }
@@ -253,9 +253,9 @@ void CEntityNPCMirrorWoozle::UpdateDeathBehaviour(F32) {
 
 }
 
-void CEntityNPCMirrorWoozle::Render(F32 dt_maybe) {
+void CEntityNPCMirrorWoozle::Render(F32 dt) {
     if (IsFlagged(ENTITY_FLAG_VISIBLE) == TRUE) {
-        CEntityNPC::Render(dt_maybe);
+        CEntityNPC::Render(dt);
     }
 }
 

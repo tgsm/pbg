@@ -9,16 +9,16 @@
 
 class CEntityBhvTagSendMessage : public CEntityBhvTagData {
 private:
-    std::string m_unkC;
-    std::string m_unk10;
-    U32 m_unk14; // unknown type
+    std::string m_receiver;
+    std::string m_type;
+    U32 m_param;
 
 public:
     CEntityBhvTagSendMessage();
     virtual ~CEntityBhvTagSendMessage();
 
     virtual void Set(CEntity* entity) {
-        entity->m_entity_manager->GetGame()->GetMailbox()->SendMessage(entity->m_unk0, m_unkC, m_unk10, m_unk14);
+        entity->GetManager()->GetGame()->GetMailbox()->SendMessage(entity->GetName(), m_receiver, m_type, m_param);
     }
 
     virtual U32 GetType() {

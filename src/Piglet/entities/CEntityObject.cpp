@@ -31,8 +31,8 @@ void CEntityObject::Reset() {
     CEntity::Reset();
 }
 
-void CEntityObject::Update(F32 dt_maybe) {
-    CEntity::Update(dt_maybe);
+void CEntityObject::Update(F32 dt) {
+    CEntity::Update(dt);
     if (IsFlagged(ENTITY_FLAG_ACTIVE) && IsFlagged(ENTITY_FLAG_UNK7) == TRUE) {
         return;
     }
@@ -43,7 +43,7 @@ void CEntityObject::Init() {
     UpdateVolumes();
 }
 
-void CEntityObject::Render(F32 dt_maybe) {
+void CEntityObject::Render(F32 dt) {
     if (!IsFlagged(ENTITY_FLAG_UNK8) && !IsFlagged(ENTITY_FLAG_VISIBLE)) {
         return;
     }

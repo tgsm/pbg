@@ -18,7 +18,7 @@ public:
         return ENTITY_NPC_DOOR;
     }
     virtual void Reset();
-    virtual void Render(F32 dt_maybe);
+    virtual void Render(F32 dt);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual BOOL Restore(void*);
@@ -31,12 +31,12 @@ public:
     BOOL CanLaunchFightMode();
 
     void SendVictoryStartMessage() {
-        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_victory_str, "START", 0);
-        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_unk0, "DIE", 0);
+        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, m_victory_str, "START", 0);
+        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, m_name, "DIE", 0);
     }
 
     void SendBadGrimaceStartMessage() {
-        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_unk0, m_bad_grimace_str, "START", 0);
+        m_entity_manager->GetGame()->GetMailbox()->SendMessage(m_name, m_bad_grimace_str, "START", 0);
     }
 };
 REQUIRE_SIZE(CEntityNPCDoor, 0x2E0);

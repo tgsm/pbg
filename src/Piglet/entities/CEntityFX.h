@@ -40,7 +40,7 @@ public:
     BOOL ParseParticleEmitter(std::string filename);
     void ParseParticleEmitter(DkXmd::CChunkIterator iter) {
         if (m_particle_emitter == NULL) {
-            m_particle_emitter = m_entity_manager->GetGame()->GetScene()->LoadParticleEmitter(m_unk0, &iter);
+            m_particle_emitter = m_entity_manager->GetGame()->GetScene()->LoadParticleEmitter(m_name, &iter);
         } else {
             m_particle_emitter->LoadParameters(&iter);
         }

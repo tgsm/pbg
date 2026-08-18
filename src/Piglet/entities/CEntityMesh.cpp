@@ -45,17 +45,17 @@ CEntityMesh::~CEntityMesh() {
     }
 
     if (m_controller != NULL) {
-        m_entity_manager->GetGame()->m_anim_dictionary->RemoveController(m_controller->GetName());
+        m_entity_manager->GetGame()->GetAnimDictionary()->RemoveController(m_controller->GetName());
         m_controller = NULL;
     }
 
-    if (m_animation_star != NULL && *m_animation_star->GetName() == m_unk0) {
-        m_entity_manager->GetGame()->m_anim_dictionary->RemoveAnimationStar(*m_animation_star->GetName());
+    if (m_animation_star != NULL && *m_animation_star->GetName() == m_name) {
+        m_entity_manager->GetGame()->GetAnimDictionary()->RemoveAnimationStar(*m_animation_star->GetName());
         m_animation_star = NULL;
     }
 
     if (m_animation_star_controller != NULL) {
-        m_entity_manager->GetGame()->m_anim_dictionary->RemoveAnimationStarController(*m_animation_star_controller->GetName());
+        m_entity_manager->GetGame()->GetAnimDictionary()->RemoveAnimationStarController(*m_animation_star_controller->GetName());
         m_animation_star_controller = NULL;
     }
 
@@ -65,7 +65,7 @@ CEntityMesh::~CEntityMesh() {
     }
 
     if (m_sound_emitter != NULL) {
-        m_entity_manager->GetGame()->m_sound_engine->RemoveEmitter(m_sound_emitter);
+        m_entity_manager->GetGame()->GetSoundEngine()->RemoveEmitter(m_sound_emitter);
         m_sound_emitter = NULL;
     }
 
@@ -162,34 +162,34 @@ void CEntityMesh::Render(f32 dt) {
     }
 
     BeginLighting();
-    BOOL aab_enabled = m_entity_manager->GetGame()->m_display_engine->IsAlphaAtomicBufferizationEnabled();
+    BOOL aab_enabled = m_entity_manager->GetGame()->GetDisplayEngine()->IsAlphaAtomicBufferizationEnabled();
 
     if (m_unkF0 == TRUE) {
-        m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(TRUE);
+        m_entity_manager->GetGame()->GetDisplayEngine()->AlphaAtomicBufferization(TRUE);
     }
 
-    m_entity_manager->GetGame()->m_display_engine->RegisterShadowMapValidationCallback(&m_smv_callback);
+    m_entity_manager->GetGame()->GetDisplayEngine()->RegisterShadowMapValidationCallback(&m_smv_callback);
 
     if (m_mirror != NULL) {
         RwRenderStateSet(rwRENDERSTATESRCBLEND, (void*)rwBLENDONE);
         RwRenderStateSet(rwRENDERSTATEDESTBLEND, (void*)rwBLENDZERO);
         _rwDlRenderStateSetAlphaComp(3);
         GXSetAlphaCompare(GX_ALWAYS, 0, GX_AOP_AND, GX_ALWAYS, 0);
-        m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(FALSE);
+        m_entity_manager->GetGame()->GetDisplayEngine()->AlphaAtomicBufferization(FALSE);
     }
 
     m_entity_manager->GetGame()->GetScene()->RenderClump(m_clump);
     if (m_mirror != NULL) {
-        m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(TRUE);
+        m_entity_manager->GetGame()->GetDisplayEngine()->AlphaAtomicBufferization(TRUE);
         _rwDlRenderStateSetAlphaComp(2);
         _rwDlRenderStateSetAlphaComp(3);
         RwRenderStateSet(rwRENDERSTATESRCBLEND, (void*)rwBLENDSRCALPHA);
         RwRenderStateSet(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
     }
 
-    m_entity_manager->GetGame()->m_display_engine->RegisterShadowMapValidationCallback(NULL);
+    m_entity_manager->GetGame()->GetDisplayEngine()->RegisterShadowMapValidationCallback(NULL);
     if (m_unkF0 == TRUE) {
-        m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(aab_enabled);
+        m_entity_manager->GetGame()->GetDisplayEngine()->AlphaAtomicBufferization(aab_enabled);
     }
 
     EndLighting();
@@ -293,9 +293,9 @@ void CEntityMesh::LoadAnimations(DkXmd::CChunkIterator iter) {
 BOOL CEntityMesh::ParseStar(std::string str) {
     DkXmd::CChunkIterator iter;
 
-    m_animation_star = m_entity_manager->GetGame()->m_anim_dictionary->FindAnimationStar(str);
+    m_animation_star = m_entity_manager->GetGame()->GetAnimDictionary()->FindAnimationStar(str);
     if (m_animation_star != NULL) {
-        m_animation_star_controller = m_entity_manager->GetGame()->m_anim_dictionary->CreateAnimationStarController(m_unk0, m_animation_star, m_controller);
+        m_animation_star_controller = m_entity_manager->GetGame()->GetAnimDictionary()->CreateAnimationStarController(m_name, m_animation_star, m_controller);
         if (m_animation_star_controller == NULL) {
             return FALSE;
         }
@@ -318,8 +318,8 @@ BOOL CEntityMesh::ParseStar(std::string str) {
         delete xmd_data;
 
         m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_ANIMATION_STAR, str);
-        m_animation_star = m_entity_manager->GetGame()->m_anim_dictionary->FindAnimationStar(str);
-        m_animation_star_controller = m_entity_manager->GetGame()->m_anim_dictionary->CreateAnimationStarController(m_unk0, m_animation_star, m_controller);
+        m_animation_star = m_entity_manager->GetGame()->GetAnimDictionary()->FindAnimationStar(str);
+        m_animation_star_controller = m_entity_manager->GetGame()->GetAnimDictionary()->CreateAnimationStarController(m_name, m_animation_star, m_controller);
         if (m_animation_star_controller == NULL) {
             return FALSE;
         }
@@ -331,12 +331,12 @@ BOOL CEntityMesh::ParseStar(std::string str) {
 BOOL CEntityMesh::ParseStar(DkXmd::CChunkIterator iter) {
     LoadAnimations(iter);
 
-    m_animation_star = m_entity_manager->GetGame()->m_anim_dictionary->LoadAnimationStarFromChunk(m_unk0, &iter);
+    m_animation_star = m_entity_manager->GetGame()->GetAnimDictionary()->LoadAnimationStarFromChunk(m_name, &iter);
     if (m_animation_star == NULL) {
         return FALSE;
     }
 
-    m_animation_star_controller = m_entity_manager->GetGame()->m_anim_dictionary->CreateAnimationStarController(m_unk0, m_animation_star, m_controller);
+    m_animation_star_controller = m_entity_manager->GetGame()->GetAnimDictionary()->CreateAnimationStarController(m_name, m_animation_star, m_controller);
     if (m_animation_star_controller == NULL) {
         return FALSE;
     }
@@ -358,17 +358,17 @@ void CEntityMesh::Parse(DkXmd::CChunkIterator iter) {
         m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }
 
-    if (m_entity_manager->GetGame()->m_unk4F5C == 1 && iter.GetChunk("SndDictTigger", dest)) {
+    if (m_entity_manager->GetGame()->GetCurrentHeroId() == HERO_TIGGER && iter.GetChunk("SndDictTigger", dest)) {
         strcpy(buf, dest.GetStringValue());
         m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }
 
-    if (m_entity_manager->GetGame()->m_unk4F5C == 2 && iter.GetChunk("SndDictWinnie", dest)) {
+    if (m_entity_manager->GetGame()->GetCurrentHeroId() == HERO_WINNIE && iter.GetChunk("SndDictWinnie", dest)) {
         strcpy(buf, dest.GetStringValue());
         m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }
 
-    if (m_entity_manager->GetGame()->m_unk4F5C == 3 && iter.GetChunk("SndDictCatch", dest)) {
+    if (m_entity_manager->GetGame()->GetCurrentHeroId() == HERO_CATCH_THEM_ALL && iter.GetChunk("SndDictCatch", dest)) {
         strcpy(buf, dest.GetStringValue());
         m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, buf);
     }
@@ -376,7 +376,7 @@ void CEntityMesh::Parse(DkXmd::CChunkIterator iter) {
     if (iter.GetChunk("Mesh", dest)) {
         Create(dest.GetStringValue());
         if (m_controller == NULL) {
-            m_controller = m_entity_manager->GetGame()->m_anim_dictionary->CreateController(m_unk0, m_clump, 4);
+            m_controller = m_entity_manager->GetGame()->GetAnimDictionary()->CreateController(m_name, m_clump, 4);
             if (m_controller != NULL) {
                 m_controller->SetEventUserData(this);
                 m_clump->SetController(m_controller);
@@ -549,7 +549,7 @@ void CEntityMesh::EndLighting() {
         m_entity_light_01->GetLight()->SetColor(m_unk70.m_r, m_unk70.m_g, m_unk70.m_b);
     }
 
-    m_entity_manager->GetGame()->m_display_engine->AlphaAtomicBufferization(TRUE);
+    m_entity_manager->GetGame()->GetDisplayEngine()->AlphaAtomicBufferization(TRUE);
 }
 
 BOOL CEntityMesh::ParseMirror(DkXmd::CChunkIterator iter) {

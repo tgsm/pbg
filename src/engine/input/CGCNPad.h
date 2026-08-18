@@ -39,7 +39,7 @@ public:
     CGCNPad(int pad_no);
 
     virtual BOOL Init(DkXmd::CChunkIterator* iter);
-    virtual void Update(const F32& dt_maybe);
+    virtual void Update(const F32& dt);
     virtual CState GetState(const int&);
     virtual void SetRumble(const U8& a1, const U8& a2);
     virtual BOOL IsConnected() {

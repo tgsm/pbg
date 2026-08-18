@@ -72,10 +72,10 @@ CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
     Rt2dCTMSetIdentity();
 
     for (int i = 0; i < 4; i++) {
-        m_batches[i] = m_game->m_display_engine->GetImmediate()->CreateBatch2D(4, 0);
+        m_batches[i] = m_game->GetDisplayEngine()->GetImmediate()->CreateBatch2D(4, 0);
     }
 
-    m_game->m_timer->Reset();
+    m_game->GetTimer()->Reset();
 
     m_game->ComputeDeltaTime();
     m_game->ComputeDeltaTime();
@@ -88,16 +88,16 @@ CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
 
     m_game->GetResourceFactory()->m_unkC = rf_unkC;
 
-    m_game->m_gui_manager->Reset();
+    m_game->GetGuiManager()->Reset();
 }
 
 // Equivalent: regalloc
 CGamePartCredits::~CGamePartCredits() {
-    m_game->m_fx_manager->Clear();
-    m_game->m_sound_engine->DeleteAllSounds();
+    m_game->GetFxManager()->Clear();
+    m_game->GetSoundEngine()->DeleteAllSounds();
 
     for (int i = 0; i < 4; i++) {
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batches[i]);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batches[i]);
         m_batches[i] = NULL;
     }
 
@@ -140,7 +140,7 @@ CGamePartCredits::~CGamePartCredits() {
     }
     CLEAR_VECTOR(AS_ULONG_VECTOR_HACK(m_unk80));
 
-    m_game->m_gui_manager->UnLoadLevel(0);
+    m_game->GetGuiManager()->UnLoadLevel(0);
     m_game->GetResourceFactory()->UnloadResources(0);
 }
 
@@ -190,7 +190,7 @@ void CGamePartCredits::Parse(DkXmd::CChunkIterator iter) {
                 resource_factory->LoadResource(RESOURCE_TYPE_SAMPLE_BANK1, dest.GetStringValue());
             } else if (tmp == "SoundId") {
                 tmp = dest.GetStringValue();
-                m_unk4C = m_game->m_sound_engine->PlaySound2D(tmp, 0);
+                m_unk4C = m_game->GetSoundEngine()->PlaySound2D(tmp, 0);
                 if (m_unk4C != NULL) {
                     m_unk4C->SetLoopMode(1);
                     m_unk4C->SetLayer(2);
@@ -288,7 +288,7 @@ int CGamePartCredits::GetEntryColorId(Entry& entry) {
 }
 
 U32 CGamePartCredits::NextFrame() {
-    if (!m_game->m_display_engine->Update()) {
+    if (!m_game->GetDisplayEngine()->Update()) {
         return 9;
     }
 
@@ -321,10 +321,10 @@ void CGamePartCredits::Render(F32 dt) {
 
     m_game->GetScene()->BeginRender();
 
-    m_game->m_fx_manager->Render();
-    m_game->m_gui_engine->UpdateAndRenderOnlyTexts(m_game->GetCamera()->m_wrap_camera->m_rw_camera);
+    m_game->GetFxManager()->Render();
+    m_game->GetGuiEngine()->UpdateAndRenderOnlyTexts(m_game->GetCamera()->m_wrap_camera->m_rw_camera);
     if (!m_game->IsUnk5038Not2()) {
-        m_game->m_gui_manager->Render(dt);
+        m_game->GetGuiManager()->Render(dt);
     }
     m_game->GetScene()->Flush();
     m_game->RenderFade();

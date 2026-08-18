@@ -39,7 +39,7 @@ void CRTCCamera::Load(CEntityManager* entity_manager) {
     }
 
     entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_ANIMATION, m_cam_filename);
-    m_unk18 = entity_manager->GetGame()->m_anim_dictionary->FindAnimation(m_cam_filename);
+    m_unk18 = entity_manager->GetGame()->GetAnimDictionary()->FindAnimation(m_cam_filename);
     m_loaded = TRUE;
 }
 

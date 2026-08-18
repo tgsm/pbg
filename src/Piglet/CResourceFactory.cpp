@@ -30,7 +30,7 @@ U32 CResourceFactory::LoadResource(U32 type, const char* name) {
 
     switch (type) {
         case RESOURCE_TYPE_CLUMP:
-            m_game->m_display_engine->SetImagePath("Data/NoTextures/");
+            m_game->GetDisplayEngine()->SetImagePath("Data/NoTextures/");
             if (m_game->GetObjectDictionary()->FindClump(name)) {
                 U32 unkC = m_unkC;
                 AddEntryInline(unkC, type, name);
@@ -41,7 +41,7 @@ U32 CResourceFactory::LoadResource(U32 type, const char* name) {
 
                 U32 unkC = m_unkC;
                 AddEntryInline(unkC, type, name);
-                m_game->m_texture_dictionary->Update();
+                m_game->GetTextureDictionary()->Update();
             }
             break;
         case RESOURCE_TYPE_SPLINE:
@@ -71,11 +71,11 @@ U32 CResourceFactory::LoadResource(U32 type, const char* name) {
             }
             break;
         case RESOURCE_TYPE_ANIMATION:
-            if (m_game->m_anim_dictionary->FindAnimation(name)) {
+            if (m_game->GetAnimDictionary()->FindAnimation(name)) {
                 U32 unkC = m_unkC;
                 AddEntryInline(unkC, type, name);
             } else {
-                if (!m_game->m_anim_dictionary->LoadAnimationFromFile(name, gcn_buf)) {
+                if (!m_game->GetAnimDictionary()->LoadAnimationFromFile(name, gcn_buf)) {
                     return RESOURCE_LOAD_RESULT_NOT_FOUND;
                 }
 
@@ -84,11 +84,11 @@ U32 CResourceFactory::LoadResource(U32 type, const char* name) {
             }
             break;
         case RESOURCE_TYPE_ANIMATION_STAR:
-            if (m_game->m_anim_dictionary->FindAnimationStar(name)) {
+            if (m_game->GetAnimDictionary()->FindAnimationStar(name)) {
                 U32 unkC = m_unkC;
                 AddEntryInline(unkC, type, name);
             } else {
-                if (!m_game->m_anim_dictionary->LoadAnimationStarFromFile(name, gcn_buf)) {
+                if (!m_game->GetAnimDictionary()->LoadAnimationStarFromFile(name, gcn_buf)) {
                     return RESOURCE_LOAD_RESULT_NOT_FOUND;
                 }
 
@@ -97,11 +97,11 @@ U32 CResourceFactory::LoadResource(U32 type, const char* name) {
             }
             break;
         case RESOURCE_TYPE_EVENT_ANIMATION:
-            if (m_game->m_anim_dictionary->FindEventAnimation(name)) {
+            if (m_game->GetAnimDictionary()->FindEventAnimation(name)) {
                 U32 unkC = m_unkC;
                 AddEntryInline(unkC, type, name);
             } else {
-                if (!m_game->m_anim_dictionary->LoadEventAnimationFromFile(name, gcn_buf)) {
+                if (!m_game->GetAnimDictionary()->LoadEventAnimationFromFile(name, gcn_buf)) {
                     return RESOURCE_LOAD_RESULT_NOT_FOUND;
                 }
 
@@ -110,11 +110,11 @@ U32 CResourceFactory::LoadResource(U32 type, const char* name) {
             }
             break;
         case RESOURCE_TYPE_DMORPH_ANIMATION:
-            if (m_game->m_anim_dictionary->FindDMorphAnimation(name)) {
+            if (m_game->GetAnimDictionary()->FindDMorphAnimation(name)) {
                 U32 unkC = m_unkC;
                 AddEntryInline(unkC, type, name);
             } else {
-                if (!m_game->m_anim_dictionary->LoadDMorphAnimationFromFile(name, gcn_buf)) {
+                if (!m_game->GetAnimDictionary()->LoadDMorphAnimationFromFile(name, gcn_buf)) {
                     return RESOURCE_LOAD_RESULT_NOT_FOUND;
                 }
 
@@ -123,11 +123,11 @@ U32 CResourceFactory::LoadResource(U32 type, const char* name) {
             }
             break;
         case RESOURCE_TYPE_MATERIAL_ANIMATION:
-            if (m_game->m_anim_dictionary->FindMaterialAnimation(name)) {
+            if (m_game->GetAnimDictionary()->FindMaterialAnimation(name)) {
                 U32 unkC = m_unkC;
                 AddEntryInline(unkC, type, name);
             } else {
-                if (!m_game->m_anim_dictionary->LoadMaterialAnimationFromFile(name, gcn_buf)) {
+                if (!m_game->GetAnimDictionary()->LoadMaterialAnimationFromFile(name, gcn_buf)) {
                     return RESOURCE_LOAD_RESULT_NOT_FOUND;
                 }
 
@@ -138,12 +138,12 @@ U32 CResourceFactory::LoadResource(U32 type, const char* name) {
         case RESOURCE_TYPE_TEXTURE_DICTIONARY: {
             U32 unkC = m_unkC;
             if (AddEntryInline(unkC, type, name)) {
-                if (!m_game->m_texture_dictionary->LoadTextureDictionaryFromFile(gcn_buf)) {
-                    if (!m_game->m_texture_dictionary->LoadTextureDictionaryFromFile(common_buf)) {
+                if (!m_game->GetTextureDictionary()->LoadTextureDictionaryFromFile(gcn_buf)) {
+                    if (!m_game->GetTextureDictionary()->LoadTextureDictionaryFromFile(common_buf)) {
                         return RESOURCE_LOAD_RESULT_NOT_FOUND;
                     }
                 }
-                m_game->m_texture_dictionary->Update();
+                m_game->GetTextureDictionary()->Update();
             }
             break;
         }
@@ -151,12 +151,12 @@ U32 CResourceFactory::LoadResource(U32 type, const char* name) {
             std::string name_ = name;
             std::string gcn_buf_ = gcn_buf;
             std::string common_buf_ = common_buf;
-            if (m_game->m_sample_dictionary->FindSampleBank(&name_)) {
+            if (m_game->GetSampleDictionary()->FindSampleBank(&name_)) {
                 U32 unkC = m_unkC;
                 AddEntryInline(unkC, type, name);
                 break;
             } else {
-                if (!m_game->m_sample_dictionary->LoadSampleBankFromFile(&name_, &gcn_buf_)) {
+                if (!m_game->GetSampleDictionary()->LoadSampleBankFromFile(&name_, &gcn_buf_)) {
                     return RESOURCE_LOAD_RESULT_NOT_FOUND;
                 }
 
@@ -169,12 +169,12 @@ U32 CResourceFactory::LoadResource(U32 type, const char* name) {
             std::string name_ = name;
             std::string gcn_buf_ = gcn_buf;
             std::string common_buf_ = common_buf;
-            if (m_game->m_sample_dictionary->FindSampleBank(&name_) != NULL) {
+            if (m_game->GetSampleDictionary()->FindSampleBank(&name_) != NULL) {
                 U32 unkC = m_unkC;
                 AddEntryInline(unkC, type, name);
                 break;
             } else {
-                if (!m_game->m_sample_dictionary->LoadStreamSampleBankFromFile(&name_, &gcn_buf_)) {
+                if (!m_game->GetSampleDictionary()->LoadStreamSampleBankFromFile(&name_, &gcn_buf_)) {
                     return RESOURCE_LOAD_RESULT_NOT_FOUND;
                 }
 
@@ -243,27 +243,27 @@ void CResourceFactory::UnloadResources(U32 a1) {
                         m_game->GetObjectDictionary()->RemoveParticleEmitterDefinition(iter->name);
                         break;
                     case RESOURCE_TYPE_ANIMATION:
-                        m_game->m_anim_dictionary->RemoveAnimation(iter->name);
+                        m_game->GetAnimDictionary()->RemoveAnimation(iter->name);
                         break;
                     case RESOURCE_TYPE_EVENT_ANIMATION:
-                        m_game->m_anim_dictionary->RemoveEventAnimation(iter->name);
+                        m_game->GetAnimDictionary()->RemoveEventAnimation(iter->name);
                         break;
                     case RESOURCE_TYPE_DMORPH_ANIMATION:
-                        m_game->m_anim_dictionary->RemoveDMorphAnimation(iter->name);
+                        m_game->GetAnimDictionary()->RemoveDMorphAnimation(iter->name);
                         break;
                     case RESOURCE_TYPE_MATERIAL_ANIMATION:
-                        m_game->m_anim_dictionary->RemoveMaterialAnimation(iter->name);
+                        m_game->GetAnimDictionary()->RemoveMaterialAnimation(iter->name);
                         break;
                     case RESOURCE_TYPE_SAMPLE_BANK1:
                         name = iter->name;
-                        m_game->m_sample_dictionary->RemoveSampleBank(&name);
+                        m_game->GetSampleDictionary()->RemoveSampleBank(&name);
                         break;
                     case RESOURCE_TYPE_SAMPLE_BANK2:
                         name = iter->name;
-                        m_game->m_sample_dictionary->RemoveSampleBank(&name);
+                        m_game->GetSampleDictionary()->RemoveSampleBank(&name);
                         break;
                     case RESOURCE_TYPE_ANIMATION_STAR:
-                        m_game->m_anim_dictionary->RemoveAnimationStar(iter->name);
+                        m_game->GetAnimDictionary()->RemoveAnimationStar(iter->name);
                         break;
                 }
 
@@ -288,14 +288,14 @@ void CResourceFactory::UnloadResources(U32 a1) {
                     case RESOURCE_TYPE_TEXTURE_DICTIONARY:
                         break;
                     case RESOURCE_TYPE_TEXTURE: {
-                        m_game->m_texture_dictionary->RemoveTexture(iter->name);
+                        m_game->GetTextureDictionary()->RemoveTexture(iter->name);
                         char buf[0x60];
                         strcpy(buf, iter->name);
                         m_resource_entries.erase(iter);
-                        m_game->m_texture_dictionary->Update();
-                        if (m_game->m_texture_dictionary->FindTexture(buf)) {
-                            while (m_game->m_texture_dictionary->FindTexture(buf)) {
-                                m_game->m_texture_dictionary->RemoveTexture(buf);
+                        m_game->GetTextureDictionary()->Update();
+                        if (m_game->GetTextureDictionary()->FindTexture(buf)) {
+                            while (m_game->GetTextureDictionary()->FindTexture(buf)) {
+                                m_game->GetTextureDictionary()->RemoveTexture(buf);
                             }
                         }
                         break;
@@ -311,7 +311,7 @@ void CResourceFactory::UnloadResources(U32 a1) {
         }
     }
 
-    m_game->m_texture_dictionary->Update();
+    m_game->GetTextureDictionary()->Update();
 }
 
 void CResourceFactory::UnloadSpecificResource(std::string resource_name, BOOL a2) {
@@ -325,7 +325,7 @@ void CResourceFactory::UnloadSpecificResource(std::string resource_name, BOOL a2
                 if (a2 == TRUE) {
                     switch (iter->type) {
                         case RESOURCE_TYPE_TEXTURE:
-                            m_game->m_texture_dictionary->RemoveTexture(iter->name);
+                            m_game->GetTextureDictionary()->RemoveTexture(iter->name);
                             break;
                         case RESOURCE_TYPE_CLUMP:
                             m_game->GetObjectDictionary()->RemoveClump(iter->name);
@@ -337,29 +337,29 @@ void CResourceFactory::UnloadSpecificResource(std::string resource_name, BOOL a2
                             m_game->GetObjectDictionary()->RemoveParticleEmitterDefinition(iter->name);
                             break;
                         case RESOURCE_TYPE_ANIMATION:
-                            m_game->m_anim_dictionary->RemoveAnimation(iter->name);
+                            m_game->GetAnimDictionary()->RemoveAnimation(iter->name);
                             break;
                         case RESOURCE_TYPE_EVENT_ANIMATION:
-                            m_game->m_anim_dictionary->RemoveEventAnimation(iter->name);
+                            m_game->GetAnimDictionary()->RemoveEventAnimation(iter->name);
                             break;
                         case RESOURCE_TYPE_DMORPH_ANIMATION:
-                            m_game->m_anim_dictionary->RemoveDMorphAnimation(iter->name);
+                            m_game->GetAnimDictionary()->RemoveDMorphAnimation(iter->name);
                             break;
                         case RESOURCE_TYPE_MATERIAL_ANIMATION:
-                            m_game->m_anim_dictionary->RemoveMaterialAnimation(iter->name);
+                            m_game->GetAnimDictionary()->RemoveMaterialAnimation(iter->name);
                             break;
                         case RESOURCE_TYPE_SAMPLE_BANK1: {
                             name = iter->name;
-                            m_game->m_sample_dictionary->RemoveSampleBank(&name);
+                            m_game->GetSampleDictionary()->RemoveSampleBank(&name);
                             break;
                         }
                         case RESOURCE_TYPE_SAMPLE_BANK2: {
                             name = iter->name;
-                            m_game->m_sample_dictionary->RemoveSampleBank(&name);
+                            m_game->GetSampleDictionary()->RemoveSampleBank(&name);
                             break;
                         }
                         case RESOURCE_TYPE_ANIMATION_STAR:
-                            m_game->m_anim_dictionary->RemoveAnimationStar(iter->name);
+                            m_game->GetAnimDictionary()->RemoveAnimationStar(iter->name);
                             break;
                     }
                 }
@@ -369,7 +369,7 @@ void CResourceFactory::UnloadSpecificResource(std::string resource_name, BOOL a2
         }
     }
 
-    m_game->m_texture_dictionary->Update();
+    m_game->GetTextureDictionary()->Update();
 }
 
 void CResourceFactory::AddTexture(DKDSP::ITexture* texture) {

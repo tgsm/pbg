@@ -42,7 +42,7 @@ CGamePartMovieClips::CGamePartMovieClips(CGame* game) {
     m_game->GetGuiManager()->SetVisible("MOVIECLIPS_MAIN", 1);
 
     for (int i = 0; i < 6; i++) {
-        m_batches[i] = m_game->m_display_engine->GetImmediate()->CreateBatch2D(4, 0);
+        m_batches[i] = m_game->GetDisplayEngine()->GetImmediate()->CreateBatch2D(4, 0);
     }
 
     m_game->GetCamera()->SetZFar(300.0f);
@@ -57,11 +57,11 @@ CGamePartMovieClips::CGamePartMovieClips(CGame* game) {
 }
 
 CGamePartMovieClips::~CGamePartMovieClips() {
-    m_game->m_fx_manager->Clear();
-    m_game->m_sound_engine->DeleteAllSounds();
+    m_game->GetFxManager()->Clear();
+    m_game->GetSoundEngine()->DeleteAllSounds();
 
     for (int i = 0; i < 6; i++) {
-        m_game->m_display_engine->GetImmediate()->RemoveBatch2D(m_batches[i]);
+        m_game->GetDisplayEngine()->GetImmediate()->RemoveBatch2D(m_batches[i]);
         m_batches[i] = NULL;
     }
 
@@ -70,12 +70,12 @@ CGamePartMovieClips::~CGamePartMovieClips() {
 }
 
 U32 CGamePartMovieClips::NextFrame() {
-    if (!m_game->m_display_engine->Update()) {
+    if (!m_game->GetDisplayEngine()->Update()) {
         return 9;
     }
 
     if (m_time == 0.0f) {
-        m_game->m_timer->Reset();
+        m_game->GetTimer()->Reset();
         m_game->ComputeDeltaTime();
         m_game->ComputeDeltaTime();
         m_game->ComputeDeltaTime();
@@ -111,8 +111,8 @@ U32 CGamePartMovieClips::NextFrame() {
 
 void CGamePartMovieClips::Update(F32 dt) {
     m_time += dt;
-    m_game->m_sound_engine->BeginUpdate();
-    m_game->m_sound_engine->EndUpdate();
+    m_game->GetSoundEngine()->BeginUpdate();
+    m_game->GetSoundEngine()->EndUpdate();
     m_game->GetGuiManager()->Update(dt);
 }
 
@@ -139,7 +139,7 @@ void CGamePartMovieClips::Render(F32 dt) {
 }
 
 void CGamePartMovieClips::RenderBackGround(F32 dt) {
-    CIcon::BeginRender(m_game->m_display_engine, m_game->GetCamera(), m_game->GetScene());
+    CIcon::BeginRender(m_game->GetDisplayEngine(), m_game->GetCamera(), m_game->GetScene());
 
     CIcon icon;
     icon.m_width = 1.0f;
@@ -149,14 +149,14 @@ void CGamePartMovieClips::RenderBackGround(F32 dt) {
 
     char name[256] = {};
     RwEngineInstance->stringFuncs.rwsprintf(name, "BMP_520"); // FIXME: Use RwSprintf
-    icon.m_texture = m_game->m_texture_dictionary->FindTexture(name);
+    icon.m_texture = m_game->GetTextureDictionary()->FindTexture(name);
 
     icon.Render(m_batches[0], 0);
     CIcon::EndRender();
 }
 
 BOOL CGamePartMovieClips::IsVideoOpen(int index) {
-    if (m_game->m_unk8 & (1 << 4)) {
+    if (m_game->GetFlags() & (1 << 4)) {
         return TRUE;
     }
 
@@ -176,7 +176,7 @@ BOOL CGamePartMovieClips::IsVideoOpen(int index) {
 }
 
 void CGamePartMovieClips::RenderIcons(F32 dt) {
-    CIcon::BeginRender(m_game->m_display_engine, m_game->GetCamera(), m_game->GetScene());
+    CIcon::BeginRender(m_game->GetDisplayEngine(), m_game->GetCamera(), m_game->GetScene());
     CIcon icon;
 
     for (int i = 0; i < 6; i++) {
@@ -224,7 +224,7 @@ void CGamePartMovieClips::RenderIcons(F32 dt) {
             RwEngineInstance->stringFuncs.rwsprintf(name, "BMP_500"); // FIXME: Use RwSprintf
         }
 
-        icon.m_texture = m_game->m_texture_dictionary->FindTexture(name);
+        icon.m_texture = m_game->GetTextureDictionary()->FindTexture(name);
         icon.Render(m_batches[i], 0);
     }
     m_game->GetScene()->Flush();

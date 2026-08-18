@@ -16,7 +16,7 @@ public:
     virtual U32 GetType() {
         return ENTITY_TIMER;
     }
-    virtual void Update(F32 dt_maybe);
+    virtual void Update(F32 dt);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual BOOL Save(void*);
     virtual void ManageMessage(SDkMessage& message);

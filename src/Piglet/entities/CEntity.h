@@ -65,7 +65,7 @@ enum EEntityType {
 
 class CEntity {
 public:
-    std::string m_unk0;
+    std::string m_name;
     U32 m_flags;
     U32 m_unk8;
     U32 m_unkC;
@@ -85,15 +85,18 @@ public:
     virtual U32 GetType() { return ENTITY_BASE; }
     virtual void Init();
     virtual void Reset();
-    virtual void Update(F32 dt_maybe);
-    virtual void Render(F32 dt_maybe);
+    virtual void Update(F32 dt);
+    virtual void Render(F32 dt);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
-    virtual void UpdateBehavior(F32 dt_maybe);
+    virtual void UpdateBehavior(F32 dt);
     virtual U32 GetSaveSize();
     virtual BOOL Save(void*);
     virtual BOOL Restore(void*);
     virtual void ManageMessage(SDkMessage& message);
+
+    std::string& GetName() { return m_name; }
+    CEntityManager* GetManager() { return m_entity_manager; }
 
     void ParseXYZ(DkXmd::CChunkIterator iter, F32* x, F32* y, F32* z);
     void ProcessMessages();

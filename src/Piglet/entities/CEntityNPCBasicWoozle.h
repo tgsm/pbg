@@ -15,7 +15,7 @@ public:
         return ENTITY_NPC_BASIC_WOOZLE;
     }
     virtual void Reset();
-    virtual void Render(F32 dt_maybe);
+    virtual void Render(F32 dt);
     virtual void Parse(DkXmd::CChunkIterator iter);
     virtual void ParseBehavior(DkXmd::CChunkIterator iter, CEntityBhvTagBehavior* behavior);
     virtual BOOL Restore(void*);

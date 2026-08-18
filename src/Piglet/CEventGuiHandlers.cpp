@@ -28,7 +28,7 @@ void CGuiBaseEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT eve
     if (str.find("playsound", 0, strlen("playsound")) >= 0) {
         std::string name_maybe;
         name_maybe = (char*)unk + strlen("playsound ");
-        DKSND::CSound2D* sound = m_game->m_sound_engine->PlaySound2D(name_maybe, 1);
+        DKSND::CSound2D* sound = m_game->GetSoundEngine()->PlaySound2D(name_maybe, 1);
         if (sound != NULL) {
             sound->SetVolume(1.0f);
             sound->SetLayer(2);
@@ -63,15 +63,15 @@ void CGuiPauseEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT ev
         CDKW_RGBA fade_color = CDKW_RGBA(199, 226, 222, 0xFF);
         m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
 
-        m_game->m_screen_effect->SetSequenceByIndex(0);
+        m_game->GetScreenEffect()->SetSequenceByIndex(0);
 
-        ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+        m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
 
         m_game->FadeIn(-1.0f);
 
-        if (m_game->m_unk4F54 == 8) {
+        if (m_game->GetCurrentMissionId() == MISSION_MENUS) {
             m_game->ResetOpcodeBuffer();
-            if (m_game->m_unk4F58 == 2) {
+            if (m_game->GetCurrentRoomId() == 2) {
                 m_game->PushOpcodeValue(1);
                 m_game->PushOpcodeValue(1);
                 m_game->PushOpcodeValue(0);
@@ -82,7 +82,7 @@ void CGuiPauseEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT ev
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(1);
-            } else if (m_game->m_unk4F58 == 3) {
+            } else if (m_game->GetCurrentRoomId() == 3) {
                 m_game->PushOpcodeValue(1);
                 m_game->PushOpcodeValue(1);
                 m_game->PushOpcodeValue(0);
@@ -93,7 +93,7 @@ void CGuiPauseEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT ev
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(1);
-            } else if (m_game->m_unk4F58 == 1) {
+            } else if (m_game->GetCurrentRoomId() == 1) {
                 m_game->PushOpcodeValue(11);
             }
 
@@ -108,7 +108,7 @@ void CGuiPauseEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT ev
         return;
     }
 
-    if (m_game->m_unk4F54 == 8) {
+    if (m_game->GetCurrentMissionId() == MISSION_MENUS) {
         m_game->GetGuiManager()->GetGuiPtr("PAUSE_PAUSE_GAME")->menu->Reset();
         m_game->GetGuiManager()->SetActive("PAUSE_PAUSE_GAME", 0);
         m_game->GetGuiManager()->SetVisible("PAUSE_PAUSE_GAME", 0);
@@ -130,9 +130,9 @@ void CGuiLoadCheckingMemoryCardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGU
         std::string str = (char*)unk;
         std::string str2;
         if (str == "exit") {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
             m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 0);
@@ -182,9 +182,9 @@ void CGuiLoadCheckingMemoryCardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGU
                 m_game->GetGuiManager()->SetActive("LOAD_NO_MMC", 1);
                 m_game->GetGuiManager()->SetVisible("LOAD_NO_MMC", 1);
             } else if (!(backup_state & (1 << 4))) {
-                U32 flags = m_game->m_unk8;
+                U32 flags = m_game->GetFlags();
                 flags |= (1 << 9);
-                m_game->m_unk8 |= flags;
+                m_game->AddFlags(flags);
 
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_UNFORMAT")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("SAVE_UNFORMAT", 1);
@@ -301,9 +301,9 @@ void CGuiChooseGameEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
         m_unk24 = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (m_unk24 < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (backup_state != 17) {
                 m_game->GetGuiManager()->GetGuiPtr("LOAD_CHOOSE_GAME")->menu->Reset();
@@ -408,9 +408,9 @@ void CGuiLoadingMemoryCardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EM
             m_game->GetGuiManager()->SetActive("LOAD_LOAD_DATA", 0);
             m_game->GetGuiManager()->SetVisible("LOAD_LOAD_DATA", 0);
 
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
             if (backup_state == 17) {
                 m_game->GetGameBackup()->CreateNewGame();
 
@@ -479,13 +479,13 @@ case_0:
             m_game->GetGameBackup()->ApplyToGameData();
 
             if (m_unk10 == "CHEATER") {
-                m_game->GetMission(0).m_unk30 = 0;
-                m_game->GetMission(1).m_unk30 = 0;
-                m_game->GetMission(2).m_unk30 = 0;
-                m_game->GetMission(3).m_unk30 = 0;
-                m_game->GetMission(4).m_unk30 = 0;
-                m_game->GetMission(5).m_unk30 = 0;
-                m_game->GetMission(6).m_unk30 = 0;
+                m_game->GetMission(MISSION_WINNIE - 1).m_unk30 = 0;
+                m_game->GetMission(MISSION_ROO - 1).m_unk30 = 0;
+                m_game->GetMission(MISSION_OWL - 1).m_unk30 = 0;
+                m_game->GetMission(MISSION_EEYORE - 1).m_unk30 = 0;
+                m_game->GetMission(MISSION_RABBIT - 1).m_unk30 = 0;
+                m_game->GetMission(MISSION_TIGGER - 1).m_unk30 = 0;
+                m_game->GetMission(MISSION_FINAL - 1).m_unk30 = 0;
                 m_game->GetGameBackup()->GetFromGameData(1);
             }
 
@@ -517,7 +517,7 @@ void CGuiLoadLoadSuccessEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
 
             CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
             m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-            ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+            m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
             m_game->FadeIn(-1.0f);
 
             m_game->ResetOpcodeBuffer();
@@ -555,9 +555,9 @@ void CGuiLoadLoadFailEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 0))) {
                 m_game->GetGuiManager()->GetGuiPtr("LOAD_LOAD_FAIL")->menu->Reset();
@@ -602,9 +602,9 @@ void CGuiLoadMemoryCardUnuseableEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKG
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 0))) {
                 m_game->GetGuiManager()->GetGuiPtr("LOAD_MMC_UNUSEABLE")->menu->Reset();
@@ -701,13 +701,13 @@ void CGuiEnterNameEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
 
                 // Unlock all levels if the entered name is "CHEATER".
                 if (m_unk14 == "CHEATER") {
-                    m_game->GetMission(0).m_unk30 = 0;
-                    m_game->GetMission(1).m_unk30 = 0;
-                    m_game->GetMission(2).m_unk30 = 0;
-                    m_game->GetMission(3).m_unk30 = 0;
-                    m_game->GetMission(4).m_unk30 = 0;
-                    m_game->GetMission(5).m_unk30 = 0;
-                    m_game->GetMission(6).m_unk30 = 0;
+                    m_game->GetMission(MISSION_WINNIE - 1).m_unk30 = 0;
+                    m_game->GetMission(MISSION_ROO - 1).m_unk30 = 0;
+                    m_game->GetMission(MISSION_OWL - 1).m_unk30 = 0;
+                    m_game->GetMission(MISSION_EEYORE - 1).m_unk30 = 0;
+                    m_game->GetMission(MISSION_RABBIT - 1).m_unk30 = 0;
+                    m_game->GetMission(MISSION_TIGGER - 1).m_unk30 = 0;
+                    m_game->GetMission(MISSION_FINAL - 1).m_unk30 = 0;
                     m_game->GetGameBackup()->GetFromGameData(1);
                 }
                 m_game->GetGameBackup()->Backup();
@@ -807,11 +807,11 @@ void CGuiSaveCheckingMemorycardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGU
         std::string str = (char*)unk;
         std::string str2;
         if (str == "exit") {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
             m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_CHECK_MMC", 0);
@@ -821,7 +821,7 @@ void CGuiSaveCheckingMemorycardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGU
 
                 str2.assign(m_game->GetBackupEngine()->FindFirst("GPLE9G", handler->GetText()), 0);
 
-                if (str2 == handler->GetText() && m_game->m_unk4F54 == 8 && m_game->GetUnk4F58() == 1) {
+                if (str2 == handler->GetText() && m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                     m_game->GetGuiManager()->GetGuiPtr("CREATE_OVERWRITE")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("CREATE_OVERWRITE", 1);
                     m_game->GetGuiManager()->SetVisible("CREATE_OVERWRITE", 1);
@@ -844,7 +844,7 @@ void CGuiSaveCheckingMemorycardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGU
                             m_game->GetGuiManager()->SetVisible("CREATE_OVERWRITE", 1);
                             m_unk10 = 0;
 
-                            m_game->m_timer->Resume();
+                            m_game->GetTimer()->Resume();
                             m_game->GetGameBackup()->GetFromGameData(1);
                             m_game->GetGameBackup()->Backup();
 
@@ -886,7 +886,7 @@ void CGuiSaveCheckingMemorycardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGU
                 m_unk10 = 0;
             }
 
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
         }
     }
 }
@@ -900,7 +900,7 @@ void CGuiSaveNoSpaceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
     CGuiBaseEventHandler::OnEvent(menu, event, unk);
 
     if (event == DKGUI::EVENT_2) {
-        if (m_game->m_unk4F54 != 8) {
+        if (m_game->GetCurrentMissionId() != MISSION_MENUS) {
             menu->GetAnim()->GotoFrameLabel("NO_SPACE_INGAME");
             menu->GetAnim()->Play();
         }
@@ -908,9 +908,9 @@ void CGuiSaveNoSpaceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 0))) {
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_NO_SPACE")->menu->Reset();
@@ -941,10 +941,10 @@ void CGuiSaveNoSpaceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
             m_game->GetGuiManager()->SetActive("SAVE_NO_SPACE", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_NO_SPACE", 0);
 
-            if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
+            if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
                 m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-                ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+                m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
@@ -1028,11 +1028,11 @@ void CGuiSavingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT e
         std::string str = (char*)unk;
         std::string unused;
         if (str == "exit") {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             CGuiEnterNameEventHandler* handler = (CGuiEnterNameEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiEnterNameEventHandler");
 
             int save_result = m_game->GetBackupEngine()->Save(m_game->GetGameBackup()->GetCurrentContainer()->m_unk4, 0x18000, "GPLE9G", handler->GetText());
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             m_game->GetGuiManager()->GetGuiPtr("SAVE_SAVE_DATA")->menu->Reset();
             m_game->GetGuiManager()->SetActive("SAVE_SAVE_DATA", 0);
@@ -1060,17 +1060,17 @@ void CGuiSavingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT e
                     m_game->GetGuiManager()->SetVisible("SAVE_SAVE_FAILED", 1);
                     return;
                 default: {
-                    m_game->m_timer->Pause();
+                    m_game->GetTimer()->Pause();
                     U32 backup_state = m_game->GetBackupEngine()->GetState();
                     // why
                     if (m_game->GetBackupEngine()->GetState() == 8) {
-                        m_game->m_timer->Resume();
+                        m_game->GetTimer()->Resume();
                         m_game->GetGuiManager()->GetGuiPtr("SAVE_MMC_UNUSEABLE")->menu->Reset();
                         m_game->GetGuiManager()->SetActive("SAVE_MMC_UNUSEABLE", 1);
                         m_game->GetGuiManager()->SetVisible("SAVE_MMC_UNUSEABLE", 1);
                         return;
                     } else {
-                        m_game->m_timer->Resume();
+                        m_game->GetTimer()->Resume();
                         m_game->GetGuiManager()->GetGuiPtr("SAVE_SAVE_FAILED")->menu->Reset();
                         m_game->GetGuiManager()->SetActive("SAVE_SAVE_FAILED", 1);
                         m_game->GetGuiManager()->SetVisible("SAVE_SAVE_FAILED", 1);
@@ -1079,12 +1079,12 @@ void CGuiSavingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT e
                     break;
                 }
                 case 0:
-                    m_game->m_timer->Pause();
+                    m_game->GetTimer()->Pause();
                     DKBAK::DKBAK_DATE date;
                     if (m_game->GetBackupEngine()->GetDate("GPLE9G", handler->GetText(), date) == 0) {
                         m_game->SetBackupDate(date);
                     }
-                    m_game->m_timer->Resume();
+                    m_game->GetTimer()->Resume();
 
                     m_game->GetGuiManager()->GetGuiPtr("SAVE_SAVE_OK")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("SAVE_SAVE_OK", 1);
@@ -1106,9 +1106,9 @@ void CGuiSaveFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 0))) {
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_SAVE_FAILED")->menu->Reset();
@@ -1139,10 +1139,10 @@ void CGuiSaveFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
             m_game->GetGuiManager()->SetActive("SAVE_SAVE_FAILED", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_SAVE_FAILED", 0);
 
-            if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
+            if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
                 m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-                ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+                m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
@@ -1204,9 +1204,9 @@ void CGuiLoadFileCorruptEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 0))) {
                 m_game->GetGuiManager()->GetGuiPtr("LOAD_FILE_CORRUPT")->menu->Reset();
@@ -1246,16 +1246,16 @@ void CGuiLoadFileCorruptEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
                 // Weird negate-or-rightshift going on here. Should just move.
                 if (handler->GetFilename() != "") {
                     if (m_game->GetBackupEngine()->Delete("GPLE9G", handler->GetFilename())) {
-                        m_game->m_timer->Pause();
+                        m_game->GetTimer()->Pause();
 
                         if (m_game->GetBackupEngine()->GetState() == 8) {
-                            m_game->m_timer->Resume();
+                            m_game->GetTimer()->Resume();
 
                             m_game->GetGuiManager()->GetGuiPtr("LOAD_MMC_UNUSEABLE")->menu->Reset();
                             m_game->GetGuiManager()->SetActive("LOAD_MMC_UNUSEABLE", 1);
                             m_game->GetGuiManager()->SetVisible("LOAD_MMC_UNUSEABLE", 1);
                         } else {
-                            m_game->m_timer->Resume();
+                            m_game->GetTimer()->Resume();
 
                             m_game->GetGuiManager()->GetGuiPtr("LOAD_FILE_DELETEFAIL")->menu->Reset();
                             m_game->GetGuiManager()->SetActive("LOAD_FILE_DELETEFAIL", 1);
@@ -1280,9 +1280,9 @@ void CGuiLoadFileDeletingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EME
     CGuiBaseEventHandler::OnEvent(menu, event, unk);
 
     if (event == DKGUI::EVENT_0) {
-        m_game->m_timer->Pause();
+        m_game->GetTimer()->Pause();
         U32 state = m_game->GetBackupEngine()->GetState();
-        m_game->m_timer->Resume();
+        m_game->GetTimer()->Resume();
 
         if (state != 17) {
             m_game->GetGuiManager()->GetGuiPtr("LOAD_FILE_DELETING")->menu->Reset();
@@ -1303,14 +1303,14 @@ void CGuiLoadFileDeletingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EME
             CGuiLoadingMemoryCardEventHandler* handler = (CGuiLoadingMemoryCardEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiLoadingMemoryCardEventHandler");
             if (handler && handler->GetFilename() != "") {
                 if (m_game->GetBackupEngine()->Delete("GPLE9G", handler->GetFilename())) {
-                    m_game->m_timer->Pause();
+                    m_game->GetTimer()->Pause();
                     if (m_game->GetBackupEngine()->GetState() == 8) {
-                        m_game->m_timer->Resume();
+                        m_game->GetTimer()->Resume();
                         m_game->GetGuiManager()->GetGuiPtr("LOAD_MMC_UNUSEABLE")->menu->Reset();
                         m_game->GetGuiManager()->SetActive("LOAD_MMC_UNUSEABLE", 1);
                         m_game->GetGuiManager()->SetVisible("LOAD_MMC_UNUSEABLE", 1);
                     } else {
-                        m_game->m_timer->Resume();
+                        m_game->GetTimer()->Resume();
                         m_game->GetGuiManager()->GetGuiPtr("LOAD_FILE_DELETEFAIL")->menu->Reset();
                         m_game->GetGuiManager()->SetActive("LOAD_FILE_DELETEFAIL", 1);
                         m_game->GetGuiManager()->SetVisible("LOAD_FILE_DELETEFAIL", 1);
@@ -1382,9 +1382,9 @@ void CGuiLoadWrongDeviceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 1))) {
                 m_game->GetGuiManager()->GetGuiPtr("LOAD_WRONG_DEVICE")->menu->Reset();
@@ -1429,9 +1429,9 @@ void CGuiSaveWrongDeviceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 1))) {
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_WRONG_DEVICE")->menu->Reset();
@@ -1462,10 +1462,10 @@ void CGuiSaveWrongDeviceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
             m_game->GetGuiManager()->SetActive("SAVE_WRONG_DEVICE", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_WRONG_DEVICE", 0);
 
-            if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
+            if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
                 m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-                ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+                m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
@@ -1497,9 +1497,9 @@ void CGuiLoadCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
     CGuiBaseEventHandler::OnEvent(menu, event, unk);
 
     if (event == DKGUI::EVENT_0) {
-        m_game->m_timer->Pause();
+        m_game->GetTimer()->Pause();
         U32 backup_state = m_game->GetBackupEngine()->GetState();
-        m_game->m_timer->Resume();
+        m_game->GetTimer()->Resume();
 
         if (!(backup_state & (1 << 0))) {
             m_game->GetGuiManager()->GetGuiPtr("LOAD_MMC_CORRUPT")->menu->Reset();
@@ -1518,9 +1518,9 @@ void CGuiLoadCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
             m_game->GetGuiManager()->SetVisible("LOAD_MMC_CORRUPT", 0);
 
             // nice
-            U32 flags = m_game->m_unk8;
-            flags |= m_game->m_unk8 | (1 << 9);
-            m_game->m_unk8 = flags;
+            U32 flags = m_game->GetFlags();
+            flags |= m_game->GetFlags() | (1 << 9);
+            m_game->SetFlags(flags);
 
             m_game->GetGuiManager()->GetGuiPtr("SAVE_FORMAT_SURE")->menu->Reset();
             m_game->GetGuiManager()->SetActive("SAVE_FORMAT_SURE", 1);
@@ -1541,9 +1541,9 @@ void CGuiSaveCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
     CGuiBaseEventHandler::OnEvent(menu, event, unk);
 
     if (event == DKGUI::EVENT_0) {
-        m_game->m_timer->Pause();
+        m_game->GetTimer()->Pause();
         U32 backup_state = m_game->GetBackupEngine()->GetState();
-        m_game->m_timer->Resume();
+        m_game->GetTimer()->Resume();
 
         if (!(backup_state & (1 << 0))) {
             m_game->GetGuiManager()->GetGuiPtr("SAVE_MMC_CORRUPT")->menu->Reset();
@@ -1569,10 +1569,10 @@ void CGuiSaveCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
             m_game->GetGuiManager()->SetActive("SAVE_MMC_CORRUPT", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_MMC_CORRUPT", 0);
 
-            if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
+            if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
                 m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-                ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+                m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
@@ -1606,9 +1606,9 @@ void CGuiSaveMemoryCardUnuseableEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKG
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 0))) {
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_MMC_UNUSEABLE")->menu->Reset();
@@ -1639,10 +1639,10 @@ void CGuiSaveMemoryCardUnuseableEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKG
             m_game->GetGuiManager()->SetActive("SAVE_MMC_UNUSEABLE", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_MMC_UNUSEABLE", 0);
 
-            if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
+            if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
                 m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-                ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+                m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
@@ -1685,10 +1685,10 @@ void CGuiSaveOkEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT e
             m_game->GetGuiManager()->SetActive("SAVE_SAVE_OK", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_SAVE_OK", 0);
 
-            if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
+            if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
                 m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-                ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+                m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
@@ -1743,10 +1743,10 @@ void CGuiSaveNoMemCardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_
         m_game->GetGuiManager()->SetActive("SAVE_NO_MMC", 0);
         m_game->GetGuiManager()->SetVisible("SAVE_NO_MMC", 0);
 
-        if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
+        if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
             CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
             m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-            ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+            m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
             m_game->FadeIn(-1.0f);
 
             m_game->ResetOpcodeBuffer();
@@ -1779,20 +1779,20 @@ void CGuiSaveFormatEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 0))) {
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_UNFORMAT")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("SAVE_UNFORMAT", 0);
                 m_game->GetGuiManager()->SetVisible("SAVE_UNFORMAT", 0);
 
-                if (m_game->m_unk8 & (1 << 9)) {
+                if (m_game->GetFlags() & (1 << 9)) {
                     m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                     m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
-                    m_game->m_unk8 &= ~(1 << 9);
+                    m_game->DelFlags(1 << 9);
                 } else {
                     m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
@@ -1820,15 +1820,15 @@ void CGuiSaveFormatEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
             m_game->GetGuiManager()->SetActive("SAVE_UNFORMAT", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_UNFORMAT", 0);
 
-            if (m_game->m_unk8 & (1 << 9)) {
-                m_game->m_unk8 &= ~(1 << 9);
+            if (m_game->GetFlags() & (1 << 9)) {
+                m_game->DelFlags(1 << 9);
                 return;
             }
 
-            if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
+            if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
                 m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-                ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+                m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
@@ -1862,20 +1862,20 @@ void CGuiSaveFormatSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 0))) {
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_FORMAT_SURE")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("SAVE_FORMAT_SURE", 0);
                 m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_SURE", 0);
 
-                if (m_game->m_unk8 & (1 << 9)) {
+                if (m_game->GetFlags() & (1 << 9)) {
                     m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                     m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
-                    m_game->m_unk8 &= ~(1 << 9);
+                    m_game->DelFlags(1 << 9);
                 } else {
                     m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
@@ -1902,15 +1902,15 @@ void CGuiSaveFormatSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
             m_game->GetGuiManager()->SetActive("SAVE_FORMAT_SURE", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_SURE", 0);
 
-            if (m_game->m_unk8 & (1 << 9)) {
-                m_game->m_unk8 &= ~(1 << 9);
+            if (m_game->GetFlags() & (1 << 9)) {
+                m_game->DelFlags(1 << 9);
                 return;
             }
 
-            if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
+            if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
                 m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-                ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+                m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
@@ -1951,14 +1951,14 @@ void CGuiSaveFormattingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
         m_game->GetGuiManager()->SetActive("SAVE_FORMAT", 0);
         m_game->GetGuiManager()->SetVisible("SAVE_FORMAT", 0);
 
-        m_game->m_timer->Pause();
+        m_game->GetTimer()->Pause();
         U32 backup_status = m_game->GetBackupEngine()->GetState();
-        m_game->m_timer->Resume();
+        m_game->GetTimer()->Resume();
 
         if (backup_status == 17) {
-            U32 flags = m_game->m_unk8;
+            U32 flags = m_game->GetFlags();
             if (flags & (1 << 9)) {
-                m_game->m_unk8 = flags & ~(1 << 9);
+                m_game->SetFlags(flags & ~(1 << 9));
                 m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                 m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
@@ -1970,9 +1970,9 @@ void CGuiSaveFormattingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
                 return;
             }
         } else if (backup_status == 0) {
-            U32 flags = m_game->m_unk8;
+            U32 flags = m_game->GetFlags();
             if (flags & (1 << 9)) {
-                m_game->m_unk8 = flags & ~(1 << 9);
+                m_game->SetFlags(flags & ~(1 << 9));
                 m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                 m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
@@ -2016,9 +2016,9 @@ void CGuiFormatOkEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT
             m_game->GetGuiManager()->SetActive("SAVE_FORMAT_OK", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_OK", 0);
 
-            U32 flags = m_game->m_unk8;
+            U32 flags = m_game->GetFlags();
             if (flags & (1 << 9)) {
-                m_game->m_unk8 = flags & ~(1 << 9);
+                m_game->SetFlags(flags & ~(1 << 9));
             } else {
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
@@ -2047,18 +2047,18 @@ void CGuiFormatFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 0))) {
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_FORMAT_FAILED")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("SAVE_FORMAT_FAILED", 0);
                 m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_FAILED", 0);
 
-                U32 flags = m_game->m_unk8;
+                U32 flags = m_game->GetFlags();
                 if (flags & (1 << 9)) {
-                    m_game->m_unk8 = flags & ~(1 << 9);
+                    m_game->SetFlags(flags & ~(1 << 9));
                     m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                     m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
@@ -2080,9 +2080,9 @@ void CGuiFormatFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
             m_game->GetGuiManager()->SetActive("SAVE_FORMAT_FAILED", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_FAILED", 0);
 
-            U32 flags = m_game->m_unk8;
+            U32 flags = m_game->GetFlags();
             if (flags & (1 << 9)) {
-                m_game->m_unk8 = flags & ~(1 << 9);
+                m_game->SetFlags(flags & ~(1 << 9));
                 m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                 m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
@@ -2097,13 +2097,13 @@ void CGuiFormatFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
             m_game->GetGuiManager()->SetActive("SAVE_FORMAT_FAILED", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_FAILED", 0);
 
-            if (m_game->m_unk8 & (1 << 9)) {
-                m_game->m_unk8 &= ~(1 << 9);
+            if (m_game->GetFlags() & (1 << 9)) {
+                m_game->DelFlags(1 << 9);
                 return;
-            } else if (m_game->m_unk4F54 == 8 && m_game->m_unk4F58 == 1) {
+            } else if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
                 m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
-                ((CGamePartIngame*)m_game->GetGamePartPointer())->m_game_room_manager->m_flags |= (1 << 5);
+                m_game->GetIngameGamePart()->GetGameRoomManager()->m_flags |= (1 << 5);
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
@@ -2137,9 +2137,9 @@ void CGuiOverwriteEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 0))) {
                 m_game->GetGuiManager()->GetGuiPtr("CREATE_OVERWRITE")->menu->Reset();
@@ -2185,9 +2185,9 @@ void CGuiOverwriteSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_
         gs_TimeBeforeMemCardCheck = 1.0f;
     } else if (event == DKGUI::EVENT_0) {
         if (gs_TimeBeforeMemCardCheck < 0.0f) {
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (!(backup_state & (1 << 0))) {
                 m_game->GetGuiManager()->GetGuiPtr("CREATE_OVERWRITE_SURE")->menu->Reset();
@@ -2210,9 +2210,9 @@ void CGuiOverwriteSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_
             m_game->GetGuiManager()->SetActive("CREATE_OVERWRITE_SURE", 0);
             m_game->GetGuiManager()->SetVisible("CREATE_OVERWRITE_SURE", 0);
 
-            m_game->m_timer->Pause();
+            m_game->GetTimer()->Pause();
             U32 backup_state = m_game->GetBackupEngine()->GetState();
-            m_game->m_timer->Resume();
+            m_game->GetTimer()->Resume();
 
             if (backup_state == 17) {
                 CGuiEnterNameEventHandler* handler = (CGuiEnterNameEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiEnterNameEventHandler");
@@ -2290,7 +2290,7 @@ void CGuiDreamSelectEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
     CGuiBaseEventHandler::OnEvent(menu, event, unk);
 
     if (event == DKGUI::EVENT_0) {
-        if (m_unk14 == 1 && m_unk10 != 7) {
+        if (m_unk14 == 1 && m_unk10 != MISSION_FINAL) {
             CMission& mission = m_game->GetMission(m_unk10 - 1);
             char buf[32];
             sprintf(buf, "%03d/%03d", mission.GetCurrentNbCookies(), mission.GetNbTotalCookies());
@@ -2304,8 +2304,8 @@ void CGuiDreamSelectEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
                 clump->Update(m_game->GetDeltaTime() / 2);
             }
 
-            if (m_unk10 == 6 && m_game->GetMission(6 - 1).m_unk30 != 0u) {
-                CEntity* entity = m_game->m_entity_manager->GetEntity("FX_803_00");
+            if (m_unk10 == 6 && m_game->GetMission(MISSION_TIGGER - 1).m_unk30 != 0u) {
+                CEntity* entity = m_game->GetEntityManager()->GetEntity("FX_803_00");
                 if (entity != NULL) {
                     entity->Update(m_game->GetDeltaTime() / 2);
                 }
@@ -2349,13 +2349,13 @@ void CGuiDreamSelectEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
         // int iVar5 = m_game->GetMission(0).Unk30Check() != 0 || m_game->GetMission(0).m_unk2C != 0 || m_game->GetMission(1).Unk30Check() != 0 || m_game->GetMission(1).m_unk2C != 0;
         // // iVar5 = 0;
         if (m_game->MissionUnk30Inline(0) == 1) {
-            m_game->GetMission(2).m_unk30 = 0;
-            m_game->GetMission(3).m_unk30 = 0;
+            m_game->GetMission(MISSION_OWL - 1).m_unk30 = 0;
+            m_game->GetMission(MISSION_EEYORE - 1).m_unk30 = 0;
         }
 
         if (m_game->MissionUnk30Inline(2) == 1) {
-            m_game->GetMission(4).m_unk30 = 0;
-            m_game->GetMission(5).m_unk30 = 0;
+            m_game->GetMission(MISSION_RABBIT - 1).m_unk30 = 0;
+            m_game->GetMission(MISSION_TIGGER - 1).m_unk30 = 0;
         }
 
         int iVar3;
@@ -2367,10 +2367,10 @@ void CGuiDreamSelectEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
         }
         // ...
         if (iVar3 == 1) {
-            m_game->GetMission(6).m_unk30 = 0;
+            m_game->GetMission(MISSION_FINAL - 1).m_unk30 = 0;
         }
 
-        if (m_game->m_unk8 & (1 << 4)) {
+        if (m_game->GetFlags() & (1 << 4)) {
             for (int i = 0; i < 7; i++) {
                 m_game->GetMission(i).m_unk30 = 0;
             }
@@ -2477,8 +2477,8 @@ void CGuiDreamSelectEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
                     GotoMission(m_unk10 - 1);
                 }
             } else if (str == "right") {
-                if (m_unk10 + 1 < 8) {
-                    if (m_unk10 + 1 == 7 && m_game->GetMission(7 - 1).m_unk30 != 0) {
+                if (m_unk10 + 1 < MISSION_MENUS) {
+                    if (m_unk10 + 1 == MISSION_FINAL && m_game->GetMission(MISSION_FINAL - 1).m_unk30 != 0) {
                         return;
                     }
 
@@ -2506,7 +2506,7 @@ void CGuiDreamSelectEventHandler::GotoMission(int mission_no) {
         m_unk10 = 0;
         m_unk14 = 0;
 
-        CDKW_V3d hero_pos = m_game->m_entity_manager->GetHero()->GetPosition();
+        CDKW_V3d hero_pos = m_game->GetEntityManager()->GetHero()->GetPosition();
 
         CGamePartIngame* game_part = m_game->GetIngameGamePart();
         if (game_part != NULL) {
@@ -2531,13 +2531,13 @@ void CGuiDreamSelectEventHandler::GotoMission(int mission_no) {
         if (m_game->GetMission(mission_no - 1).m_unk30 == 0u) {
             m_game->GetGuiManager()->GetGuiPtr("DREAM_DREAM")->menu->GetAnim()->GotoFrameLabel("DREAM_CLOUD");
             m_game->GetGuiManager()->GetGuiPtr("DREAM_DREAM")->menu->GetAnim()->Play();
-            if (m_game->GetGuiManager()->IsActive("COOKIE_COOKIE") == FALSE && mission_no != 7) {
+            if (m_game->GetGuiManager()->IsActive("COOKIE_COOKIE") == FALSE && mission_no != MISSION_FINAL) {
                 m_game->GetGuiManager()->GetGuiPtr("COOKIE_COOKIE")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("COOKIE_COOKIE", 1);
                 m_game->GetGuiManager()->SetVisible("COOKIE_COOKIE", 1);
             }
 
-            if (mission_no == 7) {
+            if (mission_no == MISSION_FINAL) {
                 m_unk14 = 0;
 
                 m_game->GetGuiManager()->GetGuiPtr("COOKIE_COOKIE")->menu->Reset();
@@ -2545,7 +2545,7 @@ void CGuiDreamSelectEventHandler::GotoMission(int mission_no) {
                 m_game->GetGuiManager()->SetVisible("COOKIE_COOKIE", 0);
             }
 
-            if (mission_no != 7) {
+            if (mission_no != MISSION_FINAL) {
                 CMission& mission = m_game->GetMission(mission_no - 1);
                 if (mission.m_unk2C != 0) {
                     if (mission.IsSecondPassCompleted() != 0u) {
@@ -2570,43 +2570,43 @@ void CGuiDreamSelectEventHandler::GotoMission(int mission_no) {
             }
         }
 
-        if (mission_no > 1 && mission_no < 7) {
-            if (mission_no == 6 && m_game->GetMission(6).m_unk30 != 0u && !(m_game->m_unk8 & (1 << 4))) {
+        if (mission_no > MISSION_WINNIE && mission_no < MISSION_FINAL) {
+            if (mission_no == MISSION_TIGGER && m_game->GetMission(MISSION_FINAL - 1).m_unk30 != 0u && !(m_game->GetFlags() & (1 << 4))) {
                 m_game->GetGuiManager()->GetGuiPtr("DREAM_ARROW_LEFT")->menu->GetAnim()->GotoFrameLabel("L");
                 m_game->GetGuiManager()->GetGuiPtr("DREAM_ARROW_LEFT")->menu->GetAnim()->Play();
             } else {
                 m_game->GetGuiManager()->GetGuiPtr("DREAM_ARROW_LEFT")->menu->GetAnim()->GotoFrameLabel("LR");
                 m_game->GetGuiManager()->GetGuiPtr("DREAM_ARROW_LEFT")->menu->GetAnim()->Play();
             }
-        } else if (mission_no == 1) {
+        } else if (mission_no == MISSION_WINNIE) {
             m_game->GetGuiManager()->GetGuiPtr("DREAM_ARROW_LEFT")->menu->GetAnim()->GotoFrameLabel("R");
             m_game->GetGuiManager()->GetGuiPtr("DREAM_ARROW_LEFT")->menu->GetAnim()->Play();
-        } else if (mission_no == 7) {
+        } else if (mission_no == MISSION_FINAL) {
             m_game->GetGuiManager()->GetGuiPtr("DREAM_ARROW_LEFT")->menu->GetAnim()->GotoFrameLabel("L");
             m_game->GetGuiManager()->GetGuiPtr("DREAM_ARROW_LEFT")->menu->GetAnim()->Play();
         }
 
         switch (mission_no) {
-            case 1:
-                m_unk18 = (CEntityMesh*)m_game->m_entity_manager->GetEntity("CAR_710_803");
+            case MISSION_WINNIE:
+                m_unk18 = (CEntityMesh*)m_game->GetEntityManager()->GetEntity("CAR_710_803");
                 break;
-            case 2:
-                m_unk18 = (CEntityMesh*)m_game->m_entity_manager->GetEntity("CAR_750_803");
+            case MISSION_ROO:
+                m_unk18 = (CEntityMesh*)m_game->GetEntityManager()->GetEntity("CAR_750_803");
                 break;
-            case 3:
-                m_unk18 = (CEntityMesh*)m_game->m_entity_manager->GetEntity("CAR_730_803");
+            case MISSION_OWL:
+                m_unk18 = (CEntityMesh*)m_game->GetEntityManager()->GetEntity("CAR_730_803");
                 break;
-            case 4:
-                m_unk18 = (CEntityMesh*)m_game->m_entity_manager->GetEntity("CAR_740_803");
+            case MISSION_EEYORE:
+                m_unk18 = (CEntityMesh*)m_game->GetEntityManager()->GetEntity("CAR_740_803");
                 break;
-            case 5:
-                m_unk18 = (CEntityMesh*)m_game->m_entity_manager->GetEntity("CAR_760_803");
+            case MISSION_RABBIT:
+                m_unk18 = (CEntityMesh*)m_game->GetEntityManager()->GetEntity("CAR_760_803");
                 break;
-            case 6:
-                m_unk18 = (CEntityMesh*)m_game->m_entity_manager->GetEntity("CAR_720_803");
+            case MISSION_TIGGER:
+                m_unk18 = (CEntityMesh*)m_game->GetEntityManager()->GetEntity("CAR_720_803");
                 break;
-            case 7:
-                m_unk18 = (CEntityMesh*)m_game->m_entity_manager->GetEntity("CAR_770_803");
+            case MISSION_FINAL:
+                m_unk18 = (CEntityMesh*)m_game->GetEntityManager()->GetEntity("CAR_770_803");
                 break;
         }
 
@@ -2633,70 +2633,62 @@ void CGuiDreamSelectEventHandler::GotoMission(int mission_no) {
 }
 
 void CGuiDreamSelectEventHandler::PlayNarrator(int mission_no) {
-    if (m_game->m_unk210[mission_no - 1].IsSecondPassCompleted() != 0u) {
+    if (m_game->GetMission(mission_no - 1).IsSecondPassCompleted() != 0u) {
         return;
     }
 
     switch (mission_no) {
-        case 1:
-            if (m_game->m_unk210[0].m_unk2C != 0) {
+        case MISSION_WINNIE:
+            if (m_game->GetMission(MISSION_WINNIE - 1).m_unk2C != 0) {
                 m_game->PlayNarratorLine("N803_02");
             } else {
                 m_game->PlayNarratorLine("N803_01");
             }
             break;
-        case 2:
-            if (m_game->m_unk210[1].m_unk2C != 0) {
+        case MISSION_ROO:
+            if (m_game->GetMission(MISSION_ROO - 1).m_unk2C != 0) {
                 m_game->PlayNarratorLine("N803_02");
             } else {
                 m_game->PlayNarratorLine("N803_03");
             }
             break;
-        case 3:
-            if (m_game->m_unk210[2].m_unk30 != 0u) {
+        case MISSION_OWL:
+            if (m_game->GetMission(MISSION_OWL - 1).m_unk30 != 0u) {
                 m_game->PlayNarratorLine("N803_04");
+            } else if (m_game->GetMission(MISSION_OWL - 1).m_unk2C != 0) {
+                m_game->PlayNarratorLine("N803_02");
             } else {
-                if (m_game->m_unk210[2].m_unk2C != 0) {
-                    m_game->PlayNarratorLine("N803_02");
-                } else {
-                    m_game->PlayNarratorLine("N803_05");
-                }
+                m_game->PlayNarratorLine("N803_05");
             }
             break;
-        case 4:
-            if (m_game->m_unk210[3].m_unk30 != 0u) {
+        case MISSION_EEYORE:
+            if (m_game->GetMission(MISSION_EEYORE - 1).m_unk30 != 0u) {
                 m_game->PlayNarratorLine("N803_06");
+            } else if (m_game->GetMission(MISSION_EEYORE - 1).m_unk2C != 0) {
+                m_game->PlayNarratorLine("N803_02");
             } else {
-                if (m_game->m_unk210[3].m_unk2C != 0) {
-                    m_game->PlayNarratorLine("N803_02");
-                } else {
-                    m_game->PlayNarratorLine("N803_07");
-                }
+                m_game->PlayNarratorLine("N803_07");
             }
             break;
-        case 5:
-            if (m_game->m_unk210[4].m_unk30 != 0u) {
+        case MISSION_RABBIT:
+            if (m_game->GetMission(MISSION_RABBIT - 1).m_unk30 != 0u) {
                 m_game->PlayNarratorLine("N803_08");
+            } else if (m_game->GetMission(MISSION_RABBIT - 1).m_unk2C != 0) {
+                m_game->PlayNarratorLine("N803_02");
             } else {
-                if (m_game->m_unk210[4].m_unk2C != 0) {
-                    m_game->PlayNarratorLine("N803_02");
-                } else {
-                    m_game->PlayNarratorLine("N803_09");
-                }
+                m_game->PlayNarratorLine("N803_09");
             }
             break;
-        case 6:
-            if (m_game->m_unk210[5].m_unk30 != 0u) {
+        case MISSION_TIGGER:
+            if (m_game->GetMission(MISSION_TIGGER - 1).m_unk30 != 0u) {
                 m_game->PlayNarratorLine("N803_10");
+            } else if (m_game->GetMission(MISSION_TIGGER - 1).m_unk2C != 0) {
+                m_game->PlayNarratorLine("N803_02");
             } else {
-                if (m_game->m_unk210[5].m_unk2C != 0) {
-                    m_game->PlayNarratorLine("N803_02");
-                } else {
-                    m_game->PlayNarratorLine("N803_11");
-                }
+                m_game->PlayNarratorLine("N803_11");
             }
             break;
-        case 7:
+        case MISSION_FINAL:
             m_game->PlayNarratorLine("N803_12");
             break;
     }

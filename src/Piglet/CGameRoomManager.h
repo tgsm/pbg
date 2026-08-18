@@ -162,8 +162,8 @@ public:
 
     void CountEnemies() {
         m_unk120 = 0;
-        for (int i = 0; i < (int)m_game->m_entity_manager->GetEntityCount(); i++) {
-            U32 type = m_game->m_entity_manager->GetEntity(i)->GetType();
+        for (int i = 0; i < (int)m_game->GetEntityManager()->GetEntityCount(); i++) {
+            U32 type = m_game->GetEntityManager()->GetEntity(i)->GetType();
             if (type > ENTITY_NPC23 && type < ENTITY_UNK36) {
                 m_unk120++;
             }

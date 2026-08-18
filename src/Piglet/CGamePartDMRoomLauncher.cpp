@@ -12,13 +12,13 @@ CGamePartDMRoomLauncher::CGamePartDMRoomLauncher(CGame* game) {
     m_debug_menu = new CDebugMenu(m_game, "DMRoom/RoomLoader.xmd");
 
     m_debug_menu->GetControl("Mission")->SetRange(0, 7);
-    if (m_game->m_unk4F54 == 0) {
+    if (m_game->GetCurrentMissionId() == MISSION_NONE) {
         m_debug_menu->GetControl("Mission")->SetValue(0);
     } else {
-        m_debug_menu->GetControl("Mission")->SetValueMinus1(m_game->m_unk4F54);
+        m_debug_menu->GetControl("Mission")->SetValue(m_game->GetCurrentMissionId() - 1);
     }
-    m_debug_menu->GetControl("Room")->SetValueMinus1(m_game->m_unk4F58);
-    m_debug_menu->GetControl("Player")->SetValue(m_game->m_unk4F5C);
+    m_debug_menu->GetControl("Room")->SetValue(m_game->GetCurrentRoomId() - 1);
+    m_debug_menu->GetControl("Player")->SetValue(m_game->GetCurrentHeroId());
 
     m_game->GetCamera()->SetViewWindow(0.5f, 0.5f);
 
@@ -35,7 +35,7 @@ CGamePartDMRoomLauncher::~CGamePartDMRoomLauncher() {
 U32 CGamePartDMRoomLauncher::NextFrame() {
     U32 ret;
 
-    if (m_game->m_display_engine->Update()) {
+    if (m_game->GetDisplayEngine()->Update()) {
         switch (m_debug_menu->UpdateAndDisplay()) {
             case 0: {
                 CMenuControl* mission_control = m_debug_menu->GetControl("Mission");
@@ -77,9 +77,9 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
                 m_game->PushOpcodeValue(value);
 
                 CMenuControl* room_control = m_debug_menu->GetControl("Room");
-                m_game->m_unk4F58 = reinterpret_cast<CControlValue*>(room_control->m_control_values[room_control->m_value])->GetS32Value();
+                m_game->SetCurrentRoomId(reinterpret_cast<CControlValue*>(room_control->m_control_values[room_control->m_value])->GetS32Value());
                 CMenuControl* player_control = m_debug_menu->GetControl("Player");
-                m_game->m_unk4F5C = reinterpret_cast<CControlValue*>(player_control->m_control_values[player_control->m_value])->GetS32Value();
+                m_game->SetCurrentHeroId(reinterpret_cast<CControlValue*>(player_control->m_control_values[player_control->m_value])->GetS32Value());
 
                 m_game->PushOpcodeValue(1);
 
@@ -115,7 +115,7 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
                 mission_control->m_max++;
 
                 m_debug_menu->m_current_control_no = 0;
-                m_game->m_display_engine->Update();
+                m_game->GetDisplayEngine()->Update();
 
                 m_debug_menu->UpdateAndDisplay();
 

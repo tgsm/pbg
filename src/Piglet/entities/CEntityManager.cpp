@@ -410,9 +410,9 @@ U32 CEntityManager::GetEntityCount() {
 
 CEntityHero* CEntityManager::GetHero() {
     CEntityHero* entity = static_cast<CEntityHero*>(GetEntity("Piglet"));
-    if (entity == 0) {
+    if (entity == NULL) {
         entity = static_cast<CEntityHero*>(GetEntity("Tigger"));
-        if (entity == 0) {
+        if (entity == NULL) {
             entity = static_cast<CEntityHero*>(GetEntity("Winnie"));
         }
     }

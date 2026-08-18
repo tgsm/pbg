@@ -41,6 +41,11 @@
 #include "CResourceFactory.h"
 #include "CShadowZone.h"
 
+#define HERO_PIGLET         0
+#define HERO_TIGGER         1
+#define HERO_WINNIE         2
+#define HERO_CATCH_THEM_ALL 3
+
 class CGamePartIngame;
 
 struct SVideoDesc {
@@ -72,21 +77,17 @@ public:
 
 public:
     DKBAK::DKBAK_DATE m_backup_date;
-    U32 m_unk8;
+    U32 m_flags;
     int m_opcode_buffer[128];
     U32 m_opcode_buffer_size;
-    CMission m_unk210[8];
-    CMission m_unk28B0[8];
+    CMission m_unk210[NUM_MISSIONS];
+    CMission m_unk28B0[NUM_MISSIONS];
     F32 m_delta_time;
-    U32 m_unk4F54;
-    U32 m_unk4F58;
-    U32 m_unk4F5C;
-    F32 m_unk4F60;
-    F32 m_unk4F64;
-    F32 m_unk4F68;
-    F32 m_unk4F6C;
-    F32 m_unk4F70;
-    F32 m_unk4F74;
+    U32 m_current_mission_id;
+    U32 m_current_room_id;
+    U32 m_current_hero_id;
+    CDKW_V3d m_current_room_start_position;
+    CDKW_V3d m_current_room_start_rotation;
     int m_room_return_type;
     DKGUI::CGUIEngine* m_gui_engine;
     DKSND::CSoundEngine* m_sound_engine;
@@ -157,7 +158,7 @@ public:
     static DKVIDEO::CVideoEngineGCN* gs_CurrentVideoManager;
 
 public:
-    CGame(void*, U32);
+    CGame(void*, U32 flags);
     virtual ~CGame();
 
     virtual BOOL NextFrame();
@@ -166,29 +167,43 @@ public:
     static void ReplayVideoCallback();
 
     DKBAK::DKBAK_DATE& GetBackupDate() { return m_backup_date; }
+    U32 GetFlags() { return m_flags; }
+    void SetFlags(U32 flags) { m_flags = flags; }
+    void AddFlags(U32 flags) { m_flags |= flags; }
+    void DelFlags(U32 flags) { m_flags &= ~flags; }
     void SetBackupDate(DKBAK::DKBAK_DATE date) { m_backup_date = date; }
     DKGUI::CGUIEngine* GetGuiEngine() { return m_gui_engine; }
+    DKSND::CSoundEngine* GetSoundEngine() { return m_sound_engine; }
+    DKSND::CSampleDictionary* GetSampleDictionary() { return m_sample_dictionary; }
     DKDSP::CEngine* GetDisplayEngine() { return m_display_engine; }
+    DKDSP::CTextureDictionary* GetTextureDictionary() { return m_texture_dictionary; }
     DKDSP::CObjectDictionary* GetObjectDictionary() { return m_object_dictionary; }
+    DKDSP::CAnimDictionary* GetAnimDictionary() { return m_anim_dictionary; }
     DKDSP::CScene* GetScene() { return m_scene; }
     DKDSP::CCamera* GetCamera() { return m_camera; }
+    CEntityManager* GetEntityManager() { return m_entity_manager; }
+    CMiniMap* GetMiniMap() { return m_minimap; }
     CResourceFactory* GetResourceFactory() { return m_resource_factory; }
+    DKDSP::CTimer* GetTimer() { return m_timer; }
     CMailBox* GetMailbox() { return m_mailbox; }
+    CErrorCallback* GetErrorCallback() { return m_error_callback; }
     CGuiManager* GetGuiManager() { return m_gui_manager; }
+    CFxManager* GetFxManager() { return m_fx_manager; }
     CShadowZone* GetShadowZone() { return m_shadow_zone; }
     CGameBackup* GetGameBackup() { return m_game_backup; }
     DKBAK::CGCNBAKEngine* GetBackupEngine() { return m_backup_engine; }
     CScreenEffect* GetScreenEffect() { return m_screen_effect; }
 
-    U32& GetFlags() { return m_unk8; }
-
     BOOL IsUnk5038Not2() { return m_unk5038 == 2 ? 0 : 1; }
 
     CMission& GetMission(int index) { return m_unk210[index]; }
-    CMission* GetCurrentMission() { return &m_unk210[m_unk4F54 - 1]; }
-    U32 GetUnk4F54() { return m_unk4F54; }
-    U32 GetUnk4F58() { return m_unk4F58; }
-    U32 GetUnk4F5C() { return m_unk4F5C; }
+    CMission* GetCurrentMission() { return &m_unk210[m_current_mission_id - 1]; }
+    U32 GetCurrentRoomFlagsMaybe() { return GetCurrentMission()->m_rooms.rooms[m_current_room_id]; }
+    U32 GetCurrentMissionId() { return m_current_mission_id; }
+    U32 GetCurrentRoomId() { return m_current_room_id; }
+    void SetCurrentRoomId(U32 value) { m_current_room_id = value; }
+    U32 GetCurrentHeroId() { return m_current_hero_id; }
+    void SetCurrentHeroId(U32 value) { m_current_hero_id = value; }
 
     CGamePartIngame* GetIngameGamePart() { return (CGamePartIngame*)GetGamePartPointer(); }
 
@@ -254,18 +269,14 @@ public:
 #ifdef VERSION_GPLP9G
         DONT_INLINE_HACK();
 #endif
-        m_unk4F60 = position.x;
-        m_unk4F64 = position.y;
-        m_unk4F68 = position.z;
+        m_current_room_start_position = position;
     }
 
     void SetCurrentRoomStartRotation(CDKW_V3d rotation) {
 #ifdef VERSION_GPLP9G
         DONT_INLINE_HACK();
 #endif
-        m_unk4F6C = rotation.x;
-        m_unk4F70 = rotation.y;
-        m_unk4F74 = rotation.z;
+        m_current_room_start_rotation = rotation;
     }
 
     F32 GetUnk502C() { return m_unk502C; }

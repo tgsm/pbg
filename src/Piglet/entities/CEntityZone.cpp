@@ -56,7 +56,7 @@ void CEntityZone::ResolveContact(const DkPh::Collider::Body& body, int, int) {
         bVar1 = FALSE;
         for (i = 0; i < 16; i++) {
             if (m_unk160[i] == 1) {
-                if (strcmp(m_unk50[i], body_entity->m_unk0.c_str()) == 0) {
+                if (strcmp(m_unk50[i], body_entity->GetName().c_str()) == 0) {
                     m_unk150[i] = 1;
                     bVar1 = TRUE;
                     break;
@@ -67,9 +67,9 @@ void CEntityZone::ResolveContact(const DkPh::Collider::Body& body, int, int) {
         if (!bVar1) {
             for (i = 0; i < 16; i++) {
                 if (m_unk150[i] == 0 && m_unk160[i] == 0) {
-                    strcpy(m_unk50[i], body_entity->m_unk0.c_str());
+                    strcpy(m_unk50[i], body_entity->GetName().c_str());
                     m_unk150[i] = 1;
-                    m_entity_manager->GetGame()->GetMailbox()->SendMessage(body_entity->m_unk0, m_unk0, "ENTER", 0);
+                    m_entity_manager->GetGame()->GetMailbox()->SendMessage(body_entity->GetName(), m_name, "ENTER", 0);
                     break;
                 }
             }
@@ -84,13 +84,13 @@ void CEntityZone::Render(F32 dt) {
         return;
     }
 
-    CGamePartIngame* game_part = (CGamePartIngame*)m_entity_manager->GetGame()->GetGamePartPointer();
+    CGamePartIngame* game_part = m_entity_manager->GetGame()->GetIngameGamePart();
 
     if (IsFlagged(ENTITY_FLAG_ACTIVE) != TRUE) {
         return;
     }
 
-    if (!game_part->m_game_room_manager->IsPlayingRTC() && !game_part->m_game_room_manager->IsOnFight()) {
+    if (!game_part->GetGameRoomManager()->IsPlayingRTC() && !game_part->GetGameRoomManager()->IsOnFight()) {
         if (m_unk170.emitter != NULL) {
             m_entity_manager->GetGame()->GetScene()->RenderParticleEmitter(m_unk170.emitter, 1);
         }
@@ -135,7 +135,7 @@ BOOL CEntityZone::ParseParticleEmitter(std::string filename, SFX* fx) {
     m_entity_manager->GetGame()->GetResourceFactory()->LoadResource(RESOURCE_TYPE_PARTICLE_EMITTER_DEFINITION, filename);
 
     DKDSP::CParticleEmitterDefinition* definition = m_entity_manager->GetGame()->GetObjectDictionary()->FindParticleEmitterDefinition(filename);
-    fx->emitter = m_entity_manager->GetGame()->GetScene()->CreateParticleEmitterFromDefinition(m_unk0, definition);
+    fx->emitter = m_entity_manager->GetGame()->GetScene()->CreateParticleEmitterFromDefinition(m_name, definition);
 
     return TRUE;
 }

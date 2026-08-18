@@ -18,7 +18,7 @@ void CEntityWarp::Reset() {
     CEntity::Reset();
 }
 
-void CEntityWarp::Update(F32 dt_maybe) {
+void CEntityWarp::Update(F32 dt) {
     if (m_warp == NULL) {
         return;
     }
@@ -26,12 +26,12 @@ void CEntityWarp::Update(F32 dt_maybe) {
     for (int i = 0; i < m_warp->GetNumberOfClumps(); i++) {
         DKDSP::CClump* clump = (DKDSP::CClump*)m_warp->GetClump(i);
         if (clump != NULL) {
-            clump->Update(dt_maybe);
+            clump->Update(dt);
         }
     }
 }
 
-void CEntityWarp::Render(F32 dt_maybe) {
+void CEntityWarp::Render(F32 dt) {
     if (m_warp == NULL) {
         return;
     }
@@ -103,8 +103,7 @@ void CEntityWarp::Parse(DkXmd::CChunkIterator iter) {
                                 strcpy(animation_name, entry_chunk.GetStringValue());
                                 DKDSP::CClump* clump = (DKDSP::CClump*)m_warp->FindClump(clump_id);
                                 if (clump != NULL) {
-                                    // FIXME: Remove this cast
-                                    clump->SetAnimation((DKDSP::IAnimation*)m_entity_manager->GetGame()->m_anim_dictionary->FindAnimation(animation_name));
+                                    clump->SetAnimation(m_entity_manager->GetGame()->GetAnimDictionary()->FindAnimation(animation_name));
                                 }
                             }
                         }

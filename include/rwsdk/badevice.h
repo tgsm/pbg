@@ -199,7 +199,6 @@ RwBool RwEngineOpen(void*);
 RwBool RwEngineTerm(void);
 RwBool RwEngineInit(RwMemoryFunctions* memoryFuncs, RwEngineInitFlag initFlags, RwUInt32 arenaSize);
 
-
 #ifdef __cplusplus
 }
 #endif

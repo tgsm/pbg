@@ -35,8 +35,8 @@ void CGuiScrapBookEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
             sprintf(buf_b0, "SCRAP_BOOK_%02d", m_unk10 + 1);
             menu->GetAnim()->GotoFrameLabel(buf_b0);
 
-            m_game->m_gui_manager->SetActive("SCRAPBOOK_MAIN", 1);
-            m_game->m_gui_manager->SetVisible("SCRAPBOOK_MAIN", 1);
+            m_game->GetGuiManager()->SetActive("SCRAPBOOK_MAIN", 1);
+            m_game->GetGuiManager()->SetVisible("SCRAPBOOK_MAIN", 1);
 
             break;
         }

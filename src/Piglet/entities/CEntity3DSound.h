@@ -54,9 +54,9 @@ public:
         DkXmd::CChunkIterator dest;
 
         if (m_sound_emitter == NULL) {
-            m_sound_emitter = m_entity_manager->GetGame()->m_sound_engine->CreateEmitter();
+            m_sound_emitter = m_entity_manager->GetGame()->GetSoundEngine()->CreateEmitter();
             if (m_sound_emitter != NULL) {
-                m_sound_emitter->SetName(&m_unk0);
+                m_sound_emitter->SetName(&m_name);
             }
         }
 
@@ -67,7 +67,7 @@ public:
         if (iter.GetChunk("SoundId", dest)) {
             std::string str;
             str = dest.GetStringValue();
-            sound.sample = m_entity_manager->GetGame()->m_sample_dictionary->FindSample(&str, 1);
+            sound.sample = m_entity_manager->GetGame()->GetSampleDictionary()->FindSample(&str, 1);
         }
 
         if (iter.GetChunk("PitchVariation", dest)) {
