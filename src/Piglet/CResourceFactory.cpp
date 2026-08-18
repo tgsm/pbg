@@ -441,18 +441,22 @@ U32 CErrorCallback::Error(U32 unk) {
         if (unk == 2) {
             m_game->GetGuiEngine()->SetTextColor(0xFF, 0xFF, 0xFF, 0xFF);
 
+            F32 x = 0.0f;
             F32 y = 224.0f;
             m_game->GetGuiEngine()->SetTextColor(0xFF, 0xFF, 0xFF, 0xFF);
             F32 text_width = m_game->GetGuiEngine()->GetTextWidth("The Game Disc could not be read.", 16.0f / cam_buffer_height, NULL) * cam_buffer_width;
-            m_game->GetGuiEngine()->AddText(((cam_buffer_width - text_width) / 2) / cam_buffer_width, y / cam_buffer_height, "The Game Disc could not be read.", 16.0f / cam_buffer_height, NULL, 0.0f);
+            x = (cam_buffer_width - text_width) / 2;
+            m_game->GetGuiEngine()->AddText(x / cam_buffer_width, y / cam_buffer_height, "The Game Disc could not be read.", 16.0f / cam_buffer_height, NULL, 0.0f);
 
             text_width = m_game->GetGuiEngine()->GetTextWidth("Please read the Nintendo GameCube Instruction Booklet", 16.0f / cam_buffer_height, NULL) * cam_buffer_width;
+            x = (cam_buffer_width - text_width) / 2;
             y += 16.0f;
-            m_game->GetGuiEngine()->AddText(((cam_buffer_width - text_width) / 2) / cam_buffer_width, y / cam_buffer_height, "Please read the Nintendo GameCube Instruction Booklet", 16.0f / cam_buffer_height, NULL, 0.0f);
+            m_game->GetGuiEngine()->AddText(x / cam_buffer_width, y / cam_buffer_height, "Please read the Nintendo GameCube Instruction Booklet", 16.0f / cam_buffer_height, NULL, 0.0f);
 
             text_width = m_game->GetGuiEngine()->GetTextWidth("for more information.", 16.0f / cam_buffer_height, NULL) * cam_buffer_width;
+            x = (cam_buffer_width - text_width) / 2;
             y += 16.0f;
-            m_game->GetGuiEngine()->AddText(((cam_buffer_width - text_width) / 2) / cam_buffer_width, y / cam_buffer_height, "for more information.", 16.0f / cam_buffer_height, NULL, 0.0f);
+            m_game->GetGuiEngine()->AddText(x / cam_buffer_width, y / cam_buffer_height, "for more information.", 16.0f / cam_buffer_height, NULL, 0.0f);
 
             m_game->GetScene()->SelectCamera(m_game->GetCamera());
             m_game->GetScene()->Clear(3, 0.0f, 0.0f, 0.0f);
@@ -462,19 +466,26 @@ U32 CErrorCallback::Error(U32 unk) {
             m_game->GetScene()->Flush();
             m_game->GetScene()->Flip(0);
 
-            CGame::ManageReset();
+            m_game->ManageReset();
         } else if (unk == 5) {
             while (TRUE) {
+                F32 x;
                 F32 y = 224.0f;
                 m_game->GetGuiEngine()->SetTextColor(0xFF, 0xFF, 0xFF, 0xFF);
+
                 F32 text_width = m_game->GetGuiEngine()->GetTextWidth("An error has occurred. Turn the power off", 16.0f / cam_buffer_height, NULL) * cam_buffer_width;
-                m_game->GetGuiEngine()->AddText(((cam_buffer_width - text_width) / 2) / cam_buffer_width, y / cam_buffer_height, "An error has occurred. Turn the power off", 16.0f / cam_buffer_height, NULL, 0.0f);
+                x = (cam_buffer_width - text_width) / 2;
+                m_game->GetGuiEngine()->AddText(x / cam_buffer_width, y / cam_buffer_height, "An error has occurred. Turn the power off", 16.0f / cam_buffer_height, NULL, 0.0f);
+
                 text_width = m_game->GetGuiEngine()->GetTextWidth("and refer to the Nintendo GameCube Instruction Booklet", 16.0f / cam_buffer_height, NULL) * cam_buffer_width;
                 y += 16.0f;
-                m_game->GetGuiEngine()->AddText(((cam_buffer_width - text_width) / 2) / cam_buffer_width, y / cam_buffer_height, "and refer to the Nintendo GameCube Instruction Booklet", 16.0f / cam_buffer_height, NULL, 0.0f);
+                x = (cam_buffer_width - text_width) / 2;
+                m_game->GetGuiEngine()->AddText(x / cam_buffer_width, y / cam_buffer_height, "and refer to the Nintendo GameCube Instruction Booklet", 16.0f / cam_buffer_height, NULL, 0.0f);
+
                 text_width = m_game->GetGuiEngine()->GetTextWidth("for further instructions.", 16.0f / cam_buffer_height, NULL) * cam_buffer_width;
                 y += 16.0f;
-                m_game->GetGuiEngine()->AddText(((cam_buffer_width - text_width) / 2) / cam_buffer_width, y / cam_buffer_height, "for further instructions.", 16.0f / cam_buffer_height, NULL, 0.0f);
+                x = (cam_buffer_width - text_width) / 2;
+                m_game->GetGuiEngine()->AddText(x / cam_buffer_width, y / cam_buffer_height, "for further instructions.", 16.0f / cam_buffer_height, NULL, 0.0f);
 
                 m_game->GetScene()->SelectCamera(m_game->GetCamera());
                 m_game->GetScene()->Clear(3, 0.0f, 0.0f, 0.0f);
