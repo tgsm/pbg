@@ -186,7 +186,9 @@ public:
 
     CMission& GetMission(int index) { return m_unk210[index]; }
     CMission* GetCurrentMission() { return &m_unk210[m_unk4F54 - 1]; }
+    U32 GetUnk4F54() { return m_unk4F54; }
     U32 GetUnk4F58() { return m_unk4F58; }
+    U32 GetUnk4F5C() { return m_unk4F5C; }
 
     CGamePartIngame* GetIngameGamePart() { return (CGamePartIngame*)GetGamePartPointer(); }
 

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "engine/display/CSpline.h"
-#include "types.h"
+#include "engine/xmd/CChunkIterator.h"
 
 class CGame;
 
@@ -11,6 +11,9 @@ class CMiniMapSpline {
 public:
     std::string m_unk0;
     DKDSP::CSpline* m_spline;
+
+public:
+    DKDSP::CSpline* GetSpline() { return m_spline; }
 };
 
 // TODO
@@ -23,6 +26,7 @@ public:
     CMiniMapSplineMgr(CGame* game);
     ~CMiniMapSplineMgr();
 
+    BOOL Parse(DkXmd::CChunkIterator iter);
     CMiniMapSpline* GetSpline(std::string a1);
     void ClearList();
 };

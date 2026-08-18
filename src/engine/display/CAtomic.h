@@ -24,6 +24,9 @@ public:
     virtual U32 GetSize();
     virtual CGeometry* GetGeometry();
     virtual int GetNumberOfMaterials();
+    virtual void func1C();
+    virtual void func20();
+    virtual void GetBBox(CDKW_V3d* inf, CDKW_V3d* sup);
 
     void Render();
 };

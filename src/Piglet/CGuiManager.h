@@ -51,6 +51,7 @@ public:
     BOOL IsActive(const std::string& name);
     void SetActive(const std::string& name, int);
     void SetVisible(const std::string& name, int);
+    BOOL IsAnyGUIVisible(BOOL);
     void* IsEventCallbackRegistered(const std::string& event_name);
     void Reset();
     void Update(F32 dt);

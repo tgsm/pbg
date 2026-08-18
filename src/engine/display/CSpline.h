@@ -1,6 +1,7 @@
 #ifndef ENGINE_DISPLAY_CSPLINE_H
 #define ENGINE_DISPLAY_CSPLINE_H
 
+#include <string>
 #include "engine/display/ISpline.h"
 #include "engine/wrap/DKW_Spline.h"
 

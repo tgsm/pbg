@@ -4,6 +4,7 @@
 #include <rwsdk/badevice.h>
 #include <rwsdk/plcore/bamemory.h>
 #include <rwsdk/plcore/bavector.h>
+#include "engine/wrap/DKW_Matrix.h"
 #include "engine/wrap/DKW_Node3d.h"
 #include "engine/wrap/DKW_V3d.h"
 #include "types.h"
@@ -40,7 +41,23 @@ public:
         return (CDKW_V3d&)(GetRwFrame()->modelling.pos);
     }
 
+    CDKW_Matrix& GetLTM() {
+        RwMatrix* ltm = RwFrameGetLTM(m_rwframe);
+        return (CDKW_Matrix&)(*ltm);
+    }
+
+    CDKW_V3d& GetLTMRight() {
+        return (CDKW_V3d&)GetLTM().right;
+    }
+
+    CDKW_V3d& GetLTMUp() {
+        return (CDKW_V3d&)GetLTM().up;
+    }
+
     void Translate(CDKW_V3d& a1, int a2) {
+        RwFrameTranslate(m_rwframe, &a1, a2);
+    }
+    void TranslateCopy(CDKW_V3d a1, int a2) {
         RwFrameTranslate(m_rwframe, &a1, a2);
     }
     void Translate2(CDKW_V3d& a1, int a2) {

@@ -8,7 +8,7 @@
 
 // TODO
 class CEntityHero : public CEntityMesh {
-protected:
+public:
     U32 m_mode;
     F32 m_delta_time;
     DKI::CInput* m_axe_h_input;
