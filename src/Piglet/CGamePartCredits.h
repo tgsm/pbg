@@ -25,8 +25,8 @@ public:
         CDKW_RGBA color;
     };
 
-    struct Entry {
-        Entry() {
+    struct Style {
+        Style() {
             id = -1;
             size = -1;
             color_id = -1;
@@ -37,13 +37,18 @@ public:
         int color_id;
     };
 
+    struct Entry {
+        std::string text;
+        int id;
+    };
+
     CGame* m_game;
     int m_unk10;
     void* m_credits_xmd_data;
     DkXmd::CXmdFile* m_credits_xmd;
     DkXmd::CChunkIterator* m_credits_xmd_iter;
-    DKI::IInput* m_unk20;
-    DKI::IInput* m_unk24;
+    DKI::IInput* m_input_quit_credits_A;
+    DKI::IInput* m_input_quit_credits_B;
     F32 m_start_time;
     int m_raster_width;
     int m_raster_height;
@@ -57,9 +62,9 @@ public:
     U32 m_size;
     U32 m_color_id;
     DKDSP::CIm2DBatch* m_batches[4];
-    std::vector<Color*> m_unk68;
-    std::vector<Entry*> m_unk74;
-    std::vector<std::string*> m_unk80;
+    std::vector<Color*> m_colors;
+    std::vector<Style*> m_styles;
+    std::vector<Entry*> m_entries;
 
 public:
     CGamePartCredits(CGame* game, int);
@@ -76,13 +81,13 @@ public:
     virtual void Render(F32 dt);
     virtual void RenderStrip(F32 dt);
     virtual void RenderBackGround(F32 dt);
-    virtual Entry* GetFontStyle(int);
-    virtual int* GetFontColor(int);
+    virtual Style* GetFontStyle(int id);
+    virtual Color* GetFontColor(int id);
     virtual int GetEntrySize(Entry& entry);
     virtual int GetEntryColorId(Entry& entry);
 
     void ParseColor(Color* color, DkXmd::CChunkIterator iter);
-    void ParseEntry(Entry* entry, DkXmd::CChunkIterator iter);
+    void ParseStyle(Style* style, DkXmd::CChunkIterator iter);
 };
 REQUIRE_SIZE(CGamePartCredits, 0x8C);
 
