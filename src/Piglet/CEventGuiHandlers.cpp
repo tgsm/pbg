@@ -72,9 +72,9 @@ void CGuiPauseEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT ev
         if (m_game->GetCurrentMissionId() == MISSION_MENUS) {
             m_game->ResetOpcodeBuffer();
             if (m_game->GetCurrentRoomId() == 2) {
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                 m_game->PushOpcodeValue(1);
-                m_game->PushOpcodeValue(1);
-                m_game->PushOpcodeValue(0);
+                m_game->PushOpcodeValue(HERO_PIGLET);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(25);
@@ -83,9 +83,9 @@ void CGuiPauseEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT ev
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(1);
             } else if (m_game->GetCurrentRoomId() == 3) {
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                 m_game->PushOpcodeValue(1);
-                m_game->PushOpcodeValue(1);
-                m_game->PushOpcodeValue(0);
+                m_game->PushOpcodeValue(HERO_PIGLET);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(25);
@@ -94,13 +94,13 @@ void CGuiPauseEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT ev
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(1);
             } else if (m_game->GetCurrentRoomId() == 1) {
-                m_game->PushOpcodeValue(11);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_LOAD_START_SCREEN);
             }
 
             UnkGamePartAndReturnTypeInline();
         } else {
             m_game->ResetOpcodeBuffer();
-            m_game->PushOpcodeValue(5);
+            m_game->PushOpcodeValue(SCRIPT_COMMAND_LOAD_MISSION_SELECT_ROOM);
 
             UnkGamePartAndReturnTypeInline();
         }
@@ -182,9 +182,7 @@ void CGuiLoadCheckingMemoryCardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGU
                 m_game->GetGuiManager()->SetActive("LOAD_NO_MMC", 1);
                 m_game->GetGuiManager()->SetVisible("LOAD_NO_MMC", 1);
             } else if (!(backup_state & (1 << 4))) {
-                U32 flags = m_game->GetFlags();
-                flags |= (1 << 9);
-                m_game->AddFlags(flags);
+                m_game->AddFlags(m_game->GetFlags() | GAME_FLAG_UNK9);
 
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_UNFORMAT")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("SAVE_UNFORMAT", 1);
@@ -521,9 +519,9 @@ void CGuiLoadLoadSuccessEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
             m_game->FadeIn(-1.0f);
 
             m_game->ResetOpcodeBuffer();
-            m_game->PushOpcodeValue(1);
+            m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
             m_game->PushOpcodeValue(3);
-            m_game->PushOpcodeValue(0);
+            m_game->PushOpcodeValue(HERO_PIGLET);
             m_game->PushOpcodeValue(0);
             m_game->PushOpcodeValue(0);
             m_game->PushOpcodeValue(25);
@@ -948,9 +946,9 @@ void CGuiSaveNoSpaceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(1);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                 m_game->PushOpcodeValue(2);
-                m_game->PushOpcodeValue(0);
+                m_game->PushOpcodeValue(HERO_PIGLET);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(25);
@@ -999,7 +997,7 @@ void CGuiSaveNoSpaceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
             VIFlush();
             VIWaitForRetrace();
 
-            OSResetSystem(TRUE, 0, TRUE);
+            OSResetSystem(OS_RESET_HOTRESET, 0, TRUE);
         }
     }
 }
@@ -1146,9 +1144,9 @@ void CGuiSaveFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(1);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                 m_game->PushOpcodeValue(2);
-                m_game->PushOpcodeValue(0);
+                m_game->PushOpcodeValue(HERO_PIGLET);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(25);
@@ -1469,9 +1467,9 @@ void CGuiSaveWrongDeviceEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(1);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                 m_game->PushOpcodeValue(2);
-                m_game->PushOpcodeValue(0);
+                m_game->PushOpcodeValue(HERO_PIGLET);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(25);
@@ -1519,7 +1517,7 @@ void CGuiLoadCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
 
             // nice
             U32 flags = m_game->GetFlags();
-            flags |= m_game->GetFlags() | (1 << 9);
+            flags |= m_game->GetFlags() | GAME_FLAG_UNK9;
             m_game->SetFlags(flags);
 
             m_game->GetGuiManager()->GetGuiPtr("SAVE_FORMAT_SURE")->menu->Reset();
@@ -1576,9 +1574,9 @@ void CGuiSaveCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::E
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(1);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                 m_game->PushOpcodeValue(2);
-                m_game->PushOpcodeValue(0);
+                m_game->PushOpcodeValue(HERO_PIGLET);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(25);
@@ -1646,9 +1644,9 @@ void CGuiSaveMemoryCardUnuseableEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKG
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(1);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                 m_game->PushOpcodeValue(2);
-                m_game->PushOpcodeValue(0);
+                m_game->PushOpcodeValue(HERO_PIGLET);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(25);
@@ -1692,9 +1690,9 @@ void CGuiSaveOkEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT e
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(1);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                 m_game->PushOpcodeValue(2);
-                m_game->PushOpcodeValue(0);
+                m_game->PushOpcodeValue(HERO_PIGLET);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(25);
@@ -1750,9 +1748,9 @@ void CGuiSaveNoMemCardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_
             m_game->FadeIn(-1.0f);
 
             m_game->ResetOpcodeBuffer();
-            m_game->PushOpcodeValue(1);
+            m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
             m_game->PushOpcodeValue(2);
-            m_game->PushOpcodeValue(0);
+            m_game->PushOpcodeValue(HERO_PIGLET);
             m_game->PushOpcodeValue(0);
             m_game->PushOpcodeValue(0);
             m_game->PushOpcodeValue(25);
@@ -1788,11 +1786,11 @@ void CGuiSaveFormatEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
                 m_game->GetGuiManager()->SetActive("SAVE_UNFORMAT", 0);
                 m_game->GetGuiManager()->SetVisible("SAVE_UNFORMAT", 0);
 
-                if (m_game->GetFlags() & (1 << 9)) {
+                if (m_game->GetFlags() & GAME_FLAG_UNK9) {
                     m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                     m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
-                    m_game->DelFlags(1 << 9);
+                    m_game->DelFlags(GAME_FLAG_UNK9);
                 } else {
                     m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
@@ -1820,8 +1818,8 @@ void CGuiSaveFormatEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
             m_game->GetGuiManager()->SetActive("SAVE_UNFORMAT", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_UNFORMAT", 0);
 
-            if (m_game->GetFlags() & (1 << 9)) {
-                m_game->DelFlags(1 << 9);
+            if (m_game->GetFlags() & GAME_FLAG_UNK9) {
+                m_game->DelFlags(GAME_FLAG_UNK9);
                 return;
             }
 
@@ -1832,9 +1830,9 @@ void CGuiSaveFormatEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(1);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                 m_game->PushOpcodeValue(2);
-                m_game->PushOpcodeValue(0);
+                m_game->PushOpcodeValue(HERO_PIGLET);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(25);
@@ -1871,11 +1869,11 @@ void CGuiSaveFormatSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
                 m_game->GetGuiManager()->SetActive("SAVE_FORMAT_SURE", 0);
                 m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_SURE", 0);
 
-                if (m_game->GetFlags() & (1 << 9)) {
+                if (m_game->GetFlags() & GAME_FLAG_UNK9) {
                     m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                     m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
-                    m_game->DelFlags(1 << 9);
+                    m_game->DelFlags(GAME_FLAG_UNK9);
                 } else {
                     m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
@@ -1902,8 +1900,8 @@ void CGuiSaveFormatSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
             m_game->GetGuiManager()->SetActive("SAVE_FORMAT_SURE", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_SURE", 0);
 
-            if (m_game->GetFlags() & (1 << 9)) {
-                m_game->DelFlags(1 << 9);
+            if (m_game->GetFlags() & GAME_FLAG_UNK9) {
+                m_game->DelFlags(GAME_FLAG_UNK9);
                 return;
             }
 
@@ -1914,9 +1912,9 @@ void CGuiSaveFormatSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(1);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                 m_game->PushOpcodeValue(2);
-                m_game->PushOpcodeValue(0);
+                m_game->PushOpcodeValue(HERO_PIGLET);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(25);
@@ -1956,9 +1954,8 @@ void CGuiSaveFormattingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
         m_game->GetTimer()->Resume();
 
         if (backup_status == 17) {
-            U32 flags = m_game->GetFlags();
-            if (flags & (1 << 9)) {
-                m_game->SetFlags(flags & ~(1 << 9));
+            if (m_game->GetFlags() & GAME_FLAG_UNK9) {
+                m_game->DelFlags(GAME_FLAG_UNK9);
                 m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                 m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
@@ -1970,9 +1967,8 @@ void CGuiSaveFormattingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
                 return;
             }
         } else if (backup_status == 0) {
-            U32 flags = m_game->GetFlags();
-            if (flags & (1 << 9)) {
-                m_game->SetFlags(flags & ~(1 << 9));
+            if (m_game->GetFlags() & GAME_FLAG_UNK9) {
+                m_game->DelFlags(GAME_FLAG_UNK9);
                 m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                 m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
@@ -2016,9 +2012,8 @@ void CGuiFormatOkEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT
             m_game->GetGuiManager()->SetActive("SAVE_FORMAT_OK", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_OK", 0);
 
-            U32 flags = m_game->GetFlags();
-            if (flags & (1 << 9)) {
-                m_game->SetFlags(flags & ~(1 << 9));
+            if (m_game->GetFlags() & GAME_FLAG_UNK9) {
+                m_game->DelFlags(GAME_FLAG_UNK9);
             } else {
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
@@ -2056,9 +2051,8 @@ void CGuiFormatFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
                 m_game->GetGuiManager()->SetActive("SAVE_FORMAT_FAILED", 0);
                 m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_FAILED", 0);
 
-                U32 flags = m_game->GetFlags();
-                if (flags & (1 << 9)) {
-                    m_game->SetFlags(flags & ~(1 << 9));
+                if (m_game->GetFlags() & GAME_FLAG_UNK9) {
+                    m_game->DelFlags(GAME_FLAG_UNK9);
                     m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                     m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
@@ -2080,9 +2074,8 @@ void CGuiFormatFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
             m_game->GetGuiManager()->SetActive("SAVE_FORMAT_FAILED", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_FAILED", 0);
 
-            U32 flags = m_game->GetFlags();
-            if (flags & (1 << 9)) {
-                m_game->SetFlags(flags & ~(1 << 9));
+            if (m_game->GetFlags() & GAME_FLAG_UNK9) {
+                m_game->DelFlags(GAME_FLAG_UNK9);
                 m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
                 m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
@@ -2097,8 +2090,8 @@ void CGuiFormatFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
             m_game->GetGuiManager()->SetActive("SAVE_FORMAT_FAILED", 0);
             m_game->GetGuiManager()->SetVisible("SAVE_FORMAT_FAILED", 0);
 
-            if (m_game->GetFlags() & (1 << 9)) {
-                m_game->DelFlags(1 << 9);
+            if (m_game->GetFlags() & GAME_FLAG_UNK9) {
+                m_game->DelFlags(GAME_FLAG_UNK9);
                 return;
             } else if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
@@ -2107,9 +2100,9 @@ void CGuiFormatFailedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_E
                 m_game->FadeIn(-1.0f);
 
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(1);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                 m_game->PushOpcodeValue(2);
-                m_game->PushOpcodeValue(0);
+                m_game->PushOpcodeValue(HERO_PIGLET);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(0);
                 m_game->PushOpcodeValue(25);
@@ -2370,7 +2363,7 @@ void CGuiDreamSelectEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
             m_game->GetMission(MISSION_FINAL - 1).m_unk30 = 0;
         }
 
-        if (m_game->GetFlags() & (1 << 4)) {
+        if (m_game->GetFlags() & GAME_FLAG_UNK4) {
             for (int i = 0; i < 7; i++) {
                 m_game->GetMission(i).m_unk30 = 0;
             }
@@ -2393,40 +2386,40 @@ void CGuiDreamSelectEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
                     if (m_game->GetMission(m_unk10 - 1).m_unk2C == 0) {
                         switch (m_unk10) {
                             case 1:
-                                m_game->PushOpcodeValue(13);
+                                m_game->PushOpcodeValue(SCRIPT_COMMAND_PLAY_VIDEO);
                                 m_game->PushOpcodeValue(15);
                                 break;
                             case 2:
-                                m_game->PushOpcodeValue(13);
+                                m_game->PushOpcodeValue(SCRIPT_COMMAND_PLAY_VIDEO);
                                 m_game->PushOpcodeValue(17);
                                 break;
                             case 3:
-                                m_game->PushOpcodeValue(13);
+                                m_game->PushOpcodeValue(SCRIPT_COMMAND_PLAY_VIDEO);
                                 m_game->PushOpcodeValue(20);
                                 break;
                             case 4:
-                                m_game->PushOpcodeValue(13);
+                                m_game->PushOpcodeValue(SCRIPT_COMMAND_PLAY_VIDEO);
                                 m_game->PushOpcodeValue(22);
                                 break;
                             case 5:
-                                m_game->PushOpcodeValue(13);
+                                m_game->PushOpcodeValue(SCRIPT_COMMAND_PLAY_VIDEO);
                                 m_game->PushOpcodeValue(25);
                                 break;
                             case 6:
-                                m_game->PushOpcodeValue(13);
+                                m_game->PushOpcodeValue(SCRIPT_COMMAND_PLAY_VIDEO);
                                 m_game->PushOpcodeValue(27);
                                 break;
                         }
                     }
 
-                    m_game->PushOpcodeValue(2);
+                    m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_MISSION);
                     m_game->PushOpcodeValue(m_unk10);
                     m_game->StopNarratorLine();
 
                     CDKW_RGBA color;
 
                     if (m_game->GetMission(m_unk10 - 1).m_unk2C == 0) {
-                        m_game->PushOpcodeValue(1);
+                        m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                         m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetUnkC());
                         m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).m_unk10);
 
@@ -2436,17 +2429,17 @@ void CGuiDreamSelectEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
                         m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomRotation().x);
                         m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomRotation().y);
                         m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomRotation().z);
-
                         m_game->PushOpcodeValue(0);
+
                         if (m_game->GetMission(m_unk10 - 1).m_unk34 == 0) {
-                            m_game->PushOpcodeValue(6);
+                            m_game->PushOpcodeValue(SCRIPT_COMMAND_UNK6);
                         }
 
                         color = m_game->ComputeGameFadeColor();
                     } else {
-                        m_game->PushOpcodeValue(1);
+                        m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
                         m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetUnkC());
-                        m_game->PushOpcodeValue(3);
+                        m_game->PushOpcodeValue(HERO_CATCH_THEM_ALL);
 
                         m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomPosition().x);
                         m_game->PushOpcodeValue(m_game->GetMission(m_unk10 - 1).GetStartRoomPosition().y);
@@ -2571,7 +2564,7 @@ void CGuiDreamSelectEventHandler::GotoMission(int mission_no) {
         }
 
         if (mission_no > MISSION_WINNIE && mission_no < MISSION_FINAL) {
-            if (mission_no == MISSION_TIGGER && m_game->GetMission(MISSION_FINAL - 1).m_unk30 != 0u && !(m_game->GetFlags() & (1 << 4))) {
+            if (mission_no == MISSION_TIGGER && m_game->GetMission(MISSION_FINAL - 1).m_unk30 != 0u && !(m_game->GetFlags() & GAME_FLAG_UNK4)) {
                 m_game->GetGuiManager()->GetGuiPtr("DREAM_ARROW_LEFT")->menu->GetAnim()->GotoFrameLabel("L");
                 m_game->GetGuiManager()->GetGuiPtr("DREAM_ARROW_LEFT")->menu->GetAnim()->Play();
             } else {
@@ -2851,7 +2844,7 @@ void CGuiStartScreenEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EV
         m_game->m_unk5038 = 0;
 
         m_game->ResetOpcodeBuffer();
-        m_game->PushOpcodeValue(5);
+        m_game->PushOpcodeValue(SCRIPT_COMMAND_LOAD_MISSION_SELECT_ROOM);
 
         UnkGamePartAndReturnTypeInline();
     }

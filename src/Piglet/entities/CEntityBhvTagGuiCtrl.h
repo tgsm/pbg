@@ -26,7 +26,7 @@ public:
         // Also this operator function ends up being emitted in the wrong place.
         if (std::operator==(m_name, "AUTOSAVE")) {
             CGame* game = entity->GetManager()->GetGame();
-            game->AddFlags(game->GetFlags() | (1 << 7));
+            game->AddFlags(game->GetFlags() | GAME_FLAG_UNK7);
         } else if (std::operator==(m_name, "SAVE_CHECK_MMC")) {
             entity->GetManager()->GetGame()->GetGuiManager()->GetGuiPtr("SAVE_SAVE_READY")->menu->Reset();
             entity->GetManager()->GetGame()->GetGuiManager()->SetActive("SAVE_SAVE_READY", 1);

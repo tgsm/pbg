@@ -13,7 +13,7 @@ void CFXEventCallback::HandleEvent(F32, DkXmd::CChunkIterator* iter, void* arg) 
     DkXmd::CChunkIterator dest;
     CEntityMesh* mesh = (CEntityMesh*)arg;
 
-    if (mesh != NULL && !(mesh->GetManager()->GetGame()->GetFlags() & (1 << 8))) {
+    if (mesh != NULL && !(mesh->GetManager()->GetGame()->GetFlags() & GAME_FLAG_UNK8)) {
         if (iter->GetChunk("Id", dest)) {
             int id = dest.GetS32Value();
             if (iter->GetChunk("START", dest)) {
@@ -64,7 +64,7 @@ void CSNDEventCallback::HandleEvent(F32, DkXmd::CChunkIterator* iter, void* arg)
     DKSND::CSound3D* _3d_sound;
     DKSND::CSound2D* _2d_sound;
 
-    if (mesh != NULL && !(mesh->GetManager()->GetGame()->GetFlags() & (1 << 8))) {
+    if (mesh != NULL && !(mesh->GetManager()->GetGame()->GetFlags() & GAME_FLAG_UNK8)) {
         if (!iter->GetChunk("Random", dest)) {
             goto good;
         }
@@ -93,7 +93,7 @@ good:
 
                         _3d_sound->SetMinDistance(8.0f);
 
-                        if (mesh->GetManager()->GetGame()->GetIngameGamePart() != NULL && mesh->GetManager()->GetGame()->GetIngameGamePart()->m_unk0 == 7) {
+                        if (mesh->GetManager()->GetGame()->GetGamePartPointer() != NULL && mesh->GetManager()->GetGame()->GetGamePartPointer()->GetType() == GAME_PART_TYPE_INGAME) {
                             if (mesh->GetManager()->GetGame()->GetIngameGamePart()->GetGameRoomManager()->IsOnFight()) {
                                 _3d_sound->SetLayer(4);
                             } else {
@@ -112,7 +112,7 @@ good:
                             _2d_sound->SetPitch(pitch + 1.0f);
                         }
 
-                        if (mesh->GetManager()->GetGame()->GetIngameGamePart() != NULL && mesh->GetManager()->GetGame()->GetIngameGamePart()->m_unk0 == 7) {
+                        if (mesh->GetManager()->GetGame()->GetGamePartPointer() != NULL && mesh->GetManager()->GetGame()->GetGamePartPointer()->GetType() == GAME_PART_TYPE_INGAME) {
                             if (mesh->GetManager()->GetGame()->GetIngameGamePart()->GetGameRoomManager()->IsOnFight()) {
                                 _2d_sound->SetLayer(4);
                             } else {
@@ -172,7 +172,7 @@ void CVIB2DEventCallback::HandleEvent(F32, DkXmd::CChunkIterator* iter, void* ar
     CEntityMesh* mesh = (CEntityMesh*)arg;
 
     if (iter->GetChunk("Value", dest)) {
-        if (!(mesh->GetManager()->GetGame()->GetFlags() & (1 << 8))) {
+        if (!(mesh->GetManager()->GetGame()->GetFlags() & GAME_FLAG_UNK8)) {
             int value = dest.GetS32Value();
             DKI::IInputEngine::GetDevice(0)->SendVibration(value);
         }

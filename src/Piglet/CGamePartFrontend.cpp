@@ -10,5 +10,5 @@ CGamePartFrontend::~CGamePartFrontend() {
 }
 
 U32 CGamePartFrontend::NextFrame() {
-    return m_unk0;
+    return m_type;
 }

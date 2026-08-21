@@ -46,6 +46,33 @@
 #define HERO_WINNIE         2
 #define HERO_CATCH_THEM_ALL 3
 
+#define GAME_FLAG_UNK0 (1 << 0)
+#define GAME_FLAG_UNK1 (1 << 1)
+#define GAME_FLAG_UNK2 (1 << 2)
+#define GAME_FLAG_DEBUG (1 << 3)
+#define GAME_FLAG_UNK4 (1 << 4)
+#define GAME_FLAG_UNK5 (1 << 5)
+#define GAME_FLAG_UNK6 (1 << 6)
+#define GAME_FLAG_UNK7 (1 << 7)
+#define GAME_FLAG_UNK8 (1 << 8)
+#define GAME_FLAG_UNK9 (1 << 9)
+
+#define SCRIPT_COMMAND_END                      -1
+#define SCRIPT_COMMAND_SET_CURRENT_ROOM          1
+#define SCRIPT_COMMAND_SET_CURRENT_MISSION       2
+#define SCRIPT_COMMAND_COMPLETE_CURRENT_MISSION  3
+#define SCRIPT_COMMAND_UNK4                      4
+#define SCRIPT_COMMAND_LOAD_MISSION_SELECT_ROOM  5
+#define SCRIPT_COMMAND_UNK6                      6
+#define SCRIPT_COMMAND_LOAD_CREDITS              7
+#define SCRIPT_COMMAND_LOAD_MOVIE_CLIPS          8
+#define SCRIPT_COMMAND_LOAD_SCRAP_BOOK           9
+#define SCRIPT_COMMAND_INITIALIZE               10
+#define SCRIPT_COMMAND_LOAD_START_SCREEN        11
+#define SCRIPT_COMMAND_UNK12                    12
+#define SCRIPT_COMMAND_PLAY_VIDEO               13
+#define SCRIPT_COMMAND_UNK14                    14
+
 class CGamePartIngame;
 
 struct SVideoDesc {

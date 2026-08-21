@@ -8,7 +8,7 @@ extern void Rt2dCTMSetIdentity(void);
 
 CGamePartDMRoomLauncher::CGamePartDMRoomLauncher(CGame* game) {
     m_game = game;
-    m_unk0 = 9;
+    m_type = GAME_PART_TYPE_DM_ROOM_LAUNCHER;
     m_debug_menu = new CDebugMenu(m_game, "DMRoom/RoomLoader.xmd");
 
     m_debug_menu->GetControl("Mission")->SetRange(0, 7);
@@ -65,7 +65,7 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
                         m_debug_menu->GetControl("Room")->SetRange(0, 2);
                         break;
                 }
-                ret = m_unk0;
+                ret = m_type;
                 break;
             }
             case 1: {
@@ -73,7 +73,7 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
                 int value = reinterpret_cast<CControlValue*>(mission_control->m_control_values[mission_control->m_value])->GetS32Value();
 
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(2);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_MISSION);
                 m_game->PushOpcodeValue(value);
 
                 CMenuControl* room_control = m_debug_menu->GetControl("Room");
@@ -81,7 +81,7 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
                 CMenuControl* player_control = m_debug_menu->GetControl("Player");
                 m_game->SetCurrentHeroId(reinterpret_cast<CControlValue*>(player_control->m_control_values[player_control->m_value])->GetS32Value());
 
-                m_game->PushOpcodeValue(1);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
 
                 room_control = m_debug_menu->GetControl("Room");
                 m_game->PushOpcodeValue(reinterpret_cast<CControlValue*>(room_control->m_control_values[room_control->m_value])->GetS32Value());
@@ -99,7 +99,7 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
                 if (m_game->GetMission(value - 1).GetUnk34() == 0) {
                     room_control = m_debug_menu->GetControl("Room");
                     if (m_game->GetMission(value - 1).GetUnkC() == reinterpret_cast<CControlValue*>(room_control->m_control_values[room_control->m_value])->GetS32Value()) {
-                        m_game->PushOpcodeValue(6);
+                        m_game->PushOpcodeValue(SCRIPT_COMMAND_UNK6);
                     }
                 }
 
@@ -119,18 +119,18 @@ U32 CGamePartDMRoomLauncher::NextFrame() {
 
                 m_debug_menu->UpdateAndDisplay();
 
-                ret = 7;
+                ret = GAME_PART_TYPE_INGAME;
                 break;
             }
             case 2:
-                ret = m_unk0;
+                ret = m_type;
                 break;
             default:
-                ret = m_unk0;
+                ret = m_type;
                 break;
         }
     } else {
-        ret = 10;
+        ret = GAME_PART_TYPE_SHUTDOWN;
     }
 
     return ret;

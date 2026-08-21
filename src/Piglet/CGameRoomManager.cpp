@@ -180,7 +180,7 @@ void CGameRoomManager::Update(F32 dt) {
         }
     } else {
         m_delta_time = dt;
-        m_game->DelFlags(1 << 6);
+        m_game->DelFlags(GAME_FLAG_UNK6);
 
         switch (GetState()) {
             case 0:
@@ -289,7 +289,7 @@ void CGameRoomManager::Update(F32 dt) {
                 break;
         }
 
-        if (m_game->m_unk5038 != 2 && !(m_game->GetFlags() & (1 << 6))) {
+        if (m_game->m_unk5038 != 2 && !(m_game->GetFlags() & GAME_FLAG_UNK6)) {
             m_game->FadeUpdate(m_delta_time);
         }
     }
@@ -1080,7 +1080,7 @@ void CGameRoomManager::SecondPass() {
             break;
         case 7: {
             m_game->ResetOpcodeBuffer();
-            m_game->PushOpcodeValue(4);
+            m_game->PushOpcodeValue(SCRIPT_COMMAND_UNK4);
 
             CGamePart* game_part = m_game->GetGamePartPointer();
             game_part->m_unk4 = 0;
@@ -1091,7 +1091,7 @@ void CGameRoomManager::SecondPass() {
             m_game->FadeIn(m_delta_time);
             if (m_game->GetUnk502C() >= m_game->GetFadeDuration()) {
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(5);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_LOAD_MISSION_SELECT_ROOM);
 
                 CGamePart* game_part = m_game->GetGamePartPointer();
                 game_part->m_unk4 = 0;
@@ -1429,7 +1429,7 @@ void CGameRoomManager::Victory() {
                 m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
                 m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
                 m_game->GetGuiManager()->SetVisible("SAVE_CHECK_MMC", 1);
-                m_game->DelFlags(1 << 7);
+                m_game->DelFlags(GAME_FLAG_UNK7);
 
                 CGuiSaveCheckingMemorycardEventHandler* handler = (CGuiSaveCheckingMemorycardEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiSaveCheckingMemorycardEventHandler");
                 if (handler != NULL) {

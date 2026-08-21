@@ -60,9 +60,9 @@ void CGuiMovieClipsEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
                 m_game->m_unk503C |= (1 << 4);
 
                 m_game->ResetOpcodeBuffer();
-                m_game->PushOpcodeValue(13);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_PLAY_VIDEO);
                 m_game->PushOpcodeValue(m_unk10 + 8);
-                m_game->PushOpcodeValue(8);
+                m_game->PushOpcodeValue(SCRIPT_COMMAND_LOAD_MOVIE_CLIPS);
 
                 UnkGamePartAndReturnTypeInline();
             } else {
@@ -85,9 +85,9 @@ void CGuiMovieClipsEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
             m_game->m_unk503C |= (1 << 4);
 
             m_game->ResetOpcodeBuffer();
-            m_game->PushOpcodeValue(1);
+            m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
             m_game->PushOpcodeValue(3);
-            m_game->PushOpcodeValue(0);
+            m_game->PushOpcodeValue(HERO_PIGLET);
             m_game->PushOpcodeValue(12);
             m_game->PushOpcodeValue(0);
             m_game->PushOpcodeValue(-5);

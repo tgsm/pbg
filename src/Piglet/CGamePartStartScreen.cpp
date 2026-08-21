@@ -7,8 +7,8 @@ extern void Rt2dCTMSetIdentity(void);
 }
 
 CGamePartStartScreen::CGamePartStartScreen(CGame* game) {
-    m_unk0 = 4;
-    m_unk4 = m_unk0;
+    m_type = GAME_PART_TYPE_START_SCREEN;
+    m_unk4 = m_type;
 
     m_game = NULL;
     m_time = 0.0f;
@@ -164,10 +164,10 @@ U32 CGamePartStartScreen::NextFrame() {
     }
 
     Render(dt);
-    if (m_unk4 != m_unk0 && m_game->m_unk5038 == 2) {
+    if (m_unk4 != m_type && m_game->m_unk5038 == 2) {
         return NextFrameExit();
     }
-    return m_unk0;
+    return m_type;
 }
 
 void CGamePartStartScreen::Update(F32 dt) {
@@ -199,24 +199,29 @@ U32 CGamePartStartScreen::NextFrameExit() {
     m_game->GetGuiManager()->SetVisible("TITLE_TITLE", 0);
 
     m_game->ResetOpcodeBuffer();
-    m_game->PushOpcodeValue(13);
+
+    m_game->PushOpcodeValue(SCRIPT_COMMAND_PLAY_VIDEO);
     m_game->PushOpcodeValue(14);
-    m_game->PushOpcodeValue(10);
-    m_game->PushOpcodeValue(2);
-    m_game->PushOpcodeValue(8);
+
+    m_game->PushOpcodeValue(SCRIPT_COMMAND_INITIALIZE);
+
+    m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_MISSION);
+    m_game->PushOpcodeValue(MISSION_MENUS);
+
+    m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
     m_game->PushOpcodeValue(1);
+    m_game->PushOpcodeValue(HERO_PIGLET);
+    m_game->PushOpcodeValue(0);
+    m_game->PushOpcodeValue(0);
+    m_game->PushOpcodeValue(0);
+    m_game->PushOpcodeValue(0);
+    m_game->PushOpcodeValue(0);
+    m_game->PushOpcodeValue(0);
     m_game->PushOpcodeValue(1);
-    m_game->PushOpcodeValue(0);
-    m_game->PushOpcodeValue(0);
-    m_game->PushOpcodeValue(0);
-    m_game->PushOpcodeValue(0);
-    m_game->PushOpcodeValue(0);
-    m_game->PushOpcodeValue(0);
-    m_game->PushOpcodeValue(0);
-    m_game->PushOpcodeValue(1);
-    m_game->PushOpcodeValue(6);
+
+    m_game->PushOpcodeValue(SCRIPT_COMMAND_UNK6);
 
     m_game->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
 
-    return 0;
+    return GAME_PART_TYPE_NONE;
 }

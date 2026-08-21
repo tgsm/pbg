@@ -29,7 +29,7 @@ public:
     virtual void Set(CEntity* entity) {
         entity->GetManager()->GetGame()->ResetOpcodeBuffer();
         if (m_room > 0) {
-            entity->GetManager()->GetGame()->PushOpcodeValue(1);
+            entity->GetManager()->GetGame()->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
             entity->GetManager()->GetGame()->PushOpcodeValue(m_room);
             if (entity->GetManager()->GetGame()->GetCurrentHeroId() == HERO_CATCH_THEM_ALL) {
                 entity->GetManager()->GetGame()->PushOpcodeValue(HERO_CATCH_THEM_ALL);
@@ -45,15 +45,15 @@ public:
             entity->GetManager()->GetGame()->PushOpcodeValue(0);
         } else {
             if (m_room == -1) {
-                entity->GetManager()->GetGame()->PushOpcodeValue(8);
+                entity->GetManager()->GetGame()->PushOpcodeValue(SCRIPT_COMMAND_LOAD_MOVIE_CLIPS);
             } else if (m_room == -2) {
-                entity->GetManager()->GetGame()->PushOpcodeValue(9);
+                entity->GetManager()->GetGame()->PushOpcodeValue(SCRIPT_COMMAND_LOAD_SCRAP_BOOK);
             } else if (m_room == -3) {
-                entity->GetManager()->GetGame()->PushOpcodeValue(7);
+                entity->GetManager()->GetGame()->PushOpcodeValue(SCRIPT_COMMAND_LOAD_CREDITS);
             } else if (m_room == -4) {
-                entity->GetManager()->GetGame()->PushOpcodeValue(5);
+                entity->GetManager()->GetGame()->PushOpcodeValue(SCRIPT_COMMAND_LOAD_MISSION_SELECT_ROOM);
             } else if (m_room == -5) {
-                entity->GetManager()->GetGame()->PushOpcodeValue(4);
+                entity->GetManager()->GetGame()->PushOpcodeValue(SCRIPT_COMMAND_UNK4);
             }
         }
         entity->GetManager()->GetGame()->GetIngameGamePart()->m_unk4 = 0;

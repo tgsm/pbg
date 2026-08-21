@@ -22,8 +22,8 @@ public:
         }
 
         entity->GetManager()->GetGame()->ResetOpcodeBuffer();
-        entity->GetManager()->GetGame()->PushOpcodeValue(3);
-        entity->GetManager()->GetGame()->PushOpcodeValue(14);
+        entity->GetManager()->GetGame()->PushOpcodeValue(SCRIPT_COMMAND_COMPLETE_CURRENT_MISSION);
+        entity->GetManager()->GetGame()->PushOpcodeValue(SCRIPT_COMMAND_UNK14);
         entity->GetManager()->GetGame()->GetIngameGamePart()->m_unk4 = 0;
         entity->GetManager()->GetGame()->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
 

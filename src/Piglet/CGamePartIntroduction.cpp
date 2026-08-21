@@ -2,7 +2,7 @@
 #include <iostream>
 
 CGamePartIntroduction::CGamePartIntroduction() {
-    m_unk0 = 8;
+    m_type = GAME_PART_TYPE_INTRODUCTION;
 }
 
 CGamePartIntroduction::~CGamePartIntroduction() {
@@ -10,5 +10,5 @@ CGamePartIntroduction::~CGamePartIntroduction() {
 }
 
 U32 CGamePartIntroduction::NextFrame() {
-    return 6;
+    return GAME_PART_TYPE_FRONTEND;
 }

@@ -13,8 +13,8 @@ extern void Rt2dCTMSetIdentity(void);
 }
 
 CGamePartMovieClips::CGamePartMovieClips(CGame* game) {
-    m_unk0 = 2;
-    m_unk4 = m_unk0;
+    m_type = GAME_PART_TYPE_MOVIE_CLIPS;
+    m_unk4 = m_type;
     m_game = NULL;
     m_time = 0.0f;
 
@@ -71,7 +71,7 @@ CGamePartMovieClips::~CGamePartMovieClips() {
 
 U32 CGamePartMovieClips::NextFrame() {
     if (!m_game->GetDisplayEngine()->Update()) {
-        return 9;
+        return GAME_PART_TYPE_DM_ROOM_LAUNCHER;
     }
 
     if (m_time == 0.0f) {
@@ -103,10 +103,10 @@ U32 CGamePartMovieClips::NextFrame() {
 
     Render(dt);
 
-    if (m_unk4 != m_unk0 && m_game->m_unk5038 == 2) {
+    if (m_unk4 != m_type && m_game->m_unk5038 == 2) {
         return NextFrameExit();
     }
-    return m_unk0;
+    return m_type;
 }
 
 void CGamePartMovieClips::Update(F32 dt) {
@@ -156,7 +156,7 @@ void CGamePartMovieClips::RenderBackGround(F32 dt) {
 }
 
 BOOL CGamePartMovieClips::IsVideoOpen(int index) {
-    if (m_game->GetFlags() & (1 << 4)) {
+    if (m_game->GetFlags() & GAME_FLAG_UNK4) {
         return TRUE;
     }
 
@@ -235,5 +235,5 @@ U32 CGamePartMovieClips::NextFrameExit() {
     m_game->GetGuiManager()->SetActive("MOVIECLIPS_MAIN", 0);
     m_game->GetGuiManager()->SetVisible("MOVIECLIPS_MAIN", 0);
     m_game->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
-    return 0;
+    return GAME_PART_TYPE_NONE;
 }

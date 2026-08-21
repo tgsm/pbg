@@ -10,8 +10,8 @@ extern void Rt2dCTMSetIdentity(void);
 }
 
 CGamePartCredits::CGamePartCredits(CGame* game, int a2) {
-    m_unk0 = 1;
-    m_unk4 = m_unk0;
+    m_type = GAME_PART_TYPE_CREDITS;
+    m_unk4 = m_type;
     m_game = NULL;
     m_credits_xmd_data = NULL;
     m_credits_xmd = NULL;
@@ -296,7 +296,7 @@ int CGamePartCredits::GetEntryColorId(Entry& entry) {
 
 U32 CGamePartCredits::NextFrame() {
     if (!m_game->GetDisplayEngine()->Update()) {
-        return 9;
+        return GAME_PART_TYPE_DM_ROOM_LAUNCHER;
     }
 
     F32 dt = m_game->GetDeltaTime();
@@ -315,11 +315,11 @@ U32 CGamePartCredits::NextFrame() {
         return NextFrameExit();
     }
 
-    if (m_unk4 != m_unk0 || m_unk34 == TRUE) {
+    if (m_unk4 != m_type || m_unk34 == TRUE) {
         return NextFrameExit();
     }
 
-    return m_unk0;
+    return m_type;
 }
 
 void CGamePartCredits::Update(F32 dt) {
@@ -496,10 +496,10 @@ BOOL CGamePartCredits::TestForExit() {
 U32 CGamePartCredits::NextFrameExit() {
     m_game->ResetOpcodeBuffer();
     if (m_unk10 != 0) {
-        m_game->PushOpcodeValue(11);
+        m_game->PushOpcodeValue(SCRIPT_COMMAND_LOAD_START_SCREEN);
     } else {
         m_game->ResetOpcodeBuffer();
-        m_game->PushOpcodeValue(1);
+        m_game->PushOpcodeValue(SCRIPT_COMMAND_SET_CURRENT_ROOM);
         m_game->PushOpcodeValue(2);
         m_game->PushOpcodeValue(HERO_PIGLET);
         m_game->PushOpcodeValue(25);
@@ -512,5 +512,5 @@ U32 CGamePartCredits::NextFrameExit() {
     }
 
     m_game->SetCurrentRoomReturnType(CGame::RETURN_TYPE_0, -1);
-    return 0;
+    return GAME_PART_TYPE_NONE;
 }

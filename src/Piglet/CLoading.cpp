@@ -31,7 +31,7 @@ CLoadingCallback::~CLoadingCallback() {
 extern "C" void Rt2dDeviceSetCamera(RwCamera*);
 
 void CLoadingCallback::Create() {
-    m_game->AddFlags(1 << 8);
+    m_game->AddFlags(GAME_FLAG_UNK8);
     m_game->GetGuiManager()->Reset();
 
     if (m_scene == NULL) {
@@ -80,7 +80,7 @@ void CLoadingCallback::Destroy() {
     int i;
     int j;
 
-    m_game->DelFlags(1 << 8);
+    m_game->DelFlags(GAME_FLAG_UNK8);
     Rt2dDeviceSetCamera(m_game->GetCamera()->m_wrap_camera->m_rw_camera);
 
     m_game->GetGuiManager()->Update(1.0f/30.0f);
@@ -551,7 +551,7 @@ CBootUpLoadingCallback::~CBootUpLoadingCallback() {
 }
 
 void CBootUpLoadingCallback::Create() {
-    m_game->AddFlags(1 << 8);
+    m_game->AddFlags(GAME_FLAG_UNK8);
     m_unkC = 0.0f;
 
     m_game->GetTimer()->Reset();
@@ -603,7 +603,7 @@ void CBootUpLoadingCallback::Create() {
 }
 
 void CBootUpLoadingCallback::Destroy() {
-    m_game->DelFlags(1 << 8);
+    m_game->DelFlags(GAME_FLAG_UNK8);
     m_unkC = 0.0f;
 }
 
