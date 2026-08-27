@@ -6,16 +6,31 @@
 
 class CGame;
 
+// FIXME: These were very sloppily put together. Something is probably wrong here.
+// Unofficial name
+struct SSubslot {
+    char name[0x10];
+    int offset;
+    void* unk14;
+    int unk18;
+    int unk1C;
+};
+// Unofficial name
+struct SSlot {
+    U32 unk0;
+    SSubslot sslot[];
+};
+
 class CSlotContainer {
 public:
-    U32 m_unk0;
-    void* m_unk4;
+    int m_unk0;
+    SSlot* m_unk4;
 
 public:
     CSlotContainer() {
         m_unk4 = NULL;
-        m_unk4 = OSAllocFromHeapAligned(0, 0x18000, 32);
-        *((U32*)m_unk4) = 0; // FIXME: what is this?
+        m_unk4 = (SSlot*)OSAllocFromHeapAligned(0, 0x18000, 32);
+        m_unk4->unk0 = 0;
         m_unk0 = NULL;
     }
 

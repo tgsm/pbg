@@ -194,11 +194,11 @@ public:
     static void ReplayVideoCallback();
 
     DKBAK::DKBAK_DATE& GetBackupDate() { return m_backup_date; }
+    void SetBackupDate(DKBAK::DKBAK_DATE date) { m_backup_date = date; }
     U32 GetFlags() { return m_flags; }
     void SetFlags(U32 flags) { m_flags = flags; }
     void AddFlags(U32 flags) { m_flags |= flags; }
     void DelFlags(U32 flags) { m_flags &= ~flags; }
-    void SetBackupDate(DKBAK::DKBAK_DATE date) { m_backup_date = date; }
     DKGUI::CGUIEngine* GetGuiEngine() { return m_gui_engine; }
     DKSND::CSoundEngine* GetSoundEngine() { return m_sound_engine; }
     DKSND::CSampleDictionary* GetSampleDictionary() { return m_sample_dictionary; }
@@ -224,6 +224,9 @@ public:
     BOOL IsUnk5038Not2() { return m_unk5038 == 2 ? 0 : 1; }
 
     CMission& GetMission(int index) { return m_unk210[index]; }
+    CMission* GetMissionPtr(int index) { return &m_unk210[index]; }
+    CMission& GetBackupMission(int index) { return m_unk28B0[index]; }
+    CMission* GetBackupMissionPtr(int index) { return &m_unk28B0[index]; }
     CMission* GetCurrentMission() { return &m_unk210[m_current_mission_id - 1]; }
     U32 GetCurrentRoomFlagsMaybe() { return GetCurrentMission()->m_rooms.rooms[m_current_room_id]; }
     U32 GetCurrentMissionId() { return m_current_mission_id; }

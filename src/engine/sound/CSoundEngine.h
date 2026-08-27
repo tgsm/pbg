@@ -76,6 +76,7 @@ public:
     virtual void func56();
     virtual void DeleteAllSounds();
     virtual void SetStereoMode(int mode);
+    virtual int GetStereoMode();
     virtual int RWAGetNbFreeVoice();
     virtual F32 RWAGetCurrentStreamPosition();
     virtual void RWASetCurrentStreamPosition(F32);

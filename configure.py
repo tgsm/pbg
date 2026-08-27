@@ -218,6 +218,9 @@ cflags_base = [
     f"-DBUILD_VERSION={version_num}",
     f"-DVERSION_{config.version}",
 
+    # FIXME: This currently uses RenderWare's zlib (1.1.3), we need to add in 1.1.4 for DkFileSys
+    "-i src/rwsdk/tool/png/zlib",
+
     "-i include/PowerPC_EABI_Support/msl/MSL_C/MSL_Common/Include",
     "-i include/PowerPC_EABI_Support/msl/MSL_C++/MSL_Common/Include",
 
