@@ -71,15 +71,15 @@ BOOL CDkFileSys::FindFileOnFatBegeningOn(DkXmd::CChunkIterator& iter, const char
 
                             dest.GetFirstChildChunk(dest3);
                             dest3.GetName();
-                            info->unkC = dest3.GetS32Value();
+                            info->pack_offset = dest3.GetS32Value();
 
                             dest3.GetNextSiblingChunk(dest3);
                             dest3.GetName();
-                            info->unk10 = dest3.GetS32Value();
+                            info->compressed_size = dest3.GetS32Value();
 
                             dest3.GetNextSiblingChunk(dest3);
                             dest3.GetName();
-                            info->unk14 = dest3.GetS32Value();
+                            info->uncompressed_size = dest3.GetS32Value();
                         }
                     }
                 }
@@ -100,7 +100,7 @@ BOOL CDkFileSys::FindFileOnFatBegeningOn(DkXmd::CChunkIterator& iter, const char
             m_Error = 5;
             return 0;
         }
-        info->offset = dest2.GetS32Value();
+        info->size = dest2.GetS32Value();
     }
 
     if (iter.m_chunk.ptr == iter2.m_chunk.ptr || !iter.GetFirstChildChunk(dest)) {
@@ -122,7 +122,7 @@ BOOL CDkFileSys::FindFileOnFat(const char* path, DkFileSysInfoFromFat* info) {
     DkXmd::CChunkIterator dest;
     info->unk8 = 0;
     info->name = m_CurrentPackName;
-    info->offset = m_CurrentPackSize;
+    info->size = m_CurrentPackSize;
 
     if (!m_OnFatPosition.GetFirstChildChunk(dest) && !m_OnFatPosition.GetNextSiblingChunk(dest)) {
         return FindFileOnFatBegeningOn(m_Fat->m_chunk_iterator, path, m_OnFatPosition, info);
@@ -140,8 +140,8 @@ BOOL CDkFileSys::FindFileOnFat(const char* path, DkFileSysInfoFromFat* info) {
 DkFileSysDescriptor* CDkFileSys::IsPackAllreadyOpened(char* a0) {
     for (U32 i = 0; i < m_pUnCompressedMemory.size(); i++) {
         DkFileSysDescriptor* desc = m_pUnCompressedMemory[i];
-        if (desc != NULL && desc->m_unk2C != NULL) {
-            if (string_comp(desc->m_unk2C, a0) == 0 && (desc->m_unk0 & 0x40)) {
+        if (desc != NULL && desc->pack_name != NULL) {
+            if (string_comp(desc->pack_name, a0) == 0 && (desc->flags & (1 << 6))) {
                 return desc;
             }
         }
@@ -150,12 +150,12 @@ DkFileSysDescriptor* CDkFileSys::IsPackAllreadyOpened(char* a0) {
     return NULL;
 }
 
-unsigned char* CDkFileSys::KeepOnlyFileName(char* path) {
-    unsigned int ch;
-    unsigned char* ret = (U8*)path;
-    for (; path != NULL && (ch = *(U8*)path, ch != '\0'); path++) {
+char* CDkFileSys::KeepOnlyFileName(char* path) {
+    char ch;
+    char* ret = path;
+    for (; path != NULL && (ch = *path, ch != '\0'); path++) {
         if (ch == '/' || ch == '\\') {
-            ret = (U8*)path + 1;
+            ret = path + 1;
         }
     }
     return ret;
@@ -170,34 +170,34 @@ int CDkFileSys::FREADInPackByBlock(void* ptr, size_t size, size_t n, DkFileSysDe
     int ret = 0;
     U8* ptr_ = (U8*)ptr;
     U32 local_28 = size * n;
-    if ((int)(file->m_unk8 + local_28) > file->m_unk14) {
-        local_28 = file->m_unk14 - file->m_unk8;
+    if ((int)(file->position + local_28) > file->uncompressed_size) {
+        local_28 = file->uncompressed_size - file->position;
     }
 
-    if ((int)local_28 < file->m_unk14) {
-        if (file->m_unk6C == NULL) {
-            file->m_unk6C = new U8[0x10000];
+    if ((int)local_28 < file->uncompressed_size) {
+        if (file->unk6C == NULL) {
+            file->unk6C = new U8[0x10000];
             UncompressNewBlock(file, 0x10000);
         }
 
         while (ret < local_28) {
             unk = local_28 - ret;
-            int iVar2 = file->m_unk74;
-            yeah = file->m_unk78 - file->m_unk74;
+            int iVar2 = file->unk74;
+            yeah = file->unk78 - file->unk74;
             if (unk < yeah) {
-                memcpy(ptr_, (void*)((int)file->m_unk6C + iVar2), unk);
-                file->m_unk74 += unk;
+                memcpy(ptr_, (void*)((int)file->unk6C + iVar2), unk);
+                file->unk74 += unk;
                 ret += unk;
-                file->m_unk8 += unk;
+                file->position += unk;
 
                 return ret / size;
             } else {
-                memcpy(ptr_, (void*)((int)file->m_unk6C + iVar2), yeah);
+                memcpy(ptr_, (void*)((int)file->unk6C + iVar2), yeah);
                 ptr_ = (U8*)((int)ptr_ + yeah);
-                ret += (file->m_unk78 - file->m_unk74);
-                file->m_unk8 += yeah;
-                file->m_unk74 = file->m_unk78;
-                if (file->m_unk8 >= file->m_unk14) {
+                ret += (file->unk78 - file->unk74);
+                file->position += yeah;
+                file->unk74 = file->unk78;
+                if (file->position >= file->uncompressed_size) {
                     return ret / size;
                 }
 
@@ -207,10 +207,10 @@ int CDkFileSys::FREADInPackByBlock(void* ptr, size_t size, size_t n, DkFileSysDe
 
         return ret / size;
     } else {
-        U32 iVar2 = UncompressByBlock(ptr_, &local_28, NULL, file->m_unk10, file, 1);
-        if (file->m_unk20 != NULL) {
-            delete[] file->m_unk20;
-            file->m_unk20 = NULL;
+        U32 iVar2 = UncompressByBlock(ptr_, &local_28, NULL, file->compressed_size, file, 1);
+        if (file->unk20 != NULL) {
+            delete[] file->unk20;
+            file->unk20 = NULL;
         }
         *a4 = 1;
 

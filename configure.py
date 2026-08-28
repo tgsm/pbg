@@ -626,7 +626,7 @@ config.libs = [
             Object(NonMatching, "engine/Allocator.cpp"),
             Object(Matching, "engine/GCN_MW_Memory.cpp"),
             Object(NonMatching, "engine/filesys/DkFileSysDlfs.c"),
-            Object(NonMatching, "engine/filesys/DkFileSys.cpp", extra_cflags=["-sym on"]),
+            Object(EquivalentFor("GPLE9G"), "engine/filesys/DkFileSys.cpp", extra_cflags=["-sym on"]),
             Object(EquivalentFor("GPLE9G"), "engine/filesys/DkFileSysFat.cpp"),
             Object(NonMatching, "engine/filesys/DkFileSysUnCompress.cpp"),
             Object(NonMatching, "engine/display/DkDisplay.cpp"),
