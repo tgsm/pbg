@@ -14,11 +14,7 @@
 #include "engine/display/IEventAnimationCallback.h"
 
 // FIXME: This maybe goes in its own header, but it's only used here.
-class CDKW_Memory {
-public:
-    void* m_file;
-    U32 m_unk4;
-};
+class CDKW_Memory : public RwMemory {};
 
 namespace DKDSP {
 

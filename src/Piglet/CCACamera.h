@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "engine/wrap/DKW_V3d.h"
+#include "engine/xmd/CChunkIterator.h"
 #include "CCAZone.h"
 
 class CCACamera {
@@ -18,6 +19,9 @@ public:
         U8 unk[32];
     };
 
+    CCACamera();
+
+    BOOL Load(DkXmd::CChunkIterator* iter);
     UnkUpdateResult Update(CDKW_V3d&, F32 dt);
     CDKW_V3d GetCameraPosition();
     CDKW_V3d GetCameraTarget();

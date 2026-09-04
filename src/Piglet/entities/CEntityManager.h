@@ -36,6 +36,7 @@ public:
 
     CGame* GetGame() { return m_game; }
     DkPh::Collider* GetUnkCollider() { return m_unk1C; }
+    CPathFinder* GetPathFinder() { return m_path_finder; }
 
     U32 GetTypeFromModel(std::string);
     U32 GetTypeFromString(std::string type_str);

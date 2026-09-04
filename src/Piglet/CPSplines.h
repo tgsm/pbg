@@ -3,12 +3,14 @@
 
 #include <string>
 #include "engine/wrap/DKW_V3d.h"
+#include "engine/xmd/CChunkIterator.h"
 
 class CPigSpline;
 
 // TODO
 class CPigSplineBank {
 public:
+    BOOL Parse(DkXmd::CChunkIterator iter);
     CPigSpline* GetSplineByName(std::string name);
 };
 

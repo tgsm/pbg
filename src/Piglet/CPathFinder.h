@@ -2,7 +2,10 @@
 #define PIGLET_CPATHFINDER_H
 
 #include <vector>
+#include "engine/wrap/DKW_World.h"
 #include "types.h"
+
+class CEntityManager;
 
 // TODO
 class CPathFinder {
@@ -33,6 +36,7 @@ public:
         m_unk4B64 = 0;
     }
 
+    CPathFinder* Init(CDKW_World*, F32, CEntityManager* manager);
     void Update(F32 dt);
 };
 REQUIRE_SIZE(CPathFinder, 0x4B78);
