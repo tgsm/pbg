@@ -195,6 +195,7 @@ public:
 
     DKBAK::DKBAK_DATE& GetBackupDate() { return m_backup_date; }
     void SetBackupDate(DKBAK::DKBAK_DATE date) { m_backup_date = date; }
+    void SetBackupDateRef(const DKBAK::DKBAK_DATE& date) { m_backup_date = date; }
     U32 GetFlags() { return m_flags; }
     void SetFlags(U32 flags) { m_flags = flags; }
     void AddFlags(U32 flags) { m_flags |= flags; }

@@ -210,6 +210,25 @@ public:
     void SetUnk10(int value) {
         m_unk10 = value;
     }
+
+    BOOL DateCheck(DKBAK::DKBAK_DATE date) {
+        CGame* game = m_game;
+        if (date.unk3 == 0 && date.unk2 == 0 && date.unk1 == 0 && date.unk4 == 0 && date.unk0 == 0 && date.unk6 == 0) {
+            game->SetBackupDateRef(date);
+            return TRUE;
+        }
+
+        if (date.unk3 == game->m_backup_date.unk3 &&
+            date.unk2 == game->m_backup_date.unk2 &&
+            date.unk1 == game->m_backup_date.unk1 &&
+            date.unk4 == game->m_backup_date.unk4 &&
+            date.unk0 == game->m_backup_date.unk0 &&
+            date.unk6 == game->m_backup_date.unk6) {
+            return TRUE;
+        }
+
+        return FALSE;
+    }
 };
 REQUIRE_SIZE(CGuiSaveCheckingMemorycardEventHandler, 0x14);
 
@@ -388,6 +407,16 @@ public:
 
     virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
 };
+
+#ifdef VERSION_GPLP9G
+class CGuiSaveMemoryCardReplacedEventHandler : public CGuiBaseEventHandler {
+public:
+    CGuiSaveMemoryCardReplacedEventHandler();
+    virtual ~CGuiSaveMemoryCardReplacedEventHandler() {}
+
+    virtual void OnEvent(DKGUI::IGUIMenu*, DKGUI::EMENU_EVENT, void*);
+};
+#endif
 
 class CGuiDreamSelectEventHandler : public CGuiBaseEventHandler {
 private:

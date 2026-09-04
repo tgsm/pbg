@@ -9,7 +9,16 @@
 #include "CGamePartIngame.h"
 #include <iostream>
 
+#ifdef VERSION_GPLE9G
+#define GAME_CODE "GPLE9G"
+#else
+#define GAME_CODE "GPLP9G"
+#endif
+
 static F32 gs_TimeBeforeMemCardCheck;
+#ifdef VERSION_GPLP9G
+static BOOL gs_guiunactivatedfromload;
+#endif
 
 CGuiBaseEventHandler::CGuiBaseEventHandler(const std::string& type) : m_type(type) {
 
@@ -144,7 +153,7 @@ void CGuiLoadCheckingMemoryCardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGU
                     handler->m_unk10.clear();
                 }
 
-                str2.assign(m_game->GetBackupEngine()->FindFirst("GPLE9G", ""), 0);
+                str2.assign(m_game->GetBackupEngine()->FindFirst(GAME_CODE, ""), 0);
                 if (str2 == "") {
                     m_game->GetGuiManager()->GetGuiPtr("LOAD_NO_DATA")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("LOAD_NO_DATA", 1);
@@ -324,7 +333,10 @@ void CGuiChooseGameEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVE
             std::string str;
             if (i + iVar2 < (int)m_unk10.size()) {
                 str.assign(m_unk10[i + iVar2], 0);
-                if (DKI::IInputEngine::GetDevice(0)->IsConnected() == TRUE) {
+#ifndef VERSION_GPLP9G
+                if (DKI::IInputEngine::GetDevice(0)->IsConnected() == TRUE)
+#endif
+                {
                     F32 text_width = m_game->GetGuiEngine()->GetTextWidth(str.c_str(), 0.07f, NULL);
                     if (m_unk1C == iVar2 + i) {
                         m_game->GetGuiEngine()->SetTextColor(0xFF, 0xFF, 0x99, 0xFF);
@@ -418,7 +430,7 @@ void CGuiLoadingMemoryCardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EM
                     handler->SetText(m_unk10);
                 }
 
-                int load_result = m_game->GetBackupEngine()->Load(m_game->GetGameBackup()->GetCurrentContainer()->m_unk4, 0x18000, "GPLE9G", m_unk10);
+                int load_result = m_game->GetBackupEngine()->Load(m_game->GetGameBackup()->GetCurrentContainer()->m_unk4, 0x18000, GAME_CODE, m_unk10);
                 switch (load_result) {
                     case -98:
                         m_game->GetGuiManager()->GetGuiPtr("LOAD_MMC_UNUSEABLE")->menu->Reset();
@@ -469,7 +481,7 @@ void CGuiLoadingMemoryCardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EM
             return;
 case_0:
             DKBAK::DKBAK_DATE date;
-            if (m_game->GetBackupEngine()->GetDate("GPLE9G", m_unk10, date) == 0) {
+            if (m_game->GetBackupEngine()->GetDate(GAME_CODE, m_unk10, date) == 0) {
                 m_game->SetBackupDate(date);
             }
 
@@ -679,7 +691,10 @@ void CGuiEnterNameEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVEN
     div = m_unk10 / 7;
     mod = m_unk10 % 7;
     if (event == DKGUI::EVENT_0) {
-        if (DKI::IInputEngine::GetDevice(0)->IsConnected() == TRUE) {
+#ifndef VERSION_GPLP9G
+        if (DKI::IInputEngine::GetDevice(0)->IsConnected() == TRUE)
+#endif
+        {
             F32 text_width = m_game->GetGuiEngine()->GetTextWidth(m_unk14.c_str(), 0.07f, NULL);
             m_game->GetGuiEngine()->SetTextColor(0xC4, 0xE1, 0xFF, 0xFF);
             m_game->GetGuiEngine()->AddText(0.5f - (text_width / 2), 0.35f, m_unk14.c_str(), 0.07f, NULL, 0.0f);
@@ -797,7 +812,6 @@ CGuiSaveCheckingMemorycardEventHandler::CGuiSaveCheckingMemorycardEventHandler()
     m_unk10 = 0;
 }
 
-// Incomplete
 void CGuiSaveCheckingMemorycardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT event, void* unk) {
     CGuiBaseEventHandler::OnEvent(menu, event, unk);
 
@@ -817,34 +831,36 @@ void CGuiSaveCheckingMemorycardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGU
             if (backup_state == 17) {
                 CGuiEnterNameEventHandler* handler = (CGuiEnterNameEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiEnterNameEventHandler");
 
-                str2.assign(m_game->GetBackupEngine()->FindFirst("GPLE9G", handler->GetText()), 0);
+                str2.assign(m_game->GetBackupEngine()->FindFirst(GAME_CODE, handler->GetText()), 0);
 
                 if (str2 == handler->GetText() && m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                     m_game->GetGuiManager()->GetGuiPtr("CREATE_OVERWRITE")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("CREATE_OVERWRITE", 1);
                     m_game->GetGuiManager()->SetVisible("CREATE_OVERWRITE", 1);
                     m_unk10 = 0;
-                } else if (str2 != handler->GetText()) {
-                    if (m_game->GetBackupEngine()->IsSpaceAvailable("GPLE9G", handler->GetText(), 0x18000) == FALSE) {
-                        m_game->GetGuiManager()->GetGuiPtr("SAVE_NO_SPACE")->menu->Reset();
-                        m_game->GetGuiManager()->SetActive("SAVE_NO_SPACE", 1);
-                        m_game->GetGuiManager()->SetVisible("SAVE_NO_SPACE", 1);
-                        m_unk10 = 0;
-                    }
+                } else if (str2 != handler->GetText() && m_game->GetBackupEngine()->IsSpaceAvailable(GAME_CODE, handler->GetText(), 0x18000) == FALSE) {
+                    m_game->GetGuiManager()->GetGuiPtr("SAVE_NO_SPACE")->menu->Reset();
+                    m_game->GetGuiManager()->SetActive("SAVE_NO_SPACE", 1);
+                    m_game->GetGuiManager()->SetVisible("SAVE_NO_SPACE", 1);
+                    m_unk10 = 0;
                 } else {
                     DKBAK::DKBAK_DATE date;
-                    if (m_game->GetBackupEngine()->GetDate("GPLE9G", handler->GetText(), date) == 0) {
-                        m_game->SetBackupDate(date);
-                        if (TRUE) {
-                        // if (date == m_game->GetBackupDate()) {
+                    if (m_game->GetBackupEngine()->GetDate(GAME_CODE, handler->GetText(), date) == 0) {
+                        if (!DateCheck(date)) {
                             m_game->GetGuiManager()->GetGuiPtr("CREATE_OVERWRITE")->menu->Reset();
                             m_game->GetGuiManager()->SetActive("CREATE_OVERWRITE", 1);
                             m_game->GetGuiManager()->SetVisible("CREATE_OVERWRITE", 1);
                             m_unk10 = 0;
 
+#ifdef VERSION_GPLP9G
+                            m_game->GetGameBackup()->GetFromGameData(1);
+                            m_game->GetGameBackup()->Backup();
+                            m_game->GetTimer()->Resume();
+#else
                             m_game->GetTimer()->Resume();
                             m_game->GetGameBackup()->GetFromGameData(1);
                             m_game->GetGameBackup()->Backup();
+#endif
 
                             return;
                         }
@@ -1029,7 +1045,7 @@ void CGuiSavingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT e
             m_game->GetTimer()->Pause();
             CGuiEnterNameEventHandler* handler = (CGuiEnterNameEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiEnterNameEventHandler");
 
-            int save_result = m_game->GetBackupEngine()->Save(m_game->GetGameBackup()->GetCurrentContainer()->m_unk4, 0x18000, "GPLE9G", handler->GetText());
+            int save_result = m_game->GetBackupEngine()->Save(m_game->GetGameBackup()->GetCurrentContainer()->m_unk4, 0x18000, GAME_CODE, handler->GetText());
             m_game->GetTimer()->Resume();
 
             m_game->GetGuiManager()->GetGuiPtr("SAVE_SAVE_DATA")->menu->Reset();
@@ -1079,7 +1095,7 @@ void CGuiSavingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT e
                 case 0:
                     m_game->GetTimer()->Pause();
                     DKBAK::DKBAK_DATE date;
-                    if (m_game->GetBackupEngine()->GetDate("GPLE9G", handler->GetText(), date) == 0) {
+                    if (m_game->GetBackupEngine()->GetDate(GAME_CODE, handler->GetText(), date) == 0) {
                         m_game->SetBackupDate(date);
                     }
                     m_game->GetTimer()->Resume();
@@ -1243,7 +1259,7 @@ void CGuiLoadFileCorruptEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMEN
             if (handler != NULL) {
                 // Weird negate-or-rightshift going on here. Should just move.
                 if (handler->GetFilename() != "") {
-                    if (m_game->GetBackupEngine()->Delete("GPLE9G", handler->GetFilename())) {
+                    if (m_game->GetBackupEngine()->Delete(GAME_CODE, handler->GetFilename())) {
                         m_game->GetTimer()->Pause();
 
                         if (m_game->GetBackupEngine()->GetState() == 8) {
@@ -1300,7 +1316,7 @@ void CGuiLoadFileDeletingEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EME
 
             CGuiLoadingMemoryCardEventHandler* handler = (CGuiLoadingMemoryCardEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiLoadingMemoryCardEventHandler");
             if (handler && handler->GetFilename() != "") {
-                if (m_game->GetBackupEngine()->Delete("GPLE9G", handler->GetFilename())) {
+                if (m_game->GetBackupEngine()->Delete(GAME_CODE, handler->GetFilename())) {
                     m_game->GetTimer()->Pause();
                     if (m_game->GetBackupEngine()->GetState() == 8) {
                         m_game->GetTimer()->Resume();
@@ -1494,20 +1510,36 @@ CGuiLoadCorruptMemcardEventHandler::CGuiLoadCorruptMemcardEventHandler() : CGuiB
 void CGuiLoadCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT event, void* unk) {
     CGuiBaseEventHandler::OnEvent(menu, event, unk);
 
+#ifdef VERSION_GPLP9G
+    if (event == DKGUI::EVENT_2) {
+        gs_TimeBeforeMemCardCheck = 1.0f;
+    } else
+#endif
     if (event == DKGUI::EVENT_0) {
-        m_game->GetTimer()->Pause();
-        U32 backup_state = m_game->GetBackupEngine()->GetState();
-        m_game->GetTimer()->Resume();
+#ifdef VERSION_GPLP9G
+            if (gs_TimeBeforeMemCardCheck < 0.0f) {
+#endif
+                m_game->GetTimer()->Pause();
+                U32 backup_state = m_game->GetBackupEngine()->GetState();
+                m_game->GetTimer()->Resume();
 
-        if (!(backup_state & (1 << 0))) {
-            m_game->GetGuiManager()->GetGuiPtr("LOAD_MMC_CORRUPT")->menu->Reset();
-            m_game->GetGuiManager()->SetActive("LOAD_MMC_CORRUPT", 0);
-            m_game->GetGuiManager()->SetVisible("LOAD_MMC_CORRUPT", 0);
+                if (!(backup_state & (1 << 0))) {
+                    m_game->GetGuiManager()->GetGuiPtr("LOAD_MMC_CORRUPT")->menu->Reset();
+                    m_game->GetGuiManager()->SetActive("LOAD_MMC_CORRUPT", 0);
+                    m_game->GetGuiManager()->SetVisible("LOAD_MMC_CORRUPT", 0);
 
-            m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
-            m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
-            m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
-        }
+                    m_game->GetGuiManager()->GetGuiPtr("LOAD_CHECK_MMC")->menu->Reset();
+                    m_game->GetGuiManager()->SetActive("LOAD_CHECK_MMC", 1);
+                    m_game->GetGuiManager()->SetVisible("LOAD_CHECK_MMC", 1);
+                }
+#ifdef VERSION_GPLP9G
+                gs_TimeBeforeMemCardCheck = 1.0f;
+#endif
+#ifdef VERSION_GPLP9G
+            } else {
+                gs_TimeBeforeMemCardCheck -= m_game->GetDeltaTime();
+            }
+#endif
     } else if (event == DKGUI::EVENT_3) {
         std::string str = (char*)unk;
         if (str == "yes") {
@@ -1538,20 +1570,36 @@ CGuiSaveCorruptMemcardEventHandler::CGuiSaveCorruptMemcardEventHandler() : CGuiB
 void CGuiSaveCorruptMemcardEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT event, void* unk) {
     CGuiBaseEventHandler::OnEvent(menu, event, unk);
 
+#ifdef VERSION_GPLP9G
+    if (event == DKGUI::EVENT_2) {
+        gs_TimeBeforeMemCardCheck = 1.0f;
+    } else
+#endif
     if (event == DKGUI::EVENT_0) {
-        m_game->GetTimer()->Pause();
-        U32 backup_state = m_game->GetBackupEngine()->GetState();
-        m_game->GetTimer()->Resume();
+#ifdef VERSION_GPLP9G
+        if (gs_TimeBeforeMemCardCheck < 0.0f) {
+#endif
+            m_game->GetTimer()->Pause();
+            U32 backup_state = m_game->GetBackupEngine()->GetState();
+            m_game->GetTimer()->Resume();
 
-        if (!(backup_state & (1 << 0))) {
-            m_game->GetGuiManager()->GetGuiPtr("SAVE_MMC_CORRUPT")->menu->Reset();
-            m_game->GetGuiManager()->SetActive("SAVE_MMC_CORRUPT", 0);
-            m_game->GetGuiManager()->SetVisible("SAVE_MMC_CORRUPT", 0);
+            if (!(backup_state & (1 << 0))) {
+                m_game->GetGuiManager()->GetGuiPtr("SAVE_MMC_CORRUPT")->menu->Reset();
+                m_game->GetGuiManager()->SetActive("SAVE_MMC_CORRUPT", 0);
+                m_game->GetGuiManager()->SetVisible("SAVE_MMC_CORRUPT", 0);
 
-            m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
-            m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
-            m_game->GetGuiManager()->SetVisible("SAVE_CHECK_MMC", 1);
+                m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
+                m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
+                m_game->GetGuiManager()->SetVisible("SAVE_CHECK_MMC", 1);
+            }
+#ifdef VERSION_GPLP9G
+            gs_TimeBeforeMemCardCheck = 1.0f;
+#endif
+#ifdef VERSION_GPLP9G
+        } else {
+            gs_TimeBeforeMemCardCheck -= m_game->GetDeltaTime();
         }
+#endif
     } else if (event == DKGUI::EVENT_3) {
         std::string str = (char*)unk;
         if (str == "yes") {
@@ -1905,6 +1953,21 @@ void CGuiSaveFormatSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
                 return;
             }
 
+#ifdef VERSION_GPLP9G
+            m_game->GetTimer()->Pause();
+            U32 backup_state = m_game->GetBackupEngine()->GetState();
+            m_game->GetTimer()->Resume();
+
+            if (backup_state & (1 << 2)) {
+                m_game->GetGuiManager()->GetGuiPtr("SAVE_MMC_CORRUPT")->menu->Reset();
+                m_game->GetGuiManager()->SetActive("SAVE_MMC_CORRUPT", 1);
+                m_game->GetGuiManager()->SetVisible("SAVE_MMC_CORRUPT", 1);
+            } else {
+                m_game->GetGuiManager()->GetGuiPtr("SAVE_UNFORMAT")->menu->Reset();
+                m_game->GetGuiManager()->SetActive("SAVE_UNFORMAT", 1);
+                m_game->GetGuiManager()->SetVisible("SAVE_UNFORMAT", 1);
+            }
+#else
             if (m_game->GetCurrentMissionId() == MISSION_MENUS && m_game->GetCurrentRoomId() == 1) {
                 CDKW_RGBA fade_color = m_game->ComputeGameFadeColor();
                 m_game->FadeInit(1.0f, CGame::FADE_TYPE_4, fade_color.red, fade_color.green, fade_color.blue, 0.0f);
@@ -1927,6 +1990,7 @@ void CGuiSaveFormatSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU
 
                 UnkGamePartAndReturnTypeInline();
             }
+#endif
         }
     }
 }
@@ -2209,9 +2273,9 @@ void CGuiOverwriteSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_
 
             if (backup_state == 17) {
                 CGuiEnterNameEventHandler* handler = (CGuiEnterNameEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiEnterNameEventHandler");
-                std::string temp = m_game->GetBackupEngine()->FindFirst("GPLE9G", handler->GetText());
+                std::string temp = m_game->GetBackupEngine()->FindFirst(GAME_CODE, handler->GetText());
 
-                if (temp != handler->GetText() && m_game->GetBackupEngine()->IsSpaceAvailable("GPLE9G", handler->GetText(), 0x18000) == FALSE) {
+                if (temp != handler->GetText() && m_game->GetBackupEngine()->IsSpaceAvailable(GAME_CODE, handler->GetText(), 0x18000) == FALSE) {
                     m_game->GetGuiManager()->GetGuiPtr("SAVE_NO_SPACE")->menu->Reset();
                     m_game->GetGuiManager()->SetActive("SAVE_NO_SPACE", 1);
                     m_game->GetGuiManager()->SetVisible("SAVE_NO_SPACE", 1);
@@ -2249,6 +2313,72 @@ void CGuiOverwriteSureEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_
         }
     }
 }
+
+#ifdef VERSION_GPLP9G
+CGuiSaveMemoryCardReplacedEventHandler::CGuiSaveMemoryCardReplacedEventHandler() : CGuiBaseEventHandler("CGuiSaveMemoryCardReplacedEventHandler") {
+
+}
+
+void CGuiSaveMemoryCardReplacedEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT event, void* unk) {
+    CGuiBaseEventHandler::OnEvent(menu, event, unk);
+
+    if (event == DKGUI::EVENT_2) {
+        gs_TimeBeforeMemCardCheck = 1.0f;
+    } else if (event == DKGUI::EVENT_0) {
+        if (gs_TimeBeforeMemCardCheck < 0.0f) {
+            m_game->GetTimer()->Pause();
+            U32 backup_state = m_game->GetBackupEngine()->GetState();
+            m_game->GetTimer()->Resume();
+
+            if (!(backup_state & (1 << 0))) {
+                m_game->GetGuiManager()->GetGuiPtr("SAVE_MMC_REPLACED")->menu->Reset();
+                m_game->GetGuiManager()->SetActive("SAVE_MMC_REPLACED", 0);
+                m_game->GetGuiManager()->SetVisible("SAVE_MMC_REPLACED", 0);
+
+                m_game->GetGuiManager()->GetGuiPtr("SAVE_CHECK_MMC")->menu->Reset();
+                m_game->GetGuiManager()->SetActive("SAVE_CHECK_MMC", 1);
+                m_game->GetGuiManager()->SetVisible("SAVE_CHECK_MMC", 1);
+                return;
+            }
+
+            gs_TimeBeforeMemCardCheck = 1.0f;
+        } else {
+            gs_TimeBeforeMemCardCheck -= m_game->GetDeltaTime();
+        }
+    } else if (event == DKGUI::EVENT_3) {
+        std::string str = (char*)unk;
+        if (str == "yes") {
+            m_game->GetGuiManager()->GetGuiPtr("SAVE_MMC_REPLACED")->menu->Reset();
+            m_game->GetGuiManager()->SetActive("SAVE_MMC_REPLACED", 0);
+            m_game->GetGuiManager()->SetVisible("SAVE_MMC_REPLACED", 0);
+
+            CGuiEnterNameEventHandler* handler = (CGuiEnterNameEventHandler*)m_game->GetGuiManager()->IsEventCallbackRegistered("GuiEnterNameEventHandler");
+            std::string temp = m_game->GetBackupEngine()->FindFirst(GAME_CODE, handler->GetText());
+
+            if (temp == handler->GetText()) {
+                m_game->GetGuiManager()->GetGuiPtr("CREATE_OVERWRITE")->menu->Reset();
+                m_game->GetGuiManager()->SetActive("CREATE_OVERWRITE", 1);
+                m_game->GetGuiManager()->SetVisible("CREATE_OVERWRITE", 1);
+            } else if (m_game->GetBackupEngine()->IsSpaceAvailable(GAME_CODE, handler->GetText(), 0x18000) == FALSE) {
+                m_game->GetGuiManager()->GetGuiPtr("SAVE_NO_SPACE")->menu->Reset();
+                m_game->GetGuiManager()->SetActive("SAVE_NO_SPACE", 1);
+                m_game->GetGuiManager()->SetVisible("SAVE_NO_SPACE", 1);
+            } else {
+                m_game->GetGuiManager()->GetGuiPtr("SAVE_SAVE_DATA")->menu->Reset();
+                m_game->GetGuiManager()->SetActive("SAVE_SAVE_DATA", 1);
+                m_game->GetGuiManager()->SetVisible("SAVE_SAVE_DATA", 1);
+
+                m_game->GetGameBackup()->GetFromGameData(1);
+                m_game->GetGameBackup()->Backup();
+            }
+        } else if (str == "no") {
+            m_game->GetGuiManager()->GetGuiPtr("SAVE_MMC_REPLACED")->menu->Reset();
+            m_game->GetGuiManager()->SetActive("SAVE_MMC_REPLACED", 0);
+            m_game->GetGuiManager()->SetVisible("SAVE_MMC_REPLACED", 0);
+        }
+    }
+}
+#endif
 
 CGuiDreamSelectEventHandler::CGuiDreamSelectEventHandler() : CGuiBaseEventHandler("GuiDreamSelectEventHandler") {
     m_unk10 = 0;
@@ -2514,9 +2644,24 @@ void CGuiDreamSelectEventHandler::GotoMission(int mission_no) {
             m_game->GetCamera()->LookAtInline(position, target, CDKW_V3d::YAXIS);
         }
 
+#ifdef VERSION_GPLP9G
+        m_game->StopNarratorLine(0);
+#else
         m_game->StopNarratorLine();
+#endif
     } else {
+#ifdef VERSION_GPLP9G
+        m_game->StopNarratorLine(0);
+#else
         m_game->StopNarratorLine();
+#endif
+
+#ifdef VERSION_GPLP9G
+        if (gs_guiunactivatedfromload) {
+            gs_guiunactivatedfromload = FALSE;
+            return;
+        }
+#endif
 
         m_unk14 = 0;
         m_unk10 = mission_no;
@@ -2819,7 +2964,10 @@ void CGuiNoPadEventHandler::OnEvent(DKGUI::IGUIMenu* menu, DKGUI::EMENU_EVENT ev
         return;
     }
 
-    if (DKI::IInputEngine::GetDevice(0)->IsConnected() == TRUE) {
+#ifndef VERSION_GPLP9G
+    if (DKI::IInputEngine::GetDevice(0)->IsConnected() == TRUE)
+#endif
+    {
         m_game->GetGuiManager()->GetGuiPtr("NOPAD_NOPAD")->menu->Reset();
         m_game->GetGuiManager()->SetActive("NOPAD_NOPAD", 0);
         m_game->GetGuiManager()->SetVisible("NOPAD_NOPAD", 0);
