@@ -24,23 +24,25 @@ struct SAnimationPath {
 
 class IAnimationStar {
 public:
-    virtual BOOL Load(IRWStream* stream);
-    virtual BOOL Load(DkXmd::CChunkIterator* iter);
-    virtual BOOL DumpDot(char*);
-    virtual BOOL DumpDot(char*, int);
-    virtual BOOL DumpDot(char*, int, int);
-    virtual int FindNextAnimationInPath(std::string, std::string, int, SAnimationPath*); // FIXME: Need actual return type
-    virtual int FindNextAnimationInPath(CAnimationStarEntry*, CAnimationStarEntry*, int, SAnimationPath*); // FIXME: Need actual return type
-    virtual void SetDefaultAnimation(IGenericAnimation* animation);
-    virtual CAnimationStarEntry* GetAnimationEntry(std::string);
-    virtual CAnimationStarEntry* GetAnimationEntry(char*);
-    virtual CAnimationStarEntry* GetAnimationEntry(int);
-    virtual int GetAnimationEntryIndex(IAnimationStarEntry*);
-    virtual IGenericAnimation* GetDefaultAnimation();
-    virtual int GetNumberOfAnimations();
-    virtual std::string* GetAnimationName(int);
-    virtual U32 GetSize();
-    virtual std::string* GetName();
+    IAnimationStar();
+
+    virtual BOOL Load(IRWStream* stream) = 0;
+    virtual BOOL Load(DkXmd::CChunkIterator* iter) = 0;
+    virtual BOOL DumpDot(char*) = 0;
+    virtual BOOL DumpDot(char*, int) = 0;
+    virtual BOOL DumpDot(char*, int, int) = 0;
+    virtual int FindNextAnimationInPath(std::string, std::string, int, SAnimationPath*) = 0; // FIXME: Need actual return type
+    virtual int FindNextAnimationInPath(CAnimationStarEntry*, CAnimationStarEntry*, int, SAnimationPath*) = 0; // FIXME: Need actual return type
+    virtual void SetDefaultAnimation(IGenericAnimation* animation) = 0;
+    virtual CAnimationStarEntry* GetAnimationEntry(std::string) = 0;
+    virtual CAnimationStarEntry* GetAnimationEntry(char*) = 0;
+    virtual CAnimationStarEntry* GetAnimationEntry(int) = 0;
+    virtual int GetAnimationEntryIndex(IAnimationStarEntry*) = 0;
+    virtual IGenericAnimation* GetDefaultAnimation() = 0;
+    virtual int GetNumberOfAnimations() = 0;
+    virtual std::string* GetAnimationName(int) = 0;
+    virtual U32 GetSize() = 0;
+    virtual std::string* GetName() = 0;
 };
 
 }
