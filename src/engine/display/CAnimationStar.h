@@ -36,6 +36,7 @@ public:
     void Release();
     void SetName(std::string name);
     SAnimationStarValues* GetDefaultAnimationValues();
+    CAnimDictionary* GetAnimDictionary();
     void SetAnimDictionary(CAnimDictionary* anim_dictionary);
 };
 REQUIRE_SIZE(CAnimationStar, 0x40);

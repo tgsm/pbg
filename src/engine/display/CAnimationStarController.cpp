@@ -47,48 +47,45 @@ void CAnimationStarController::Release() {
 }
 
 U32 CAnimationStarController::StartAnimation(CAnimationStarEntry* entry, SAnimationStarValues* star_values, STargetAnimationValues* target_values) {
-    F32 fVar1 = star_values->unk10;
-    F32 fVar2 = star_values->unk14;
+    F32 delay_in = star_values->GetDelayIn();
+    F32 delay_out = star_values->GetDelayOut();
     if (target_values != NULL) {
-        fVar1 = target_values->unk0;
-        fVar2 = target_values->unk4;
+        delay_in = target_values->delay_in;
+        delay_out = target_values->delay_out;
     }
-
-    F32 dVar10 = fVar1;
-    F32 dVar9 = fVar2;
 
     if (m_playing_animation != NULL) {
         for (int i = 0; i < m_playing_animation->GetNumberOfAnimations(); i++) {
-            CAnimation* anim = m_playing_animation->GetAnimation(i);
+            IGenericAnimation* anim = m_playing_animation->GetAnimation(i);
             EANIMATIONTYPE type = anim->GetType();
             int uid = GetUnk2CElem(i);
             if (uid >= 0) {
                 int anim_id = m_controller->FindAnimationFromUID(type, uid);
                 if (anim_id >= 0) {
-                    m_controller->SetAnimationDelayOut(type, anim_id, dVar9 * m_unk20);
+                    m_controller->SetAnimationDelayOut(type, anim_id, delay_out * m_unk20);
                 }
             }
         }
     }
 
     if (entry == NULL) {
-        m_controller->PlayAnimation(m_animation_star->GetDefaultAnimation(), -1, 0.0f, star_values->unkC, dVar10 * m_unk20, star_values->unk14);
+        m_controller->PlayAnimation(m_animation_star->GetDefaultAnimation(), -1, 0.0f, star_values->unkC, delay_in * m_unk20, star_values->GetDelayOut());
     } else {
-        EANIMATIONLOOP loop_mode = star_values->unk4;
+        EANIMATIONLOOP loop_mode = star_values->loop_mode;
 
-        dVar9 = entry->GetAnimationDuration(ANIMATION_TYPE_ANM);
-        if (dVar9 < 0.0f) {
-            dVar9 = entry->GetAnimationDuration(ANIMATION_TYPE_DMA);
+        F32 duration = entry->GetAnimationDuration(ANIMATION_TYPE_ANM);
+        if (duration < 0.0f) {
+            duration = entry->GetAnimationDuration(ANIMATION_TYPE_DMA);
         }
 
         m_playing_animation_speed = 1.1754944e-38f;
         for (int i = 0; i < entry->GetNumberOfAnimations(); i++) {
             CEventAnimation* anim = (CEventAnimation*)entry->GetAnimation(i);
-            if (anim->GetType() == ANIMATION_TYPE_EVN && dVar9 > 0.0f && entry->GetAnimationSyncFlag(i) == 0) {
-                anim->SetDuration(dVar9);
+            if (anim->GetType() == ANIMATION_TYPE_EVN && duration > 0.0f && entry->GetAnimationSyncFlag(i) == 0) {
+                anim->SetDuration(duration);
             }
             int node = entry->GetAnimationNode(i);
-            int play_ret = m_controller->PlayAnimation(anim, node, 0.0f, star_values->unkC, dVar10 * m_unk20, star_values->unk14);
+            int play_ret = m_controller->PlayAnimation(anim, node, 0.0f, star_values->unkC, delay_in * m_unk20, star_values->GetDelayOut());
             if (play_ret >= 0) {
                 int uid = m_controller->FindAnimationFromUID(anim->GetType(), play_ret);
                 if (uid >= 0) {
@@ -238,7 +235,7 @@ BOOL CAnimationStarController::Play(char* a1, F32 a2, int a3, int a4) {
     m_unk24 = a4;
 
     CAnimationStarEntry* entry = m_animation_star->GetAnimationEntry(a1);
-    CAnimation* anim = NULL;
+    IGenericAnimation* anim = NULL;
     if (entry != NULL) {
         if (entry->GetNumberOfAnimations() <= 0) {
             return FALSE;
@@ -266,8 +263,8 @@ BOOL CAnimationStarController::Play(char* a1, F32 a2, int a3, int a4) {
 
     if (m_playing_animation != NULL) {
         if (a3 == 1) {
-            if (a2 > 0.0f && a2 < m_target_animation->GetAnimationValues()->unk10 && m_target_animation->GetAnimationValues()->unk10 > 0.0f) {
-                m_unk20 = a2 / m_target_animation->GetAnimationValues()->unk10;
+            if (a2 > 0.0f && a2 < m_target_animation->GetAnimationValues()->GetDelayIn() && m_target_animation->GetAnimationValues()->GetDelayIn() > 0.0f) {
+                m_unk20 = a2 / m_target_animation->GetAnimationValues()->GetDelayIn();
             }
             m_unk28 = TRUE;
         } else {
@@ -300,7 +297,7 @@ BOOL CAnimationStarController::IsFullyPlayingTargetAnimation() {
             return TRUE;
         }
 
-        CAnimation* animation = m_playing_animation->GetAnimation(0);
+        IGenericAnimation* animation = m_playing_animation->GetAnimation(0);
         EANIMATIONTYPE type = animation->GetType();
 
         int uid = GetUnk2CElem(0);
@@ -326,7 +323,7 @@ BOOL CAnimationStarController::IsFullyPlayingCurrentAnimation() {
         return TRUE;
     }
 
-    CAnimation* animation = m_playing_animation->GetAnimation(0);
+    IGenericAnimation* animation = m_playing_animation->GetAnimation(0);
     EANIMATIONTYPE type = animation->GetType();
 
     int uid = GetUnk2CElem(0);
@@ -399,7 +396,7 @@ std::string* CAnimationStarController::GetTargetAnimationName() {
 F32 CAnimationStarController::GetPlayingAnimationTime() {
     if (m_playing_animation != NULL) {
         int uid = GetUnk2CElem(0);
-        CAnimation* animation = m_playing_animation->GetAnimation(0);
+        IGenericAnimation* animation = m_playing_animation->GetAnimation(0);
         int anim_id = m_controller->FindAnimationFromUID(animation->GetType(), uid);
         return m_controller->GetAnimationTime(animation->GetType(), anim_id);
     }
@@ -410,7 +407,7 @@ F32 CAnimationStarController::GetPlayingAnimationTime() {
 F32 CAnimationStarController::GetPlayingAnimationAbsoluteTime() {
     if (m_playing_animation != NULL) {
         int uid = GetUnk2CElem(0);
-        CAnimation* animation = m_playing_animation->GetAnimation(0);
+        IGenericAnimation* animation = m_playing_animation->GetAnimation(0);
         int anim_id = m_controller->FindAnimationFromUID(animation->GetType(), uid);
         return m_controller->GetAnimationAbsoluteTime(animation->GetType(), anim_id);
     }
@@ -421,7 +418,7 @@ F32 CAnimationStarController::GetPlayingAnimationAbsoluteTime() {
 BOOL CAnimationStarController::IsPlayingAnimationLooped() {
     if (m_playing_animation != NULL) {
         int uid = GetUnk2CElem(0);
-        CAnimation* animation = m_playing_animation->GetAnimation(0);
+        IGenericAnimation* animation = m_playing_animation->GetAnimation(0);
         int anim_id = m_controller->FindAnimationFromUID(animation->GetType(), uid);
         return m_controller->IsAnimationLooped(animation->GetType(), anim_id);
     }
@@ -436,7 +433,7 @@ F32 CAnimationStarController::GetPlayingAnimationLoopTime() {
             return 0.0f;
         }
 
-        CAnimation* animation = m_playing_animation->GetAnimation(0);
+        IGenericAnimation* animation = m_playing_animation->GetAnimation(0);
         int anim_id = m_controller->FindAnimationFromUID(animation->GetType(), uid);
         return m_controller->GetAnimationLoopDelta(animation->GetType(), anim_id);
     }
@@ -453,7 +450,7 @@ F32 CAnimationStarController::GetPlayingAnimationDuration() {
         int uid = GetUnk2CElem(i);
 
         if (uid >= 0) {
-            CAnimation* animation = m_playing_animation->GetAnimation(i);
+            IGenericAnimation* animation = m_playing_animation->GetAnimation(i);
             int anim_id = m_controller->FindAnimationFromUID(animation->GetType(), uid);
             if (anim_id >= 0) {
                 return m_controller->GetAnimationDuration(animation->GetType(), anim_id);
@@ -473,7 +470,7 @@ F32 CAnimationStarController::GetPlayingAnimationSpeed() {
         int uid = GetUnk2CElem(i);
 
         if (uid >= 0) {
-            CAnimation* animation = m_playing_animation->GetAnimation(i);
+            IGenericAnimation* animation = m_playing_animation->GetAnimation(i);
             int anim_id = m_controller->FindAnimationFromUID(animation->GetType(), uid);
             if (anim_id >= 0) {
                 return m_controller->GetAnimationSpeed(animation->GetType(), anim_id);
@@ -499,7 +496,7 @@ void CAnimationStarController::SetPlayingAnimationSpeed(F32 speed) {
         int uid = GetUnk2CElem(i);
 
         if (uid >= 0) {
-            CAnimation* animation = m_playing_animation->GetAnimation(i);
+            IGenericAnimation* animation = m_playing_animation->GetAnimation(i);
             int anim_id = m_controller->FindAnimationFromUID(animation->GetType(), uid);
             if (anim_id >= 0) {
                 m_controller->SetAnimationSpeed(animation->GetType(), anim_id, speed);
@@ -519,7 +516,7 @@ F32 CAnimationStarController::GetPlayingAnimationTime(F32) {
         int uid = GetUnk2CElem(i);
 
         if (uid >= 0) {
-            CAnimation* animation = m_playing_animation->GetAnimation(i);
+            IGenericAnimation* animation = m_playing_animation->GetAnimation(i);
             int anim_id = m_controller->FindAnimationFromUID(animation->GetType(), uid);
             if (anim_id >= 0) {
                 return m_controller->GetAnimationTime(animation->GetType(), anim_id);
@@ -539,7 +536,7 @@ void CAnimationStarController::SetPlayingAnimationTime(F32 time) {
         int uid = GetUnk2CElem(i);
 
         if (uid >= 0) {
-            CAnimation* animation = m_playing_animation->GetAnimation(i);
+            IGenericAnimation* animation = m_playing_animation->GetAnimation(i);
             int anim_id = m_controller->FindAnimationFromUID(animation->GetType(), uid);
             if (anim_id >= 0) {
                 m_controller->SetAnimationTime(animation->GetType(), anim_id, time);
@@ -560,7 +557,7 @@ void CAnimationStarController::Update(F32 dt) {
     int iVar5;
     int iVar3;
     int uid;
-    CAnimation* anim;
+    IGenericAnimation* anim;
     int anim_id;
     CAnimationStarEntry* entry;
     int iVar6;
@@ -606,7 +603,7 @@ void CAnimationStarController::Update(F32 dt) {
                 }
             } else {
                 iVar6 = 0;
-                iVar5 = m_playing_animation->GetAnimationValues()->unk1C;
+                iVar5 = m_playing_animation->GetAnimationValues()->GetCut();
             }
         }
         if (anim != NULL && iVar6 == 0 && iVar5 == 0) {

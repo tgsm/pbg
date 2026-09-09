@@ -85,7 +85,7 @@ public:
     }
 
     void StopAllAnimations(int a1) {
-        CAnimation* anim;
+        IGenericAnimation* anim;
 
         if (m_playing_animation != NULL) {
             for (int i = 0; i < m_playing_animation->GetNumberOfAnimations(); i++) {

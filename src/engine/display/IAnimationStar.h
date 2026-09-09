@@ -9,19 +9,6 @@
 
 namespace DKDSP {
 
-struct STargetAnimationValues {
-    F32 unk0;
-    F32 unk4;
-}; // Unknown size
-
-struct SAnimationPath {
-    F32 unk0;
-    int unk4;
-    int unk8;
-    CAnimationStarEntry* unkC;
-    STargetAnimationValues* unk10;
-};
-
 class IAnimationStar {
 public:
     IAnimationStar();
