@@ -3679,32 +3679,32 @@ thp/THPVideoDecode.c:
 	.bss        start:0x80292F50 end:0x802942C0
 	.sbss       start:0x8029B0D0 end:0x8029B0D8
 
-rwa/rwaobjdefalias.c:
+rwa/core/src/rwaobjdefalias.c:
 	.text       start:0x8021FE20 end:0x8021FE6C
 
-rwa/rwaintf.c:
+rwa/core/src/rwaintf.c:
 	.text       start:0x8021FE6C end:0x80220654
 	.rodata     start:0x80245760 end:0x80245770
 	.bss        start:0x802942C0 end:0x802942E8
 	.sbss       start:0x8029B0D8 end:0x8029B0E8
 
-rwa/rwaobjdef.c:
+rwa/core/src/rwaobjdef.c:
 	.text       start:0x80220654 end:0x802215CC
 	.bss        start:0x802942E8 end:0x802943B0
 	.sbss       start:0x8029B0E8 end:0x8029B0F8
 
-rwa/rwaobj.c:
+rwa/core/src/rwaobj.c:
 	.text       start:0x802215CC end:0x80221FFC
 	.data       start:0x80260D00 end:0x80260D10
 	.bss        start:0x802943B0 end:0x80294400
 	.sbss       start:0x8029B0F8 end:0x8029B110
 
-rwa/rwaobjinterface.c:
+rwa/core/src/rwaobjinterface.c:
 	.text       start:0x80221FFC end:0x80222924
 	.bss        start:0x80294400 end:0x80294428
 	.sbss       start:0x8029B110 end:0x8029B120
 
-rwa/rwaparam.c:
+rwa/core/src/rwaparam.c:
 	.text       start:0x80222924 end:0x802232E0
 	.rodata     start:0x80245770 end:0x80245860
 	.data       start:0x80260D10 end:0x80260F38
@@ -3712,32 +3712,32 @@ rwa/rwaparam.c:
 	.sdata      start:0x8029A210 end:0x8029A240
 	.sbss       start:0x8029B120 end:0x8029B158
 
-rwa/rwasymboltable.c:
+rwa/core/src/rwasymboltable.c:
 	.text       start:0x802232E0 end:0x802234A8
 
-rwa/rwamemory.c:
+rwa/core/src/rwamemory.c:
 	.text       start:0x802234A8 end:0x80223680
 
-rwa/rwafile.c:
+rwa/core/src/rwafile.c:
 	.text       start:0x80223680 end:0x80224174
 	.bss        start:0x80294768 end:0x80294AE8
 	.sdata      start:0x8029A240 end:0x8029A248
 	.sbss       start:0x8029B158 end:0x8029B160
 
-rwa/rwabase.c:
+rwa/core/src/rwabase.c:
 	.text       start:0x80224174 end:0x80224748
 	.data       start:0x80260F38 end:0x80260FC8
 	.sdata      start:0x8029A248 end:0x8029A258
 	.sbss       start:0x8029B160 end:0x8029B180
 
-rwa/rwawavedict.c:
+rwa/core/src/rwawavedict.c:
 	.text       start:0x80224748 end:0x80224C0C
 	.rodata     start:0x80245860 end:0x80245870
 	.bss        start:0x80294AE8 end:0x80294B30
 	.sdata      start:0x8029A258 end:0x8029A260
 	.sbss       start:0x8029B180 end:0x8029B198
 
-rwa/rwawaveconv.c:
+rwa/core/src/rwawaveconv.c:
 	.text       start:0x80224C0C end:0x802287D8
 	.rodata     start:0x80245870 end:0x80245C18
 	.data       start:0x80260FC8 end:0x802612A0
@@ -3746,49 +3746,49 @@ rwa/rwawaveconv.c:
 	.sdata2     start:0x8029D8A8 end:0x8029D8F8
 	.sbss2      start:0x8029DA40 end:0x8029DA44
 
-rwa/rwawavedef.c:
+rwa/core/src/rwawavedef.c:
 	.text       start:0x802287D8 end:0x8022951C
 	.rodata     start:0x80245C18 end:0x80245CB8
 	.data       start:0x802612A0 end:0x802612C0
 	.bss        start:0x80294CB0 end:0x80294CD8
 	.sbss       start:0x8029B1A0 end:0x8029B1A8
 
-rwa/rwawave.c:
+rwa/core/src/rwawave.c:
 	.text       start:0x8022951C end:0x80229B88
 	.bss        start:0x80294CD8 end:0x80294D00
 	.sbss       start:0x8029B1A8 end:0x8029B1B0
 
-rwa/rwauuid.c:
+rwa/core/src/rwauuid.c:
 	.text       start:0x80229B88 end:0x80229F28
 	.bss        start:0x80294D00 end:0x80294D28
 	.sbss       start:0x8029B1B0 end:0x8029B1B8
 
-rwa/rwavoicemanager.c:
+rwa/core/src/rwavoicemanager.c:
 	.text       start:0x80229F28 end:0x8022A6C4
 	.data       start:0x802612C0 end:0x802612D0
 	.sdata      start:0x8029A260 end:0x8029A268
 	.sbss       start:0x8029B1B8 end:0x8029B1E8
 	.sdata2     start:0x8029D8F8 end:0x8029D918
 
-rwa/rwathread.c:
+rwa/core/src/rwathread.c:
 	.sdata      start:0x8029A268 end:0x8029A270
 
-rwa/rwafreelist.c:
+rwa/core/src/rwafreelist.c:
 	.text       start:0x8022A6C4 end:0x8022AD1C
 	.bss        start:0x80294D28 end:0x80294D50
 	.sbss       start:0x8029B1E8 end:0x8029B1F8
 
-rwa/rwallist.c:
+rwa/core/src/rwallist.c:
 	.text       start:0x8022AD1C end:0x8022AF34
 	.bss        start:0x80294D50 end:0x80294D78
 	.sbss       start:0x8029B1F8 end:0x8029B200
 
-rwa/rwamath.c:
+rwa/core/src/rwamath.c:
 	.text       start:0x8022AF34 end:0x8022B108
 	.data       start:0x802612D0 end:0x802614D0
 	.sdata2     start:0x8029D918 end:0x8029D920
 
-rwa/rwaheap.c:
+rwa/core/src/rwaheap.c:
 	.text       start:0x8022B108 end:0x8022B6F0
 	.bss        start:0x80294D78 end:0x80294DA0
 	.sbss       start:0x8029B200 end:0x8029B210
@@ -3796,45 +3796,45 @@ rwa/rwaheap.c:
 rwa/rwastreamcreate.c:
 	.text       start:0x8022B6F0 end:0x8022BAC0
 
-rwa/rwstream.c:
+rwa/core/src/rwstream.c:
 	.text       start:0x8022BAC0 end:0x8022BD78
 	.sdata      start:0x8029A270 end:0x8029A278
 
-rwa/rwaallocbitmap.c:
+rwa/core/src/rwaallocbitmap.c:
 	.text       start:0x8022BD78 end:0x8022C268
 	.bss        start:0x80294DA0 end:0x80294DE8
 
-rwa/rwavirtualvoice.c:
+rwa/interfaces/src/rwavirtualvoice.c:
 	.text       start:0x8022C268 end:0x8022C30C
 	.rodata     start:0x80245CB8 end:0x80245D08
 	.data       start:0x802614D0 end:0x802616F0
 	.bss        start:0x80294DE8 end:0x80294E10
 
-rwa/rwavoice3d.c:
+rwa/interfaces/src/rwavoice3d.c:
 	.text       start:0x8022C30C end:0x8022C388
 	.rodata     start:0x80245D08 end:0x80245D98
 	.data       start:0x802616F0 end:0x802618C0
 	.bss        start:0x80294E10 end:0x80294E38
 
-rwa/rwavoice.c:
+rwa/interfaces/src/rwavoice.c:
 	.text       start:0x8022C388 end:0x8022C404
 	.rodata     start:0x80245D98 end:0x80245E98
 	.data       start:0x802618C0 end:0x802619F0
 	.bss        start:0x80294E38 end:0x80294E60
 
-rwa/rwaoutput.c:
+rwa/interfaces/src/rwaoutput.c:
 	.text       start:0x8022C404 end:0x8022C480
 	.rodata     start:0x80245E98 end:0x80245F58
 	.data       start:0x802619F0 end:0x80261AD0
 	.bss        start:0x80294E60 end:0x80294E88
 
-rwa/rwalistener.c:
+rwa/interfaces/src/rwalistener.c:
 	.text       start:0x8022C480 end:0x8022C4FC
 	.rodata     start:0x80245F58 end:0x80246078
 	.data       start:0x80261AD0 end:0x80261C28
 	.bss        start:0x80294E88 end:0x80294EB0
 
-rwa/rwastreamint.c:
+rwa/interfaces/src/rwastreamint.c:
 	.text       start:0x8022C4FC end:0x8022C5A0
 	.rodata     start:0x80246078 end:0x80246148
 	.data       start:0x80261C28 end:0x80261D18
@@ -3865,7 +3865,7 @@ rwa/rwastreamsourceint.c:
 rwa/rwastreamcodecint.c:
 	.rodata     start:0x80246258 end:0x80246268
 
-rwa/rwavirtualvoiceobj.c:
+rwa/objects/src/rwavirtualvoiceobj.c:
 	.text       start:0x8022CDB0 end:0x8022DA2C
 	.rodata     start:0x80246268 end:0x80246278
 	.data       start:0x80261F10 end:0x80262198
@@ -3873,7 +3873,7 @@ rwa/rwavirtualvoiceobj.c:
 	.sbss       start:0x8029B210 end:0x8029B220
 	.sdata2     start:0x8029D920 end:0x8029D940
 
-rwa/rwalistenerobj.c:
+rwa/objects/src/rwalistenerobj.c:
 	.text       start:0x8022DA2C end:0x8022E67C
 	.rodata     start:0x80246278 end:0x80246298
 	.data       start:0x80262198 end:0x80262330
@@ -3908,7 +3908,7 @@ rwa/rwastreamcontainer.c:
 	.text       start:0x80232304 end:0x802346DC
 	.sdata2     start:0x8029D960 end:0x8029D970
 
-rwa/rwastreamcontainercmd.c:
+rwa/objects/src/rwastreamcontainercmd.c:
 	.text       start:0x802346DC end:0x80234950
 	.sdata2     start:0x8029D970 end:0x8029D978
 
@@ -3920,18 +3920,18 @@ rwa/rwastream.c:
 	.sbss       start:0x8029B240 end:0x8029B258
 	.sdata2     start:0x8029D978 end:0x8029D980
 
-rwa/rwanullwave.c:
+rwa/waves/src/rwanullwave.c:
 	.text       start:0x80235A78 end:0x80235C24
 	.rodata     start:0x802462C8 end:0x802462D8
 	.bss        start:0x802954B8 end:0x80295508
 
-rwa/osbase.c:
+rwa/gcn/core/src/osbase.c:
 	.text       start:0x80235C24 end:0x80235C2C
 
-rwa/osmultithread.c:
+rwa/gcn/core/src/osmultithread.c:
 	.text       start:0x80235C2C end:0x80235E18
 
-rwa/ostimer.c:
+rwa/gcn/core/src/ostimer.c:
 	.text       start:0x80235E18 end:0x80235E4C
 	.sbss       start:0x8029B258 end:0x8029B260
 
