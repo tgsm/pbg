@@ -109,9 +109,16 @@ Select an object from the left sidebar to begin diffing. Changes to the project 
 Credits
 =======
 
-Some parts of this repository were taken from other decomp projects:
+### Some parts of this repository were taken from other decomp projects:
 * Dolphin OS: [dolsdk2004](https://github.com/doldecomp/dolsdk2004), [dolsdk2001](https://github.com/doldecomp/dolsdk2001), [pikmin2](https://github.com/projectPiki/pikmin2)
 * Dolphin AI, PAD: [dolsdk2004](https://github.com/doldecomp/dolsdk2004)
 * THP: [pikmin2](https://github.com/projectPiki/pikmin2), [prime](https://github.com/PrimeDecomp/prime)
-* RenderWare (DWARF symbols): [bfbb (PS2)](https://github.com/bfbbdecomp/bfbb/tree/main/dwarf), HP:GoF, [RenderWare 3 User Guide](https://github.com/electronicarts/RenderWare3Docs/tree/master/userguide) [(license)](https://github.com/electronicarts/RenderWare3Docs/blob/master/LICENCE.md)
 * MSL libc: [tp](https://github.com/zeldaret/tp), [AF e+](https://github.com/ACreTeam/afe-decomp)
+
+### Some games contain DWARF symbols that this repository references:
+* Battle for Bikini Bottom (PS2)
+* Harry Potter: Goblet of Fire
+* Ghost Rider (PS2) (07/20/06 and 11/17/06 prototypes)
+
+### Some additional information is referenced from:
+* [RenderWare 3 User Guide](https://github.com/electronicarts/RenderWare3Docs/tree/master/userguide) [(license)](https://github.com/electronicarts/RenderWare3Docs/blob/master/LICENCE.md)
