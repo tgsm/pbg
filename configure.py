@@ -1376,7 +1376,7 @@ config.libs = [
             Object(Matching, "rwsdk/src/baraster.c", extra_cflags=["-inline deferred"]),
             Object(NonMatching, "rwsdk/src/baresamp.c"),
             Object(NonMatching, "rwsdk/src/basync.c"),
-            Object(NonMatching, "rwsdk/src/batextur.c"),
+            Object(NonMatching, "rwsdk/src/batextur.c", mw_version="GC/1.3"),
             Object(NonMatching, "rwsdk/src/batypehf.c"),
             Object(NonMatching, "rwsdk/driver/common/palquant.c"),
             Object(NonMatching, "rwsdk/driver/gcn/dl2drend.c"),

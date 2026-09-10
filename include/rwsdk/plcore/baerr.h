@@ -27,6 +27,7 @@ typedef enum RwErrorCodeCommon {
     E_RW_PLUGININIT = 0x80000017,
     E_RW_READ = 0x8000001A,
     E_RW_WRITE = 0x8000001C,
+    E_RW_STRING_TRUNCATION = 0x8000001E,
 } RwErrorCodeCommon;
 
 // Should this be here?
