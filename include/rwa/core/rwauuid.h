@@ -1,20 +1,26 @@
-#ifndef RWA_RWAUUID_H
-#define RWA_RWAUUID_H
+#ifndef RWA_CORE_RWAUUID_H
+#define RWA_CORE_RWAUUID_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 typedef struct RwaUUID {
-    unsigned char unk0[4];
-    unsigned char unk4[2];
-    unsigned char unk6[2];
-    unsigned char unk8[8];
+    unsigned int time_low;
+    unsigned short time_mid;
+    unsigned short time_hi_and_version;
+    unsigned char node[8];
 } RwaUUID;
 
 typedef struct RwaUniqueID {
-    RwaUUID* uuid;
-    char* name;
+    union {
+        RwaUUID* uuid;
+        RwaUUID* copyUUID;
+    } uuid;
+    union {
+        char* uniqueName;
+        char* copyName;
+    } name;
     unsigned int flags;
 } RwaUniqueID;
 

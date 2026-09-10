@@ -1,5 +1,5 @@
-#ifndef RWA_RWAWAVE_H
-#define RWA_RWAWAVE_H
+#ifndef RWA_CORE_RWAWAVE_H
+#define RWA_CORE_RWAWAVE_H
 
 #ifdef __cplusplus
 extern "C" {

@@ -1,5 +1,5 @@
-#ifndef RWA_RWAMEMORY
-#define RWA_RWAMEMORY
+#ifndef RWA_CORE_RWAMEMORY_H
+#define RWA_CORE_RWAMEMORY_H
 
 #ifdef __cplusplus
 extern "C" {

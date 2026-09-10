@@ -1,8 +1,8 @@
-#ifndef RWA_RWAVIRTUALVOICE_H
-#define RWA_RWAVIRTUALVOICE_H
+#ifndef RWA_INTERFACES_RWAVIRTUALVOICE_H
+#define RWA_INTERFACES_RWAVIRTUALVOICE_H
 
-#include <rwa/rwaobject.h>
-#include <rwa/rwawave.h>
+#include <rwa/core/rwaobj.h>
+#include <rwa/core/rwawave.h>
 
 #ifdef __cplusplus
 extern "C" {

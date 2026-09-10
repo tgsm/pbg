@@ -1,5 +1,5 @@
-#ifndef RWA_RWAFREELIST_H
-#define RWA_RWAFREELIST_H
+#ifndef RWA_CORE_RWAFREELIST_H
+#define RWA_CORE_RWAFREELIST_H
 
 #ifdef __cplusplus
 extern "C" {

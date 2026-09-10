@@ -1,5 +1,5 @@
-#ifndef RWA_RWAOBJECT_H
-#define RWA_RWAOBJECT_H
+#ifndef RWA_CORE_RWAOBJ_H
+#define RWA_CORE_RWAOBJ_H
 
 #ifdef __cplusplus
 extern "C" {

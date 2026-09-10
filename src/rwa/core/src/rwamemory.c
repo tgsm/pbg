@@ -1,6 +1,6 @@
-#include <null.h>
+#include <stddef.h>
 #include <string.h>
-#include "rwa/rwamemory.h"
+#include "rwa/core/rwamemory.h"
 
 void* _rwaMalloc(size_t size) {
     return RwMalloc(size);

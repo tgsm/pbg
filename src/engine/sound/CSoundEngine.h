@@ -1,7 +1,7 @@
 #ifndef ENGINE_SOUND_CSOUNDENGINE_H
 #define ENGINE_SOUND_CSOUNDENGINE_H
 
-#include <rwa/rwavirtualvoice.h>
+#include <rwa/interfaces/rwavirtualvoice.h>
 #include "engine/sound/ISoundEngine.h"
 
 struct RwaObjHandle {

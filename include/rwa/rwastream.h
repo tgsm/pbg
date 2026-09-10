@@ -1,5 +1,5 @@
-#ifndef RWA_RWASTREAM
-#define RWA_RWASTREAM
+#ifndef RWA_RWASTREAM_H
+#define RWA_RWASTREAM_H
 
 #ifdef __cplusplus
 extern "C" {

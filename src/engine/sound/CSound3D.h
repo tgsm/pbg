@@ -2,7 +2,7 @@
 #define ENGINE_SOUND_CSOUND3D_H
 
 #include <rwa/rwastream.h>
-#include <rwa/rwavirtualvoice.h>
+#include <rwa/interfaces/rwavirtualvoice.h>
 #include "engine/sound/ISound3D.h"
 #include "engine/sound/CSoundEmitter.h"
 
