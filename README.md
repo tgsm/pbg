@@ -115,7 +115,7 @@ Credits
 * THP: [pikmin2](https://github.com/projectPiki/pikmin2), [prime](https://github.com/PrimeDecomp/prime)
 * MSL libc: [tp](https://github.com/zeldaret/tp), [AF e+](https://github.com/ACreTeam/afe-decomp)
 
-### Some games contain DWARF symbols that this repository references:
+### Some games contain DWARF/STABS information that this repository references:
 * Battle for Bikini Bottom (PS2)
 * Harry Potter: Goblet of Fire
 * Ghost Rider (PS2) (07/20/06 and 11/17/06 prototypes)
