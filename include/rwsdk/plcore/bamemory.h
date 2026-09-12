@@ -49,6 +49,7 @@ RwFreeList* RwFreeListCreate(RwUInt32, RwUInt32 entriesPerBlock, RwUInt32 alignm
 RwFreeList* RwFreeListCreateAndPreallocateSpace(RwUInt32, RwUInt32 entriesPerBlock, RwUInt32 alignment, RwUInt32 preallocBlocks, RwFreeList*);
 RwBool RwFreeListDestroy(RwFreeList* list);
 RwFreeList* RwFreeListForAllUsed(RwFreeList* freeList, RwFreeListCallBack callback, void*);
+RwMemoryFunctions* RwOsGetMemoryInterface(void);
 
 #ifdef __cplusplus
 }

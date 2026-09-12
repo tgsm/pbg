@@ -322,6 +322,7 @@ cflags_rw = [
 
 cflags_rwa = [
     *cflags_base,
+    "-O2,p",
 
     "-opt noschedule",
     # "-opt nopeephole",
@@ -1416,7 +1417,7 @@ config.libs = [
             Object(NonMatching, "rwa/core/src/rwasymboltable.c"),
             Object(Matching, "rwa/core/src/rwamemory.c", extra_cflags=["-opt nopeephole"]),
             Object(NonMatching, "rwa/core/src/rwafile.c"),
-            Object(NonMatching, "rwa/core/src/rwabase.c"),
+            Object(Matching, "rwa/core/src/rwabase.c"),
             Object(NonMatching, "rwa/core/src/rwawavedict.c"),
             Object(NonMatching, "rwa/core/src/rwawaveconv.c"),
             Object(NonMatching, "rwa/core/src/rwawavedef.c"),
