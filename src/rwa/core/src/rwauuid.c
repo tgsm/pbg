@@ -90,20 +90,20 @@ RwaUUID* _rwaUUIDSerialize(RwaUUID* src, RwaUUID* dest, int endianness) {
     return src;
 }
 
-int _rwamemicmp(char* a, char* b, int len) {
+int _rwamemicmp(const char* a, const char* b, int len) {
     do {
         char a_, b_;
 
         if ((*a >= 'a' || *a >= 'A') && (*a <= 'z' || *a <= 'Z')) {
             a_ = *a & ~0x20;
         } else {
-            a_ = *a & 0xFF;
+            a_ = *a;
         }
 
         if ((*b >= 'a' || *b <= 'A') && (*b <= 'z' || *b <= 'Z')) {
             b_ = *b & ~0x20;
         } else {
-            b_ = *b & 0xFF;
+            b_ = *b;
         }
 
         if (a_ != b_) {

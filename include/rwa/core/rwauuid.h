@@ -34,7 +34,7 @@ RwaUniqueID* _rwaUniqueIDFreeName(RwaUniqueID* id);
 RwaUniqueID* _rwaUniqueIDFreeUUID(RwaUniqueID* id);
 RwaUniqueID* _rwaUniqueIDInitialize(RwaUniqueID* id);
 RwaUUID* _rwaUUIDSerialize(RwaUUID* src, RwaUUID* dest, int endianness);
-int _rwamemicmp(char* a, char* b, int len);
+int _rwamemicmp(const char* a, const char* b, int len);
 
 #ifdef __cplusplus
 }
