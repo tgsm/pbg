@@ -1,32 +1,26 @@
 #ifndef RWA_CORE_RWAFREELIST_H
 #define RWA_CORE_RWAFREELIST_H
 
+#include <rwsdk/plcore/bamemory.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// FIXME: Where does this go?
-typedef struct RwaLLLink {
-    struct RwaLLLink* next;
-    struct RwaLLLink* prev;
-} RwaLLLink;
-typedef struct RwaLinkList {
-    RwaLLLink link;
-} RwaLinkList;
-
 typedef struct RwaFreeList {
-    unsigned int entrySize;
-    unsigned int entriesPerBlock;
-    unsigned int heapSize;
-    unsigned int alignment;
-    RwaLinkList blockList;
-    unsigned int flags;
-    RwaLLLink link;
+    RwUInt32 entrySize;
+    RwUInt32 entriesPerBlock;
+    RwUInt32 heapSize;
+    RwUInt32 alignment;
+    RwLinkList blockList;
+    RwUInt32 flags;
+    RwLLLink link;
 } RwaFreeList; // size: 0x24
 
 typedef void (*RwaFreeListCallBack)(void*, void*);
 
-RwaFreeList* RwaFreeListCreate(unsigned int a0, unsigned int entriesPerBlock, unsigned int alignment, unsigned int preallocBlocks, RwaFreeList* a4);
+RwaFreeList* RwaFreeListCreate(RwUInt32 a0, RwUInt32 entriesPerBlock, RwUInt32 alignment, RwUInt32 preallocBlocks, RwaFreeList* a4);
+void* RwaFreeListAlloc(RwaFreeList* freeList);
 void RwaFreeListDestroy(RwaFreeList* freeList);
 void RwaFreeListFree(RwaFreeList* freeList, void* ptr);
 

@@ -1426,7 +1426,7 @@ config.libs = [
             Object(NonMatching, "rwa/core/src/rwavoicemanager.c"),
             Object(NonMatching, "rwa/core/src/rwathread.c"),
             Object(NonMatching, "rwa/core/src/rwafreelist.c"),
-            Object(NonMatching, "rwa/core/src/rwallist.c"),
+            Object(Matching, "rwa/core/src/rwallist.c"),
             Object(NonMatching, "rwa/core/src/rwamath.c"),
             Object(NonMatching, "rwa/core/src/rwaheap.c"),
             Object(NonMatching, "rwa/rwastreamcreate.c"),
