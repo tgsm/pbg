@@ -15,25 +15,25 @@ typedef struct RwaUUID {
 typedef struct RwaUniqueID {
     union {
         RwaUUID* uuid;
-        RwaUUID* copyUUID;
+        const RwaUUID* copyUUID;
     } uuid;
     union {
         char* uniqueName;
-        char* copyName;
+        const char* copyName;
     } name;
     unsigned int flags;
 } RwaUniqueID;
 
-int RwaUUIDCompare(RwaUUID* a, RwaUUID* b);
+int RwaUUIDCompare(const RwaUUID* a, const RwaUUID* b);
 int _rwaUniqueIDModuleOpen(void);
 void _rwaUniqueIDModuleClose(void);
-RwaUniqueID* _rwaUniqueIDAssignName(RwaUniqueID* id, char* name);
-RwaUniqueID* _rwaUniqueIDAssignUUID(RwaUniqueID* id, RwaUUID* uuid);
+RwaUniqueID* _rwaUniqueIDAssignName(RwaUniqueID* id, const char* name);
+RwaUniqueID* _rwaUniqueIDAssignUUID(RwaUniqueID* id, const RwaUUID* uuid);
 RwaUniqueID* _rwaUniqueIDFreeData(RwaUniqueID* id);
 RwaUniqueID* _rwaUniqueIDFreeName(RwaUniqueID* id);
 RwaUniqueID* _rwaUniqueIDFreeUUID(RwaUniqueID* id);
 RwaUniqueID* _rwaUniqueIDInitialize(RwaUniqueID* id);
-RwaUUID* _rwaUUIDSerialize(RwaUUID* src, RwaUUID* dest, int endianness);
+const RwaUUID* _rwaUUIDSerialize(const RwaUUID* src, RwaUUID* dest, int endianness);
 int _rwamemicmp(const char* a, const char* b, int len);
 
 #ifdef __cplusplus

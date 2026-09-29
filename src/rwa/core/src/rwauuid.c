@@ -7,7 +7,7 @@
 static RwaFreeList _uuidFreeList;
 static int _moduleOpen;
 
-int RwaUUIDCompare(RwaUUID* a, RwaUUID* b) {
+int RwaUUIDCompare(const RwaUUID* a, const RwaUUID* b) {
     if (a == b) {
         return 0;
     }
@@ -29,14 +29,14 @@ void _rwaUniqueIDModuleClose(void) {
     _moduleOpen = 0;
 }
 
-RwaUniqueID* _rwaUniqueIDAssignName(RwaUniqueID* id, char* name) {
+RwaUniqueID* _rwaUniqueIDAssignName(RwaUniqueID* id, const char* name) {
     _rwaUniqueIDFreeName(id);
     id->name.copyName = name;
     id->flags &= ~(1 << 1);
     return id;
 }
 
-RwaUniqueID* _rwaUniqueIDAssignUUID(RwaUniqueID* id, RwaUUID* uuid) {
+RwaUniqueID* _rwaUniqueIDAssignUUID(RwaUniqueID* id, const RwaUUID* uuid) {
     _rwaUniqueIDFreeUUID(id);
     id->uuid.copyUUID = uuid;
     id->flags &= ~(1 << 0);
@@ -74,13 +74,13 @@ RwaUniqueID* _rwaUniqueIDInitialize(RwaUniqueID* id) {
 
 extern void RwaEndianCopy(void*, void*, int);
 
-RwaUUID* _rwaUUIDSerialize(RwaUUID* src, RwaUUID* dest, int endianness) {
+const RwaUUID* _rwaUUIDSerialize(const RwaUUID* src, RwaUUID* dest, int endianness) {
     if (endianness != 0) {
         RwaUUID buf;
         RwaUUID* ptr = &buf;
-        RwaEndianCopy(&ptr, &src->time_low, sizeof(src->time_low));
-        RwaEndianCopy(&ptr, &src->time_mid, sizeof(src->time_mid));
-        RwaEndianCopy(&ptr, &src->time_hi_and_version, sizeof(src->time_hi_and_version));
+        RwaEndianCopy(&ptr, (void*)&src->time_low, sizeof(src->time_low));
+        RwaEndianCopy(&ptr, (void*)&src->time_mid, sizeof(src->time_mid));
+        RwaEndianCopy(&ptr, (void*)&src->time_hi_and_version, sizeof(src->time_hi_and_version));
         memcpy(ptr, &src->node, sizeof(src->node));
         memcpy(dest, &buf, sizeof(RwaUUID));
     } else {
