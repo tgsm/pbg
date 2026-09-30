@@ -17,7 +17,7 @@ RwBool _rwaLListModuleOpen(void);
 void _rwaLListModuleClose(void);
 RwaLLNode* RwaLListAddData(RwaLLNode* list, void* data);
 RwaLLNode* RwaLListRemoveData(RwaLLNode* list, void* data);
-RwInt32 RwaLListFindDataIndex(RwaLLNode* list, void* data);
+RwUInt32 RwaLListFindDataIndex(RwaLLNode* list, void* data);
 void RwaLListEmpty(RwaLLNode* list);
 
 #ifdef __cplusplus

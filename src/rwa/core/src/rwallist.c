@@ -47,8 +47,8 @@ RwaLLNode* RwaLListRemoveData(RwaLLNode* list, void* data) {
     return list;
 }
 
-RwInt32 RwaLListFindDataIndex(RwaLLNode* list, void* data) {
-    RwInt32 index = 0;
+RwUInt32 RwaLListFindDataIndex(RwaLLNode* list, void* data) {
+    RwUInt32 index = 0;
     RwaLLNode* current;
     for (current = list->next; current != list; current = current->next, index++) {
         if (current->data == data) {
