@@ -5,9 +5,9 @@
 #include <rwa/core/rwauuid.h>
 
 static RwaFreeList _uuidFreeList;
-static int _moduleOpen;
+static RwBool _moduleOpen = FALSE;
 
-int RwaUUIDCompare(const RwaUUID* a, const RwaUUID* b) {
+RwInt32 RwaUUIDCompare(const RwaUUID* a, const RwaUUID* b) {
     if (a == b) {
         return 0;
     }
@@ -15,21 +15,21 @@ int RwaUUIDCompare(const RwaUUID* a, const RwaUUID* b) {
     return memcmp(a, b, sizeof(RwaUUID));
 }
 
-int _rwaUniqueIDModuleOpen(void) {
-    if (RwaFreeListCreate(16, 8, 16, 0, &_uuidFreeList)) {
-        _moduleOpen = 1;
-        return 1;
+RwBool _rwaUniqueIDModuleOpen(void) {
+    if (RwaFreeListCreate(sizeof(RwaUUID), 8, 16, 0, &_uuidFreeList)) {
+        _moduleOpen = TRUE;
+        return TRUE;
     }
 
-    return 0;
+    return FALSE;
 }
 
 void _rwaUniqueIDModuleClose(void) {
     RwaFreeListDestroy(&_uuidFreeList);
-    _moduleOpen = 0;
+    _moduleOpen = FALSE;
 }
 
-RwaUniqueID* _rwaUniqueIDAssignName(RwaUniqueID* id, const char* name) {
+RwaUniqueID* _rwaUniqueIDAssignName(RwaUniqueID* id, const RwChar* name) {
     _rwaUniqueIDFreeName(id);
     id->name.copyName = name;
     id->flags &= ~(1 << 1);
@@ -72,9 +72,9 @@ RwaUniqueID* _rwaUniqueIDInitialize(RwaUniqueID* id) {
     return id;
 }
 
-extern void RwaEndianCopy(void*, void*, int);
+extern void RwaEndianCopy(void*, void*, RwInt32);
 
-const RwaUUID* _rwaUUIDSerialize(const RwaUUID* src, RwaUUID* dest, int endianness) {
+const RwaUUID* _rwaUUIDSerialize(const RwaUUID* src, RwaUUID* dest, RwInt32 endianness) {
     if (endianness != 0) {
         RwaUUID buf;
         RwaUUID* ptr = &buf;
@@ -90,9 +90,9 @@ const RwaUUID* _rwaUUIDSerialize(const RwaUUID* src, RwaUUID* dest, int endianne
     return src;
 }
 
-int _rwamemicmp(const char* a, const char* b, int len) {
+RwInt32 _rwamemicmp(const RwChar* a, const RwChar* b, RwInt32 len) {
     do {
-        char a_, b_;
+        RwChar a_, b_;
 
         if ((*a >= 'a' || *a >= 'A') && (*a <= 'z' || *a <= 'Z')) {
             a_ = *a & ~0x20;
