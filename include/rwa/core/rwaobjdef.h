@@ -1,6 +1,7 @@
 #ifndef RWA_CORE_RWAOBJDEF_H
 #define RWA_CORE_RWAOBJDEF_H
 
+#include <rwa/core/rwaobjinterface.h>
 #include <rwsdk/plcore/bamemory.h>
 
 #ifdef __cplusplus
@@ -11,6 +12,8 @@ extern "C" {
 typedef struct RwaObjDef {
     RwChar unk0[0x20];
     RwLinkList waveDefList;
+    RwChar unk28[0x4C - 0x28];
+    RwaObjDefInterfaceInfo* interfaceInfo;
 } RwaObjDef;
 
 typedef RwaObjDef* (*RwaObjDefRegisterFunc)(void);
