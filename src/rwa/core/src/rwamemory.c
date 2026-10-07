@@ -1,6 +1,6 @@
 #include <stddef.h>
 #include <string.h>
-#include "rwa/core/rwamemory.h"
+#include <rwa/core/rwamemory.h>
 
 void* _rwaMalloc(size_t size) {
     return RwMalloc(size);
@@ -8,10 +8,12 @@ void* _rwaMalloc(size_t size) {
 
 void* _rwaMallocAligned(size_t size) {
     void* aligned;
-    void* ptr = RwMalloc(size + 32);
+    void* ptr;
+    size_t alignedSize = size + 32;
+    ptr = RwMalloc(alignedSize);
     if (ptr != NULL) {
-        aligned = (void*)(((int)ptr + 32) & ~0x1F);
-        ((int*)aligned)[-1] = (int)ptr;
+        aligned = (void*)(((RwInt32)ptr + 32) & ~0x1F);
+        ((RwInt32*)aligned)[-1] = (RwInt32)ptr;
     } else {
         return NULL;
     }
@@ -20,7 +22,7 @@ void* _rwaMallocAligned(size_t size) {
 }
 
 void _rwaFreeAligned(void* ptr) {
-    _rwaFree((void*)(((int*)ptr)[-1]));
+    _rwaFree((void*)(((RwInt32*)ptr)[-1]));
 }
 
 void _rwaFree(void* ptr) {
@@ -31,9 +33,6 @@ void* _rwaCalloc(size_t n, size_t size) {
     return RwCalloc(n, size);
 }
 
-// FIXME: hack
-#pragma peephole on
-
 static void* FakeCalloc(size_t n, size_t size) {
     void* ptr = RwMalloc(n * size);
     if (ptr != NULL) {
@@ -42,9 +41,9 @@ static void* FakeCalloc(size_t n, size_t size) {
     return ptr;
 }
 
-int _rwaMemoryOpen(RwMemoryFunctions* funcs_ptr) {
-    if (funcs_ptr != NULL) {
-        memcpy(&RwEngineInstance->memoryFuncs, funcs_ptr, sizeof(RwMemoryFunctions));
+RwBool _rwaMemoryOpen(RwMemoryFunctions* funcs) {
+    if (funcs != NULL) {
+        memcpy(&RwEngineInstance->memoryFuncs, funcs, sizeof(RwMemoryFunctions));
     } else {
         RwEngineInstance->memoryFuncs.rwmalloc = malloc;
         RwEngineInstance->memoryFuncs.rwfree = free;
@@ -52,7 +51,7 @@ int _rwaMemoryOpen(RwMemoryFunctions* funcs_ptr) {
         RwEngineInstance->memoryFuncs.rwcalloc = FakeCalloc;
     }
 
-    return 1;
+    return TRUE;
 }
 
 void _rwaMemoryClose(void) {

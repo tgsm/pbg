@@ -1415,7 +1415,7 @@ config.libs = [
             Object(Equivalent, "rwa/core/src/rwaobjinterface.c"),
             Object(NonMatching, "rwa/core/src/rwaparam.c"),
             Object(Matching, "rwa/core/src/rwasymboltable.c"),
-            Object(Matching, "rwa/core/src/rwamemory.c", extra_cflags=["-opt nopeephole"]),
+            Object(Matching, "rwa/core/src/rwamemory.c"),
             Object(NonMatching, "rwa/core/src/rwafile.c"),
             Object(Matching, "rwa/core/src/rwabase.c"),
             Object(Matching, "rwa/core/src/rwawavedict.c"),
