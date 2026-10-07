@@ -12,7 +12,9 @@ extern "C" {
 typedef struct RwaObjDef {
     RwChar unk0[0x20];
     RwLinkList waveDefList;
-    RwChar unk28[0x4C - 0x28];
+    RwChar unk28[0x40 - 0x28];
+    RwUInt32 stateSizeAlign;
+    RwChar unk44[0x4C - 0x44];
     RwaObjDefInterfaceInfo* interfaceInfo;
 } RwaObjDef;
 

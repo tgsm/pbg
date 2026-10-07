@@ -313,7 +313,7 @@ BOOL CSound3D::IsFinished() {
         if (m_virtual_voice == NULL || !m_playing) {
             finished = TRUE;
         } else if (m_playing && !m_paused && m_loop_mode == 0) {
-            finished = m_virtual_voice->object.unk3C == 0;
+            finished = m_virtual_voice->unk3C == 0;
         }
     }
 

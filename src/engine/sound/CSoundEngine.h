@@ -4,10 +4,6 @@
 #include <rwa/interfaces/rwavirtualvoice.h>
 #include "engine/sound/ISoundEngine.h"
 
-struct RwaObjHandle {
-    void* unk0;
-};
-
 namespace DKSND {
 
 class CSoundEngine : public ISoundEngine {

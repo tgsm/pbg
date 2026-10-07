@@ -218,7 +218,7 @@ CGame::CGame(void* a1, U32 flags) {
         VIWaitForRetrace();
     }
 
-    stream = RwaStreamCreate(m_sound_engine->RWAGetOSOutputHandle()->unk0, 0, 0, 0, 0);
+    stream = RwaStreamCreate(m_sound_engine->RWAGetOSOutputHandle()->obj, 0, 0, 0, 0);
     static char tmpString[255];
     strcpy(tmpString, "GCNStereo.rws");
 

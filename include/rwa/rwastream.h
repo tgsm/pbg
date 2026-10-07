@@ -1,11 +1,11 @@
 #ifndef RWA_RWASTREAM_H
 #define RWA_RWASTREAM_H
 
+#include <rwa/core/rwaintf.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-struct RwaObjHandle;
 
 typedef struct RwaUnkMedia {
     char* filename;

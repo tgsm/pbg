@@ -28,7 +28,7 @@ typedef struct RwaParamTypeHandle {
     RwBool isUUID;
 } RwaParamTypeHandle; // size: 0x8
 
-typedef RwaObj* (*RwaObjParamFunc)(); // FIXME: figure out params
+typedef RwaObj* (*RwaObjParamFunc)(RwaObj* obj, RwUInt16 paramIndex, void* data);
 
 typedef struct RwaInputParamDef {
     RwaUniqueID uniqueID;

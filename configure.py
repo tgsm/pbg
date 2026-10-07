@@ -1409,7 +1409,7 @@ config.libs = [
         "rwa",
         [
             Object(NonMatching, "rwa/core/src/rwaobjdefalias.c"),
-            Object(NonMatching, "rwa/core/src/rwaintf.c"),
+            Object(Matching, "rwa/core/src/rwaintf.c"),
             Object(NonMatching, "rwa/core/src/rwaobjdef.c"),
             Object(NonMatching, "rwa/core/src/rwaobj.c"),
             Object(Equivalent, "rwa/core/src/rwaobjinterface.c"),
