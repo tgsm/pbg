@@ -1,7 +1,7 @@
 #ifndef ENGINE_SOUND_CSOUNDENGINE_H
 #define ENGINE_SOUND_CSOUNDENGINE_H
 
-#include <rwa/interfaces/rwavirtualvoice.h>
+#include <rwa/objects/rwavirtualvoiceobj.h>
 #include "engine/sound/ISoundEngine.h"
 
 namespace DKSND {

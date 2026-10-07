@@ -1432,7 +1432,7 @@ config.libs = [
             Object(NonMatching, "rwa/rwastreamcreate.c"),
             Object(NonMatching, "rwa/core/src/rwstream.c"),
             Object(NonMatching, "rwa/core/src/rwaallocbitmap.c"),
-            Object(NonMatching, "rwa/interfaces/src/rwavirtualvoice.c"),
+            Object(Matching, "rwa/interfaces/src/rwavirtualvoice.c"),
             Object(NonMatching, "rwa/interfaces/src/rwavoice3d.c"),
             Object(NonMatching, "rwa/interfaces/src/rwavoice.c"),
             Object(NonMatching, "rwa/interfaces/src/rwaoutput.c"),
