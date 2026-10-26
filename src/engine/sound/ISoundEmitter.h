@@ -28,9 +28,9 @@ public:
     virtual U32 GetNbSounds() = 0;
     virtual void Update() = 0;
     virtual void SetDestroyWhenNoSound() = 0;
-    virtual CSound3D* PlaySound(ISample* sample, int) = 0;
-    virtual CSound3D* PlaySound(std::string*, int) = 0;
-    virtual CSound3D* PlaySound(std::string, int) = 0;
+    virtual CSound3D* PlaySound(ISample* sample, BOOL loop_mode) = 0;
+    virtual CSound3D* PlaySound(std::string*, BOOL loop_mode) = 0;
+    virtual CSound3D* PlaySound(std::string, BOOL loop_mode) = 0;
 };
 
 }

@@ -22,8 +22,8 @@ public:
     virtual void Stop() = 0;
     virtual void Pause() = 0;
     virtual void Resume() = 0;
-    virtual void SetLoopMode(int loop_mode) = 0;
-    virtual int GetLoopMode() = 0;
+    virtual void SetLoopMode(BOOL loop_mode) = 0;
+    virtual BOOL GetLoopMode() = 0;
     virtual BOOL IsLooping() = 0;
     virtual BOOL IsFinished() = 0;
     virtual BOOL IsPlaying() = 0;

@@ -185,7 +185,7 @@ void CEntityPhial::ResolveContact(const DkPh::Collider::Body& body, int, int) {
         sound->SetLayer(1);
     }
     if (sound != NULL) {
-        sound->SetLoopMode(0);
+        sound->SetLoopMode(FALSE);
     }
 
     DelFlag(ENTITY_FLAG_VISIBLE);

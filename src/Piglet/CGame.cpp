@@ -238,7 +238,7 @@ CGame::CGame(void* a1, U32 flags) {
         m_sound_engine->BeginUpdate();
         m_sound_engine->EndUpdate();
         VIWaitForRetrace();
-    } while (_rwaStreamGetStatus(stream) == 2);
+    } while (_rwaStreamGetStatus(stream) == rwaSTREAMSTATUS_OPENING);
 
     m_backup_engine->Initialize();
     m_backup_engine->SetGameTitle("Piglet's BIG GAME");

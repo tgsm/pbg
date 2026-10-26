@@ -154,7 +154,7 @@ void CSoundEmitter::Update() {
     }
 }
 
-CSound3D* CSoundEmitter::PlaySound(ISample* sample, int loop_mode) {
+CSound3D* CSoundEmitter::PlaySound(ISample* sample, BOOL loop_mode) {
     CSound3D* sound = DkSoundGetEngine()->CreateSound3D(sample, 1);
     if (sound == NULL) {
         return NULL;
@@ -169,7 +169,7 @@ CSound3D* CSoundEmitter::PlaySound(ISample* sample, int loop_mode) {
     return sound;
 }
 
-CSound3D* CSoundEmitter::PlaySound(std::string* name, int loop_mode) {
+CSound3D* CSoundEmitter::PlaySound(std::string* name, BOOL loop_mode) {
     CSound3D* sound = DkSoundGetEngine()->CreateSound3D(name, 1);
     if (sound == NULL) {
         return NULL;
@@ -183,7 +183,7 @@ CSound3D* CSoundEmitter::PlaySound(std::string* name, int loop_mode) {
     return sound;
 }
 
-CSound3D* CSoundEmitter::PlaySound(std::string name, int loop_mode) {
+CSound3D* CSoundEmitter::PlaySound(std::string name, BOOL loop_mode) {
     return PlaySound(&name, loop_mode);
 }
 

@@ -27,10 +27,11 @@ public:
     U32 m_unk1C;
     BOOL m_paused;
     U32 m_unk24;
-    int m_loop_mode;
+    BOOL m_loop_mode;
     RwaVirtualVoice* m_virtual_voice;
     RwaStream* m_stream;
-    U8 m_unk34[0x3C - 0x34];
+    U32 m_wave_position;
+    U32 m_last_wave_position_maybe;
     BOOL m_finished;
     CSoundEmitter* m_sound_emitter;
     CDKW_V3d* m_position;
@@ -53,7 +54,7 @@ public:
     virtual void Stop();
     virtual void Pause();
     virtual void Resume();
-    virtual void SetLoopMode(int loop_mode);
+    virtual void SetLoopMode(BOOL loop_mode);
     virtual int GetLoopMode();
     virtual BOOL IsLooping();
     virtual BOOL IsFinished();

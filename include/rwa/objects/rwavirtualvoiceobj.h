@@ -4,22 +4,43 @@
 #include <rwa/core/rwaintf.h>
 #include <rwa/core/rwaobj.h>
 #include <rwa/core/rwawave.h>
+#include <rwsdk/plcore/bavector.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+// Different from Ghost Rider
+typedef struct RwaVirtualVoiceState {
+    RwLLLink link;
+    RwaObjHandle* RealVoice;
+    RwBool unkC;
+    RwInt32 NumRealVoices;
+    RwBool Trigger;
+    RwReal Frequency;
+    RwReal Gain;
+    RwReal Pan;
+    RwBool Loop;
+    RwUInt32 WavePosition; // might be / might not be start position instead?
+    RwaWave* Wave;
+    RwUInt32 LastPosTime;
+    RwV3d Position;
+    RwV3d Velocity;
+    RwReal MinDistance;
+    RwReal MaxDistance;
+    RwReal Priority;
+    RwReal Bias;
+    RwReal Weight;
+    RwInt32 unk60; // frequencySet? hard to prove
+} RwaVirtualVoiceState;
+
 // TODO
 typedef struct RwaVirtualVoice {
     RwaObj object;
-    char unk28[0x3C - 0x28];
-    RwInt32 unk3C;
-    char unk40[0x7C - 0x40];
-    float unk7C;
-    char unk80[0x8C - 0x80];
+    RwaVirtualVoiceState state;
 } RwaVirtualVoice;
 
-void _rwaVirtualVoiceSetTrigger(RwaVirtualVoice* virtualVoice, int trigger);
+void _rwaVirtualVoiceSetTrigger(RwaVirtualVoice* virtualVoice, RwBool trigger);
 void _rwaVirtualVoiceSetWave(RwaVirtualVoice* virtualVoice, RwaWave* wave);
 
 #ifdef __cplusplus

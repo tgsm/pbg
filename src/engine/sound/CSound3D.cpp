@@ -1,3 +1,6 @@
+#include <dolphin/vi.h>
+#include <rwa/objects/rwavirtualvoiceobj.h>
+#include <rwa/rwastream.h>
 #include "engine/sound/CSound3D.h"
 #include "engine/sound/DkSound.h"
 
@@ -128,7 +131,7 @@ void CSound3D::ClearGeneric() {
     m_layer = 0;
     m_unk24 = 0;
     m_update_flags = 0;
-    m_loop_mode = 0;
+    m_loop_mode = FALSE;
     m_unk1C = 0;
     m_virtual_voice = NULL;
 }
@@ -209,7 +212,7 @@ void CSound3D::SetPitch(F32 pitch) {
     GlobalUpdateSpecific();
 }
 
-void CSound3D::SetLoopMode(int loop_mode) {
+void CSound3D::SetLoopMode(BOOL loop_mode) {
     m_loop_mode = loop_mode;
     m_update_flags |= SOUND3D_UPDATE_FLAG_LOOP_MODE;
     GlobalUpdateSpecific();
@@ -260,7 +263,7 @@ BOOL CSound3D::CreateSoundSpecific() {
             return FALSE;
         }
         _rwaVirtualVoiceSetWave(m_virtual_voice, sample->RWAGetOSWave());
-        m_virtual_voice->unk7C = 1.0f;
+        m_virtual_voice->state.Priority = 1.0f;
         m_update_flags = 0;
         m_update_flags = SOUND3D_UPDATE_FLAG_LOOP_MODE | SOUND3D_UPDATE_FLAG_PLAYING | SOUND3D_UPDATE_FLAG_PITCH | SOUND3D_UPDATE_FLAG_VOLUME;
         GlobalUpdateSpecific();
@@ -273,7 +276,7 @@ BOOL CSound3D::ReleaseSpecific() {
     CSample* sample = GetSample();
     if (sample != NULL && !sample->IsStreamed()) {
         if (m_virtual_voice != NULL) {
-            _rwaVirtualVoiceSetTrigger(m_virtual_voice, 0);
+            _rwaVirtualVoiceSetTrigger(m_virtual_voice, FALSE);
             DkSoundGetEngine()->RWAFreeVirtualVoice(m_virtual_voice);
         }
         m_virtual_voice = NULL;
@@ -282,8 +285,203 @@ BOOL CSound3D::ReleaseSpecific() {
     return TRUE;
 }
 
+BOOL CSound3D::GlobalUpdateSpecific() {
+    CSample* sample = GetSample();
+    if (sample == NULL) {
+        return FALSE;
+    }
+
+    if (!sample->IsStreamed()) {
+        if (m_virtual_voice == NULL) {
+            return FALSE;
+        }
+
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_VOLUME) {
+            m_virtual_voice->state.Gain = m_volume;
+            if (m_virtual_voice->state.RealVoice != NULL) {
+                RwaObjHandleSetParamReal(m_virtual_voice->state.RealVoice, 5, 1, m_volume);
+            }
+        }
+
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_PITCH) {
+            m_virtual_voice->state.Frequency = sample->GetFrequency() * m_pitch;
+            if (m_virtual_voice->state.RealVoice != NULL) {
+                RwaObjHandleSetParamReal(m_virtual_voice->state.RealVoice, 4, 1, sample->GetFrequency() * m_pitch);
+            }
+        }
+
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_PLAYING) {
+            if (m_playing && !m_virtual_voice->state.Trigger) {
+                m_finished = FALSE;
+                _rwaVirtualVoiceSetTrigger(m_virtual_voice, TRUE);
+            }
+            if (!m_playing && m_virtual_voice->state.Trigger) {
+                m_finished = TRUE;
+                _rwaVirtualVoiceSetTrigger(m_virtual_voice, FALSE);
+            }
+        }
+
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_RESTART) {
+            m_finished = FALSE;
+            _rwaVirtualVoiceSetTrigger(m_virtual_voice, TRUE);
+        }
+
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_PAUSED) {
+            if (!m_paused) {
+                m_finished = FALSE;
+                m_virtual_voice->state.WavePosition = m_wave_position;
+                if (m_virtual_voice->state.RealVoice != NULL) {
+                    RwaObjHandleSetParamUInt32(m_virtual_voice->state.RealVoice, 7, 1, m_wave_position);
+                }
+                _rwaVirtualVoiceSetTrigger(m_virtual_voice, TRUE);
+            }
+            if (m_paused) {
+                U32 position = (m_virtual_voice->state.RealVoice != NULL && m_virtual_voice->state.Trigger) ? RwaObjHandleGetParamUInt32(m_virtual_voice->state.RealVoice, 7, 2, NULL) : m_virtual_voice->state.WavePosition;
+                m_virtual_voice->state.WavePosition = position;
+                m_wave_position = position;
+                _rwaVirtualVoiceSetTrigger(m_virtual_voice, FALSE);
+            }
+        }
+
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_LOOP_MODE) {
+            if (m_playing) {
+                U32 position = (m_virtual_voice->state.RealVoice != NULL && m_virtual_voice->state.Trigger) ? RwaObjHandleGetParamUInt32(m_virtual_voice->state.RealVoice, 7, 2, NULL) : m_virtual_voice->state.WavePosition;
+                m_virtual_voice->state.WavePosition = position;
+                m_wave_position = position;
+                _rwaVirtualVoiceSetTrigger(m_virtual_voice, FALSE);
+            }
+
+            m_virtual_voice->state.Loop = m_loop_mode;
+            if (m_virtual_voice->state.RealVoice != NULL) {
+                RwaObjHandleSetParamInt32(m_virtual_voice->state.RealVoice, 8, 1, m_loop_mode);
+            }
+
+            if (m_playing && !m_paused) {
+                m_virtual_voice->state.WavePosition = m_wave_position;
+                if (m_virtual_voice->state.RealVoice != NULL) {
+                    RwaObjHandleSetParamUInt32(m_virtual_voice->state.RealVoice, 7, 1, m_wave_position);
+                }
+                _rwaVirtualVoiceSetTrigger(m_virtual_voice, TRUE);
+            }
+        }
+    } else {
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_VOLUME) {
+            RwaStreamGain gain;
+            gain.subStream = -1;
+            gain.element.gain = m_volume;
+            _rwaStreamSetStreamGain(m_stream, &gain);
+        }
+
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_PITCH) {
+            if (m_stream != NULL) {
+                _rwaStreamSetPitch(m_stream, m_pitch * sample->GetFrequency());
+            }
+        }
+
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_PLAYING) {
+            if (m_playing) {
+                m_finished = FALSE;
+                if (m_stream != NULL) {
+                    _rwaStreamSetPlayState(m_stream, rwaSTREAMPLAYSTATE_PLAY);
+                    DkSoundGetEngine()->BeginUpdate();
+                    DkSoundGetEngine()->EndUpdate();
+                    if ((int)m_sound_emitter != NULL) { // ??? (this has to be a signed comparison)
+                        RwaStreamStatus status;
+                        // Top snippet is probably closer to what they did, but it doesn't match.
+                        // Bottom snippet matches, but it is likely fake.
+#if 1
+                        while (status = _rwaStreamGetStatus(m_stream), status != rwaSTREAMSTATUS_PLAYING && status != rwaSTREAMSTATUS_NOMEDIA) {
+                            DkSoundGetEngine()->BeginUpdate();
+                            DkSoundGetEngine()->EndUpdate();
+                            VIWaitForRetrace();
+                        }
+#else
+                        goto label2;
+label1:
+                        DkSoundGetEngine()->BeginUpdate();
+                        DkSoundGetEngine()->EndUpdate();
+                        VIWaitForRetrace();
+label2:
+                        status = _rwaStreamGetStatus(m_stream);
+                        if (status != rwaSTREAMSTATUS_PLAYING && status != rwaSTREAMSTATUS_NOMEDIA) {
+                            goto label1;
+                        }
+#endif
+
+                        m_position = NULL;
+                    }
+                }
+            }
+            if (!m_playing) {
+                m_finished = TRUE;
+                if (m_stream != NULL) {
+                    _rwaStreamSetPlayState(m_stream, rwaSTREAMPLAYSTATE_STOP);
+
+                    RwaStreamPosParams params;
+                    RwaStreamPos pos;
+                    params.flush = FALSE;
+                    params.pos = &pos;
+                    pos.segmentType = rwaSTREAMPOSSEGMENTTYPE_INDEX;
+                    pos.segment.index = 0;
+                    pos.timeType = rwaSTREAMPOSTIMETYPE_SAMPLES;
+                    pos.time.samples = 0;
+                    _rwaStreamSetStreamPos(m_stream, &params);
+
+                    DkSoundGetEngine()->BeginUpdate();
+                    DkSoundGetEngine()->EndUpdate();
+                    VIWaitForRetrace();
+                }
+            }
+        }
+
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_RESTART) {
+            if (m_stream != NULL) {
+                m_finished = FALSE;
+                _rwaStreamSetPlayState(m_stream, rwaSTREAMPLAYSTATE_STOP);
+                _rwaStreamSetPlayState(m_stream, rwaSTREAMPLAYSTATE_PLAY);
+            }
+        }
+
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_PAUSED) {
+            if (!m_paused && m_stream != NULL) {
+                _rwaStreamSetPlayState(m_stream, rwaSTREAMPLAYSTATE_PLAY);
+            }
+            if (m_paused && m_stream != NULL) {
+                _rwaStreamSetPlayState(m_stream, rwaSTREAMPLAYSTATE_PAUSE);
+            }
+        }
+
+        if (m_update_flags & SOUND3D_UPDATE_FLAG_LOOP_MODE) {
+            if (m_stream != NULL) {
+                _rwaStreamSetLoopSegment(m_stream, m_loop_mode);
+            }
+        }
+    }
+
+    m_update_flags = 0;
+    return TRUE;
+}
+
 RwaVirtualVoice* CSound3D::RWAGetVirtualVoice() {
     return m_virtual_voice;
+}
+
+BOOL CSound3D::IsLooping() {
+    BOOL looping = FALSE;
+    if (m_virtual_voice == NULL) {
+        return FALSE;
+    }
+
+    if (m_playing && !m_paused && m_loop_mode) {
+        U32 position = (m_virtual_voice->state.RealVoice != NULL && m_virtual_voice->state.Trigger) ? RwaObjHandleGetParamUInt32(m_virtual_voice->state.RealVoice, 7, 2, NULL) : m_virtual_voice->state.WavePosition;
+        m_virtual_voice->state.WavePosition = position;
+        m_wave_position = position;
+
+        looping = (m_wave_position < m_last_wave_position_maybe);
+        m_last_wave_position_maybe = m_wave_position;
+    }
+
+    return looping;
 }
 
 BOOL CSound3D::IsFinished() {
@@ -299,21 +497,21 @@ BOOL CSound3D::IsFinished() {
         }
 
         if (m_playing && !m_paused) {
-            int status = _rwaStreamGetStatus(m_stream);
+            RwaStreamStatus status = _rwaStreamGetStatus(m_stream);
             if ((int)m_position != NULL) { // what? (this has to be a signed comparison)
-                if (status == 6) {
+                if (status == rwaSTREAMSTATUS_PLAYING) {
                     m_position = NULL;
                 }
                 return FALSE;
             }
 
-            finished = (status != 6 && status != 2 && status != 7);
+            finished = (status != rwaSTREAMSTATUS_PLAYING && status != rwaSTREAMSTATUS_OPENING && status != rwaSTREAMSTATUS_STARVED);
         }
     } else {
         if (m_virtual_voice == NULL || !m_playing) {
             finished = TRUE;
-        } else if (m_playing && !m_paused && m_loop_mode == 0) {
-            finished = m_virtual_voice->unk3C == 0;
+        } else if (m_playing && !m_paused && !m_loop_mode) {
+            finished = !m_virtual_voice->state.Trigger;
         }
     }
 
