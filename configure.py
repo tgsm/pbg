@@ -595,7 +595,7 @@ config.libs = [
             Object(NonMatching, "engine/sound/CSampleBank.cpp"),
             Object(NonMatching, "engine/sound/CSampleDictionary.cpp"),
             Object(NonMatching, "engine/sound/CSound2D.cpp", extra_cflags=["-inline noauto"]),
-            Object(Equivalent, "engine/sound/CSound3D.cpp"),
+            Object(Matching, "engine/sound/CSound3D.cpp"), # need matching extab, extabindex
             Object(Equivalent, "engine/sound/CSoundEmitter.cpp"), # need matching extab, extabindex
             Object(NonMatching, "engine/sound/CSoundEngine.cpp"),
             Object(NonMatching, "engine/sound/CSoundListener.cpp"),

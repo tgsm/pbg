@@ -386,27 +386,19 @@ BOOL CSound3D::GlobalUpdateSpecific() {
                     DkSoundGetEngine()->BeginUpdate();
                     DkSoundGetEngine()->EndUpdate();
                     if ((int)m_sound_emitter != NULL) { // ??? (this has to be a signed comparison)
-                        RwaStreamStatus status;
-                        // Top snippet is probably closer to what they did, but it doesn't match.
-                        // Bottom snippet matches, but it is likely fake.
-#if 1
-                        while (status = _rwaStreamGetStatus(m_stream), status != rwaSTREAMSTATUS_PLAYING && status != rwaSTREAMSTATUS_NOMEDIA) {
+                        goto check;
+
+                        while (TRUE) {
                             DkSoundGetEngine()->BeginUpdate();
                             DkSoundGetEngine()->EndUpdate();
                             VIWaitForRetrace();
+
+check:
+                            RwaStreamStatus status = _rwaStreamGetStatus(m_stream);
+                            if (status == rwaSTREAMSTATUS_PLAYING || status == rwaSTREAMSTATUS_NOMEDIA) {
+                                break;
+                            }
                         }
-#else
-                        goto label2;
-label1:
-                        DkSoundGetEngine()->BeginUpdate();
-                        DkSoundGetEngine()->EndUpdate();
-                        VIWaitForRetrace();
-label2:
-                        status = _rwaStreamGetStatus(m_stream);
-                        if (status != rwaSTREAMSTATUS_PLAYING && status != rwaSTREAMSTATUS_NOMEDIA) {
-                            goto label1;
-                        }
-#endif
 
                         m_position = NULL;
                     }
